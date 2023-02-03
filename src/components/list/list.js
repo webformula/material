@@ -21,6 +21,10 @@ customElements.define('mdw-list', class MDWListElement extends HTMLElementExtend
     if (this.#subHeaders.length > 0) this.#scrollParent.addEventListener('scroll', this.#scroll_bound);
   }
 
+  disconnectedCallback() {
+    if (this.#subHeaders.length > 0) this.#scrollParent.removeEventListener('scroll', this.#scroll_bound);
+  }
+
   static get observedAttributes() {
     return ['value'];
   }

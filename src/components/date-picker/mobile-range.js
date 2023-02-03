@@ -21,6 +21,7 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
   #onScroll_throttle = util.rafThrottle(this.#onScroll.bind(this));
   #selectedDateA;
   #selectedDateB;
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -32,26 +33,17 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
   }
 
   afterRender() {
-    this.querySelector('.mdw-edit').addEventListener('click', this.#showInputView_bound);
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-close').addEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-months-container').addEventListener('click', this.#dayClick_bound);
-
-    this.addEventListener('open', this.#onShow_bound);
+    this.querySelector('.mdw-edit').addEventListener('click', this.#showInputView_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-close').addEventListener('click', this.#cancel_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-months-container').addEventListener('click', this.#dayClick_bound, { signal: this.#abort.signal });
+    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.querySelector('.mdw-edit').removeEventListener('click', this.#showInputView_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-months-container').removeEventListener('click', this.#dayClick_bound);
-    this.querySelector('.mdw-months-container').removeEventListener('scroll', this.#onScroll_throttle);
-    this.removeEventListener('close', this.#onClose_bound);
-    this.removeEventListener('open', this.#onShow_bound);
-    this.querySelector('input.start').removeEventListener('input', this.#onInputStart_bound);
-    this.querySelector('input.end').removeEventListener('input', this.#onInputEnd_bound);
+    this.#abort.abort();
   }
 
   get #valueStart() {
@@ -183,12 +175,12 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
       this.classList.remove('mdw-input-view');
     } else {
       this.classList.add('mdw-input-view');
-      this.querySelector('input.start').addEventListener('click', e => e.preventDefault());
+      this.querySelector('input.start').addEventListener('click', e => e.preventDefault(), { signal: this.#abort.signal });
       this.querySelector('input.start').value = dateUtil.format(this.#displayDateStart, 'YYYY-MM-DD');
-      this.querySelector('input.start').addEventListener('input', this.#onInputStart_bound);
-      this.querySelector('input.end').addEventListener('click', e => e.preventDefault());
+      this.querySelector('input.start').addEventListener('input', this.#onInputStart_bound, { signal: this.#abort.signal });
+      this.querySelector('input.end').addEventListener('click', e => e.preventDefault(), { signal: this.#abort.signal });
       this.querySelector('input.end').value = dateUtil.format(this.#displayDateEnd, 'YYYY-MM-DD');
-      this.querySelector('input.end').addEventListener('input', this.#onInputEnd_bound);
+      this.querySelector('input.end').addEventListener('input', this.#onInputEnd_bound, { signal: this.#abort.signal });
     }
   }
 
@@ -290,8 +282,8 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
     const current = this.querySelector('.mdw-month.current');
     if (current) {
       current.scrollIntoView({ block: 'center' });
-      this.addEventListener('close', this.#onClose_bound);
-      this.querySelector('.mdw-months-container').addEventListener('scroll', this.#onScroll_throttle);
+      this.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
+      this.querySelector('.mdw-months-container').addEventListener('scroll', this.#onScroll_throttle, { signal: this.#abort.signal });
     }
 
     const selectedStart = this.querySelector('.mdw-day.mdw-interactive[selected][start]');

@@ -43,7 +43,7 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
 
   disconnectedCallback() {
     this.removeEventListener('click', this.#onclick_bound);
-    this.navigation.addEventListener('change', this.#onNavigationState_bound);
+    this.navigation.removeEventListener('change', this.#onNavigationState_bound);
   }
 
   #onclick() {

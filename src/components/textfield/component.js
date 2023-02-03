@@ -26,6 +26,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   #originalSupportingText = this.querySelector('.mdw-supporting-text')?.innerText;
   #autocomplete;
   #formatter = new Formatter(this);
+  #abort = new AbortController();
 
 
   constructor() {
@@ -50,17 +51,17 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
       `);
       
       if (this.#input.value || this.#input.type === 'date' || this.#input.type === 'month' || this.#input.type === 'time' || this.#input.placeholder !== ' ') this.#setNotchWidth();
-      this.#input.addEventListener('focus', this.#setNotchWidth_bound);
-      this.#input.addEventListener('blur', this.#unsetNotchWidth_bound);
+      this.#input.addEventListener('focus', this.#setNotchWidth_bound, { signal: this.#abort.signal });
+      this.#input.addEventListener('blur', this.#unsetNotchWidth_bound, { signal: this.#abort.signal });
     }
 
     this.insertAdjacentHTML('beforeend', `<div class="mdw-autocomplete"></div>`);
 
-    this.#input.addEventListener('invalid', this.#onInvalid_bound);
-    this.#input.addEventListener('input', this.#onInput_bound);
+    this.#input.addEventListener('invalid', this.#onInvalid_bound, { signal: this.#abort.signal });
+    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
 
     const inputClearIcon = this.querySelector('mdw-icon.mdw-input-clear');
-    if (inputClearIcon) inputClearIcon.addEventListener('click', this.#clear_bound);
+    if (inputClearIcon) inputClearIcon.addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
   }
 
   connectedCallback() {
@@ -78,14 +79,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   }
 
   disconnectedCallback() {
-    this.#input.removeEventListener('focus', this.#setNotchWidth_bound);
-    this.#input.removeEventListener('blur', this.#unsetNotchWidth_bound);
-    this.#input.removeEventListener('invalid', this.#onInvalid_bound);
-    this.#input.removeEventListener('input', this.#onInput_bound);
-
-    const inputClearIcon = this.querySelector('mdw-icon.mdw-input-clear');
-    if (inputClearIcon) inputClearIcon.removeEventListener('click', this.#clear_bound);
-
+    this.#abort.abort();
     this.#formatter.disable();
   }
 

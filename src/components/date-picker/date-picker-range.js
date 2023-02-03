@@ -22,6 +22,7 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
   #onControlClick_bound = this.#onControlClick.bind(this);
   #onShow_bound = this.#onShow.bind(this);
   #onClose_bound = this.#onClose.bind(this);
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -41,29 +42,21 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
   }
 
   connectedCallback() {
-    this.#inputStart.addEventListener('focus', this.#onControlFocus_bound);
-    this.#inputEnd.addEventListener('focus', this.#onControlFocus_bound);
+    this.#inputStart.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
+    this.#inputEnd.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     if (device.isMobile) {
-      this.#controlStart.addEventListener('click', this.#onControlClick_bound);
-      this.#controlEnd.addEventListener('click', this.#onControlClick_bound);
+      this.#controlStart.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
+      this.#controlEnd.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
     }
   }
 
   afterRender() {
-    this.firstChild.addEventListener('open', this.#onShow_bound);
-    this.firstChild.addEventListener('close', this.#onClose_bound);
+    this.firstChild.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
+    this.firstChild.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
-    this.firstChild.removeEventListener('open', this.#onShow_bound);
-    this.firstChild.removeEventListener('close', this.#onClose_bound);
-
-    this.#inputStart.removeEventListener('focus', this.#onControlFocus_bound);
-    this.#inputEnd.removeEventListener('focus', this.#onControlFocus_bound);
-    if (device.isMobile) {
-      this.#controlStart.removeEventListener('click', this.#onControlClick_bound);
-      this.#controlEnd.removeEventListener('click', this.#onControlClick_bound);
-    }
+    this.#abort.abort();
   }
 
   get value() {
@@ -211,11 +204,11 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
   #onClose() {
     setTimeout(() => {
       if (device.isMobile) {
-        this.#controlStart.addEventListener('click', this.#onControlClick_bound);
-        this.#controlEnd.addEventListener('click', this.#onControlClick_bound);
+        this.#controlStart.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
+        this.#controlEnd.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
       } else {
-        this.#inputStart.addEventListener('focus', this.#onControlFocus_bound);
-        this.#inputEnd.addEventListener('focus', this.#onControlFocus_bound);
+        this.#inputStart.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
+        this.#inputEnd.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
       }
     });
     this.#controlStart.querySelector('input').reportValidity();

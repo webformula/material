@@ -26,6 +26,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #onKeydown_bound = this.#onKeydown.bind(this);
   #menuOpen_bound = this.#menuOpen.bind(this);
   #menuClose_bound = this.#menuClose.bind(this);
+  #abort = new AbortController();
 
 
   constructor() {
@@ -38,8 +39,8 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     this.#menuValue = this.getAttribute('menu');
     if (this.#hasMenu) {
       this.insertAdjacentHTML('beforeend', '<div class="mdw-select-arrow"></div>');
-      this.querySelector('mdw-menu').addEventListener('open', this.#menuOpen_bound);
-      this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound);
+      this.querySelector('mdw-menu').addEventListener('open', this.#menuOpen_bound, { signal: this.#abort.signal });
+      this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
     }
     this.#type = this.#getType();
     util.addClickTimeout(this, this.#onClick_bound);
@@ -48,7 +49,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   afterRender() {
     if (this.#type === 'input') {
       this.#valueDisplay = this.shadowRoot.querySelector('.value-display');
-      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound);
+      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound, { signal: this.#abort.signal });
       this.#input = this.shadowRoot.querySelector('input');
     }
     this.#ripple = new Ripple({
@@ -59,16 +60,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   }
 
   disconnectedCallback() {
-    if (this.#type === 'input') {
-      this.shadowRoot.querySelector('.clear').removeEventListener('click', this.#onClearClick_bound);
-      this.#input.removeEventListener('input', this.#onInput_bound);
-      this.#input.removeEventListener('blur', this.#onInputBlur_bound);
-    }
-
-    if (this.#hasMenu) {
-      this.querySelector('mdw-menu').removeEventListener('open', this.#menuOpen_bound);
-      this.querySelector('mdw-menu').removeEventListener('close', this.#menuClose_bound);
-    }
+    this.#abort.abort();
     util.removeClickTimeout(this, this.#onClick_bound);
     this.#ripple.destroy();
   }
@@ -160,9 +152,9 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       this.#onInput();
       this.#input.focus();
       this.#input.select();
-      this.#input.addEventListener('input', this.#onInput_bound);
-      this.#input.addEventListener('blur', this.#onInputBlur_bound);
-      document.body.addEventListener('keydown', this.#onKeydown_bound);
+      this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
+      this.#input.addEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
+      document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
     }
   }
 

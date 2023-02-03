@@ -22,6 +22,10 @@ customElements.define('mdw-tab-bar', class MDWTabBarElement extends HTMLElementE
     this.addEventListener('click', this.#onClick_bound);
   }
 
+  disconnectedCallback() {
+    this.removeEventListener('click', this.#onClick_bound);
+  }
+
   static get observedAttributes() {
     return ['value'];
   }

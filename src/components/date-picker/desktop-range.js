@@ -21,6 +21,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
   #nextMonth_bound = this.#nextMonth.bind(this);
   #selectedDateA;
   #selectedDateB;
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -35,27 +36,19 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
   }
 
   afterRender() {
-    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound);
-    this.addEventListener('open', this.#onShow_bound);
-    this.querySelector('.mdw-month-range-container').addEventListener('click', this.#dayClick_bound);
-    this.#inputStart.addEventListener('input', this.#onInputStart_bound);
-    this.#inputEnd.addEventListener('input', this.#onInputEnd_bound);
-    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonth_bound);
-    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonth_bound);
+    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#abort.signal });
+    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-range-container').addEventListener('click', this.#dayClick_bound, { signal: this.#abort.signal });
+    this.#inputStart.addEventListener('input', this.#onInputStart_bound, { signal: this.#abort.signal });
+    this.#inputEnd.addEventListener('input', this.#onInputEnd_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonth_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonth_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.removeEventListener('close', this.#onClose_bound);
-    this.removeEventListener('open', this.#onShow_bound);
-    this.querySelector('.mdw-month-range-container').removeEventListener('click', this.#dayClick_bound);
-    this.#inputStart.removeEventListener('input', this.#onInputStart_bound);
-    this.#inputEnd.removeEventListener('input', this.#onInputEnd_bound);
-    this.querySelector('.mdw-month-previous').removeEventListener('click', this.#previousMonth_bound);
-    this.querySelector('.mdw-month-next').removeEventListener('click', this.#nextMonth_bound);
+    this.#abort.abort();
   }
 
   get #inputStart() {
@@ -188,7 +181,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
   }
 
   #onShow() {
-    this.addEventListener('close', this.#onClose_bound);
+    this.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
     const selectedStart = this.querySelector('.mdw-day.mdw-interactive[selected][start]');
     if (selectedStart) this.#selectedDateA = dateUtil.parse(selectedStart.getAttribute('mdw-date'));
     const selectedEnd = this.querySelector('.mdw-day.mdw-interactive[selected][start]');

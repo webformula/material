@@ -25,8 +25,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   #onKeydown_bound = this.#onKeydown.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
-
-  useTemplate = false;
+  #abort = new AbortController();
 
 
   constructor() {
@@ -59,16 +58,12 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     this.tabIndex = 0;
     this.setAttribute('role', 'slider');
 
-    this.addEventListener('focus', this.#onFocus_bound);
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     this.#drag.destroy();
-    this.#inactiveTrack.removeEventListener('click', this.#onclick_bound);
-    this.#activeTrack.removeEventListener('click', this.#onclick_bound);
-    this.removeEventListener('focus', this.#onFocus_bound);
-    this.removeEventListener('blur', this.#onBlur_bound);
-    document.body.removeEventListener('keydown', this.#onKeydown_bound);
+    this.#abort.abort();
   }
 
   afterRender() {
@@ -84,8 +79,8 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     this.#drag.onStart(this.#onDragStart_bound);
     this.#drag.enable();
 
-    this.#inactiveTrack.addEventListener('click', this.#onclick_bound);
-    this.#activeTrack.addEventListener('click', this.#onclick_bound);
+    this.#inactiveTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
+    this.#activeTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
   }
 
   static get observedAttributes() {
@@ -216,8 +211,8 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
 
   #onFocus() {
-    this.addEventListener('blur', this.#onBlur_bound);
-    document.body.addEventListener('keydown', this.#onKeydown_bound);
+    this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+    document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
   }
 
   #onBlur() {

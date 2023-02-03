@@ -51,7 +51,9 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   #speechRecognition;
   #hasSpeech = this.hasAttribute('speech');
   #micClick_bound = this.#micClick.bind(this);
-  #noSpinner = this.classList.contains('mdw-no-spinner')
+  #noSpinner = this.classList.contains('mdw-no-spinner');
+  #abort = new AbortController();
+  #openAbort;
 
 
 
@@ -102,8 +104,8 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
   afterRender() {
     this.#input = this.shadowRoot.querySelector('input');
-    this.#input.addEventListener('focus', this.#open_bound);
-    this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound);
+    this.#input.addEventListener('focus', this.#open_bound, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound, { signal: this.#abort.signal });
 
     setTimeout(() => {
       this.classList.remove('mdw-no-animation');
@@ -111,17 +113,8 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   }
 
   disconnectedCallback() {
-    this.shadowRoot.querySelector('.fullscreen-back').removeEventListener('click', this.#backClick_bound);
-    this.#input.removeEventListener('focus', this.#open_bound);
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    this.shadowRoot.querySelector('.clear').removeEventListener('click', this.#onClearClick_bound);
-    window.removeEventListener('keydown', this.#onKeydown_bound);
-    this.#suggestionsContainer.close && this.#suggestionsContainer.close();
-    this.#list.removeEventListener('click', this.#itemClick_bound);
-    this.#chipGroup?.removeEventListener('click', this.#filterChange_bound);
-    this.#suggestionsContainer.removeEventListener('close', this.#close_bound);
-    this.removeEventListener('click', this.#clickOutsideCloseFix_bound);
-    if (this.#hasSpeech) this.shadowRoot.querySelector('.mic').addEventListener('click', this.#micClick_bound);
+    this.#abort.abort();
+    if (this.#openAbort) this.#openAbort.abort();
   }
 
   template() {
@@ -202,21 +195,22 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
   open() {
     if (this.#open) return;
-    
+    this.#openAbort = new AbortController();
+
     this.#input.selectionStart = 10000;
-    this.#input.addEventListener('input', this.#onInput_bound);
-    window.addEventListener('keydown', this.#onKeydown_bound);
+    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#openAbort.signal });
+    window.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#openAbort.signal });
     
     if (device.isMobile) this.#fullscreenOpen();
     else {
       this.#suggestionsContainer.show();
-      this.#suggestionsContainer.addEventListener('close', this.#close_bound);
+      this.#suggestionsContainer.addEventListener('close', this.#close_bound, { signal: this.#openAbort.signal });
     }
 
-    this.#list.addEventListener('click', this.#itemClick_bound);
-    if (this.#chipGroup) this.#chipGroup.addEventListener('change', this.#filterChange_bound);
-    this.addEventListener('click', this.#clickOutsideCloseFix_bound);
-    if (this.#hasSpeech) this.shadowRoot.querySelector('.mic').addEventListener('click', this.#micClick_bound);
+    this.#list.addEventListener('click', this.#itemClick_bound, { signal: this.#openAbort.signal });
+    if (this.#chipGroup) this.#chipGroup.addEventListener('change', this.#filterChange_bound, { signal: this.#openAbort.signal });
+    this.addEventListener('click', this.#clickOutsideCloseFix_bound, { signal: this.#openAbort.signal });
+    if (this.#hasSpeech) this.shadowRoot.querySelector('.mic').addEventListener('click', this.#micClick_bound, { signal: this.#openAbort.signal });
 
     this.classList.add('mdw-open');
     this.#open = true;
@@ -235,26 +229,17 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     this.style.setProperty('--mdw-search-fullscreen-left', `${bounds.left}px`);
     this.style.setProperty('--mdw-search-fullscreen-width', `${bounds.width}px`);
     this.style.setProperty('--mdw-search-fullscreen-height', `${bounds.height}px`);
-    this.shadowRoot.querySelector('.fullscreen-back').addEventListener('click', this.#backClick_bound);
+    this.shadowRoot.querySelector('.fullscreen-back').addEventListener('click', this.#backClick_bound, { signal: this.#openAbort.signal });
   }
 
   close() {
     if (!this.#open) return;
-
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    window.removeEventListener('keydown', this.#onKeydown_bound);
-
-    this.#list.removeEventListener('click', this.#itemClick_bound);
-    if (this.#chipGroup) this.#chipGroup.removeEventListener('change', this.#filterChange_bound);
-    this.removeEventListener('click', this.#clickOutsideCloseFix_bound);
-    if (this.#hasSpeech) this.shadowRoot.querySelector('.mic').removeEventListener('click', this.#micClick_bound);
+    this.#openAbort.abort();
 
     if (device.isMobile) {
       this.#fullscreenClose();
     } else {
       this.#suggestionsContainer.close();
-      this.#suggestionsContainer.removeEventListener('close', this.#close_bound);
-
       this.#clearAll();
       this.classList.remove('mdw-open');
       this.#open = false;

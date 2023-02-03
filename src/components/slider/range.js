@@ -30,6 +30,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   #onKeydown_bound = this.#onKeydown.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
+  #abort = new AbortController();
 
 
   constructor() {
@@ -65,7 +66,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   connectedCallback() {
     this.setAttribute('role', 'slider');
 
-    this.addEventListener('focus', this.#onFocus_bound);
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
@@ -91,20 +92,15 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     this.#dragTwo.onStart(this.#onDragTwoStart_bound);
     this.#dragTwo.enable();
 
-    this.#inactiveTrack.addEventListener('click', this.#onclick_bound);
-    this.#inactiveTrack2.addEventListener('click', this.#onclick_bound);
-    this.#activeTrack.addEventListener('click', this.#onclick_bound);
+    this.#inactiveTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
+    this.#inactiveTrack2.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
+    this.#activeTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     this.#dragOne.destroy();
     this.#dragTwo.destroy();
-    this.#inactiveTrack.removeEventListener('click', this.#onclick_bound);
-    this.#inactiveTrack2.removeEventListener('click', this.#onclick_bound);
-    this.#activeTrack.removeEventListener('click', this.#onclick_bound);
-    this.removeEventListener('focus', this.#onFocus_bound);
-    this.removeEventListener('blur', this.#onBlur_bound);
-    document.body.removeEventListener('keydown', this.#onKeydown_bound);
+    this.#abort.abort();
   }
 
   static get observedAttributes() {
@@ -308,8 +304,8 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   }
 
   #onFocus() {
-    this.addEventListener('blur', this.#onBlur_bound);
-    document.body.addEventListener('keydown', this.#onKeydown_bound);
+    this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+    document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
   }
 
   #onBlur() {

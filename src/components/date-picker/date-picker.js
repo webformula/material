@@ -18,6 +18,7 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
   #onControlClick_bound = this.#onControlClick.bind(this);
   #onShow_bound = this.#onShow.bind(this);
   #onClose_bound = this.#onClose.bind(this);
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -31,22 +32,19 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
   }
 
   connectedCallback() {
-    this.#control.querySelector('input').addEventListener('focus', this.#onControlFocus_bound);
+    this.#control.querySelector('input').addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
 
     // on mobile to prevent the default browser control we disable click events on the input, so no focus
-    if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound);
+    if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
-    this.firstChild.addEventListener('open', this.#onShow_bound);
-    this.firstChild.addEventListener('close', this.#onClose_bound);
+    this.firstChild.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
+    this.firstChild.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
-    this.#control.querySelector('input').removeEventListener('focus', this.#onControlFocus_bound);
-    this.#control.removeEventListener('click', this.#onControlClick_bound);
-    this.firstChild.removeEventListener('open', this.#onShow_bound);
-    this.firstChild.removeEventListener('close', this.#onClose_bound);
+    this.#abort.abort();
   }
 
   get value() {
@@ -122,8 +120,8 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
 
   #onClose() {
     setTimeout(() => {
-      if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound);
-      else this.#input.addEventListener('focus', this.#onControlFocus_bound);
+      if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
+      else this.#input.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     });
     this.#input.reportValidity();
   }

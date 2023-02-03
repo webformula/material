@@ -28,6 +28,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
   #clear_bound = this.#clear.bind(this);
   #cancel_bound = this.#cancel.bind(this);
   #onShow_bound = this.#onShow.bind(this);
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -41,38 +42,24 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
   }
 
   afterRender() {
-    this.querySelector('.mdw-month-days-container').addEventListener('click', this.#dayClick_bound);
-    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonth_bound);
-    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonth_bound);
-    this.querySelector('.mdw-month-drop-down').addEventListener('click', this.#monthViewClick_bound);
-    this.querySelector('.mdw-months-container').addEventListener('click', this.#monthClick_bound);
-    this.querySelector('.mdw-year-next').addEventListener('click', this.#nextYear_bound);
-    this.querySelector('.mdw-year-previous').addEventListener('click', this.#previousYear_bound);
-    this.querySelector('.mdw-year-drop-down').addEventListener('click', this.#yearViewClick_bound);
-    this.querySelector('.mdw-years-container').addEventListener('click', this.#yearClick_bound);
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-clear').addEventListener('click', this.#clear_bound);
-    this.querySelector('.mdw-ok').addEventListener('click', this.#close_bound);
-
-    this.addEventListener('open', this.#onShow_bound);
+    this.querySelector('.mdw-month-days-container').addEventListener('click', this.#dayClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonth_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonth_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-drop-down').addEventListener('click', this.#monthViewClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-months-container').addEventListener('click', this.#monthClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-year-next').addEventListener('click', this.#nextYear_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-year-previous').addEventListener('click', this.#previousYear_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-year-drop-down').addEventListener('click', this.#yearViewClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-years-container').addEventListener('click', this.#yearClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-clear').addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-ok').addEventListener('click', this.#close_bound, { signal: this.#abort.signal });
+    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.querySelector('.mdw-month-days-container').removeEventListener('click', this.#dayClick_bound);
-    this.querySelector('.mdw-month-next').removeEventListener('click', this.#nextMonth_bound);
-    this.querySelector('.mdw-month-previous').removeEventListener('click', this.#previousMonth_bound);
-    this.querySelector('.mdw-month-drop-down').removeEventListener('click', this.#monthViewClick_bound);
-    this.querySelector('.mdw-months-container').removeEventListener('click', this.#monthClick_bound);
-    this.querySelector('.mdw-year-next').removeEventListener('click', this.#nextYear_bound);
-    this.querySelector('.mdw-year-previous').removeEventListener('click', this.#previousYear_bound);
-    this.querySelector('.mdw-year-drop-down').removeEventListener('click', this.#yearViewClick_bound);
-    this.querySelector('.mdw-years-container').removeEventListener('click', this.#yearClick_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-clear').removeEventListener('click', this.#clear_bound);
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#close_bound);
-
-    this.removeEventListener('open', this.#onShow_bound);
+    this.#abort.abort();
   }
   
 

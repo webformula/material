@@ -28,6 +28,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
   #onClose_bound = this.#onClose.bind(this);
+  #abort = new AbortController();
 
   constructor() {
     super();
@@ -42,32 +43,22 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   }
 
   afterRender() {
-    this.querySelector('.mdw-edit').addEventListener('click', this.#showInputView_bound);
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-months-container').addEventListener('click', this.#dayClick_bound);
-    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonthClick_bound);
-    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonthClick_bound);
-    this.querySelector('.mdw-year-drop-down').addEventListener('click', this.#yearDropDownClick_bound);
-    this.querySelector('.mdw-years-container').addEventListener('click', this.#yearClickHandler_bound);
-
-    this.addEventListener('open', this.#onShow_bound);
+    this.querySelector('.mdw-edit').addEventListener('click', this.#showInputView_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-months-container').addEventListener('click', this.#dayClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-previous').addEventListener('click', this.#previousMonthClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-month-next').addEventListener('click', this.#nextMonthClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-year-drop-down').addEventListener('click', this.#yearDropDownClick_bound, { signal: this.#abort.signal });
+    this.querySelector('.mdw-years-container').addEventListener('click', this.#yearClickHandler_bound, { signal: this.#abort.signal });
+    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.querySelector('.mdw-edit').removeEventListener('click', this.#showInputView_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-months-container').removeEventListener('click', this.#dayClick_bound);
-    this.querySelector('.mdw-month-previous').removeEventListener('click', this.#previousMonthClick_bound);
-    this.querySelector('.mdw-month-next').removeEventListener('click', this.#nextMonthClick_bound);
-    this.querySelector('.mdw-year-drop-down').removeEventListener('click', this.#yearDropDownClick_bound);
-    this.querySelector('.mdw-years-container').removeEventListener('click', this.#yearClickHandler_bound);
     this.#drag.destroy();
     this.#drag = undefined;
-    this.removeEventListener('close', this.#onClose_bound);
-    this.removeEventListener('open', this.#onShow_bound);
+    this.#abort.abort();
   }
 
   get #value() {
@@ -189,9 +180,9 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
     } else {
       this.classList.add('mdw-input-view');
       this.classList.remove('mdw-years-view');
-      this.querySelector('input').addEventListener('click', e => e.preventDefault());
+      this.querySelector('input').addEventListener('click', e => e.preventDefault(), { signal: this.#abort.signal });
       this.querySelector('input').value = dateUtil.format(this.#displayDate, 'YYYY-MM-DD');
-      this.querySelector('input').addEventListener('input', this.#onInput_bound);
+      this.querySelector('input').addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
     }
   }
 
@@ -256,7 +247,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
 
   #onShow() {
     this.#updateDisplayDate(this.#displayDate, true);
-    this.addEventListener('close', this.#onClose_bound);
+    this.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
     this.#drag.enable();
   }
 

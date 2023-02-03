@@ -29,6 +29,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #onInputFilterAsync_bound = this.#onInputFilterAsync.bind(this);
   #filterAsyncEvent_debounced = util.debounce(this.#filterAsyncEvent, 300).bind(this);
   #originalOptions;
+  #abort = new AbortController();
 
 
   constructor() {
@@ -68,21 +69,15 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>');
     }
 
-    this.#textfield.addEventListener('click', this.#onInputFocus_bound);
-    this.#input.addEventListener('focus', this.#onInputFocus_bound);
-    this.#panel.addEventListener('open', this.#onOpen_bound);
-    this.#panel.addEventListener('close', this.#onClose_bound);
+    this.#textfield.addEventListener('click', this.#onInputFocus_bound, { signal: this.#abort.signal });
+    this.#input.addEventListener('focus', this.#onInputFocus_bound, { signal: this.#abort.signal });
+    this.#panel.addEventListener('open', this.#onOpen_bound, { signal: this.#abort.signal });
+    this.#panel.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.#textfield.removeEventListener('click', this.#onInputFocus_bound);
-    this.#input.removeEventListener('focus', this.#onInputFocus_bound);
-    this.#panel.removeEventListener('open', this.#onOpen_bound);
-    this.#panel.removeEventListener('close', this.#onClose_bound);
-    document.body.removeEventListener('keydown', this.#onKeydown_bound);
-    if (this.#isFilter) this.#input.removeEventListener('input', this.#onInputFilter_debounce);
-    if (this.#isFilterAsync) this.#input.removeEventListener('input', this.#onInputFilterAsync_bound);
+    this.#abort.abort();
 
     this.#originalOptions = undefined;
     this.#options = undefined;
@@ -191,10 +186,10 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     if (!this.#isFilter) this.#updateOptionDisplay();
 
     this.#arrowElement.classList.add('mdw-open');
-    this.addEventListener('click', this.#onClick_bound);
-    document.body.addEventListener('keydown', this.#onKeydown_bound);
-    if (this.#isFilter) this.#input.addEventListener('input', this.#onInputFilter_debounce);
-    if (this.#isFilterAsync) this.#input.addEventListener('input', this.#onInputFilterAsync_bound);
+    this.addEventListener('click', this.#onClick_bound, { signal: this.#abort.signal });
+    document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+    if (this.#isFilter) this.#input.addEventListener('input', this.#onInputFilter_debounce, { signal: this.#abort.signal });
+    if (this.#isFilterAsync) this.#input.addEventListener('input', this.#onInputFilterAsync_bound, { signal: this.#abort.signal });
   }
 
   async #onClose() {

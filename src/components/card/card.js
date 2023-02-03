@@ -3,12 +3,10 @@ import './card.css';
 import Drag from '../../core/Drag.js';
 import arrowDropDownSVG from '../../svg-icons/expand_more_FILL0_wght400_GRAD0_opsz24.svg';
 import chevronLeftIconSVGRaw from '../../svg-icons/arrow_back_ios_FILL1_wght300_GRAD0_opsz24.svg';
-
 import util from '../../core/util.js';
 
+
 // TODO drag close fullscreen and expand
-
-
 // TODO expanded card on drag. Look at material guidelines for video
 // TODO drag reorder grid
 
@@ -25,18 +23,13 @@ export default class MDWCardElement extends HTMLElementExtended {
   #ondragSwipeActionStart_bound = this.#ondragSwipeActionStart.bind(this);
   #ondragSwipeActionEnd_bound = this.#ondragSwipeActionEnd.bind(this);
   #swipeActionClick_bound = this.#swipeActionClick.bind(this);
-  // #ondragFullscreen_bound = this.#ondragFullscreen.bind(this);
-  // #ondragFullscreenStart_bound = this.#ondragFullscreenStart.bind(this);
-  // #ondragFullscreenEnd_bound = this.#ondragFullscreenEnd.bind(this);
-  // #dragFullscreenStartPosition;
-  // #initialDragFullscreenPosition;
   #fullscreenPlaceHolder;
   #fullscreenBackButton;
   #swipeActionElement = this.querySelector(':scope > mdw-card-swipe-action');
   #dragSwipeActionStartPosition;
   #dragSwipeAction;
-  #dragFullscreen;
-  #value = ''
+  #value = '';
+  #abort = new AbortController();
 
 
   constructor() {
@@ -55,15 +48,10 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#fullscreenBackButton.innerHTML = chevronLeftIconSVGRaw;
       // this.#fullscreenBackButton.innerHTML = `${chevronLeftIconSVGRaw}<span class="text">Back</span>`;
       this.insertAdjacentElement('afterbegin', this.#fullscreenBackButton);
-      this.#fullscreenBackButton.addEventListener('click', this.#fullscreenBackClick_bound);
-      this.addEventListener('click', this.#fullscreenClick_bound);
+      this.#fullscreenBackButton.addEventListener('click', this.#fullscreenBackClick_bound, { signal: this.#abort.signal });
+      this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
     } else if (this.#isExpanding) {
-      this.addEventListener('click', this.#expandClick_bound);
-      // this.#dragFullscreen = new Drag(this);
-      // this.#dragFullscreen.onDrag(this.#ondragFullscreen_bound);
-      // this.#dragFullscreen.onStart(this.#ondragFullscreenStart_bound);
-      // this.#dragFullscreen.onEnd(this.#ondragFullscreenEnd_bound);
-      // this.#dragFullscreen.enable();
+      this.addEventListener('click', this.#expandClick_bound, { signal: this.#abort.signal });
     }
 
     this.#calculateImgMaxHeightForFullscreen();
@@ -75,7 +63,7 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#dragSwipeAction.onStart(this.#ondragSwipeActionStart_bound);
       this.#dragSwipeAction.onEnd(this.#ondragSwipeActionEnd_bound);
       this.#dragSwipeAction.enable();
-      this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound);
+      this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
     }
     
     setTimeout(() => {
@@ -85,18 +73,8 @@ export default class MDWCardElement extends HTMLElementExtended {
 
   disconnectedCallback() {
     this.classList.add('mdw-no-animation');
-    if (this.#isFullscreen) {
-      this.#fullscreenBackButton.removeEventListener('click', this.#fullscreenBackClick_bound);
-      this.removeEventListener('click', this.#fullscreenClick_bound);
-    } else {
-      this.removeEventListener('click', this.#expandClick_bound);
-
-    }
-
-    if (this.#swipeActionElement) {
-      this.#dragSwipeAction.destroy();
-      this.#swipeActionElement.removeEventListener('click', this.#swipeActionClick_bound);
-    }
+    this.#abort.abort();
+    if (this.#swipeActionElement) this.#dragSwipeAction.destroy();
   }
 
   static get observedAttributes() {
@@ -149,7 +127,7 @@ export default class MDWCardElement extends HTMLElementExtended {
   }
 
   #fullscreenClick() {
-    this.removeEventListener('click', this.#fullscreenClick_bound);
+    this.removeEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
     this.#fullscreen();
   }
 
@@ -157,7 +135,7 @@ export default class MDWCardElement extends HTMLElementExtended {
     this.classList.remove('mdw-show');
     await util.animationendAsync(this);
     this.#fullscreenPlaceHolder.remove();
-    this.addEventListener('click', this.#fullscreenClick_bound);
+    this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
   }
 
   // sets height for fullscreen view so image can expand
@@ -165,7 +143,7 @@ export default class MDWCardElement extends HTMLElementExtended {
     const img = this.querySelector(':scope > .mdw-card-image img');
     if (!img) return;
 
-    if (!img.height) img.addEventListener('load', this.#imgOnload_bound);
+    if (!img.height) img.addEventListener('load', this.#imgOnload_bound, { signal: this.#abort.signal });
     else {
       const maxHeight = img.height / img.width * window.innerWidth;
       this.style.setProperty('--mdw-card-fullscreen-img-height', `${maxHeight}px`);
@@ -223,29 +201,6 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
     }, 240);
   }
-
-  // #ondragFullscreenStart() {
-  //   this.classList.add('mdw-dragging');
-  //   this.#dragFullscreenStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-drag-expand-position').replace('px', ''));
-  //   this.#initialDragFullscreenPosition = this.#dragFullscreenStartPosition;
-  // }
-
-  // #ondragFullscreen({ distance }) {
-  //   let position = this.#dragFullscreenStartPosition + distance.y;
-  //   this.style.setProperty('--mdw-card-drag-expand-position', `${position}px`);
-  // }
-
-  // async #ondragFullscreenEnd({ distance, direction }) {
-  //   this.classList.remove('mdw-dragging');
-  //   const bottom = this.#initialDragFullscreenPosition - distance.y;
-  //   if (direction.y === -1) {
-  //     if (bottom > this.#initialDragFullscreenPosition) this.#expandClick();
-  //     else this.style.setProperty('--mdw-card-drag-expand-position', `0px`);
-  //   } else {
-  //     if (bottom >= this.#initialDragFullscreenPosition) this.style.setProperty('--mdw-card-drag-expand-position', `0px`);
-  //     else this.#expandClick();
-  //   }
-  // }
 }
 
 customElements.define('mdw-card', MDWCardElement);

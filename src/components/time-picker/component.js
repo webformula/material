@@ -40,6 +40,8 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
   #keyboardClick_bound = this.#keyboardClick.bind(this);
   #hourInput_bound = this.#hourInput.bind(this);
   #minuteInput_bound = this.#minuteInput.bind(this);
+  #abort = new AbortController();
+  #openAbort;
 
 
   constructor() {
@@ -66,39 +68,17 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
   }
 
   afterRender() {
-    this.#input.addEventListener('focus', this.#onControlFocus_bound);
+    this.#input.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     // on mobile to prevent the default browser control we disable click events on the input, so no focus
-    if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound);
+    if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
 
-    this.addEventListener('open', this.#onShow_bound);
+    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-
-    this.removeEventListener('open', this.#onShow_bound);
-    this.removeEventListener('close', this.#onClose_bound);
-    this.#control.removeEventListener('click', this.#onControlClick_bound);
-    this.#input.removeEventListener('focus', this.#onControlFocus_bound);
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    this.querySelector('.mdw-dial-container').removeEventListener('mousedown', this.#selectMouseDown_bound);
-    this.querySelector('.mdw-dial-container').removeEventListener('touchstart', this.#selectMouseDown_bound);
-    window.removeEventListener('mouseup', this.#selectMouseUp_bound);
-    window.removeEventListener('mousemove', this.#selectMouseMove_bound);
-    window.removeEventListener('touchend', this.#selectMouseUp_bound);
-    window.removeEventListener('touchmove', this.#selectMouseMove_bound);
-    this.querySelector('.mdw-dial-hour').removeEventListener('click', this.#dialHourClick_bound);
-    this.querySelector('.mdw-dial-minute').removeEventListener('click', this.#dialMinuteClick_bound);
-    this.querySelector('.mdw-time-hour').removeEventListener('click', this.#hourClick_bound);
-    this.querySelector('.mdw-time-minute').removeEventListener('click', this.#minuteClick_bound);
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
-    this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-    if (!this.#hour24) {
-      this.querySelector('.mdw-am').removeEventListener('click', this.#amClick_bound);
-      this.querySelector('.mdw-pm').removeEventListener('click', this.#pmClick_bound);
-    }
+    this.#abort.abort();
+    if (this.#openAbort) this.#openAbort.abort();
   }
 
   get value() {
@@ -345,6 +325,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
   }
 
   #onShow() {
+    this.openAbort = new AbortController();
     this.#setInitialTime();
 
     const parts = this.#convert24ToMeridiemParts(this.#displayValue);
@@ -354,55 +335,35 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     this.#updateSelection(true);
     this.#switchView('hour');
 
-    this.addEventListener('close', this.#onClose_bound);
+    this.addEventListener('close', this.#onClose_bound, { signal: this.#openAbort.signal });
     if (device.isMobile) {
       this.#control.removeEventListener('click', this.#onControlClick_bound);
-      this.querySelector('.mdw-keyboard').addEventListener('click', this.#keyboardClick_bound);
+      this.querySelector('.mdw-keyboard').addEventListener('click', this.#keyboardClick_bound, { signal: this.#openAbort.signal });
     }
     this.#input.removeEventListener('focus', this.#onControlFocus_bound);
-    this.querySelector('.mdw-dial-container').addEventListener('mousedown', this.#selectMouseDown_bound);
-    this.querySelector('.mdw-dial-container').addEventListener('touchstart', this.#selectMouseDown_bound);
-    this.#input.addEventListener('input', this.#onInput_bound);
-    this.querySelector('.mdw-dial-hour').addEventListener('click', this.#dialHourClick_bound);
-    this.querySelector('.mdw-dial-container').addEventListener('click', this.#dialMinuteClick_bound);
-    this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound);
-    this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound);
-    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound);
+    this.querySelector('.mdw-dial-container').addEventListener('mousedown', this.#selectMouseDown_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-dial-container').addEventListener('touchstart', this.#selectMouseDown_bound, { signal: this.#openAbort.signal });
+    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-dial-hour').addEventListener('click', this.#dialHourClick_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-dial-container').addEventListener('click', this.#dialMinuteClick_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound, { signal: this.#openAbort.signal });
+    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#openAbort.signal });
     if (!this.#hour24) {
-      this.querySelector('.mdw-am').addEventListener('click', this.#amClick_bound);
-      this.querySelector('.mdw-pm').addEventListener('click', this.#pmClick_bound);
+      this.querySelector('.mdw-am').addEventListener('click', this.#amClick_bound, { signal: this.#openAbort.signal });
+      this.querySelector('.mdw-pm').addEventListener('click', this.#pmClick_bound, { signal: this.#openAbort.signal });
     }
   }
 
   #onClose() {
-    this.removeEventListener('close', this.#onClose_bound);
-    this.querySelector('.mdw-dial-container').removeEventListener('mousedown', this.#selectMouseDown_bound);
-    this.querySelector('.mdw-dial-container').removeEventListener('touchstart', this.#selectMouseDown_bound);
-    window.removeEventListener('mouseup', this.#selectMouseUp_bound);
-    window.removeEventListener('mousemove', this.#selectMouseMove_bound);
-    window.removeEventListener('touchend', this.#selectMouseUp_bound);
-    window.removeEventListener('touchmove', this.#selectMouseMove_bound);
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    this.querySelector('.mdw-dial-hour').removeEventListener('click', this.#dialHourClick_bound);
-    this.querySelector('.mdw-dial-minute').removeEventListener('click', this.#dialMinuteClick_bound);
-    this.querySelector('.mdw-time-hour').removeEventListener('click', this.#hourClick_bound);
-    this.querySelector('.mdw-time-minute').removeEventListener('click', this.#minuteClick_bound);
-    this.querySelector('.mdw-ok').removeEventListener('click', this.#ok_bound);
-    this.querySelector('.mdw-cancel').removeEventListener('click', this.#cancel_bound);
-    this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
-    this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-    if (!this.#hour24) {
-      this.querySelector('.mdw-am').removeEventListener('click', this.#amClick_bound);
-      this.querySelector('.mdw-pm').removeEventListener('click', this.#pmClick_bound);
-    }
+    this.#openAbort.abort();
 
     setTimeout(() => {
       if (device.isMobile) {
-        this.#control.addEventListener('click', this.#onControlClick_bound);
-        this.querySelector('.mdw-keyboard').removeEventListener('click', this.#keyboardClick_bound);
+        this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
       }
-      this.#input.addEventListener('focus', this.#onControlFocus_bound);
+      this.#input.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     });
 
     this.#input.reportValidity();
@@ -428,10 +389,10 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       && y > selectorBounds.bottom
     ) return;
 
-    window.addEventListener('mouseup', this.#selectMouseUp_bound);
-    window.addEventListener('mousemove', this.#selectMouseMove_bound);
-    window.addEventListener('touchend', this.#selectMouseUp_bound);
-    window.addEventListener('touchmove', this.#selectMouseMove_bound);
+    window.addEventListener('mouseup', this.#selectMouseUp_bound, { signal: this.#abort.signal });
+    window.addEventListener('mousemove', this.#selectMouseMove_bound, { signal: this.#abort.signal });
+    window.addEventListener('touchend', this.#selectMouseUp_bound, { signal: this.#abort.signal });
+    window.addEventListener('touchmove', this.#selectMouseMove_bound, { signal: this.#abort.signal });
     event.preventDefault();
   }
 
@@ -462,8 +423,8 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       this.querySelector('.mdw-time-minute').setAttribute('readonly', '');
       this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
       this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound);
-      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound);
+      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#abort.signal });
+      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#abort.signal });
     } else if (view === 'minute') {
       if (this.#minuteStep === -1) return;
 
@@ -476,8 +437,8 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       this.querySelector('.mdw-time-minute').setAttribute('readonly', '');
       this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
       this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound);
-      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound);
+      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#abort.signal });
+      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#abort.signal });
     } else if (view === 'input') {
       this.#selector.classList.remove('mdw-hour-24');
       this.classList.add('mdw-input-view');
@@ -486,8 +447,8 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       this.querySelector('.mdw-time-minute').removeAttribute('selected');
       this.querySelector('.mdw-time-hour').removeAttribute('readonly');
       this.querySelector('.mdw-time-minute').removeAttribute('readonly');
-      this.querySelector('.mdw-time-hour').addEventListener('input', this.#hourInput_bound);
-      this.querySelector('.mdw-time-minute').addEventListener('input', this.#minuteInput_bound);
+      this.querySelector('.mdw-time-hour').addEventListener('input', this.#hourInput_bound, { signal: this.#abort.signal });
+      this.querySelector('.mdw-time-minute').addEventListener('input', this.#minuteInput_bound, { signal: this.#abort.signal });
       this.querySelector('.mdw-time-hour').removeEventListener('click', this.#hourClick_bound);
       this.querySelector('.mdw-time-minute').removeEventListener('click', this.#minuteClick_bound);
     }
