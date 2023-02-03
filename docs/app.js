@@ -4,7 +4,7 @@ import './app.css';
 
 
 import '@webformula/pax-components';
-import { registerPage, enableSPA } from '@webformula/pax-core';
+import { registerPage, enableSPA } from '@webformula/core';
 enableSPA();
 
 window.escapeHTML = str => {
@@ -90,7 +90,7 @@ window.addEventListener('load', () => {
   }
 });
 
-window.addEventListener('mdwPageChange', () => {
+window.addEventListener('locationchange', () => {
   setTimeout(() => {
     hljs.highlightAll();
   });

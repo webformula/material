@@ -1,4 +1,4 @@
-import { Page } from '@webformula/pax-core';
+import { Page } from '@webformula/core';
 import html from './page.html';
 import { mdwDate } from '@webformula/pax-components';
 

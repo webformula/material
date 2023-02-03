@@ -1,4 +1,4 @@
-import { Page } from '@webformula/pax-core';
+import { Page } from '@webformula/core';
 import { MDWSnackbar } from '@webformula/pax-components';
 import html from './page.html';
 

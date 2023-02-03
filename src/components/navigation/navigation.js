@@ -10,7 +10,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
   #backdrop;
   #secondaryDrawer;
 
-  #mdwPageChange_bound = this.#mdwPageChange.bind(this);
+  #locationchange_bound = this.#locationchange.bind(this);
   #backdropClick_bound = this.#backdropClick.bind(this);
 
   constructor() {
@@ -40,9 +40,9 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     this.setAttribute('role', 'nav');
     // the nested components are not ready until next frame
     util.nextAnimationFrameAsync().then(() => {
-      this.#mdwPageChange();
+      this.#locationchange();
     });
-    window.addEventListener('mdwPageChange', this.#mdwPageChange_bound);
+    window.addEventListener('locationchange', this.#locationchange_bound);
 
     util.nextAnimationFrameAsync().then(() => {
       this.classList.remove('mdw-no-animation');
@@ -90,7 +90,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     this.open = false;
   }
 
-  #mdwPageChange() {
+  #locationchange() {
     [...this.querySelectorAll('.mdw-active')].forEach(anchor => anchor.active = false);
 
     const fullUrl = location.href;

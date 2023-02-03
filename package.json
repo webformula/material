@@ -1,5 +1,5 @@
 {
-  "name": "material",
+  "name": "@webformula/material",
   "version": "0.1.0",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "src/index.js",
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
+    "@webformula/core": "file:../core",
     "@webformula/pax-components": "file:./src",
-    "@webformula/pax-core": "file:../pax-core",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "html-loader": "^4.2.0",
