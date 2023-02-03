@@ -10,4 +10,4 @@ Material design v3 web components. Performant, light-weight, full features, opti
 - Theme and color control
 
 
-[material.io](http://material.io/)
+[Material design website](http://material.io/)
