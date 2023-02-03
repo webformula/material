@@ -2,7 +2,6 @@ import util from '../core/util.js';
 
 const templateElements = {};
 
-
 export default class HTMLElementExtended extends HTMLElement {
   // if not using shadowRoot templates and rendering still work
   useShadowRoot = false;
@@ -12,13 +11,13 @@ export default class HTMLElementExtended extends HTMLElement {
    */
   useTemplate = true;
   
-
   #rendered = false;
   #templateString;
   #templateElement;
   // browser may or may not include the word "function" so we need to run an includes check
-  #hasTemplate = !this.template.toString().includes("template() {return /*html*/'';}");
+  #hasTemplate = !this.template.toString().includes('template(){return""}');
   #root = this;
+  #classId = hashCodeForId(this.constructor.toString());
 
 
   constructor() {
@@ -28,7 +27,6 @@ export default class HTMLElementExtended extends HTMLElement {
     //   Other options would be setTimeout or calling from connectedCallback. Both are slower
     if (this.#hasTemplate) {
       util.nextTick(() => {
-        // console.log(this.constructor.name)
         this.#prepareRender();
         this.render();
       });
@@ -51,7 +49,7 @@ export default class HTMLElementExtended extends HTMLElement {
 
   // Return an HTML template string
   // If template is set then initial rendering will happen automatically
-  template() {return /*html*/'';}
+  template(){return""}
 
   // If template is set then initial rendering will happen automatically
   render() {
@@ -66,12 +64,12 @@ export default class HTMLElementExtended extends HTMLElement {
     this.#templateString = this.template();
 
     if (this.useTemplate) {
-      if (!templateElements[this.constructor.name]) {
-        templateElements[this.constructor.name] = document.createElement('template');
-        templateElements[this.constructor.name].innerHTML = this.#templateString;
+      if (!templateElements[this.#classId]) {
+        templateElements[this.#classId] = document.createElement('template');
+        templateElements[this.#classId].innerHTML = this.#templateString;
       }
 
-      this.#templateElement = templateElements[this.constructor.name];
+      this.#templateElement = templateElements[this.#classId];
     } else {
       this.#templateElement = document.createElement('template');
     }
@@ -87,4 +85,9 @@ export default class HTMLElementExtended extends HTMLElement {
       return '&#' + c.charCodeAt(0) + ';';
     });
   };
+}
+
+
+function hashCodeForId(str) {
+  return Array.from(str).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0)
 }

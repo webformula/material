@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 
 export default {
@@ -21,7 +22,8 @@ export default {
         { from: 'src/theme.css', to: '' },
         { from: 'docs/favicon.ico', to: '' }
       ]
-    })
+    }),
+    // process.env.NODE_ENV === 'production' ? new CompressionPlugin({ exclude: ['index.html', 'theme.css']  }) : undefined
   ],
   devServer: {
     static: {
@@ -34,7 +36,7 @@ export default {
       ]
     }
   },
-  devtool: 'inline-source-map',
+  devtool: process.env.WEBPACK_SERVE ? 'inline-source-map' : undefined,
   module: {
     rules: [
       {
@@ -50,5 +52,8 @@ export default {
         use: 'raw-loader'
       }
     ]
+  },
+  performance: {
+    hints: false
   }
 };

@@ -51,7 +51,8 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
   }
 
   #onNavigationState() {
-    this.querySelector('mdw-button').toggled = !this.navigation.open;
+    const button = this.querySelector('mdw-button');
+    if (button) button.toggled = !this.navigation.open;
   }
 
   template() {

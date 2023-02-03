@@ -18,7 +18,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   constructor() {
     super();
-    
     this.#setupClasses();
     
     if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${arrowDropDownSVG}</div>`);
@@ -52,7 +51,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   disconnectedCallback() {
-    this.#ripple.destroy();
+    if (this.#ripple) this.#ripple.destroy();
   }
 
   template() {

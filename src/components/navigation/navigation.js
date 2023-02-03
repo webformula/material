@@ -37,7 +37,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
 
   // TODO make it so we do not need the non standard event
   connectedCallback() {
-    this.setAttribute('role', 'nav');
+    this.setAttribute('role', 'navigation');
     // the nested components are not ready until next frame
     util.nextAnimationFrameAsync().then(() => {
       this.#locationchange();

@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "webpack serve --open --mode development",
+    "start-production": "NODE_ENV=production webpack serve --open --mode production",
     "start-no-open": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "build": "NODE_ENV=production webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@webformula/core": "file:../core",
     "@webformula/pax-components": "file:./src",
+    "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "html-loader": "^4.2.0",
