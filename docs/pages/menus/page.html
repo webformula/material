@@ -1,0 +1,142 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Menus</div>
+    <div class="mdw-supporting-text">Menus display a list of choices on a temporary surface.</div>
+  </div>
+  <div class="mdw-card-content">
+    <mdw-button id="control1">menu</mdw-button>
+    <mdw-menu control="#control1">
+      <mdw-button>
+        <mdw-icon>content_copy</mdw-icon>
+        copy
+      </mdw-button>
+      <mdw-button>
+        <mdw-icon>content_paste</mdw-icon>
+        paste
+      </mdw-button>
+      <mdw-button>plain</mdw-button>
+      <mdw-button>plain</mdw-button>
+      <mdw-button>plain</mdw-button>
+      <mdw-button>plain</mdw-button>
+      <mdw-button>plain</mdw-button>
+      <mdw-button>plain</mdw-button>
+    </mdw-menu>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/menus/specs#15cc3423-ab1f-4d1c-8ce4-e5c9ae95f19f" target="_new">Material Design Guidelines:
+  Select</a>
+<p>Selects are menus that are assigned to a text field</p>
+
+<div class="links">
+  <a href="#basic">Basic</a>
+  <a href="#position-overlap">Position overlap</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="basic">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Basic menu</div>
+      <div class="mdw-supporting-text">Menus can be connected top controls by adding a selector or nesting them inside.</div>
+      
+      <div class="example">
+        <mdw-button id="control">Selector</mdw-button>
+        <mdw-menu control="#control">
+          <mdw-button>
+            <mdw-icon>content_copy</mdw-icon>
+            copy
+          </mdw-button>
+          <mdw-button>
+            <mdw-icon>content_paste</mdw-icon>
+            paste
+          </mdw-button>
+          <mdw-button>plain</mdw-button>
+        </mdw-menu>
+
+        <mdw-button>
+          Nested
+          <mdw-menu>
+            <mdw-button>
+              <mdw-icon>content_copy</mdw-icon>
+              copy
+            </mdw-button>
+            <mdw-button>
+              <mdw-icon>content_paste</mdw-icon>
+              paste
+            </mdw-button>
+            <mdw-button>plain</mdw-button>
+          </mdw-menu>
+        </mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-button id="control">Selector</mdw-button>
+  <mdw-menu control="#control">
+    <mdw-button>
+      <mdw-icon>content_copy</mdw-icon>
+      copy
+    </mdw-button>
+    <mdw-button>
+      <mdw-icon>content_paste</mdw-icon>
+      paste
+    </mdw-button>
+    <mdw-button>plain</mdw-button>
+  </mdw-menu>
+  
+  <mdw-button>
+    Nested
+    <mdw-menu>
+      <mdw-button>
+        <mdw-icon>content_copy</mdw-icon>
+        copy
+      </mdw-button>
+      ...
+    </mdw-menu>
+  </mdw-button>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="positon-overlap">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Position overlap</div>
+  
+      <div class="example">
+        <mdw-button id="control2">menu</mdw-button>
+        <mdw-menu control="#control2" class="mdw-position-overlap">
+          <mdw-button>
+            <mdw-icon>content_copy</mdw-icon>
+            copy
+          </mdw-button>
+          <mdw-button>
+            <mdw-icon>content_paste</mdw-icon>
+            paste
+          </mdw-button>
+          <mdw-button>plain</mdw-button>
+        </mdw-menu>
+      </div>
+    </div>
+  
+    <pre>
+        <code class="language-html">
+    ${escapeHTML(`<mdw-button id="control2">menu</mdw-button>
+    <mdw-menu control="#control2" class="mdw-position-overlap">
+      <mdw-button>
+        <mdw-icon>content_copy</mdw-icon>
+        copy
+      </mdw-button>
+      <mdw-button>
+        <mdw-icon>content_paste</mdw-icon>
+        paste
+      </mdw-button>
+      <mdw-button>plain</mdw-button>
+    </mdw-menu>`)}
+        </code>
+      </pre>
+  </mdw-card>
+</section>

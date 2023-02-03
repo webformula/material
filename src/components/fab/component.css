@@ -1,0 +1,237 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 11;
+
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+
+  padding: 16px;
+  box-sizing: border-box;
+  min-width: 56px;
+  max-width: 100%;
+  height: 56px;
+  border-radius: var(--mdw-shape-large);
+
+  color: var(--mdw-on-primary-container);
+  background-color: var(--mdw-primary-container);
+  box-shadow: var(--mdw-elevation-3);
+
+  overflow: hidden;
+}
+
+:host(.mdw-fixed) {
+  position: fixed !important;
+}
+
+:host ::slotted(mdw-icon) {
+  color: var(--mdw-on-primary-container);
+  vertical-align: middle;
+}
+
+:host(.mdw-has-label) ::slotted(mdw-icon) {
+  margin-right: 8px;
+}
+
+:host(.mdw-has-label) ::slotted(mdw-icon.mdw-trailing) {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+:host(:not(.mdw-no-animation).mdw-has-label) {
+  transition: max-width 1600ms, color 120ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+:host(:not(.mdw-no-animation).mdw-hide-label.mdw-has-label) {
+  transition:
+    max-width 600ms,
+    color 120ms 380ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+:host(.mdw-hide-label.mdw-has-label) {
+  color: var(--mdw-on-primary-container--0);
+  max-width: 56px;
+  overflow: hidden;
+}
+
+
+:host(.mdw-small) {
+  padding: 8px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  border-radius: var(--mdw-shape-medium);
+}
+
+:host(.mdw-large)::after {
+  border-radius: var(--mdw-shape-medium);
+}
+
+:host(.mdw-large) {
+  min-width: 96px;
+  height: 96px;
+  max-width: 96px;
+  justify-content: center;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host(.mdw-large)::after {
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host(.mdw-large) ::slotted(mdw-icon) {
+  width: var(--mdw-font-size-icon-large) !important;
+  height: var(--mdw-font-size-icon-large) !important;
+  font-size: var(--mdw-font-size-icon-large) !important;
+}
+
+
+:host([disabled]) {
+  pointer-events: none;
+  cursor: unset;
+  color: var(--mdw-on-surface);
+  opacity: 0.38;
+}
+
+:host::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border-radius: var(--mdw-shape-large);
+}
+
+:host(:hover)::after {
+  box-shadow: var(--mdw-elevation-4);
+  opacity: var(--mdw-state-layer-opacity-hover);
+  background-color: var(--mdw-on-primary-container);
+}
+
+:host(:active)::after {
+  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--mdw-on-primary-container);
+}
+
+:host(:focus)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-primary-container);
+}
+
+:host(.mdw-icon-toggle-button)::after,
+:host(.mdw-icon-button)::after {
+  margin-left: 0;
+}
+
+
+:host(.mdw-surface) {
+  color: var(--mdw-primary);
+  background-color: var(--mdw-surface);
+}
+
+:host(.mdw-surface:hover)::after {
+  background-color: var(--mdw-on-surface);
+}
+
+:host(.mdw-surface:active)::after {
+  background-color: var(--mdw-on-surface);
+}
+
+:host(.mdw-surface:focus)::after {
+  background-color: var(--mdw-on-surface);
+}
+
+
+:host(.mdw-secondary) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+
+:host(.mdw-secondary:hover)::after {
+  background-color: var(--mdw-on-secondary-container);
+}
+
+:host(.mdw-secondary:active)::after {
+  background-color: var(--mdw-on-secondary-container);
+}
+
+:host(.mdw-secondary:focus)::after {
+  background-color: var(--mdw-on-secondary-container);
+}
+
+:host(.mdw-tertiary) {
+  color: var(--mdw-on-tertiary-container);
+  background-color: var(--mdw-tertiary-container);
+}
+
+:host(.mdw-tertiary:hover)::after {
+  background-color: var(--mdw-on-tertiary-container);
+}
+
+:host(.mdw-tertiary:active)::after {
+  background-color: var(--mdw-on-tertiary-container);
+}
+
+:host(.mdw-tertiary:focus)::after {
+  background-color: var(--mdw-on-tertiary-container);
+}
+
+/* --- positioning --- */
+:host(.mdw-position-bottom-right),
+:host(.mdw-position-right-bottom) {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
+:host(.mdw-position-bottom-left),
+:host(.mdw-position-left-bottom) {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+:host(.mdw-position-top-right),
+:host(.mdw-position-right-top) {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+:host(.mdw-position-top-left),
+:host(.mdw-position-left-top) {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+
+
+/* --- Ripple --- */
+
+.ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.ripple > .mdw-ripple-element {
+  background-color: var(--mdw-primary--16);
+}

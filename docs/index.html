@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="../src/theme.css" rel="stylesheet">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js" defer></script>
+</head>
+
+<body>
+  <mdw-navigation>
+    <div class="mdw-header">
+      <mdw-navigation-button style="margin-left: 4px"></mdw-navigation-button>
+
+      <mdw-button id="theme-toggle" class="mdw-icon-toggle-button" onClick="window.toggleColorScheme()">
+        <mdw-icon value="on">dark_mode</mdw-icon>
+        <mdw-icon value="off">light_mode</mdw-icon>
+      </mdw-button>
+    </div>
+
+    <div class="mdw-headline">Pax Components</div>
+
+    <!-- <mdw-anchor href="/">
+      <mdw-icon>home</mdw-icon>
+      Welcome
+      <mdw-badge>9999</mdw-badge>
+    </mdw-anchor>
+
+    <mdw-anchor href="/">
+      <mdw-icon>home</mdw-icon>
+      Welcome
+      <div slot="rail">
+        <mdw-icon>home</mdw-icon>
+        Welcome
+      </div>
+    </mdw-anchor> -->
+
+    <mdw-anchor href="/">Welcome</mdw-anchor>
+    
+    <mdw-navigation-group>
+      <mdw-anchor group>
+        All buttons
+        <div slot="rail" class="mdw-small-font">
+          <mdw-icon>circle</mdw-icon>
+          Components
+        </div>
+      </mdw-anchor>
+
+      <mdw-anchor href="/buttons">Buttons</mdw-anchor>
+      <mdw-anchor href="/icon-buttons">Icon buttons</mdw-anchor>
+      <mdw-anchor href="/fabs">FAB</mdw-anchor>
+      <mdw-anchor href="/segmented-buttons">Segmented buttons</mdw-anchor>
+    </mdw-navigation-group>
+
+    <mdw-anchor href="/badges">Badges</mdw-anchor>
+    <mdw-anchor href="/bottom-app-bars">Bottom app bars</mdw-anchor>
+    <mdw-anchor href="/bottom-sheets">Bottom sheets</mdw-anchor>
+    <!-- <mdw-anchor href="/buttons">Buttons</mdw-anchor> -->
+    <mdw-anchor href="/cards">Cards</mdw-anchor>
+    <mdw-anchor href="/checkboxes">Checkboxes</mdw-anchor>
+    <mdw-anchor href="/chips">Chips</mdw-anchor>
+    <mdw-anchor href="/date-pickers">Date pickers</mdw-anchor>
+    <mdw-anchor href="/dialogs">Dialogs</mdw-anchor>
+    <!-- <mdw-anchor href="/fabs">FAB</mdw-anchor> -->
+    <mdw-anchor href="/icons">Icons</mdw-anchor>
+    <!-- <mdw-anchor href="/icon-buttons">Icon buttons</mdw-anchor> -->
+    <mdw-anchor href="/lists">Lists</mdw-anchor>
+    <mdw-anchor href="/menus">Menus</mdw-anchor>
+    <mdw-anchor href="/navigations">Navigations</mdw-anchor>
+    <mdw-anchor href="/progress-indicators">Progress</mdw-anchor>
+    <mdw-anchor href="/radios">Radio buttons</mdw-anchor>
+    <mdw-anchor href="/search">Search</mdw-anchor>
+    <!-- <mdw-anchor href="/segmented-buttons">Segmented buttons</mdw-anchor> -->
+    <mdw-anchor href="/selects">Selects</mdw-anchor>
+    <mdw-anchor href="/sliders">Sliders</mdw-anchor>
+    <mdw-anchor href="/snackbars">Snackbars</mdw-anchor>
+    <mdw-anchor href="/switches">Switches</mdw-anchor>
+    <mdw-anchor href="/tabs">Tabs</mdw-anchor>
+    <mdw-anchor href="/text-fields">Textfields</mdw-anchor>
+    <mdw-anchor href="/time-pickers">Time pickers</mdw-anchor>
+    <mdw-anchor href="/tooltips">Tooltips</mdw-anchor>
+    <mdw-anchor href="/top-app-bars">Top app bars</mdw-anchor>
+  </mdw-navigation>
+
+  <page-content></page-content>
+
+  <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+    <mdw-navigation-button></mdw-navigation-button>
+  </mdw-bottom-app-bar>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+mdw-navigation-group {
+  --mdw-navigation-group-height: 56px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: hidden;
+  height: var(--mdw-navigation-group-height);
+  width: 100%;
+  transition: height 320ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor {
+  margin-left: 24px;
+}
+
+mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor[group] {
+  margin-left: 12px;
+}
+
+/* mdw-navigation.mdw-rail.mdw-state-rail > mdw-navigation-group {
+  margin-left: -28px;
+  margin-right: -28px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor {
+  padding-left: 32px;
+}
+
+mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor[group] {
+  padding-left: 16px;
+}
+
+mdw-navigation.mdw-rail.mdw-state-rail > mdw-navigation-group mdw-anchor[group] {
+  margin: 0 12px;
+} */

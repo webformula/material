@@ -1,0 +1,117 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Navigations</div>
+    <div class="mdw-supporting-text">Drawers and Rails</div>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/navigation-drawer/overview" target="_new">Material Design Guidelines:
+  Navigation drawer</a>
+<p>Navigation drawers provide ergonomic access to destinations in an app.</p>
+<a href="https://m3.material.io/components/navigation-rail/overview" target="_new">Material Design Guidelines:
+  Navigation rail</a>
+<p>Navigation rails provide access to primary destinations in apps when using tablet and desktop screens.</p>
+
+<div class="links">
+  <a href="#basic">Basic</a>
+  <a href="#rail-drawer">Rail and drawer</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="basic">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Basic</div>
+
+      <div class="example">
+        <iframe src="./pages/navigations/examples/basic.html" style="height: 280px; width: 100%"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<body>
+    <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+
+    <mdw-navigation>
+      <div class="mdw-headline">Headline</div>
+      <mdw-anchor href="/">
+        <mdw-icon>home</mdw-icon>
+        Welcome
+      </mdw-anchor>
+      <mdw-anchor href="/mail">
+        <mdw-icon>mail</mdw-icon>
+        mail
+        <mdw-badge>9999</mdw-badge>
+      </mdw-anchor>
+      <mdw-anchor href="/one">One</mdw-anchor>
+    </mdw-navigation>
+  
+    <!-- page-content -->
+    
+    <!-- show bottom app bar on mobile with navigation toggle -->
+    <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+      <mdw-navigation-button></mdw-navigation-button>
+    </mdw-bottom-app-bar>
+  </body>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="rail-drawer">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Rail and drawer</div>
+      <div class="mdw-supporting-text">Switching between states is automatic at certain viewport widths. On mobile only the drawer works</div>
+  
+      <div class="example">
+        <iframe src="./pages/navigations/examples/rail-drawer.html" style="height: 280px; width: 100%"></iframe>
+      </div>
+    </div>
+  
+    <pre>
+        <code class="language-html">
+    ${escapeHTML(`<body>
+      <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+      
+      <!-- add css class "mdw-rail" to enable rail -->
+      <mdw-navigation class="mdw-rail">
+        <div class="mdw-header">
+          <mdw-navigation-button></mdw-navigation-button>
+        </div>
+        
+        <!-- auto hides in rail state -->
+        <div class="mdw-headline">Headline</div>
+        
+        <!-- only icon shows in rail state -->
+        <mdw-anchor href="/pages/navigations/examples/rail-drawer.html">
+          <mdw-icon>home</mdw-icon>
+          Welcome
+        </mdw-anchor>
+        
+        <!-- you can add a rail slot to specify exactly what you want -->
+        <mdw-anchor href="/mail">
+          <mdw-icon>mail</mdw-icon>
+          Mail
+          <div slot="rail">
+            <mdw-icon>mail</mdw-icon>
+            Mail
+          </div>
+        </mdw-anchor>
+        
+        <mdw-anchor href="/one">Onerere</mdw-anchor>
+      </mdw-navigation>
+    
+      <!-- page-content -->
+    
+      <!-- show bottom app bar on mobile with navigation toggle -->
+      <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+        <mdw-navigation-button></mdw-navigation-button>
+      </mdw-bottom-app-bar>
+    </body>`)}
+        </code>
+      </pre>
+  </mdw-card>
+</section>

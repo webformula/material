@@ -1,0 +1,67 @@
+mdw-chip-group {
+  display: flex;
+  overflow-x: auto;
+}
+
+mdw-chip-group:not(.mdw-wrap) mdw-chip {
+  margin-right: 8px;
+}
+
+mdw-chip-group:not(.mdw-wrap) mdw-chip:last-of-type {
+  margin-right: 0;
+}
+
+mdw-chip-group.mdw-wrap {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 8px;
+  row-gap: 8px;
+}
+
+
+mdw-chip-group.mdw-filter > mdw-chip[checked],
+mdw-chip-group.mdw-filter-menu > mdw-chip[checked] {
+  border-color: transparent;
+  background-color: var(--mdw-secondary-container);
+  color: var(--mdw-on-secondary-container);
+}
+
+mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button[checked] {
+  background-color: var(--mdw-secondary-container);
+  color: var(--mdw-on-secondary-container);
+}
+
+mdw-chip-group.mdw-elevated > mdw-chip {
+  background-color: var(--mdw-surface);
+}
+
+
+mdw-chip-group > mdw-chip > mdw-menu.mdw-panel {
+  border-radius: var(--mdw-shape-small);
+}
+
+mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button {
+  height: 32px;
+  line-height: 32px;
+}
+
+mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button::after {
+  height: 32px;
+}
+
+
+mdw-chip-group > mdw-chip .mdw-select-arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--mdw-on-surface--60);
+  margin-left: 8px;
+  margin-right: -4px;
+  transform-origin: center;
+  transform: rotate(-180deg);
+  transition: transform 180ms;
+  pointer-events: none;
+}
+
+mdw-chip-group > mdw-chip.mdw-open .mdw-select-arrow {
+  transform: rotate(0);
+}

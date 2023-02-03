@@ -1,0 +1,94 @@
+html {
+  font-family: 'Roboto Flex', Roboto, sans-serif;
+  font-size: 16px;
+  height: 100%;
+  /* overflow-x: hidden; */
+  background-color: var(--mdw-background);
+}
+
+input {
+  font-family: 'Roboto Flex', Roboto, sans-serif;
+}
+
+body {
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  /* overflow-x: hidden; */
+
+  background-color: var(--mdw-background);
+  color: var(--mdw-on-background);
+}
+
+body mdw-page-content,
+body page-content {
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%;
+  padding: 0 12px;
+}
+
+a:-webkit-any-link:active {
+  color: inherit;
+}
+
+
+.mdw-text-length {
+  position: fixed;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+a {
+  color: var(--mdw-primary);
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  line-height: var(--mdw-font-line-height-large-label);
+}
+
+a:hover {
+  filter: brightness(56%);
+}
+
+.mdw-icon-svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.mdw-icon-svg > svg {
+  fill: var(--mdw-on-surface);
+}
+
+mdw-snackbar .mdw-icon-svg > svg {
+  fill: var(--mdw-primary-container);
+}
+
+
+.mdw-backdrop {
+  position: fixed;
+  z-index: 11;
+
+  opacity: 0;
+  transition: opacity 240ms;
+}
+
+.mdw-backdrop::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--mdw-scrim--16);
+}
+
+mdw-divider {
+  border-bottom: 1px solid var(--mdw-outline-variant);
+}

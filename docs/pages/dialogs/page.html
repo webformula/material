@@ -1,0 +1,163 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Dialogs</div>
+    <div class="mdw-supporting-text">Dialogs provide important prompts in a user flow.</div>
+  </div>
+  <div class="mdw-card-content">
+    <mdw-button onclick="page.openSimple()">Open dialog</mdw-button>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/dialogs/overview" target="_new">Material Design Guidelines:
+  Dialog</a>
+<p>Dialogs can require an action, communicate information, or help users accomplish a task. There are two types of dialogs:
+basic and full-screen.</p>
+
+<div class="links">
+  <a href="#simple">Simple</a>
+  <a href="#template">Template</a>
+  <a href="#response">Response</a>
+  <a href="#html">HTML Only</a>
+</div>
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="simple">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Simple dialog</div>
+      
+      <div class="example">
+        <mdw-button onclick="page.openSimple()">Open</mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-javascript">
+  const answer = await mdwDialog.simple({
+    headline: 'Question',
+    message: 'Are you sure?',
+    backdrop: true, // default true
+    clickBackdropClose: false, // default false
+    actionConfirm: true, // default true
+    actionConfirm: 'OK', // default OK
+    actionCancel: true, // default false
+    actionCancelLabel: 'Cancel' // default Cancel
+  });
+
+  if (answer === 'confirm') console.log('User pressed ok');
+  if (answer === 'cancel') console.log('User pressed cancel');
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="template">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Template dialog</div>
+      
+      <div class="example">
+        <mdw-button onclick="page.openTemplate()">Open</mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`// templateString
+  <div class="mdw-header">Headline</div>
+  <div class="mdw-content">Here is some content for the dialog.</div>
+  <div class="mdw-actions">
+    <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
+  </div>`)}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-javascript">
+  mdwDialog.template({
+    template: templateString
+  });
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="response">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Dialog response</div>
+      
+      <div class="example">
+        <mdw-button onclick="page.openTemplate()">Open</mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`// templateString
+  <mdw-dialog>
+    <div class="mdw-header">Headline</div>
+    <div class="mdw-content">Here is some content for the dialog.</div>
+    <div class="mdw-actions">
+      <mdw-button onclick="mdwDialog.close('response value')">Close</mdw-button>
+    </div>
+  </mdw-dialog>`)}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-javascript">
+  const value = await mdwDialog.template({
+    template: templateString
+  });
+
+  // value is passed in when closing the dialog: mdwDialog.close('response value')
+  console.log(value);
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="html">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">HTML Only</div>
+      <div class="mdw-subhead">You can interact directly with the component by adding it directly to the dom</div>
+  
+      <div class="example">
+        <mdw-dialog id="html-only-dialog">
+          <div class="mdw-header">Headline</div>
+          <div class="mdw-content">Here is some content for the dialog.</div>
+          <div class="mdw-actions">
+            <mdw-button onclick="document.querySelector('#html-only-dialog').close('returnValue')">Close</mdw-button>
+          </div>
+        </mdw-dialog>
+
+        <mdw-button onclick="document.querySelector('#html-only-dialog').show()">Open</mdw-button>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`// Added directly to document
+  // Adding the 'open' attribute will automatically show the dialog
+  <mdw-dialog id="html-only-dialog">
+    <div class="mdw-header">Headline</div>
+    <div class="mdw-content">Here is some content for the dialog.</div>
+    <div class="mdw-actions">
+      <mdw-button onclick="document.querySelector('#html-only-dialog').close('returnValue')">Close</mdw-button>
+    </div>
+  </mdw-dialog>`)}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-javascript">
+  const dialog = document.querySelector('#html-only-dialog');
+  dialog.show(true); // show with backdrop DEFAULT
+  dialog.show(false); // show with NO backdrop
+  console.log(dialog.open);
+  dialog.addEventListener('close', event => {
+    console.log(event.target.returnValue);
+  });
+  dialog.close('returnValue string');
+  console.log(dialog.returnValue);
+      </code>
+    </pre>
+  </mdw-card>
+</section>

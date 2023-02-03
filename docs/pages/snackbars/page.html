@@ -1,0 +1,83 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Snackbars</div>
+    <div class="mdw-supporting-text">Checkboxes can turn an option on or off</div>
+  </div>
+  <div class="mdw-card-content">
+    <mdw-button onclick="page.basic();">Show</mdw-button>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/snackbar/overview" target="_new">Material Design Guidelines: Snackbar</a>
+<p>Snackbars provide brief messages about app processes at the bottom of the screen.</p>
+
+<div class="links">
+  <a href="#basic">basic</a>
+  <a href="#action">Action</a>
+  <a href="#no-close">No close and longer time</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="basic">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Basic</div>
+      
+      <div class="example">
+        <mdw-button onclick="page.basic();">Show</mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-javascript">
+  ${`MDWSnackbar.show({
+    message: 'Message goes here'
+  });`}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="action">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">With action</div>
+      
+      <div class="example">
+        <mdw-button onclick="page.action();">Show</mdw-button>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-javascript">
+  ${`// Promise will resolve when the Snackbar is dismissed automatically or when action is pressed
+  await MDWSnackbar.show({
+    message: 'Message goes here',
+    action: true,
+    actionLabel: 'Done' // default 'Dismiss'
+  });
+  console.log('Snackbar dismissed');`}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="no-close">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">No close button and longer time</div>
+  
+      <div class="example">
+        <mdw-button onclick="page.noClose();">Show</mdw-button>
+      </div>
+    </div>
+  
+    <pre>
+        <code class="language-javascript">
+    ${`MDWSnackbar.show({
+      message: 'Message goes here',
+      closeButton: false,
+      ms: 6000
+    });`}
+        </code>
+      </pre>
+  </mdw-card>
+</section>

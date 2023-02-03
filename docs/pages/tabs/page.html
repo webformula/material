@@ -1,0 +1,154 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Tabs</div>
+    <div class="mdw-supporting-text">Tabs organize content across different screens, data sets, and other interactions.</div>
+  </div>
+  <div class="mdw-card-content">
+    <div class="example" title="test">
+      <mdw-tab-bar id="main">
+        <mdw-tab value="1" >
+          Label
+        </mdw-tab>
+        <mdw-tab value="2">
+          <mdw-icon>home</mdw-icon>
+        </mdw-tab>
+
+        <mdw-tab value="3" active>
+          <!-- <mdw-icon>home</mdw-icon> -->
+          label
+        </mdw-tab>
+      </mdw-tab-bar>
+
+      <mdw-tab-content bar="#main">
+        <mdw-tab-panel value="1">
+          content 1
+        </mdw-tab-panel>
+
+        <mdw-tab-panel value="2">
+          content 2
+        </mdw-tab-panel>
+
+        <mdw-tab-panel value="3">
+          content 3
+        </mdw-tab-panel>
+      </mdw-tab-content>
+    </div>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
+<p>Tabs are useful for switching between views of distinct and related groups of information. There are two types of tabs:
+primary and secondary.</p>
+
+<div class="links">
+  <a href="#basic">Basic</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="standard">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Basic</div>
+      
+      <div class="example" style="height: 200px; overflow-y: auto;">
+        <mdw-tabs id="one">
+          <div class="mdw-tab">
+            <div class="mdw-label">One</div>
+            <div class="mdw-ripple"></div>
+          </div>
+          <div class="mdw-tab">
+            <mdw-icon>inbox</mdw-icon>
+            <div class="mdw-ripple"></div>
+          </div>
+          <div class="mdw-tab">
+            <mdw-icon>inbox</mdw-icon>
+            Inbox
+            <div class="mdw-ripple"></div>
+          </div>
+        </mdw-tabs>
+
+        <mdw-tabs-content mdw-tabs="one">
+          <div class="mdw-content">
+            One<br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            <br />one
+            
+          </div>
+
+          <div class="mdw-content">
+            Two
+          </div>
+
+          <div class="mdw-content">
+            
+            Three
+          </div>
+        </mdw-tabs-content>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-tabs id="one">
+    <div class="mdw-tab">
+      <div class="mdw-label">One</div>
+      <div class="mdw-ripple"></div>
+    </div>
+    <div class="mdw-tab">
+      <mdw-icon>inbox</mdw-icon>
+      <div class="mdw-ripple"></div>
+    </div>
+    <div class="mdw-tab">
+      <mdw-icon>inbox</mdw-icon>
+      Inbox
+      <div class="mdw-ripple"></div>
+    </div>
+  </mdw-tabs>
+  
+  <mdw-tabs-content mdw-tabs="one">
+    <div class="mdw-content">
+      One<br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+      <br />one
+  
+    </div>
+  
+    <div class="mdw-content">
+      Two
+    </div>
+  
+    <div class="mdw-content">
+  
+      Three
+    </div>
+  </mdw-tabs-content>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

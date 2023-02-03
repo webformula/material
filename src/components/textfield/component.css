@@ -1,0 +1,489 @@
+mdw-textfield {
+  display: inline-flex;
+  vertical-align: top;
+  position: relative;
+  box-sizing: border-box;
+  height: 56px;
+  padding: 8px 16px;
+  margin-bottom: 36px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  /* min-width: 200px; */
+}
+
+mdw-textfield input[type=date] {
+  min-width: 120px;
+}
+
+mdw-textfield::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: var(--mdw-shape-extra-small-top);
+  border-bottom: 1px solid;
+  border-bottom-color: var(--mdw-on-surface-variant);
+  background-color: var(--mdw-surface-variant);
+}
+
+mdw-textfield:not(.mdw-outlined):focus-within::after {
+  height: calc(100% - 1px);
+  border-bottom: 2px solid;
+  border-bottom-color: var(--mdw-primary);
+}
+
+mdw-textfield > input {
+  flex: 1;
+  align-self: flex-end;
+  width: 100%;
+  min-height: 28px;
+  /* this is needed for type time on ios */
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  outline: none;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  /* width: 191px;  */
+  /* default */
+
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-size: var(--mdw-font-size-large-body);
+  font-weight: var(--mdw-font-weight-large-body);
+  line-height: var(--mdw-font-line-height-large-body);
+  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  color: var(--mdw-on-surface);
+  caret-color: var(--mdw-primary);
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+mdw-textfield > input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  /* display: inline-block;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  background-size: 12px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"rgb(60,60,60)\" d=\"M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z\"/></svg>"); */
+}
+
+input::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+mdw-textfield > label {
+  position: absolute;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: text;
+  z-index: 1;
+  pointer-events: none;
+  top: 15px;
+
+  font-size: var(--mdw-font-size-large-body);
+  font-weight: var(--mdw-font-weight-large-body);
+  line-height: var(--mdw-font-line-height-large-body);
+  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  text-decoration: inherit;
+  text-transform: inherit;
+
+  color: var(--mdw-on-surface-variant);
+
+  transform-origin: left top;
+  animation: mdw-textfield-label-reverse 164ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-textfield:focus-within > label {
+  color: var(--mdw-primary);
+}
+
+mdw-textfield > input::placeholder {
+  font-size: var(--mdw-font-size-large-body);
+  font-weight: var(--mdw-font-weight-large-body);
+  line-height: var(--mdw-font-line-height-large-body);
+  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  color: var(--mdw-on-surface-variant);
+}
+
+mdw-textfield.mdw-raise-label label,
+mdw-textfield:focus-within label,
+mdw-textfield > input:not([placeholder=" "]) + label,
+mdw-textfield > input:not(:placeholder-shown) + label {
+  font-size: var(--mdw-font-size-small-body);
+  top: 4px;
+  animation: mdw-textfield-label 164ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-textfield.mdw-no-animation > label {
+  animation-duration: 0ms !important;
+}
+
+mdw-textfield > mdw-icon,
+mdw-textfield > .mdw-invalid-icon {
+  align-self: center;
+  margin-left: -4px;
+  margin-right: -4px;
+  z-index: 1;
+  color: var(--mdw-on-surface-variant);
+}
+
+mdw-textfield > mdw-icon + input {
+  margin-left: 16px;
+}
+
+mdw-textfield > mdw-icon + input + label {
+  margin-left: 32px;
+}
+
+mdw-textfield > mdw-icon.mdw-input-clear {
+  cursor: pointer;
+}
+
+mdw-textfield > input + mdw-icon,
+mdw-textfield > input + .mdw-invalid-icon,
+mdw-textfield > .mdw-supporting-text + mdw-icon,
+mdw-textfield > .mdw-supporting-text + .mdw-invalid-icon,
+mdw-textfield > .mdw-autocomplete + mdw-icon,
+mdw-textfield > .mdw-autocomplete + .mdw-invalid-icon,
+mdw-textfield > label + mdw-icon,
+mdw-textfield > label + .mdw-invalid-icon {
+  margin-left: 14px;
+}
+
+
+mdw-textfield > .mdw-supporting-text {
+  position: absolute;
+  top: 48px;
+
+  font-size: var(--mdw-font-size-small-body);
+  font-weight: var(--mdw-font-weight-small-body);
+  line-height: var(--mdw-font-line-height-small-body);
+  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  color: var(--mdw-on-surface-variant);
+}
+
+
+
+/* --- disabled --- */
+
+mdw-textfield[disabled] {
+  pointer-events: none;
+}
+
+mdw-textfield[disabled]::after {
+  height: 100%;
+  border-bottom: 1px solid;
+  border-bottom-color: var(--mdw-on-surface--38);
+  background-color: var(--mdw-on-surface--4);
+}
+
+mdw-textfield[disabled] > input {
+  color: var(--mdw-on-surface--38);
+}
+
+mdw-textfield[disabled] > label {
+  color: var(--mdw-on-surface--38);
+}
+
+mdw-textfield[disabled] > .mdw-supporting-text {
+  color: var(--mdw-on-surface--38);
+}
+
+mdw-textfield[disabled] > mdw-icon {
+  color: var(--mdw-on-surface-variant--38);
+}
+
+
+mdw-textfield.mdw-has-date-picker > input::-webkit-inner-spin-button,
+mdw-textfield.mdw-has-date-picker > input::-webkit-calendar-picker-indicator,
+mdw-textfield.mdw-has-time-picker > input::-webkit-inner-spin-button,
+mdw-textfield.mdw-has-time-picker > input::-webkit-calendar-picker-indicator,
+mdw-textfield.mdw-has-month-picker > input::-webkit-inner-spin-button,
+mdw-textfield.mdw-has-month-picker > input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+body.mdw-mobile mdw-textfield.mdw-has-date-picker input[type="date"],
+body.mdw-mobile mdw-textfield.mdw-has-time-picker input[type="time"],
+body.mdw-mobile mdw-textfield.mdw-has-time-picker input[type="month"] {
+  pointer-events: none;
+}
+
+mdw-textfield .mdw-autocomplete {
+  position: absolute;
+  top: 21px;
+  left: 0;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  outline: none;
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-size: var(--mdw-font-size-large-body);
+  font-weight: var(--mdw-font-weight-large-body);
+  line-height: var(--mdw-font-line-height-large-body);
+  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+}
+
+mdw-textfield > mdw-icon + input ~ .mdw-autocomplete {
+  margin-left: 32px;
+}
+
+
+/* --- outline --- */
+
+mdw-textfield.mdw-outlined::after {
+  border-radius: var(--mdw-shape-extra-small);
+  border: none;
+  background-color: unset;
+}
+
+mdw-textfield.mdw-outlined > input {
+  align-self: center;
+}
+
+mdw-textfield.mdw-outlined label {
+  transform-origin: left top;
+  animation: mdw-textfield-label-outlined-reverse 164ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-textfield.mdw-outlined > mdw-icon + input + label {
+  transform-origin: left top;
+  animation: mdw-textfield-label-outlined-reverse-icon 164ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-textfield.mdw-outlined.mdw-raise-label label,
+mdw-textfield.mdw-outlined:focus-within label,
+mdw-textfield.mdw-outlined > input:not([placeholder=" "]) + label,
+mdw-textfield.mdw-outlined > input:not(:placeholder-shown) + label {
+  font-size: var(--mdw-font-size-small-body);
+  top: -12px;
+  left: 14px;
+  animation: mdw-textfield-label-outlined 164ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-textfield > .mdw-outlined-border-container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  text-align: left;
+  pointer-events: none;
+}
+
+mdw-textfield > .mdw-outlined-border-container > .mdw-outlined-leading {
+  box-sizing: border-box;
+  border-radius: var(--mdw-shape-extra-small) 0 0 var(--mdw-shape-extra-small);
+  border-left: 1px solid;
+  border-right: none;
+  width: 12px;
+  height: 99.2%;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  pointer-events: none;
+
+  border-color: var(--mdw-outline);
+}
+
+mdw-textfield > .mdw-outlined-border-container > .mdw-outlined-notch {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  max-width: calc(100% - 12px * 2);
+  height: 99.2%;
+  border-bottom: 1px solid;
+  pointer-events: none;
+
+  border-color: var(--mdw-outline);
+}
+
+mdw-textfield > .mdw-outlined-border-container > .mdw-outlined-trailing {
+  box-sizing: border-box;
+  border-left: none;
+  border-right: 1px solid;
+  border-radius: 0 var(--mdw-shape-extra-small) var(--mdw-shape-extra-small) 0;
+  flex-grow: 1;
+  height: 99.2%;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  pointer-events: none;
+
+  border-color: var(--mdw-outline);
+}
+
+
+mdw-textfield:focus-within > .mdw-outlined-border-container > .mdw-outlined-leading,
+mdw-textfield:focus-within > .mdw-outlined-border-container > .mdw-outlined-notch,
+mdw-textfield:focus-within > .mdw-outlined-border-container > .mdw-outlined-trailing {
+  border-width: 2px;
+  border-color: var(--mdw-primary);
+}
+
+mdw-textfield.mdw-has-leading-icon > .mdw-outlined-border-container > .mdw-outlined-leading {
+  width: 43px;
+}
+
+
+
+/* --- invalid --- */
+
+mdw-textfield.mdw-invalid::after {
+  border-bottom-color: var(--mdw-error);
+}
+
+mdw-textfield.mdw-invalid > input {
+  caret-color: var(--mdw-error);
+  color: var(--mdw-on-surface);
+}
+
+mdw-textfield.mdw-invalid > label {
+  color: var(--mdw-error);
+}
+
+mdw-textfield.mdw-invalid > .mdw-supporting-text {
+  color: var(--mdw-error);
+}
+
+mdw-textfield > .mdw-invalid-icon {
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+  align-self: center;
+}
+
+mdw-textfield > .mdw-invalid-icon > svg {
+  fill: var(--mdw-error);
+}
+
+mdw-textfield.mdw-invalid > .mdw-outlined-border-container > .mdw-outlined-leading,
+mdw-textfield.mdw-invalid > .mdw-outlined-border-container > .mdw-outlined-notch,
+mdw-textfield.mdw-invalid > .mdw-outlined-border-container > .mdw-outlined-trailing {
+  border-color: var(--mdw-error);
+}
+
+mdw-textfield.mdw-invalid > input + mdw-icon:not(.mdw-invalid-icon),
+mdw-textfield.mdw-invalid > .mdw-supporting-text + mdw-icon:not(.mdw-invalid-icon),
+mdw-textfield.mdw-invalid > .mdw-autocomplete + mdw-icon:not(.mdw-invalid-icon),
+mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
+  display: none;
+}
+
+
+
+/* use scale for smooth font transition */
+@keyframes mdw-textfield-label {
+  0% {
+    top: 15px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+
+  100% {
+    top: 7px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+}
+
+@keyframes mdw-textfield-label-reverse {
+  0% {
+    top: 7px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+
+  100% {
+    top: 15px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+}
+
+/* use scale for smooth font transition */
+@keyframes mdw-textfield-label-outlined {
+  0% {
+    top: 15px;
+    left: 16px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+
+  100% {
+    top: -9px;
+    left: 14px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+}
+
+@keyframes mdw-textfield-label-outlined-icon {
+  0% {
+    top: 15px;
+    left: 16px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+
+  100% {
+    top: -9px;
+    left: 14px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+}
+
+@keyframes mdw-textfield-label-outlined-reverse {
+  0% {
+    top: -9px;
+    left: 14px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+
+  100% {
+    top: 15px;
+    left: 15px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+}
+
+@keyframes mdw-textfield-label-outlined-reverse-icon {
+  0% {
+    top: -9px;
+    left: 14px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(0.8);
+  }
+
+  100% {
+    top: 15px;
+    left: 15px;
+    font-size: var(--mdw-font-size-large-body);
+    transform: scale(1);
+  }
+}

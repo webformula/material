@@ -1,0 +1,94 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Progress indicators</div>
+    <div class="mdw-supporting-text">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form.</div>
+  </div>
+  <div class="mdw-card-content" style="display: flex; flex-direction: column; align-items: center;">
+    <mdw-progress-linear value="0.4"></mdw-progress-linear>
+    <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+  </div>
+</mdw-card>
+
+
+<a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines: Progress indicators</a>
+<p>There are two types of progress indicators: Linear and circular.</p>
+
+<div class="links">
+  <a href="#linear_determinate">Linear determinate</a>
+  <a href="#linear_indeterminate">Linear indeterminate</a>
+  <a href="#circular_determinate">Circular determinate</a>
+  <a href="#circular_indeterminate">Circular indeterminate</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card class="mdw-no-states" id="linear_determinate">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Linear determinate</div>
+      <div class="mdw-subhead">'max' attribute default = 1</div>
+      
+      <div class="example">
+        <mdw-progress-linear value="0.4"></mdw-progress-linear>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- 'max' attribute default = 1 -->
+  <mdw-progress-linear value="0.4" max="1"></mdw-progress-linear>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card class="mdw-no-states" id="linear_indeterminate">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Linear indeterminate</div>
+      
+      <div class="example">
+        <mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card class="mdw-no-states" id="circular_determinate">  
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Circular determinate</div>
+      <div class="mdw-subhead">'max' attribute default = 1</div>
+      
+      <div class="example">
+        <mdw-progress-circular value="0.4"></mdw-progress-circular>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- 'max' attribute default = 1 -->
+  <mdw-progress-circular value="0.4" max="1"></mdw-progress-circular>`)}
+      </code>
+    </pre>
+  </mdw-card>
+  
+  <mdw-card class="mdw-no-states" id="circular_indeterminate">     
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Circular indeterminate</div>
+      
+      <div class="example">
+        <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

@@ -1,0 +1,18 @@
+mdw-card-group,
+mdw-card-group.mdw-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
+  grid-column-gap: 8px;
+  /* grid-auto-rows: minmax(80px, auto); */
+}
+
+body.mdw-mobile mdw-card-group:not(.mdw-grid),
+mdw-card-group.mdw-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+mdw-card-group > mdw-card.mdw-card-grid-cell {
+  height: fit-content;
+}

@@ -1,0 +1,226 @@
+mdw-bottom-app-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: row;
+  padding: 12px 16px 12px 4px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 80px;
+  align-items: center;
+  z-index: 1;
+
+  background-color: var(--mdw-surface);
+
+  transition: bottom 180ms, background-color 80ms linear;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+mdw-bottom-app-bar:before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-color: none;
+  transition: background-color 80ms linear;
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  opacity: 1;
+  transition: none;
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms;
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms;
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
+  opacity: 1;
+  pointer-events: all;
+  transition: none;
+}
+
+mdw-bottom-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled:before {
+  background-color: var(--mdw-surface-tint--6);
+}
+
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide {
+  bottom: -80px;
+  transition: bottom 800ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+body:not(.mdw-mobile) > mdw-navigation.mdw-state-rail ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
+  left: 80px;
+}
+
+body:not(.mdw-mobile) > mdw-navigation ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
+  left: var(--mdw-navigation-drawer-width);
+}
+
+body:not(.mdw-mobile) > mdw-navigation.mdw-enable-animation:not(.mdw-state-rail) ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
+  transition: left 420ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+body:not(.mdw-mobile) > mdw-navigation.mdw-enable-animation.mdw-state-rail ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
+  transition: left 180ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+body.mdw-has-bottom-app-bar > page-content::after {
+  content: '';
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+}
+
+body:not(.mdw-mobile).mdw-has-bottom-app-bar.mdw-bottom-app-bar-mobile-only > page-content::after {
+  content: '';
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+}
+
+/* should only be in bottom-nav-bar */
+/* mdw-bottom-app-bar > nav {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+mdw-bottom-app-bar > nav > a {
+  position: relative;
+  padding: 10px 12px;
+  margin-right: 8px;
+  text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+mdw-bottom-app-bar > nav > mdw-navigation-button {
+  margin-right: 8px;
+}
+
+mdw-bottom-app-bar > nav > a > mdw-icon {
+  pointer-events: none;
+} */
+
+
+body:not(.mdw-mobile) mdw-bottom-app-bar.mdw-mobile-only {
+  display: none;
+}
+
+mdw-bottom-app-bar mdw-button.mdw-icon-button {
+  width: 48px;
+  height: 48px;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button {
+  transform: translateY(0);
+  transition: transform 180ms 50ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(2),
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button:nth-child(2),
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(3),
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button:nth-child(3),
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button:nth-child(3) {
+  transition-delay: 150ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(4),
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button:nth-child(4),
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button:nth-child(4) {
+  transition-delay: 200ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(5),
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button:nth-child(5),
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button:nth-child(5) {
+  transition-delay: 250ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(6),
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button:nth-child(6),
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button:nth-child(6) {
+  transition-delay: 300ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide.mdw-show-animation-start > mdw-button.mdw-icon-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show-animation-start mdw-button.mdw-icon-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show-animation-start mdw-button.mdw-icon-button {
+  transform: translateY(60px);
+  transition: transform;
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+
+mdw-bottom-app-bar mdw-fab {
+  position: fixed;
+  bottom: 12px;
+  right: 16px;
+  transition: bottom 180ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide mdw-fab {
+  bottom: 7px;
+}
+
+
+/* --- Ripple --- */
+
+mdw-bottom-app-bar a > .mdw-ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+mdw-bottom-app-bar a > .mdw-ripple > .mdw-ripple-element {
+  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--mdw-on-surface);
+}

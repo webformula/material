@@ -1,0 +1,91 @@
+mdw-icon {
+  width: var(--mdw-font-size-icon-medium);
+  height: var(--mdw-font-size-icon-medium);
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--mdw-font-size-icon-medium);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+mdw-icon[onclick] {
+  cursor: pointer;
+}
+
+/* handles in src/components/icon/component.js */
+html:not(.mdw-material-icon-font-loaded) mdw-icon {
+  opacity: 0;
+}
+
+mdw-icon.mdw-small {
+  width: var(--mdw-font-size-icon-small);
+  height: var(--mdw-font-size-icon-small);
+  font-size: var(--mdw-font-size-icon-small);
+}
+
+mdw-icon.mdw-large {
+  width: var(--mdw-font-size-icon-large);
+  height: var(--mdw-font-size-icon-large);
+  font-size: var(--mdw-font-size-icon-large);
+}
+
+mdw-icon.mdw-extra-large {
+  width: var(--mdw-font-size-icon-extra-large);
+  height: var(--mdw-font-size-icon-extra-large);
+  font-size: var(--mdw-font-size-icon-extra-large);
+}
+
+mdw-icon.mdw-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+
+mdw-icon.mdw-light {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+mdw-icon.mdw-light.mdw-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+mdw-icon.mdw-bold {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+mdw-icon.mdw-bold.mdw-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48
+}

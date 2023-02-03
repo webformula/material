@@ -1,0 +1,80 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Switches</div>
+    <div class="mdw-supporting-text">Switches toggle the state of a single item on or off.</div>
+  </div>
+  <div class="mdw-card-content" style="display: flex; flex-direction:column;">
+    <mdw-switch class="mdw-icon" checked>Label</mdw-switch>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/switch/overview" target="_new">Material Design Guidelines:
+  Switch</a>
+<p>There's one type of switch in Material. Use this selection control when the user needs to toggle a single item on or
+off.</p>
+
+<div class="links">
+  <a href="#standard">Standard</a>
+  <a href="#icon">Icon</a>
+  <a href="#labelright">Label right</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="standard">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Switch</div>
+      
+      <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
+        <mdw-switch>Label</mdw-switch>
+        <mdw-switch checked>Label</mdw-switch>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-switch>Label</mdw-switch>
+  <mdw-switch checked>Label</mdw-switch>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="icon">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Switch with icon (check mark)</div>
+      
+      <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
+        <mdw-switch class="mdw-icon">Label</mdw-switch>
+        <mdw-switch class="mdw-icon" checked>Label</mdw-switch>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-switch class="mdw-icon">Label</mdw-switch>
+  <mdw-switch class="mdw-icon" checked>Label</mdw-switch>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="labelright">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Switch label right</div>
+      
+      <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
+        <mdw-switch class="mdw-label-right">Label</mdw-switch>
+        <mdw-switch class="mdw-label-right" checked>Label</mdw-switch>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-switch class="mdw-label-right">Label</mdw-switch>
+  <mdw-switch class="mdw-label-right" checked>Label</mdw-switch>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

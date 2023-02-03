@@ -1,0 +1,125 @@
+:host {
+  position: relative;
+  display: flex;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+
+  padding: 0 16px;
+  height: 40px;
+
+  color: var(--mdw-on-surface);
+  border-left: 1px solid var(--mdw-outline);
+  border-top: 1px solid var(--mdw-outline);
+  border-bottom: 1px solid var(--mdw-outline);
+
+  align-items: center;
+  vertical-align: middle;
+}
+
+:host(.mdw-checked) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+
+:host(:last-of-type) {
+  border-right: 1px solid var(--mdw-outline);
+  border-radius: 0 var(--mdw-button-radius) var(--mdw-button-radius) 0;
+}
+
+:host(:first-of-type) {
+  border-radius: var(--mdw-button-radius) 0 0 var(--mdw-button-radius);
+}
+
+:host(:hover)::after {
+  opacity: 0;
+}
+
+:host::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  margin-left: -16px;
+  opacity: 0;
+  border-radius: var(--mdw-button-radius);
+}
+
+:host .slot-container {
+  display: flex;
+}
+
+:host(.mdw-selected-icon) .slot-container {
+  transform: translateX(-10px);
+  transition: transform 180ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+:host(.mdw-selected-icon.mdw-checked) .slot-container {
+  transform: translateX(0);
+  transition: transform 220ms;
+}
+
+:host svg {
+  margin-left: -32px;
+  width: 32px;
+  transition: opacity 80ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+:host(.mdw-checked) svg {
+  margin-left: -12px;
+}
+
+:host svg path {
+  stroke-dashoffset: 22.910259;
+  stroke-dasharray: 22.910259;
+
+  stroke: var(--mdw-on-secondary-container);
+  animation: mdw-segmented-button-uncheck 120ms;
+}
+
+:host svg path {
+  animation-duration: 0ms !important;
+}
+
+:host(.mdw-checked) svg path {
+  stroke-dashoffset: 12;
+  animation: mdw-segmented-button-check 220ms;
+}
+
+@keyframes mdw-segmented-button-check {
+
+  0%,
+  50% {
+    stroke-dashoffset: 22.910259;
+  }
+
+  50% {
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1);
+  }
+
+  100% {
+    stroke-dashoffset: 12;
+  }
+}
+
+@keyframes mdw-segmented-button-uncheck {
+  from {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    stroke-dasharray: 22.910259;
+    stroke-dashoffset: 12
+  }
+
+  to {
+    stroke-dasharray: 10;
+    stroke-dashoffset: 12
+  }
+}

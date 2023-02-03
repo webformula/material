@@ -1,0 +1,21 @@
+mdw-backdrop {
+  position: fixed;
+  z-index: 11;
+
+  opacity: 0;
+  transition: opacity 240ms;
+}
+
+mdw-backdrop.mdw-show {
+  opacity: 1;
+}
+
+mdw-backdrop::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--mdw-scrim--16);
+}

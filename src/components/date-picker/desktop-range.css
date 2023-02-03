@@ -1,0 +1,351 @@
+mdw-date-picker-range-desktop {
+  width: 656px;
+  height: 428px;
+  max-height: 428px;
+  padding: 12px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--mdw-shape-large);
+  background-color: var(--mdw-surface);
+  box-shadow: var(--mdw-elevation-3);
+}
+
+mdw-date-picker-range-desktop .mdw-control-container {
+  display: flex;
+  height: 24px;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+mdw-date-picker-range-desktop .mdw-control-container > .mdw-icon-svg {
+  display: flex;
+  width: 32px;
+  margin: 0;
+  justify-content: center;
+  cursor: pointer;
+}
+
+mdw-date-picker-range-desktop .mdw-control-container .mdw-month-previous[disabled],
+mdw-date-picker-range-desktop .mdw-control-container .mdw-month-next[disabled] {
+  pointer-events: none;
+  cursor: none;
+  opacity: 0.38;
+}
+
+mdw-date-picker-range-desktop .mdw-control-container .mdw-month-label,
+mdw-date-picker-range-desktop .mdw-control-container .mdw-year-label {
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  line-height: var(--mdw-font-line-height-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  color: var(--mdw-on-surface);
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+mdw-date-picker-range-desktop .mdw-month-container-start .mdw-control-container {
+  /* justify-content: end;
+  margin-right: 64px; */
+}
+
+mdw-date-picker-range-desktop .mdw-month-container-end .mdw-control-container {
+  /* margin-left: 36px; */
+  justify-content: end;
+  margin-right: 27px;
+}
+
+
+mdw-date-picker-range-desktop .mdw-month-range-container {
+  display: flex;
+}
+
+mdw-date-picker-range-desktop .mdw-month {
+  position: relative;
+  width: 328px;
+  height: 294px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 120ms;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  flex: 1;
+  padding: 0 14px;
+  margin-bottom: 16px;
+  margin-right: 26px;
+
+  font-size: var(--mdw-font-size-small-body);
+  font-weight: var(--mdw-font-weight-small-body);
+  line-height: var(--mdw-font-line-height-small-body);
+  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  color: var(--mdw-on-surface);
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container {
+  position: absolute;
+  display: grid;
+  top: 40px;
+  height: 254px;
+  left: 100%;
+  grid-template-columns: repeat(7, 40px);
+  grid-template-rows: repeat(6, 40px);
+  grid-column-gap: 4px;
+  grid-row-gap: 0;
+  align-items: center;
+  justify-items: center;
+  pointer-events: none;
+  opacity: 0;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container.mdw-active {
+  display: grid;
+  left: 0;
+  pointer-events: all;
+  opacity: 1;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  user-select: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+
+  font-size: var(--mdw-font-size-small-label);
+  font-weight: var(--mdw-font-weight-small-label);
+  line-height: var(--mdw-font-line-height-small-label);
+  letter-spacing: var(--mdw-font-letter-spacing-small-label);
+  color: var(--mdw-on-surface);
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day.mdw-interactive {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day.mdw-not-current-month {
+  color: var(--mdw-on-surface--60);
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day.mdw-out-of-range {
+  pointer-events: none;
+  cursor: auto;
+  color: var(--mdw-on-surface--60);
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected] {
+  color: var(--mdw-on-primary);
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected]::before {
+  background-color: var(--mdw-surface-variant);
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--mdw-primary);
+  margin: 1px;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][start]::before {
+  border-radius: 50% 0 0 50%;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][start].mdw-week-day-6::before {
+  border-radius: 50%;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][end]::before {
+  border-radius: 0 50% 50% 0;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][end].mdw-week-day-0::before {
+  border-radius: 50%;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day:not(.mdw-not-current-month)[in-selection-range]::before {
+  background-color: var(--mdw-surface-variant);
+  border-radius: 0;
+  margin-left: -4px;
+  margin-right: -4px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[in-selection-range].mdw-first-day::before {
+  border-radius: 20px 0 0 20px; /* use pixels because margin is stretched */
+  margin-left: 0;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[in-selection-range].mdw-week-day-0::before {
+  border-radius: 20px 0 0 20px; /* use pixels because margin is stretched */
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[in-selection-range].mdw-week-day-6::before {
+  border-radius: 0 20px 20px 0; /* use pixels because margin is stretched */
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[in-selection-range].mdw-last-day::before {
+  border-radius: 0 20px 20px 0; /* use pixels because margin is stretched */
+  margin-right: 0;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day.mdw-today::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px solid var(--mdw-outline--60);
+  margin: 2px;
+  z-index: 11;
+}
+
+mdw-date-picker-range-desktop .mdw-actions {
+  display: flex;
+  justify-content: end;
+  opacity: 1;
+  transition: opacity 120ms;
+}
+
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container.mdw-animation-next-to-active {
+  animation: mdw-month-range-next-to-active 180ms;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container.mdw-animation-next-from-active {
+  animation: mdw-month-range-next-from-active 180ms;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container.mdw-animation-previous-to-active {
+  animation: mdw-month-range-previous-to-active 180ms;
+}
+
+mdw-date-picker-range-desktop .mdw-month .mdw-days-container.mdw-animation-previous-from-active {
+  animation: mdw-month-range-previous-from-active 180ms;
+}
+
+
+@keyframes mdw-month-range-next-to-active {
+  0% {
+    left: 25%;
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-month-range-next-from-active {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0;
+  }
+
+  100% {
+    left: -25%;
+    opacity: 0;
+  }
+}
+
+@keyframes mdw-month-range-previous-to-active {
+  0% {
+    left: -25%;
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-month-range-previous-from-active {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0;
+  }
+
+  100% {
+    left: 25%;
+    opacity: 0;
+  }
+}
+
+
+/* --- months view --- */
+
+mdw-date-picker-range-desktop .mdw-months-container {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  width: 100%;
+  height: 364px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms;
+  background-color: var(--mdw-surface);
+  border-radius: var(--mdw-shape-large);
+}

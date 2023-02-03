@@ -1,0 +1,35 @@
+mdw-tab-bar {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  height: 48px;
+
+  background-color: var(--mdw-surface);
+  color: var(--mdw-on-surface-variant);
+
+  font-size: var(--mdw-font-size-small-title);
+  font-weight: var(--mdw-font-weight-small-title);
+  line-height: var(--mdw-font-line-height-small-title);
+  letter-spacing: var(--mdw-font-letter-spacing-small-title);
+
+  pointer-events: none;
+}
+
+mdw-tab-bar.mdw-line-two {
+  height: 64px;
+}
+
+
+mdw-tab-bar .mdw-tab-underline {
+  position: absolute;
+  bottom: 0;
+  border-radius: 3px 3px 0 0;
+  border-top: 3px solid var(--mdw-primary);
+  pointer-events: none;
+
+  transition: left 220ms, width 220ms;
+}
+
+mdw-tab-bar.mdw-tab-secondary .mdw-tab-underline {
+  border-top: 2px solid var(--mdw-primary);
+}

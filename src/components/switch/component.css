@@ -1,0 +1,123 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  padding: 1px 0;
+  outline: none;
+  align-items: center;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+:host > .track {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: var(--mdw-shape-large);
+  box-sizing: border-box;
+  border: 2px solid;
+
+  background-color: var(--mdw-surface-variant);
+  border-color: var(--mdw-outline);
+}
+
+:host(.mdw-checked) > .track {
+  background-color: var(--mdw-primary);
+  border-color: var(--mdw-primary);
+  user-select: none;
+}
+
+:host > .track > .thumb {
+  position: relative;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+
+  background-color: var(--mdw-outline);
+
+  transition:
+    left 300ms,
+    width 200ms,
+    height 200ms,
+    margin 200ms,
+    background-color 200ms,
+    border-color 200ms;
+}
+
+:host > .track > .thumb:active,
+:host(.mdw-checked) > .track > .thumb:active {
+  width: 28px;
+  height: 28px;
+  margin: 0;
+}
+
+:host(.mdw-checked) > .track > .thumb {
+  left: 20px;
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+  background-color: var(--mdw-on-primary);
+}
+
+
+:host > .track > .thumb > svg {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host(.mdw-icon.mdw-checked) > .track > .thumb > svg {
+  opacity: 1;
+}
+
+:host > .track > .thumb > svg > path {
+  stroke-width: 1.1333333333px;
+  stroke: var(--mdw-on-primary-container);
+}
+
+:host > slot {
+  display: block;
+  flex: 1;
+
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  line-height: var(--mdw-font-line-height-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+}
+
+:host(.mdw-label-right) > slot {
+  order: 2;
+  flex: 1;
+  text-align: right;
+}
+
+
+/* --- disabled --- */
+
+:host([disabled]) {
+  pointer-events: none;
+  cursor: unset;
+}
+
+:host([disabled]) > .track {
+  background-color: var(--mdw-surface-variant--12);
+  border-color: var(--mdw-on-surface--12);
+}
+
+:host([disabled].mdw-checked) > .track {
+  background-color: var(--mdw-on-surface--12);
+  border-color: var(--mdw-on-surface--0);
+}
+
+:host([disabled]) > .track > .thumb {
+  background-color: var(--mdw-on-surface--38);
+}
+
+:host([disabled].mdw-checked) > .track > .thumb {
+  background-color: var(--mdw-surface);
+}
+
+:host(.mdw-icon.mdw-checked[disabled]) > .track > .thumb > svg {
+  opacity: .38;
+}

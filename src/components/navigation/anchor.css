@@ -1,0 +1,252 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 56px;
+  line-height: 56px;
+  margin: 1px 12px;
+  padding: 0 24px;
+  margin-bottom: 2px;
+
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host ::slotted(mdw-icon) {
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 8px;
+  margin-left: -6px;
+  width: var(--mdw-font-size-icon-small) !important;
+  height: var(--mdw-font-size-icon-small) !important;
+  font-size: var(--mdw-font-size-icon-small) !important;
+}
+
+
+
+/* state layer */
+
+:host .background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  height: 56px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host(.mdw-has-rail) .background {
+  transition: height 180ms;
+}
+
+:host(:focus) .background {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
+}
+
+:host(.mdw-active) .background {
+  background-color: var(--mdw-secondary-container);
+}
+
+:host([group].mdw-active) .background {
+  opacity: var(--mdw-state-layer-opacity-hover);
+  background-color: var(--mdw-on-surface);
+}
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  :host(:hover) .background {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
+}
+
+
+/* --- Ripple --- */
+
+.ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  transform: translateZ(0);
+  /* fixes bug on ios safari */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-surface--16);
+  border-radius: 50%;
+}
+
+
+
+/* --- rail --- */
+
+/* look in rail global for more styles */
+
+
+:host(.mdw-has-rail.mdw-has-rail) .main {
+  display: block;
+  animation: mdw-anchor-main-show 180ms;
+}
+
+:host(.mdw-rail.mdw-state-rail.mdw-has-rail) .main {
+  opacity: 0;
+  animation: mdw-anchor-main-hide 180ms;
+}
+
+:host(.mdw-has-rail:not(.mdw-has-icon)) .main {
+  display: block;
+  animation: mdw-anchor-main-show-no-icon 180ms;
+}
+
+:host(.mdw-rail.mdw-state-rail.mdw-has-rail:not(.mdw-has-icon)) .main {
+  opacity: 0;
+  animation: mdw-anchor-main-hide-no-icon 180ms;
+}
+
+/* hide text show icon using colors when no rail content and has icon */
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail).mdw-has-icon) .main {
+  color: transparent;
+}
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail)) .main::slotted(mdw-icon) {
+  color: var(--mdw-on-surface);
+}
+
+
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail)) .main {
+  font-size: var(--mdw-font-size-medium-label);
+  font-weight: var(--mdw-font-weight-medium-label);
+  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  border-radius: var(--mdw-shape-extra-medium);
+}
+
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail):not(.mdw-has-icon)) {
+  align-self: center;
+}
+
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail).mdw-has-icon) .main {
+  margin: 0;
+  margin-left: -2px;
+  align-self: center;
+}
+
+:host(.mdw-rail.mdw-state-rail.mdw-has-rail-text.mdw-has-rail-icon) .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+}
+
+:host(.mdw-rail.mdw-state-rail.mdw-has-rail-icon.mdw-has-rail-text) .background {
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+:host(.mdw-rail.mdw-state-rail.mdw-has-rail-icon.mdw-has-rail-text) .ripple {
+  height: 32px;
+  bottom: unset;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail):not(.mdw-has-rail-icon)) .background {
+  height: 56px;
+  width: 56px;
+}
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail):not(.mdw-has-rail-icon)) .ripple {
+  right: unset;
+  bottom: unset;
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+}
+
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail):not(.mdw-has-rail-icon):not(.mdw-has-icon)) .background {
+  margin: 0 auto;
+}
+:host(.mdw-rail.mdw-state-rail:not(.mdw-has-rail):not(.mdw-has-rail-icon):not(.mdw-has-icon)) .ripple {
+  /* left: 12px; */
+  left: 50%;
+  margin-left: -25%;
+}
+
+
+@keyframes mdw-anchor-main-show {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-anchor-main-hide {
+  0% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mdw-anchor-main-show-no-icon {
+  0% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-anchor-main-hide-no-icon {
+  0% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+}
+
+
+
+:host([group]) .main::slotted(.mdw-group-arrow) {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  transition: transform 120ms;
+}
+
+:host([group].mdw-open) .main::slotted(.mdw-group-arrow) {
+  transform: rotate(180deg);
+}

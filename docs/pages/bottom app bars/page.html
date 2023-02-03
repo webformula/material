@@ -1,0 +1,237 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Bottom app bar</div>
+    <div class="mdw-supporting-text">A bottom app bar displays navigation and key actions at the bottom of mobile screens.</div>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/bottom-app-bar/overview" target="_new">Material Design Guidelines:
+  Bottom app bar</a>
+<p>There's one type of bottom app bar in Material. This component provides access to up to four icon buttons as well as a
+floating action button (FAB).</p>
+
+<div class="links">
+  <a href="#basic">Basic</a>
+  <a href="#auto-hide">Auto hide</a>
+  <a href="#secondary-bar">Secondary bar by id</a>
+  <a href="#secondary-bar-hash">Secondary bar by URL hash</a>
+  <a href="#mobile-only">Mobile-only</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="basic">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Basic</div>
+      
+      <div class="example">
+        <iframe src="./pages/bottom app bars/basic-index.html" style="height: 260px; width: 100%"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-bottom-app-bar>
+    <mdw-menu>
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon class="mdw-bold">more_vert</mdw-icon>
+      </mdw-button>
+      <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        <li>Four</li>
+        <li>Five</li>
+      </ul>
+    </mdw-menu>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon>search</mdw-icon>
+    </mdw-button>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon class="mdw-outlined">delete</mdw-icon>
+    </mdw-button>
+    
+    <mdw-fab>
+      <mdw-icon>add</mdw-icon>
+    </mdw-fab>
+  </mdw-bottom-app-bar>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="auto-hide">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Auto hide</div>
+      
+      <div class="example">
+        <iframe src="./pages/bottom app bars/auto-hide-index.html" style="height: 260px; width: 100%;"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-bottom-app-bar class="mdw-auto-hide">
+    <mdw-navigation-button></mdw-navigation-button>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon>search</mdw-icon>
+    </mdw-button>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon class="mdw-outlined">delete</mdw-icon>
+    </mdw-button>
+    
+    <mdw-fab>
+      <mdw-icon>add</mdw-icon>
+    </mdw-fab>
+  </mdw-bottom-app-bar>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+
+  <mdw-card id="secondary-bar">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Secondary bar using id (multiple bars)</div>
+      
+      <div class="example">
+        <iframe src="./pages/bottom app bars/secondary-bar-index.html"
+          style="height: 260px; width: 100%"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-bottom-app-bar>
+    <mdw-bottom-app-bar-primary>
+      <mdw-navigation-button></mdw-navigation-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>search</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon class="mdw-outlined">delete</mdw-icon>
+      </mdw-button>
+    </mdw-bottom-app-bar-primary>
+  
+    <mdw-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>add</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>edit</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon class="mdw-outlined">delete</mdw-icon>
+      </mdw-button>
+    </mdw-bottom-app-bar-secondary>
+  
+    <mdw-fab>
+      <mdw-icon>add</mdw-icon>
+    </mdw-fab>
+  </mdw-bottom-app-bar>`)}
+      </code>
+    </pre>
+    
+    <pre>
+      <code class="language-javascript">
+  ${`document.querySelector('mdw-bottom-app-bar').showAlt('bottom-ap-bar-secondary-one');
+  
+  // calling showSecondary with no id will revert back to primary
+  document.querySelector('mdw-bottom-app-bar').showPrimary();
+  document.querySelector('mdw-bottom-app-bar').showAlt();`}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="secondary-bar-hash">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Secondary bar using URL hashes</div>
+      <div class="mdw-body-small" style="margin-left: 16px;">Changing the hash to any non matching secondary hash will revert
+        back to primary</div>
+      
+      <div class="example">
+        <iframe src="./pages/bottom app bars/secondary-bar-hash-index.html"
+          style="height: 260px; width: 100%"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-bottom-app-bar>
+    <mdw-bottom-app-bar-primary>
+      <mdw-navigation-button></mdw-navigation-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>search</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon class="mdw-outlined">delete</mdw-icon>
+      </mdw-button>
+    </mdw-bottom-app-bar-primary>
+  
+    <mdw-bottom-app-bar-secondary mdw-hash="#one">
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>add</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon>edit</mdw-icon>
+      </mdw-button>
+  
+      <mdw-button class="mdw-icon-button">
+        <mdw-icon class="mdw-outlined">delete</mdw-icon>
+      </mdw-button>
+    </mdw-bottom-app-bar-secondary>
+  </mdw-bottom-app-bar>`)}
+      </code>
+    </pre>
+    
+    <pre>
+      <code class="language-javascript">
+  ${`// Changing the location hash will change bar
+  location.hash = '#one';`}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+
+  <mdw-card id="mobile-only">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Mobile only</div>
+      
+      <div class="example" style="height: 260px">
+        <iframe src="./pages/bottom app bars/mobile-only-index.html" style="height: 260px; width: 100%;"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-bottom-app-bar class="mdw-mobile-only">
+    <mdw-navigation-button></mdw-navigation-button>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon>search</mdw-icon>
+    </mdw-button>
+    
+    <mdw-button class="mdw-icon-button">
+      <mdw-icon class="mdw-outlined">delete</mdw-icon>
+    </mdw-button>
+  </mdw-bottom-app-bar>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>
+  

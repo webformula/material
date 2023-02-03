@@ -1,0 +1,108 @@
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  margin-right: 16px;
+  overflow: hidden;
+
+  background-color: var(--mdw-primary-container);
+
+  font-size: var(--mdw-font-size-small-body);
+  font-weight: var(--mdw-font-weight-small-body);
+  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+
+  color: var(--mdw-on-primary-container);
+}
+
+:host([onclick]) {
+  cursor: pointer;
+}
+
+:host(.mdw-tertiary) {
+  background-color: var(--mdw-tertiary-container);
+  color: var(--mdw-on-tertiary-container);
+}
+
+
+:host::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background-color: var(--mdw-primary-inverse);
+  opacity: 0;
+  transition: opacity 180ms;
+}
+
+:host(.mdw-checkbox)::after {
+  cursor: pointer;
+}
+
+:host(.mdw-checked)::after {
+  opacity: 1;
+}
+
+:host > svg {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+}
+
+:host > svg > path {
+  stroke-dashoffset: 22.910259;
+  stroke-dasharray: 22.910259;
+  /* stroke-width: 2px; */
+
+  animation: mdw-avatar-uncheck 90ms;
+}
+
+:host(.mdw-checked) > svg {
+  z-index: 1;
+  opacity: 1;
+}
+
+:host(.mdw-checked) > svg > path {
+  stroke-dashoffset: 0;
+  animation: mdw-avatar-check 180ms;
+}
+
+
+@keyframes mdw-avatar-check {
+
+  0%,
+  50% {
+    stroke-dashoffset: 22.910259;
+  }
+
+  50% {
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1);
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mdw-avatar-uncheck {
+  from {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    stroke-dashoffset: 0
+  }
+
+  to {
+    stroke-dashoffset: -22.910259
+  }
+}
+
+/* TODO work out how to fill with any aspect ratio */
+:host ::slotted(img) {
+  width: 100%;
+}

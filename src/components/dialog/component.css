@@ -1,0 +1,59 @@
+mdw-dialog {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  max-width: 560px;
+  max-height: calc(100% - 84px);
+  padding: 24px;
+  box-sizing: border-box;
+  z-index: 11;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+
+  border-radius: var(--mdw-shape-extra-large);
+  background: var(--mdw-surface);
+  box-shadow: var(--mdw-elevation-3);
+
+  opacity: 0;
+  transform: translate(-50%, calc(-50% - 120px));
+
+  transition: opacity 120ms, transform 280ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+
+  overflow: auto;
+}
+
+mdw-dialog[open] {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+
+  transition: opacity 120ms, transform 280ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-dialog > .mdw-content {
+  flex: 1;
+  font-size: var(--mdw-font-size-medium-body);
+  font-weight: var(--mdw-font-weight-medium-body);
+  line-height: var(--mdw-font-line-height-medium-body);
+  letter-spacing: var(--mdw-font-letter-spacing-medium-body);
+  color: var(--mdw-on-surface-variant);
+}
+
+mdw-dialog > .mdw-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 24px;
+}
+
+mdw-dialog > .mdw-header {
+  margin-bottom: 16px;
+  font-size: var(--mdw-font-size-small-headline);
+  font-weight: var(--mdw-font-weight-small-headline);
+  line-height: var(--mdw-font-line-height-small-headline);
+  letter-spacing: var(--mdw-font-letter-spacing-small-headline);
+  color: var(--mdw-on-surface);
+}

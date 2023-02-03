@@ -1,0 +1,291 @@
+/*
+  To make calculating position easier we do not set display: none;
+  instead we set translateY(10000px) to push the panel off screen
+
+  The alternative would be to calculate the height using computed css (only works when css height set)
+  or to programmatically set display be fore calculating position
+*/
+
+mdw-panel,
+.mdw-panel {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  z-index: 11;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  
+
+  opacity: 0;
+  /* transform: translate(-50%, calc(-50% - 120px)); */
+  /* kick off screen so pointer events to hit */
+  transform: translateY(10000px);
+
+  animation: mdw-panel-hide 280ms;
+  animation-timing-function: var(--mdw-transition-expand-out);
+}
+
+/* mdw-panel:not([open]),
+.mdw-panel:not([open]) {
+  max-height: 56px;
+} */
+
+mdw-panel.mdw-animating::-webkit-scrollbar,
+.mdw-panel.mdw-animating::-webkit-scrollbar {
+  display: none;
+}
+
+mdw-panel.mdw-target,
+.mdw-panel.mdw-target {
+  /* transform: translateY(-120px); */
+  animation: mdw-panel-hide-target 280ms;
+}
+
+
+mdw-panel[open],
+.mdw-panel[open] {
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+
+  animation: mdw-panel-show 280ms;
+  animation-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-panel[open].mdw-target,
+.mdw-panel[open].mdw-target {
+  transform: translateY(0);
+  animation: mdw-panel-show-target 280ms;
+}
+
+mdw-panel.mdw-animation-scale,
+mdw-panel.mdw-animation-scale.mdw-target,
+.mdw-panel.mdw-animation-scale,
+.mdw-panel.mdw-animation-scale.mdw-target {
+  animation: mdw-panel-hide-scale 180ms;
+}
+
+mdw-panel[open].mdw-animation-scale,
+mdw-panel[open].mdw-animation-scale.mdw-target,
+.mdw-panel[open].mdw-animation-scale,
+.mdw-panel[open].mdw-animation-scale.mdw-target {
+  animation: mdw-panel-show-scale 180ms;
+}
+
+/** have to use transition for max-height because it can be set from more than one place
+ *  To use max-height in animation we would need to exact number
+ */
+mdw-panel:not([open]).mdw-animation-expand,
+mdw-panel:not([open]).mdw-animation-expand.mdw-target,
+.mdw-panel:not([open]).mdw-animation-expand,
+.mdw-panel:not([open]).mdw-animation-expand.mdw-target {
+  max-height: 12px;
+  transition: max-height 100ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+  animation: mdw-panel-hide-expand 180ms;
+}
+
+mdw-panel[open].mdw-animation-expand,
+mdw-panel[open].mdw-animation-expand.mdw-target,
+.mdw-panel[open].mdw-animation-expand,
+.mdw-panel[open].mdw-animation-expand.mdw-target {
+  animation: mdw-panel-show-expand 180ms;
+}
+
+mdw-panel:not([open]).mdw-animation-transitionYReverse,
+mdw-panel:not([open]).mdw-animation-transitionYReverse.mdw-target,
+.mdw-panel:not([open]).mdw-animation-transitionYReverse,
+.mdw-panel:not([open]).mdw-animation-transitionYReverse.mdw-target {
+  animation: mdw-panel-hide-transitionYReverse 180ms;
+}
+
+mdw-panel[open].mdw-animation-transitionYReverse,
+mdw-panel[open].mdw-animation-transitionYReverse.mdw-target,
+.mdw-panel[open].mdw-animation-transitionYReverse,
+.mdw-panel[open].mdw-animation-transitionYReverse.mdw-target {
+  animation: mdw-panel-show-transitionYReverse 180ms;
+}
+
+
+mdw-panel:not([open]).mdw-animation-opacity,
+mdw-panel:not([open]).mdw-animation-opacity.mdw-target,
+.mdw-panel:not([open]).mdw-animation-opacity,
+.mdw-panel:not([open]).mdw-animation-opacity.mdw-target {
+  transition-timing-function: linear;
+  animation: mdw-panel-hide-opacity 80ms;
+}
+
+mdw-panel[open].mdw-animation-opacity,
+mdw-panel[open].mdw-animation-opacity.mdw-target,
+.mdw-panel[open].mdw-animation-opacity,
+.mdw-panel[open].mdw-animation-opacity.mdw-target {
+  transition-timing-function: linear;
+  animation: mdw-panel-show-opacity 80ms;
+}
+
+mdw-panel.mdw-no-animation,
+mdw-panel.mdw-no-animation.mdw-target,
+.mdw-panel.mdw-no-animation,
+.mdw-panel.mdw-no-animation.mdw-target {
+  animation: none;
+  transition: none;
+}
+
+
+
+@keyframes mdw-panel-show {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 120px));
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes mdw-panel-hide {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, calc(-50% - 120px));
+  }
+}
+
+@keyframes mdw-panel-show-target {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mdw-panel-hide-target {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-120px);
+  }
+}
+
+@keyframes mdw-panel-show-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9)
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1)
+  }
+}
+
+@keyframes mdw-panel-hide-scale {
+  0% {
+    opacity: 1;
+    transform: scale(1)
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.9)
+  }
+}
+
+@keyframes mdw-panel-show-expand {
+  0% {
+    opacity: 0;
+    max-height: 12px;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-panel-hide-expand {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mdw-panel-show-transitionYReverse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 120px));
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes mdw-panel-hide-transitionYReverse {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, calc(-50% + 120px));
+  }
+}
+
+@keyframes mdw-panel-show-opacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-panel-hide-opacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

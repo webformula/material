@@ -1,0 +1,109 @@
+mdw-anchor [slot="rail"] {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 56px;
+  line-height: 20px;
+  left: 0;
+  right: 0;
+
+  font-size: var(--mdw-font-size-medium-label);
+  font-weight: var(--mdw-font-weight-medium-label);
+  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  border-radius: var(--mdw-shape-extra-medium);
+}
+
+mdw-anchor [slot="rail"].mdw-small-font {
+  font-size: var(--mdw-font-size-small-label);
+  font-weight: var(--mdw-font-weight-small-label);
+  letter-spacing: var(--mdw-font-letter-spacing-small-label);
+}
+
+
+mdw-anchor.mdw-has-rail [slot="rail"] {
+  animation: mdw-anchor-rail-hide 180ms;
+}
+
+mdw-anchor.mdw-has-rail:not(.mdw-has-icon) [slot="rail"] {
+  animation: mdw-anchor-rail-hide-no-icon 180ms;
+}
+
+mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail"] {
+  display: none;
+  animation: mdw-anchor-rail-show 180ms;
+}
+
+mdw-anchor [slot="rail"] mdw-icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* width: 64px; */
+  height: 32px;
+  line-height: 32px;
+  font-size: var(--mdw-font-size-icon-small);
+}
+
+
+mdw-anchor.mdw-has-rail > mdw-icon {
+  transition: margin-top 180ms;
+}
+
+mdw-navigation.mdw-rail.mdw-state-rail mdw-anchor.mdw-has-rail:not(.mdw-rail-has-text) > mdw-icon {
+  margin-top: -24px !important;
+}
+
+mdw-navigation.mdw-rail.mdw-state-rail mdw-anchor.mdw-has-rail.mdw-has-rail-icon:not(.mdw-has-rail-text) [slot="rail"] > mdw-icon {
+  margin: auto 0;
+}
+
+
+@keyframes mdw-anchor-rail-show {
+  0% {
+    display: inherit;
+    opacity: 1;
+  }
+
+  50% {
+    display: none;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes mdw-anchor-rail-hide {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  70% {
+    display: none;
+    opacity: 0;
+  }
+
+  100% {
+    display: inherit;
+    opacity: 1;
+  }
+}
+
+@keyframes mdw-anchor-rail-hide-no-icon {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  30% {
+    display: none;
+    opacity: 0;
+  }
+
+  100% {
+    display: inherit;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,74 @@
+:host {
+  display: inline-flex;
+  box-sizing: border-box;
+  height: 56px;
+  margin-bottom: 36px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+:host ::slotted(mdw-progress-linear) {
+  display: none;
+  position: absolute;
+  top: 0;
+}
+
+:host(.mdw-filter-async-active) ::slotted(mdw-progress-linear) {
+  display: block;
+}
+
+:host ::slotted(.mdw-no-items) {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  user-select: none;
+  pointer-events: none;
+  outline: none;
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  line-height: var(--mdw-font-line-height-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  color: var(--mdw-on-surface);
+}
+
+:host ::slotted(mdw-option + .mdw-no-items) {
+  display: none;
+}
+
+mdw-textfield .mdw-select-arrow {
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid var(--mdw-on-secondary-container--60);
+  transform-origin: center;
+  transform: rotate(0);
+  transition: transform 280ms;
+  z-index: 1;
+  pointer-events: none;
+}
+
+mdw-textfield .mdw-select-arrow.mdw-open {
+  transform: rotate(180deg);
+}
+
+
+mdw-textfield.mdw-select-no-filter input {
+  cursor: pointer;
+}
+
+mdw-panel.mdw-option-group {
+  min-width: 112px;
+  max-width: 280px;
+  /* TODO look into if this should not have have height outside of panel default (100% - padding) */
+  max-height: 320px;
+  padding: 8px 0;
+  overflow-y: auto;
+  border-radius: var(--mdw-shape-extra-small);
+  background-color: var(--mdw-surface);
+  box-shadow: var(--mdw-elevation-1);
+  box-sizing: border-box;
+}

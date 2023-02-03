@@ -1,0 +1,84 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Icons</div>
+    <div class="mdw-supporting-text">Google material font icons</div>
+  </div>
+  <div class="mdw-card-content">
+    <mdw-icon class="mdw-small">favorite</mdw-icon>
+    <mdw-icon>favorite</mdw-icon>
+    <mdw-icon class="mdw-large">favorite</mdw-icon>
+    <mdw-icon class="mdw-extra-large">favorite</mdw-icon>
+    <mdw-icon class="mdw-outlined">favorite</mdw-icon>
+    <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>
+  </div>
+</mdw-card>
+
+<a href="https://fonts.google.com/icons" target="_new">Material Design Guidelines: Icons</a>
+<p>Icons use material designs font library <a href="https://fonts.google.com/icons">https://fonts.google.com/icons</a></p>
+
+<div class="links">
+  <a href="#standard">Standard</a>
+  <a href="#sizes">Sizes</a>
+  <a href="#outlined">Outlined - Outlined bold</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="standard">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Standard</div>
+      
+      <div class="example">
+        <mdw-icon>favorite</mdw-icon>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-icon>favorite</mdw-icon>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="sizes">  
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Sized</div>
+      
+      <div class="example">
+        <mdw-icon class="mdw-small">favorite</mdw-icon>
+        <mdw-icon>favorite</mdw-icon>
+        <mdw-icon class="mdw-large">favorite</mdw-icon>
+        <mdw-icon class="mdw-extra-large">favorite</mdw-icon>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-icon class="mdw-small">favorite</mdw-icon>
+  <mdw-icon>favorite</mdw-icon>
+  <mdw-icon class="mdw-large">favorite</mdw-icon>
+  <mdw-icon class="mdw-extra-large">favorite</mdw-icon>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="outlined">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Outlined, Outlined bold</div>
+      
+      <div class="example">
+        <mdw-icon class="mdw-outlined">favorite</mdw-icon>
+        <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-icon class="mdw-outlined">favorite</mdw-icon>
+  <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

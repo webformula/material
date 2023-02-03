@@ -1,0 +1,16 @@
+mdw-tab-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 420ms;
+}
+
+mdw-tab-panel[active] {
+  opacity: 1;
+  height: unset;
+  overflow: unset;
+}

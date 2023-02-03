@@ -1,0 +1,342 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+
+  font-size: var(--mdw-font-size-large-label);
+  font-weight: var(--mdw-font-weight-large-label);
+  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+
+  padding: 0 16px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: var(--mdw-button-radius);
+
+  color: var(--mdw-primary);
+}
+
+:host ::slotted(mdw-icon) {
+  vertical-align: middle;
+  margin-top: -4px;
+  margin-right: 2px;
+  margin-left: -2px;
+  width: var(--mdw-font-size-icon-small) !important;
+  height: var(--mdw-font-size-icon-small) !important;
+  font-size: var(--mdw-font-size-icon-small) !important;
+}
+
+:host ::slotted(.mdw-icon-svg) {
+  margin-top: 7px;
+  margin-left: -2px;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+:host ::slotted(mdw-icon.mdw-trailing) {
+  margin-right: -2px;
+  margin-left: 2px;
+}
+
+:host([disabled]) {
+  pointer-events: none;
+  cursor: unset;
+  color: var(--mdw-on-surface);
+  opacity: 0.38;
+}
+
+/* state layer */
+:host::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  border-radius: var(--mdw-button-radius);
+}
+:host(:focus)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
+}
+
+
+:host(.mdw-async-pending) {
+  pointer-events: none;
+}
+:host(.mdw-async-pending) .text {
+  opacity: 0;
+}
+:host(.mdw-async) > .spinner {
+  position: absolute;
+  left: calc(50% - 18px);
+  top: 1px;
+}
+
+
+/* --- icon buttons / icon toggle --- */
+
+:host(.mdw-icon-toggle-button),
+:host(.mdw-icon-button) {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  margin: 8px;
+  border-radius: 50%;
+  justify-content: center;
+  color: var(--mdw-on-surface-variant);
+}
+
+:host(.mdw-icon-toggle-button)::after,
+:host(.mdw-icon-button)::after {
+  border-radius: 50%;
+}
+
+:host(.mdw-icon-button) ::slotted(mdw-icon),
+:host(.mdw-icon-toggle-button) ::slotted(mdw-icon) {
+  width: var(--mdw-font-size-icon-medium) !important;
+  height: var(--mdw-font-size-icon-medium) !important;
+  font-size: var(--mdw-font-size-icon-medium) !important;
+  margin: 0;
+  margin-top: -1px;
+  transition: font-variation-settings 60ms;
+}
+
+:host(:not(.mdw-icon-toggle-button):not(.mdw-icon-button)) ::slotted([value]) {
+  margin-right: 4px;
+  font-size: 20px !important;
+}
+
+:host(.mdw-icon-toggle-button) ::slotted([value="on"]),
+:host(.mdw-icon-toggle-button) ::slotted([value="off"]) {
+  opacity: 1;
+  transition: opacity 180ms !important;
+}
+
+:host(.mdw-icon-toggle-button) ::slotted([value="on"]) {
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-25% - 3px);
+}
+
+:host(.mdw-icon-toggle-button:not(.mdw-toggled)) ::slotted([value="on"]) {
+  opacity: 0;
+}
+
+:host(.mdw-icon-toggle-button.mdw-toggled) ::slotted([value="off"]) {
+  opacity: 0;
+}
+
+:host(.mdw-icon-toggle-button:not(.mdw-toggled)) ::slotted(mdw-icon:not([value])) {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48 !important
+}
+
+/* --- state layer --- */
+:host(.mdw-icon-toggle-button) {
+  color: var(--mdw-on-surface-variant);
+}
+:host(.mdw-icon-toggle-button.mdw-toggled) {
+  color: var(--mdw-primary);
+}
+:host(.mdw-icon-toggle-button)::after,
+:host(.mdw-icon-button)::after {
+  margin-left: 0;
+}
+
+:host(.mdw-icon-toggle-button.mdw-filled) {
+  color: var(--mdw-primary);
+  background-color: var(--mdw-surface-variant);
+}
+
+:host(.mdw-icon-toggle-button.mdw-filled.mdw-toggled) {
+  color: var(--mdw-on-primary);
+  background-color: var(--mdw-primary);
+}
+
+:host(.mdw-icon-toggle-button.mdw-filled-tonal) {
+  color: var(--mdw-on-surface-variant);
+  background-color: var(--mdw-surface-variant);
+}
+
+:host(.mdw-icon-toggle-button.mdw-filled-tonal.mdw-toggled) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+
+:host(.mdw-icon-toggle-button.mdw-outlined) {
+  color: var(--mdw-on-surface-variant);
+}
+
+:host(.mdw-icon-toggle-button.mdw-outlined.mdw-toggled) {
+  color: var(--mdw-on-surface-inverse);
+  background-color: var(--mdw-surface-inverse);
+}
+
+
+/* --- Types --- */
+
+:host(.mdw-filled) {
+  color: var(--mdw-on-primary);
+  background-color: var(--mdw-primary);
+}
+:host([disabled].mdw-filled) {
+  pointer-events: none;
+  cursor: unset;
+  background-color: var(--mdw-on-surface--12);
+  color: var(--mdw-on-surface--38);
+  box-shadow: none;
+}
+/* state layer */
+:host(:focus.mdw-filled)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-primary);
+}
+
+:host(.mdw-elevated) {
+  background-color: var(--mdw-surface);
+  box-shadow: var(--mdw-elevation-1);
+}
+:host([disabled].mdw-elevated) {
+  pointer-events: none;
+  cursor: unset;
+  background-color: var(--mdw-on-surface--12);
+  color: var(--mdw-on-surface--38);
+  box-shadow: none;
+}
+/* state layer */
+:host(:focus.mdw-elevated)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-primary);
+}
+
+:host(.mdw-filled-tonal) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+:host([disabled].mdw-filled-tonal) {
+  pointer-events: none;
+  cursor: unset;
+  background-color: var(--mdw-on-surface--12);
+  color: var(--mdw-on-surface--38);
+  box-shadow: none;
+}
+/* state layer */
+:host(:focus.mdw-filled-tonal)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-primary);
+}
+
+:host(.mdw-outlined) {
+  color: var(--mdw-primary);
+  background-color: var(--mdw-surface);
+  border: 1px solid var(--mdw-outline);
+}
+:host([disabled].mdw-outlined) {
+  pointer-events: none;
+  cursor: unset;
+  color: var(--mdw-on-surface--38);
+  border: 1px solid var(--mdw-on-surface--12);
+}
+/* state layer */
+:host(:focus.mdw-outlined)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-primary);
+}
+
+
+
+/* --- Ripple --- */
+
+.ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  transform: translateZ(0);
+  /* fixes bug on ios safari */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-surface--16);
+  border-radius: 50%;
+}
+
+/* TODO confirm how this should be. This is in spec, but it looks weird
+:host(:active)::after {
+  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--mdw-on-surface);
+} */
+
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  :host(:hover)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
+
+  :host(:hover.mdw-elevated)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-primary);
+  }
+
+  :host(:hover.mdw-filled) {
+    box-shadow: var(--mdw-elevation-1);
+  }
+
+  :host(:hover.mdw-filled-tonal) {
+    box-shadow: var(--mdw-elevation-1);
+  }
+
+  :host(:hover.mdw-outlined)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-primary);
+  }
+
+  :host(:hover.mdw-filled) .ripple > .mdw-ripple-element {
+    background-color: var(--mdw-on-primary--16);
+  }
+}
+
+
+/* --- mdw-menu --- */
+
+:host(.mdw-menu) {
+  border-radius: 0;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 12px;
+  color: var(--mdw-on-surface);
+}
+
+:host(.mdw-menu)::after {
+  border-radius: 0;
+  height: 48px;
+}
+
+:host(.mdw-menu) ::slotted(mdw-icon) {
+  margin-top: 0px;
+  margin-right: 8px;
+  width: var(--mdw-font-size-icon-medium) !important;
+  height: var(--mdw-font-size-icon-medium) !important;
+  font-size: var(--mdw-font-size-icon-medium) !important;
+}
+
+:host(.mdw-menu) ::slotted(mdw-icon.mdw-trailing) {
+  margin-right: -2px;
+  margin-left: 8px;
+}

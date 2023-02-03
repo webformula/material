@@ -1,0 +1,168 @@
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  outline: none;
+}
+
+:host([disabled]) {
+  pointer-events: none;
+  opacity: .38;
+}
+
+
+:host > .mdw-track-active {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 33.333%;
+  right: 33.333%;
+  height: 4px;
+  border-radius: 2px;
+
+  background-color: var(--mdw-primary);
+}
+
+:host([disabled]) > .mdw-track-active {
+  background-color: var(--mdw-on-surface);
+}
+
+:host > .mdw-track-inactive {
+  position: absolute;
+  height: 4px;
+  border-radius: 2px;
+
+  background-color: var(--mdw-surface-variant);
+}
+
+:host([disabled]) > .mdw-track-inactive {
+  background-color: var(--mdw-on-surface--50);
+}
+
+:host > .mdw-track-inactive.mdw-one {
+  left: 0;
+  width: 33.33%;
+}
+
+:host > .mdw-track-inactive.mdw-two {
+  left: 66.666%;
+  right: 0;
+}
+
+
+:host > .mdw-thumb {
+  position: absolute;
+  margin-left: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+
+  background-color: var(--mdw-primary);
+  box-shadow: var(--mdw-elevation-1);
+}
+
+:host > .mdw-thumb.mdw-one {
+  left: 33.333%;
+}
+
+:host > .mdw-thumb.mdw-two {
+  left: 66.666%;
+}
+
+:host([disabled]) > .mdw-thumb {
+  background-color: var(--mdw-on-surface);
+  box-shadow: none;
+}
+
+:host > .mdw-thumb::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--mdw-primary);
+  opacity: 0;
+}
+
+:host > .mdw-thumb:hover::before {
+  opacity: var(--mdw-state-layer-opacity-hover);
+}
+
+:host > .mdw-thumb:active::before {
+  opacity: var(--mdw-state-layer-opacity-pressed);
+}
+
+:host > .mdw-thumb:focus::before {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  outline: none;
+}
+
+
+:host > .mdw-marks {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 4px;
+  pointer-events: none;
+}
+
+:host > .mdw-marks > .mdw-mark {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+:host > .mdw-marks > .mdw-mark.mdw-active {
+  background-color: var(--mdw-on-primary--38);
+}
+
+:host > .mdw-marks > .mdw-mark.mdw-inactive {
+  background-color: var(--mdw-on-surface-variant);
+}
+
+
+:host > .mdw-thumb > .mdw-label {
+  position: absolute;
+  top: -36px;
+  left: -4px;
+  pointer-events: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 0 50%;
+  box-sizing: border-box;
+  transform-origin: center;
+  transform: rotate(45deg);
+  background-color: var(--mdw-primary);
+  opacity: 0;
+  transition: opacity 100ms;
+}
+
+:host > .mdw-thumb > .mdw-label > .mdw-label-text {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  vertical-align: center;
+  transform-origin: center;
+  transform: rotate(-45deg);
+  font-size: var(--mdw-font-size-medium-label);
+  font-weight: var(--mdw-font-weight-medium-label);
+  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  color: var(--mdw-on-primary);
+}
+
+
+:host > .mdw-thumb:hover > .mdw-label,
+:host > .mdw-thumb:focus > .mdw-label,
+:host > .mdw-thumb:active > .mdw-label {
+  opacity: 1;
+  transition: opacity 180ms;
+}
