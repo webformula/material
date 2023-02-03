@@ -23,9 +23,12 @@ export default class HTMLElementExtended extends HTMLElement {
   constructor() {
     super();
 
-    // fastest way to call render while making sure all class variables exist
-    //   Other options would be setTimeout or calling from connectedCallback. Both are slower
     if (this.#hasTemplate) {
+      /** Render as soon as possible while making sure all class variables exist
+       *    The other 2 options would be to use setTimeout or call render in connectedCallback
+       *    SetTimeout is slower
+       *    connectedCallback would force the extending class to call super.connectedCallback()
+       */
       util.nextTick(() => {
         this.#prepareRender();
         this.render();
