@@ -3,12 +3,11 @@ import util from '../core/util.js';
 const templateElements = {};
 
 export default class HTMLElementExtended extends HTMLElement {
-  // if not using shadowRoot templates and rendering still work
+  /** if not using shadowRoot templates and rendering still work */
   useShadowRoot = false;
 
   /** Use template element to clone from
-   *   If your template uses dynamic variables you do not want to use this
-   */
+   *   If your template uses dynamic variables you do not want to use this */
   useTemplate = true;
   
   #rendered = false;
@@ -26,7 +25,7 @@ export default class HTMLElementExtended extends HTMLElement {
     if (this.#hasTemplate) {
       /** Render as soon as possible while making sure all class variables exist
        *    The other 2 options would be to use setTimeout or call render in connectedCallback
-       *    SetTimeout is slower
+       *    setTimeout is slower
        *    connectedCallback would force the extending class to call super.connectedCallback()
        */
       util.nextTick(() => {
@@ -57,7 +56,7 @@ export default class HTMLElementExtended extends HTMLElement {
   // If template is set then initial rendering will happen automatically
   render() {
     if (this.#rendered) this.beforeRender();
-    if (!this.useTemplate) this.#templateElement.innerHTML = this.template();
+    if (!this.useTemplate) this.#templateElement.innerHTML = this.template(); // always re-render
     this.#root.replaceChildren(this.#templateElement.content.cloneNode(true));
     this.#rendered = true;
     this.afterRender();

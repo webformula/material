@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "file:../core",
+    "@webformula/core": "^0.1.0",
     "@webformula/pax-components": "file:./src",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",

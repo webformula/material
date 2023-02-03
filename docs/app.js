@@ -45,6 +45,7 @@ import timePickers from './pages/time pickers/page.js';
 import textFields from './pages/text fields/page.js';
 import topAppBars from './pages/top app bars/page.js';
 import tooltips from './pages/tooltips/page.js';
+import notFound from './pages/not found/page.js';
 
 
 
@@ -78,6 +79,8 @@ registerPage(timePickers, '/time-pickers');
 registerPage(textFields, '/text-fields');
 registerPage(topAppBars, '/top-app-bars');
 registerPage(tooltips, '/tooltips');
+
+registerPage(notFound, '/not-found', true);
 
 
 
