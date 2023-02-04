@@ -2,6 +2,8 @@
 // https://material.io/blog/device-metrics
 // https://henan-guanjie.gitee.io/ui-design/tools/devices/index.html
 
+// TODO REWORK TO MATCH WITH SPEC BETTER INCLUDING ORIENTATION
+
 const mdwDevice = new class MDWDevice {
   #platform = (
     navigator?.userAgentData?.platform
@@ -13,7 +15,6 @@ const mdwDevice = new class MDWDevice {
   #androidRegex = /android/;
   #smallViewportMinWidth = 600;
   #smallViewportMaxWidth = 1239;
-  // #fullscreenCutoff = 600;
 
   constructor() {
     window.addEventListener('resize', () => {

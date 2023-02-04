@@ -6,7 +6,6 @@ export default class Drag {
   #element;
   #includeMouseEvents = false;
   #isDragging = false;
-  #initiated = false;
   #touchstart_bound = this.#touchstart.bind(this);
   #touchend_bound = this.#touchend.bind(this);
   #touchmove_throttled = util.rafThrottle(this.#touchmove.bind(this));
@@ -24,6 +23,9 @@ export default class Drag {
   #lockScrollY = false;
   #lockScrollThreshold = 12;
   #desktopOnly = false;
+  #enabled;
+  #abort;
+  #touchAbort;
   
   constructor(element) {
     if (element) this.#element = element;
@@ -73,11 +75,21 @@ export default class Drag {
   
 
   enable() {
-    if (this.#initiated === false) this.#initiate();
+    if (this.#enabled) return;
+    this.#enabled = true;
+    this.#abort = new AbortController();
+
+    if (this.#desktopOnly && !device.isMobile) {
+      this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
+    } else {
+      this.#element.addEventListener('touchstart', this.#touchstart_bound, { signal: this.#abort.signal });
+      if (this.#includeMouseEvents === true) this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
+    }
   }
 
   disable() {
-    this.element.removeEventListener('touchstart', this.#touchstart_bound, false);
+    if (this.#abort) this.#abort.abort();
+    if (this.#touchAbort) this.#touchAbort.abort();
   }
 
   destroy() {
@@ -110,15 +122,6 @@ export default class Drag {
     this.#ignoreElements = [];
   }
 
-  #initiate() {
-    if (this.#desktopOnly && !device.isMobile) {
-      this.#element.addEventListener('mousedown', this.#touchstart_bound, false);
-    } else {
-      this.#element.addEventListener('touchstart', this.#touchstart_bound, false);
-      if (this.#includeMouseEvents === true) this.#element.addEventListener('mousedown', this.#touchstart_bound, false);
-    }
-  }
-
   #touchstart(event) {
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
     this.#startTime = Date.now();
@@ -129,30 +132,23 @@ export default class Drag {
       event,
       element: this.#element
     }));
+    this.#touchAbort = new AbortController();
 
     if (!this.#desktopOnly) {
-      this.#element.addEventListener('touchend', this.#touchend_bound, false);
-      this.#element.addEventListener('touchmove', this.#touchmove_throttled, false);
+      this.#element.addEventListener('touchend', this.#touchend_bound, { signal: this.#touchAbort.signal });
+      this.#element.addEventListener('touchmove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
     }
 
     if (this.#includeMouseEvents || this.#desktopOnly) {
-      window.addEventListener('mouseup', this.#touchend_bound, false);
-      window.addEventListener('mousemove', this.#touchmove_throttled, false);
+      window.addEventListener('mouseup', this.#touchend_bound, { signal: this.#touchAbort.signal });
+      window.addEventListener('mousemove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
     }
 
     this.#isDragging = true;
   }
 
   #touchend(event) {
-    if (!this.#desktopOnly) {
-      this.#element.removeEventListener('touchend', this.#touchend_bound, false);
-      this.#element.removeEventListener('touchmove', this.#touchmove_throttled, false);
-    }
-
-    if (this.#includeMouseEvents || this.#desktopOnly) {
-      window.removeEventListener('mouseup', this.#touchend_bound, false);
-      window.removeEventListener('mousemove', this.#touchmove_throttled, false);
-    }
+    this.#touchAbort.abort();
 
     const distance = this.#getDistance(event);
     if (this.#lockScrollY) util.unlockPageScroll();

@@ -325,7 +325,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
   }
 
   #onShow() {
-    this.openAbort = new AbortController();
+    this.#openAbort = new AbortController();
     this.#setInitialTime();
 
     const parts = this.#convert24ToMeridiemParts(this.#displayValue);
