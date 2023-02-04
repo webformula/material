@@ -29,7 +29,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     if (this.querySelector('mdw-bottom-app-bar-secondary[mdw-hash]')) {
       [...this.querySelectorAll('mdw-bottom-app-bar-secondary')].forEach(element => {
         const id = element.getAttribute('id');
-        element.setAttribute('id', id || `bottom-app-bar-secondary-${util.getUID()}`);
+        element.setAttribute('id', id || `bottom-app-bar-secondary-${util.uid()}`);
       })
       window.addEventListener('hashchange', this.#hashchange_bound);
       this.#hashchange();

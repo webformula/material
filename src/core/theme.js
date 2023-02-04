@@ -5,7 +5,7 @@ export function generate() {
   polyfillColorSchemePreference();
 
 
-  // Get all css variabled
+  // Get all css variables
   const computedStyles = getComputedStyle(document.body);
   const variables = [...document.styleSheets]
     .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
@@ -24,12 +24,8 @@ export function generate() {
   // create alpha versions of colors
   const colorRegex = /^\s?#/;
   const colors = variables.filter(({ value }) => value.match(colorRegex) !== null);
-
-
   colors.forEach(({ name, value }) => {
     document.documentElement.style.setProperty(`${name}--0`, `${value}00`);
-    // document.documentElement.style.setProperty(`${name}--2`, `${value}05`);
-    // document.documentElement.style.setProperty(`${name}--3`, `${value}08`);
     document.documentElement.style.setProperty(`${name}--4`, `${value}0a`);
     document.documentElement.style.setProperty(`${name}--5`, `${value}0d`);
     document.documentElement.style.setProperty(`${name}--6`, `${value}0f`);
@@ -41,25 +37,8 @@ export function generate() {
     document.documentElement.style.setProperty(`${name}--20`, `${value}33`);
     document.documentElement.style.setProperty(`${name}--26`, `${value}42`);
     document.documentElement.style.setProperty(`${name}--38`, `${value}61`);
-    // document.documentElement.style.setProperty(`${name}--50`, `${value}80`);
-    // document.documentElement.style.setProperty(`${name}--54`, `${value}8a`);
     document.documentElement.style.setProperty(`${name}--60`, `${value}99`);
-    // document.documentElement.style.setProperty(`${name}--70`, `${value}b3`);
     document.documentElement.style.setProperty(`${name}--76`, `${value}c2`);
-    // document.documentElement.style.setProperty(`${name}--80`, `${value}cc`);
-    // document.documentElement.style.setProperty(`${name}--87`, `${value}de`);
-    // document.documentElement.style.setProperty(`${name}--90`, `${value}e6`);
-
-    // // ::backdrop does not inherit from root, so me need to set variable directly for use
-    // if (name === '--mdw-scrim') {
-    //   const styleSheet = document.createElement('style');
-    //   styleSheet.innerText = `
-    //     ::backdrop {
-    //       background: ${value}29;
-    //     }
-    //   `;
-    //   document.head.appendChild(styleSheet);
-    // }
   });
 
 
@@ -78,7 +57,7 @@ export function generate() {
 
 
 
-
+// TODO update when browser compatibility is better
 // currently prefer-color-scheme does not respect color-scheme so we are poly-filling it
 // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 //   Respects color-scheme inherited from parent

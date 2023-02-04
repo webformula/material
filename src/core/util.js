@@ -1,21 +1,21 @@
-const node = document.createTextNode('');
-let queue = [];
-let observing = false;
-
-const observeCallback = () => {
-  while (queue.length) {
-    queue.pop()();
+/// used for nextTick poly
+const nextTickNode = document.createTextNode('');
+let nextTickQueue = [];
+let nextTickObserving = false;
+const nextTickObserveCallback = () => {
+  while (nextTickQueue.length) {
+    nextTickQueue.pop()();
   }
-  observe.disconnect();
-  observing = false;
+  nextTickObserve.disconnect();
+  nextTickObserving = false;
 };
-const observe = new MutationObserver(observeCallback);
+const nextTickObserve = new MutationObserver(nextTickObserveCallback);
 
 
 
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
-  #nodeData = 0;
+  #nextTickNodeData = 0;
   #textLengthDiv = document.createElement('div');
   #scrollTarget;
   #lastScrollTop;
@@ -47,21 +47,19 @@ const mdwUtil = new class MDWUtil {
 
   async animationendAsync(element) {
     return new Promise(resolve => {
-      function onAnimationend() {
+      element.addEventListener('animationend', function onAnimationend() {
         element.removeEventListener('animationend', onAnimationend);
         resolve();
-      }
-      element.addEventListener('animationend', onAnimationend);
+      });
     });
   }
 
   async transitionendAsync(element) {
     return new Promise(resolve => {
-      function onTransitionend() {
+      element.addEventListener('transitionend', function onTransitionend() {
         element.removeEventListener('transitionend', onTransitionend);
         resolve();
-      }
-      element.addEventListener('transitionend', onTransitionend);
+      });
     });
   }
   
@@ -104,15 +102,15 @@ const mdwUtil = new class MDWUtil {
     return this.#textLengthDiv.offsetWidth;
   }
 
+
   /** use observer to mimic process.nextTick behavior
-   *    This triggers faster than using setTimeout and is more predictable
-   */
+   *    This triggers faster than using setTimeout and is more predictable */
   nextTick(callback) {
-    queue.push(callback);
-    if (observing === false) {
-      observe.observe(node, { characterData: true });
-      observing = true;
-      node.data = this.#nodeData++;
+    nextTickQueue.push(callback);
+    if (nextTickObserving === false) {
+      nextTickObserve.observe(nextTickNode, { characterData: true });
+      nextTickObserving = true;
+      nextTickNode.data = this.#nextTickNodeData++;
     }
   }
 
@@ -163,18 +161,6 @@ const mdwUtil = new class MDWUtil {
         });
       }
     };
-  }
-
-  getTextLengthFromInput(inputElement) {
-    if (!inputElement || inputElement.nodeName !== 'INPUT') throw Error('requires input element');
-
-    const styles = window.getComputedStyle(inputElement);
-    this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');
-    this.#textLengthDiv.style.fontWeight = styles.getPropertyValue('font-weight');
-    this.#textLengthDiv.style.linHeight = styles.getPropertyValue('line-height');
-    this.#textLengthDiv.style.letterSpacing = styles.getPropertyValue('letter-spacing');
-    this.#textLengthDiv.innerText = inputElement.value;
-    return this.#textLengthDiv.offsetWidth;
   }
 
   trackPageScroll(callback = () => { }) {
@@ -261,32 +247,6 @@ const mdwUtil = new class MDWUtil {
     bodyElement.style.top = '';
     bodyElement.style.bottom = '';
     bodyElement.style.height = '';
-  }
-
-  async waitForElement(selector, timeout = 200) {
-    const element = document.querySelector(selector);
-    if (element) return element;
-
-    return new Promise((resolve, reject) => {
-      let timer;
-      const observer = new MutationObserver((_mutationRecords, observer) => {
-        const element = document.querySelector(selector);
-        if (element) {
-          observer.disconnect();
-          clearTimeout(timer);
-          resolve(element);
-        }
-      });
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true
-      });
-
-      timer = setTimeout(() => {
-        observer.disconnect();
-        reject();
-      }, timeout);
-    });
   }
 
   #clickTimeoutReferences = [];

@@ -259,7 +259,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     const value = !match || match[0] === match[1] ? '' : match[1];
 
     this.querySelector('.mdw-autocomplete').innerText = value;
-    const offset = util.getTextLengthFromInput(this.#input);
+    const offset = util.getTextWidthFromInput(this.#input);
     this.querySelector('.mdw-autocomplete').style.left = `${offset + 16}px`;
   }
 }
