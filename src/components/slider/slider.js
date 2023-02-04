@@ -57,8 +57,6 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   connectedCallback() {
     this.tabIndex = 0;
     this.setAttribute('role', 'slider');
-
-    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
@@ -67,6 +65,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
 
   afterRender() {
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.#activeTrack = this.shadowRoot.querySelector('.track-active');
     this.#inactiveTrack = this.shadowRoot.querySelector('.track-inactive');
     this.#thumb = this.shadowRoot.querySelector('.thumb');

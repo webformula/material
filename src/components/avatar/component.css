@@ -10,11 +10,9 @@
   overflow: hidden;
 
   background-color: var(--mdw-primary-container);
-
   font-size: var(--mdw-font-size-small-body);
   font-weight: var(--mdw-font-weight-small-body);
   letter-spacing: var(--mdw-font-letter-spacing-small-body);
-
   color: var(--mdw-on-primary-container);
 }
 
@@ -26,7 +24,6 @@
   background-color: var(--mdw-tertiary-container);
   color: var(--mdw-on-tertiary-container);
 }
-
 
 :host::after {
   position: absolute;
@@ -59,8 +56,6 @@
 :host > svg > path {
   stroke-dashoffset: 22.910259;
   stroke-dasharray: 22.910259;
-  /* stroke-width: 2px; */
-
   animation: mdw-avatar-uncheck 90ms;
 }
 
@@ -76,7 +71,6 @@
 
 
 @keyframes mdw-avatar-check {
-
   0%,
   50% {
     stroke-dashoffset: 22.910259;

@@ -16,12 +16,12 @@ customElements.define('mdw-chip-group', class MDWChipGroupElement extends HTMLEl
   }
 
   connectedCallback() {
-    this.#drag = new Drag(this);
-    this.#drag.desktopOnly = true;
-    // this.#drag.horizontalOnly = true;
-    // this.#drag.lockScrollY = true;
-    this.#drag.onDrag(this.#onDrag_bound);
-    this.#drag.enable();
+    if (!this.#drag) {
+      this.#drag = new Drag(this);
+      this.#drag.desktopOnly = true;
+      this.#drag.onDrag(this.#onDrag_bound);
+      this.#drag.enable();
+    }
   }
 
   disconnectedCallback() {

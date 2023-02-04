@@ -10,7 +10,7 @@ import { checkMinMax, monthDaysTemplate } from './helper.js';
 
 // TODO tooltips
 // TODO keyboard
-
+// TODO input
 
 customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopElement extends MDWPanelElement {
   useTemplate = false;

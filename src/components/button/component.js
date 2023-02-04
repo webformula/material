@@ -23,8 +23,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
   constructor() {
     super();
     this.#handleTrailingIcon();
-
-    if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu')
+    if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu');
   }
 
   connectedCallback() {
@@ -34,14 +33,13 @@ export default class MDWButtonElement extends HTMLElementExtended {
       const text = util.getTextFromNode(this);
       if (text) this.setAttribute('aria-label', text);
     }
-    this.addEventListener('mouseup', this.#mouseUp_bound);
-
-    if (this.classList.contains('mdw-icon-toggle-button')) {
-      this.addEventListener('click', this.#handleToggle_bound);
-    }
   }
 
   afterRender() {
+    this.addEventListener('mouseup', this.#mouseUp_bound);
+    if (this.classList.contains('mdw-icon-toggle-button')) {
+      this.addEventListener('click', this.#handleToggle_bound);
+    }
     if (this.useRipple) {
       this.#ripple = new Ripple({
         element: this.shadowRoot.querySelector('.ripple'),
@@ -54,7 +52,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
   disconnectedCallback() {
     if (this.#ripple)  this.#ripple.destroy();
     this.removeEventListener('mouseup', this.#mouseUp_bound);
-
     if (this.classList.contains('mdw-icon-toggle-button')) {
       this.removeEventListener('click', this.#handleToggle_bound);
     }
@@ -135,7 +132,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.blur();
   }
 
-  // auto add class .mdw-trailing to icon so t will space correctly
+  // auto add class .mdw-trailing to icon so it will space correctly
   #handleTrailingIcon() {
     const icon = this.querySelector('mdw-icon');
     if (!icon) return;

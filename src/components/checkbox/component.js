@@ -21,8 +21,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   connectedCallback() {
     this.setAttribute('role', 'checkbox');
-    this.addEventListener('click', this.#click_bound);
-    this.setAttribute('aria-label', util.getTextFromNode(this));
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this));
   }
 
   disconnectedCallback() {
@@ -31,6 +30,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
 
   afterRender() {
+    this.addEventListener('click', this.#click_bound);
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this,

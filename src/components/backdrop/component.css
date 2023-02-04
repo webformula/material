@@ -1,7 +1,6 @@
 mdw-backdrop {
   position: fixed;
   z-index: 11;
-
   opacity: 0;
   transition: opacity 240ms;
 }

@@ -31,14 +31,10 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
     this.#initialValue = this.value;
   }
 
-  connectedCallback() {
+  afterRender() {
     this.#control.querySelector('input').addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
-
     // on mobile to prevent the default browser control we disable click events on the input, so no focus
     if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
-  }
-
-  afterRender() {
     this.firstChild.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
     this.firstChild.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }

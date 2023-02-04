@@ -41,16 +41,13 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
     this.#initialValueEnd = this.valueEnd;
   }
 
-  connectedCallback() {
+  afterRender() {
     this.#inputStart.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     this.#inputEnd.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
     if (device.isMobile) {
       this.#controlStart.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
       this.#controlEnd.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
     }
-  }
-
-  afterRender() {
     this.firstChild.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
     this.firstChild.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }

@@ -21,11 +21,10 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
   connectedCallback() {
     this.tabIndex = 0;
     this.setAttribute('role', 'button');
-
-    if (this.#autoHideLabel) util.trackPageScroll(this.#scrollHandler_bound);
   }
 
   afterRender() {
+    if (this.#autoHideLabel) util.trackPageScroll(this.#scrollHandler_bound);
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this,

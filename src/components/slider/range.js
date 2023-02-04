@@ -65,11 +65,10 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
   connectedCallback() {
     this.setAttribute('role', 'slider');
-
-    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.#activeTrack = this.shadowRoot.querySelector('.mdw-track-active');
     this.#inactiveTrack = this.shadowRoot.querySelector('.mdw-track-inactive.mdw-one');
     this.#inactiveTrack2 = this.shadowRoot.querySelector('.mdw-track-inactive.mdw-two');

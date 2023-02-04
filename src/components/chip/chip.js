@@ -37,16 +37,17 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     this.#group = this.parentElement;
     this.#hasMenu = this.querySelector('mdw-menu');
     this.#menuValue = this.getAttribute('menu');
+    this.#type = this.#getType();
+  }
+
+  afterRender() {
     if (this.#hasMenu) {
       this.insertAdjacentHTML('beforeend', '<div class="mdw-select-arrow"></div>');
       this.querySelector('mdw-menu').addEventListener('open', this.#menuOpen_bound, { signal: this.#abort.signal });
       this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
     }
-    this.#type = this.#getType();
     util.addClickTimeout(this, this.#onClick_bound);
-  }
 
-  afterRender() {
     if (this.#type === 'input') {
       this.#valueDisplay = this.shadowRoot.querySelector('.value-display');
       this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound, { signal: this.#abort.signal });
