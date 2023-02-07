@@ -115,3 +115,13 @@ function handleHashAnchor(hash, animate = true) {
     }
   } catch { console.log('error'); }
 }
+
+
+window.toggleColorScheme = () => {
+  const scheme = mdwUtil.toggleColorScheme();
+  setTimeout(() => {
+    const toggle = document.querySelector('#theme-toggle');
+    if (scheme === 'light') toggle.setAttribute('toggled', '');
+    else toggle.removeAttribute('toggled');
+  }, 0);
+};

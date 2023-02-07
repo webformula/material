@@ -288,6 +288,20 @@ const mdwUtil = new class MDWUtil {
     });
   }
 
+  toggleColorScheme() {
+    const themePreferenceDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const html = document.querySelector('html');
+    const htmlColorScheme = getComputedStyle(html).colorScheme;
+
+    if ((themePreferenceDark === false && htmlColorScheme === 'normal') || htmlColorScheme === 'light') {
+      html.style.colorScheme = 'dark';
+      return 'dark';
+    } else if ((themePreferenceDark === true && htmlColorScheme === 'normal') || htmlColorScheme === 'dark') {
+      html.style.colorScheme = 'light';
+      return 'light';
+    }
+  }
+
   #calculateDistance(searchTerm, target) {
     const regex = new RegExp(`^${searchTerm}`, 'i');
     const matchesStart = target.match(regex) !== null;
