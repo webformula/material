@@ -3,11 +3,13 @@ import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 import './mobile.css';
-import chevronLeftIconSVGRaw from '../../svg-icons/chevron_left_FILL1_wght400_GRAD0_opsz24.svg';
-import chevronRightIconSVGRaw from '../../svg-icons/chevron_right_FILL1_wght400_GRAD0_opsz24.svg';
-import menuDropDownIconSVGRaw from '../../svg-icons/arrow_drop_down_FILL1_wght400_GRAD0_opsz24.svg';
-import editIconSVGRaw from '../../svg-icons/edit_FILL1_wght400_GRAD0_opsz24.svg';
 import { checkMinMax, monthDaysTemplate } from './helper.js';
+import {
+  chevron_left_FILL1_wght400_GRAD0_opsz24,
+  chevron_right_FILL1_wght400_GRAD0_opsz24,
+  arrow_drop_down_FILL1_wght400_GRAD0_opsz24,
+  edit_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 
 customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement extends MDWPanelElement {
@@ -108,7 +110,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
         <div class="mdw-select-date-text">Select date</div>
         <div class="mdw-display-date-container">
           <div class="mdw-display-date-text">${dateUtil.format(this.#displayDate, 'ddd, MMM DD')}</div>
-          <div class="mdw-edit mdw-icon-svg">${editIconSVGRaw}</div>
+          <div class="mdw-edit mdw-icon-svg">${edit_FILL1_wght400_GRAD0_opsz24}</div>
         </div>
       </div>
 
@@ -117,10 +119,10 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
       <div class="mdw-controls-container">
         <div class="mdw-year-drop-down" ${previousYearOutOfRange && nextYearOutOfRange ? 'disabled' : ''}>
           <div class="mdw-year-label">${dateUtil.format(this.#displayDate, 'MMMM YYYY')}</div>
-          <div class="mdw-icon-svg">${menuDropDownIconSVGRaw}</div>
+          <div class="mdw-icon-svg">${arrow_drop_down_FILL1_wght400_GRAD0_opsz24}</div>
         </div>
-        <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevronLeftIconSVGRaw}</div>
-        <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevronRightIconSVGRaw}</div>
+        <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevron_left_FILL1_wght400_GRAD0_opsz24}</div>
+        <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevron_right_FILL1_wght400_GRAD0_opsz24}</div>
       </div>
 
       <div class="mdw-views-container">

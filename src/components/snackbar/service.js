@@ -1,5 +1,5 @@
 import util from '../../core/util.js';
-import closeIconSVGRaw from '../../svg-icons/close_FILL1_wght400_GRAD0_opsz24.svg';
+import { close_FILL1_wght400_GRAD0_opsz24  } from '../../core/svgs.js';
 
 
 const MDWSnackbar = new class MDWSnackbar {
@@ -22,7 +22,7 @@ const MDWSnackbar = new class MDWSnackbar {
     snackbar.innerHTML = /*html*/`
       <div class="mdw-text">${params.message}</div>
       ${!params.actionLabel ? '' : `<mdw-button onclick="MDWSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
-      ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="MDWSnackbar.dismiss('close')">${closeIconSVGRaw}</div>`}
+      ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="MDWSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
     `;
     document.body.insertAdjacentElement('beforeend', snackbar);
 

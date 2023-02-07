@@ -1,8 +1,10 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './card.css';
 import Drag from '../../core/Drag.js';
-import arrowDropDownSVG from '../../svg-icons/expand_more_FILL0_wght400_GRAD0_opsz24.svg';
-import chevronLeftIconSVGRaw from '../../svg-icons/arrow_back_ios_FILL1_wght300_GRAD0_opsz24.svg';
+import {
+  expand_more_FILL0_wght400_GRAD0_opsz24,
+  arrow_back_ios_FILL1_wght300_GRAD0_opsz24
+} from '../../core/svgs.js';
 import util from '../../core/util.js';
 
 
@@ -38,15 +40,15 @@ export default class MDWCardElement extends HTMLElementExtended {
     this.classList.add('mdw-no-animation');
   }
 
-  connectedCallback() {
+  connectedCallback() {    
     const arrow = this.querySelector('.mdw-expand-arrow');
-    if (arrow) arrow.innerHTML = arrowDropDownSVG;
+    if (arrow) arrow.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
 
     if (this.#isFullscreen) {
       this.#fullscreenBackButton = document.createElement('div');
       this.#fullscreenBackButton.classList.add('mdw-card-fullscreen-back');
-      this.#fullscreenBackButton.innerHTML = chevronLeftIconSVGRaw;
-      // this.#fullscreenBackButton.innerHTML = `${chevronLeftIconSVGRaw}<span class="text">Back</span>`;
+      this.#fullscreenBackButton.innerHTML = arrow_back_ios_FILL1_wght300_GRAD0_opsz24;
+      // this.#fullscreenBackButton.innerHTML = `${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}<span class="text">Back</span>`;
       this.insertAdjacentElement('afterbegin', this.#fullscreenBackButton);
       this.#fullscreenBackButton.addEventListener('click', this.#fullscreenBackClick_bound, { signal: this.#abort.signal });
       this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });

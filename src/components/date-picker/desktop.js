@@ -2,11 +2,14 @@ import MDWPanelElement from '../panel/component.js';
 import './desktop.css';
 import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
-import checkIconSVGRaw from '../../svg-icons/check_FILL1_wght400_GRAD0_opsz24.svg';
-import arrowDropDownIconSVGRaw from '../../svg-icons/arrow_drop_down_FILL1_wght400_GRAD0_opsz24.svg';
-import chevronLeftIconSVGRaw from '../../svg-icons/chevron_left_FILL1_wght400_GRAD0_opsz24.svg';
-import chevronRightSVGRaw from '../../svg-icons/chevron_right_FILL1_wght400_GRAD0_opsz24.svg';
 import { checkMinMax, monthDaysTemplate } from './helper.js';
+import {
+  check_FILL1_wght400_GRAD0_opsz24,
+  arrow_drop_down_FILL1_wght400_GRAD0_opsz24,
+  chevron_left_FILL1_wght400_GRAD0_opsz24,
+  chevron_right_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
+
 
 // TODO tooltips
 // TODO keyboard
@@ -103,18 +106,18 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
 
     return /*html*/`
       <div class="mdw-control-container">
-        <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevronLeftIconSVGRaw}</div>
+        <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevron_left_FILL1_wght400_GRAD0_opsz24}</div>
         <div class="mdw-month-drop-down" ${previousMonthOutOfRange && nextMonthOutOfRange ? 'disabled' : ''}>
           <div class="mdw-month-label">${dateUtil.format(this.#displayDate, 'MMMM')}</div>
-          <div class="mdw-icon-svg">${arrowDropDownIconSVGRaw}</div>
+          <div class="mdw-icon-svg">${arrow_drop_down_FILL1_wght400_GRAD0_opsz24}</div>
         </div>
-        <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevronRightSVGRaw}</div>
-        <div class="mdw-year-previous mdw-icon-svg" ${previousYearOutOfRange ? 'disabled' : ''}>${chevronLeftIconSVGRaw}</div>
+        <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevron_right_FILL1_wght400_GRAD0_opsz24}</div>
+        <div class="mdw-year-previous mdw-icon-svg" ${previousYearOutOfRange ? 'disabled' : ''}>${chevron_left_FILL1_wght400_GRAD0_opsz24}</div>
         <div class="mdw-year-drop-down" ${previousYearOutOfRange && nextYearOutOfRange ? 'disabled' : ''}>
           <div class="mdw-year-label">${dateUtil.getYear(this.#displayDate)}</div>
-          <div class="mdw-icon-svg">${arrowDropDownIconSVGRaw}</div>
+          <div class="mdw-icon-svg">${arrow_drop_down_FILL1_wght400_GRAD0_opsz24}</div>
         </div>
-        <div class="mdw-year-next mdw-icon-svg" ${nextYearOutOfRange ? 'disabled' : ''}>${chevronRightSVGRaw}</div>
+        <div class="mdw-year-next mdw-icon-svg" ${nextYearOutOfRange ? 'disabled' : ''}>${chevron_right_FILL1_wght400_GRAD0_opsz24}</div>
       </div>
 
       <div class="mdw-month-days-container">
@@ -148,7 +151,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
       const outOfRange = isPreviousMinYear || isNextMaxYear;
       return /*html*/`
         <div class="mdw-year-item" ${outOfRange ? 'disabled' : ''} year="${year}">
-          <div class="mdw-icon-svg">${checkIconSVGRaw}</div>
+          <div class="mdw-icon-svg">${check_FILL1_wght400_GRAD0_opsz24}</div>
           ${year}
         </div>
       `;
@@ -163,7 +166,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
       const outOfRange = isPreviousMinMonth || isNextMaxMonth;
       return /*html*/`
         <div class="mdw-month-item" ${outOfRange ? 'disabled' : ''} month="${i + 1}">
-          <div class="mdw-icon-svg">${checkIconSVGRaw}</div>
+          <div class="mdw-icon-svg">${check_FILL1_wght400_GRAD0_opsz24}</div>
           ${name}
         </div>
       `;

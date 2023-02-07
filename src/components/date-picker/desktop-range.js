@@ -1,8 +1,10 @@
 import MDWPanelElement from '../panel/component.js';
 import dateUtil from '../../core/dateUtil.js';
 import './desktop-range.css';
-import chevronLeftIconSVGRaw from '../../svg-icons/chevron_left_FILL1_wght400_GRAD0_opsz24.svg';
-import chevronRightSVGRaw from '../../svg-icons/chevron_right_FILL1_wght400_GRAD0_opsz24.svg';
+import {
+  chevron_left_FILL1_wght400_GRAD0_opsz24,
+  chevron_right_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 import { checkMinMax, monthDaysRangeTemplate } from './helper.js';
 import util from '../../core/util.js';
 
@@ -129,7 +131,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
       <div class="mdw-month-range-container">
         <div class="mdw-month-container-start">
           <div class="mdw-control-container">
-            <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevronLeftIconSVGRaw}</div>
+            <div class="mdw-month-previous mdw-icon-svg" ${previousMonthOutOfRange ? 'disabled' : ''}>${chevron_left_FILL1_wght400_GRAD0_opsz24}</div>
             <div class="mdw-month-drop-down" ${previousMonthOutOfRange && nextMonthOutOfRange ? 'disabled' : ''}>
               <div class="mdw-month-label">${dateUtil.format(this.#displayDateStart, 'MMMM')}</div>
             </div>
@@ -156,7 +158,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
             <div class="mdw-year-drop-down" ${previousYearOutOfRange && nextYearOutOfRange ? 'disabled' : ''}>
               <div class="mdw-year-label">${dateUtil.getYear(this.#displayDateEnd)}</div>
             </div>
-            <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevronRightSVGRaw}</div>
+            <div class="mdw-month-next mdw-icon-svg" ${nextMonthOutOfRange ? 'disabled' : ''}>${chevron_right_FILL1_wght400_GRAD0_opsz24}</div>
           </div>
           <div class="mdw-month">
             <div class="mdw-days-header">

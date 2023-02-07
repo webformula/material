@@ -1,8 +1,10 @@
 import MDWPanelElement from '../panel/component.js';
 import device from '../../core/device.js';
 import './component.css';
-import keyboardSVGIcon from '../../svg-icons/keyboard_FILL0_wght400_GRAD0_opsz24.svg';
-import scheduleSVGIcon from '../../svg-icons/schedule_FILL0_wght400_GRAD0_opsz24.svg';
+import {
+  keyboard_FILL0_wght400_GRAD0_opsz24,
+  schedule_FILL0_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 // TODO min max
 
@@ -156,8 +158,8 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       <div class="mdw-actions">
         ${device.isMobile ? /*html*/`
           <mdw-button class="mdw-keyboard mdw-icon-toggle-button">
-            <div class="mdw-svg-icon" value="off">${keyboardSVGIcon}</div>
-            <div class="mdw-svg-icon" value="on">${scheduleSVGIcon}</div>
+            <div class="mdw-svg-icon" value="off">${keyboard_FILL0_wght400_GRAD0_opsz24}</div>
+            <div class="mdw-svg-icon" value="on">${schedule_FILL0_wght400_GRAD0_opsz24}</div>
           </mdw-button>
         ` : ''}
         <span style="flex: 1"></span>

@@ -3,7 +3,7 @@ import styleAsString from '!!raw-loader!./anchor.css';
 import Ripple from '../../core/Ripple.js';
 import './anchor-global.css';
 import util from '../../core/util.js';
-import arrowDropDownSVG from '../../svg-icons/expand_more_FILL0_wght400_GRAD0_opsz24.svg';
+import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 
 
 
@@ -20,7 +20,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     super();
     this.#setupClasses();
     
-    if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${arrowDropDownSVG}</div>`);
+    if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${expand_more_FILL0_wght400_GRAD0_opsz24}</div>`);
   }
 
   #setupClasses() {

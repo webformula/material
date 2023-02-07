@@ -2,9 +2,11 @@ import MDWPanelElement from '../panel/component.js';
 import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
 import './mobile-range.css';
-import closeIconSVGRaw from '../../svg-icons/close_FILL1_wght400_GRAD0_opsz24.svg';
-import editIconSVGRaw from '../../svg-icons/edit_FILL1_wght400_GRAD0_opsz24.svg';
 import { monthDaysRangeTemplate } from './helper.js';
+import {
+  close_FILL1_wght400_GRAD0_opsz24,
+  edit_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 
 customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMobileElement extends MDWPanelElement {
@@ -108,7 +110,7 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
   template() {
     return /*html*/`
       <div class="mdw-header-controls">
-        <div class="mdw-close mdw-icon-svg">${closeIconSVGRaw}</div>
+        <div class="mdw-close mdw-icon-svg">${close_FILL1_wght400_GRAD0_opsz24}</div>
       </div>
       
       <div class="mdw-header">
@@ -117,7 +119,7 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
           <div class="mdw-display-date-text start">${dateUtil.format(this.#displayDateStart, 'MMM DD')}</div>
           <span class="mdw-date-range-dash"></span>
           <div class="mdw-display-date-text end">${dateUtil.format(this.#displayDateEnd, 'MMM DD')}</div>
-          <div class="mdw-edit mdw-icon-svg">${editIconSVGRaw}</div>
+          <div class="mdw-edit mdw-icon-svg">${edit_FILL1_wght400_GRAD0_opsz24}</div>
         </div>
 
         <div class="mdw-days-header">

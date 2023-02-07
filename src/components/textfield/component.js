@@ -1,7 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './component.css';
 import util from '../../core/util.js';
-import errorIconSVGString from '../../svg-icons/error_FILL1_wght400_GRAD0_opsz24.svg';
+import { error_FILL1_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 import Formatter from './Formatter.js';
 
 // TODO mask regex
@@ -212,7 +212,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     if (invalid) {
       this.classList.add('mdw-invalid');
       if (supportingTextElement) supportingTextElement.innerText = this.#input.validationMessage;
-      if (!invalidIcon) this.insertAdjacentHTML('beforeend', `<div class="mdw-invalid-icon">${errorIconSVGString}</div>`);
+      if (!invalidIcon) this.insertAdjacentHTML('beforeend', `<div class="mdw-invalid-icon">${error_FILL1_wght400_GRAD0_opsz24}</div>`);
     } else {
       this.classList.remove('mdw-invalid');
       if (supportingTextElement) supportingTextElement.innerText = this.#originalSupportingText;

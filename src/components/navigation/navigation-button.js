@@ -1,7 +1,9 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './navigation-button.css';
-import menuIconSVGRaw from '../../svg-icons/menu_FILL1_wght400_GRAD0_opsz24.svg';
-import menuOpenIconSVGRaw from '../../svg-icons/menu_open_FILL1_wght400_GRAD0_opsz24.svg';
+import {
+  menu_FILL1_wght400_GRAD0_opsz24,
+  menu_open_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends HTMLElementExtended {
   // useShadowRoot = true;
@@ -58,8 +60,8 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
   template() {
     return /* html */`
       <mdw-button class="mdw-icon-toggle-button" aria-label="toggle navigation" ${this.navigation.open ? '' : 'toggled'}>
-        <div class="mdw-icon-svg" value="on">${menuIconSVGRaw}</div>
-        <div class="mdw-icon-svg" value="off">${menuOpenIconSVGRaw}</div>
+        <div class="mdw-icon-svg" value="on">${menu_FILL1_wght400_GRAD0_opsz24}</div>
+        <div class="mdw-icon-svg" value="off">${menu_open_FILL1_wght400_GRAD0_opsz24}</div>
       </mdw-button>
     `;
   }

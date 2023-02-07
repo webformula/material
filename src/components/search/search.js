@@ -3,11 +3,13 @@ import styleAsString from '!!raw-loader!./search.css';
 import './search-global.css';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
-import svgIconSearch from '../../svg-icons/search_FILL0_wght400_GRAD0_opsz24.svg';
-import svgIconClose from '../../svg-icons/close_FILL0_wght400_GRAD0_opsz24.svg';
-import svgIconHistory from '../../svg-icons/history_FILL0_wght400_GRAD0_opsz24.svg';
-import chevronLeftIconSVGRaw from '../../svg-icons/arrow_back_ios_FILL1_wght300_GRAD0_opsz24.svg';
-import svgIconMic from '../../svg-icons/mic_FILL1_wght400_GRAD0_opsz24.svg';
+import {
+  search_FILL0_wght400_GRAD0_opsz24,
+  close_FILL0_wght400_GRAD0_opsz24,
+  history_FILL0_wght400_GRAD0_opsz24,
+  arrow_back_ios_FILL1_wght300_GRAD0_opsz24,
+  mic_FILL1_wght400_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 // TODO search header (fixed at top of page, hides on scroll)
 
@@ -121,12 +123,12 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     return /*html*/`
       <div class="textfield">
         <slot name="leading"></slot>
-        <div class="mdw-svg-icon fullscreen-back">${chevronLeftIconSVGRaw}</div>
-        <div class="mdw-svg-icon search">${svgIconSearch}</div>
+        <div class="mdw-svg-icon fullscreen-back">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</div>
+        <div class="mdw-svg-icon search">${search_FILL0_wght400_GRAD0_opsz24}</div>
         <input placeholder="${this.#placeholder}">
-        ${this.#hasSpeech ? `<div class="mdw-svg-icon mic">${svgIconMic}</div>` : ``}
+        ${this.#hasSpeech ? `<div class="mdw-svg-icon mic">${mic_FILL1_wght400_GRAD0_opsz24}</div>` : ``}
         <span class="spinner"></span>
-        <div class="mdw-svg-icon clear">${svgIconClose}</div>
+        <div class="mdw-svg-icon clear">${close_FILL0_wght400_GRAD0_opsz24}</div>
         <slot name="trailing"></slot>
       </div>
       <slot name="filters"></slot>
@@ -427,7 +429,7 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   #historyTemplate(value) {
     return /*html*/`
       <mdw-list-item value="${value}" history>
-        <div class="mdw-svg-icon">${svgIconHistory}</div>
+        <div class="mdw-svg-icon">${history_FILL0_wght400_GRAD0_opsz24}</div>
         ${value}
       </mdw-list-item>
     `;

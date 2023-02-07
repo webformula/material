@@ -2,8 +2,10 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import styleAsString from '!!raw-loader!./chip.css';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
-import checkIconSVGRaw from '../../svg-icons/check_FILL1_wght400_GRAD0_opsz20.svg';
-import closeIconSVGRaw from '../../svg-icons/close_FILL1_wght400_GRAD0_opsz20.svg';
+import {
+  check_FILL1_wght400_GRAD0_opsz20,
+  close_FILL1_wght400_GRAD0_opsz20
+} from '../../core/svgs.js';
 
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
@@ -103,12 +105,12 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
 
   template() {
     return /*html*/`
-      ${this.#type === 'filter' || this.#type === 'filter-menu' ? `<div class="check">${checkIconSVGRaw}</div>` : ''}
+      ${this.#type === 'filter' || this.#type === 'filter-menu' ? `<div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>` : ''}
       <slot></slot>
       ${this.#type === 'input' ? /*html*/`
         <input value="${this.value}">
         <span class="value-display">${this.value}</span>
-        <div class="clear">${closeIconSVGRaw}</div>
+        <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
       ` : ''}
       <span class="spinner"></span>
       <div class="ripple"></div>
