@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <mdw-navigation>
+  <mdw-navigation class="mdw-rail">
     <div class="mdw-header">
       <mdw-navigation-button style="margin-left: 4px"></mdw-navigation-button>
 
@@ -27,22 +27,6 @@
     </div>
 
     <div class="mdw-headline">Pax Components</div>
-
-    <!-- <mdw-anchor href="/">
-      <mdw-icon>home</mdw-icon>
-      Welcome
-      <mdw-badge>9999</mdw-badge>
-    </mdw-anchor>
-
-    <mdw-anchor href="/">
-      <mdw-icon>home</mdw-icon>
-      Welcome
-      <div slot="rail">
-        <mdw-icon>home</mdw-icon>
-        Welcome
-      </div>
-    </mdw-anchor> -->
-
     <mdw-anchor href="/">Welcome</mdw-anchor>
     
     <mdw-navigation-group>
@@ -95,6 +79,25 @@
   <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
     <mdw-navigation-button></mdw-navigation-button>
   </mdw-bottom-app-bar>
+
+  <!-- mdw-connect-page-content -->
+  <!-- mdw-left-align -->
+  <mdw-side-sheet class="mdw-modal">
+    <div class="mdw-header">
+      <div class="mdw-title">Title</div>
+      <mdw-button class="mdw-icon-button"><mdw-icon>close</mdw-icon></mdw-button>
+    </div>
+
+    <div class="mdw-content">
+      content
+    </div>
+
+    <div class="mdw-actions">
+      <div class="mdw-divider"></div>
+      <mdw-button class="mdw-filled mdw-primary">Save</mdw-button>
+      <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary">Cancel</mdw-button>
+    </div>
+  </mdw-side-sheet>
 </body>
 
 </html>

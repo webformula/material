@@ -1,0 +1,104 @@
+mdw-side-sheet {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 11;
+  box-sizing: border-box;
+  background-color: var(--mdw-surface);
+
+  width: var(--mdw-side-sheet-width);
+  transform: translateX(0);
+  transition: transform 180ms;
+  transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+body.mdw-mobile mdw-side-sheet,
+mdw-side-sheet.mdw-modal {
+  border-radius: var(--mdw-shape-large) 0 0 var(--mdw-shape-large);
+  box-shadow: var(--mdw-elevation-2);
+}
+
+mdw-side-sheet.mdw-hide {
+  pointer-events: none;
+  transform: translateX(var(--mdw-side-sheet-width));
+  transition: transform 180ms;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+body.mdw-mobile mdw-side-sheet.mdw-hide,
+mdw-side-sheet.mdw-modal.mdw-hide {
+  pointer-events: none;
+  transform: translateX(calc(var(--mdw-side-sheet-width) + 24px));
+}
+
+mdw-side-sheet.mdw-left-align {
+  right: unset;
+  left: 0;
+}
+
+mdw-side-sheet.mdw-left-align.mdw-hide {
+  transform: translateX(calc(var(--mdw-side-sheet-width) * -1));
+}
+
+body.mdw-mobile mdw-side-sheet.mdw-left-align.mdw-hide,
+mdw-side-sheet.mdw-modal.mdw-left-align.mdw-hide {
+  transform: translateX(calc(var(--mdw-side-sheet-width) * -1 - 24px));
+}
+
+mdw-side-sheet .mdw-header {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  justify-content: end;
+  padding-left: 16px;
+}
+mdw-side-sheet .mdw-header .mdw-title {
+  flex: 1;
+
+  font-size: var(--mdw-font-size-medium-title);
+  font-weight: var(--mdw-font-weight-medium-title);
+  letter-spacing: var(--mdw-font-letter-spacing-medium-title);
+  color: var(--mdw-on-surface-variant);
+}
+
+mdw-side-sheet .mdw-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+mdw-side-sheet .mdw-actions {
+  position: relative;
+  display: flex;
+  height: 72px;
+  align-items: center;
+  padding-left: 16px;
+}
+
+mdw-side-sheet .mdw-actions mdw-button + mdw-button {
+  margin-left: 6px;
+}
+
+mdw-side-sheet .mdw-actions .mdw-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--mdw-surface-variant);
+}
+
+
+mdw-side-sheet.mdw-no-animation {
+  transition: none !important;
+}

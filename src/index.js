@@ -33,6 +33,7 @@ import './components/radio/index.js';
 import './components/search/index.js';
 import './components/segmented-button-group/index.js';
 import './components/select/index.js';
+import './components/side-sheet/component.js';
 import './components/slider/index.js';
 import './components/snackbar/index.js';
 import './components/switch/component.js';

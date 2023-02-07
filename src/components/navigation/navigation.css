@@ -1,3 +1,5 @@
+/* page-content css in src/core/page-content.css */
+
 mdw-navigation {
   position: fixed;
   top: 0;
@@ -42,24 +44,6 @@ mdw-navigation.mdw-rail.mdw-state-rail .mdw-headline  {
   opacity: 0;
 }
 
-mdw-navigation + mdw-top-app-bar,
-mdw-navigation + mdw-top-app-bar + page-content,
-mdw-navigation + page-content {
-  margin-left: var(--mdw-navigation-drawer-width);
-  width: calc(100% - var(--mdw-navigation-drawer-width));
-  transition: margin-left 180ms, width 180ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
-}
-
-mdw-navigation.mdw-hide + mdw-top-app-bar,
-mdw-navigation.mdw-hide + mdw-top-app-bar + page-content,
-mdw-navigation.mdw-hide + page-content {
-  margin-left: 0;
-  width: 100%;
-  transition: margin-left 180ms, width 180ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
-}
-
 
 
 /* --- rail --- */
@@ -68,26 +52,6 @@ mdw-navigation.mdw-rail.mdw-state-rail {
   width: var(--mdw-navigation-rail-width);
   left: 0;
 }
-
-mdw-navigation.mdw-rail.mdw-state-rail + mdw-top-app-bar,
-mdw-navigation.mdw-rail.mdw-state-rail + mdw-top-app-bar + page-content,
-mdw-navigation.mdw-rail.mdw-state-rail + page-content {
-  margin-left: var(--mdw-navigation-rail-width);
-  width: calc(100% - var(--mdw-navigation-rail-width));
-  transition: margin-left 180ms, width 180ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
-}
-
-
-mdw-navigation.mdw-no-animation,
-/* mdw-navigation.mdw-no-animation::after, */
-mdw-navigation.mdw-no-animation .mdw-headline,
-mdw-navigation.mdw-no-animation + mdw-top-app-bar,
-mdw-navigation.mdw-no-animation + mdw-top-app-bar + page-content,
-mdw-navigation.mdw-no-animation + page-content {
-  transition: none !important;
-}
-
 
 mdw-navigation .mdw-header {
   display: flex;
@@ -120,14 +84,6 @@ body.mdw-mobile mdw-navigation.mdw-hide {
   box-shadow: none;
 }
 
-body.mdw-mobile mdw-navigation + mdw-top-app-bar,
-body.mdw-mobile mdw-navigation + mdw-top-app-bar + page-content,
-body.mdw-mobile mdw-navigation + page-content {
-  margin-left: 0;
-  width: 100%;
-}
-
-
 /* --- secondary draw for rail --- */
 mdw-navigation.mdw-rail.mdw-state-rail + .mdw-navigation-secondary-draw {
   position: fixed;
@@ -142,4 +98,10 @@ mdw-navigation.mdw-rail.mdw-state-rail + .mdw-navigation-secondary-draw {
 
 mdw-navigation.mdw-rail.mdw-state-rail.mdw-secondary-drawer-open + .mdw-navigation-secondary-draw {
   left: var(--mdw-navigation-rail-width);
+}
+
+
+mdw-navigation.mdw-no-animation,
+mdw-navigation.mdw-no-animation .mdw-headline {
+  transition: none !important;
 }

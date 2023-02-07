@@ -70,6 +70,7 @@ html:not(.mdw-initiated) body {
   --mdw-button-radius: 20px;
   --mdw-navigation-drawer-width: 360px;
   --mdw-card-group-columns: 4;
+  --mdw-side-sheet-width: 296px;
 
   --mdw-transition-expand-in: cubic-bezier(.13, 1.02, .25, .95);
   --mdw-transition-expand-out: cubic-bezier(0.550, 0.085, 0.680, 0.530);

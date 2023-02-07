@@ -8,7 +8,6 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
   #open = true;
   #rail = this.classList.contains('mdw-rail');
   #backdrop;
-  #secondaryDrawer;
 
   #locationchange_bound = this.#locationchange.bind(this);
   #backdropClick_bound = this.#backdropClick.bind(this);
@@ -17,8 +16,11 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     super();
 
     this.classList.add('mdw-no-animation');
+    document.body.classList.add('mdw-navigation-no-animation');
     if (device.isMobile) this.classList.add('mdw-hide');
     this.#open = !this.classList.contains('mdw-hide') && !this.classList.contains('mdw-state-rail');
+    
+    this.#handleState();
 
     if (this.classList.contains('mdw-rail')) {
       [...this.querySelectorAll('mdw-anchor')].forEach(anchor => {
@@ -26,13 +28,6 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
         if (!device.isMobile) anchor.classList.toggle('mdw-state-rail', !this.#open);
       });
     }
-
-    // TODO secondary drawer
-    // if (this.querySelector(':scope > mdw-navigation-group')) {
-    //   this.#secondaryDrawer = document.createElement('div');
-    //   this.#secondaryDrawer.classList.add('mdw-navigation-secondary-draw');
-    //   this.insertAdjacentElement('afterend', this.#secondaryDrawer);
-    // }
   }
 
   // TODO make it so we do not need the non standard event
@@ -46,6 +41,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
 
     util.nextAnimationFrameAsync().then(() => {
       this.classList.remove('mdw-no-animation');
+      document.body.classList.remove('mdw-navigation-no-animation');
     });
   }
 
@@ -65,7 +61,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
 
     if (device.isMobile) {
       if (this.#open) {
-        this.#backdrop = document.createElement('mdw-backdrop');
+        if (!this.#backdrop) this.#backdrop = document.createElement('mdw-backdrop');
         this.insertAdjacentElement('beforebegin', this.#backdrop);
         this.#backdrop.addEventListener('click', this.#backdropClick_bound);
       } else if (this.#backdrop) {
@@ -78,6 +74,8 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
       const active = this.querySelector('mdw-anchor.mdw-active');
       if (active) active.scrollIntoView({ block: 'center' });
     }
+
+    this.#handleState();
 
     this.dispatchEvent(new Event('change'));
   }
@@ -105,5 +103,17 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     matches.forEach(anchor => anchor.active = true);
 
     if (device.isMobile) this.open = false;
+  }
+
+  #handleState() {
+    document.body.classList.remove('mdw-navigation-state-hide');
+    document.body.classList.remove('mdw-navigation-state-rail');
+    document.body.classList.remove('mdw-navigation-state-modal');
+    document.body.classList.remove('mdw-navigation-state-open');
+
+    if (this.classList.contains('mdw-hide')) document.body.classList.add('mdw-navigation-state-hide');
+    else if (this.classList.contains('mdw-state-rail')) document.body.classList.add('mdw-navigation-state-rail');
+    else if (device.isMobile) document.body.classList.add('mdw-navigation-state-modal');
+    else document.body.classList.add('mdw-navigation-state-open');
   }
 });
