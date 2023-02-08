@@ -16,7 +16,10 @@ body.mdw-navigation-state-rail page-content {
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
-body.mdw-side-sheet-state-open.mdw-side-sheet-connect-page-content page-content {
+
+/* TODO confirm we do not want to allow a global main side sheet */
+
+/* body.mdw-side-sheet-state-open.mdw-side-sheet-connect-page-content page-content {
   margin-right: var(--mdw-side-sheet-width);
   transition: margin-right 180ms;
   transition-timing-function: var(--mdw-transition-expand-in);
@@ -68,7 +71,7 @@ body.mdw-navigation-state-hide.mdw-side-sheet-state-open.mdw-side-sheet-connect-
   margin-right: var(--mdw-side-sheet-width);
   transition: margin-left 180ms, margin-right 180ms;
   transition-timing-function: var(--mdw-transition-expand-out), var(--mdw-transition-expand-in);
-}
+} */
 
 
 
