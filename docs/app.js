@@ -110,8 +110,8 @@ function handleHashAnchor(hash, animate = true) {
   try {
     const element = document.querySelector(hash);
     if (element) {
-      if (animate) element.scrollIntoView({ behavior: 'smooth' });
-      else element.scrollIntoView();
+      if (animate)  window.scroll({ top: element.offsetTop, behavior: 'smooth' });
+      else window.scroll({ top: element.offsetTop });
     }
   } catch { console.log('error'); }
 }

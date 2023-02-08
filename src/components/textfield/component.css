@@ -48,11 +48,11 @@ mdw-textfield > input {
   z-index: 1;
   padding: 0;
   margin: 0;
-  /* width: 191px;  */
-  /* default */
+  margin-right: 20px;
 
   text-decoration: inherit;
   text-transform: inherit;
+  font-family: inherit;
   font-size: var(--mdw-font-size-large-body);
   font-weight: var(--mdw-font-weight-large-body);
   line-height: var(--mdw-font-line-height-large-body);
@@ -159,7 +159,9 @@ mdw-textfield > .mdw-autocomplete + mdw-icon,
 mdw-textfield > .mdw-autocomplete + .mdw-invalid-icon,
 mdw-textfield > label + mdw-icon,
 mdw-textfield > label + .mdw-invalid-icon {
-  margin-left: 14px;
+  /* margin-left: 14px; */
+
+  margin-left: -20px;
 }
 
 

@@ -163,7 +163,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #formSubmit() {
     if (!this.#form.hasAttribute('novalidate')) {
       if (this.#form.reportValidity() === false) {
-        this.#getFormElements().forEach(element => { console.log(element); element.reportValidity(); });
+        this.#getFormElements().forEach(element => element.reportValidity());
         return;
       }
     }

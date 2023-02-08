@@ -234,6 +234,12 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
 
     // clear any autocomplete text
     this.#textfield.autocomplete = '';
+
+    // update validity style
+    if (!this.#textfield.classList.contains('mdw-invalid') !== this.#input.checkValidity()) {
+      this.#input.reportValidity();
+    }
+    
     this.dispatchEvent(new Event('change', this));
   }
 

@@ -53,7 +53,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
 
     this.#open = !!value;
     this.classList.toggle('mdw-hide', !this.#open);
-    console.log(this.#isModal)
+
     if (this.#isModal) {
       if (this.#open) {
         if (!this.#backdrop) this.#backdrop = document.createElement('mdw-backdrop');

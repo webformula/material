@@ -55,6 +55,10 @@ mdw-textfield .mdw-select-arrow.mdw-open {
   transform: rotate(180deg);
 }
 
+mdw-textfield.mdw-invalid .mdw-select-arrow {
+  opacity: 0;
+}
+
 
 mdw-textfield.mdw-select-no-filter input {
   cursor: pointer;
@@ -62,7 +66,7 @@ mdw-textfield.mdw-select-no-filter input {
 
 mdw-panel.mdw-option-group {
   min-width: 112px;
-  max-width: 280px;
+  max-width: 229px;
   /* TODO look into if this should not have have height outside of panel default (100% - padding) */
   max-height: 320px;
   padding: 8px 0;
