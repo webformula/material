@@ -109,7 +109,8 @@ mdw-card .mdw-subhead-small {
   color: var(--mdw-on-surface-variant);
 }
 
-mdw-card .mdw-supporting-text {
+mdw-card > .mdw-supporting-text,
+mdw-card .mdw-card-content > .mdw-supporting-text {
   margin-top: 12px;
   font-size: var(--mdw-font-size-small-body);
   font-weight: var(--mdw-font-weight-small-body);
@@ -435,7 +436,8 @@ mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image > img {
   height: 100%;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card .mdw-supporting-text,
+mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-supporting-text,
+mdw-card-group:not(.mdw-grid) > mdw-card .mdw-card-content > .mdw-supporting-text,
 mdw-card-group:not(.mdw-grid) > mdw-card.mdw-card-list-item .mdw-card-actions {
   display: none;
 }

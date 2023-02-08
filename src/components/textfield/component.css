@@ -165,7 +165,7 @@ mdw-textfield > label + .mdw-invalid-icon {
 
 mdw-textfield > .mdw-supporting-text {
   position: absolute;
-  top: 48px;
+  top: 60px;
 
   font-size: var(--mdw-font-size-small-body);
   font-weight: var(--mdw-font-weight-small-body);

@@ -4,6 +4,9 @@ import styleAsStringTextfield from '!!raw-loader!../textfield/component.css';
 import styleAsStringPanel from '!!raw-loader!../panel/component.css';
 import util from '../../core/util.js';
 
+// TODO document required and supporting-text
+//   <mdw-select name="select" label="Label" required supporting-text>
+//   <mdw-select name="select" label="Label" required supporting-text="message">
 
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
   useShadowRoot = true;
@@ -13,6 +16,8 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #displayValue = '';
   #label = this.getAttribute('label');
   #disabled = this.hasAttribute('disabled');
+  #required = this.hasAttribute('required');
+  #supportingText = this.getAttribute('supporting-text');
   #panel;
   #textfield;
   #input;
@@ -61,7 +66,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     // makes the input not usable, only clickable. Create normal select
     if (!this.#isFilter && !this.#isFilterAsync) {
       this.#textfield.classList.add('mdw-select-no-filter');
-      this.#input.setAttribute('readonly', '');
       this.#panel.positionOverlap = true;
     }
 
@@ -86,9 +90,10 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   template() {
     return /*html*/`
       <mdw-textfield ${!this.#disabled ? '' : 'disabled'} ${!this.classList.contains('mdw-outlined') ? '' : 'class="mdw-outlined"'}>
-        <input value="${this.#displayValue}">
+        <input value="${this.#displayValue}" ${!this.#required ? '' : 'required'}>
         ${!this.#label ? '' : `<label>${this.#label}</label>`}
         <div class="mdw-select-arrow"></div>
+        ${this.hasAttribute('supporting-text') ? `<div class="mdw-supporting-text">${this.#supportingText}</div>` : ''}
         <mdw-panel class="mdw-option-group">
           <slot></slot>
         </mdw-panel>
@@ -165,6 +170,14 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   // remove progress bar. This automatically called after optionValues are set
   resolveFilter() {
     this.classList.remove('mdw-filter-async-active');
+  }
+
+  reportValidity() {
+    return this.#input.reportValidity();
+  }
+
+  checkValidity() {
+    return this.#input.checkValidity();
   }
 
 

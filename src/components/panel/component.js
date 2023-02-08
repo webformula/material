@@ -18,6 +18,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #positionOverlap = false;
   #onTargetScroll_bound = util.rafThrottle(this.#onTargetScroll.bind(this));
   #backdropElement;
+  #fixedParent;
   
   constructor() {
     super();
@@ -143,13 +144,30 @@ export default class MDWPanelElement extends HTMLElementExtended {
   }
 
   #setupTarget() {
+    if (this.#fixedParent === undefined) this.#fixedParent = this.#getFixedParent();
     this.#setTargetPosition();
     this.#targetScrollContainer = this.#getScrollContainerForTarget();
   }
 
   #setTargetPosition() {
-    const bounds = this.#target.getBoundingClientRect();
+    let bounds = this.#target.getBoundingClientRect();
     const { clientWidth, clientHeight } = document.documentElement;
+
+    // offset for nested fixed div
+    if (this.#fixedParent) {
+      const fixedBounds = this.#fixedParent.getBoundingClientRect();
+      bounds = {
+        x: bounds.x - fixedBounds.x,
+        left: bounds.left - fixedBounds.left,
+        right: bounds.right - fixedBounds.right,
+        y: bounds.y - fixedBounds.y,
+        top: bounds.top - fixedBounds.top,
+        bottom: bounds.bottom - fixedBounds.bottom,
+        width: bounds.width,
+        height: bounds.height
+      };
+    }
+
     // initial position is top left panel aligned with bottom left target
 
     if (!this.#lastOffsetHeight) this.#lastOffsetHeight = this.offsetHeight;
@@ -182,12 +200,12 @@ export default class MDWPanelElement extends HTMLElementExtended {
   }
 
   #getScrollContainerForTarget() {
-    let parentNode = this.#target.parentNode;
-    while (parentNode !== null) {
-      const style = getComputedStyle(parentNode);
-      if (this.#overflowScrollRegex.test(style.overflow + style.overflowY)) return parentNode;
-      parentNode = parentNode.parentNode;
-      if (parentNode === document.documentElement) return window;
+    let parentElement = this.#target.parentElement;
+    while (parentElement !== null) {
+      if (parentElement === document.documentElement) return window;
+      const style = getComputedStyle(parentElement);
+      if (this.#overflowScrollRegex.test(style.overflow + style.overflowY)) return parentElement;
+      parentElement = parentElement.parentElement;
     }
   }
 
@@ -201,6 +219,17 @@ export default class MDWPanelElement extends HTMLElementExtended {
     if (!this.#backdropElement) return;
     this.#backdropElement.remove();
     this.#backdropElement = undefined;
+  }
+
+  // TODO do i need other positions
+  #getFixedParent() {
+    let parentElement = this.#target.parentElement;
+    while (parentElement !== null) {
+      if (parentElement === document.body) return null;
+      if (['fixed', 'absolute'].includes(getComputedStyle(parentElement).position)) return parentElement;
+      parentElement = parentElement.parentElement;
+    }
+    return null;
   }
 }
 

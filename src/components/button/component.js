@@ -18,6 +18,8 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #ripple;
   #mouseUp_bound = this.#mouseup.bind(this);
   #handleToggle_bound = this.#handleToggle.bind(this);
+  #formSubmit_bound = this.#formSubmit.bind(this);
+  #onFromData_bound = this.#onFromData.bind(this);
 
 
   constructor() {
@@ -40,6 +42,10 @@ export default class MDWButtonElement extends HTMLElementExtended {
     if (this.classList.contains('mdw-icon-toggle-button')) {
       this.addEventListener('click', this.#handleToggle_bound);
     }
+    if (this.#form) {
+      this.addEventListener('click', this.#formSubmit_bound);
+      this.#form.addEventListener('formdata', this.#onFromData_bound);
+    }
     if (this.useRipple) {
       this.#ripple = new Ripple({
         element: this.shadowRoot.querySelector('.ripple'),
@@ -54,6 +60,10 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.removeEventListener('mouseup', this.#mouseUp_bound);
     if (this.classList.contains('mdw-icon-toggle-button')) {
       this.removeEventListener('click', this.#handleToggle_bound);
+    }
+    if (this.#form) {
+      this.removeEventListener('click', this.#formSubmit_bound);
+      this.#form.removeEventListener('formdata', this.#onFromData_bound);
     }
   }
 
@@ -148,6 +158,54 @@ export default class MDWButtonElement extends HTMLElementExtended {
 
   #handleToggle() {
     this.toggled = !this.toggled;
+  }
+
+  #formSubmit() {
+    if (!this.#form.hasAttribute('novalidate')) {
+      if (this.#form.reportValidity() === false) {
+        this.#getFormElements().forEach(element => { console.log(element); element.reportValidity(); });
+        return;
+      }
+    }
+    this.#form.submit();
+  }
+
+  // TODO workout validation
+  #onFromData({ formData }) {
+    // all non native form elements with name attribute
+    //   if no name attribute then formData will not pickup
+    [
+      // ...this.#form.querySelectorAll('mdw-checkbox[name]'),
+      // ...this.#form.querySelectorAll('mdw-switch[name]'),
+      // ...this.#form.querySelectorAll('mdw-slider[name]'),
+      // ...this.#form.querySelectorAll('mdw-slider-range[name]'),
+      ...this.#form.querySelectorAll('mdw-select[name]'),
+      // ...this.#form.querySelectorAll('mdw-radio-group[name]')
+    ].forEach(element => {
+      const name = element.getAttribute('name');
+      const value = element.value;
+      if (element.nodeName === 'MDW-CHECKBOX' || element.nodeName === 'MDW-SWITCH') {
+        if (formData.has(name)) {
+          if (element.checked === true) formData.set(name, value);
+          else formData.delete(name);
+        } else if (element.checked === true) formData.append(name, value);
+      } else {
+        if (formData.has(name)) formData.set(name, value);
+        else formData.append(name, value);
+      }
+    });
+  }
+
+  #getFormElements() {
+    return [
+      ...this.#form.querySelectorAll('input'),
+      // ...this.#form.querySelectorAll('mdw-checkbox'),
+      // ...this.#form.querySelectorAll('mdw-switch'),
+      // ...this.#form.querySelectorAll('mdw-slider'),
+      // ...this.#form.querySelectorAll('mdw-slider-range'),
+      ...this.#form.querySelectorAll('mdw-select'),
+      // ...this.#form.querySelectorAll('mdw-radio-group')
+    ];
   }
 }
 
