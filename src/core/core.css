@@ -19,13 +19,14 @@ body {
   color: var(--mdw-on-background);
 }
 
-body mdw-page-content,
 body page-content {
   display: inline-flex;
   flex-direction: column;
   box-sizing: border-box;
   min-height: 100%;
   padding: 0 12px;
+
+  width: 100%;
 }
 
 a:-webkit-any-link:active {

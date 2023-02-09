@@ -2,7 +2,10 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import styleAsString from '!!raw-loader!./component.css';
 import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
+import './global.css';
 
+
+// TODO error style
 
 export default class MDWCheckboxElement extends HTMLElementExtended {
   useShadowRoot = true;
@@ -13,6 +16,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #disabled = false;
   #click_bound = this.#click.bind(this);
   #ripple;
+  #input;
 
 
   constructor() {
@@ -31,6 +35,12 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
 
   afterRender() {
+    this.#input = this.shadowRoot.querySelector('input');
+    this.#input.checked = this.#checked;
+    this.#input.indeterminate = this.#indeterminate;
+    this.#input.value = this.#value;
+    if (this.hasAttribute('required')) this.#input.required = true;
+
     this.addEventListener('click', this.#click_bound);
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
@@ -41,6 +51,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   template() {
     return /*html*/`
+      <input type="checkbox">
       <div class="background">
         <svg version="1.1" focusable="false" viewBox="0 0 24 24">
           <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3" ></path>
@@ -74,6 +85,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
   set checked(value) {
     this.#checked = !!value;
+    if (this.#input) this.#input.checked = this.#checked;
     this.classList.toggle('mdw-checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString() || 'false');
   }
@@ -83,6 +95,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
   set indeterminate(value) {
     this.#indeterminate = !!value;
+    if (this.#input) this.#input.indeterminate = this.#indeterminate
     this.classList.toggle('mdw-indeterminate', this.#indeterminate);
     if (value === true) this.setAttribute('aria-checked', 'mixed');
     else this.setAttribute('aria-checked', this.#checked.toString() || 'false');
@@ -101,6 +114,19 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
   set value(value) {
     this.#value = value;
+    if (this.#input) this.#input.value = value;
+  }
+
+  get validity() {
+    return this.#input.validity;
+  }
+
+  reportValidity() {
+    return this.#input.reportValidity();
+  }
+
+  checkValidity() {
+    return this.#input.checkValidity();
   }
 
   #click() {

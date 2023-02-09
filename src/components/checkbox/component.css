@@ -8,6 +8,12 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+:host > input {
+  display: none;
+  pointer-events: none;
+  user-select: none;
+}
+
 :host([disabled]) {
   pointer-events: none;
   cursor: unset;
@@ -21,7 +27,7 @@
   user-select: none;
   cursor: inherit;
   white-space: nowrap;
-  margin-left: 24px;
+  margin-left: 16px;
 
   font-size: var(--mdw-font-size-large-label);
   font-weight: var(--mdw-font-weight-large-label);

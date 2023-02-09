@@ -1,0 +1,157 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Forms</div>
+    <div class="mdw-supporting-text">Forms support grouped control elements</div>
+  </div>
+</mdw-card>
+
+<p>Forms support simple submit functionality and change detection</p>
+
+<div class="links">
+  <a href="#standard">Standard</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="standard">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Submit with validations</div>
+
+      <div class="example" style="display: flex; justify-content: center;">
+        <!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+        <form id="one" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
+          <mdw-textfield>
+            <input name="name" required>
+            <label>Name</label>
+            <div class="mdw-supporting-text">Required</div>
+          </mdw-textfield>
+
+          <mdw-textfield>
+            <input name="Email" type="email">
+            <label>Email</label>
+          </mdw-textfield>
+
+          <mdw-select name="favnum" label="Pick a number" required supporting-text>
+            <mdw-option value="1">one</mdw-option>
+            <mdw-option value="2">two</mdw-option>
+            <mdw-option value="3">three</mdw-option>
+          </mdw-select>
+
+          <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+
+          <!-- The buttons do not need to be inside the from element -->
+          <mdw-button form="one" type="submit" style="justify-self: end;">Submit</mdw-button>
+        </form>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  <form id="one" method="dialog" style="display: inline-grid;" onsubmit="submit(this)">
+    <mdw-textfield>
+      <input name="name" required>
+      <label>Name</label>
+      <div class="mdw-supporting-text">Required</div>
+    </mdw-textfield>
+  
+    <mdw-textfield>
+      <input name="Email" type="email">
+      <label>Email</label>
+    </mdw-textfield>
+  
+    <mdw-select name="favnum" label="Pick a number" required supporting-text>
+      <mdw-option value="1">one</mdw-option>
+      <mdw-option value="2">two</mdw-option>
+      <mdw-option value="3">three</mdw-option>
+    </mdw-select>
+  
+    <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+    
+    <!-- The buttons do not need to be inside the from element -->
+    <mdw-button form="one" type="submit" style="justify-self: end;">Submit</mdw-button>
+  </form>`)}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-javascript">
+  ${`// submit method
+  //   in example it is called from the form onsubmit attribute
+  function submit(form) {
+    const formData = new FormData(form);
+    console.log([...formData.entries()])
+  }
+
+  // You can also use the submit event
+  document.querySelector('#one').addEventListener('submit', submit);`}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="change">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Cancel change detection</div>
+      <div class="mdw-supporting-text">The cancel button will prompt a dialog when it is clicked and detects any changes in the form data</div>
+  
+      <div class="example" style="display: flex; justify-content: center;">
+        <!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+        <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
+          <mdw-textfield>
+            <input name="name" required>
+            <label>Name</label>
+            <div class="mdw-supporting-text">Required</div>
+          </mdw-textfield>
+  
+          <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+          
+          <!-- The buttons do not need to be inside the from element -->
+          <div style="display: flex; justify-self: end;">
+            <mdw-button form="two" type="submit">Submit</mdw-button>
+            <!-- type="cancel" is custom and does not natively exist -->
+            <mdw-button form="two" type="cancel">Cancel</mdw-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
+    <mdw-textfield>
+      <input name="name" required>
+      <label>Name</label>
+      <div class="mdw-supporting-text">Required</div>
+    </mdw-textfield>
+  
+    <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+  
+    <!-- The buttons do not need to be inside the from element -->
+    <div style="display: flex; justify-self: end;">
+      <mdw-button form="two" type="submit">Submit</mdw-button>
+      <!-- type="cancel" is custom and does not natively exist -->
+      <mdw-button form="two" type="cancel">Cancel</mdw-button>
+    </div>
+  </form>`)}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-javascript">
+  ${`// submit method
+  //   in example it is called from the form onsubmit attribute
+  function submit(form) {
+    const formData = new FormData(form);
+    console.log([...formData.entries()])
+  }
+
+  // You can also use the submit event
+  document.querySelector('#one').addEventListener('submit', submit);`}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

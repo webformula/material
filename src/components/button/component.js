@@ -186,15 +186,16 @@ export default class MDWButtonElement extends HTMLElementExtended {
   }
 
   // TODO workout validation
+  // TODO move to global?
   #onFromData({ formData }) {
     // all non native form elements with name attribute
     //   if no name attribute then formData will not pickup
     [
-      // ...this.#form.querySelectorAll('mdw-checkbox[name]'),
+      ...this.#form.querySelectorAll('mdw-checkbox[name]'),
+      ...this.#form.querySelectorAll('mdw-select[name]'),
       // ...this.#form.querySelectorAll('mdw-switch[name]'),
       // ...this.#form.querySelectorAll('mdw-slider[name]'),
       // ...this.#form.querySelectorAll('mdw-slider-range[name]'),
-      ...this.#form.querySelectorAll('mdw-select[name]'),
       // ...this.#form.querySelectorAll('mdw-radio-group[name]')
     ].forEach(element => {
       const name = element.getAttribute('name');
@@ -271,11 +272,11 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #getFormValidityElements() {
     return [
       ...this.#form.querySelectorAll('input'),
-      // ...this.#form.querySelectorAll('mdw-checkbox'),
+      ...this.#form.querySelectorAll('mdw-checkbox'),
+      ...this.#form.querySelectorAll('mdw-select'),
       // ...this.#form.querySelectorAll('mdw-switch'),
       // ...this.#form.querySelectorAll('mdw-slider'),
       // ...this.#form.querySelectorAll('mdw-slider-range'),
-      ...this.#form.querySelectorAll('mdw-select'),
       // ...this.#form.querySelectorAll('mdw-radio-group')
     ];
   }
