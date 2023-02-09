@@ -79,6 +79,24 @@ input::-webkit-date-and-time-value {
   text-align: left;
 }
 
+
+mdw-textfield:not(.mdw-outlined) input:-webkit-autofill,
+mdw-textfield:not(.mdw-outlined) input:-webkit-autofill:hover,
+mdw-textfield:not(.mdw-outlined) input:-webkit-autofill:focus,
+mdw-textfield:not(.mdw-outlined) input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--mdw-surface-variant) inset !important;
+}
+
+/* hack to keep autofill background color from showing
+ *  The issue is that outline does not have a background color so we cannot use a var
+ */
+mdw-textfield.mdw-outlined input:-webkit-autofill,
+mdw-textfield.mdw-outlined input:-webkit-autofill:hover,
+mdw-textfield.mdw-outlined input:-webkit-autofill:focus,
+mdw-textfield.mdw-outlined input:-webkit-autofill:active {
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 mdw-textfield > label {
   position: absolute;
   text-align: left;
