@@ -201,6 +201,9 @@
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-primary);
 }
+:host(:focus.mdw-filled) {
+  box-shadow: var(--mdw-elevation-1);
+}
 
 :host(.mdw-elevated) {
   background-color: var(--mdw-surface);

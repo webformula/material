@@ -76,3 +76,11 @@ mdw-panel.mdw-option-group {
   box-shadow: var(--mdw-elevation-1);
   box-sizing: border-box;
 }
+
+:host mdw-panel ::slotted(mdw-option) {
+  pointer-events: none;
+}
+
+:host mdw-panel[open] ::slotted(mdw-option) {
+  pointer-events: all;
+}

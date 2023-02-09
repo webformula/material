@@ -49,6 +49,25 @@
     background-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
 }
 
+:host > .background::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--mdw-primary);
+  opacity: 0;
+  transition: opacity 100ms;
+}
+
+:host(:focus) > .background::before {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  transition: opacity 180ms;
+}
+
 :host(.mdw-error) > .background {
   border-color: var(--mdw-error);
 }

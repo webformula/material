@@ -28,6 +28,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #onOpen_bound = this.#onOpen.bind(this);
   #onClose_bound = this.#onClose.bind(this);
   #onInputFocus_bound = this.#onInputFocus.bind(this);
+  #onInputBlur_bound = this.#onInputBlur.bind(this);
   #onClick_bound = this.#onClick.bind(this);
   #onKeydown_bound = this.#onKeydown.bind(this);
   #onInputFilter_debounce = util.debounce(this.#onInputFilter, 300).bind(this);
@@ -66,6 +67,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     // makes the input not usable, only clickable. Create normal select
     if (!this.#isFilter && !this.#isFilterAsync) {
       this.#textfield.classList.add('mdw-select-no-filter');
+      // this.#input.setAttribute('readonly', '');
       this.#panel.positionOverlap = true;
     }
 
@@ -181,8 +183,22 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   }
 
 
-  #onInputFocus() {
-    this.#panel.show();
+  #onInputFocus(event) {
+    // prevent input rom being typed in and autocomplete
+    if (!this.#isFilter && !this.#isFilterAsync) this.#input.setAttribute('readonly', '');
+
+    if (event.type === 'click') return this.#panel.show();
+
+    // if focused via tab then the user needs to press down to open
+    document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+    event.target.addEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
+  }
+
+  #onInputBlur(event) {
+    // enable input validation
+    if (!this.#isFilter && !this.#isFilterAsync) this.#input.removeAttribute('readonly');
+    if (!this.#panel.open) document.body.removeEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+    event.target.removeEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
   }
 
   // set the min width of the select to the input width
@@ -203,9 +219,13 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
     if (this.#isFilter) this.#input.addEventListener('input', this.#onInputFilter_debounce, { signal: this.#abort.signal });
     if (this.#isFilterAsync) this.#input.addEventListener('input', this.#onInputFilterAsync_bound, { signal: this.#abort.signal });
+
+    this.options.forEach(e => e.tabindex = 0);
   }
 
   async #onClose() {
+    this.options.forEach(e => e.tabindex = -1);
+
     this.#textfield.classList.remove('mdw-raise-label');
     this.#arrowElement.classList.remove('mdw-open');
     this.removeEventListener('click', this.#onClick_bound);
@@ -266,6 +286,12 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     const enter = key === 'Enter';
     const downArrow = key === 'ArrowDown';
     const upArrow = key === 'ArrowUp';
+
+    if (!this.#panel.open) {
+      if (downArrow || upArrow) this.#panel.show();
+      else return;
+    }
+
 
     if (escape && this.clickOutsideToClose === true) this.#panel.close();
 
