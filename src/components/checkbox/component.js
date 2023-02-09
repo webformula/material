@@ -105,6 +105,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   #click() {
     this.checked = !this.#checked;
+    this.blur();
     this.dispatchEvent(new Event('change'));
   }
 }

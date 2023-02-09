@@ -13,7 +13,10 @@ customElements.define('mdw-tooltip', class MDWTooltipElement extends HTMLElement
   show(target, mouseX) {
     const bounds = target.getBoundingClientRect();
     const marginBottom = parseInt(getComputedStyle(target).marginBottom || 0);
-    this.style.top = `${bounds.y + bounds.height - marginBottom + 4}px`;
+    const { clientHeight } = document.documentElement;
+    let top = bounds.y + bounds.height - marginBottom + 4;
+    if (top + 28 > clientHeight) top -= 56;
+    this.style.top = `${top}px`;
 
     if (mouseX) {
       this.style.left = `${mouseX + 8}px`;

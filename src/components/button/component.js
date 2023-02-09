@@ -2,6 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import styleAsString from '!!raw-loader!./component.css';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
+import dialog from '../dialog/service.js';
 
 
 export default class MDWButtonElement extends HTMLElementExtended {
@@ -20,6 +21,12 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #handleToggle_bound = this.#handleToggle.bind(this);
   #formSubmit_bound = this.#formSubmit.bind(this);
   #onFromData_bound = this.#onFromData.bind(this);
+  #formFocusIn_bound = this.#formFocusIn.bind(this);
+  #formSubmitted_bound = this.#formSubmitted.bind(this);
+  #formCloseClickInterceptor_bound = this.#formCloseClickInterceptor.bind(this);
+  #formState;
+  #onclickAttribute;
+  #abort = new AbortController();
 
 
   constructor() {
@@ -35,16 +42,25 @@ export default class MDWButtonElement extends HTMLElementExtended {
       const text = util.getTextFromNode(this);
       if (text) this.setAttribute('aria-label', text);
     }
+
+    // this needs to be added asap so it blocks all outside events
+    if (this.#form && this.#type === 'cancel') {
+      this.addEventListener('click', this.#formCloseClickInterceptor_bound, { signal: this.#abort.signal });
+    }
   }
 
   afterRender() {
-    this.addEventListener('mouseup', this.#mouseUp_bound);
+    this.addEventListener('mouseup', this.#mouseUp_bound, { signal: this.#abort.signal });
     if (this.classList.contains('mdw-icon-toggle-button')) {
-      this.addEventListener('click', this.#handleToggle_bound);
+      this.addEventListener('click', this.#handleToggle_bound, { signal: this.#abort.signal });
     }
-    if (this.#form) {
-      this.addEventListener('click', this.#formSubmit_bound);
-      this.#form.addEventListener('formdata', this.#onFromData_bound);
+    if (this.#form && this.#type === 'submit') {
+      this.addEventListener('click', this.#formSubmit_bound, { signal: this.#abort.signal });
+      this.#form.addEventListener('formdata', this.#onFromData_bound, { signal: this.#abort.signal });
+    }
+    if (this.#form && this.#type === 'cancel') {
+      this.#form.addEventListener('focusin', this.#formFocusIn_bound, { signal: this.#abort.signal });
+      this.#form.addEventListener('submit', this.#formSubmitted_bound, { signal: this.#abort.signal });
     }
     if (this.useRipple) {
       this.#ripple = new Ripple({
@@ -57,14 +73,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
 
   disconnectedCallback() {
     if (this.#ripple)  this.#ripple.destroy();
-    this.removeEventListener('mouseup', this.#mouseUp_bound);
-    if (this.classList.contains('mdw-icon-toggle-button')) {
-      this.removeEventListener('click', this.#handleToggle_bound);
-    }
-    if (this.#form) {
-      this.removeEventListener('click', this.#formSubmit_bound);
-      this.#form.removeEventListener('formdata', this.#onFromData_bound);
-    }
+    this.#abort.abort();
   }
 
   template() {
@@ -114,6 +123,13 @@ export default class MDWButtonElement extends HTMLElementExtended {
   set value(value) {
     this.#value = value;
   }
+  
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+  set disabled(value) {
+    this.toggleAttribute('disabled', !!value);
+  }
 
   get toggled() {
     if (!this.#isToggle) throw Error('Cannot toggle. To enable add class "mdw-icon-toggle-button"');
@@ -160,14 +176,13 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.toggled = !this.toggled;
   }
 
-  #formSubmit() {
+  #formSubmit(event) {
     if (!this.#form.hasAttribute('novalidate')) {
-      if (this.#form.reportValidity() === false) {
-        this.#getFormElements().forEach(element => element.reportValidity());
-        return;
-      }
+      const invalids = this.#getFormValidityElements().filter(element => !element.reportValidity());
+      if (invalids.length > 0) return event.preventDefault();
     }
     this.#form.submit();
+    this.#form.dispatchEvent(new SubmitEvent('submit', { submitter: event.target }));
   }
 
   // TODO workout validation
@@ -196,7 +211,64 @@ export default class MDWButtonElement extends HTMLElementExtended {
     });
   }
 
-  #getFormElements() {
+  #formFocusIn() {
+    if (this.#formState === undefined) this.#formState = this.#getFormState();
+
+    // temporarily remove onclick to prevent firing while form has changes
+    setTimeout(() => {
+      const current = this.#getFormState();
+      if (current !== this.#formState) {
+        if (this.hasAttribute('onclick')) {
+          this.#onclickAttribute = this.getAttribute('onclick');
+          this.removeAttribute('onclick');
+        }
+      } else if (this.#onclickAttribute) {
+        this.setAttribute('onclick', this.#onclickAttribute);
+        this.#onclickAttribute = undefined;
+      }
+    }, 100);
+  }
+
+  // prevent cancel from firing
+  async #formCloseClickInterceptor(event) {
+    if (this.#formState !== undefined && this.#getFormState() !== this.#formState) {
+      event.stopImmediatePropagation();
+      
+      const action = await dialog.simple({
+        message: 'Discard changes?',
+        actionConfirm: true,
+        actionConfirmLabel: 'Cancel',
+        actionCancel: true,
+        actionCancelLabel: 'Discard'
+      });
+
+      // actions reversed for button position
+      if (action === 'cancel') {
+        // reset state and retrigger click
+        this.#formState = undefined;
+        if (this.#onclickAttribute) {
+          this.setAttribute('onclick', this.#onclickAttribute);
+          this.#onclickAttribute = undefined;
+        }
+        this.click();
+
+        // TODO do we want to reset form? Could use formState
+      }
+    }
+  }
+
+  #formSubmitted() {
+    this.#formState = undefined;
+    this.disabled = false;
+  }
+
+  #getFormState() {
+    return this.#getFormElements().map(e => (
+      ['MDW-CHECKBOX', 'MDW-SWITCH'].includes(e.nodeName) ? e.checked : e.value
+    )).toString();
+  }
+
+  #getFormValidityElements() {
     return [
       ...this.#form.querySelectorAll('input'),
       // ...this.#form.querySelectorAll('mdw-checkbox'),
@@ -205,6 +277,18 @@ export default class MDWButtonElement extends HTMLElementExtended {
       // ...this.#form.querySelectorAll('mdw-slider-range'),
       ...this.#form.querySelectorAll('mdw-select'),
       // ...this.#form.querySelectorAll('mdw-radio-group')
+    ];
+  }
+
+  #getFormElements() {
+    return [
+      ...this.#form.querySelectorAll('input'),
+      ...this.#form.querySelectorAll('mdw-checkbox'),
+      ...this.#form.querySelectorAll('mdw-switch'),
+      ...this.#form.querySelectorAll('mdw-slider'),
+      ...this.#form.querySelectorAll('mdw-slider-range'),
+      ...this.#form.querySelectorAll('mdw-select'),
+      ...this.#form.querySelectorAll('mdw-radio-group')
     ];
   }
 }

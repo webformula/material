@@ -47,6 +47,16 @@
   cursor: unset;
   color: var(--mdw-on-surface);
   opacity: 0.38;
+
+
+}
+
+:host([disabled][tooltip]) {
+  pointer-events: all;
+}
+
+:host([disabled][tooltip]:active) {
+  pointer-events: none;
 }
 
 /* state layer */
@@ -190,8 +200,6 @@
   background-color: var(--mdw-primary);
 }
 :host([disabled].mdw-filled) {
-  pointer-events: none;
-  cursor: unset;
   background-color: var(--mdw-on-surface--12);
   color: var(--mdw-on-surface--38);
   box-shadow: none;
@@ -210,8 +218,6 @@
   box-shadow: var(--mdw-elevation-1);
 }
 :host([disabled].mdw-elevated) {
-  pointer-events: none;
-  cursor: unset;
   background-color: var(--mdw-on-surface--12);
   color: var(--mdw-on-surface--38);
   box-shadow: none;
@@ -227,8 +233,6 @@
   background-color: var(--mdw-secondary-container);
 }
 :host([disabled].mdw-filled-tonal) {
-  pointer-events: none;
-  cursor: unset;
   background-color: var(--mdw-on-surface--12);
   color: var(--mdw-on-surface--38);
   box-shadow: none;
@@ -245,8 +249,6 @@
   border: 1px solid var(--mdw-outline);
 }
 :host([disabled].mdw-outlined) {
-  pointer-events: none;
-  cursor: unset;
   color: var(--mdw-on-surface--38);
   border: 1px solid var(--mdw-on-surface--12);
 }
