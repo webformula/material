@@ -3,6 +3,8 @@ import { MDWSnackbar } from '@webformula/pax-components';
 import html from './page.html';
 
 export default new class extends Page {
+  pageTitle = 'Snackbars';
+
   constructor() {
     super();
   }

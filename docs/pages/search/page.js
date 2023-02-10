@@ -2,6 +2,8 @@ import { Page } from '@webformula/core';
 import html from './page.html';
 
 export default new class extends Page {
+  pageTitle = 'Search';
+
   onSearch_bound = this.onSearch.bind(this);
 
   constructor() {

@@ -3,6 +3,8 @@ import html from './page.html';
 import { mdwDate } from '@webformula/pax-components';
 
 export default new class extends Page {
+  pageTitle = 'Time pickers';
+
   constructor() {
     super();
   }
