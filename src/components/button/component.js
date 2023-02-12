@@ -20,10 +20,10 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #mouseUp_bound = this.#mouseup.bind(this);
   #handleToggle_bound = this.#handleToggle.bind(this);
   #formSubmit_bound = this.#formSubmit.bind(this);
-  #onFromData_bound = this.#onFromData.bind(this);
   #formFocusIn_bound = this.#formFocusIn.bind(this);
   #formSubmitted_bound = this.#formSubmitted.bind(this);
   #formCloseClickInterceptor_bound = this.#formCloseClickInterceptor.bind(this);
+  #formReset_bound = this.#formReset.bind(this);
   #formState;
   #onclickAttribute;
   #abort = new AbortController();
@@ -56,7 +56,9 @@ export default class MDWButtonElement extends HTMLElementExtended {
     }
     if (this.#form && this.#type === 'submit') {
       this.addEventListener('click', this.#formSubmit_bound, { signal: this.#abort.signal });
-      this.#form.addEventListener('formdata', this.#onFromData_bound, { signal: this.#abort.signal });
+    }
+    if (this.#form && this.#type === 'reset') {
+      this.addEventListener('click', this.#formReset_bound, { signal: this.#abort.signal });
     }
     if (this.#form && this.#type === 'cancel') {
       this.#form.addEventListener('focusin', this.#formFocusIn_bound, { signal: this.#abort.signal });
@@ -185,33 +187,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.#form.dispatchEvent(new SubmitEvent('submit', { submitter: event.target }));
   }
 
-  // TODO workout validation
-  // TODO move to global?
-  #onFromData({ formData }) {
-    // all non native form elements with name attribute
-    //   if no name attribute then formData will not pickup
-    [
-      ...this.#form.querySelectorAll('mdw-checkbox[name]'),
-      ...this.#form.querySelectorAll('mdw-select[name]'),
-      // ...this.#form.querySelectorAll('mdw-switch[name]'),
-      // ...this.#form.querySelectorAll('mdw-slider[name]'),
-      // ...this.#form.querySelectorAll('mdw-slider-range[name]'),
-      // ...this.#form.querySelectorAll('mdw-radio-group[name]')
-    ].forEach(element => {
-      const name = element.getAttribute('name');
-      const value = element.value;
-      if (element.nodeName === 'MDW-CHECKBOX' || element.nodeName === 'MDW-SWITCH') {
-        if (formData.has(name)) {
-          if (element.checked === true) formData.set(name, value);
-          else formData.delete(name);
-        } else if (element.checked === true) formData.append(name, value);
-      } else {
-        if (formData.has(name)) formData.set(name, value);
-        else formData.append(name, value);
-      }
-    });
-  }
-
   #formFocusIn() {
     if (this.#formState === undefined) this.#formState = this.#getFormState();
 
@@ -252,8 +227,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
           this.#onclickAttribute = undefined;
         }
         this.click();
-
-        // TODO do we want to reset form? Could use formState
       }
     }
   }
@@ -261,6 +234,10 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #formSubmitted() {
     this.#formState = undefined;
     this.disabled = false;
+  }
+
+  #formReset() {
+    this.#form.reset();
   }
 
   #getFormState() {

@@ -22,6 +22,7 @@ import './components/chip/index.js';
 import './components/date-picker/index.js';
 import './components/dialog/component.js';
 import './components/fab/component.js';
+import './components/form/index.js';
 import './components/icon/component.js';
 import './components/list/index.js';
 import './components/menu/component.js';
