@@ -45,18 +45,6 @@ function getAllFormElements(form) {
   ];
 }
 
-function getAllValidityFormElements(form) {
-  return [
-    ...form.querySelectorAll('input'),
-    ...form.querySelectorAll('mdw-checkbox'),
-    ...form.querySelectorAll('mdw-select'),
-    // ...form.querySelectorAll('mdw-switch'),
-    // ...form.querySelectorAll('mdw-slider'),
-    // ...form.querySelectorAll('mdw-slider-range'),
-    // ...form.querySelectorAll('mdw-radio-group')
-  ];
-}
-
 // Does not include input because those are already handled correctly
 function getAllFormDataElement(form) {
   return [

@@ -43,7 +43,8 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   }
 
   connectedCallback() {
-    this.setAttribute('role', 'select');
+    // it seems the shadow root is breaking this role
+    // this.setAttribute('role', 'select');
 
     // grab initial options
     this.#options = [...this.querySelectorAll('mdw-option')].map(element => ({
@@ -61,6 +62,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     this.#panel.target = this;
     this.#panel.animation = 'expand';
     this.#panel.addClickOutsideCloseIgnore(this);
+    this.#panel.setAttribute('role', 'listbox');
     // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
     this.#setWidth();
 
