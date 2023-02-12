@@ -15,6 +15,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #value = 'on';
   #disabled = false;
   #click_bound = this.#click.bind(this);
+  #onInvalid_bound = this.#onInvalid.bind(this);
   #ripple;
   #input;
 
@@ -31,6 +32,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   disconnectedCallback() {
     this.removeEventListener('click', this.#click_bound);
+    this.#input.removeEventListener('invalid', this.#onInvalid_bound);
     this.#ripple.destroy();
   }
 
@@ -39,7 +41,10 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     this.#input.checked = this.#checked;
     this.#input.indeterminate = this.#indeterminate;
     this.#input.value = this.#value;
-    if (this.hasAttribute('required')) this.#input.required = true;
+    if (this.hasAttribute('required')) {
+      this.#input.required = true;
+      this.#input.addEventListener('invalid', this.#onInvalid_bound);
+    }
 
     this.addEventListener('click', this.#click_bound);
     this.#ripple = new Ripple({
@@ -88,6 +93,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     if (this.#input) this.#input.checked = this.#checked;
     this.classList.toggle('mdw-checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    this.#onInvalid();
   }
 
   get indeterminate() {
@@ -131,8 +137,14 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   #click() {
     this.checked = !this.#checked;
+    this.onInvalid();
     this.blur();
     this.dispatchEvent(new Event('change'));
+  }
+
+  #onInvalid() {
+    if (!this.#input) return;
+    this.classList.toggle('mdw-invalid', !this.#input.validity.valid);
   }
 }
 

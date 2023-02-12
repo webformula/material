@@ -14,6 +14,14 @@
   user-select: none;
 }
 
+:host(.mdw-invalid) {
+  color: var(--mdw-error);
+}
+
+:host(.mdw-invalid) .background {
+  border-color: var(--mdw-error);
+}
+
 :host([disabled]) {
   pointer-events: none;
   cursor: unset;
