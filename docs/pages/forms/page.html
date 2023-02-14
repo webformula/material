@@ -8,7 +8,8 @@
 <p>Forms support simple submit functionality and change detection</p>
 
 <div class="links">
-  <a href="#standard">Standard</a>
+  <a href="#standard">Basic submit</a>
+  <a href="#change">Cancel with change detection</a>
 </div>
 
 
@@ -21,7 +22,7 @@
 
       <div class="example" style="display: flex; justify-content: center;">
         <!-- method="dialog" Will prevent any page redirects or endpoint calls -->
-        <form id="one" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
+        <form id="one" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)" onreset="console.log('onreset')">
           <mdw-textfield>
             <input name="name" required>
             <label>Name</label>
@@ -43,6 +44,7 @@
 
           <!-- The buttons do not need to be inside the from element -->
           <mdw-button form="one" type="submit" style="justify-self: end;">Submit</mdw-button>
+          <mdw-button form="one" type="reset" style="justify-self: end;">reset</mdw-button>
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
 mdw-side-sheet {
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
@@ -17,6 +17,10 @@ mdw-side-sheet {
   transform: translateX(0);
   transition: transform 180ms;
   transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+mdw-side-sheet.mdw-global {
+  position: fixed;
 }
 
 body.mdw-mobile mdw-side-sheet,

@@ -1,0 +1,314 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Side sheets</div>
+    <div class="mdw-supporting-text">Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow.</div>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/side-sheets/overview" target="_new">Material Design Guidelines:
+  Side sheets</a>
+<p>Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow.</p>
+
+<div class="links">
+  <a href="#local">Local</a>
+  <a href="#global">Global</a>
+</div>
+
+
+<section>
+  <h4>Types</h4>
+
+  <mdw-card id="local">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Local</div>
+      <div class="mdw-subheader">Contained inside of div</div>
+  
+      <div class="example">
+        <div>
+          <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
+          <mdw-switch style="margin-left: 16px; width: 120px;" onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
+          <mdw-switch style="margin-left: 36px; width: 210px;"
+            onchange="document.querySelector('mdw-side-sheet#one').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+        </div>
+        <div style="display: flex">
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <mdw-side-sheet id="one" class="mdw-click-backdrop-close">
+            <div class="mdw-header">
+              <div class="mdw-title">Title</div>
+              <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+            </div>
+          
+            <div class="mdw-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          
+            <div class="mdw-actions">
+              <mdw-button class="mdw-primary">action</mdw-button>
+            </div>
+          </mdw-side-sheet>
+        </div>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<div style="display: flex">
+    <div>
+      content...
+    </div>
+    <mdw-side-sheet id="one" class="mdw-click-backdrop-close">
+      <div class="mdw-header">
+        <div class="mdw-title">Title</div>
+        <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+      </div>
+  
+      <div class="mdw-content">
+        content...
+      </div>
+  
+      <div class="mdw-actions">
+        <mdw-button class="mdw-primary">action</mdw-button>
+      </div>
+    </mdw-side-sheet>
+  </div>`)}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- Controls-->
+  <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
+  <mdw-switch style="margin-left: 16px; width: 120px;"
+    onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
+  <mdw-switch style="margin-left: 36px; width: 210px;"
+    onchange="document.querySelector('mdw-side-sheet#one').backdrop = this.checked">Backdrop (modal)</mdw-switch>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="local">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Global</div>
+      <div class="mdw-subheader">Fill entire page (modal only)</div>
+  
+      <div class="example">
+        <div>
+          <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
+          <mdw-switch style="margin-left: 36px; width: 210px;"
+            onchange="document.querySelector('mdw-side-sheet#two').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+        </div>
+        <div style="display: flex">
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+              sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+              sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <mdw-side-sheet id="two" class="mdw-global">
+            <div class="mdw-header">
+              <div class="mdw-title">Title</div>
+              <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+            </div>
+  
+            <div class="mdw-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+                Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+  
+            <div class="mdw-actions">
+              <mdw-button class="mdw-primary">action</mdw-button>
+            </div>
+          </mdw-side-sheet>
+        </div>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<div style="display: flex">
+    <div>
+      content...
+    </div>
+    <mdw-side-sheet id="two" class="mdw-global">
+      <div class="mdw-header">
+        <div class="mdw-title">Title</div>
+        <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+      </div>
+  
+      <div class="mdw-content">
+        content...
+      </div>
+  
+      <div class="mdw-actions">
+        <mdw-button class="mdw-primary">action</mdw-button>
+      </div>
+    </mdw-side-sheet>
+  </div>`)}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<!-- Controls-->
+  <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
+  <mdw-switch style="margin-left: 36px; width: 210px;"
+    onchange="document.querySelector('mdw-side-sheet#two').backdrop = this.checked">Backdrop (modal)</mdw-switch>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+
+  <mdw-card id="forms">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Form with change detection</div>
+      <div class="mdw-supporting-text">Make a change in one of the inputs and click cancel to see message.</div>
+  
+      <div class="example">
+        <div>
+          <mdw-button onclick="document.querySelector('mdw-side-sheet#three').toggle()">Toggle side sheet</mdw-button>
+          <mdw-switch style="margin-left: 36px; width: 210px;" checked
+            onchange="document.querySelector('mdw-side-sheet#three').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+        </div>
+        <div style="display: flex">
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+              sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+              sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <mdw-side-sheet id="three" class="mdw-global mdw-backdrop">
+            <div class="mdw-header">
+              <div class="mdw-title">Title</div>
+            </div>
+  
+            <div class="mdw-content">
+              <form id="threeform" method="dialog" onsubmit="document.querySelector('#three').close()">
+                <mdw-textfield>
+                  <input name="name" required>
+                  <label>Name</label>
+                  <div class="mdw-supporting-text"></div>
+                </mdw-textfield>
+            
+                <mdw-textfield>
+                  <input name="email" type="email">
+                  <label>Name</label>
+                  <div class="mdw-supporting-text"></div>
+                </mdw-textfield>
+            
+                <mdw-select name="select" label="Label" required supporting-text>
+                  <mdw-option value="1">one</mdw-option>
+                  <mdw-option value="2">two</mdw-option>
+                  <mdw-option value="3">three</mdw-option>
+                </mdw-select>
+            
+                <mdw-checkbox name="check" required></mdw-checkbox>
+              </form>
+            </div>
+            
+            <div class="mdw-actions">
+              <div class="mdw-divider"></div>
+              <mdw-button class="mdw-filled mdw-primary" form="threeform" type="submit">Save</mdw-button>
+              <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary" form="threeform" type="cancel">Cancel</mdw-button>
+            </div>
+          </mdw-side-sheet>
+        </div>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-side-sheet id="three" class="mdw-global mdw-backdrop">
+    <div class="mdw-header">
+      <div class="mdw-title">Title</div>
+    </div>
+  
+    <div class="mdw-content">
+      <form id="threeform" method="dialog" onsubmit="document.querySelector('#three').close()">
+        <mdw-textfield>
+          <input name="name" required>
+          <label>Name</label>
+          <div class="mdw-supporting-text"></div>
+        </mdw-textfield>
+  
+        <mdw-textfield>
+          <input name="email" type="email">
+          <label>Name</label>
+          <div class="mdw-supporting-text"></div>
+        </mdw-textfield>
+  
+        <mdw-select name="select" label="Label" required supporting-text>
+          <mdw-option value="1">one</mdw-option>
+          <mdw-option value="2">two</mdw-option>
+          <mdw-option value="3">three</mdw-option>
+        </mdw-select>
+  
+        <mdw-checkbox name="check" required></mdw-checkbox>
+      </form>
+    </div>
+  
+    <div class="mdw-actions">
+      <div class="mdw-divider"></div>
+      <mdw-button class="mdw-filled mdw-primary" form="threeform" type="submit">Save</mdw-button>
+      <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary" form="threeform" type="cancel">Cancel</mdw-button>
+    </div>
+  </mdw-side-sheet>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

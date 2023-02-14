@@ -68,25 +68,6 @@ mdw-snackbar .mdw-icon-svg > svg {
   fill: var(--mdw-primary-container);
 }
 
-
-.mdw-backdrop {
-  position: fixed;
-  z-index: 11;
-
-  opacity: 0;
-  transition: opacity 240ms;
-}
-
-.mdw-backdrop::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--mdw-scrim--16);
-}
-
 mdw-divider {
   border-bottom: 1px solid var(--mdw-outline-variant);
 }
