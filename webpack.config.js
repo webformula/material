@@ -11,18 +11,28 @@ const plugins = [
   new CopyPlugin({
     patterns: [
       { from: 'src/theme.css', to: '' },
-      { from: 'docs/favicon.ico', to: '' }
+      { from: 'docs/font.css', to: '' },
+      { from: 'docs/favicon.ico', to: '' },
+      {
+        from: 'pages/**/*.html',
+        context: 'docs/',
+        to: '',
+        globOptions: {
+          ignore: ['**/page.html']
+        }
+      }
     ]
   })
 ];
 
 if (process.env.NODE_ENV === 'production') {
-  plugins.push(new CompressionPlugin({ exclude: ['index.html', 'theme.css'] }));
+  plugins.push(new CompressionPlugin({ exclude: [/.html$/, 'theme.css'] }));
 }
 
 export default {
   entry: {
     docs: { import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'  },
+    bundle: { import: './docs/app.js', filename: 'bundle.js' },
     components: { import: './src/index.js', filename: 'components.js' }
   },
   output: {

@@ -6,9 +6,6 @@ import {
 } from '../../core/svgs.js';
 
 customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends HTMLElementExtended {
-  // useShadowRoot = true;
-
-  #navigation;
   #onclick_bound = this.#onclick.bind(this);
   #onNavigationState_bound = this.#onNavigationState.bind(this);
 
@@ -39,13 +36,13 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
 
   afterRender() {
     this.#onNavigationState();
-    this.navigation.addEventListener('change', this.#onNavigationState_bound);
+    this.navigation?.addEventListener('change', this.#onNavigationState_bound);
     this.addEventListener('click', this.#onclick_bound);
   }
 
   disconnectedCallback() {
     this.removeEventListener('click', this.#onclick_bound);
-    this.navigation.removeEventListener('change', this.#onNavigationState_bound);
+    this.navigation?.removeEventListener('change', this.#onNavigationState_bound);
   }
 
   #onclick() {
@@ -54,12 +51,12 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
 
   #onNavigationState() {
     const button = this.querySelector('mdw-button');
-    if (button) button.toggled = !this.navigation.open;
+    if (button) button.toggled = !this.navigation?.open;
   }
 
   template() {
     return /* html */`
-      <mdw-button class="mdw-icon-toggle-button" aria-label="toggle navigation" ${this.navigation.open ? '' : 'toggled'}>
+      <mdw-button class="mdw-icon-toggle-button" aria-label="toggle navigation" ${this.navigation?.open ? '' : 'toggled'}>
         <div class="mdw-icon-svg" value="on">${menu_FILL1_wght400_GRAD0_opsz24}</div>
         <div class="mdw-icon-svg" value="off">${menu_open_FILL1_wght400_GRAD0_opsz24}</div>
       </mdw-button>
