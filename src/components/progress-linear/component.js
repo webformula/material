@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./component.css';
+import sheet from './component.css' assert { type: 'css' };
 
 
 customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTMLElementExtended {
@@ -53,7 +53,7 @@ customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTM
 
   template() {
     return /* html*/ `
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
       <div class="indicator" style="width: ${(this.#value / this.#max) * 100}%;"></div>
     `;
   }

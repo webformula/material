@@ -1,5 +1,5 @@
 import MDWButtonElement from '../button/component.js';
-import styleAsString from '!!raw-loader!./segmented-button.css';
+import sheet from './segmented-button.css' assert { type: 'css' };
 
 
 customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement extends MDWButtonElement {
@@ -45,9 +45,7 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
 
   template() {
     return /* html */`
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
       ${!this.#useCheckedIcon ? '' : /*html*/`
         <svg version="1.1" focusable="false" viewBox="0 0 16 16">
           <path fill="none" stroke="white" d="M5,8 7.7,10 12,5.5" ></path>

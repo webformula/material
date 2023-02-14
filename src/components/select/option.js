@@ -1,5 +1,5 @@
 import HTMLElementExtended from "../HTMLElementExtended.js";
-import styleAsString from '!!raw-loader!./option.css';
+import sheet from './option.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 
@@ -21,7 +21,7 @@ customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElem
         <slot></slot>
       </span>
       <div class="ripple"></div>
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

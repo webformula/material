@@ -1,7 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
-import styleAsString from '!!raw-loader!./component.css';
+import sheet from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
   useShadowRoot = true;
@@ -41,7 +41,7 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
     return /* html */`
       <slot></slot>
       <div class="ripple"></div>
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./component.css';
+import sheet from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
 import './global.css';
@@ -67,9 +67,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
       <slot></slot>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

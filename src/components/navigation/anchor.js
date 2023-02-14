@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./anchor.css';
+import sheet from './anchor.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import './anchor-global.css';
 import util from '../../core/util.js';
@@ -61,7 +61,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       <slot class="main"></slot>
       <slot class="rail" name="rail"></slot>
       <div class="ripple"></div>
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

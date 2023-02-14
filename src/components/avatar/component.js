@@ -1,6 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./component.css';
-
+import sheet from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementExtended {
   useShadowRoot = true;
@@ -25,9 +24,7 @@ customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementEx
         <path fill="none" stroke="white" stroke-width="2" d="M4.1,12.7 9,17.6 20.3,6.3" ></path>
       </svg>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 });

@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./component.css';
+import sheet from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 
@@ -26,9 +26,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
         </div>
       </div>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

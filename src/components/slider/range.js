@@ -1,6 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import Drag from '../../core/Drag.js';
-import styleAsString from '!!raw-loader!./range.css';
+import sheet from './range.css' assert { type: 'css' };
 
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
@@ -57,9 +57,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
         <div class="mdw-label"><div class="mdw-label-text"></div></div>
       </div>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

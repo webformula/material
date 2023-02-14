@@ -53,17 +53,31 @@ export default {
   devtool: process.env.WEBPACK_SERVE ? 'inline-source-map' : undefined,
   module: {
     rules: [
+      // {
+      //   test: /\.css$/, ///^((?!theme).)*\.css$/i,
+      //   use: ['style-loader', 'css-loader']
+      // },
       {
-        test: /\.css$/, ///^((?!theme).)*\.css$/i,
-        use: ['style-loader', 'css-loader']
+        test: /\.css$/i,
+        oneOf: [
+          {
+            assert: { type: "css" },
+            loader: "css-loader",
+            options: {
+              exportType: "css-style-sheet"
+            }
+          },
+          {
+            use: [
+              "style-loader",
+              { loader: "css-loader" }
+            ]
+          }
+        ]
       },
       {
         test: /\.html$/,
         use: [ 'html-loader' ]
-      },
-      {
-        test: /\.svg$/i,
-        use: 'raw-loader'
       }
     ]
   },

@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./search.css';
+import sheet from './search.css' assert { type: 'css' };
 import './search-global.css';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
@@ -133,7 +133,7 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
       </div>
       <slot name="filters"></slot>
       <slot name="suggestions"></slot> <!-- filled in programmatically, used for global css access -->
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

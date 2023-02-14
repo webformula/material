@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./slider.css';
+import sheet from './slider.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 
 
@@ -48,9 +48,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
         </div>
       </div>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

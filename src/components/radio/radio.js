@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./radio.css';
+import sheet from './radio.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 
@@ -25,9 +25,7 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
 
       <slot></slot>
 
-      <style>
-        ${styleAsString}
-      </style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

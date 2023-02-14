@@ -87,6 +87,11 @@ export default class HTMLElementExtended extends HTMLElement {
       return '&#' + c.charCodeAt(0) + ';';
     });
   };
+
+  stringifyStyleSheet(sheet) {
+    if (!sheet) return '';
+    return [...sheet.cssRules].map(rule => rule.cssText).join('\n');
+  }
 }
 
 

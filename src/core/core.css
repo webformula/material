@@ -20,13 +20,11 @@ body {
 }
 
 body page-content {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   box-sizing: border-box;
   min-height: 100%;
   padding: 0 12px;
-
-  width: 100%;
 }
 
 a:-webkit-any-link:active {

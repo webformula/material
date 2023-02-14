@@ -1,7 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./select.css';
-import styleAsStringTextfield from '!!raw-loader!../textfield/component.css';
-import styleAsStringPanel from '!!raw-loader!../panel/component.css';
+import sheet from './select.css' assert { type: 'css' };
+import sheetTextField from '../textfield/component.css' assert { type: 'css' };
+import sheetPanel from '../panel/component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO document required and supporting-text
@@ -104,9 +104,9 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       </mdw-textfield>
 
       <style>
-        ${styleAsString}
-        ${styleAsStringTextfield}
-        ${styleAsStringPanel}
+        ${this.stringifyStyleSheet(sheet) }
+        ${this.stringifyStyleSheet(sheetTextField) }
+        ${this.stringifyStyleSheet(sheetPanel) }
       </style>
     `;
   }

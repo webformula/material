@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styleAsString from '!!raw-loader!./chip.css';
+import sheet from './chip.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import {
@@ -114,7 +114,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       ` : ''}
       <span class="spinner"></span>
       <div class="ripple"></div>
-      <style>${styleAsString}</style>
+      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 
