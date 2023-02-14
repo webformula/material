@@ -84,7 +84,6 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   }
 
   #onDrag({ distance, direction }) {
-    // console.log(this.scrollTop, direction.y, this.style.overflowY)
     if (this.scrollTop <= 0 && direction.y === 1 && this.style.overflowY !== 'visible') {
       this.#switchToDragging();
       return;
@@ -92,7 +91,6 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
 
     if (this.#isScrolling) return;
 
-    // console.log(bottom, this.#topPosition, direction.y);
     // container has been drag to top and needs to be converted to scroll
     if (this.#position >= this.#topPosition && direction.y === -1) {
       this.#switchToScrolling(distance);

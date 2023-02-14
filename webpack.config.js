@@ -11,7 +11,6 @@ const plugins = [
   new CopyPlugin({
     patterns: [
       { from: 'src/theme.css', to: '' },
-      { from: 'src/theme.css', to: 'components/' },
       { from: 'docs/favicon.ico', to: '' }
     ]
   })
@@ -24,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 export default {
   entry: {
     docs: { import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'  },
-    components: { import: './src/index.js', filename: 'components/components.js' }
+    components: { import: './src/index.js', filename: 'components.js' }
   },
   output: {
     clean: true

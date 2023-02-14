@@ -1,5 +1,8 @@
 /dist/**
-!/dist/components/
+!/dist/components.js
+!/dist/components.js.gz
+!/dist/theme.css
+!/dist/theme.css.gz
 
 # Logs
 logs
