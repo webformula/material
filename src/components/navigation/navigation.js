@@ -42,6 +42,8 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     util.nextAnimationFrameAsync().then(() => {
       this.classList.remove('mdw-no-animation');
       document.body.classList.remove('mdw-navigation-no-animation');
+      const active = this.querySelector('mdw-anchor.mdw-active');
+      if (active) active.scrollIntoView();
     });
   }
 

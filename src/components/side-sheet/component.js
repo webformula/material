@@ -37,7 +37,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   }
 
   disconnectedCallback() {
-    if (!this.#backdropElement) this.#backdropElement.remove();
+    if (this.#backdropElement) this.#backdropElement.remove();
     this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.removeEventListener('click', this.#closeClick_bound));
   }
 
