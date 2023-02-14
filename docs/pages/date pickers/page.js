@@ -1,6 +1,6 @@
 import { Page } from '@webformula/core';
 import html from './page.html';
-import { mdwDate } from '@webformula/pax-components';
+import { mdwDate } from '@webformula/material';
 
 export default new class extends Page {
   pageTitle = 'Date pickers';

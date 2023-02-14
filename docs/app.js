@@ -1,9 +1,8 @@
+import '../src/theme.css';
 import './font.css';
 import './dracula.css';
 import './app.css';
 
-
-import '@webformula/pax-components';
 import { registerPage, enableSPA } from '@webformula/core';
 enableSPA();
 

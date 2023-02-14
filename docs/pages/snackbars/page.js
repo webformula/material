@@ -1,5 +1,5 @@
 import { Page } from '@webformula/core';
-import { MDWSnackbar } from '@webformula/pax-components';
+import { MDWSnackbar } from '@webformula/material';
 import html from './page.html';
 
 export default new class extends Page {

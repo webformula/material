@@ -43,7 +43,10 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
       this.classList.remove('mdw-no-animation');
       document.body.classList.remove('mdw-navigation-no-animation');
       const active = this.querySelector('mdw-anchor.mdw-active');
-      if (active) active.scrollIntoView();
+      if (active) {
+        const bounds = active.getBoundingClientRect();
+        if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView();
+      }
     });
   }
 

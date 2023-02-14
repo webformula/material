@@ -2,29 +2,34 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 
+const plugins = [
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: './docs/index.html',
+    chunks: ['docs']
+  }),
+  new CopyPlugin({
+    patterns: [
+      { from: 'src/theme.css', to: '' },
+      { from: 'src/theme.css', to: 'components/' },
+      { from: 'docs/favicon.ico', to: '' }
+    ]
+  })
+];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new CompressionPlugin({ exclude: ['index.html', 'theme.css'] }));
+}
 
 export default {
   entry: {
-    docs: './docs/app.js',
-    components: './src/index.js'
+    docs: { import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'  },
+    components: { import: './src/index.js', filename: 'components/components.js' }
   },
   output: {
-    filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'
+    clean: true
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './docs/index.html',
-      chunks: ['docs']
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: 'src/theme.css', to: '' },
-        { from: 'docs/favicon.ico', to: '' }
-      ]
-    }),
-    // process.env.NODE_ENV === 'production' ? new CompressionPlugin({ exclude: ['index.html', 'theme.css']  }) : undefined
-  ],
+  plugins,
   devServer: {
     static: {
       directory: './docs'
@@ -40,7 +45,7 @@ export default {
   module: {
     rules: [
       {
-        test: /^((?!theme).)*\.css$/i,
+        test: /\.css$/, ///^((?!theme).)*\.css$/i,
         use: ['style-loader', 'css-loader']
       },
       {

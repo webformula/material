@@ -1,4 +1,5 @@
-dist/
+/dist/**
+!/dist/components/
 
 # Logs
 logs

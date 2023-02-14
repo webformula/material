@@ -1,5 +1,5 @@
 import { Page } from '@webformula/core';
-import { mdwDialog } from '@webformula/pax-components';
+import { mdwDialog } from '@webformula/material';
 import html from './page.html';
 
 export default new class extends Page {
