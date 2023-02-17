@@ -20,6 +20,10 @@
   border-radius: var(--mdw-shape-extra-large);
 }
 
+:host > * {
+  pointer-events: none;
+}
+
 :host ::slotted(mdw-icon) {
   vertical-align: middle;
   margin-top: -2px;

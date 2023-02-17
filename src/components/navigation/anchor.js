@@ -13,6 +13,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   #ripple;
   #active = false;
+  #target = this.getAttribute('target');
   #onClick_bound = this.#onClick.bind(this);
 
 
@@ -84,6 +85,10 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #onClick() {
-    location.href = this.href;
+    if (['_blank', '_self', '_parent', '_top'].includes(this.#target)) {
+      window.open(this.href, this.#target).focus();
+    } else {
+      location.href = this.href;
+    }
   }
 });

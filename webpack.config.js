@@ -53,10 +53,6 @@ export default {
   devtool: process.env.WEBPACK_SERVE ? 'inline-source-map' : undefined,
   module: {
     rules: [
-      // {
-      //   test: /\.css$/, ///^((?!theme).)*\.css$/i,
-      //   use: ['style-loader', 'css-loader']
-      // },
       {
         test: /\.css$/i,
         oneOf: [
