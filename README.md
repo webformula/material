@@ -2,8 +2,8 @@
 Material design v3 web components. Performant, light-weight, full features, optimized for multiple devices.
 
 ## Highlights
-- Light-weight - **73KB** compressed
-- Performant - Uses native webcomponents
+- Light-weight - **70KB** compressed
+- Performant - Uses native web components
 - 0 Dependencies
 - Optimized for all screens and devices
 - Simple to use

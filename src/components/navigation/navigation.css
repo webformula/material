@@ -61,6 +61,10 @@ mdw-navigation .mdw-header {
   opacity: 1;
 }
 
+mdw-navigation .mdw-header > .mdw-headline {
+  margin-left: 24px;
+}
+
 mdw-navigation.mdw-rail.mdw-state-rail .mdw-header > * {
   opacity: 0;
   pointer-events: none;
