@@ -33,7 +33,7 @@ const mdwDate = new class MDWDate {
   }
   set timeZone(value) {
     try {
-      Intl.DateTimeFormat(undefined, { timeZone: tz });
+      Intl.DateTimeFormat(undefined, { timeZone: value });
     } catch {
       throw Error('invalid timeZone value');
     }

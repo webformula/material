@@ -32,7 +32,10 @@
 
     <pre>
       <code class="language-javascript">
-  ${`MDWSnackbar.show({
+  ${`// also available globally on window
+  import { mdwSnackbar } from '@webformula/material';
+  
+  mdwSnackbar.show({
     message: 'Message goes here'
   });`}
       </code>
@@ -50,8 +53,11 @@
 
     <pre>
       <code class="language-javascript">
-  ${`// Promise will resolve when the Snackbar is dismissed automatically or when action is pressed
-  await MDWSnackbar.show({
+  ${`// also available globally on window
+  import { mdwSnackbar } from '@webformula/material';
+  
+  // Promise will resolve when the Snackbar is dismissed automatically or when action is pressed
+  await mdwSnackbar.show({
     message: 'Message goes here',
     action: true,
     actionLabel: 'Done' // default 'Dismiss'
@@ -72,7 +78,10 @@
   
     <pre>
         <code class="language-javascript">
-    ${`MDWSnackbar.show({
+    ${`// also available globally on window
+    import { mdwSnackbar } from '@webformula/material';
+    
+    mdwSnackbar.show({
       message: 'Message goes here',
       closeButton: false,
       ms: 6000

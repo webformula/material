@@ -34,6 +34,9 @@ basic and full-screen.</p>
 
     <pre>
       <code class="language-javascript">
+  // also available globally on window
+  import { mdwDialog } from '@webformula/material';
+
   const answer = await mdwDialog.simple({
     headline: 'Question',
     message: 'Are you sure?',
@@ -104,6 +107,9 @@ basic and full-screen.</p>
     </pre>
     <pre>
       <code class="language-javascript">
+  // also available globally on window
+  import { mdwDialog } from '@webformula/material';
+
   const value = await mdwDialog.template({
     template: templateString
   });

@@ -2,7 +2,7 @@ import MDWPanelElement from '../panel/component.js';
 import './component.css';
 
 
-customElements.define('mdw-snackbar', class MDWSnackbarElement extends MDWPanelElement {
+customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWPanelElement {
   constructor() {
     super();
 

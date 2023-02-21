@@ -1,5 +1,5 @@
 import { Page } from '@webformula/core';
-import { MDWSnackbar } from '@webformula/material';
+import { mdwSnackbar } from '@webformula/material';
 import html from './page.html';
 
 export default new class extends Page {
@@ -14,13 +14,13 @@ export default new class extends Page {
   }
 
   basic() {
-    MDWSnackbar.show({
+    mdwSnackbar.show({
       message: 'Message goes here'
     });
   }
 
   async action() {
-    await MDWSnackbar.show({
+    await mdwSnackbar.show({
       message: 'Message goes here',
       action: true,
       actionLabel: 'Done'
@@ -29,7 +29,7 @@ export default new class extends Page {
   }
 
   async noClose() {
-    await MDWSnackbar.show({
+    await mdwSnackbar.show({
       message: 'Message goes here',
       closeButton: false,
       ms: 6000

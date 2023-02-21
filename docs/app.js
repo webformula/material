@@ -16,6 +16,7 @@ window.escapeHTML = str => {
 };
 
 import home from './pages/home/page.js';
+import styles from './pages/styles/page.js';
 import badges from './pages/badges/page.js';
 import bottomAppBars from './pages/bottom app bars/page.js';
 import bottomSheets from './pages/bottom sheets/page.js';
@@ -29,6 +30,7 @@ import fabs from './pages/fabs/page.js';
 import forms from './pages/forms/page.js';
 import icons from './pages/icons/page.js';
 import iconButtons from './pages/icon buttons/page.js';
+import installation from './pages/installation/page.js';
 import lists from './pages/lists/page.js';
 import menus from './pages/menus/page.js';
 import navigations from './pages/navigations/page.js';
@@ -46,12 +48,14 @@ import timePickers from './pages/time pickers/page.js';
 import textFields from './pages/text fields/page.js';
 import topAppBars from './pages/top app bars/page.js';
 import tooltips from './pages/tooltips/page.js';
+import utilities from './pages/utilities/page.js';
 import notFound from './pages/not found/page.js';
 
 
 
 
 registerPage(home, '/');
+registerPage(styles, '/styles');
 registerPage(badges, '/badges');
 registerPage(bottomAppBars, '/bottom-app-bars');
 registerPage(bottomSheets, '/bottom-sheets');
@@ -65,6 +69,7 @@ registerPage(fabs, '/fabs');
 registerPage(forms, '/forms');
 registerPage(icons, '/icons');
 registerPage(iconButtons, '/icon-buttons');
+registerPage(installation, '/installation');
 registerPage(lists, '/lists');
 registerPage(menus, '/menus');
 registerPage(navigations, '/navigations');
@@ -82,6 +87,7 @@ registerPage(timePickers, '/time-pickers');
 registerPage(textFields, '/text-fields');
 registerPage(topAppBars, '/top-app-bars');
 registerPage(tooltips, '/tooltips');
+registerPage(utilities, '/utilities');
 
 registerPage(notFound, '/not-found', true);
 

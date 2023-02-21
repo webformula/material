@@ -2,7 +2,7 @@ import util from '../../core/util.js';
 import { close_FILL1_wght400_GRAD0_opsz24  } from '../../core/svgs.js';
 
 
-const MDWSnackbar = new class MDWSnackbar {
+const mdwSnackbar = new class mdwSnackbar {
   defaultTime = 4000;
   #currentSnackbar;
   #snackbarQueue = [];
@@ -21,8 +21,8 @@ const MDWSnackbar = new class MDWSnackbar {
     if (params.twoLine) snackbar.classList.add('mdw-line-two');
     snackbar.innerHTML = /*html*/`
       <div class="mdw-text">${params.message}</div>
-      ${!params.actionLabel ? '' : `<mdw-button onclick="MDWSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
-      ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="MDWSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
+      ${!params.actionLabel ? '' : `<mdw-button onclick="mdwSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
+      ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
     `;
     document.body.insertAdjacentElement('beforeend', snackbar);
 
@@ -68,5 +68,5 @@ const MDWSnackbar = new class MDWSnackbar {
   }
 }
 
-window.MDWSnackbar = MDWSnackbar;
-export default MDWSnackbar;
+window.mdwSnackbar = mdwSnackbar;
+export default mdwSnackbar;

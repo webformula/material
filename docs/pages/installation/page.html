@@ -1,0 +1,36 @@
+<section style="margin-top: 12px;">
+  <mdw-card id="install">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Installation</div>
+    </div>
+  
+    <div class="mdw-card-content">
+      <div class="mdw-subheader">NPM</div>
+    </div>
+    <pre>
+      <code class="language-bash">
+  ${`npm install @webformula/material`}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-javascript">
+  ${`// customize theme.css to change color scheme
+  // should import / load theme.css before scripts
+  @webformula/material/src/theme.css
+  
+  import '@webformula/material';`}
+      </code>
+    </pre>
+  
+    <div class="mdw-card-content" style="margin-top: 12px">
+      <div class="mdw-subheader">CDN</div>
+    </div>
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<!-- Customize theme.css to change color scheme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/theme.css">
+  <script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/core.js"></script>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>
