@@ -107,9 +107,9 @@
   vertical-align: center;
   transform-origin: center;
   transform: rotate(-45deg);
-  font-size: var(--mdw-font-size-medium-label);
-  font-weight: var(--mdw-font-weight-medium-label);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  font-size: var(--mdw-font-label-size-medium);
+  font-weight: var(--mdw-font-label-weight-medium);
+  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
   color: var(--mdw-on-primary);
 }
 

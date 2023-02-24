@@ -3,10 +3,10 @@ mdw-tooltip {
   position: fixed;
   height: 24px;
   padding: 0 8px;
-  font-size: var(--mdw-font-size-small-label);
-  font-weight: var(--mdw-font-weight-small-label);
+  font-size: var(--mdw-font-label-size-small);
+  font-weight: var(--mdw-font-label-weight-small);
   line-height: 24px;
-  letter-spacing: var(--mdw-font-letter-spacing-small-label);
+  letter-spacing: var(--mdw-font-label-letter-spacing-small);
 
   border-radius: var(--mdw-shape-extra-small);
   background-color: var(--mdw-on-surface-variant);

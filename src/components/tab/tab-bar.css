@@ -7,10 +7,10 @@ mdw-tab-bar {
   background-color: var(--mdw-surface);
   color: var(--mdw-on-surface-variant);
 
-  font-size: var(--mdw-font-size-small-title);
-  font-weight: var(--mdw-font-weight-small-title);
-  line-height: var(--mdw-font-line-height-small-title);
-  letter-spacing: var(--mdw-font-letter-spacing-small-title);
+  font-size: var(--mdw-font-title-size-small);
+  font-weight: var(--mdw-font-title-weight-small);
+  line-height: var(--mdw-font-title-line-height-small);
+  letter-spacing: var(--mdw-font-title-letter-spacing-small);
 
   pointer-events: none;
 }

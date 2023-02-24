@@ -73,61 +73,61 @@ mdw-card > .mdw-card-image.mdw-rounded {
 
 mdw-card .mdw-headline,
 mdw-card .mdw-headline-large {
-  font-size: var(--mdw-font-size-large-title);
-  font-weight: var(--mdw-font-weight-large-title);
-  line-height: var(--mdw-font-line-height-large-title);
-  letter-spacing: var(--mdw-font-letter-spacing-large-title);
+  font-size: var(--mdw-font-title-size-large);
+  font-weight: var(--mdw-font-title-weight-large);
+  line-height: var(--mdw-font-title-line-height-large);
+  letter-spacing: var(--mdw-font-title-letter-spacing-large);
   color: var(--mdw-on-surface);
 }
 
 mdw-card .mdw-headline-medium {
-  font-size: var(--mdw-font-size-medium-title);
-  font-weight: var(--mdw-font-weight-medium-title);
-  line-height: var(--mdw-font-line-height-medium-title);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-title);
+  font-size: var(--mdw-font-title-size-medium);
+  font-weight: var(--mdw-font-title-weight-medium);
+  line-height: var(--mdw-font-title-line-height-medium);
+  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
   color: var(--mdw-on-surface);
 }
 
 mdw-card .mdw-headline-small {
-  font-size: var(--mdw-font-size-small-title);
-  font-weight: var(--mdw-font-weight-small-title);
-  line-height: var(--mdw-font-line-height-small-title);
-  letter-spacing: var(--mdw-font-letter-spacing-small-title);
+  font-size: var(--mdw-font-title-size-small);
+  font-weight: var(--mdw-font-title-weight-small);
+  line-height: var(--mdw-font-title-line-height-small);
+  letter-spacing: var(--mdw-font-title-letter-spacing-small);
   color: var(--mdw-on-surface);
 }
 
 mdw-card .mdw-subhead-large {
-  font-size: var(--mdw-font-size-large-body);
-  font-weight: var(--mdw-font-weight-large-body);
-  line-height: var(--mdw-font-line-height-large-body);
-  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
   color: var(--mdw-on-surface-variant);
 }
 
 mdw-card .mdw-subhead-medium,
 mdw-card .mdw-subhead {
-  font-size: var(--mdw-font-size-medium-body);
-  font-weight: var(--mdw-font-weight-medium-body);
-  line-height: var(--mdw-font-line-height-medium-body);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-body);
+  font-size: var(--mdw-font-body-size-medium);
+  font-weight: var(--mdw-font-body-weight-medium);
+  line-height: var(--mdw-font-body-line-height-medium);
+  letter-spacing: var(--mdw-font-body-letter-spacing-medium);
   color: var(--mdw-on-surface-variant);
 }
 
 mdw-card .mdw-subhead-small {
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
 }
 
 mdw-card > .mdw-supporting-text,
 mdw-card .mdw-card-content > .mdw-supporting-text {
   margin-top: 12px;
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
 }
 
@@ -398,10 +398,10 @@ mdw-card > .mdw-card-fullscreen-back {
 }
 
 mdw-card > .mdw-card-fullscreen-back .text {
-  font-size: var(--mdw-font-size-medium-title);
-  font-weight: var(--mdw-font-weight-medium-title);
-  line-height: var(--mdw-font-line-height-medium-title);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-title);
+  font-size: var(--mdw-font-title-size-medium);
+  font-weight: var(--mdw-font-title-weight-medium);
+  line-height: var(--mdw-font-title-line-height-medium);
+  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
   color: var(--mdw-surface);
   margin-left: -6px;
 

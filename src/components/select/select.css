@@ -24,10 +24,10 @@
   user-select: none;
   pointer-events: none;
   outline: none;
-  font-size: var(--mdw-font-size-large-label);
-  font-weight: var(--mdw-font-weight-large-label);
-  line-height: var(--mdw-font-line-height-large-label);
-  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  line-height: var(--mdw-font-label-line-height-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
   color: var(--mdw-on-surface);
 }
 

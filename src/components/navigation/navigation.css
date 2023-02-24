@@ -45,9 +45,9 @@ mdw-navigation .mdw-headline {
   line-height: 56px;
   height: 56px;
   margin: 0 36px;
-  font-size: var(--mdw-font-size-small-title);
-  font-weight: var(--mdw-font-weight-small-title);
-  letter-spacing: var(--mdw-font-letter-spacing-small-title);
+  font-size: var(--mdw-font-title-size-small);
+  font-weight: var(--mdw-font-title-weight-small);
+  letter-spacing: var(--mdw-font-title-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
   opacity: 1;
   transition: opacity 180ms;

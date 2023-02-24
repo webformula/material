@@ -26,9 +26,9 @@ mdw-date-picker-mobile .mdw-icon-svg > svg {
 }
 
 mdw-date-picker-mobile .mdw-header .mdw-select-date-text {
-  font-size: var(--mdw-font-size-medium-label);
-  font-weight: var(--mdw-font-weight-medium-label);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  font-size: var(--mdw-font-label-size-medium);
+  font-weight: var(--mdw-font-label-weight-medium);
+  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
   color: var(--mdw-on-surface-variant);
   line-height: 16px;
   height: 16px;
@@ -43,9 +43,9 @@ mdw-date-picker-mobile .mdw-header .mdw-display-date-container {
 }
 
 mdw-date-picker-mobile .mdw-header .mdw-display-date-container .mdw-display-date-text {
-  font-size: var(--mdw-font-size-large-headline);
-  font-weight: var(--mdw-font-weight-large-headline);
-  letter-spacing: var(--mdw-font-letter-spacing-large-headline);
+  font-size: var(--mdw-font-headline-size-large);
+  font-weight: var(--mdw-font-headline-weight-large);
+  letter-spacing: var(--mdw-font-headline-letter-spacing-large);
   line-height: 40px;
   height: 40px;
 }
@@ -102,10 +102,10 @@ mdw-date-picker-mobile .mdw-controls-container > .mdw-year-drop-down {
 }
 
 mdw-date-picker-mobile .mdw-controls-container > .mdw-year-drop-down {
-  font-size: var(--mdw-font-size-large-label);
-  font-weight: var(--mdw-font-weight-large-label);
-  line-height: var(--mdw-font-line-height-large-label);
-  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  line-height: var(--mdw-font-label-line-height-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -193,10 +193,10 @@ mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-days-head
   flex: 1;
   padding: 11px 12px;
 
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface);
 }
 
@@ -304,10 +304,10 @@ mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .md
   z-index: 1;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface);
 }
 
@@ -392,10 +392,10 @@ mdw-date-picker-mobile .mdw-views-container .mdw-years-container .mdw-year {
   margin: 7px;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-size-medium-label);
-  font-weight: var(--mdw-font-weight-medium-label);
+  font-size: var(--mdw-font-label-size-medium);
+  font-weight: var(--mdw-font-label-weight-medium);
   line-height: 36px;
-  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
   color: var(--mdw-on-surface);
 }
 

@@ -53,10 +53,10 @@ mdw-textfield > input {
   text-decoration: inherit;
   text-transform: inherit;
   font-family: inherit;
-  font-size: var(--mdw-font-size-large-body);
-  font-weight: var(--mdw-font-weight-large-body);
-  line-height: var(--mdw-font-line-height-large-body);
-  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
   color: var(--mdw-on-surface);
   caret-color: var(--mdw-primary);
 
@@ -108,10 +108,10 @@ mdw-textfield > label {
   pointer-events: none;
   top: 15px;
 
-  font-size: var(--mdw-font-size-large-body);
-  font-weight: var(--mdw-font-weight-large-body);
-  line-height: var(--mdw-font-line-height-large-body);
-  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
   text-decoration: inherit;
   text-transform: inherit;
 
@@ -127,10 +127,10 @@ mdw-textfield:focus-within > label {
 }
 
 mdw-textfield > input::placeholder {
-  font-size: var(--mdw-font-size-large-body);
-  font-weight: var(--mdw-font-weight-large-body);
-  line-height: var(--mdw-font-line-height-large-body);
-  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
   color: var(--mdw-on-surface-variant);
 }
 
@@ -138,7 +138,7 @@ mdw-textfield.mdw-raise-label label,
 mdw-textfield:focus-within label,
 mdw-textfield > input:not([placeholder=" "]) + label,
 mdw-textfield > input:not(:placeholder-shown) + label {
-  font-size: var(--mdw-font-size-small-body);
+  font-size: var(--mdw-font-body-size-small);
   top: 4px;
   animation: mdw-textfield-label 164ms;
   animation-timing-function: var(--mdw-transition-expand-in);
@@ -187,10 +187,10 @@ mdw-textfield > .mdw-supporting-text {
   position: absolute;
   top: 60px;
 
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
 }
 
@@ -256,10 +256,10 @@ mdw-textfield .mdw-autocomplete {
 
   text-decoration: inherit;
   text-transform: inherit;
-  font-size: var(--mdw-font-size-large-body);
-  font-weight: var(--mdw-font-weight-large-body);
-  line-height: var(--mdw-font-line-height-large-body);
-  letter-spacing: var(--mdw-font-letter-spacing-large-body);
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
 }
 
 mdw-textfield > mdw-icon + input ~ .mdw-autocomplete {
@@ -295,7 +295,7 @@ mdw-textfield.mdw-outlined.mdw-raise-label label,
 mdw-textfield.mdw-outlined:focus-within label,
 mdw-textfield.mdw-outlined > input:not([placeholder=" "]) + label,
 mdw-textfield.mdw-outlined > input:not(:placeholder-shown) + label {
-  font-size: var(--mdw-font-size-small-body);
+  font-size: var(--mdw-font-body-size-small);
   top: -12px;
   left: 14px;
   animation: mdw-textfield-label-outlined 164ms;
@@ -418,13 +418,13 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
 @keyframes mdw-textfield-label {
   0% {
     top: 15px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 
   100% {
     top: 7px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 }
@@ -432,13 +432,13 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
 @keyframes mdw-textfield-label-reverse {
   0% {
     top: 7px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 
   100% {
     top: 15px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 }
@@ -448,14 +448,14 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
   0% {
     top: 15px;
     left: 16px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 
   100% {
     top: -9px;
     left: 14px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 }
@@ -464,14 +464,14 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
   0% {
     top: 15px;
     left: 16px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 
   100% {
     top: -9px;
     left: 14px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 }
@@ -480,14 +480,14 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
   0% {
     top: -9px;
     left: 14px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 
   100% {
     top: 15px;
     left: 15px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 }
@@ -496,14 +496,14 @@ mdw-textfield.mdw-invalid > label + mdw-icon:not(.mdw-invalid-icon) {
   0% {
     top: -9px;
     left: 14px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(0.8);
   }
 
   100% {
     top: 15px;
     left: 15px;
-    font-size: var(--mdw-font-size-large-body);
+    font-size: var(--mdw-font-body-size-large);
     transform: scale(1);
   }
 }

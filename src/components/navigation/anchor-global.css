@@ -8,16 +8,16 @@ mdw-anchor [slot="rail"] {
   left: 0;
   right: 0;
 
-  font-size: var(--mdw-font-size-medium-label);
-  font-weight: var(--mdw-font-weight-medium-label);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-label);
+  font-size: var(--mdw-font-label-size-medium);
+  font-weight: var(--mdw-font-label-weight-medium);
+  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
   border-radius: var(--mdw-shape-extra-medium);
 }
 
 mdw-anchor [slot="rail"].mdw-small-font {
-  font-size: var(--mdw-font-size-small-label);
-  font-weight: var(--mdw-font-weight-small-label);
-  letter-spacing: var(--mdw-font-letter-spacing-small-label);
+  font-size: var(--mdw-font-label-size-small);
+  font-weight: var(--mdw-font-label-weight-small);
+  letter-spacing: var(--mdw-font-label-letter-spacing-small);
 }
 
 
@@ -41,7 +41,7 @@ mdw-anchor [slot="rail"] mdw-icon {
   /* width: 64px; */
   height: 32px;
   line-height: 32px;
-  font-size: var(--mdw-font-size-icon-small);
+  font-size: var(--mdw-font-icon-size-small);
 }
 
 

@@ -8,9 +8,9 @@
   outline: none;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-size-large-label);
-  font-weight: var(--mdw-font-weight-large-label);
-  letter-spacing: var(--mdw-font-letter-spacing-large-label);
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
 
   padding: 0 16px;
   height: 40px;
@@ -25,9 +25,9 @@
   margin-top: -4px;
   margin-right: 2px;
   margin-left: -2px;
-  width: var(--mdw-font-size-icon-small) !important;
-  height: var(--mdw-font-size-icon-small) !important;
-  font-size: var(--mdw-font-size-icon-small) !important;
+  width: var(--mdw-font-icon-size-small) !important;
+  height: var(--mdw-font-icon-size-small) !important;
+  font-size: var(--mdw-font-icon-size-small) !important;
 }
 
 :host ::slotted(.mdw-icon-svg) {
@@ -110,9 +110,9 @@
 
 :host(.mdw-icon-button) ::slotted(mdw-icon),
 :host(.mdw-icon-toggle-button) ::slotted(mdw-icon) {
-  width: var(--mdw-font-size-icon-medium) !important;
-  height: var(--mdw-font-size-icon-medium) !important;
-  font-size: var(--mdw-font-size-icon-medium) !important;
+  width: var(--mdw-font-icon-size-medium) !important;
+  height: var(--mdw-font-icon-size-medium) !important;
+  font-size: var(--mdw-font-icon-size-medium) !important;
   margin: 0;
   margin-top: -1px;
   transition: font-variation-settings 60ms;
@@ -305,9 +305,9 @@
 :host(.mdw-menu) ::slotted(mdw-icon) {
   margin-top: 0px;
   margin-right: 8px;
-  width: var(--mdw-font-size-icon-medium) !important;
-  height: var(--mdw-font-size-icon-medium) !important;
-  font-size: var(--mdw-font-size-icon-medium) !important;
+  width: var(--mdw-font-icon-size-medium) !important;
+  height: var(--mdw-font-icon-size-medium) !important;
+  font-size: var(--mdw-font-icon-size-medium) !important;
 }
 
 :host(.mdw-menu) ::slotted(mdw-icon.mdw-trailing) {

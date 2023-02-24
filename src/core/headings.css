@@ -99,10 +99,10 @@ p,
 }
 
 .mdw-supporting-text {
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  line-height: var(--mdw-font-line-height-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  line-height: var(--mdw-font-body-line-height-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
 }
 

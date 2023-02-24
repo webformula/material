@@ -42,10 +42,10 @@ a:-webkit-any-link:active {
 
 a {
   color: var(--mdw-primary);
-  font-size: var(--mdw-font-size-large-label);
-  font-weight: var(--mdw-font-weight-large-label);
-  letter-spacing: var(--mdw-font-letter-spacing-large-label);
-  line-height: var(--mdw-font-line-height-large-label);
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  line-height: var(--mdw-font-label-line-height-large);
 }
 
 a:hover {

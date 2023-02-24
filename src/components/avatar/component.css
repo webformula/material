@@ -10,9 +10,9 @@
   overflow: hidden;
 
   background-color: var(--mdw-primary-container);
-  font-size: var(--mdw-font-size-small-body);
-  font-weight: var(--mdw-font-weight-small-body);
-  letter-spacing: var(--mdw-font-letter-spacing-small-body);
+  font-size: var(--mdw-font-body-size-small);
+  font-weight: var(--mdw-font-body-weight-small);
+  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-primary-container);
 }
 

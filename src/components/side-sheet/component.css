@@ -81,9 +81,9 @@ mdw-side-sheet .mdw-header {
 mdw-side-sheet .mdw-header .mdw-title {
   flex: 1;
 
-  font-size: var(--mdw-font-size-medium-title);
-  font-weight: var(--mdw-font-weight-medium-title);
-  letter-spacing: var(--mdw-font-letter-spacing-medium-title);
+  font-size: var(--mdw-font-title-size-medium);
+  font-weight: var(--mdw-font-title-weight-medium);
+  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
   color: var(--mdw-on-surface-variant);
 }
 

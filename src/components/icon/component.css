@@ -1,10 +1,10 @@
 mdw-icon {
-  width: var(--mdw-font-size-icon-medium);
-  height: var(--mdw-font-size-icon-medium);
+  width: var(--mdw-font-icon-size-medium);
+  height: var(--mdw-font-icon-size-medium);
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  font-size: var(--mdw-font-size-icon-medium);
+  font-size: var(--mdw-font-icon-size-medium);
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -32,21 +32,21 @@ html:not(.mdw-material-icon-font-loaded) mdw-icon {
 }
 
 mdw-icon.mdw-small {
-  width: var(--mdw-font-size-icon-small);
-  height: var(--mdw-font-size-icon-small);
-  font-size: var(--mdw-font-size-icon-small);
+  width: var(--mdw-font-icon-size-small);
+  height: var(--mdw-font-icon-size-small);
+  font-size: var(--mdw-font-icon-size-small);
 }
 
 mdw-icon.mdw-large {
-  width: var(--mdw-font-size-icon-large);
-  height: var(--mdw-font-size-icon-large);
-  font-size: var(--mdw-font-size-icon-large);
+  width: var(--mdw-font-icon-size-large);
+  height: var(--mdw-font-icon-size-large);
+  font-size: var(--mdw-font-icon-size-large);
 }
 
 mdw-icon.mdw-extra-large {
-  width: var(--mdw-font-size-icon-extra-large);
-  height: var(--mdw-font-size-icon-extra-large);
-  font-size: var(--mdw-font-size-icon-extra-large);
+  width: var(--mdw-font-icon-size-extra-large);
+  height: var(--mdw-font-icon-size-extra-large);
+  font-size: var(--mdw-font-icon-size-extra-large);
 }
 
 mdw-icon.mdw-outlined {
