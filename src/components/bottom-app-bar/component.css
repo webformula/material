@@ -14,6 +14,7 @@ mdw-bottom-app-bar {
   z-index: 1;
 
   background-color: var(--mdw-surface);
+  box-shadow: var(--mdw-elevation-2);
 
   transition: bottom 180ms, background-color 80ms linear;
   transition-timing-function: var(--mdw-transition-expand-out);
@@ -27,7 +28,7 @@ mdw-bottom-app-bar:before {
   right: 0;
   bottom: 0;
   pointer-events: none;
-  background-color: none;
+  background-color: var(--mdw-elevation-tint-2);
   transition: background-color 80ms linear;
 }
 
@@ -63,10 +64,6 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
   opacity: 1;
   pointer-events: all;
   transition: none;
-}
-
-mdw-bottom-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled:before {
-  background-color: var(--mdw-surface-tint--6);
 }
 
 mdw-bottom-app-bar.mdw-auto-hide.mdw-hide {

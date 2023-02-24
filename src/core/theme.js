@@ -18,7 +18,7 @@ export function generate() {
 
   // create alpha versions of colors
   const colorRegex = /^\s?#/;
-  const colors = variables.filter(({ value, name }) => value.match(colorRegex) !== null && !keyColors.includes(name));
+  const colors = variables.filter(({ value, name }) => value.trim().match(colorRegex) !== null && !keyColors.includes(name));
   colors.forEach(({ name, value }) => {
     document.documentElement.style.setProperty(`${name}--0`, `${value}00`);
     document.documentElement.style.setProperty(`${name}--4`, `${value}0a`);
