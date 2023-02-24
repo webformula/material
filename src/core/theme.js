@@ -98,17 +98,18 @@ function generateKeyTones() {
 // This is a close enough placeholder for now
 function generateColorTones(value) {
   const [h, w, b] = hexToHwb(value);
+  
   return [
     '#000000',
     hwbToHex([h + 4, zeroValue(w - 30), zeroValue(b + 30)]),
     hwbToHex([h + 2, zeroValue(w - 18), zeroValue(b + 20)]),
     hwbToHex([h + 1, zeroValue(w - 10), zeroValue(b + 10)]),
     value,
-    hwbToHex([h + 1, zeroValue(w + 10), zeroValue(b - 10)]),
+    hwbToHex([h, zeroValue(w + 9), zeroValue(b - 10)]),
     hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]),
     hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]),
     hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]),
-    hwbToHex([h + 7, zeroValue(w + 55), zeroValue(b - 50)]),
+    hwbToHex([h + 4, zeroValue(w + 52), zeroValue(b - 54)]),
     hwbToHex([h + 8, zeroValue(w + 59), zeroValue(b - 60)]),
     hwbToHex([h + 10, zeroValue(w + 62), zeroValue(b - 70)]),
     '#ffffff'

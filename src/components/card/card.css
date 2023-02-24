@@ -19,6 +19,18 @@ mdw-card {
   transition: left 120ms;
 }
 
+mdw-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-color: var(--mdw-elevation-tint-1);
+  border-radius: inherit;
+}
+
 mdw-card.mdw-remove {
   margin-top: var(--mdw-card-margin-top-remove);
   opacity: 0;
@@ -160,8 +172,14 @@ mdw-card:not(.mdw-no-hover).mdw-filled.mdw-states:hover {
 
 mdw-card.mdw-outlined {
   background-color: var(--mdw-surface);
-  border: 1px solid var(--mdw-outline);
+  /* border: 1px solid var(--mdw-outline); */
+  /* TODO why does the outline color look too dark. It seems to match the correct value */
+  border: 1px solid var(--mdw-neutral-variant-70);
   box-shadow: none;
+}
+
+mdw-card.mdw-outlined::before {
+  background-color: transparent;
 }
 
 

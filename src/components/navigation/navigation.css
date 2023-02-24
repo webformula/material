@@ -21,6 +21,18 @@ mdw-navigation {
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
+mdw-navigation:not(.mdw-no-tint)::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--mdw-navigation-drawer-width);
+  height: 100%;
+  pointer-events: none;
+  background-color: var(--mdw-elevation-tint-1);
+  border-radius: inherit;
+}
+
 mdw-navigation.mdw-hide {
   width: 0;
   left: -56px;
@@ -87,6 +99,12 @@ body.mdw-mobile mdw-navigation.mdw-hide {
   left: -56px;
   box-shadow: none;
 }
+
+body.mdw-mobile mdw-navigation:not(.mdw-no-tint).mdw-hide::before {
+  width: 0;
+  left: -56px;
+}
+
 
 /* --- secondary draw for rail --- */
 mdw-navigation.mdw-rail.mdw-state-rail + .mdw-navigation-secondary-draw {

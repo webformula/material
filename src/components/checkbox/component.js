@@ -22,6 +22,8 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   constructor() {
     super();
+
+    this.classList.add('mdw-no-animation');
   }
 
   connectedCallback() {
@@ -52,6 +54,10 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
       triggerElement: this,
       centered: true
     });
+
+    setTimeout(() => {
+      this.classList.remove('mdw-no-animation');
+    }, 200);
   }
 
   template() {

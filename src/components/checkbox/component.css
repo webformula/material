@@ -56,7 +56,8 @@
   vertical-align: middle;
 
   border: 2px solid;
-  border-color: var(--mdw-outline);
+  border-color: var(--mdw-on-surface);
+  border-radius: 2px;
 
   transition:
     border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),
@@ -129,6 +130,10 @@
   animation: check 180ms;
 }
 
+:host(.mdw-no-animation) > .background > svg > path {
+  animation-duration: 0s !important;
+}
+
 :host > .background > .indeterminate-check {
   position: absolute;
   top: 5px;
@@ -195,9 +200,11 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-primary--16);
+  background-color: var(--mdw-primary);
+  opacity: var(--mdw-state-layer-opacity-pressed);
 }
 
 :host(.mdw-error) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-error--16);
+  background-color: var(--mdw-error);
+  opacity: var(--mdw-state-layer-opacity-pressed);
 }

@@ -11,6 +11,18 @@ mdw-menu.mdw-panel {
   /* transform-origin: top; */
 }
 
+mdw-menu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-color: var(--mdw-elevation-tint-1);
+  border-radius: inherit;
+}
+
 /* button styles are in src/components/button/component.css */
 
 

@@ -4,7 +4,9 @@
   align-items: center;
   height: 32px;
   padding: 0 12px;
-  border: 1px solid var(--mdw-outline);
+  /* TODO check outline color */
+  /* border: 1px solid var(--mdw-outline); */
+  border: 1px solid var(--mdw-neutral-variant-60);
   border-radius: var(--mdw-shape-small);
   box-sizing: border-box;
   cursor: pointer;
@@ -16,6 +18,20 @@
   letter-spacing: var(--mdw-font-letter-spacing-large-label);
 
   color: var(--mdw-on-surface);
+}
+
+:host(.mdw-elevated) {
+  box-shadow: var(--mdw-elevation-1);
+}
+:host(.mdw-elevated)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--mdw-elevation-tint-1);
+  border-radius: inherit;
 }
 
 :host .check,
@@ -121,8 +137,8 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-surface--10);
-  border-radius: 50%;
+  background-color: var(--mdw-primary);
+  opacity: var(--mdw-state-layer-opacity-pressed);
 }
 
 
