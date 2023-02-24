@@ -18,12 +18,12 @@ mdw-tab {
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
   mdw-tab:hover {
-    background-color: var(--mdw-on-surface--8);
+    background-color: var(--mdw-on-surface-alpha-8);
   }
 }
 
 mdw-tab:focus {
-  background-color: var(--mdw-on-surface--12);
+  background-color: var(--mdw-on-surface-alpha-12);
 }
 
 mdw-tab[active] {
@@ -62,6 +62,6 @@ mdw-tabs .mdw-underline {
 }
 
 .mdw-ripple > .mdw-ripple-element {
-  background-color: var(--mdw-primary--16);
+  background-color: var(--mdw-primary-alpha-16);
   border-radius: 50%;
 }

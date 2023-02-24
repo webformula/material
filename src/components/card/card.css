@@ -477,7 +477,7 @@ mdw-card > mdw-card-swipe-action {
   border-radius: var(--mdw-shape-medium) 0 0 var(--mdw-shape-medium);
   box-sizing: border-box;
 
-  background-color: var(--mdw-surface-tint--16);
+  background-color: var(--mdw-surface-tint-alpha-16);
   color: var(--mdw-on-surface-variant);
 
   transition:
@@ -532,7 +532,7 @@ mdw-card.mdw-dragging > mdw-card-swipe-action::after {
 }
 
 mdw-card > mdw-card-swipe-action[checked] {
-  background-color: var(--mdw-surface-tint--38);
+  background-color: var(--mdw-surface-tint-alpha-38);
 }
 
 mdw-card > mdw-card-swipe-action[checked] mdw-icon {

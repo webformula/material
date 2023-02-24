@@ -145,7 +145,7 @@ mdw-date-picker-mobile .mdw-actions-container {
 
 mdw-date-picker-mobile > .mdw-divider {
   width: 100%;
-  border-top: 1px solid var(--mdw-outline--26);
+  border-top: 1px solid var(--mdw-outline-alpha-26);
 }
 
 
@@ -329,13 +329,13 @@ mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .md
 }
 
 mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .mdw-days-container .mdw-day.mdw-not-current-month {
-  color: var(--mdw-on-surface--60);
+  color: var(--mdw-on-surface-alpha-60);
 }
 
 mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .mdw-days-container .mdw-day.mdw-out-of-range {
   pointer-events: none;
   cursor: auto;
-  color: var(--mdw-on-surface--60);
+  color: var(--mdw-on-surface-alpha-60);
 }
 
 mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .mdw-days-container .mdw-day[selected] {
@@ -347,7 +347,7 @@ mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .md
 }
 
 mdw-date-picker-mobile .mdw-views-container .mdw-months-container .mdw-month .mdw-days-container .mdw-day.mdw-today::before {
-  border: 1px solid var(--mdw-outline--60);
+  border: 1px solid var(--mdw-outline-alpha-60);
 }
 
 
@@ -407,7 +407,7 @@ mdw-date-picker-mobile .mdw-views-container .mdw-years-container .mdw-year[selec
 mdw-date-picker-mobile .mdw-views-container .mdw-years-container .mdw-year.mdw-out-of-range {
   pointer-events: none;
   cursor: auto;
-  color: var(--mdw-on-surface--60);
+  color: var(--mdw-on-surface-alpha-60);
 }
 
 

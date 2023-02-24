@@ -38,7 +38,7 @@
 }
 
 :host([disabled]) > .mdw-track-inactive {
-  background-color: var(--mdw-on-surface--50);
+  background-color: var(--mdw-on-surface-alpha-50);
 }
 
 :host > .mdw-track-inactive.mdw-one {
@@ -121,7 +121,7 @@
 }
 
 :host > .mdw-marks > .mdw-mark.mdw-active {
-  background-color: var(--mdw-on-primary--38);
+  background-color: var(--mdw-on-primary-alpha-38);
 }
 
 :host > .mdw-marks > .mdw-mark.mdw-inactive {

@@ -43,7 +43,7 @@ mdw-textfield .mdw-select-arrow {
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid var(--mdw-on-secondary-container--60);
+  border-bottom: 6px solid var(--mdw-on-secondary-container-alpha-60);
   transform-origin: center;
   transform: rotate(0);
   transition: transform 280ms;

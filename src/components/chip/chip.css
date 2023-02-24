@@ -112,7 +112,7 @@
   }
 
   :host .clear:hover::after {
-    background-color: var(--mdw-on-surface--12);
+    background-color: var(--mdw-on-surface-alpha-12);
   }
 }
 

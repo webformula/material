@@ -76,6 +76,6 @@ mdw-suggestions mdw-list-item {
 
 .mdw-suggestions mark,
 mdw-suggestions mark {
-  background-color: var(--mdw-primary--20);
+  background-color: var(--mdw-primary-alpha-20);
 }
 

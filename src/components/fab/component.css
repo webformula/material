@@ -59,7 +59,7 @@
 }
 
 :host(.mdw-hide-label.mdw-has-label) {
-  color: var(--mdw-on-primary-container--0);
+  color: var(--mdw-on-primary-container-alpha-0);
   max-width: 56px;
   overflow: hidden;
 }
@@ -233,5 +233,5 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-primary--16);
+  background-color: var(--mdw-primary-alpha-16);
 }

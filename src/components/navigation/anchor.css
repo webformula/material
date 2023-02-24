@@ -91,7 +91,7 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-surface--16);
+  background-color: var(--mdw-on-surface-alpha-16);
   border-radius: 50%;
 }
 

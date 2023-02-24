@@ -20,20 +20,20 @@ export function generate() {
   const colorRegex = /^\s?#/;
   const colors = variables.filter(({ value, name }) => value.trim().match(colorRegex) !== null && !keyColors.includes(name));
   colors.forEach(({ name, value }) => {
-    document.documentElement.style.setProperty(`${name}--0`, `${value}00`);
-    document.documentElement.style.setProperty(`${name}--4`, `${value}0a`);
-    document.documentElement.style.setProperty(`${name}--5`, `${value}0d`);
-    document.documentElement.style.setProperty(`${name}--6`, `${value}0f`);
-    document.documentElement.style.setProperty(`${name}--8`, `${value}14`);
-    document.documentElement.style.setProperty(`${name}--10`, `${value}1a`);
-    document.documentElement.style.setProperty(`${name}--11`, `${value}1c`);
-    document.documentElement.style.setProperty(`${name}--12`, `${value}1f`);
-    document.documentElement.style.setProperty(`${name}--16`, `${value}29`);
-    document.documentElement.style.setProperty(`${name}--20`, `${value}33`);
-    document.documentElement.style.setProperty(`${name}--26`, `${value}42`);
-    document.documentElement.style.setProperty(`${name}--38`, `${value}61`);
-    document.documentElement.style.setProperty(`${name}--60`, `${value}99`);
-    document.documentElement.style.setProperty(`${name}--76`, `${value}c2`);
+    document.documentElement.style.setProperty(`${name}-alpha-0`, `${value}00`);
+    document.documentElement.style.setProperty(`${name}-alpha-4`, `${value}0a`);
+    document.documentElement.style.setProperty(`${name}-alpha-5`, `${value}0d`);
+    document.documentElement.style.setProperty(`${name}-alpha-6`, `${value}0f`);
+    document.documentElement.style.setProperty(`${name}-alpha-8`, `${value}14`);
+    document.documentElement.style.setProperty(`${name}-alpha-10`, `${value}1a`);
+    document.documentElement.style.setProperty(`${name}-alpha-11`, `${value}1c`);
+    document.documentElement.style.setProperty(`${name}-alpha-12`, `${value}1f`);
+    document.documentElement.style.setProperty(`${name}-alpha-16`, `${value}29`);
+    document.documentElement.style.setProperty(`${name}-alpha-20`, `${value}33`);
+    document.documentElement.style.setProperty(`${name}-alpha-26`, `${value}42`);
+    document.documentElement.style.setProperty(`${name}-alpha-38`, `${value}61`);
+    document.documentElement.style.setProperty(`${name}-alpha-60`, `${value}99`);
+    document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
   });
 
 
@@ -73,7 +73,7 @@ function getCSSVariables() {
 
 function generateKeyTones() {
   const variables = getCSSVariables();
-  const colors = variables.filter(({ name }) => keyColors.includes(name));
+  const colors = variables.filter(({ name }) => keyColors.includes(name) || name.startsWith('--mdw-custom-color-'));
   colors.forEach(({ name, value }) => {
     const tones = generateColorTones(value);
     name = name.replace('-key', '');

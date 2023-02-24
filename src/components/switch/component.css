@@ -101,17 +101,17 @@
 }
 
 :host([disabled]) > .track {
-  background-color: var(--mdw-surface-variant--12);
-  border-color: var(--mdw-on-surface--12);
+  background-color: var(--mdw-surface-variant-alpha-12);
+  border-color: var(--mdw-on-surface-alpha-12);
 }
 
 :host([disabled].mdw-checked) > .track {
-  background-color: var(--mdw-on-surface--12);
-  border-color: var(--mdw-on-surface--0);
+  background-color: var(--mdw-on-surface-alpha-12);
+  border-color: var(--mdw-on-surface-alpha-0);
 }
 
 :host([disabled]) > .track > .thumb {
-  background-color: var(--mdw-on-surface--38);
+  background-color: var(--mdw-on-surface-alpha-38);
 }
 
 :host([disabled].mdw-checked) > .track > .thumb {

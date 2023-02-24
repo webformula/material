@@ -16,6 +16,28 @@ html:not(.mdw-initiated) body {
   --mdw-neutral-key: #615d67;
   --mdw-neutral-variant-key: #605d62;
 
+  /* You can add custom colors that will be parsed into tones
+   *  Just create a new variable in this file beginning with --mdw-custom-color-
+   *
+   * --mdw-custom-color-name: #5b7166;
+   *
+   * Produces tone vars
+   * --mdw-custom-color-name-0
+   * --mdw-custom-color-name-10
+   * --mdw-custom-color-name-20
+   * --mdw-custom-color-name-30
+   * --mdw-custom-color-name-40
+   * --mdw-custom-color-name-50
+   * --mdw-custom-color-name-60
+   * --mdw-custom-color-name-70
+   * --mdw-custom-color-name-80
+   * --mdw-custom-color-name-90
+   * --mdw-custom-color-name-95
+   * --mdw-custom-color-name-99
+   * --mdw-custom-color-name-100
+   */
+  --mdw-custom-color-name: #5b7166;
+
 
   /* --- Overrides ---
    *  By default these colors are filled out tones of the colors above

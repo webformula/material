@@ -16,5 +16,5 @@ mdw-backdrop::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--mdw-scrim--16);
+  background-color: var(--mdw-scrim-alpha-16);
 }

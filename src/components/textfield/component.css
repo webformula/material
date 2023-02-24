@@ -205,24 +205,24 @@ mdw-textfield[disabled] {
 mdw-textfield[disabled]::after {
   height: 100%;
   border-bottom: 1px solid;
-  border-bottom-color: var(--mdw-on-surface--38);
-  background-color: var(--mdw-on-surface--4);
+  border-bottom-color: var(--mdw-on-surface-alpha-38);
+  background-color: var(--mdw-on-surface-alpha-4);
 }
 
 mdw-textfield[disabled] > input {
-  color: var(--mdw-on-surface--38);
+  color: var(--mdw-on-surface-alpha-38);
 }
 
 mdw-textfield[disabled] > label {
-  color: var(--mdw-on-surface--38);
+  color: var(--mdw-on-surface-alpha-38);
 }
 
 mdw-textfield[disabled] > .mdw-supporting-text {
-  color: var(--mdw-on-surface--38);
+  color: var(--mdw-on-surface-alpha-38);
 }
 
 mdw-textfield[disabled] > mdw-icon {
-  color: var(--mdw-on-surface-variant--38);
+  color: var(--mdw-on-surface-variant-alpha-38);
 }
 
 
