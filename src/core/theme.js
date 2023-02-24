@@ -1,11 +1,11 @@
 let initiated = false;
 const keyColors = [
-  '--mdw-primary-key',
-  '--mdw-secondary-key',
-  '--mdw-tertiary-key',
-  '--mdw-error-key',
-  '--mdw-neutral-key',
-  '--mdw-neutral-variant-key'
+  '--mdw-primary-baseline',
+  '--mdw-secondary-baseline',
+  '--mdw-tertiary-baseline',
+  '--mdw-error-baseline',
+  '--mdw-neutral-baseline',
+  '--mdw-neutral-variant-baseline'
 ];
 
 
@@ -76,7 +76,7 @@ function generateKeyTones() {
   const colors = variables.filter(({ name }) => keyColors.includes(name) || name.startsWith('--mdw-custom-color-'));
   colors.forEach(({ name, value }) => {
     const tones = generateColorTones(value);
-    name = name.replace('-key', '');
+    name = name.replace('-baseline', '');
     document.documentElement.style.setProperty(`${name}-0`, tones[0]);
     document.documentElement.style.setProperty(`${name}-10`, tones[1]);
     document.documentElement.style.setProperty(`${name}-20`, tones[2]);

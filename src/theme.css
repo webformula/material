@@ -9,12 +9,12 @@ html:not(.mdw-initiated) body {
 
 
 :root {
-  --mdw-primary-key: #6750A4;
-  --mdw-secondary-key: #625B71;
-  --mdw-tertiary-key: #7D5260;
-  --mdw-error-key: #B3261E;
-  --mdw-neutral-key: #615d67;
-  --mdw-neutral-variant-key: #605d62;
+  --mdw-primary-baseline: #6750A4;
+  --mdw-secondary-baseline: #625B71;
+  --mdw-tertiary-baseline: #7D5260;
+  --mdw-error-baseline: #B3261E;
+  --mdw-neutral-baseline: #615d67;
+  --mdw-neutral-variant-baseline: #605d62;
 
   /* You can add custom colors that will be parsed into tones
    *  Just create a new variable in this file beginning with --mdw-custom-color-
