@@ -11,7 +11,7 @@ import mdwUtil from './core/util.js';
 
 
 import './components/avatar/component.js';
-import './components/backdrop/component.js';
+import './components/scrim/component.js';
 import './components/badge/component.js';
 import './components/bottom-app-bar/component.js';
 import './components/bottom-sheet/component.js';

@@ -35,7 +35,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   constructor() {
     super();
 
-    this.backdrop = true;
+    this.scrim = true;
     this.clickOutsideClose = false;
 
     this.addClickOutsideCloseIgnore(this.parentElement.control);

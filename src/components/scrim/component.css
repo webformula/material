@@ -1,15 +1,15 @@
-mdw-backdrop {
+mdw-scrim {
   position: fixed;
   z-index: 11;
   opacity: 0;
   transition: opacity 240ms;
 }
 
-mdw-backdrop.mdw-show {
+mdw-scrim.mdw-show {
   opacity: 1;
 }
 
-mdw-backdrop::before {
+mdw-scrim::before {
   content: '';
   position: fixed;
   top: 0;

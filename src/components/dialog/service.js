@@ -9,8 +9,8 @@ const MDWDialog = new class MDWDialog {
   simple(params = {
     headline: '',
     message: '',
-    backdrop: true,
-    clickBackdropClose: false,
+    scrim: true,
+    clickScrimClose: false,
     actionConfirm: true,
     actionConfirmLabel: 'OK',
     actionCancel: false,
@@ -21,7 +21,7 @@ const MDWDialog = new class MDWDialog {
     const actionConfirm = params.actionConfirm === undefined ? true : params.actionConfirm;
     const actionCancel = params.actionCancel || false;
     const element = document.createElement('mdw-dialog');
-    element.clickBackdropClose = params.clickBackdropClose;
+    element.clickScrimClose = params.clickScrimClose;
     element.insertAdjacentHTML('afterbegin', `
       ${!params.headline ? '' : `<div class="mdw-header">${params.headline}</div>`}
       <div class="mdw-content">${params.message || ''}</div>
@@ -33,7 +33,7 @@ const MDWDialog = new class MDWDialog {
 
     document.body.appendChild(element);
     element.addEventListener('close', this.#onClose_bound);
-    element.show(params.backdrop === undefined ? true : params.backdrop);
+    element.show(params.scrim === undefined ? true : params.scrim);
 
     this.#currentDialog = element;
     return new Promise(resolve => {
@@ -62,20 +62,20 @@ const MDWDialog = new class MDWDialog {
 
   template(params = {
     template,
-    backdrop: true,
-    clickBackdropClose: false,
+    scrim: true,
+    clickScrimClose: false,
   }) {
     if (this.#currentDialog) throw Error('Cannot create dialog while one exists');
 
     const element = document.createElement('mdw-dialog');
-    element.clickBackdropClose = params.clickBackdropClose;
+    element.clickScrimClose = params.clickScrimClose;
     element.insertAdjacentHTML('afterbegin', params.template);
 
     document.body.appendChild(element);
 
     // for show animation
     setTimeout(() => {
-      element.show(params.backdrop === undefined ? true : params.backdrop);
+      element.show(params.scrim === undefined ? true : params.scrim);
     }, 0);
 
     this.#currentDialog = element;

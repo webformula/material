@@ -2,7 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import './component.css';
 import util from '../../core/util.js';
 
-customElements.define('mdw-backdrop', class MDWBackdropElement extends HTMLElementExtended {
+customElements.define('mdw-scrim', class MDWScrimElement extends HTMLElementExtended {
   constructor() {
     super();
   }

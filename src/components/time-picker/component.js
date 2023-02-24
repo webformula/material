@@ -55,11 +55,11 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     this.#control.classList.add('mdw-has-time-picker');
 
     if (device.isMobile) {
-      this.backdrop = true;
+      this.scrim = true;
       this.clickOutsideClose = false;
     } else {
       this.animation = 'scale';
-      this.backdrop = false;
+      this.scrim = false;
       this.clickOutsideClose = true;
       this.target = this.#control;
     }

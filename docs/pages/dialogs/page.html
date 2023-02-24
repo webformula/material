@@ -40,8 +40,8 @@ basic and full-screen.</p>
   const answer = await mdwDialog.simple({
     headline: 'Question',
     message: 'Are you sure?',
-    backdrop: true, // default true
-    clickBackdropClose: false, // default false
+    scrim: true, // default true
+    clickScrimClose: false, // default false
     actionConfirm: true, // default true
     actionConfirm: 'OK', // default OK
     actionCancel: true, // default false
@@ -155,8 +155,8 @@ basic and full-screen.</p>
     <pre>
       <code class="language-javascript">
   const dialog = document.querySelector('#html-only-dialog');
-  dialog.show(true); // show with backdrop DEFAULT
-  dialog.show(false); // show with NO backdrop
+  dialog.show(true); // show with scrim DEFAULT
+  dialog.show(false); // show with NO scrim
   console.log(dialog.open);
   dialog.addEventListener('close', event => {
     console.log(event.target.returnValue);

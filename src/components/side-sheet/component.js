@@ -5,12 +5,12 @@ import util from '../../core/util.js';
 
 customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLElementExtended {
   #open;
-  #backdrop;
-  #backdropElement;
+  #scrim;
+  #scrimElement;
   #modal;
-  #clickBackdropClose = false;
+  #clickScrimClose = false;
   #placeHolder;
-  #backdropClick_bound = this.#backdropClick.bind(this);
+  #scrimClick_bound = this.#scrimClick.bind(this);
   #closeClick_bound = this.close.bind(this);
 
   constructor() {
@@ -21,8 +21,8 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.#open = false;
     if (this.classList.contains('mdw-global')) this.classList.add('mdw-modal')
     this.#modal = this.classList.contains('mdw-modal');
-    this.#backdrop = this.classList.contains('mdw-backdrop');
-    this.#clickBackdropClose = this.classList.contains('mdw-click-backdrop-close');
+    this.#scrim = this.classList.contains('mdw-scrim');
+    this.#clickScrimClose = this.classList.contains('mdw-click-scrim-close');
 
     this.#placeHolder = document.createElement('div');
     this.#placeHolder.classList.add('mdw-side-sheet-placeholder');
@@ -37,7 +37,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   }
 
   disconnectedCallback() {
-    if (this.#backdropElement) this.#backdropElement.remove();
+    if (this.#scrimElement) this.#scrimElement.remove();
     this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.removeEventListener('click', this.#closeClick_bound));
   }
 
@@ -51,24 +51,24 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.#open = !!value;
     this.classList.toggle('mdw-hide', !this.#open);
 
-    if (this.#modal && this.#backdrop) {
+    if (this.#modal && this.#scrim) {
       if (this.#open) {
-        if (!this.#backdropElement) this.#backdropElement = document.createElement('mdw-backdrop');
-        this.insertAdjacentElement('beforebegin', this.#backdropElement);
-        if (this.#clickBackdropClose) this.#backdropElement.addEventListener('click', this.#backdropClick_bound);
-      } else if (this.#backdropElement) {
-        this.#backdropElement.removeEventListener('click', this.#backdropClick_bound);
-        this.#backdropElement.remove();
+        if (!this.#scrimElement) this.#scrimElement = document.createElement('mdw-scrim');
+        this.insertAdjacentElement('beforebegin', this.#scrimElement);
+        if (this.#clickScrimClose) this.#scrimElement.addEventListener('click', this.#scrimClick_bound);
+      } else if (this.#scrimElement) {
+        this.#scrimElement.removeEventListener('click', this.#scrimClick_bound);
+        this.#scrimElement.remove();
       }
     }
   }
 
-  get clickBackdropClose() {
-    return this.#clickBackdropClose;
+  get clickScrimClose() {
+    return this.#clickScrimClose;
   }
 
-  set clickBackdropClose(value) {
-    this.#clickBackdropClose = !!value;
+  set clickScrimClose(value) {
+    this.#clickScrimClose = !!value;
   }
 
   get modal() {
@@ -79,12 +79,12 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.classList.toggle('mdw-modal', this.#modal);
   }
 
-  get backdrop() {
-    return this.#backdrop;
+  get scrim() {
+    return this.#scrim;
   }
-  set backdrop(value) {
-    this.#backdrop = !!value;
-    this.classList.toggle('mdw-backdrop', this.#backdrop);
+  set scrim(value) {
+    this.#scrim = !!value;
+    this.classList.toggle('mdw-scrim', this.#scrim);
   }
 
   show() {
@@ -99,7 +99,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.open = !this.open;
   }
 
-  #backdropClick() {
+  #scrimClick() {
     this.open = false;
   }
 });

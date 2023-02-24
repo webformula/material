@@ -29,7 +29,7 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
     super();
 
     this.clickOutsideClose = false;
-    this.backdrop = false;
+    this.scrim = false;
     this.animation = 'opacity';
     this.addClickOutsideCloseIgnore(this.parentElement.control);
   }

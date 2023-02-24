@@ -37,7 +37,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
     super();
 
     this.animation = 'scale';
-    this.backdrop = false;
+    this.scrim = false;
     this.clickOutsideClose = true;
     this.target = this.parentElement.control;
 

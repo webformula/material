@@ -29,7 +29,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
     super();
 
     this.clickOutsideClose = false;
-    this.backdrop = false;
+    this.scrim = false;
     this.animation = 'opacity';
     this.target = this.parentElement.parentElement;
     this.clickOutsideClose = true;

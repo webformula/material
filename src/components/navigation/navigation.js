@@ -7,10 +7,10 @@ import device from '../../core/device.js';
 customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLElementExtended {
   #open = true;
   #rail = this.classList.contains('mdw-rail');
-  #backdrop;
+  #scrim;
 
   #locationchange_bound = this.#locationchange.bind(this);
-  #backdropClick_bound = this.#backdropClick.bind(this);
+  #scrimClick_bound = this.#scrimClick.bind(this);
 
   constructor() {
     super();
@@ -66,12 +66,12 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
 
     if (device.isMobile) {
       if (this.#open) {
-        if (!this.#backdrop) this.#backdrop = document.createElement('mdw-backdrop');
-        this.insertAdjacentElement('beforebegin', this.#backdrop);
-        this.#backdrop.addEventListener('click', this.#backdropClick_bound);
-      } else if (this.#backdrop) {
-        this.#backdrop.removeEventListener('click', this.#backdropClick_bound);
-        this.#backdrop.remove();
+        if (!this.#scrim) this.#scrim = document.createElement('mdw-scrim');
+        this.insertAdjacentElement('beforebegin', this.#scrim);
+        this.#scrim.addEventListener('click', this.#scrimClick_bound);
+      } else if (this.#scrim) {
+        this.#scrim.removeEventListener('click', this.#scrimClick_bound);
+        this.#scrim.remove();
       }
     }
 
@@ -89,7 +89,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     this.open = !this.open;
   }
 
-  #backdropClick() {
+  #scrimClick() {
     this.open = false;
   }
 

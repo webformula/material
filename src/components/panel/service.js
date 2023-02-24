@@ -4,7 +4,7 @@ const MDWPanel = class MDWPanel {
   #template;
   #target = null;
   #animation = 'translateY';
-  #backdrop = false;
+  #scrim = false;
   #clickOutsideClose = true;
   #clickOutsideCloseIgnoreElements = [];
   #created = false;
@@ -13,14 +13,14 @@ const MDWPanel = class MDWPanel {
   constructor(params = {
     template: '',
     target: null,
-    backdrop: false,
+    scrim: false,
     clickOutsideClose: true,
     clickOutsideCloseIgnoreElements: [],
     animation: 'translateY'
   }) {
     if (params.template)  this.#template = params.template;
     if (params.target) this.#target = params.target;
-    if (params.backdrop === true) this.#backdrop = true;
+    if (params.scrim === true) this.#scrim = true;
     if (params.clickOutsideClose === false) this.#clickOutsideClose = false;
     if (Array.isArray(params.clickOutsideCloseIgnoreElements.length)) {
       this.#clickOutsideCloseIgnoreElements = params.clickOutsideCloseIgnoreElements;
@@ -65,12 +65,12 @@ const MDWPanel = class MDWPanel {
   }
 
 
-  get backdrop() {
-    return this.#backdrop;
+  get scrim() {
+    return this.#scrim;
   }
-  set backdrop(value) {
-    this.#backdrop = value;
-    if (this.#created) this.#panel.backdrop = value;
+  set scrim(value) {
+    this.#scrim = value;
+    if (this.#created) this.#panel.scrim = value;
   }
 
   get clickOutsideClose() {
@@ -104,7 +104,7 @@ const MDWPanel = class MDWPanel {
   #createPanel() {
     this.#panel.target = this.#target;
     this.#panel.animation = this.#animation;
-    this.#panel.backdrop = this.#backdrop;
+    this.#panel.scrim = this.#scrim;
     this.#panel.clickOutsideClose = this.#clickOutsideClose;
     this.#panel.innerHTML = this.#template;
     this.#clickOutsideCloseIgnoreElements.forEach(element => this.#panel.addClickOutsideCloseIgnore(element));

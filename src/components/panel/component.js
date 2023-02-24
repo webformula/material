@@ -7,7 +7,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #overflowScrollRegex = /(auto|scroll)/;
   #validAnimations = ['translateY', 'scale', 'expand', 'transitionYReverse', 'opacity'];
   #animation = this.getAttribute('animation') || 'translateY';
-  #backdrop = false;
+  #scrim = false;
   #clickOutsideClose = true;
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #clickOutsideCloseIgnoreElements = [];
@@ -17,7 +17,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #targetScrollContainer;
   #positionOverlap = false;
   #onTargetScroll_bound = util.rafThrottle(this.#onTargetScroll.bind(this));
-  #backdropElement;
+  #scrimElement;
   #fixedParent;
   
   constructor() {
@@ -31,7 +31,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   }
 
   disconnectedCallback() {
-    this.#removeBackdrop();
+    this.#removeScrim();
     document.body.removeEventListener('click', this.#onClickOutside_bound);
     if (this.#targetScrollContainer) this.#targetScrollContainer.removeEventListener('scroll', this.#onTargetScroll_bound);
   }
@@ -56,11 +56,11 @@ export default class MDWPanelElement extends HTMLElementExtended {
     this.#animation = value;
   }
 
-  get backdrop() {
-    return this.#backdrop;
+  get scrim() {
+    return this.#scrim;
   }
-  set backdrop(value) {
-    this.#backdrop = value;
+  set scrim(value) {
+    this.#scrim = value;
   }
 
   get clickOutsideClose() {
@@ -91,7 +91,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   }
 
 
-  show(backdrop = this.#backdrop) {
+  show(scrim = this.#scrim) {
     this.classList.remove('mdw-no-animation');
     if (this.open === true) return;
 
@@ -99,7 +99,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     if (this.#animation === 'expand') this.classList.add('mdw-animation-expand');
     if (this.#animation === 'transitionYReverse') this.classList.add('mdw-animation-transitionYReverse');
     if (this.#animation === 'opacity') this.classList.add('mdw-animation-opacity');
-    if (backdrop) this.#addBackdrop();
+    if (scrim) this.#addScrim();
     if (this.#target) this.#setupTarget();
     this.setAttribute('open', '');
     this.dispatchEvent(new Event('open'));
@@ -126,7 +126,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     if (this.#targetScrollContainer) this.#targetScrollContainer.removeEventListener('scroll', this.#onTargetScroll_bound);
 
     this.removeAttribute('open');
-    this.#removeBackdrop();
+    this.#removeScrim();
     this.dispatchEvent(new Event('close'));
 
     this.classList.add('mdw-animating');
@@ -209,16 +209,16 @@ export default class MDWPanelElement extends HTMLElementExtended {
     }
   }
 
-  #addBackdrop() {
-    if (this.#backdropElement) return;
-    this.#backdropElement = document.createElement('mdw-backdrop');
-    this.insertAdjacentElement('beforebegin', this.#backdropElement);
+  #addScrim() {
+    if (this.#scrimElement) return;
+    this.#scrimElement = document.createElement('mdw-scrim');
+    this.insertAdjacentElement('beforebegin', this.#scrimElement);
   }
 
-  #removeBackdrop() {
-    if (!this.#backdropElement) return;
-    this.#backdropElement.remove();
-    this.#backdropElement = undefined;
+  #removeScrim() {
+    if (!this.#scrimElement) return;
+    this.#scrimElement.remove();
+    this.#scrimElement = undefined;
   }
 
   // TODO do i need other positions

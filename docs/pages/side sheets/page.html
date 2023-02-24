@@ -28,7 +28,7 @@
           <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
           <mdw-switch style="margin-left: 16px; width: 120px;" onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
           <mdw-switch style="margin-left: 36px; width: 210px;"
-            onchange="document.querySelector('mdw-side-sheet#one').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+            onchange="document.querySelector('mdw-side-sheet#one').scrim = this.checked">Scrim (modal)</mdw-switch>
         </div>
         <div style="display: flex">
           <div>
@@ -45,7 +45,7 @@
               occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
-          <mdw-side-sheet id="one" class="mdw-click-backdrop-close">
+          <mdw-side-sheet id="one" class="mdw-click-scrim-close">
             <div class="mdw-header">
               <div class="mdw-title">Title</div>
               <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -75,7 +75,7 @@
     <div>
       content...
     </div>
-    <mdw-side-sheet id="one" class="mdw-click-backdrop-close">
+    <mdw-side-sheet id="one" class="mdw-click-scrim-close">
       <div class="mdw-header">
         <div class="mdw-title">Title</div>
         <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -100,7 +100,7 @@
   <mdw-switch style="margin-left: 16px; width: 120px;"
     onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
   <mdw-switch style="margin-left: 36px; width: 210px;"
-    onchange="document.querySelector('mdw-side-sheet#one').backdrop = this.checked">Backdrop (modal)</mdw-switch>`)}
+    onchange="document.querySelector('mdw-side-sheet#one').scrim = this.checked">Scrim (modal)</mdw-switch>`)}
       </code>
     </pre>
   </mdw-card>
@@ -115,7 +115,7 @@
         <div>
           <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
           <mdw-switch style="margin-left: 36px; width: 210px;"
-            onchange="document.querySelector('mdw-side-sheet#two').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+            onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>
         </div>
         <div style="display: flex">
           <div>
@@ -193,7 +193,7 @@
   ${escapeHTML(`<!-- Controls-->
   <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
   <mdw-switch style="margin-left: 36px; width: 210px;"
-    onchange="document.querySelector('mdw-side-sheet#two').backdrop = this.checked">Backdrop (modal)</mdw-switch>`)}
+    onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>`)}
       </code>
     </pre>
   </mdw-card>
@@ -209,7 +209,7 @@
         <div>
           <mdw-button onclick="document.querySelector('mdw-side-sheet#three').toggle()">Toggle side sheet</mdw-button>
           <mdw-switch style="margin-left: 36px; width: 210px;" checked
-            onchange="document.querySelector('mdw-side-sheet#three').backdrop = this.checked">Backdrop (modal)</mdw-switch>
+            onchange="document.querySelector('mdw-side-sheet#three').scrim = this.checked">Scrim (modal)</mdw-switch>
         </div>
         <div style="display: flex">
           <div>
@@ -232,7 +232,7 @@
               occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
-          <mdw-side-sheet id="three" class="mdw-global mdw-backdrop">
+          <mdw-side-sheet id="three" class="mdw-global mdw-scrim">
             <div class="mdw-header">
               <div class="mdw-title">Title</div>
             </div>
@@ -273,7 +273,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-side-sheet id="three" class="mdw-global mdw-backdrop">
+  ${escapeHTML(`<mdw-side-sheet id="three" class="mdw-global mdw-scrim">
     <div class="mdw-header">
       <div class="mdw-title">Title</div>
     </div>
