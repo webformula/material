@@ -260,33 +260,6 @@
 
 
 
-/* --- Ripple --- */
-
-.ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  transform: translateZ(0);
-  /* fixes bug on ios safari */
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-surface--16);
-  border-radius: 50%;
-}
-
-/* TODO confirm how this should be. This is in spec, but it looks weird
-:host(:active)::after {
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  background-color: var(--mdw-on-surface);
-} */
-
-
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
   :host(:hover)::after {
@@ -310,10 +283,6 @@
   :host(:hover.mdw-outlined)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-primary);
-  }
-
-  :host(:hover.mdw-filled) .ripple > .mdw-ripple-element {
-    background-color: var(--mdw-on-primary--16);
   }
 }
 
@@ -344,4 +313,34 @@
 :host(.mdw-menu) ::slotted(mdw-icon.mdw-trailing) {
   margin-right: -2px;
   margin-left: 8px;
+}
+
+
+/* --- Ripple --- */
+
+.ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  transform: translateZ(0);
+  /* fixes bug on ios safari */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.ripple > .mdw-ripple-element {
+  background-color: var(--mdw-primary);
+  opacity: var(--mdw-state-layer-opacity-pressed);
+  border-radius: 50%;
+}
+
+:host(.mdw-filled) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-primary);
+}
+
+:host(.mdw-filled-tonal) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-secondary-container);
 }
