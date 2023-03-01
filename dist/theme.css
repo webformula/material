@@ -7,28 +7,88 @@ html:not(.mdw-initiated) body {
 /* Change theme by adding 'color-scheme: dark | light;' to the html element style */
 /* By default it will use the system preference */
 
+
 :root {
-  --mdw-primary: #6750A4;
-  --mdw-primary-container: #EADDFF;
+  --mdw-primary-baseline: #6750A4;
+  --mdw-secondary-baseline: #625B71;
+  --mdw-tertiary-baseline: #7D5260;
+  --mdw-error-baseline: #B3261E;
+  --mdw-neutral-baseline: #615d67;
+  --mdw-neutral-variant-baseline: #605d62;
+
+  /* You can add custom colors that will be parsed into tones
+   *  Just create a new variable in this file beginning with --mdw-custom-color-
+   *
+   * --mdw-custom-color-name: #5b7166;
+   *
+   * Produces tone vars
+   * --mdw-custom-color-name-0
+   * --mdw-custom-color-name-10
+   * --mdw-custom-color-name-20
+   * --mdw-custom-color-name-30
+   * --mdw-custom-color-name-40
+   * --mdw-custom-color-name-50
+   * --mdw-custom-color-name-60
+   * --mdw-custom-color-name-70
+   * --mdw-custom-color-name-80
+   * --mdw-custom-color-name-90
+   * --mdw-custom-color-name-95
+   * --mdw-custom-color-name-99
+   * --mdw-custom-color-name-100
+   */
+
+
+  /* --- Overrides ---
+   *  By default these colors are filled out tones of the colors above
+   *  You can override them here
+   */
+
+  --mdw-primary: var(--mdw-primary-40);
+  --mdw-secondary: var(--mdw-secondary-40);
+  --mdw-tertiary: var(--mdw-tertiary-40);
+  --mdw-error: var(--mdw-error-40);
+  --mdw-neutral: var(--mdw-neutral-40);
+  --mdw-neutral-variant: var(--mdw-neutral-variant-40);
+  --mdw-primary-container: var(--mdw-primary-90);
+  --mdw-on-primary: var(--mdw-primary-100);
+  --mdw-on-primary-container: var(--mdw-primary-10);
+  --mdw-primary-inverse: var(--mdw-primary-80);
+  --mdw-secondary-container: var(--mdw-secondary-90);
+  --mdw-on-secondary: var(--mdw-secondary-100);
+  --mdw-on-secondary-container: var(--mdw-secondary-10);
+  --mdw-tertiary-container: var(--mdw-tertiary-90);
+  --mdw-on-tertiary: var(--mdw-tertiary-100);
+  --mdw-on-tertiary-container: var(--mdw-tertiary-10);
+  --mdw-error-container: var(--mdw-error-90);
+  --mdw-on-error: var(--mdw-error-100);
+  --mdw-on-error-container: var(--mdw-error-10);
+  --mdw-surface: var(--mdw-neutral-99);
+  --mdw-surface-variant: var(--mdw-neutral-variant-90);
+  --mdw-on-surface: var(--mdw-neutral-10);
+  --mdw-on-surface-variant: var(--mdw-neutral-variant-30);
+  --mdw-surface-tint: var(--mdw-primary-40);
+  --mdw-surface-inverse: var(--mdw-neutral-20);
+  --mdw-on-surface-inverse: var(--mdw-neutral-95);
+  --mdw-background: var(--mdw-neutral-99);
+  --mdw-on-background: var(--mdw-neutral-10);
+  --mdw-outline: var(--mdw-neutral-variant-50);
+  --mdw-outline-variant: var(--mdw-neutral-variant-80);
+  --mdw-shadow: var(--mdw-neutral-0);
+  --mdw-scrim: var(--mdw-neutral-0);
+
+  /* --mdw-primary-container: #EADDFF;
   --mdw-on-primary: #FFFFFF;
   --mdw-on-primary-container: #21005E;
   --mdw-primary-inverse: #D0BCFF;
-
-  --mdw-secondary: #625B71;
   --mdw-secondary-container: #E8DEF8;
   --mdw-on-secondary: #FFFFFF;
   --mdw-on-secondary-container: #1E192B;
-
-  --mdw-tertiary: #7D5260;
   --mdw-tertiary-container: #FFD8E4;
   --mdw-on-tertiary: #FFFFFF;
   --mdw-on-tertiary-container: #370B1E;
-
-  --mdw-error: #B3261E;
   --mdw-error-container: #F9DEDC;
   --mdw-on-error: #FFFFFF;
   --mdw-on-error-container: #370B1E;
-
   --mdw-surface: #FFFBFE;
   --mdw-surface-variant: #E7E0EC;
   --mdw-on-surface: #1C1B1F;
@@ -36,23 +96,18 @@ html:not(.mdw-initiated) body {
   --mdw-surface-tint: #6750A4;
   --mdw-surface-inverse: #313033;
   --mdw-on-surface-inverse: #F4EFF4;
-
-  /* original */
-  /* --mdw-background: #FFFBFE; */
   --mdw-background: #edebed;
   --mdw-on-background: #1C1B1F;
-
   --mdw-outline: #79747E;
   --mdw-outline-variant: #C4C7C5;
-
   --mdw-shadow: #000000;
-  --mdw-scrim: #000000;
+  --mdw-scrim: #000000; */
+
 
   --mdw-state-layer-opacity-hover: 0.08;
   --mdw-state-layer-opacity-focus: 0.12;
   --mdw-state-layer-opacity-pressed: 0.12;
   --mdw-state-layer-opacity-dragged: 0.16;
-
   --mdw-shape-no-rounding: 0;
   --mdw-shape-extra-small: 4px;
   --mdw-shape-extra-small-top: 4px 4px 0 0;
@@ -64,105 +119,91 @@ html:not(.mdw-initiated) body {
   --mdw-shape-extra-large: 28px;
   --mdw-shape-extra-large-top: 28px 28px 0 0;
   --mdw-shape-full: 50%;
-
-
   --mdw-navigation-rail-width: 88px;
   --mdw-button-radius: 20px;
   --mdw-navigation-drawer-width: 360px;
   --mdw-card-group-columns: 4;
   --mdw-side-sheet-width: 296px;
-
   --mdw-transition-expand-in: cubic-bezier(.13, 1.02, .25, .95);
   --mdw-transition-expand-out: cubic-bezier(0.550, 0.085, 0.680, 0.530);
   --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
-
   --mdw-bottom-sheet-initial-position: 40%;
   --mdw-bottom-sheet-minimized-position: 64px;
 
 
+  /* --- font sizes scale with html.style.fontSize. base is 16px = 1rem */
 
-  /* --- font sizes are represented in pixels but scale with html.style.fontSize. base is 16px */
+  --mdw-font-icon-size-small: 1.25rem;
+  --mdw-font-icon-size-medium: 1.5rem;
+  --mdw-font-icon-size-large: 2.25rem;
+  --mdw-font-icon-size-extra-large: 3rem;
 
-  --mdw-font-icon-size-small: 20px;
-  --mdw-font-icon-size-medium: 24px;
-  --mdw-font-icon-size-large: 36px;
-  --mdw-font-icon-size-extra-large: 48px;
-
-  --mdw-font-display-size-large: 59px;
-  --mdw-font-display-line-height-large: 66px;
+  --mdw-font-display-size-large: 3.562rem;
+  --mdw-font-display-line-height-large: 4rem;
   --mdw-font-display-weight-large: 400;
-  --mdw-font-display-letter-spacing-large: 0;
-
-  --mdw-font-display-size-medium: 47px;
-  --mdw-font-display-line-height-medium: 54px;
+  --mdw-font-display-letter-spacing-large: -0.016rem;
+  --mdw-font-display-size-medium: 2.812rem;
+  --mdw-font-display-line-height-medium: 3.25rem;
   --mdw-font-display-weight-medium: 400;
-  --mdw-font-display-letter-spacing-medium: 0;
+  --mdw-font-display-letter-spacing-medium: 0rem;
+  --mdw-font-display-size-small: 2.25rem;
+  --mdw-font-display-line-height-small: 2.75rem;
+  --mdw-font-display-weight-small: 475;
+  --mdw-font-display-letter-spacing-small: 0rem;
 
-  --mdw-font-display-size-small: 38px;
-  --mdw-font-display-line-height-small: 46px;
-  --mdw-font-display-weight-small: 400;
-  --mdw-font-display-letter-spacing-small: 0px;
-
-  --mdw-font-label-size-large: 16px;
-  --mdw-font-label-line-height-large: 22px;
-  --mdw-font-label-weight-large: 500;
-  --mdw-font-label-letter-spacing-large: 0.1px;
-
-  --mdw-font-label-size-medium: 14px;
-  --mdw-font-label-line-height-medium: 18px;
-  --mdw-font-label-weight-medium: 500;
-  --mdw-font-label-letter-spacing-medium: 0.5px;
-
-  --mdw-font-label-size-small: 13px;
-  --mdw-font-label-line-height-small: 18px;
-  --mdw-font-label-weight-small: 500;
-  --mdw-font-label-letter-spacing-small: 0.1px;
-
-  --mdw-font-title-size-large: 24px;
-  --mdw-font-title-line-height-large: 30px;
-  --mdw-font-title-weight-large: 400;
-  --mdw-font-title-letter-spacing-large: 0;
-
-  --mdw-font-title-size-medium: 18px;
-  --mdw-font-title-line-height-medium: 24px;
-  --mdw-font-title-weight-medium: 500;
-  --mdw-font-title-letter-spacing-medium: 0.15px;
-
-  --mdw-font-title-size-small: 14px;
-  --mdw-font-title-line-height-small: 20px;
-  --mdw-font-title-weight-small: 500;
-  --mdw-font-title-letter-spacing-small: 0.1px;
-
-  --mdw-font-body-size-large: 18px;
-  --mdw-font-body-line-height-large: 26px;
-  --mdw-font-body-weight-large: 400;
-  --mdw-font-body-letter-spacing-large: 0.5px;
-
-  --mdw-font-body-size-medium: 16px;
-  --mdw-font-body-line-height-medium: 22px;
-  --mdw-font-body-weight-medium: 400;
-  --mdw-font-body-letter-spacing-medium: 0.25px;
-
-  --mdw-font-body-size-small: 14px;
-  --mdw-font-body-line-height-small: 18px;
-  --mdw-font-body-weight-small: 400;
-  --mdw-font-body-letter-spacing-small: 0.4px;
-
-  --mdw-font-headline-size-large: 34px;
-  --mdw-font-headline-line-height-large: 40px;
+  --mdw-font-headline-size-large: 2rem;
+  --mdw-font-headline-line-height-large: 2.5rem;
   --mdw-font-headline-weight-large: 400;
-  --mdw-font-headline-letter-spacing-large: 0;
-
-  --mdw-font-headline-size-medium: 30px;
-  --mdw-font-headline-line-height-medium: 36px;
+  --mdw-font-headline-letter-spacing-large: 0rem;
+  --mdw-font-headline-size-medium: 1.75rem;
+  --mdw-font-headline-line-height-medium: 2.25rem;
   --mdw-font-headline-weight-medium: 400;
-  --mdw-font-headline-letter-spacing-medium: 0;
-
-  --mdw-font-headline-size-small: 26px;
-  --mdw-font-headline-line-height-small: 32px;
+  --mdw-font-headline-letter-spacing-medium: 0rem;
+  --mdw-font-headline-size-small: 1.5rem;
+  --mdw-font-headline-line-height-small: 2rem;
   --mdw-font-headline-weight-small: 400;
-  --mdw-font-headline-letter-spacing-small: 0;
+  --mdw-font-headline-letter-spacing-small: 0rem;
+
+  --mdw-font-title-size-large: 1.375rem;
+  --mdw-font-title-line-height-large: 1.75rem;
+  --mdw-font-title-weight-large: 400;
+  --mdw-font-title-letter-spacing-large: 0rem;
+  --mdw-font-title-size-medium: 1rem;
+  --mdw-font-title-line-height-medium: 1.5rem;
+  --mdw-font-title-weight-medium: 500;
+  --mdw-font-title-letter-spacing-medium: 0.009rem;
+  --mdw-font-title-size-small: 0.875rem;
+  --mdw-font-title-line-height-small: 1.25rem;
+  --mdw-font-title-weight-small: 500;
+  --mdw-font-title-letter-spacing-small: 0.006rem;
+
+  --mdw-font-label-size-large: 0.875rem;
+  --mdw-font-label-line-height-large: 1.25rem;
+  --mdw-font-label-weight-large: 500;
+  --mdw-font-label-letter-spacing-large: 0.006rem;
+  --mdw-font-label-size-medium: 0.75rem;
+  --mdw-font-label-line-height-medium: 1rem;
+  --mdw-font-label-weight-medium: 500;
+  --mdw-font-label-letter-spacing-medium: 0.031rem;
+  --mdw-font-label-size-small: 0.688rem;
+  --mdw-font-label-line-height-small: 0.75rem;
+  --mdw-font-label-weight-small: 500;
+  --mdw-font-label-letter-spacing-small: 0.031rem;
+
+  --mdw-font-body-size-large: 1rem;
+  --mdw-font-body-line-height-large: 1.5rem;
+  --mdw-font-body-weight-large: 400;
+  --mdw-font-body-letter-spacing-large: 0.031rem;
+  --mdw-font-body-size-medium: 0.875rem;
+  --mdw-font-body-line-height-medium: 1.25rem;
+  --mdw-font-body-weight-medium: 400;
+  --mdw-font-body-letter-spacing-medium: 0.016rem;
+  --mdw-font-body-size-small: 0.75rem;
+  --mdw-font-body-line-height-small: 1rem;
+  --mdw-font-body-weight-small: 400;
+  --mdw-font-body-letter-spacing-small: 0.025rem;
 }
+
 
 
 /* you can use system preference for dark, but this is not fully implemented yet. https: //developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme */
@@ -174,27 +215,61 @@ html:not(.mdw-initiated) body {
 } */
 
 :root.mdw-theme-dark {
-  --mdw-primary: #d0bcff;
+  /* --- Overrides ---
+   *  By default these colors are filled out tones of the colors above
+   *  You can override them here
+   */
+
+  --mdw-primary: var(--mdw-primary-80);
+  --mdw-secondary: var(--mdw-secondary-80);
+  --mdw-tertiary: var(--mdw-tertiary-80);
+  --mdw-error: var(--mdw-error-80);
+  --mdw-neutral: var(--mdw-neutral-80);
+  --mdw-neutral-variant: var(--mdw-neutral-variant-80);
+  --mdw-primary-container: var(--mdw-primary-30);
+  --mdw-on-primary: var(--mdw-primary-20);
+  --mdw-on-primary-container: var(--mdw-primary-90);
+  --mdw-primary-inverse: var(--mdw-primary-40);
+  --mdw-secondary-container: var(--mdw-secondary-30);
+  --mdw-on-secondary: var(--mdw-secondary-20);
+  --mdw-on-secondary-container: var(--mdw-secondary-90);
+  --mdw-tertiary-container: var(--mdw-tertiary-30);
+  --mdw-on-tertiary: var(--mdw-tertiary-20);
+  --mdw-on-tertiary-container: var(--mdw-tertiary-90);
+  --mdw-error-container: var(--mdw-error-30);
+  --mdw-on-error: var(--mdw-error-20);
+  --mdw-on-error-container: var(--mdw-error-90);
+  --mdw-surface: var(--mdw-neutral-10);
+  --mdw-surface-variant: var(--mdw-neutral-variant-30);
+  --mdw-on-surface: var(--mdw-neutral-90);
+  --mdw-on-surface-variant: var(--mdw-neutral-variant-80);
+  --mdw-surface-tint: var(--mdw-primary-40);
+  --mdw-surface-inverse: var(--mdw-neutral-90);
+  --mdw-on-surface-inverse: var(--mdw-neutral-20);
+  --mdw-background: var(--mdw-neutral-10);
+  --mdw-on-background: var(--mdw-neutral-90);
+  --mdw-outline: var(--mdw-neutral-variant-60);
+  --mdw-outline-variant: var(--mdw-neutral-variant-30);
+  --mdw-shadow: var(--mdw-neutral-0);
+  --mdw-scrim: var(--mdw-neutral-0);
+  
+  /* --mdw-primary: #d0bcff;
   --mdw-primary-container: #4f378b;
   --mdw-on-primary: #381e73;
   --mdw-on-primary-container: #eaddff;
   --mdw-primary-inverse: #2f4300;
-
   --mdw-secondary: #cbc2db;
   --mdw-secondary-container: #4a4458;
   --mdw-on-secondary: #332d41;
   --mdw-on-secondary-container: #e8def8;
-
   --mdw-tertiary: #efb8c8;
   --mdw-tertiary-container: #633b48;
   --mdw-on-tertiary: #4a2532;
   --mdw-on-tertiary-container: #ffd8e4;
-
   --mdw-error: #f2b8b5;
   --mdw-error-container: #8c1d18;
   --mdw-on-error: #601410;
   --mdw-on-error-container: #f9dedc;
-
   --mdw-surface: #1c1b1e;
   --mdw-surface-variant: #49454f;
   --mdw-on-surface: #e6e1e5;
@@ -202,16 +277,10 @@ html:not(.mdw-initiated) body {
   --mdw-surface-tint: #d0bcff;
   --mdw-surface-inverse: #e3e4e1;
   --mdw-on-surface-inverse: #191e1a;
-
-  /* original */
-  /* --mdw-background: #1c1b1e; */
-
   --mdw-background: #39373d;
   --mdw-on-background: #e6e1e5;
-
   --mdw-outline: #948f99;
   --mdw-outline-variant: #cdd1cf;
-
   --mdw-shadow: #000000;
-  --mdw-scrim: #000000;
+  --mdw-scrim: #000000; */
 }
