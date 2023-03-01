@@ -208,22 +208,12 @@ const mdwUtil = new class MDWUtil {
     if (this.#pageScrollIsLocked === true) return;
     this.#pageScrollIsLocked = true;
 
-    const htmlElement = document.querySelector('html');
+    const htmlElement = document.documentElement;
     this.#pageScrollLockHTMLScrollTop = htmlElement.scrollTop;
     htmlElement.style.overflow = 'hidden';
     htmlElement.style.position = 'relative';
     htmlElement.style.touchAction = 'none';
 
-    const bodyElement = document.body;
-    bodyElement.style.overflow = 'hidden';
-    bodyElement.style.position = 'absolute';
-    bodyElement.style.touchAction = 'none';
-    bodyElement.style.bottom = '0';
-    bodyElement.style.height = 'unset';
-    bodyElement.style.top = `-${this.#pageScrollLockHTMLScrollTop}px`;
-
-    // return offset
-    // Locking page can
     return this.#pageScrollLockHTMLScrollTop;
   }
 
@@ -231,22 +221,11 @@ const mdwUtil = new class MDWUtil {
     if (this.#pageScrollIsLocked === false) return;
     this.#pageScrollIsLocked = false;
 
-    const htmlElement = document.querySelector('html');
+    const htmlElement = document.documentElement;
     htmlElement.style.overflow = '';
     htmlElement.style.position = '';
     htmlElement.style.touchAction = '';
-    htmlElement.style.top = '';
-    htmlElement.style.bottom = '';
-    htmlElement.style.height = '';
     htmlElement.scrollTop = this.#pageScrollLockHTMLScrollTop;
-
-    const bodyElement = document.body;
-    bodyElement.style.overflow = '';
-    bodyElement.style.position = '';
-    bodyElement.style.touchAction = '';
-    bodyElement.style.top = '';
-    bodyElement.style.bottom = '';
-    bodyElement.style.height = '';
   }
 
   #clickTimeoutReferences = [];

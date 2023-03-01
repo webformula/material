@@ -175,11 +175,12 @@ mdw-list > .mdw-sub-header::before {
   bottom: 0;
   pointer-events: none;
   background-color: none;
+  background-color: var(--mdw-surface-tint-alpha-6);
   transition: background-color 80ms linear;
 }
 
 mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck::before {
-  background-color: var(--mdw-surface-tint-alpha-6);
+  background-color: var(--mdw-surface-tint-alpha-8);
 }
 
 

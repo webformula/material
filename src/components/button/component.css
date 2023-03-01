@@ -21,13 +21,13 @@
 }
 
 :host ::slotted(mdw-icon) {
-  vertical-align: middle;
-  margin-top: -4px;
   margin-right: 2px;
   margin-left: -2px;
+  vertical-align: sub;
   width: var(--mdw-font-icon-size-small) !important;
   height: var(--mdw-font-icon-size-small) !important;
   font-size: var(--mdw-font-icon-size-small) !important;
+  line-height: var(--mdw-font-icon-size-small) !important;
 }
 
 :host ::slotted(.mdw-icon-svg) {
@@ -113,8 +113,9 @@
   width: var(--mdw-font-icon-size-medium) !important;
   height: var(--mdw-font-icon-size-medium) !important;
   font-size: var(--mdw-font-icon-size-medium) !important;
-  margin: 0;
-  margin-top: -1px;
+  line-height: var(--mdw-font-icon-size-medium) !important;
+  vertical-align: middle;
+  margin: 0 auto;
   transition: font-variation-settings 60ms;
 }
 
@@ -303,11 +304,12 @@
 }
 
 :host(.mdw-menu) ::slotted(mdw-icon) {
-  margin-top: 0px;
   margin-right: 8px;
   width: var(--mdw-font-icon-size-medium) !important;
   height: var(--mdw-font-icon-size-medium) !important;
   font-size: var(--mdw-font-icon-size-medium) !important;
+  line-height: var(--mdw-font-icon-size-medium) !important;
+  vertical-align: middle;
 }
 
 :host(.mdw-menu) ::slotted(mdw-icon.mdw-trailing) {

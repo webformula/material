@@ -93,6 +93,7 @@
   width: var(--mdw-font-icon-size-large) !important;
   height: var(--mdw-font-icon-size-large) !important;
   font-size: var(--mdw-font-icon-size-large) !important;
+  line-height: var(--mdw-font-icon-size-large) !important;
 }
 
 

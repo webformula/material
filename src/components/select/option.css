@@ -25,6 +25,7 @@
   width: var(--mdw-font-icon-size-medium) !important;
   height: var(--mdw-font-icon-size-medium) !important;
   font-size: var(--mdw-font-icon-size-medium) !important;
+  line-height: var(--mdw-font-icon-size-medium) !important;
 }
 
 :host ::slotted(mdw-icon.mdw-trailing) {

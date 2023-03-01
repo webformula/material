@@ -138,10 +138,10 @@ body:not(.mdw-mobile) mdw-bottom-app-bar.mdw-mobile-only {
   display: none;
 }
 
-mdw-bottom-app-bar mdw-button.mdw-icon-button {
+/* mdw-bottom-app-bar mdw-button.mdw-icon-button {
   width: 48px;
   height: 48px;
-}
+} */
 
 mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button,
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button,

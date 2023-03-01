@@ -130,71 +130,78 @@ html:not(.mdw-initiated) body {
   --mdw-bottom-sheet-initial-position: 40%;
   --mdw-bottom-sheet-minimized-position: 64px;
 
-  /* --- font sizes are represented in pixels but scale with html.style.fontSize. base is 16px */
-  --mdw-font-icon-size-small: 20px;
-  --mdw-font-icon-size-medium: 24px;
-  --mdw-font-icon-size-large: 36px;
-  --mdw-font-icon-size-extra-large: 48px;
-  --mdw-font-display-size-large: 59px;
-  --mdw-font-display-line-height-large: 66px;
+
+  /* --- font sizes scale with html.style.fontSize. base is 16px = 1rem */
+
+  --mdw-font-icon-size-small: 1.25rem;
+  --mdw-font-icon-size-medium: 1.5rem;
+  --mdw-font-icon-size-large: 2.25rem;
+  --mdw-font-icon-size-extra-large: 3rem;
+
+  --mdw-font-display-size-large: 3.562rem;
+  --mdw-font-display-line-height-large: 4rem;
   --mdw-font-display-weight-large: 400;
-  --mdw-font-display-letter-spacing-large: 0;
-  --mdw-font-display-size-medium: 47px;
-  --mdw-font-display-line-height-medium: 54px;
+  --mdw-font-display-letter-spacing-large: -0.016rem;
+  --mdw-font-display-size-medium: 2.812rem;
+  --mdw-font-display-line-height-medium: 3.25rem;
   --mdw-font-display-weight-medium: 400;
-  --mdw-font-display-letter-spacing-medium: 0;
-  --mdw-font-display-size-small: 38px;
-  --mdw-font-display-line-height-small: 46px;
-  --mdw-font-display-weight-small: 400;
-  --mdw-font-display-letter-spacing-small: 0px;
-  --mdw-font-label-size-large: 16px;
-  --mdw-font-label-line-height-large: 22px;
-  --mdw-font-label-weight-large: 500;
-  --mdw-font-label-letter-spacing-large: 0.1px;
-  --mdw-font-label-size-medium: 14px;
-  --mdw-font-label-line-height-medium: 18px;
-  --mdw-font-label-weight-medium: 500;
-  --mdw-font-label-letter-spacing-medium: 0.5px;
-  --mdw-font-label-size-small: 13px;
-  --mdw-font-label-line-height-small: 18px;
-  --mdw-font-label-weight-small: 500;
-  --mdw-font-label-letter-spacing-small: 0.1px;
-  --mdw-font-title-size-large: 24px;
-  --mdw-font-title-line-height-large: 30px;
-  --mdw-font-title-weight-large: 400;
-  --mdw-font-title-letter-spacing-large: 0;
-  --mdw-font-title-size-medium: 18px;
-  --mdw-font-title-line-height-medium: 24px;
-  --mdw-font-title-weight-medium: 500;
-  --mdw-font-title-letter-spacing-medium: 0.15px;
-  --mdw-font-title-size-small: 14px;
-  --mdw-font-title-line-height-small: 20px;
-  --mdw-font-title-weight-small: 500;
-  --mdw-font-title-letter-spacing-small: 0.1px;
-  --mdw-font-body-size-large: 18px;
-  --mdw-font-body-line-height-large: 26px;
-  --mdw-font-body-weight-large: 400;
-  --mdw-font-body-letter-spacing-large: 0.5px;
-  --mdw-font-body-size-medium: 16px;
-  --mdw-font-body-line-height-medium: 22px;
-  --mdw-font-body-weight-medium: 400;
-  --mdw-font-body-letter-spacing-medium: 0.25px;
-  --mdw-font-body-size-small: 14px;
-  --mdw-font-body-line-height-small: 18px;
-  --mdw-font-body-weight-small: 400;
-  --mdw-font-body-letter-spacing-small: 0.4px;
-  --mdw-font-headline-size-large: 34px;
-  --mdw-font-headline-line-height-large: 40px;
+  --mdw-font-display-letter-spacing-medium: 0rem;
+  --mdw-font-display-size-small: 2.25rem;
+  --mdw-font-display-line-height-small: 2.75rem;
+  --mdw-font-display-weight-small: 475;
+  --mdw-font-display-letter-spacing-small: 0rem;
+
+  --mdw-font-headline-size-large: 2rem;
+  --mdw-font-headline-line-height-large: 2.5rem;
   --mdw-font-headline-weight-large: 400;
-  --mdw-font-headline-letter-spacing-large: 0;
-  --mdw-font-headline-size-medium: 30px;
-  --mdw-font-headline-line-height-medium: 36px;
+  --mdw-font-headline-letter-spacing-large: 0rem;
+  --mdw-font-headline-size-medium: 1.75rem;
+  --mdw-font-headline-line-height-medium: 2.25rem;
   --mdw-font-headline-weight-medium: 400;
-  --mdw-font-headline-letter-spacing-medium: 0;
-  --mdw-font-headline-size-small: 26px;
-  --mdw-font-headline-line-height-small: 32px;
+  --mdw-font-headline-letter-spacing-medium: 0rem;
+  --mdw-font-headline-size-small: 1.5rem;
+  --mdw-font-headline-line-height-small: 2rem;
   --mdw-font-headline-weight-small: 400;
-  --mdw-font-headline-letter-spacing-small: 0;
+  --mdw-font-headline-letter-spacing-small: 0rem;
+
+  --mdw-font-title-size-large: 1.375rem;
+  --mdw-font-title-line-height-large: 1.75rem;
+  --mdw-font-title-weight-large: 400;
+  --mdw-font-title-letter-spacing-large: 0rem;
+  --mdw-font-title-size-medium: 1rem;
+  --mdw-font-title-line-height-medium: 1.5rem;
+  --mdw-font-title-weight-medium: 500;
+  --mdw-font-title-letter-spacing-medium: 0.009rem;
+  --mdw-font-title-size-small: 0.875rem;
+  --mdw-font-title-line-height-small: 1.25rem;
+  --mdw-font-title-weight-small: 500;
+  --mdw-font-title-letter-spacing-small: 0.006rem;
+
+  --mdw-font-label-size-large: 0.875rem;
+  --mdw-font-label-line-height-large: 1.25rem;
+  --mdw-font-label-weight-large: 500;
+  --mdw-font-label-letter-spacing-large: 0.006rem;
+  --mdw-font-label-size-medium: 0.75rem;
+  --mdw-font-label-line-height-medium: 1rem;
+  --mdw-font-label-weight-medium: 500;
+  --mdw-font-label-letter-spacing-medium: 0.031rem;
+  --mdw-font-label-size-small: 0.688rem;
+  --mdw-font-label-line-height-small: 0.75rem;
+  --mdw-font-label-weight-small: 500;
+  --mdw-font-label-letter-spacing-small: 0.031rem;
+
+  --mdw-font-body-size-large: 1rem;
+  --mdw-font-body-line-height-large: 1.5rem;
+  --mdw-font-body-weight-large: 400;
+  --mdw-font-body-letter-spacing-large: 0.031rem;
+  --mdw-font-body-size-medium: 0.875rem;
+  --mdw-font-body-line-height-medium: 1.25rem;
+  --mdw-font-body-weight-medium: 400;
+  --mdw-font-body-letter-spacing-medium: 0.016rem;
+  --mdw-font-body-size-small: 0.75rem;
+  --mdw-font-body-line-height-small: 1rem;
+  --mdw-font-body-weight-small: 400;
+  --mdw-font-body-letter-spacing-small: 0.025rem;
 }
 
 

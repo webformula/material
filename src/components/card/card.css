@@ -28,6 +28,7 @@ mdw-card::before {
   bottom: 0;
   pointer-events: none;
   background-color: var(--mdw-elevation-tint-1);
+  z-index: 1;
   border-radius: inherit;
 }
 
@@ -71,53 +72,19 @@ mdw-card > .mdw-card-image.mdw-rounded {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card .mdw-headline,
-mdw-card .mdw-headline-large {
-  font-size: var(--mdw-font-title-size-large);
-  font-weight: var(--mdw-font-title-weight-large);
-  line-height: var(--mdw-font-title-line-height-large);
-  letter-spacing: var(--mdw-font-title-letter-spacing-large);
+mdw-card .mdw-headline{
+  font-size: var(--mdw-font-headline-size-small);
+  font-weight: var(--mdw-font-headline-weight-small);
+  line-height: var(--mdw-font-headline-line-height-small);
+  letter-spacing: var(--mdw-font-headline-letter-spacing-small);
   color: var(--mdw-on-surface);
 }
 
-mdw-card .mdw-headline-medium {
-  font-size: var(--mdw-font-title-size-medium);
-  font-weight: var(--mdw-font-title-weight-medium);
-  line-height: var(--mdw-font-title-line-height-medium);
-  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
-  color: var(--mdw-on-surface);
-}
-
-mdw-card .mdw-headline-small {
+mdw-card .mdw-subhead {
   font-size: var(--mdw-font-title-size-small);
   font-weight: var(--mdw-font-title-weight-small);
   line-height: var(--mdw-font-title-line-height-small);
   letter-spacing: var(--mdw-font-title-letter-spacing-small);
-  color: var(--mdw-on-surface);
-}
-
-mdw-card .mdw-subhead-large {
-  font-size: var(--mdw-font-body-size-large);
-  font-weight: var(--mdw-font-body-weight-large);
-  line-height: var(--mdw-font-body-line-height-large);
-  letter-spacing: var(--mdw-font-body-letter-spacing-large);
-  color: var(--mdw-on-surface-variant);
-}
-
-mdw-card .mdw-subhead-medium,
-mdw-card .mdw-subhead {
-  font-size: var(--mdw-font-body-size-medium);
-  font-weight: var(--mdw-font-body-weight-medium);
-  line-height: var(--mdw-font-body-line-height-medium);
-  letter-spacing: var(--mdw-font-body-letter-spacing-medium);
-  color: var(--mdw-on-surface-variant);
-}
-
-mdw-card .mdw-subhead-small {
-  font-size: var(--mdw-font-body-size-small);
-  font-weight: var(--mdw-font-body-weight-small);
-  line-height: var(--mdw-font-body-line-height-small);
-  letter-spacing: var(--mdw-font-body-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
 }
 
