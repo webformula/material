@@ -85,7 +85,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
-    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    // this.setAttribute('aria-checked', this.#checked.toString() || 'false');
     if (this.#selectCheckbox) this.#selectCheckbox.checked = this.checked;
     if (this.#avatar) this.#avatar.checked = this.checked;
 
@@ -95,7 +95,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
   setCheckedWithoutUpdate(value) {
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
-    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    // this.setAttribute('aria-checked', this.#checked.toString() || 'false');
     if (this.#selectCheckbox) this.#selectCheckbox.checked = this.checked;
     if (this.#avatar) this.#avatar.checked = this.checked;
   }

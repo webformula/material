@@ -62,6 +62,13 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
     const inputClearIcon = this.querySelector('mdw-icon.mdw-input-clear');
     if (inputClearIcon) inputClearIcon.addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
+
+    const label = this.querySelector('label');
+    if (label && !label.hasAttribute('for')) {
+      const id = this.#input.id;
+      if (!id) this.#input.id = `mdw-textfield-${util.uid()}`;
+      label.setAttribute('for', this.#input.id);
+    }
   }
 
   connectedCallback() {

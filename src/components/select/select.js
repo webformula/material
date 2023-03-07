@@ -62,7 +62,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     this.#panel.target = this;
     this.#panel.animation = 'expand';
     this.#panel.addClickOutsideCloseIgnore(this);
-    this.#panel.setAttribute('role', 'listbox');
     // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
     this.#setWidth();
 
@@ -98,7 +97,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
         ${!this.#label ? '' : `<label>${this.#label}</label>`}
         <div class="mdw-select-arrow"></div>
         ${this.hasAttribute('supporting-text') ? `<div class="mdw-supporting-text">${this.#supportingText}</div>` : ''}
-        <mdw-panel class="mdw-option-group">
+        <mdw-panel class="mdw-option-group" role="listbox" aria-label="${this.#label}">
           <slot></slot>
         </mdw-panel>
       </mdw-textfield>

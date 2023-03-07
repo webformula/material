@@ -1,4 +1,5 @@
 mdw-date-picker-desktop {
+  position: relative;
   width: 328px;
   height: 428px;
   max-height: 428px;
@@ -9,6 +10,19 @@ mdw-date-picker-desktop {
   border-radius: var(--mdw-shape-large);
   background-color: var(--mdw-surface);
   box-shadow: var(--mdw-elevation-3);
+}
+
+mdw-date-picker-desktop::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-color: var(--mdw-elevation-tint-3);
+  z-index: 1;
+  border-radius: inherit;
 }
 
 mdw-date-picker-desktop .mdw-control-container {

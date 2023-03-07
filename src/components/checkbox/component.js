@@ -29,7 +29,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   connectedCallback() {
     this.setAttribute('role', 'checkbox');
     this.tabIndex = 0;
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this));
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this) || 'checkbox');
   }
 
   disconnectedCallback() {

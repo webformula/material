@@ -17,6 +17,7 @@ customElements.define('mdw-progress-circular', class MDWProgressCircular extends
 
   connectedCallback() {
     this.setAttribute('role', 'progressbar');
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'progressbar');
   }
 
   static get observedAttributes() {

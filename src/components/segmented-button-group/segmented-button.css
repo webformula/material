@@ -49,7 +49,11 @@
   height: 100%;
   margin-left: -16px;
   opacity: 0;
-  border-radius: var(--mdw-button-radius);
+  border-radius: inherit;
+}
+:host(:focus)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
 }
 
 :host .slot-container {

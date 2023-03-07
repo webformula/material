@@ -9,7 +9,7 @@ customElements.define('mdw-suggestions', class MDWSuggestionsElement extends MDW
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'menu');
+    // this.setAttribute('role', 'menu');
 
     this.target = this.parentElement;
     this.animation = 'opacity';

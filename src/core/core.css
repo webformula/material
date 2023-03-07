@@ -27,29 +27,11 @@ body page-content {
   padding: 0 12px;
 }
 
-a:-webkit-any-link:active {
-  color: inherit;
-}
-
-
 .mdw-text-length {
   position: fixed;
   opacity: 0;
   user-select: none;
   pointer-events: none;
-}
-
-
-a {
-  color: var(--mdw-primary);
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
-  line-height: var(--mdw-font-label-line-height-large);
-}
-
-a:hover {
-  filter: brightness(56%);
 }
 
 .mdw-icon-svg {

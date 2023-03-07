@@ -4,7 +4,8 @@
     <div class="mdw-supporting-text">Dialogs provide important prompts in a user flow.</div>
   </div>
   <div class="mdw-card-content">
-    <mdw-slider min="0" max="100" value="50"></mdw-slider>
+    <mdw-slider min="0" max="100" value="50" aria-label="one"></mdw-slider>
+    <mdw-slider min="0" max="100" value="50">Label</mdw-slider>
   </div>
 </mdw-card>
 
@@ -28,13 +29,15 @@
       <div class="mdw-headline">Slider</div>
       
       <div class="example">
-        <mdw-slider min="0" max="100" value="50"></mdw-slider>
+        <mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
+        <mdw-slider min="0" max="100" value="50">Label</mdw-slider>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-slider min="0" max="100" value="50"></mdw-slider>`)}
+  ${escapeHTML(`<mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
+  <mdw-slider min="0" max="100" value="50">Label</mdw-slider>`)}
       </code>
     </pre>
   </mdw-card>
@@ -44,13 +47,13 @@
       <div class="mdw-headline">Slider discrete (locked to steps)</div>
       
       <div class="example">
-        <mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete"></mdw-slider>
+        <mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete" aria-label="three"></mdw-slider>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete"></mdw-slider>`)}
+  ${escapeHTML(`<mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete" aria-label="three"></mdw-slider>`)}
       </code>
     </pre>
   </mdw-card>
@@ -60,13 +63,13 @@
       <div class="mdw-headline">Slider range</div>
       
       <div class="example">
-        <mdw-slider-range min="0" max="100" step="1" value="30,60"></mdw-slider-range>
+        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-slider-range min="0" max="100" step="1" value="30,60"></mdw-slider-range>`)}
+  ${escapeHTML(`<mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>`)}
       </code>
     </pre>
   </mdw-card>
@@ -76,13 +79,13 @@
       <div class="mdw-headline">Slider range discrete</div>
       
       <div class="example">
-        <mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete"></mdw-slider-range>
+        <mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete" aria-label="five"></mdw-slider-range>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete"></mdw-slider-range>`)}
+  ${escapeHTML(`<mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete" aria-label="five"></mdw-slider-range>`)}
       </code>
     </pre>
   </mdw-card>

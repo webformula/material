@@ -2,6 +2,8 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import Drag from '../../core/Drag.js';
 import sheet from './range.css' assert { type: 'css' };
 
+// TODO icon (offset messes up math)
+// TODO work out proper height
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
   useShadowRoot = true;
@@ -36,25 +38,29 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   constructor() {
     super();
 
-    this.setAttribute('role', 'slider');
     this.#isDiscrete = this.classList.contains('mdw-discrete');
+    // if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
   }
 
   template() {
     return /* html */`
-      <div class="mdw-track-inactive mdw-one"></div>
-      <div class="mdw-track-inactive mdw-two"></div>
-      <div class="mdw-track-active"></div>
+      <slot></slot>
 
-      <div class="mdw-marks">
-        ${!this.#isDiscrete ? '' : [...new Array(this.#stepCount)].map(i => `<div class="mdw-mark"></div>`).join('\n')}
-      </div>
+      <div class="control">
+        <div class="mdw-track-inactive mdw-one"></div>
+        <div class="mdw-track-inactive mdw-two"></div>
+        <div class="mdw-track-active"></div>
 
-      <div class="mdw-thumb mdw-one" tabindex="0">
-        <div class="mdw-label"><div class="mdw-label-text"></div></div>
-      </div>
-      <div class="mdw-thumb mdw-two" tabindex="0">
-        <div class="mdw-label"><div class="mdw-label-text"></div></div>
+        <div class="mdw-marks">
+          ${!this.#isDiscrete ? '' : [...new Array(this.#stepCount)].map(i => `<div class="mdw-mark"></div>`).join('\n')}
+        </div>
+
+        <div class="mdw-thumb mdw-one" tabindex="0">
+          <div class="mdw-label"><div class="mdw-label-text"></div></div>
+        </div>
+        <div class="mdw-thumb mdw-two" tabindex="0">
+          <div class="mdw-label"><div class="mdw-label-text"></div></div>
+        </div>
       </div>
 
       <style>${this.stringifyStyleSheet(sheet)}</style>

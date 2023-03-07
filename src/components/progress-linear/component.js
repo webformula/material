@@ -15,6 +15,7 @@ customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTM
 
   connectedCallback() {
     this.setAttribute('role', 'progressbar');
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'progressbar');
   }
 
   static get observedAttributes() {

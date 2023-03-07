@@ -23,6 +23,9 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #formSubmitted_bound = this.#formSubmitted.bind(this);
   #formCloseClickInterceptor_bound = this.#formCloseClickInterceptor.bind(this);
   #formReset_bound = this.#formReset.bind(this);
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
   #formState;
   #onclickAttribute;
   #abort = new AbortController();
@@ -36,7 +39,8 @@ export default class MDWButtonElement extends HTMLElementExtended {
 
   connectedCallback() {
     this.tabIndex = 0;
-    this.setAttribute('role', 'button');
+    if (this.parentElement.nodeName === 'MDW-MENU') this.setAttribute('role', 'menuitem');
+    else this.setAttribute('role', 'button');
     if (!this.hasAttribute('aria-label')) {
       const text = util.getTextFromNode(this);
       if (text) this.setAttribute('aria-label', text);
@@ -46,6 +50,8 @@ export default class MDWButtonElement extends HTMLElementExtended {
     if (this.#form && this.#type === 'cancel') {
       this.addEventListener('click', this.#formCloseClickInterceptor_bound, { signal: this.#abort.signal });
     }
+
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
@@ -267,6 +273,20 @@ export default class MDWButtonElement extends HTMLElementExtended {
       ...this.#form.querySelectorAll('mdw-select'),
       ...this.#form.querySelectorAll('mdw-radio-group')
     ];
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.removeEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #focusKeydown(e) {
+    if (e.key === 'Enter') this.click();
   }
 }
 

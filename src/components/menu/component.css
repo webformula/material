@@ -19,7 +19,7 @@ mdw-menu::before {
   top: 0;
   bottom: 0;
   pointer-events: none;
-  background-color: var(--mdw-elevation-tint-1);
+  background-color: var(--mdw-elevation-tint-2);
   border-radius: inherit;
 }
 

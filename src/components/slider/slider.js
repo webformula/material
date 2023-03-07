@@ -1,7 +1,10 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './slider.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
+import util from '../../core/util.js';
 
+// TODO icon (messes up math and position)
+// TODO work out proper height
 
 customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
   useShadowRoot = true;
@@ -30,21 +33,26 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
   constructor() {
     super();
+
+    // if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
   }
 
   template() {
     return /* html */`
       <slot></slot>
-      <div class="track-inactive"></div>
-      <div class="track-active"></div>
 
-      <div class="marks">
-        ${this.#isDiscrete ? [...new Array(this.#stepCount)].map(i => `<div class="mark"></div>`).join('\n') : ''}
-      </div>
+      <div class="control">
+        <div class="track-inactive"></div>
+        <div class="track-active"></div>
 
-      <div class="thumb">
-        <div class="label">
-          <div class="label-text"></div>
+        <div class="marks">
+          ${this.#isDiscrete ? [...new Array(this.#stepCount)].map(i => `<div class="mark"></div>`).join('\n') : ''}
+        </div>
+
+        <div class="thumb">
+          <div class="label">
+            <div class="label-text"></div>
+          </div>
         </div>
       </div>
 
@@ -55,6 +63,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   connectedCallback() {
     this.tabIndex = 0;
     this.setAttribute('role', 'slider');
+    this.setAttribute('aria-valuenow', this.#value);
   }
 
   disconnectedCallback() {
@@ -69,6 +78,9 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     this.#thumb = this.shadowRoot.querySelector('.thumb');
     this.#label = this.shadowRoot.querySelector('.label-text');
     this.#setPosition({ percent: this.percent });
+
+    const label = util.getTextFromNode(this);
+    if (label) this.setAttribute('aria-label', label);
 
     this.#drag = new Drag(this.#thumb);
     this.#drag.includeMouseEvents = true;
@@ -113,6 +125,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
   set min(value) {
     this.#min = parseInt(value);
+    this.setAttribute('aria-valuemin', value);
     this.#adjustValueOnParams();
   }
 
@@ -121,6 +134,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
   set max(value) {
     this.#max = parseInt(value);
+    this.setAttribute('aria-valuemax', value);
     this.#adjustValueOnParams();
   }
 
@@ -144,6 +158,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     if (this.#value < this.#min) this.#value = this.#min;
     if (this.#value > this.#max) this.#value = this.#max;
     this.#value = this.#roundByStep(this.#value);
+    this.setAttribute('aria-valuenow', this.#value);
     if (this.rendered) this.#setPosition({ percent: this.percent });
   }
 
@@ -186,6 +201,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
     const lastValue = this.#value;
     this.#value = this.#roundByStep(this.#min + (this.#max - this.#min) * percent);
+    this.setAttribute('aria-valuenow', this.#value);
 
     if (lastValue !== this.#value) this.dispatchEvent(new Event('change'));
 

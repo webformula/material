@@ -29,7 +29,7 @@ mdw-time-picker.mdw-panel::after {
   right: 0;
   box-sizing: border-box;
   z-index: -1;
-  background-color: var(--mdw-surface-tint-alpha-6);
+  background-color: var(--mdw-elevation-tint-3);
 }
 
 mdw-time-picker .mdw-headline {

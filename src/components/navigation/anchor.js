@@ -15,10 +15,14 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #active = false;
   #target = this.getAttribute('target');
   #onClick_bound = this.#onClick.bind(this);
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
     super();
+    this.tabIndex = 0;
     this.#setupClasses();
     
     if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${expand_more_FILL0_wght400_GRAD0_opsz24}</div>`);
@@ -39,6 +43,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   connectedCallback() {
     this.setAttribute('role', 'link');
+    this.addEventListener('focus', this.#focus_bound);
   }
 
   afterRender() {
@@ -89,6 +94,23 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       window.open(this.href, this.#target).focus();
     } else {
       location.href = this.href;
+    }
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.key === 'Enter') {
+      this.click();
+      this.blur();
     }
   }
 });

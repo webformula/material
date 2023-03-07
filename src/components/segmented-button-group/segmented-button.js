@@ -27,6 +27,11 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
     else this[name] = newValue;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'radio');
+  }
+
   get checked() {
     return this.#checked;
   }

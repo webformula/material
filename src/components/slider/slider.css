@@ -1,18 +1,46 @@
 :host {
   position: relative;
-  display: flex;
-  align-items: center;
-  width: 200px;
-  height: 40px;
+  display: block;
   outline: none;
+  width: 200px;
+  height: 80px;
 }
 
-:host([disabled]) {
+:host > slot {
+  display: block;
+  font-size: var(--mdw-font-title-size-large);
+  font-weight: var(--mdw-font-title-weight-large);
+  letter-spacing: var(--mdw-font-title-letter-spacing-large);
+  line-height: var(--mdw-font-title-line-height);
+  height: 46px;
+}
+
+:host(.mdw-has-icon) > slot {
+  margin-left: 42px;
+}
+
+::slotted(mdw-icon) {
+  position: absolute;
+  top: 20px;
+  left: 0;
+}
+
+:host > .control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+:host(.mdw-has-icon) > .control {
+  margin-left: 42px;
+}
+
+:host([disabled]) > .control {
   pointer-events: none;
   opacity: .38;
 }
 
-:host > .track-active {
+:host > .control > .track-active {
   position: absolute;
   display: flex;
   align-items: center;
@@ -23,11 +51,11 @@
   background-color: var(--mdw-primary);
 }
 
-:host([disabled]) > .track-active {
+:host([disabled]) > .control > .track-active {
   background-color: var(--mdw-on-surface);
 }
 
-:host > .track-inactive {
+:host > .control > .track-inactive {
   position: absolute;
   left: 50%;
   right: 0;
@@ -37,11 +65,11 @@
   background-color: var(--mdw-surface-variant);
 }
 
-:host([disabled]) > .track-inactive {
+:host([disabled]) > .control > .track-inactive {
   background-color: var(--mdw-on-surface-alpha-50);
 }
 
-:host > .thumb {
+:host > .control > .thumb {
   position: absolute;
   left: 50%;
   margin-left: -10px;
@@ -54,12 +82,17 @@
   box-shadow: var(--mdw-elevation-1);
 }
 
-:host([disabled]) > .thumb {
+:host > slot {
+  display: block;
+  line-height: 36px;
+}
+
+:host([disabled]) > .control > .thumb {
   background-color: var(--mdw-on-surface);
   box-shadow: none;
 }
 
-:host > .thumb::before {
+:host > .control > .thumb::before {
   content: '';
   position: absolute;
   top: -10px;
@@ -72,18 +105,18 @@
   transition: opacity 100ms;
 }
 
-:host > .thumb:active::before {
+:host > .control > .thumb:active::before {
   opacity: var(--mdw-state-layer-opacity-pressed);
   transition: opacity 180ms;
 }
 
-:host(:focus) > .thumb::before,
-:host > .thumb:focus::before {
+:host(:focus) > .control > .thumb::before,
+:host > .control > .thumb:focus::before {
   opacity: var(--mdw-state-layer-opacity-focus);
   transition: opacity 180ms;
 }
 
-:host > .thumb > .label {
+:host > .control > .thumb > .label {
   position: absolute;
   top: -36px;
   left: -4px;
@@ -99,7 +132,7 @@
   transition: opacity 100ms;
 }
 
-:host > .thumb > .label > .label-text {
+:host > .control > .thumb > .label > .label-text {
   width: 28px;
   height: 28px;
   line-height: 28px;
@@ -113,7 +146,7 @@
   color: var(--mdw-on-primary);
 }
 
-:host(:focus) > .thumb > .label,
+:host(:focus) > .control > .thumb > .label,
 :host > .thumb:focus > .label,
 :host > .thumb:active > .label {
   opacity: 1;
@@ -122,18 +155,18 @@
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  :host > .thumb:hover::before {
+  :host > .control > .thumb:hover::before {
     opacity: var(--mdw-state-layer-opacity-hover);
     transition: opacity 180ms;
   }
 
-  :host > .thumb:hover > .label {
+  :host > .control > .thumb:hover > .label {
     opacity: 1;
     transition: opacity 180ms;
   }
 }
 
-:host > .marks {
+:host > .control > .marks {
   position: absolute;
   display: flex;
   align-items: center;
@@ -143,16 +176,16 @@
   pointer-events: none;
 }
 
-:host > .marks > .mark {
+:host > .control > .marks > .mark {
   width: 4px;
   height: 4px;
   border-radius: 50%;
 }
 
-:host > .marks > .mark.active {
+:host > .control > .marks > .mark.active {
   background-color: var(--mdw-on-primary-alpha-38);
 }
 
-:host > .marks > .mark.inactive {
+:host > .control > .marks > .mark.inactive {
   background-color: var(--mdw-on-surface-variant);
 }

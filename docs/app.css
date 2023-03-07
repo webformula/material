@@ -33,11 +33,7 @@ mdw-card .example {
 .links {
   display: flex;
   flex-direction: column;
-}
-
-.links a {
-  width: 0;
-  white-space: nowrap;
+  align-items: self-start;
 }
 
 mdw-card.header-card {
@@ -53,6 +49,10 @@ mdw-card.header-card > .mdw-headline {
 
 page-content > section > mdw-card {
   margin-bottom: 36px;
+}
+
+page-content > a {
+  align-self: flex-start;
 }
 
 
