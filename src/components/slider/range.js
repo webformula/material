@@ -2,7 +2,6 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import Drag from '../../core/Drag.js';
 import sheet from './range.css' assert { type: 'css' };
 
-// TODO icon (offset messes up math)
 // TODO work out proper height
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
@@ -21,6 +20,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   #onclick_bound = this.#onclick.bind(this);
   #dragOneStartLeftPosition;
   #dragTwoStartLeftPosition;
+  #control;
   #activeTrack;
   #inactiveTrack;
   #inactiveTrack2;
@@ -39,7 +39,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     super();
 
     this.#isDiscrete = this.classList.contains('mdw-discrete');
-    // if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
+    if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
   }
 
   template() {
@@ -73,6 +73,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
   afterRender() {
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
+    this.#control = this.shadowRoot.querySelector('.control');
     this.#activeTrack = this.shadowRoot.querySelector('.mdw-track-active');
     this.#inactiveTrack = this.shadowRoot.querySelector('.mdw-track-inactive.mdw-one');
     this.#inactiveTrack2 = this.shadowRoot.querySelector('.mdw-track-inactive.mdw-two');
@@ -171,13 +172,24 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     return Math.floor((this.#max - this.#min) / this.#step) + 1;
   }
 
+  get #controlWidth() {
+    return this.#control.offsetWidth;
+  }
+  get #controlOffset() {
+    return this.#control.getBoundingClientRect().x - this.#controlX;
+  }
+  get #controlX() {
+    return this.#control.getBoundingClientRect().x;
+  }
+
   #setValueOneFromPixels(pixels) {
-    const thumb2X = this.#thumb2.getBoundingClientRect().x - this.getBoundingClientRect().x;
+    const thumb2X = this.#thumb2.getBoundingClientRect().x - this.#controlX;
     if (pixels >= thumb2X - 10) {
       pixels = thumb2X - 10;
     }
 
-    let percent = pixels / this.offsetWidth;
+    const controlWidth = this.#controlWidth;
+    let percent = pixels / controlWidth;
     if (percent <= 0) percent = 0;
     if (percent >= 1) percent = 1;
 
@@ -187,16 +199,17 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     if (lastValue !== this.#value[0]) this.dispatchEvent(new Event('change'));
 
     // this will snap to marks
-    if (this.#isDiscrete) pixels = this.offsetWidth * this.percents[0];
+    if (this.#isDiscrete) pixels = controlWidth * this.percents[0];
     this.#setPositionOne({ pixels });
   }
 
   #setValueTwoFromPixels(pixels) {
-    const thumbX = this.#thumb.getBoundingClientRect().x - this.getBoundingClientRect().x;
+    const thumbX = this.#thumb.getBoundingClientRect().x - this.#controlX;
     if (pixels <= thumbX + 30) {
       pixels = thumbX + 30;
     }
-    let percent = pixels / this.offsetWidth;
+    const controlWidth = this.#controlWidth;
+    let percent = pixels / controlWidth;
     if (percent <= 0) percent = 0;
     if (percent >= 1) percent = 1;
 
@@ -206,17 +219,17 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     if (lastValue !== this.#value[1]) this.dispatchEvent(new Event('change'));
 
     // this will snap to marks
-    if (this.#isDiscrete) pixels = this.offsetWidth * this.percents[1];
+    if (this.#isDiscrete) pixels = controlWidth * this.percents[1];
     this.#setPositionTwo({ pixels });
   }
 
   #setPositionOne({ percent, pixels }) {
     if (percent) {
       if (percent > 1) throw Error('percent must be from 0 - 1');
-      pixels = this.offsetWidth * percent;
+      pixels = this.#controlWidth * percent;
     }
     if (pixels < 0) pixels = 0;
-    const thumb2X = this.#thumb2.getBoundingClientRect().x - this.getBoundingClientRect().x;
+    const thumb2X = this.#thumb2.getBoundingClientRect().x - this.#controlX;
     if (pixels >= thumb2X) pixels = thumb2X - 1;
 
     this.#thumb.style.left = `${pixels}px`;
@@ -228,16 +241,17 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   }
 
   #setPositionTwo({ percent, pixels }) {
+    const controlWidth = this.#controlWidth;
     if (percent) {
       if (percent > 1) throw Error('percent must be from 0 - 1');
-      pixels = this.offsetWidth * percent;
+      pixels = controlWidth * percent;
     }
-    const thumbX = this.#thumb.getBoundingClientRect().x - this.getBoundingClientRect().x;
+    const thumbX = this.#thumb.getBoundingClientRect().x - this.#controlX;
     if (pixels <= thumbX) pixels = thumbX + 1;
-    if (pixels > this.offsetWidth) pixels = this.offsetWidth;
+    if (pixels > controlWidth) pixels = controlWidth;
 
     this.#thumb2.style.left = `${pixels}px`;
-    this.#activeTrack.style.right = `${this.offsetWidth - pixels}px`;
+    this.#activeTrack.style.right = `${controlWidth - pixels}px`;
     this.#inactiveTrack2.style.left = `${pixels}px`;
 
     this.#updateNotches();
@@ -284,13 +298,13 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     const thumbDistance = Math.abs(this.#thumb.getBoundingClientRect().x - event.clientX);
     const thumb2Distance = Math.abs(this.#thumb2.getBoundingClientRect().x - event.clientX);
 
-    if (thumbDistance <= thumb2Distance) this.#setValueOneFromPixels(event.clientX - this.getBoundingClientRect().x);
-    else this.#setValueTwoFromPixels(event.clientX - this.getBoundingClientRect().x);
+    if (thumbDistance <= thumb2Distance) this.#setValueOneFromPixels(event.clientX - this.#controlX);
+    else this.#setValueTwoFromPixels(event.clientX - this.#controlX);
   }
 
   #onDragOneStart() {
     // there is a margin offset of -10px on the thumb.
-    this.#dragOneStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.getBoundingClientRect().x + 10;
+    this.#dragOneStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.#controlX + 10;
   }
 
   #onDragOne({ distance }) {
@@ -299,7 +313,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
   #onDragTwoStart() {
     // there is a margin offset of -10px on the thumb.
-    this.#dragTwoStartLeftPosition = this.#thumb2.getBoundingClientRect().x - this.getBoundingClientRect().x + 10;
+    this.#dragTwoStartLeftPosition = this.#thumb2.getBoundingClientRect().x - this.#controlX + 10;
   }
 
   #onDragTwo({ distance }) {

@@ -6,6 +6,10 @@
   <div class="mdw-card-content">
     <mdw-slider min="0" max="100" value="50" aria-label="one"></mdw-slider>
     <mdw-slider min="0" max="100" value="50">Label</mdw-slider>
+    <mdw-slider min="0" max="100" value="50">
+      <mdw-icon>volume_up</mdw-icon>
+      Volume
+    </mdw-slider>
   </div>
 </mdw-card>
 
@@ -31,13 +35,21 @@
       <div class="example">
         <mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
         <mdw-slider min="0" max="100" value="50">Label</mdw-slider>
+        <mdw-slider min="0" max="100" value="50">
+          <mdw-icon>volume_up</mdw-icon>
+          Volume
+        </mdw-slider>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
   ${escapeHTML(`<mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
-  <mdw-slider min="0" max="100" value="50">Label</mdw-slider>`)}
+  <mdw-slider min="0" max="100" value="50">Label</mdw-slider>
+  <mdw-slider min="0" max="100" value="50">
+    <mdw-icon>volume_up</mdw-icon>
+    Volume
+  </mdw-slider>`)}
       </code>
     </pre>
   </mdw-card>
@@ -64,6 +76,9 @@
       
       <div class="example">
         <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
+        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">Label</mdw-slider-range>
+        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"><mdw-icon>volume_up</mdw-icon>
+        Volume</mdw-slider-range>
       </div>
     </div>
 

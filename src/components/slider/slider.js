@@ -3,7 +3,6 @@ import sheet from './slider.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
-// TODO icon (messes up math and position)
 // TODO work out proper height
 
 customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
@@ -16,6 +15,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   #value = 50;
   #step = 1;
   #isDiscrete = this.classList.contains('mdw-discrete');
+  #control;
   #activeTrack;
   #inactiveTrack;
   #thumb;
@@ -34,7 +34,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   constructor() {
     super();
 
-    // if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
+    if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
   }
 
   template() {
@@ -73,6 +73,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
   afterRender() {
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
+    this.#control = this.shadowRoot.querySelector('.control');
     this.#activeTrack = this.shadowRoot.querySelector('.track-active');
     this.#inactiveTrack = this.shadowRoot.querySelector('.track-inactive');
     this.#thumb = this.shadowRoot.querySelector('.thumb');
@@ -154,6 +155,16 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     return Math.floor((this.#max - this.#min) / this.#step) + 1;
   }
 
+  get #controlWidth() {
+    return this.#control.offsetWidth;
+  }
+  get #controlOffset() {
+    return this.#control.getBoundingClientRect().x - this.getBoundingClientRect().x;
+  }
+  get #controlX() {
+    return this.#control.getBoundingClientRect().x;
+  }
+
   #adjustValueOnParams() {
     if (this.#value < this.#min) this.#value = this.#min;
     if (this.#value > this.#max) this.#value = this.#max;
@@ -169,9 +180,10 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
   #setPosition({ percent, pixels }) {
     if (!isNaN(percent) && percent > 1) throw Error('percent must be from 0 - 1');
-    if (!isNaN(percent)) pixels = this.offsetWidth * percent;
+    const controlWidth = this.#controlWidth;
+    if (!isNaN(percent)) pixels = controlWidth * percent;
     if (pixels < 0) pixels = 0;
-    if (pixels > this.offsetWidth) pixels = this.offsetWidth;
+    if (pixels > controlWidth) pixels = controlWidth;
 
     this.#thumb.style.left = `${pixels}px`;
     this.#activeTrack.style.width = `${pixels}px`;
@@ -195,7 +207,8 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
 
   #setValueFromPixels(pixels) {
-    let percent = pixels / this.offsetWidth;
+    const controlWidth = this.#controlWidth;
+    let percent = pixels / controlWidth;
     if (percent <= 0) percent = 0;
     if (percent >= 1) percent = 1;
 
@@ -206,17 +219,17 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     if (lastValue !== this.#value) this.dispatchEvent(new Event('change'));
 
     // this will snap to marks
-    if (this.#isDiscrete) pixels = this.offsetWidth * this.percent;
+    if (this.#isDiscrete) pixels = (controlWidth * this.percent) + this.#controlOffset;
     this.#setPosition({ pixels });
   }
 
   #onclick(event) {
-    this.#setValueFromPixels(event.clientX - this.getBoundingClientRect().x);
+    this.#setValueFromPixels(event.clientX - this.#controlX);
   }
 
   #onDragStart() {
     // there is a margin offset of -10px on the thumb.
-    this.#dragStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.getBoundingClientRect().x + 10;
+    this.#dragStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.#controlX + 10;
   }
 
   #onDrag({ distance }) {
