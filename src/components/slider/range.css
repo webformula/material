@@ -12,7 +12,7 @@
   font-weight: var(--mdw-font-title-weight-large);
   letter-spacing: var(--mdw-font-title-letter-spacing-large);
   line-height: var(--mdw-font-title-line-height);
-  height: 46px;
+  height: 42px;
 }
 
 :host(.mdw-has-icon) > slot {
@@ -21,7 +21,7 @@
 
 ::slotted(mdw-icon) {
   position: absolute;
-  top: 20px;
+  top: 14px;
   left: 0;
 }
 
