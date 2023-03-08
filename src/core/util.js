@@ -1,4 +1,6 @@
-/// used for nextTick poly
+import { generate } from './theme.js';
+
+// used for nextTick poly
 const nextTickNode = document.createTextNode('');
 let nextTickQueue = [];
 let nextTickObserving = false;
@@ -268,17 +270,19 @@ const mdwUtil = new class MDWUtil {
   }
 
   toggleColorScheme() {
-    const themePreferenceDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const html = document.querySelector('html');
-    const htmlColorScheme = getComputedStyle(html).colorScheme;
+    document.documentElement.classList.toggle('mdw-theme-dark', !document.documentElement.classList.contains('mdw-theme-dark'));
+    generate();
+    // const themePreferenceDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    // const html = document.querySelector('html');
+    // const htmlColorScheme = getComputedStyle(html).colorScheme;
 
-    if ((themePreferenceDark === false && htmlColorScheme === 'normal') || htmlColorScheme === 'light') {
-      html.style.colorScheme = 'dark';
-      return 'dark';
-    } else if ((themePreferenceDark === true && htmlColorScheme === 'normal') || htmlColorScheme === 'dark') {
-      html.style.colorScheme = 'light';
-      return 'light';
-    }
+    // if ((themePreferenceDark === false && htmlColorScheme === 'normal') || htmlColorScheme === 'light') {
+    //   html.style.colorScheme = 'dark';
+    //   return 'dark';
+    // } else if ((themePreferenceDark === true && htmlColorScheme === 'normal') || htmlColorScheme === 'dark') {
+    //   html.style.colorScheme = 'light';
+    //   return 'light';
+    // }
   }
 
   #calculateDistance(searchTerm, target) {

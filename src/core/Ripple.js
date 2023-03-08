@@ -111,12 +111,6 @@ export default class Ripple {
     const ripple = this.#createRippleElement(offsetX, offsetY, radius, duration);
     this.#element.appendChild(ripple);
 
-    // Enforce a style recalculation by calling `getComputedStyle` and accessing any property.
-    // https://gist.github.com/paulirish/5d52fb081b3570c81e3a
-    window.getComputedStyle(ripple).getPropertyValue('opacity');
-
-    ripple.style.transform = 'scale(1)';
-
     const reference = {
       element: ripple,
       persistent: this.#persistent,
@@ -124,11 +118,14 @@ export default class Ripple {
       fadeOut: () => this.#fadeOutRipple(reference)
     };
     this.#activeRipples.add(reference);
+    requestAnimationFrame(() => {
+      ripple.style.transform = 'scale(1)';
 
-    setTimeout(() => {
-      reference.state = this.#states.VISIBLE;
-      if (!this.#persistent && !this.#isMousedown) reference.fadeOut();
-    }, duration);
+      setTimeout(() => {
+        reference.state = this.#states.VISIBLE;
+        if (!this.#persistent && !this.#isMousedown) reference.fadeOut();
+      }, duration);
+    });
   }
 
   #fadeOutRipple(reference) {

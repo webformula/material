@@ -1,4 +1,3 @@
-let initiated = false;
 const keyColors = [
   '--mdw-primary-baseline',
   '--mdw-secondary-baseline',
@@ -10,11 +9,39 @@ const keyColors = [
 
 
 export function generate() {
-  polyFillColorSchemeObserver.disconnect();
-  polyfillColorSchemePreference();
-  generateKeyTones();
+  /* Handle color scheme
+   *  1. check localStorage for mdw-color-scheme (can be used for user preference)
+   *  2. check for mdw-theme-dark class
+   *  3. check for color-scheme css var on :root
+   *  4. check prefers-color-scheme
+   */
+  const computedStyles = getComputedStyle(document.body);
+  const localStorageColorScheme = localStorage.getItem('mdw-color-scheme');
+  let isDark = false;
+  if (['light', 'dark'].includes(localStorageColorScheme)) {
+    isDark = localStorageColorScheme === 'dark';
+    document.documentElement.classList.toggle('mdw-theme-dark', isDark);
+  } else if (!document.documentElement.classList.contains('mdw-theme-dark')) {
+    const htmlColorScheme = computedStyles.colorScheme;
+    const themePreferenceDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    isDark = themePreferenceDark === true && htmlColorScheme !== 'light';
+    document.documentElement.classList.toggle('mdw-theme-dark', isDark);
+  }
 
-  const variables = getCSSVariables();
+  generateKeyTones(computedStyles, isDark);
+
+  const variables = [...document.styleSheets]
+    .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
+    .flatMap(sheet => (
+      [...sheet.cssRules]
+        .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
+        .flatMap(rule => [...rule.style])
+    ))
+    .filter(style => style.startsWith('--'))
+    .map(name => ({
+      name,
+      value: computedStyles.getPropertyValue(name)
+    }));
 
   // create alpha versions of colors
   const colorRegex = /^\s?#/;
@@ -35,46 +62,23 @@ export function generate() {
     document.documentElement.style.setProperty(`${name}-alpha-60`, `${value}99`);
     document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
   });
-
-
-  // Set font scaling. this can only run once. you can adjust all fonts using font-size on the html element
-  if (!initiated) {
-    // convert pixels to rem. used so all fonts scale with html.style.fontSize
-    const fontSizes = variables.filter(({ name }) => name.startsWith('--mdw-font-size'));
-    fontSizes.forEach(({ name, value }) => {
-      document.documentElement.style.setProperty(name, `${parseInt(value.replace('px', '')) / 16}rem`);
-    });
-    initiated = true;
-  }
-
-  polyFillColorSchemeObserver.observe(document.querySelector('html'), { attributes: true, attributeFilter: ['style'] });
 }
 
-function getCSSVariables() {
-  const computedStyles = getComputedStyle(document.body);
-  const isDark = document.documentElement.classList.contains('mdw-theme-dark');
-  return [...document.styleSheets]
+function generateKeyTones(computedStyles, isDark) {
+  const variables = [...document.styleSheets]
     .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
     .flatMap(sheet => (
       [...sheet.cssRules]
-        .filter(rule => {
-          if (isDark) return rule.selectorText === ':root.mdw-theme-dark';
-          return rule.selectorText === ':root';
-        })
+        .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
         .flatMap(rule => [...rule.style])
     ))
-    .filter(style => style.startsWith('--'))
+    .filter(style => keyColors.includes(style.split(':')[0]) || style.startsWith('--mdw-custom-color-'))
     .map(name => ({
       name,
       value: computedStyles.getPropertyValue(name)
     }));
-}
-
-
-function generateKeyTones() {
-  const variables = getCSSVariables();
-  const colors = variables.filter(({ name }) => keyColors.includes(name) || name.startsWith('--mdw-custom-color-'));
-  colors.forEach(({ name, value }) => {
+  
+  variables.forEach(({ name, value }) => {
     const tones = generateColorTones(value);
     name = name.replace('-baseline', '');
     document.documentElement.style.setProperty(`${name}-0`, tones[0]);
@@ -114,38 +118,6 @@ function generateColorTones(value) {
     hwbToHex([h + 10, zeroValue(w + 62), zeroValue(b - 70)]),
     '#ffffff'
   ];
-  // return [
-  //   '#000000',
-  //   hwbToHex([h + 4, zeroValue(w - 38), zeroValue(b + 30)]),
-  //   hwbToHex([h + 2, zeroValue(w - 24), zeroValue(b + 20)]),
-  //   hwbToHex([h + 1, zeroValue(w - 10), zeroValue(b + 10)]),
-  //   value,
-  //   hwbToHex([h + 1, zeroValue(w + 10), zeroValue(b - 10)]),
-  //   hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]),
-  //   hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]),
-  //   hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]),
-  //   hwbToHex([h + 7, zeroValue(w + 55), zeroValue(b - 50)]),
-  //   hwbToHex([h + 8, zeroValue(w + 59), zeroValue(b - 60)]),
-  //   hwbToHex([h + 10, zeroValue(w + 62), zeroValue(b - 70)]),
-  //   '#ffffff'
-  // ];
-
-
-  // return [
-  //   '#000000',
-  //   hwbToHex([h + 4, zeroValue(w - 30), zeroValue(b + 29)]),
-  //   hwbToHex([h + 3, zeroValue(w - 18), zeroValue(b + 23)]),
-  //   hwbToHex([h, zeroValue(w - 9), zeroValue(b + 10)]),
-  //   value,
-  //   hwbToHex([h + 1, zeroValue(w + 10), zeroValue(b - 10)]),
-  //   hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]),
-  //   hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]),
-  //   hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]),
-  //   hwbToHex([h + 7, zeroValue(w + 55), zeroValue(b - 50)]),
-  //   hwbToHex([h + 8, zeroValue(w + 59), zeroValue(b - 50)]),
-  //   hwbToHex([h + 10, zeroValue(w + 62), zeroValue(b - 50)]),
-  //   '#ffffff'
-  // ];
 }
 
 function zeroValue(value) {
@@ -232,25 +204,4 @@ function hexToHwb(hex) {
     100 * min / 255,       // whiteness (from 0 to 100 in %)
     100 - 100 * max / 255  // blackness (from 0 to 100 in %)
   ];
-}
-
-
-
-// TODO update when browser compatibility is better
-// currently prefer-color-scheme does not respect color-scheme so we are poly-filling it
-// https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
-//   Respects color-scheme inherited from parent
-const polyFillColorSchemeObserver = new MutationObserver(() => {
-  generate();
-});
-function polyfillColorSchemePreference() {
-  const themePreferenceDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const html = document.querySelector('html');
-  const htmlColorScheme = getComputedStyle(html).colorScheme;
-
-  if (themePreferenceDark === true && htmlColorScheme !== 'light') {
-    html.classList.add('mdw-theme-dark');
-  } else {
-    html.classList.remove('mdw-theme-dark');
-  }
 }

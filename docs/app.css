@@ -1,5 +1,8 @@
-html {
+:root {
   color-scheme: light;
+}
+
+html {
   overflow-x: hidden;
   overflow-y: auto;
 }
