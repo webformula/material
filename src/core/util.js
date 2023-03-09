@@ -273,6 +273,7 @@ const mdwUtil = new class MDWUtil {
     const isDark = ['dark', 'light'].includes(scheme) ? scheme === 'dark' : !document.documentElement.classList.contains('mdw-theme-dark');
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
     generate();
+    return isDark ? 'dark' : 'light';
   }
 
   #calculateDistance(searchTerm, target) {

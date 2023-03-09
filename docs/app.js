@@ -129,8 +129,9 @@ function handleHashAnchor(hash, animate = true) {
 window.toggleColorScheme = () => {
   const scheme = mdwUtil.toggleColorScheme();
   setTimeout(() => {
-    const toggle = document.querySelector('#theme-toggle');
-    if (scheme === 'light') toggle.setAttribute('toggled', '');
-    else toggle.removeAttribute('toggled');
+    document.querySelectorAll('.theme-toggle').forEach(element => {
+      if (scheme === 'dark') element.classList.add('mdw-toggled');
+      else element.classList.remove('mdw-toggled');
+    });
   }, 0);
 };

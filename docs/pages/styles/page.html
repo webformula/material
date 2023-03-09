@@ -83,6 +83,11 @@
         <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
         <li><b>mdwUtil:</b> mdwUtil.toggleColorScheme('' | 'light | dark')</li>
       </ul>
+
+      <mdw-button class="theme-toggle mdw-icon-toggle-button ${document.documentElement.classList.contains('mdw-theme-dark') ? 'mdw-toggled' : ''}" onClick="window.toggleColorScheme()">
+        <mdw-icon value="on">dark_mode</mdw-icon>
+        <mdw-icon value="off">light_mode</mdw-icon>
+      </mdw-button>
     </div>
 
 
@@ -116,7 +121,8 @@
   ${`// Util method. This will override all the above mechanisms
     
   import mdwUtil from '@webformula/material;
-  mdwUtil.toggleColorScheme();
+  const scheme = mdwUtil.toggleColorScheme();
+  console.log(scheme); // light | dark
   mdwUtil.toggleColorScheme('light');
   mdwUtil.toggleColorScheme('dark');`}
       </code>
