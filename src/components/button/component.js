@@ -42,8 +42,13 @@ export default class MDWButtonElement extends HTMLElementExtended {
     if (this.parentElement.nodeName === 'MDW-MENU') this.setAttribute('role', 'menuitem');
     else this.setAttribute('role', 'button');
     if (!this.hasAttribute('aria-label')) {
-      const text = util.getTextFromNode(this);
-      if (text) this.setAttribute('aria-label', text);
+      if (this.classList.contains('mdw-icon-button') || this.classList.contains('mdw-icon-toggle-button')) {
+        const text = this.querySelector('mdw-icon').innerText;
+        if (text) this.setAttribute('aria-label', text);
+      } else {
+        const text = util.getTextFromNode(this);
+        if (text) this.setAttribute('aria-label', text);
+      }
     }
 
     // this needs to be added asap so it blocks all outside events

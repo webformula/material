@@ -108,9 +108,61 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #focusKeydown(e) {
-    if (e.key === 'Enter') {
+    if (e.code === 'Enter' || e.code === 'Space') {
       this.click();
+      this.#ripple.trigger();
       this.blur();
+      e.preventDefault();
+    } else if (['ArrowRight', 'Tab'].includes(e.code)) {
+      this.#focusNext(e.target);
+      e.preventDefault();
+    } else if (['ArrowLeft'].includes(e.code)) {
+      this.#focusPrevious(e.target);
+      e.preventDefault();
     }
+  }
+
+  #focusNext(focusedElement) {
+    if (!focusedElement || focusedElement.nodeName !== 'MDW-ANCHOR') return;
+    let nextFocus = focusedElement.nextElementSibling;
+
+    // step out of navigation group
+    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') nextFocus = focusedElement.parentElement.nextElementSibling;
+    
+    while (nextFocus) {
+      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') break;
+      nextFocus = nextFocus.nextElementSibling;
+    }
+    if (!nextFocus) return;
+
+    // step into navigation group
+    if (nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') {
+      nextFocus.open = true;
+      nextFocus = nextFocus.querySelector('mdw-anchor:not([group])');
+    }
+
+    if (nextFocus) nextFocus.focus();
+  }
+
+  #focusPrevious(focusedElement) {
+    if (!focusedElement || focusedElement.nodeName !== 'MDW-ANCHOR') return;
+    let nextFocus = focusedElement.previousElementSibling;
+
+    // step out of navigation group
+    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') nextFocus = focusedElement.parentElement.previousElementSibling;
+
+    while (nextFocus) {
+      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') break;
+      nextFocus = nextFocus.previousElementSibling;
+    }
+    if (!nextFocus) return;
+
+    // step into navigation group
+    if (nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') {
+      nextFocus.open = true;
+      nextFocus = nextFocus.querySelector('mdw-anchor:not([group]):last-of-type');
+    }
+
+    if (nextFocus) nextFocus.focus();
   }
 });

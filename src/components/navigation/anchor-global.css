@@ -34,11 +34,19 @@ mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail
   animation: mdw-anchor-rail-show 180ms;
 }
 
+/* outline when not active */
+mdw-anchor:not(.mdw-active) mdw-icon {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+}
+
 mdw-anchor [slot="rail"] mdw-icon {
   position: relative;
   display: flex;
   justify-content: center;
-  /* width: 64px; */
   height: 32px;
   line-height: 32px;
   font-size: var(--mdw-font-icon-size-small);

@@ -5,12 +5,15 @@ import './component.css';
 
 export default class MDWBadgeElement extends HTMLElementExtended {
   #value = '';
+  #nonCounting = false;
+  #parentLabel;
 
   constructor() {
     super();
 
-    if (this.innerText === '0' || this.innerText.trim() === '') super.innerText = '';
-    else this.value = this.innerText;
+    if (this.classList.contains('mdw-non-counting')) this.#nonCounting = true;
+    this.#parentLabel = this.parentElement.getAttribute('aria-label');
+    this.value = this.innerText;
   }
 
 
@@ -25,7 +28,13 @@ export default class MDWBadgeElement extends HTMLElementExtended {
 
     this.#value = value;
     this.classList.toggle('mdw-has-value', !!value);
-    super.innerText = value;
+    if (this.#nonCounting) super.innerText = '';
+    else super.innerText = value;
+
+    // '', '0', 0
+    if (value == 0) this.parentElement.setAttribute('aria-label', this.#parentLabel);
+    else if (this.#nonCounting) this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] New notification`);
+    else this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] ${this.value} New ${this.value === 1 ? 'notification' : 'notifications'}`);
   }
 
   get innerHTML() {

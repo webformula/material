@@ -63,6 +63,12 @@ export default class Ripple {
     this.#ignoreElements.push(element);
   }
 
+  trigger() {
+    const originalCenter = this.#centered;
+    this.#centered = true;
+    this.#fadeInRipple();
+    this.#centered = originalCenter;
+  }
 
   #mouseDown(event) {
     if (this.#ignoreElements.find(v => v.contains(event.target))) return;

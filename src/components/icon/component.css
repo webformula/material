@@ -57,7 +57,7 @@ mdw-icon.mdw-outlined {
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
 }
 
 
@@ -66,7 +66,7 @@ mdw-icon.mdw-light {
     'FILL' 1,
     'wght' 100,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
 }
 
 mdw-icon.mdw-light.mdw-outlined {
@@ -74,7 +74,7 @@ mdw-icon.mdw-light.mdw-outlined {
     'FILL' 0,
     'wght' 100,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
 }
 
 mdw-icon.mdw-bold {
@@ -82,7 +82,7 @@ mdw-icon.mdw-bold {
     'FILL' 1,
     'wght' 700,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
 }
 
 mdw-icon.mdw-bold.mdw-outlined {
@@ -90,5 +90,5 @@ mdw-icon.mdw-bold.mdw-outlined {
     'FILL' 0,
     'wght' 700,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
 }

@@ -1,19 +1,25 @@
 mdw-badge {
   position: absolute;
-  min-width: 2px;
-  min-height: 2px;
-  padding: 2px;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 1;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 6px;
+  font-size: var(--mdw-font-label-size-small);
+  font-size: var(--mdw-font-label-weight-small);
   letter-spacing: var(--mdw-font-label-letter-spacing-small);
   color: var(--mdw-on-error);
   background-color: var(--mdw-error);
+  opacity: 0;
 }
 
 mdw-badge.mdw-has-value {
-  padding: 2px 3px;
+  opacity: 1;
+}
+
+mdw-badge.mdw-has-value:not(.mdw-non-counting) {
+  border-radius: 8px;
+  line-height: 8px;
+  padding: 4px;
+  text-align: center;
 }
 
 .mdw-icon-button mdw-badge,
@@ -21,8 +27,8 @@ mdw-icon mdw-badge {
   left: calc(50% + 5px);
   top: 9px;
 }
-.mdw-icon-button mdw-badge.mdw-has-value,
-mdw-icon mdw-badge.mdw-has-value {
+.mdw-icon-button mdw-badge.mdw-has-value:not(.mdw-non-counting),
+mdw-icon mdw-badge.mdw-has-value:not(.mdw-non-counting) {
   left: calc(50% - 2px);
   top: 3px;
 }
@@ -38,4 +44,5 @@ mdw-anchor mdw-badge {
   background-color: transparent;
   color: var(--mdw-on-surface-variant);
   font-size: var(--mdw-font-label-size-small);
+  font-size: var(--mdw-font-label-weight-small);
 }
