@@ -6,9 +6,13 @@
   <div class="mdw-card-content">
     <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
       Guidelines: Styles</a>
-    </p>
   </div>
 </mdw-card>
+
+<div class="links">
+  <a href="#css">theme.css</a>
+  <a href="#scheme">Color scheme</a>
+</div>
 
 <section style="margin-top: 48px">
   <mdw-card id="css">
@@ -18,7 +22,6 @@
       <div class="mdw-supporting-text">The theme.css file should be loaded before scripts. You can modify all the colors, shapes, an other variables for both light and dark themes</div>
       <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
         Guidelines: Styles</a>
-      </p>
     </div>
 
     <pre>
@@ -63,6 +66,47 @@
   
   /* Dark variables can be overridden in this block */
   :root.mdw-dark-theme {}`}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="scheme">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Color schemes (light, dark)</div>
+      <div class="mdw-subheader">Change between dark and light color schemes</div>
+      <div class="mdw-supporting-text">There are 4 mechanisms that affect the color scheme. They are evaluated in this order</div>
+      <ul>
+        <li><b>Local storage:</b> mdw-color-scheme = 'light | dark' (user preference storage setting)</li>
+        <li><b>CSS class:</b> .mdw-theme-dark</li>
+        <li><b>CSS :root</b> { color-scheme: light | dark; } (this is not officially supported ina ll browsers)</li>
+        <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
+      </ul>
+    </div>
+
+
+    <pre>
+      <code class="language-javascript">
+  ${`// Local storage
+    
+  window.localStorage.setItem('mdw-color-scheme', 'light | dark');`}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<!-- add class to html tag -->
+  <html class="mdw-theme-dark"></html>`)}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-css">
+  ${`/* color-scheme: must place on :root. This is not fully supported by all browsers, we are poly-filling it */
+  
+  :root {
+    color-scheme: light | dark;
+  }`}
       </code>
     </pre>
   </mdw-card>
