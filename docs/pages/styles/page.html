@@ -75,19 +75,20 @@
     <div class="mdw-card-content">
       <div class="mdw-headline">Color schemes (light, dark)</div>
       <div class="mdw-subheader">Change between dark and light color schemes</div>
-      <div class="mdw-supporting-text">There are 4 mechanisms that affect the color scheme. They are evaluated in this order</div>
+      <div class="mdw-supporting-text">There are 5 mechanisms that affect the color scheme</div>
       <ul>
         <li><b>Local storage:</b> mdw-color-scheme = 'light | dark' (user preference setting)</li>
         <li><b>CSS class:</b> .mdw-theme-dark</li>
         <li><b>CSS :root</b> { color-scheme: light | dark; } (this is not officially supported ina ll browsers)</li>
         <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
+        <li><b>mdwUtil:</b> mdwUtil.toggleColorScheme('' | 'light | dark')</li>
       </ul>
     </div>
 
 
     <pre>
       <code class="language-javascript">
-  ${`// Local storage
+  ${`// Local storage. User preference storage
     
   window.localStorage.setItem('mdw-color-scheme', 'light | dark');`}
       </code>
@@ -107,6 +108,17 @@
   :root {
     color-scheme: light | dark;
   }`}
+      </code>
+    </pre>
+
+    <pre>
+    <code class="language-javascript">
+  ${`// Util method. This will override all the above mechanisms
+    
+  import mdwUtil from '@webformula/material;
+  mdwUtil.toggleColorScheme();
+  mdwUtil.toggleColorScheme('light');
+  mdwUtil.toggleColorScheme('dark');`}
       </code>
     </pre>
   </mdw-card>
