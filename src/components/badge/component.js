@@ -12,8 +12,14 @@ export default class MDWBadgeElement extends HTMLElementExtended {
     super();
 
     if (this.classList.contains('mdw-non-counting')) this.#nonCounting = true;
-    this.#parentLabel = this.parentElement.getAttribute('aria-label');
-    this.value = this.innerText;
+  }
+
+  connectedCallback() {
+    // make sure this happens after parent
+    requestAnimationFrame(() => {
+      this.#parentLabel = this.parentElement.getAttribute('aria-label') || '';
+      this.value = this.innerText;
+    });
   }
 
 

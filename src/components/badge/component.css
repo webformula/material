@@ -34,15 +34,6 @@ mdw-icon mdw-badge.mdw-has-value:not(.mdw-non-counting) {
 }
 
 mdw-anchor mdw-badge {
-  display: flex;
-  flex: 1;
-  justify-content: end;
-  position: relative;
-  top: unset;
-  left: unset;
-  margin-right: 10px;
-  background-color: transparent;
-  color: var(--mdw-on-surface-variant);
-  font-size: var(--mdw-font-label-size-small);
-  font-size: var(--mdw-font-label-weight-small);
+  position: absolute;
+  right: 20px;
 }

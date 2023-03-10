@@ -25,6 +25,11 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     this.tabIndex = 0;
     this.#setupClasses();
     
+    if (!this.hasAttribute('aria-label')) {
+      const text = util.getTextFromNode(this);
+      this.setAttribute('aria-label', text);
+    }
+    
     if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${expand_more_FILL0_wght400_GRAD0_opsz24}</div>`);
   }
 
