@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './tab.css';
 
+// TODO accessability
 
 customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended {
   #active = false;

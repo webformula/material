@@ -14,6 +14,7 @@ import {
 // TODO tooltips
 // TODO keyboard
 // TODO input
+// TODO accessability
 
 customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopElement extends MDWPanelElement {
   useTemplate = false;

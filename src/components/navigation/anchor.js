@@ -64,6 +64,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   disconnectedCallback() {
     if (this.#ripple) this.#ripple.destroy();
     if (!window.paxCoreSPA) this.removeEventListener('click', this.#onClick_bound);
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
   }
 
   template() {

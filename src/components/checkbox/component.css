@@ -72,7 +72,6 @@
   right: -12px;
   bottom: -12px;
   border-radius: 50%;
-  z-index: -1;
   background-color: var(--mdw-primary);
   opacity: 0;
   transition: opacity 100ms;
@@ -81,6 +80,14 @@
 :host(:focus) > .background::before {
   opacity: var(--mdw-state-layer-opacity-focus);
   transition: opacity 180ms;
+}
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  :host(:hover) > .background::before {
+    opacity: var(--mdw-state-layer-opacity-focus);
+    transition: opacity 180ms;
+  }
 }
 
 :host(.mdw-error) > .background {

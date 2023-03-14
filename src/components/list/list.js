@@ -2,6 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import './list.css';
 import util from '../../core/util.js';
 
+// TODO accessability
 
 customElements.define('mdw-list', class MDWListElement extends HTMLElementExtended {
   #value = '';

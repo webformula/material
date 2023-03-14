@@ -152,12 +152,6 @@ mdw-card.mdw-outlined::before {
 
 /* --- state layer --- */
 
-mdw-card.mdw-states:focus,
-mdw-card.mdw-states:active,
-mdw-card.mdw-states:hover {
-  box-shadow: var(--mdw-elevation-2);
-}
-
 mdw-card::after {
   position: absolute;
   content: "";
@@ -170,19 +164,31 @@ mdw-card::after {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card.mdw-states:hover::after {
-  opacity: var(--mdw-state-layer-opacity-hover);
-  background-color: var(--mdw-on-surface);
-}
-
-mdw-card.mdw-states:active::after {
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  background-color: var(--mdw-on-surface);
-}
-
+mdw-card[onclick]:focus::after,
+mdw-card.mdw-fullscreen:not(.mdw-show):focus::after,
 mdw-card.mdw-states:focus::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
+}
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  mdw-card[onclick]:hover::after,
+  mdw-card.mdw-fullscreen:not(.mdw-show):hover::after,
+  mdw-card.mdw-states:hover::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
+
+  mdw-card.mdw-filled.mdw-fullscreen:not(.mdw-show):hover,
+  mdw-card.mdw-filled[onclick]:hover {
+    box-shadow: var(--mdw-elevation-1);
+  }
+
+  mdw-card:not(.mdw-filled).mdw-fullscreen:not(.mdw-show):hover,
+  mdw-card:not(.mdw-filled)[onclick]:hover {
+    box-shadow: var(--mdw-elevation-2);
+  }
 }
 
 
@@ -193,6 +199,7 @@ mdw-card > .mdw-card-content .mdw-expand-arrow {
   position: absolute;
   right: 16px;
   transition: transform 120ms;
+  cursor: pointer;
 }
 
 mdw-card.mdw-show > .mdw-card-content .mdw-expand-arrow {
@@ -242,6 +249,11 @@ mdw-card.mdw-fullscreen {
 
 mdw-card.mdw-no-animation {
   animation-duration: 0ms !important;
+}
+
+mdw-card[onclick],
+mdw-card.mdw-fullscreen:not(.mdw-show) {
+  cursor: pointer;
 }
 
 mdw-card.mdw-fullscreen.mdw-show {

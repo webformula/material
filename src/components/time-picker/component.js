@@ -6,6 +6,7 @@ import {
   schedule_FILL0_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 
+// TODO accessability
 // TODO min max
 
 customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWPanelElement {

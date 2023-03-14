@@ -1,7 +1,6 @@
 import MDWPanelElement from '../panel/component.js';
 import './component.css';
 
-
 export default class MDWDialogElement extends MDWPanelElement {
   #returnValue;
 

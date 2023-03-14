@@ -3,6 +3,7 @@ import './component.css';
 
 // TODO bottom sheet on mobile
 // TODO sub menus
+// TODO accessability
 
 customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #control;

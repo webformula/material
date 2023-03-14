@@ -1,6 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './component.css' assert { type: 'css' };
 
+// TODO accessability
+
 customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementExtended {
   useShadowRoot = true;
   #checked = false;

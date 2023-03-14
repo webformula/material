@@ -6,6 +6,7 @@ import Formatter from './Formatter.js';
 
 // TODO mask regex
 // TODO format regex
+// TODO accessability
 
 const handleReportValidityScrollIntoView = util.debounce(input => {
   // check if already on screen

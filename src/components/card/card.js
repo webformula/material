@@ -11,6 +11,8 @@ import util from '../../core/util.js';
 // TODO drag close fullscreen and expand
 // TODO expanded card on drag. Look at material guidelines for video
 // TODO drag reorder grid
+// TODO ripple
+// TODO aria labels
 
 
 export default class MDWCardElement extends HTMLElementExtended {
@@ -32,6 +34,9 @@ export default class MDWCardElement extends HTMLElementExtended {
   #dragSwipeAction;
   #value = '';
   #abort = new AbortController();
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
@@ -54,6 +59,11 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
     } else if (this.#isExpanding) {
       this.addEventListener('click', this.#expandClick_bound, { signal: this.#abort.signal });
+    }
+
+    if (this.#isFullscreen || this.hasAttribute('onclick')) {
+      this.tabIndex = 0;
+      this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     }
 
     this.#calculateImgMaxHeightForFullscreen();
@@ -202,6 +212,23 @@ export default class MDWCardElement extends HTMLElementExtended {
     setTimeout(() => {
       this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
     }, 240);
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.removeEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Enter' || e.code === 'Space') {
+      this.click();
+      e.preventDefault();
+    }
   }
 }
 

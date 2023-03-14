@@ -4,6 +4,7 @@ import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
 
 
+// TODO accessability
 
 export default class MDWBottomAppBarElement extends HTMLElementExtended {
   #rippleElements;

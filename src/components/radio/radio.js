@@ -2,6 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './radio.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
+// TODO accessability
 
 customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   useShadowRoot = true;

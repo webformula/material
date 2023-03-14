@@ -18,6 +18,9 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #onInvalid_bound = this.#onInvalid.bind(this);
   #ripple;
   #input;
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
@@ -30,10 +33,18 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     this.setAttribute('role', 'checkbox');
     this.tabIndex = 0;
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this) || 'checkbox');
+    this.addEventListener('focus', this.#focus_bound);
+
+    if (!this.hasAttribute('aria-label')) {
+      const text = util.getTextFromNode(this);
+      if (text) this.setAttribute('aria-label', text);
+    }
   }
 
   disconnectedCallback() {
     this.removeEventListener('click', this.#click_bound);
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
     this.#input.removeEventListener('invalid', this.#onInvalid_bound);
     this.#ripple.destroy();
   }
@@ -149,6 +160,23 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #onInvalid() {
     if (!this.#input) return;
     this.classList.toggle('mdw-invalid', !this.#input.validity.valid);
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Space') {
+      this.checked = !this.checked;
+      e.preventDefault();
+    }
   }
 }
 

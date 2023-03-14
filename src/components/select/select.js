@@ -4,6 +4,7 @@ import sheetTextField from '../textfield/component.css' assert { type: 'css' };
 import sheetPanel from '../panel/component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
+// TODO accessability
 // TODO document required and supporting-text
 //   <mdw-select name="select" label="Label" required supporting-text>
 //   <mdw-select name="select" label="Label" required supporting-text="message">

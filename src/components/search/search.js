@@ -12,7 +12,7 @@ import {
 } from '../../core/svgs.js';
 
 // TODO search header (fixed at top of page, hides on scroll)
-
+// TODO accessability
 
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 

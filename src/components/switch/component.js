@@ -2,6 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
+// TODO accessability
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   useShadowRoot = true;

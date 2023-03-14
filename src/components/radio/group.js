@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './group.css';
 
+// TODO accessability
 
 customElements.define('mdw-radio-group', class MDWRadioGroup extends HTMLElementExtended {
   #click_bound = this.#click.bind(this);

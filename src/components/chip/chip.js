@@ -8,6 +8,9 @@ import {
 } from '../../core/svgs.js';
 
 
+// TODO chip menu arrow input
+// TODO labels (initial label, action label, remove label, ...)
+
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
@@ -29,6 +32,9 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #menuOpen_bound = this.#menuOpen.bind(this);
   #menuClose_bound = this.#menuClose.bind(this);
   #abort = new AbortController();
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
@@ -36,10 +42,13 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   }
   
   connectedCallback() {
+    this.tabIndex = 0;
     this.#group = this.parentElement;
     this.#hasMenu = this.querySelector('mdw-menu');
     this.#menuValue = this.getAttribute('menu');
     this.#type = this.#getType();
+
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
@@ -175,15 +184,18 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     }
     if (group.classList.contains('mdw-filter') && this.#hasMenu) {
       this.classList.add('mdw-filter-menu');
+      this.setAttribute('role', 'button');
       return 'filter-menu';
     }
 
     if (group.classList.contains('mdw-filter')) {
       this.classList.add('mdw-filter');
+      this.setAttribute('role', 'checkbox');
       return 'filter';
     }
     if (group.classList.contains('mdw-suggestion')) {
       this.classList.add('mdw-suggestion');
+      this.setAttribute('role', 'button');
       return 'suggestion';
     }
     this.classList.add('mdw-assist');
@@ -207,5 +219,48 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
 
   #onKeydown(event) {
     if (event.key === 'Enter') this.#input.blur();
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.removeEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Enter' || e.code === 'Space') {
+      if (this.#type === 'input') {
+        if (this.classList.contains('mdw-edit')) return;
+
+        this.classList.add('mdw-edit');
+        this.#onInput();
+        this.#input.focus();
+        this.#input.select();
+        setTimeout(() => {
+          this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
+          this.#input.addEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
+          document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+        });
+      }
+
+      if (this.#type === 'filter' && this.checked === false) {
+        this.checked = true;
+        this.#group.dispatchEvent(new Event('change'));
+      }
+      e.preventDefault();
+    }
+
+    if (e.code === 'Backspace' || e.code === 'Delete') {
+      if (this.#type === 'input') return;
+      if (this.#type === 'filter' && this.checked === true) {
+        this.checked = false;
+        this.#group.dispatchEvent(new Event('change'));
+      }
+      e.preventDefault();
+    }
   }
 });

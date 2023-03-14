@@ -323,7 +323,7 @@
 .ripple {
   overflow: hidden;
   border-radius: inherit;
-  transform: translateZ(0);
+  /* transform: translateZ(0); */
   /* fixes bug on ios safari */
   position: absolute;
   top: 0;

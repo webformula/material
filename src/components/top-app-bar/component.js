@@ -2,7 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import './component.css';
 import util from '../../core/util.js';
 
-
+// TODO accessability
 
 customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLElementExtended {
   #isHiding = false;
