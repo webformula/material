@@ -1,4 +1,6 @@
 mdw-menu.mdw-panel {
+  --mdw-menu-background-height: 100%;
+
   min-width: 112px;
   max-width: 280px;
   max-height: 320px;
@@ -11,21 +13,20 @@ mdw-menu.mdw-panel {
   /* transform-origin: top; */
 }
 
-mdw-menu::before {
+mdw-menu::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
+  height: var(--mdw-menu-background-height);
   pointer-events: none;
   background-color: var(--mdw-elevation-tint-2);
   border-radius: inherit;
 }
 
-/* button styles are in src/components/button/component.css */
-
-
 mdw-search mdw-chip-group > mdw-chip > mdw-menu.mdw-panel {
   z-index: 12;
 }
+
+/* button styles are in src/components/button/component.css */
