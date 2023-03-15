@@ -12,7 +12,6 @@ import {
 } from '../../core/svgs.js';
 
 // TODO search header (fixed at top of page, hides on scroll)
-// TODO accessability
 
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
@@ -102,6 +101,8 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
     this.#historyId = this.getAttribute('history');
     if (this.#historyId) this.#history = JSON.parse(localStorage.getItem(`${this.#historyId}_history`) || '[]');
+
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.getAttribute('placeholder' || 'search'));
   }
 
   afterRender() {
@@ -338,6 +339,12 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     } else {
       this.#list.innerHTML = '';
     }
+
+    [...this.#list.querySelectorAll('mdw-list-item')].forEach(element => {
+      const label = element.getAttribute('aria-label');
+      if (label?.includes('[search result]')) return;
+      element.setAttribute('aria-label', `[search result] ${label}`);
+    })
   }
 
   #highlight() {
