@@ -1,15 +1,33 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './tab.css';
-
-// TODO accessability
+import util from '../../core/util.js';
 
 customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended {
   #active = false;
   #value = '';
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
     super();
+  }
+
+  connectedCallback() {
+    this.tabIndex = 0;
+    this.addEventListener('focus', this.#focus_bound);
+
+    if (!this.hasAttribute('aria-label')) {
+      const text = util.getTextFromNode(this);
+      this.setAttribute('aria-label', text || 'tab');
+    }
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
   }
 
   static get observedAttributes() {
@@ -36,5 +54,22 @@ customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended
   }
   set value(value) {
     this.#value = value;
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      this.click();
+      e.preventDefault();
+    }
   }
 });
