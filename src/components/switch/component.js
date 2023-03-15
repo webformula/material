@@ -41,6 +41,11 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     this.setAttribute('role', 'checkbox');
     this.setAttribute('aria-label', util.getTextFromNode(this));
     this.addEventListener('focus', this.#focus_bound);
+
+    if (!this.hasAttribute('aria-label')) {
+      const text = util.getTextFromNode(this);
+      if (text) this.setAttribute('aria-label', text);
+    }
   }
 
   disconnectedCallback() {
