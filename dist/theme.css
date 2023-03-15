@@ -14,7 +14,7 @@ html:not(.mdw-initiated) body {
   --mdw-tertiary-baseline: #7D5260;
   --mdw-error-baseline: #B3261E;
   --mdw-neutral-baseline: #615d67;
-  --mdw-neutral-variant-baseline: #605d62;
+  --mdw-neutral-variant-baseline: #59515e;
 
   /* You can add custom colors that will be parsed into tones
    *  Just create a new variable in this file beginning with --mdw-custom-color-
@@ -216,7 +216,7 @@ html:not(.mdw-initiated) body {
   --mdw-surface-variant: var(--mdw-neutral-variant-30);
   --mdw-on-surface: var(--mdw-neutral-90);
   --mdw-on-surface-variant: var(--mdw-neutral-variant-80);
-  --mdw-surface-tint: var(--mdw-primary-40);
+  --mdw-surface-tint: var(--mdw-primary-80);
   --mdw-surface-inverse: var(--mdw-neutral-90);
   --mdw-on-surface-inverse: var(--mdw-neutral-20);
   --mdw-background: var(--mdw-neutral-10);
