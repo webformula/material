@@ -4,10 +4,6 @@ import util from '../../core/util.js';
 import { error_FILL1_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 import Formatter from './Formatter.js';
 
-// TODO mask regex
-// TODO format regex
-// TODO accessability
-
 const handleReportValidityScrollIntoView = util.debounce(input => {
   // check if already on screen
   const bounds = input.getBoundingClientRect();
@@ -79,6 +75,11 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
     if (this.querySelector('.mdw-outlined-border-container + mdw-icon')) {
       this.classList.add('mdw-has-leading-icon');
+    }
+
+    if (!this.#input.hasAttribute('aria-label')) {
+      const text = this.querySelector('label')?.innerText;
+      if (text) this.#input.setAttribute('aria-label', text);
     }
 
     setTimeout(() => {
