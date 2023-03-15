@@ -1,8 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import './component.css';
 
-// TODO align at end of button with text
-
 export default class MDWBadgeElement extends HTMLElementExtended {
   #value = '';
   #nonCounting = false;

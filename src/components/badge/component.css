@@ -37,3 +37,8 @@ mdw-anchor mdw-badge {
   position: absolute;
   right: 20px;
 }
+
+mdw-button:not(.mdw-icon-button):not(.mdw-icon-toggle-button) mdw-badge {
+  position: unset;
+  display: inline-block;
+}
