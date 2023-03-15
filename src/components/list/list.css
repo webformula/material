@@ -72,11 +72,6 @@ mdw-list-item .mdw-action.mdw-auto-hide-action {
   transition: opacity 120ms;
 }
 
-mdw-list-item:hover .mdw-action.mdw-auto-hide-action {
-  cursor: pointer;
-  opacity: 1;
-}
-
 mdw-list-item > .mdw-headline,
 mdw-list-item > .mdw-text > .mdw-headline {
   font-size: var(--mdw-font-body-size-large);
@@ -130,7 +125,17 @@ mdw-list:not(.mdw-no-states) > mdw-list-item::after {
   pointer-events: none;
 }
 
+mdw-list:not(.mdw-no-states) > mdw-list-item:focus::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
+}
+
 @media (hover: hover) {
+  mdw-list-item:hover .mdw-action.mdw-auto-hide-action {
+    cursor: pointer;
+    opacity: 1;
+  }
+  
   mdw-list:not(.mdw-no-states) > mdw-list-item:hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);

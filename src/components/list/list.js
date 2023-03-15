@@ -2,8 +2,6 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import './list.css';
 import util from '../../core/util.js';
 
-// TODO accessability
-
 customElements.define('mdw-list', class MDWListElement extends HTMLElementExtended {
   #value = '';
   #selectable = this.classList.contains('mdw-select') || this.classList.contains('mdw-select-multiple');
@@ -18,7 +16,7 @@ customElements.define('mdw-list', class MDWListElement extends HTMLElementExtend
 
   connectedCallback() {
     this.setAttribute('role', 'list');
-
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'list');
     if (this.#subHeaders.length > 0) this.#scrollParent.addEventListener('scroll', this.#scroll_bound);
   }
 

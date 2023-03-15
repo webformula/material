@@ -19,6 +19,9 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
   #onDragEnd_bound = this.#onDragEnd.bind(this);
   #dragStartPosition;
   #actionActiveThreshold = 64;
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
   constructor() {
     super();
@@ -50,11 +53,21 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
       this.#drag.onEnd(this.#onDragEnd_bound);
       this.#drag.enable();
     }
+
+    this.addEventListener('focus', this.#focus_bound);
+
+    if (!this.hasAttribute('aria-label')) {
+      const text = this.querySelector('.mdw-headline')?.innerText;
+      if (text) this.setAttribute('aria-label', text);
+    }
   }
 
   disconnectedCallback() {
     this.removeEventListener('click', this.#onclickSelect_bound);
     this.removeEventListener('click', this.#onclickAction_bound);
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
 
     if (this.#drag) {
       this.#drag.destroy();
@@ -187,5 +200,47 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
         }
       }));
     }
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Enter' || e.code === 'Space') {
+      if (!this.parentElement.classList.contains('mdw-select')) return;
+      this.checked = !this.checked;
+      e.preventDefault();
+    } else if (e.code === 'ArrowDown') {
+      this.#focusNext();
+      e.preventDefault();
+    } else if (e.code === 'ArrowUp') {
+      this.#focusPrevious();
+      e.preventDefault();
+    }
+  }
+
+  #focusNext() {
+    let nextFocus = document.activeElement?.nextElementSibling;
+    if (!nextFocus) return;
+
+    // try next sibling
+    if (nextFocus.nodeName !== 'MDW-LIST-ITEM') nextFocus = nextFocus.nextElementSibling;
+    if (nextFocus?.nodeName === 'MDW-LIST-ITEM') nextFocus.focus();
+  }
+
+  #focusPrevious() {
+    let nextFocus = document.activeElement?.previousElementSibling;
+    if (!nextFocus) return;
+
+    // try next sibling
+    if (nextFocus.nodeName !== 'MDW-LIST-ITEM') nextFocus = nextFocus.previousElementSibling;
+    if (nextFocus?.nodeName === 'MDW-LIST-ITEM') nextFocus.focus();
   }
 });
