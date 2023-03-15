@@ -5,8 +5,6 @@ import Ripple from '../../core/Ripple.js';
 import './global.css';
 
 
-// TODO error style
-
 export default class MDWCheckboxElement extends HTMLElementExtended {
   useShadowRoot = true;
 

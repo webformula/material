@@ -21,6 +21,8 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #ripple;
   #input;
   #valueDisplay;
+  #originalLabel;
+  #currentLabel;
   #group;
   #menuValue = '';
   #hasMenu;
@@ -35,6 +37,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #menuChange_bound = this.#menuChange.bind(this);
 
 
   constructor() {
@@ -49,6 +52,11 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     this.#type = this.#getType();
 
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+
+    if (this.querySelector('mdw-menu')) {
+      this.#originalLabel = util.getTextFromNode(this);
+      this.#currentLabel = this.#originalLabel;
+    }
   }
 
   afterRender() {
@@ -129,26 +137,36 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
 
   #menuOpen() {
     this.classList.add('mdw-open');
+    this.querySelector('mdw-menu').addEventListener('selected', this.#menuChange_bound);
   }
   #menuClose() {
     this.classList.remove('mdw-open');
+    this.querySelector('mdw-menu').removeEventListener('selected', this.#menuChange_bound);
+    const selected = this.querySelector('mdw-menu mdw-button[checked]');
+    const labelNode = [...this.childNodes].find(node => node.nodeType === 3 && node.nodeValue.trim() === this.#currentLabel);
+    if (selected) {
+      const nextLabel = util.getTextFromNode(selected);
+      labelNode.nodeValue = nextLabel;
+      this.#currentLabel = nextLabel;
+    } else {
+      labelNode.nodeValue = this.#originalLabel;
+      this.#currentLabel = this.#originalLabel;
+    }
   }
 
-  #onClick(event) {
-    if (this.#type === 'filter-menu') {
-      if (event.target.nodeName === 'MDW-BUTTON') {
-        const value = event.target.getAttribute('value');
-        if (this.#value !== value) {
-          this.checked = true;
-          this.value = value;
-        } else {
-          this.value = '';
-          this.checked = false;
-        }
-        this.#group.dispatchEvent(new Event('change'));
-      }
+  #menuChange(event) {
+    const value = event.target.getAttribute('value');
+    if (this.#value !== value) {
+      this.checked = true;
+      this.value = value;
+    } else {
+      this.value = '';
+      this.checked = false;
     }
+    this.#group.dispatchEvent(new Event('change'));
+  }
 
+  #onClick() {
     if (this.#type === 'filter') {
       this.checked = !this.checked;
       this.#group.dispatchEvent(new Event('change'));
@@ -250,6 +268,10 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       if (this.#type === 'filter' && this.checked === false) {
         this.checked = true;
         this.#group.dispatchEvent(new Event('change'));
+      }
+
+      if (this.#type === 'filter-menu') {
+        this.click();
       }
       e.preventDefault();
     }

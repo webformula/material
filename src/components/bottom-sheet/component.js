@@ -10,7 +10,6 @@ import './component.css';
 
 customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HTMLElementExtended {
   #drag;
-  #initialDragToScrollSwitch;
   #initialDragPosition;
   #lastScrollPosition;
   #isScrolling = false;
@@ -60,7 +59,6 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #onDragStart({ event }) {
     if (this.#isScrolling) return;
 
-    this.#initialDragToScrollSwitch = false;
     this.#initialDragPosition = this.#position;
     if (this.#initialDragPosition !== this.#topPosition) event.preventDefault();
     util.lockPageScroll();

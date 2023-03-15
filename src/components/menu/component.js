@@ -65,6 +65,7 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   // delay close so button press animation is seen
   #onItemClick(event) {
     if (event.target.nodeName !== 'MDW-BUTTON') return;
+    event.target.dispatchEvent(new CustomEvent('selected', { bubbles: true }));
 
     setTimeout(() => {
       this.close();
