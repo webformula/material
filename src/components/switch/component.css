@@ -46,8 +46,7 @@
     border-color 200ms;
 }
 
-:host > .track > .thumb:active,
-:host(.mdw-checked) > .track > .thumb:active {
+:host(:active.mdw-checked) > .track > .thumb {
   width: 28px;
   height: 28px;
   margin: 0;
@@ -59,6 +58,12 @@
   height: 24px;
   margin: 2px;
   background-color: var(--mdw-on-primary);
+}
+
+:host(:active) > .track > .thumb {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
 }
 
 
@@ -120,4 +125,80 @@
 
 :host(.mdw-icon.mdw-checked[disabled]) > .track > .thumb > svg {
   opacity: .38;
+}
+
+
+
+:host > .track > .thumb::before {
+  position: absolute;
+  content: "";
+  left: -12px;
+  top: -12px;
+  bottom: -12px;
+  right: -12px;
+  border-radius: inherit;
+  background-color: var(--mdw-primary);
+  opacity: 0;
+  transition: opacity 100ms;
+  pointer-events: none;
+}
+
+:host > .track::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: inherit;
+  background-color: var(--mdw-on-surface);
+  opacity: 0;
+  transition: opacity 100ms;
+  pointer-events: none;
+}
+
+:host(:not(.mdw-checked):focus) > .track > .thumb::before {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  transition: opacity 180ms;
+}
+
+:host(:not(.mdw-checked):focus) > .track > .thumb {
+  background-color: var(--mdw-on-surface-variant);
+}
+
+:host(.mdw-checked:focus) > .track > .thumb {
+  background-color: var(--mdw-primary-container);
+}
+
+:host(.mdw-checked:focus) > .track {
+  background-color: var(--mdw-primary);
+}
+
+:host(:not(.mdw-checked):focus) > .track::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+}
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  :host(:not(.mdw-checked):hover) > .track > .thumb::before {
+    opacity: var(--mdw-state-layer-opacity-focus);
+    transition: opacity 180ms;
+  }
+
+  :host(:not(.mdw-checked):hover) > .track > .thumb {
+    background-color: var(--mdw-on-surface-variant);
+  }
+
+  :host(.mdw-checked:hover) > .track > .thumb {
+    background-color: var(--mdw-primary-container);
+  }
+
+  :host(.mdw-checked:hover) > .track {
+    background-color: var(--mdw-primary);
+  }
+
+  :host(:not(.mdw-checked):hover) > .track::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
 }

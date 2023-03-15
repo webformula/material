@@ -21,7 +21,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   #thumb;
   #label;
   #dragStartLeftPosition;
-  #drag = new Drag(this);
+  #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onclick_bound = this.#onclick.bind(this);

@@ -45,6 +45,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     this.removeEventListener('click', this.#click_bound);
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
     this.#input.removeEventListener('invalid', this.#onInvalid_bound);
     this.#ripple.destroy();
   }
@@ -175,6 +176,8 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #focusKeydown(e) {
     if (e.code === 'Space') {
       this.checked = !this.checked;
+      this.#onInvalid();
+      this.dispatchEvent(new Event('change'));
       e.preventDefault();
     }
   }

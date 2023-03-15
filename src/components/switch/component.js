@@ -1,8 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
-
-// TODO accessability
+import Drag from '../../core/Drag.js';
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   useShadowRoot = true;
@@ -11,6 +10,12 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   #checked = false;
   #value = 'on';
   #click_bound = this.#click.bind(this);
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #drag;
+  #onDrag_bound = this.#onDrag.bind(this);
+  #onDragEnd_bound = this.#onDragEnd.bind(this);
 
   constructor() {
     super();
@@ -35,14 +40,24 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     this.tabIndex = 0;
     this.setAttribute('role', 'checkbox');
     this.setAttribute('aria-label', util.getTextFromNode(this));
+    this.addEventListener('focus', this.#focus_bound);
   }
 
   disconnectedCallback() {
     this.shadowRoot.querySelector('.track').removeEventListener('click', this.#click_bound);
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+    this.#drag.destroy();
   }
 
   afterRender() {
     this.shadowRoot.querySelector('.track').addEventListener('click', this.#click_bound);
+    this.#drag = new Drag(this.#thumb);
+    this.#drag.includeMouseEvents = true;
+    this.#drag.onDrag(this.#onDrag_bound);
+    this.#drag.onEnd(this.#onDragEnd_bound);
+    this.#drag.enable();
   }
 
   static get observedAttributes() {
@@ -79,8 +94,43 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     this.#value = value;
   }
 
+  get #thumb() {
+    return this.shadowRoot.querySelector('.thumb');
+  }
+
   #click() {
     this.checked = !this.#checked;
     this.dispatchEvent(new Event('change'));
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      this.#click();
+      e.preventDefault();
+    }
+  }
+
+  #onDrag({ distance }) {
+    let x = distance.x;
+    if (x < 0) x = 0;
+    if (x > 20) x = 20;
+    this.#thumb.style.left = `${x}px`;
+  }
+
+  #onDragEnd() {
+    const position = parseInt(this.#thumb.style.left.replace('px', ''));
+    if (position > 10) this.checked = false;
+    else this.checked = true;
+    this.#thumb.style.left = '';
   }
 });
