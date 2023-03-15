@@ -10,6 +10,9 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   #value = 'on';
   #checked = false;
   #disabled = false;
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
 
   constructor() {
@@ -41,8 +44,16 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   }
 
   connectedCallback() {
+    this.tabIndex = 0;
     this.setAttribute('role', 'radio');
-    this.setAttribute('aria-label', util.getTextFromNode(this));
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this));
+    this.addEventListener('focus', this.#focus_bound);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
   }
 
   get value() {
@@ -67,5 +78,41 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   set disabled(value) {
     this.#disabled = !!value;
     this.toggleAttribute('disabled', this.#disabled);
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(e) {
+    if (e.shiftKey && e.code === 'Tab') {
+      if (this.previousElementSibling?.nodeName === 'MDW-RADIO') this.previousElementSibling.focus();
+    }
+    if (e.code === 'Space') {
+      this.click();
+      e.preventDefault();
+    }
+
+    if (e.code === 'ArrowUp') {
+      if (this.previousElementSibling?.nodeName === 'MDW-RADIO') {
+        this.previousElementSibling.focus();
+        this.previousElementSibling.click();
+        e.preventDefault();
+      }
+    }
+
+    if (e.code === 'ArrowDown') {
+      if (this.nextElementSibling?.nodeName === 'MDW-RADIO') {
+        this.nextElementSibling.focus();
+        this.nextElementSibling.click();
+        e.preventDefault();
+      }
+    }
   }
 });
