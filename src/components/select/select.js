@@ -4,7 +4,6 @@ import sheetTextField from '../textfield/component.css' assert { type: 'css' };
 import sheetPanel from '../panel/component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-// TODO accessability
 // TODO document required and supporting-text
 //   <mdw-select name="select" label="Label" required supporting-text>
 //   <mdw-select name="select" label="Label" required supporting-text="message">
@@ -37,10 +36,14 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #filterAsyncEvent_debounced = util.debounce(this.#filterAsyncEvent, 300).bind(this);
   #originalOptions;
   #abort = new AbortController();
+  #textSearchOver_debounced = util.debounce(this.#textSearchOver, 240);
+  #searchKeys = '';
 
 
   constructor() {
     super();
+
+    this.clickOutsideToClose = true;
   }
 
   connectedCallback() {
@@ -290,14 +293,14 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     const upArrow = key === 'ArrowUp';
 
     if (!this.#panel.open) {
-      if (downArrow || upArrow) this.#panel.show();
+      if (downArrow || upArrow || enter) this.#panel.show();
       else return;
     }
 
 
     if (escape && this.clickOutsideToClose === true) this.#panel.close();
 
-    if ((tab && !shiftKey) || downArrow) {
+    else if ((tab && !shiftKey) || downArrow) {
       this.#focusNext();
       event.preventDefault();
     } else if ((tab && shiftKey) || upArrow) {
@@ -305,7 +308,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       event.preventDefault();
     }
 
-    if (enter) {
+    else if (enter) {
       const focusedElement = document.activeElement;
       if (focusedElement.nodeName === 'INPUT') {
         const firstOption = this.querySelector('mdw-option');
@@ -318,6 +321,8 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
         this.#panel.close();
       }
     }
+
+    else if (!this.#isFilter && ![38, 40, 13].includes(event.keyCode)) return this.#textSearch(event.key);
   }
 
   #focusNext() {
@@ -411,5 +416,17 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
 
   #filterAsyncEvent() {
     this.dispatchEvent(new Event('filter', this));
+  }
+
+  // focus on element that starts with typed characters
+  #textSearch(key) {
+    this.#searchKeys += key.toLowerCase();
+    const match = this.#options.find(({ label }) => label.toLowerCase().startsWith(this.#searchKeys));
+    if (match) match.element.focus();
+    this.#textSearchOver_debounced();
+  }
+
+  #textSearchOver() {
+    this.#searchKeys = '';
   }
 });
