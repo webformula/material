@@ -8,7 +8,6 @@ import {
 } from '../../core/svgs.js';
 
 
-// TODO chip menu arrow input
 // TODO labels (initial label, action label, remove label, ...)
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {

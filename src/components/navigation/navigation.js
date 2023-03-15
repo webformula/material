@@ -30,7 +30,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     }
   }
 
-  // TODO make it so we do not need the non standard event
+  // TODO make it so we do not need the non standard event (locationchange)
   connectedCallback() {
     this.setAttribute('role', 'navigation');
     // the nested components are not ready until next frame
