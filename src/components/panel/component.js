@@ -19,6 +19,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #onTargetScroll_bound = util.rafThrottle(this.#onTargetScroll.bind(this));
   #scrimElement;
   #fixedParent;
+  #onEsc_bound = this.#onEsc.bind(this);
   
   constructor() {
     super();
@@ -33,6 +34,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   disconnectedCallback() {
     this.#removeScrim();
     document.body.removeEventListener('click', this.#onClickOutside_bound);
+    window.addEventListener('keydown', this.#onEsc_bound);
     if (this.#targetScrollContainer) this.#targetScrollContainer.removeEventListener('scroll', this.#onTargetScroll_bound);
   }
 
@@ -106,6 +108,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     if (this.#clickOutsideClose === true) {
       setTimeout(() => {
         document.body.addEventListener('click', this.#onClickOutside_bound);
+        window.addEventListener('keydown', this.#onEsc_bound);
       }, 100);
     }
 
@@ -122,7 +125,10 @@ export default class MDWPanelElement extends HTMLElementExtended {
   close() {
     if (this.open !== true) return;
 
-    if (this.#clickOutsideClose === true)  document.body.removeEventListener('click', this.#onClickOutside_bound);
+    if (this.#clickOutsideClose === true)  {
+      document.body.removeEventListener('click', this.#onClickOutside_bound);
+      window.removeEventListener('keydown', this.#onEsc_bound);
+    }
     if (this.#targetScrollContainer) this.#targetScrollContainer.removeEventListener('scroll', this.#onTargetScroll_bound);
 
     this.removeAttribute('open');
@@ -230,6 +236,13 @@ export default class MDWPanelElement extends HTMLElementExtended {
       parentElement = parentElement.parentElement;
     }
     return null;
+  }
+
+  #onEsc(e) {
+    if (e.code === 'Escape' && this.#clickOutsideClose) {
+      this.close();
+      e.preventDefault();
+    }
   }
 }
 
