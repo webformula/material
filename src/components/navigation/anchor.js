@@ -105,7 +105,13 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     }
   }
 
-  #focus() {
+  #focus(e) {
+    // on first anchor focus redirect to active anchor
+    if (e.relatedTarget?.nodeName !== 'MDW-ANCHOR') {
+      const selected = document.body.querySelector('mdw-navigation mdw-anchor.mdw-active:not([group])');
+      if (selected && this !== selected) return selected.focus();
+    }
+
     this.addEventListener('blur', this.#blur_bound);
     this.addEventListener('keydown', this.#focusKeydown_bound);
   }
@@ -116,17 +122,34 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #focusKeydown(e) {
-    if (e.code === 'Enter' || e.code === 'Space') {
+    // TODO skip to first sub navigation in nav or on page
+    if (e.code === 'Tab') {
+      const firstFocusablePageContent = [...document.body.querySelectorAll('page-content *')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
+      if (firstFocusablePageContent) firstFocusablePageContent.focus();
+      e.preventDefault();
+    } if (e.code === 'Enter' || e.code === 'Space') {
       this.click();
       this.#ripple.trigger();
       this.blur();
       e.preventDefault();
-    } else if (['ArrowRight', 'Tab'].includes(e.code)) {
+    } else if (e.code === 'ArrowDown') {
       this.#focusNext(e.target);
       e.preventDefault();
-    } else if (['ArrowLeft'].includes(e.code)) {
+    } else if (e.code === 'ArrowUp') {
       this.#focusPrevious(e.target);
       e.preventDefault();
+    }
+
+    // TODO add left right arrow for sub menu
+  }
+
+  walk(root) {
+    const children = [...root.children];
+    while (children.length > 0) {
+      const child = children.shift();
+      if (child.tabIndex > -1 || parseInt(child.getAttribute('tabindex') || -1) > -1) return child;
+      const walked = this.walk(child);
+      if (walked) return walked;
     }
   }
 
