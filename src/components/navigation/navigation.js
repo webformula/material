@@ -97,10 +97,12 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     [...this.querySelectorAll('.mdw-active')].forEach(anchor => anchor.active = false);
 
     const fullUrl = location.href;
+    const noOrigin = location.href.replace(location.origin, '').replace(/^\//g, '');
     const pathname = location.pathname;
     const [fullUrlNoSearch, searchParameters] = location.href.split('?');
 
     let matches = [...this.querySelectorAll(`mdw-anchor[href="${fullUrl}"]`)];
+    if (matches.length === 0) matches = [...this.querySelectorAll(`mdw-anchor[href="${noOrigin}"]`)];
     if (matches.length === 0) matches = [...this.querySelectorAll(`mdw-anchor[href="${fullUrlNoSearch}"]`)];
     if (matches.length === 0) matches = [...this.querySelectorAll(`mdw-anchor[href="${pathname}"]`)];
     if (matches.length === 0) matches = [...this.querySelectorAll(`mdw-anchor[href="${pathname}?${searchParameters}"]`)];

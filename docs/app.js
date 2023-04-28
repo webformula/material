@@ -3,8 +3,8 @@ import './font.css';
 import './dracula.css';
 import './app.css';
 
-import { registerPage, enableSPA } from '@webformula/core';
-enableSPA();
+import { registerPage, enableLinkIntercepts } from '@webformula/core';
+enableLinkIntercepts();
 
 window.escapeHTML = str => {
   return str
@@ -112,6 +112,9 @@ window.addEventListener('locationchange', () => {
 window.addEventListener('hashchange', () => {
   if (!location.hash) return;
   handleHashAnchor(location.hash);
+  setTimeout(() => {
+    hljs.highlightAll();
+  });
 });
 
 

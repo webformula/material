@@ -58,12 +58,12 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     });
 
     // allow pax core to handle location changes
-    if (!window.paxCoreSPA) this.addEventListener('click', this.#onClick_bound);
+    if (!window.webformulaCoreLinkIntercepts) this.addEventListener('click', this.#onClick_bound);
   }
 
   disconnectedCallback() {
     if (this.#ripple) this.#ripple.destroy();
-    if (!window.paxCoreSPA) this.removeEventListener('click', this.#onClick_bound);
+    if (!window.webformulaCoreLinkIntercepts) this.removeEventListener('click', this.#onClick_bound);
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
@@ -89,6 +89,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   set active(value) {
     this.#active = !!value;
     this.classList.toggle('mdw-active', this.#active);
+    if (this.#active === false) this.blur();
 
     if (this.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') {
       util.nextAnimationFrameAsync().then(() => {
