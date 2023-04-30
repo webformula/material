@@ -1,4 +1,6 @@
 mdw-bottom-app-bar {
+  --mdw-bottom-app-bar-scroll-position: 0px;
+
   position: fixed;
   bottom: 0;
   left: 0;
@@ -15,9 +17,6 @@ mdw-bottom-app-bar {
 
   background-color: var(--mdw-surface);
   box-shadow: var(--mdw-elevation-2);
-
-  transition: bottom 180ms, background-color 80ms linear;
-  transition-timing-function: var(--mdw-transition-expand-out);
 }
 
 mdw-bottom-app-bar:before {
@@ -66,10 +65,8 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
   transition: none;
 }
 
-mdw-bottom-app-bar.mdw-auto-hide.mdw-hide {
-  bottom: -80px;
-  transition: bottom 800ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+mdw-bottom-app-bar.mdw-auto-hide {
+  bottom: var(--mdw-bottom-app-bar-scroll-position);
 }
 
 body:not(.mdw-mobile) > mdw-navigation.mdw-state-rail ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
@@ -108,40 +105,9 @@ body:not(.mdw-mobile).mdw-has-bottom-app-bar.mdw-bottom-app-bar-mobile-only > pa
   height: 0;
 }
 
-/* should only be in bottom-nav-bar */
-/* mdw-bottom-app-bar > nav {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-mdw-bottom-app-bar > nav > a {
-  position: relative;
-  padding: 10px 12px;
-  margin-right: 8px;
-  text-decoration: none;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-mdw-bottom-app-bar > nav > mdw-navigation-button {
-  margin-right: 8px;
-}
-
-mdw-bottom-app-bar > nav > a > mdw-icon {
-  pointer-events: none;
-} */
-
-
 body:not(.mdw-mobile) mdw-bottom-app-bar.mdw-mobile-only {
   display: none;
 }
-
-/* mdw-bottom-app-bar mdw-button.mdw-icon-button {
-  width: 48px;
-  height: 48px;
-} */
 
 mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button,
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button,
@@ -190,7 +156,6 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show-animation-start mdw-b
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
-
 mdw-bottom-app-bar mdw-fab {
   position: fixed;
   bottom: 12px;
@@ -198,8 +163,8 @@ mdw-bottom-app-bar mdw-fab {
   transition: bottom 180ms;
 }
 
-mdw-bottom-app-bar.mdw-auto-hide.mdw-hide mdw-fab {
-  bottom: 7px;
+mdw-bottom-app-bar.mdw-auto-hide mdw-fab {
+  bottom: max(calc(var(--mdw-bottom-app-bar-scroll-position) + 12px), 6px);
 }
 
 

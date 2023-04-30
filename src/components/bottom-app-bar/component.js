@@ -6,7 +6,8 @@ import Ripple from '../../core/Ripple.js';
 
 export default class MDWBottomAppBarElement extends HTMLElementExtended {
   #rippleElements;
-  #isHiding = false;
+  #autoHide = this.classList.contains('mdw-auto-hide');
+  #height = this.offsetHeight;
   #scrollTrack_bound = this.#scrollTrack.bind(this);
   #hashchange_bound = this.#hashchange.bind(this);
 
@@ -23,7 +24,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
       triggerElement: element.parentNode
     }));
 
-    util.trackPageScroll(this.#scrollTrack_bound);
+    if (this.#autoHide) util.trackPageScroll(this.#scrollTrack_bound);
 
     if (this.querySelector('mdw-bottom-app-bar-secondary[mdw-hash]')) {
       [...this.querySelectorAll('mdw-bottom-app-bar-secondary')].forEach(element => {
@@ -37,19 +38,10 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
 
   disconnectedCallback() {
     this.#rippleElements.forEach(r => r.destroy());
-    util.untrackPageScroll(this.#scrollTrack_bound);
+    if (this.#autoHide)  util.untrackPageScroll(this.#scrollTrack_bound);
   }
 
-  hide() {
-    if (this.#isHiding === true) return;
-    this.#isHiding = true;
-    this.classList.add('mdw-hide');
-  }
-
-  async show() {
-    if (this.#isHiding === false) return;
-    this.#isHiding = false;
-
+  async #show() {
     this.classList.add('mdw-show-animation-start');
     this.classList.remove('mdw-hide');
     await util.nextAnimationFrameAsync();
@@ -93,14 +85,22 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
   }
 
   // TODO hide/show transition move at scroll speed
-  #scrollTrack({ isScrolled, direction, distanceFromDirectionChange }) {
-    // up
-    if (direction === -1 && distanceFromDirectionChange > 150) this.hide();
+  #scrollTrack({ direction, distance, distanceFromDirectionChange, scrollTop }) {
+    // prevent style changes if not moving
+    const position = -parseInt(this.style.getPropertyValue('--mdw-bottom-app-bar-scroll-position').replace('px', '') || 0);
 
-    // down
-    if (direction === 1 && distanceFromDirectionChange < -150) this.show();
+    // add 90 pixel buffer before raising the bar, but do not prevent raise not enough scroll pixels
+    if (direction === 1 && (position === 0 || (distanceFromDirectionChange > -120 && scrollTop > this.#height))) return;
+    if (direction === -1 && position === this.#height) return;
 
-    this.classList.toggle('mdw-scrolled', isScrolled);
+    // move with scroll
+    let value = position + distance;
+    if (value > this.#height) value = this.#height;
+    if (value < 0) value = 0;
+    this.style.setProperty('--mdw-bottom-app-bar-scroll-position', `${-value}px`);
+
+    // animate icons in
+    if (direction === 1 && position >= this.#height - 20 && value < this.#height - 20) this.#show();
   }
 
   #hashchange() {
