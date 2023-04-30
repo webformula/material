@@ -18,6 +18,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #mousedown_bound = this.#mousedown.bind(this);
+  #mouseup_bound = this.#mouseup.bind(this);
 
 
   constructor() {
@@ -48,7 +50,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   connectedCallback() {
     this.setAttribute('role', 'link');
-    this.addEventListener('focus', this.#focus_bound);
+    this.addEventListener('focusin', this.#focus_bound);
   }
 
   afterRender() {
@@ -56,17 +58,17 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this
     });
-
-    // allow pax core to handle location changes
     if (!window.webformulaCoreLinkIntercepts) this.addEventListener('click', this.#onClick_bound);
+    this.addEventListener('mousedown', this.#mousedown_bound);
   }
 
   disconnectedCallback() {
     if (this.#ripple) this.#ripple.destroy();
     if (!window.webformulaCoreLinkIntercepts) this.removeEventListener('click', this.#onClick_bound);
-    this.removeEventListener('focus', this.#focus_bound);
+    this.removeEventListener('focusin', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
+    this.removeEventListener('mousedown', this.#mousedown_bound);
   }
 
   template() {
@@ -89,7 +91,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   set active(value) {
     this.#active = !!value;
     this.classList.toggle('mdw-active', this.#active);
-    if (this.#active === false) this.blur();
 
     if (this.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') {
       util.nextAnimationFrameAsync().then(() => {
@@ -104,6 +105,16 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     } else {
       location.href = this.href;
     }
+  }
+
+  // prevent focus adjustments when using mouse
+  #mousedown() {
+    this.removeEventListener('focusin', this.#focus_bound);
+    this.addEventListener('mouseup', this.#mouseup_bound);
+  }
+  #mouseup() {
+    this.addEventListener('focusin', this.#focus_bound);
+    this.removeEventListener('mouseup', this.#mouseup_bound);
   }
 
   #focus(e) {

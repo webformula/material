@@ -2,8 +2,13 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import './component.css';
 import util from '../../core/util.js';
 
+
+// TODO add shrink for medium and large
+
 customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLElementExtended {
-  #isHiding = false;
+  #autoHide = this.classList.contains('mdw-auto-hide');
+  #shrink = !this.#autoHide && this.classList.contains('mdw-auto-shrink');
+  #height;
   #scrollTrack_bound = this.#scrollTrack.bind(this);
 
 
@@ -12,6 +17,11 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
   }
 
   connectedCallback() {
+    if (this.#autoHide) this.#height = this.offsetHeight;
+    else if (this.#shrink && (this.classList.contains('mdw-medium') || this.classList.contains('mdw-large'))) {
+      this.#height = this.offsetHeight - 64;
+    }
+
     util.trackPageScroll(this.#scrollTrack_bound);
   }
 
@@ -19,26 +29,26 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
     util.untrackPageScroll(this.#scrollTrack_bound);
   }
 
-  hide() {
-    if (this.#isHiding === true) return;
-    this.#isHiding = true;
-    this.classList.add('mdw-hide');
-  }
+  #scrollTrack({ isScrolled, direction, distance, scrollTop }) {
+    // for color change
+    if (!this.#autoHide && !this.#shrink) {
+      this.classList.toggle('mdw-scrolled', isScrolled);
+      return;
+    }
 
-  show() {
-    if (this.#isHiding === false) return;
-    this.#isHiding = false;
-    this.classList.remove('mdw-hide');
-  }
+    // prevent style changes if not moving
+    const position = -parseInt(this.style.getPropertyValue('--mdw-top-app-bar-scroll-position').replace('px', '') || 0);
 
-  // TODO hide/show transition at scroll speed
-  #scrollTrack({ isScrolled, direction, distanceFromDirectionChange }) {
-    // up
-    if (direction === -1 && distanceFromDirectionChange > 150) this.hide();
+    // adjust scroll check based on header position for scrolled
+    this.classList.toggle('mdw-scrolled', scrollTop - Math.max(0, position + distance) > 0);
 
-    // down
-    if (direction === 1 && distanceFromDirectionChange < -150) this.show();
+    if (direction === 1 && position === 0) return;
+    if (direction === -1 && position === this.#height) return;
 
-    this.classList.toggle('mdw-scrolled', isScrolled);
+    // move with scroll
+    let value = position + distance;
+    if (value > this.#height) value = this.#height;
+    if (value < 0) value = 0;
+    this.style.setProperty('--mdw-top-app-bar-scroll-position', `${-value}px`);
   }
 });

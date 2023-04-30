@@ -167,7 +167,10 @@ const mdwUtil = new class MDWUtil {
 
   trackPageScroll(callback = () => { }) {
     if (!this.#scrollTarget) this.#scrollTarget = document.documentElement;
-    if (this.#scrollCallbacks.length === 0) window.addEventListener('scroll', this.#scrollHandler_bound);
+    if (this.#scrollCallbacks.length === 0) {
+      this.#lastScrollTop = this.#scrollTarget.scrollTop;
+      window.addEventListener('scroll', this.#scrollHandler_bound);
+    }
     this.#scrollCallbacks.push(callback);
   }
 
@@ -319,6 +322,7 @@ const mdwUtil = new class MDWUtil {
     this.#scrollCallbacks.forEach(callback => callback({
       event,
       isScrolled: this.#scrollTarget.scrollTop > 0,
+      scrollTop: this.#scrollTarget.scrollTop,
       direction,
       distance,
       distanceFromDirectionChange: this.#scrollDistanceFromDirectionChange || 0

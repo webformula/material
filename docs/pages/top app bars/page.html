@@ -12,6 +12,7 @@
 <div class="links">
   <a href="#standard">Standard</a>
   <a href="#auto-hide">Auto hide</a>
+  <a href="#auto-shrink">Auto shrink</a>
   <a href="#centered">Centered</a>
   <a href="#medium">Medium</a>
   <a href="#medium-auto-hide">Medium auto hide</a>
@@ -73,6 +74,48 @@
       </div>
     </div>
 
+    <pre>
+      <code class="language-html">
+  ${escapeHTML(`<mdw-top-app-bar class="mdw-center-aligned">
+    <mdw-icon>arrow_back</mdw-icon>
+    <div class="mdw-headline">Header</div>
+    <mdw-icon>account_circle</mdw-icon>
+  </mdw-top-app-bar>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card class="mdw-no-states" id="auto-shrink">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Auto shrink</div>
+      <div class="mdw-supporting-text">Shrink only works on medium and large Top app bars. You cannot use auto hide at the same time as auto shrink.</div>
+  
+      <div class="example" style="flex-direction: column; display: flex;">
+        <iframe src="./pages/top app bars/auto-shrink-index.html" style="height: 360px; width: 600px;"></iframe>
+      </div>
+    </div>
+  
+    <pre>
+        <code class="language-html">
+    ${escapeHTML(`<mdw-top-app-bar class="mdw-auto-shrink mdw-medium">
+      <mdw-icon>arrow_back</mdw-icon>
+      <div class="mdw-headline">Header</div>
+      <mdw-icon>account_circle</mdw-icon>
+    </mdw-top-app-bar>`)}
+        </code>
+      </pre>
+  </mdw-card>
+  
+  <mdw-card class="mdw-no-states" id="centered">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Centered</div>
+  
+      <div class="example" style="flex-direction: column; display: flex;">
+        <iframe src="./pages/top app bars/centered-index.html" style="height: 360px; width: 600px;"></iframe>
+      </div>
+    </div>
+  
     <pre>
       <code class="language-html">
   ${escapeHTML(`<mdw-top-app-bar class="mdw-center-aligned">
