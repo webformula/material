@@ -2,8 +2,8 @@ import { Page } from '@webformula/core';
 import { mdwDialog } from '@webformula/material';
 import html from './page.html';
 
-export default new class extends Page {
-  pageTitle = 'Dialogs';
+export default class extends Page {
+  static pageTitle = 'Dialogs';
 
   constructor() {
     super();

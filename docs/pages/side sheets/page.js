@@ -1,8 +1,8 @@
 import { Page } from '@webformula/core';
 import html from './page.html';
 
-export default new class extends Page {
-  pageTitle = 'Side sheets';
+export default class extends Page {
+  static pageTitle = 'Side sheets';
 
   constructor() {
     super();

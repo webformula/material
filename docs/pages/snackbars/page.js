@@ -2,8 +2,8 @@ import { Page } from '@webformula/core';
 import { mdwSnackbar } from '@webformula/material';
 import html from './page.html';
 
-export default new class extends Page {
-  pageTitle = 'Snackbars';
+export default class extends Page {
+  static pageTitle = 'Snackbars';
 
   constructor() {
     super();

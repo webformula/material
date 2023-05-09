@@ -89,7 +89,7 @@ registerPage(topAppBars, '/top-app-bars');
 registerPage(tooltips, '/tooltips');
 registerPage(utilities, '/utilities');
 
-registerPage(notFound, '/not-found', true);
+registerPage(notFound, '/not-found', { notFound: true });
 
 
 

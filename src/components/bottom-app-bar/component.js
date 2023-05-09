@@ -84,7 +84,6 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     secondary.classList.remove('mdw-show-animation-start');
   }
 
-  // TODO hide/show transition move at scroll speed
   #scrollTrack({ direction, distance, distanceFromDirectionChange, scrollTop }) {
     // prevent style changes if not moving
     const position = -parseInt(this.style.getPropertyValue('--mdw-bottom-app-bar-scroll-position').replace('px', '') || 0);
