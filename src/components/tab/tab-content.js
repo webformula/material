@@ -1,7 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import styles from './tab-content.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 // TODO add proper tab panel transitions
 customElements.define('mdw-tab-content', class MDWTabContentElement extends HTMLElementExtended {

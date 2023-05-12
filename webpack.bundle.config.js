@@ -21,6 +21,13 @@ export default {
       library: {
         type: "module"
       }
+    },
+    styles: {
+      import: './src/styles.js',
+      filename: 'styles.js',
+      library: {
+        type: "module"
+      }
     }
   },
   output: {

@@ -1,7 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import styles from './tab-bar.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-tab-bar', class MDWTabBarElement extends HTMLElementExtended {

@@ -1,11 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
+import { switchShadowRoot } from '../../styles.js';
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
+  static styleSheets = switchShadowRoot;
 
   #disabled = false;
   #checked = false;

@@ -8,8 +8,6 @@ import {
   chevron_left_FILL1_wght400_GRAD0_opsz24,
   chevron_right_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import styles from './desktop.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 // TODO tooltips

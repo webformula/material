@@ -4,8 +4,6 @@ import {
   keyboard_FILL0_wght400_GRAD0_opsz24,
   schedule_FILL0_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import styles from './component.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 // TODO accessability
 // TODO min max

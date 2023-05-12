@@ -1,14 +1,14 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './slider.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
+import { sliderShadowRoot } from '../../styles.js';
 
 // TODO work out proper height, considering labels
 
 customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
+  static styleSheets = sliderShadowRoot;
 
   #disabled = false;
   #min = 0;

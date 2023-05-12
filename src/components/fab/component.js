@@ -1,11 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
-import styles from './component.css' assert { type: 'css' };
+import { fabShadowRoot } from '../../styles.js';
 
 customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
+  static styleSheets = fabShadowRoot;
 
   #ripple;
   #autoHideLabel = this.classList.contains('mdw-auto-hide-label');

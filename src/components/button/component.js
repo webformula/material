@@ -2,11 +2,11 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import dialog from '../dialog/service.js';
-import styles from './component.css' assert { type: 'css' };
+import { buttonShadowRoot } from '../../styles.js';
 
 export default class MDWButtonElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
+  static styleSheets = buttonShadowRoot;
 
   #form = null;
   #name = '';

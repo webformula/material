@@ -1,11 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './component.css' assert { type: 'css' };
+import { progressCircularShadowRoot } from '../../styles.js';
 
 
 customElements.define('mdw-progress-circular', class MDWProgressCircular extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
+  static styleSheets = progressCircularShadowRoot;
 
   #diameter = 40;
   #max = 1;

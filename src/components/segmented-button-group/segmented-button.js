@@ -1,11 +1,11 @@
 import MDWButtonElement from '../button/component.js';
-import styles from './segmented-button.css' assert { type: 'css' };
+import { segmentedButtonShadowRoot } from '../../styles.js';
 
 
 customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement extends MDWButtonElement {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
+  static styleSheets = segmentedButtonShadowRoot;
 
   #checked = false;
   #value = this.getAttribute('value') || '';

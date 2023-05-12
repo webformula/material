@@ -1,17 +1,14 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import shadowRootStyles from './anchor.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
-import styles from './anchor-global.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
-
+import { anchorShadowRoot } from '../../styles.js';
 
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = shadowRootStyles;
+  static styleSheets = anchorShadowRoot;
 
   #ripple;
   #active = false;

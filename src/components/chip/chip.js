@@ -1,18 +1,18 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './chip.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import {
   check_FILL1_wght400_GRAD0_opsz20,
   close_FILL1_wght400_GRAD0_opsz20
 } from '../../core/svgs.js';
+import { chipShadowRoot } from '../../styles.js';
 
 // TODO labels (initial label, action label, remove label, ...)
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
+  static styleSheets = chipShadowRoot;
 
   #type;
   #value = '';

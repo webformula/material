@@ -1,8 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './select.css' assert { type: 'css' };
-import sheetTextField from '../textfield/component.css' assert { type: 'css' };
-import sheetPanel from '../panel/component.css' assert { type: 'css' };
 import util from '../../core/util.js';
+import { selectShadowRoot, textfieldShadowRoot, panelShadowRoot } from '../../styles.js';
 
 // TODO document required and supporting-text
 //   <mdw-select name="select" label="Label" required supporting-text>
@@ -11,7 +9,7 @@ import util from '../../core/util.js';
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = [sheet, sheetTextField, sheetPanel];
+  static styleSheets = [selectShadowRoot, textfieldShadowRoot, panelShadowRoot];
 
   #value = '';
   #displayValue = '';

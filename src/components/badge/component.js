@@ -1,6 +1,4 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './component.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 export default class MDWBadgeElement extends HTMLElementExtended {
   #value = '';

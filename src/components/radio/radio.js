@@ -1,11 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './radio.css' assert { type: 'css' };
 import util from '../../core/util.js';
+import { radioShadowRoot } from '../../styles.js';
 
 
 customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
+  static styleSheets = radioShadowRoot;
 
   #value = 'on';
   #checked = false;

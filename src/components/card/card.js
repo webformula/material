@@ -5,8 +5,6 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 import util from '../../core/util.js';
-import styles from './card.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 // TODO drag close fullscreen and expand

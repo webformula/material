@@ -1,7 +1,5 @@
 import MDWPanelElement from '../panel/component.js';
 import util from '../../core/util.js';
-import styles from './component.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 // TODO bottom sheet on mobile
 // TODO sub menus

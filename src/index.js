@@ -1,6 +1,7 @@
-import './main-css.js';
+import './styles.js';
 import { generate } from './core/theme.js';
 generate();
+
 
 import mdwDate from './core/dateUtil.js';
 import mdwDevice from './core/device.js';

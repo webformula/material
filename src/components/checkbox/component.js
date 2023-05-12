@@ -1,14 +1,12 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import shadowRootStyles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
-import styles from './global.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
+import { checkboxShadowRoot } from '../../styles.js';
 
 
 export default class MDWCheckboxElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = shadowRootStyles;
+  static styleSheets = checkboxShadowRoot;
 
   #checked = false;
   #indeterminate = false;

@@ -6,8 +6,6 @@ import {
   close_FILL1_wght400_GRAD0_opsz24,
   edit_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import styles from './mobile-range.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMobileElement extends MDWPanelElement {

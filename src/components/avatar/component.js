@@ -1,10 +1,10 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './component.css' assert { type: 'css' };
+import { avatarShadowRoot  } from '../../styles.js';
 
 customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementExtended {
   useShadowRoot = true;
   #checked = false;
-  static styleSheets = styles;
+  static styleSheets = avatarShadowRoot;
 
   constructor() {
     super();
