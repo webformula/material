@@ -31,14 +31,15 @@ if (process.env.NODE_ENV === 'production') {
 
 export default {
   entry: {
-    docs: { import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'  },
-    bundle: { import: './docs/app.js', filename: 'bundle.js' },
+    docs: {
+      import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'
+    },
+    bundle: {
+      import: './docs/app.js', filename: 'bundle.js'
+    },
     components: {
       import: './src/index.js',
-      filename: 'components.js',
-      library: {
-        type: "module"
-      }
+      filename: 'components.js'
     }
   },
   output: {
@@ -85,9 +86,6 @@ export default {
   },
   optimization: {
     usedExports: true
-  },
-  experiments: {
-    outputModule: true
   },
   performance: {
     hints: false

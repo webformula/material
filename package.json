@@ -3,17 +3,14 @@
   "version": "0.7.0",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "src/index.js",
-  "exports": {
-    ".": "./src/client.js",
-    "./bundle": "./dist/components.js",
-    "./theme": "./dist/theme.css"
-  },
   "type": "module",
   "scripts": {
     "start": "webpack serve --open --mode development",
     "start-production": "NODE_ENV=production webpack serve --open --mode production",
     "start-no-open": "webpack serve --mode development",
-    "build": "NODE_ENV=production webpack --mode production"
+    "build:components": "NODE_ENV=production webpack --mode production --config ./webpack.bundle.config.js",
+    "build:docs": "NODE_ENV=production webpack --mode production",
+    "build": "npm run build:components & npm run build:docs"
   },
   "repository": {
     "type": "git",
@@ -27,7 +24,7 @@
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
     "@webformula/core": "^0.7.1",
-    "@webformula/material": "file:./src",
+    "@webformula/material": "file:./",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
