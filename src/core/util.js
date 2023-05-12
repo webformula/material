@@ -288,10 +288,7 @@ const mdwUtil = new class MDWUtil {
 
   registerStyleSheet(styleSheet) {
     styleSheet = [].concat(styleSheet).filter(v => !this.#styleSheets.includes(v));
-    if (styleSheet.length === 0) {
-      console.log('jsdlkfjsldkfj')
-      return;
-    }
+    if (styleSheet.length === 0) return;
     this.#styleSheets = this.#styleSheets.concat(styleSheet);
     if (this.#styleSheetsLastCallExecuted !== true) return this.#styleSheetsLastCall();
 
@@ -305,7 +302,7 @@ const mdwUtil = new class MDWUtil {
     this.#styleSheetLastCallTimer = this.nextTick(() => {
       this.#styleSheetLastCallTimer = undefined;
       this.#styleSheetsLastCallExecuted = true;
-      document.adoptedStyleSheets = this.#styleSheets;
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...this.#styleSheets];
       document.querySelector('html').classList.add('mdw-initiated');
     });
   }

@@ -33,7 +33,13 @@ export default {
   entry: {
     docs: { import: './docs/app.js', filename: process.env.WEBPACK_SERVE ? '[name].js' : '[name].[contenthash].js'  },
     bundle: { import: './docs/app.js', filename: 'bundle.js' },
-    components: { import: './src/index.js', filename: 'components.js' }
+    components: {
+      import: './src/index.js',
+      filename: 'components.js',
+      library: {
+        type: "module"
+      }
+    }
   },
   output: {
     clean: true
@@ -78,7 +84,10 @@ export default {
     ]
   },
   optimization: {
-    usedExports: false
+    usedExports: true
+  },
+  experiments: {
+    outputModule: true
   },
   performance: {
     hints: false

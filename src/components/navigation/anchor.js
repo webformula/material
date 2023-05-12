@@ -60,13 +60,13 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this
     });
-    if (!window.webformulaCoreLinkIntercepts) this.addEventListener('click', this.#onClick_bound);
+    this.addEventListener('click', this.#onClick_bound);
     this.addEventListener('mousedown', this.#mousedown_bound);
   }
 
   disconnectedCallback() {
     if (this.#ripple) this.#ripple.destroy();
-    if (!window.webformulaCoreLinkIntercepts) this.removeEventListener('click', this.#onClick_bound);
+    this.removeEventListener('click', this.#onClick_bound);
     this.removeEventListener('focusin', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
@@ -103,7 +103,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #onClick() {
     if (['_blank', '_self', '_parent', '_top'].includes(this.#target)) {
       window.open(this.href, this.#target).focus();
-    } else {
+    } else if (!window.webformulaCoreLinkIntercepts) {
       location.href = this.href;
     }
   }

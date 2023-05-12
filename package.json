@@ -3,6 +3,11 @@
   "version": "0.7.0",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/client.js",
+    "./bundle": "./dist/components.js",
+    "./theme": "./dist/theme.css"
+  },
   "type": "module",
   "scripts": {
     "start": "webpack serve --open --mode development",

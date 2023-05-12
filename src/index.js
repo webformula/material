@@ -44,11 +44,6 @@ import './components/textfield/component.js';
 import './components/top-app-bar/component.js';
 import './components/tooltip/index.js';
 
-
-// customElements.whenDefined('mdw-tooltip').then(() => {
-//   document.querySelector('html').classList.add('mdw-initiated');
-// });
-
 export {
   mdwDate,
   mdwDevice,
