@@ -1,15 +1,17 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './anchor.css' assert { type: 'css' };
+import shadowRootStyles from './anchor.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
-import './anchor-global.css';
 import util from '../../core/util.js';
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
+import styles from './anchor-global.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = shadowRootStyles;
 
   #ripple;
   #active = false;
@@ -77,7 +79,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       <slot class="main"></slot>
       <slot class="rail" name="rail"></slot>
       <div class="ripple"></div>
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

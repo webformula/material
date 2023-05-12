@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './slider.css' assert { type: 'css' };
+import styles from './slider.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
@@ -8,6 +8,7 @@ import util from '../../core/util.js';
 customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #disabled = false;
   #min = 0;
@@ -55,8 +56,6 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
           </div>
         </div>
       </div>
-
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

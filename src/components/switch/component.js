@@ -1,10 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './component.css' assert { type: 'css' };
+import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #disabled = false;
   #checked = false;
@@ -31,8 +32,6 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
           </svg>
         </div>
       </div>
-
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

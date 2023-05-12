@@ -1,6 +1,4 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './search.css' assert { type: 'css' };
-import './search-global.css';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
 import {
@@ -10,6 +8,9 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24,
   mic_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
+import shadowRootStyles from './search.css' assert { type: 'css' };
+import styles from './search-global.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 // TODO search header (fixed at top of page, hides on scroll)
 
@@ -18,6 +19,7 @@ const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeec
 customElements.define('mdw-search', class MDWSearchElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = shadowRootStyles;
 
   #value = '';
   #placeholder = 'Search';
@@ -134,7 +136,6 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
       </div>
       <slot name="filters"></slot>
       <slot name="suggestions"></slot> <!-- filled in programmatically, used for global css access -->
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

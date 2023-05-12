@@ -1,5 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './component.css';
+import styles from './component.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 customElements.define('mdw-tooltip', class MDWTooltipElement extends HTMLElementExtended {
   constructor() {

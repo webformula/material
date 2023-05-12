@@ -1,12 +1,13 @@
 import MDWPanelElement from '../panel/component.js';
 import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
-import './mobile-range.css';
 import { monthDaysRangeTemplate } from './helper.js';
 import {
   close_FILL1_wght400_GRAD0_opsz24,
   edit_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
+import styles from './mobile-range.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMobileElement extends MDWPanelElement {

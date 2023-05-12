@@ -1,12 +1,13 @@
 import MDWPanelElement from '../panel/component.js';
 import dateUtil from '../../core/dateUtil.js';
-import './desktop-range.css';
 import {
   chevron_left_FILL1_wght400_GRAD0_opsz24,
   chevron_right_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 import { checkMinMax, monthDaysRangeTemplate } from './helper.js';
 import util from '../../core/util.js';
+import styles from './desktop-range.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeDesktopElement extends MDWPanelElement {

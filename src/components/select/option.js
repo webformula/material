@@ -1,11 +1,12 @@
 import HTMLElementExtended from "../HTMLElementExtended.js";
-import sheet from './option.css' assert { type: 'css' };
+import styles from './option.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 
 
 customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #value = this.getAttribute('value') || util.getTextFromNode(this);
   #ripple;
@@ -21,7 +22,6 @@ customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElem
         <slot></slot>
       </span>
       <div class="ripple"></div>
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

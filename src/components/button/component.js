@@ -2,10 +2,11 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import dialog from '../dialog/service.js';
-import sheet from './component.css' assert { type: 'css' };
+import styles from './component.css' assert { type: 'css' };
 
 export default class MDWButtonElement extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #form = null;
   #name = '';
@@ -95,7 +96,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
       </span>
       <span class="spinner"></span>
       <div class="ripple"></div>
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

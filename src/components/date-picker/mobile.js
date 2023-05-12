@@ -2,7 +2,6 @@ import MDWPanelElement from '../panel/component.js';
 import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
-import './mobile.css';
 import { checkMinMax, monthDaysTemplate } from './helper.js';
 import {
   chevron_left_FILL1_wght400_GRAD0_opsz24,
@@ -10,6 +9,8 @@ import {
   arrow_drop_down_FILL1_wght400_GRAD0_opsz24,
   edit_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
+import styles from './mobile.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 // TODO accessability
 

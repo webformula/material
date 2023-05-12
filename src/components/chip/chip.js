@@ -1,5 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './chip.css' assert { type: 'css' };
+import styles from './chip.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import {
@@ -7,12 +7,12 @@ import {
   close_FILL1_wght400_GRAD0_opsz20
 } from '../../core/svgs.js';
 
-
 // TODO labels (initial label, action label, remove label, ...)
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #type;
   #value = '';
@@ -130,7 +130,6 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       ` : ''}
       <span class="spinner"></span>
       <div class="ripple"></div>
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

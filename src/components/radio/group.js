@@ -1,5 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './group.css';
+import styles from './group.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 customElements.define('mdw-radio-group', class MDWRadioGroup extends HTMLElementExtended {
   #click_bound = this.#click.bind(this);

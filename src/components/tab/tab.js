@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './tab.css';
 import util from '../../core/util.js';
+import styles from './tab.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended {
   #active = false;

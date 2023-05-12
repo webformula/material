@@ -1,5 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './component.css';
+import styles from './component.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 // Wait for font to load

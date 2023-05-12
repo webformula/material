@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './component.css';
 import util from '../../core/util.js';
+import styles from './component.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 export default class MDWPanelElement extends HTMLElementExtended {

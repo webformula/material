@@ -1,5 +1,6 @@
 import MDWPanelElement from '../panel/component.js';
-import './suggestions.css';
+import styles from './suggestions.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-suggestions', class MDWSuggestionsElement extends MDWPanelElement {

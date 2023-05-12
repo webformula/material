@@ -1,5 +1,4 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './list.css';
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 

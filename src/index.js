@@ -1,4 +1,4 @@
-import './index.css';
+import './main-css.js';
 import { generate } from './core/theme.js';
 generate();
 
@@ -45,9 +45,9 @@ import './components/top-app-bar/component.js';
 import './components/tooltip/index.js';
 
 
-customElements.whenDefined('mdw-tooltip').then(() => {
-  document.querySelector('html').classList.add('mdw-initiated');
-});
+// customElements.whenDefined('mdw-tooltip').then(() => {
+//   document.querySelector('html').classList.add('mdw-initiated');
+// });
 
 export {
   mdwDate,

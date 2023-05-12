@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './segmented-button-group.css';
 import util from '../../core/util.js';
+import styles from './segmented-button-group.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-segmented-button-group', class MDWSegmentedButtonGroupElement extends HTMLElementExtended {

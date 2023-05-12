@@ -1,10 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
-import sheet from './component.css' assert { type: 'css' };
+import styles from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #ripple;
   #autoHideLabel = this.classList.contains('mdw-auto-hide-label');
@@ -41,7 +42,6 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
     return /* html */`
       <slot></slot>
       <div class="ripple"></div>
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 
