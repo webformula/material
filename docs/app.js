@@ -3,6 +3,8 @@ import './font.css';
 import './dracula.css';
 import './app.css';
 
+
+import '@webformula/material';
 import { registerPage, enableLinkIntercepts } from '@webformula/core';
 enableLinkIntercepts();
 
@@ -30,7 +32,7 @@ import fabs from './pages/fabs/page.js';
 import forms from './pages/forms/page.js';
 import icons from './pages/icons/page.js';
 import iconButtons from './pages/icon buttons/page.js';
-import installation from './pages/installation/page.js';
+import gettingStarted from './pages/getting started/page.js';
 import lists from './pages/lists/page.js';
 import menus from './pages/menus/page.js';
 import navigations from './pages/navigations/page.js';
@@ -69,7 +71,7 @@ registerPage(fabs, '/fabs');
 registerPage(forms, '/forms');
 registerPage(icons, '/icons');
 registerPage(iconButtons, '/icon-buttons');
-registerPage(installation, '/installation');
+registerPage(gettingStarted, '/getting-started');
 registerPage(lists, '/lists');
 registerPage(menus, '/menus');
 registerPage(navigations, '/navigations');

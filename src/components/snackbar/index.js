@@ -1,2 +1,2 @@
 import './component.js';
-import './service.js';
+export { default as mdwSnackbar } from './service.js';

@@ -1,3 +1,4 @@
+import '../styles.js';
 import util from '../core/util.js';
 
 const templateElements = {};

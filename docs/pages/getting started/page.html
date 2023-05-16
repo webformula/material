@@ -16,9 +16,43 @@
       <code class="language-javascript">
   ${`// customize theme.css to change color scheme
   // should import / load theme.css before scripts
-  @webformula/material/src/theme.css
+  @webformula/material/theme.css
   
-  import '@webformula/material';`}
+  // --- import entire component library ---
+  import '@webformula/material';
+
+  // services from main import
+  import {
+    mdwDate,
+    mdwDevice,
+    mdwDialog,
+    MDWPanel,
+    mdwUtil,
+    mdwSnackbar
+  } from '@webformula/material';
+
+  
+  
+  /* --- Individual components ---
+   *
+   *  This can help minimize javascript size
+   */
+
+  import '@webformula/material/components/button';
+  import '@webformula/material/components/select';
+  
+  // services
+  import {
+    mdwDate,
+    mdwDevice,
+    mdwDialog,
+    MDWPanel,
+    mdwUtil,
+    mdwSnackbar
+  } from '@webformula/material/services';
+  
+  // or individually
+  import mdwUtil from '@webformula/material/services/util';`}
       </code>
     </pre>
   

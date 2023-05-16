@@ -1,4 +1,4 @@
-import MDWButtonElement from '../button/component.js';
+import MDWButtonElement from '../button/index.js';
 import styles from './segmented-button.css' assert { type: 'css' };
 
 
