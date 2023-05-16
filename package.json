@@ -4,6 +4,10 @@
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "src/index.js",
   "type": "module",
+  "exports": {
+    ".": "src/index.js",
+    "./styles": "src/styles.js"
+  },
   "scripts": {
     "start": "webpack serve --open --mode development",
     "start-production": "NODE_ENV=production webpack serve --open --mode production",

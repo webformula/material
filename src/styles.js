@@ -124,3 +124,4 @@ export {
 };
 
 document.querySelector('html').classList.add('mdw-initiated');
+console.log('sdfkljsdlkfjsdklj');
