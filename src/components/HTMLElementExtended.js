@@ -20,15 +20,13 @@ export default class HTMLElementExtended extends HTMLElement {
   #templateString;
   #templateElement;
   // browser may or may not include the word "function" so we need to run an includes check
-  #hasTemplate = !this.template.toString().includes('template(){return""}');
+  #hasTemplate = !this.template.toString().replace(/\n|\s|\;/g, '').includes('template(){return""}');
   #root = this;
   #classId = hashCodeForId(this.constructor.toString());
 
 
   constructor() {
     super();
-
-    // this.#handleStyleSheets();
 
     if (this.#hasTemplate) {
       /** Render as soon as possible while making sure all class variables exist
@@ -99,11 +97,6 @@ export default class HTMLElementExtended extends HTMLElement {
       return '&#' + c.charCodeAt(0) + ';';
     });
   };
-
-  // stringifyStyleSheet(sheet) {
-  //   if (!sheet) return '';
-  //   return [...sheet.cssRules].map(rule => rule.cssText).join('\n');
-  // }
 }
 
 
