@@ -8,7 +8,7 @@ Simple no thrills micro framework. Super performant and light-weight!
 - ⚡ 0 dependencies
 - ⚡ Optimized for all screens and devices
 - ⚡ Simple to use
-- ⚡ Theme and color control
+- ⚡ Style and color control
 
 ### About
 Material design V3 web components that are full featured, performant and simple to use. These components are robust and work with all modern browsers. Built with mobile in mind, adapting to small screens and touch inputs. Our goal is reduce the complexity and increase usability.

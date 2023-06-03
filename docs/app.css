@@ -11,6 +11,33 @@ html {
   overflow-y: auto;
 }
 
+.page-title {
+  margin-bottom: 0;
+}
+
+.page-subheader {
+  margin-top: 8px;
+}
+
+.page-secondary-header {
+  margin-bottom: 18px;
+}
+
+.page-list {
+  list-style-type: none;
+  margin-left: -24px;
+  margin-top: -4px;
+  font-size: 18px;
+  line-height: 32px;
+  color: rgb(10, 100, 112);
+}
+
+.page-list strong {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
 section {
   display: inline-flex;
   flex-direction: column;
@@ -40,7 +67,20 @@ mdw-card .example {
 .links {
   display: flex;
   flex-direction: column;
-  align-items: self-start;
+  list-style-type: none;
+  margin-top: -12px;
+  padding-left: 16px;
+}
+
+.links a {
+  width: 0;
+  white-space: nowrap;
+}
+
+.github-link {
+  display: flex;
+  line-height: 40px;
+  align-items: center;
 }
 
 mdw-card.header-card {
