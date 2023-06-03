@@ -1,6 +1,6 @@
 /dist/*
-!/dist/components.js
-!/dist/components.js.gz
+!/dist/material.js
+!/dist/material.js.gz
 !/dist/theme.css
 !/dist/theme.css.gz
 

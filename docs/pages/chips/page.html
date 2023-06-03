@@ -84,7 +84,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-chip-group>
+  ${page.escape(`<mdw-chip-group>
     <mdw-chip onclick="console.log('do something')">
       One
       <div class="mdw-ripple"></div>
@@ -134,7 +134,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-chip-group class="mdw-filter">
+  ${page.escape(`<mdw-chip-group class="mdw-filter">
     <mdw-chip value="one" checked>
       <mdw-icon class="mdw-check">check</mdw-icon>
       One
@@ -198,7 +198,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-chip-group>
+  ${page.escape(`<mdw-chip-group>
     <mdw-chip-menu>
       <ul>
         <li mdw-action="edit">
@@ -256,7 +256,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-chip-group class="mdw-input">
+  ${page.escape(`<mdw-chip-group class="mdw-input">
     <mdw-chip value="one@email.com">
       one@email.com
       <mdw-icon class="mdw-clear">clear</mdw-icon>
@@ -306,7 +306,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
   
     <pre>
         <code class="language-html">
-    ${escapeHTML(`<mdw-chip-group class="mdw-wrap">
+    ${page.escape(`<mdw-chip-group class="mdw-wrap">
       <mdw-chip>One</mdw-chip>
       <mdw-chip>Two</mdw-chip>
       <mdw-chip>Three</mdw-chip>

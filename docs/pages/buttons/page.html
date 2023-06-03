@@ -44,7 +44,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-button>Text</mdw-button>`)}
+  ${page.escape(`<mdw-button>Text</mdw-button>`)}
       </code>
     </pre>
   </mdw-card>
@@ -61,7 +61,7 @@
 
     <pre>
       <code class="language-html">
-${escapeHTML(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
+${page.escape(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
       </code>
     </pre>
   </mdw-card>
@@ -77,7 +77,7 @@ ${escapeHTML(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
 
     <pre>
       <code class="language-html">
-${escapeHTML(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
+${page.escape(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
       </code>
     </pre>
   </mdw-card>
@@ -93,7 +93,7 @@ ${escapeHTML(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>`)}
+  ${page.escape(`<mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>`)}
       </code>
     </pre>
   </mdw-card>
@@ -110,7 +110,7 @@ ${escapeHTML(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-button class="mdw-outlined">Outlined</mdw-button>`)}
+  ${page.escape(`<mdw-button class="mdw-outlined">Outlined</mdw-button>`)}
       </code>
     </pre>
   </mdw-card>
@@ -129,7 +129,7 @@ ${escapeHTML(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-button>
+  ${page.escape(`<mdw-button>
     <mdw-icon>add</mdw-icon>
     Icon
   </mdw-button>`)}
@@ -149,7 +149,7 @@ ${escapeHTML(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
+  ${page.escape(`<mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
   <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>`)}
       </code>
     </pre>

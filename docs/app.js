@@ -1,21 +1,7 @@
-import '../src/theme.css';
-import './font.css';
-import './dracula.css';
-import './app.css';
-
-
-import '@webformula/material';
-import { registerPage, enableLinkIntercepts } from '@webformula/core';
+import { registerPage, enableLinkIntercepts } from '@webformula/core/client';
 enableLinkIntercepts();
 
-window.escapeHTML = str => {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-};
+import '@webformula/material';
 
 import home from './pages/home/page.js';
 import styles from './pages/styles/page.js';

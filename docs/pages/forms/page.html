@@ -50,7 +50,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="one" method="dialog" style="display: inline-grid;" onsubmit="submit(this)">
     <mdw-textfield>
       <input name="name" required>
@@ -121,7 +121,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
     <mdw-textfield>
       <input name="name" required>

@@ -49,12 +49,9 @@
     "./components/top-app-bar": "./src/components/top-app-bar/index.js"
   },
   "scripts": {
-    "start": "webpack serve --open --mode development",
-    "start-production": "NODE_ENV=production webpack serve --open --mode production",
-    "start-no-open": "webpack serve --mode development",
-    "build:components": "NODE_ENV=production webpack --mode production --config ./webpack.bundle.config.js",
-    "build:docs": "NODE_ENV=production webpack --mode production",
-    "build": "npm run build:components & npm run build:docs"
+    "start": "node docs/build.js",
+    "build:docs": "NODE_ENV=production node docs/build.js",
+    "build": "NODE_ENV=production node docs/build.js"
   },
   "repository": {
     "type": "git",
@@ -67,16 +64,8 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.7.1",
+    "@webformula/core": "file:../core/",
     "@webformula/material": "file:./",
-    "compression-webpack-plugin": "^10.0.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.3",
-    "html-loader": "^4.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "esbuild": "^0.17.19"
   }
 }

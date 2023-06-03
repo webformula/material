@@ -71,7 +71,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<div style="display: flex">
+  ${page.escape(`<div style="display: flex">
     <div>
       content...
     </div>
@@ -95,7 +95,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<!-- Controls-->
+  ${page.escape(`<!-- Controls-->
   <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
   <mdw-switch style="margin-left: 16px; width: 120px;"
     onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
@@ -167,7 +167,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<div style="display: flex">
+  ${page.escape(`<div style="display: flex">
     <div>
       content...
     </div>
@@ -190,7 +190,7 @@
     </pre>
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<!-- Controls-->
+  ${page.escape(`<!-- Controls-->
   <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
   <mdw-switch style="margin-left: 36px; width: 210px;"
     onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>`)}
@@ -273,7 +273,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-side-sheet id="three" class="mdw-global mdw-scrim">
+  ${page.escape(`<mdw-side-sheet id="three" class="mdw-global mdw-scrim">
     <div class="mdw-header">
       <div class="mdw-title">Title</div>
     </div>
