@@ -40,7 +40,14 @@ build({
     { from: 'src/theme.css', to: 'dist/theme.css'},
     { from: 'docs/favicon.ico', to: 'dist/' },
     { from: 'docs/woman.jpg', to: 'dist/' },
-    { from: 'docs/pages/**/(?!page)*.html', to: 'dist/pages/' }
+    {
+      from: 'docs/pages/**/(?!page)*.html',
+      to: 'dist/pages/',
+      transform({ content, outputFileNames }) {
+        if (outputFileNames) return content.replace('app.css', outputFileNames.find(name => name.includes('.css')).split('/').pop());
+        return content;
+      }
+    }
   ],
   onStart() {
     // build separate file for iframe pages without app code.
