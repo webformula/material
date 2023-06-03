@@ -107,7 +107,7 @@ You may want to copy and serve `theme.css` in your app. This is where you config
 ```
 
 
-## **Font loading** You can use google fonts to load custom fonts
+### **Font loading** You can use google fonts to load custom fonts
 `theme.css` should be the first file imported or loaded
 `theme.css` can be customized to update light and dark color schemes. If you use the one in the repo it will be the default schemes.
 ```html
@@ -118,7 +118,7 @@ You may want to copy and serve `theme.css` in your app. This is where you config
   rel="stylesheet">
 ```
 
-## **Icon loading** Uses material icon font
+### **Icon loading** Uses material icon font
 For icons this uses Googles Material icon font. All component required icons are packed in with library. Only needed if using the mdw-icon component
 ```html
 <!--
