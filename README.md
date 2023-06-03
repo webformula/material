@@ -88,7 +88,7 @@ import util from  '@webformula/material/services/util';
 ```
 ```html
 <!-- import in index.html - NOT recommended -->
-<script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/material.js"></script>
 ```
 
 
