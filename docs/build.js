@@ -31,6 +31,8 @@ const context = await esbuild.context({
   entryPoints: ['src/index.js'],
   bundle: true,
   outfile: 'dist/material.js',
+  format: 'esm',
+  target: 'esnext',
   loader: { '.html': 'text' },
   plugins: [plugin],
   minify: true
