@@ -1,7 +1,7 @@
 import util from '../../core/util.js';
 
 
-const MDWDialog = new class MDWDialog {
+const mdwDialog = new class mdwDialog {
   #currentDialog;
   #currentDialogPromiseResolve;
   #onClose_bound = this.#onClose.bind(this);
@@ -26,8 +26,8 @@ const MDWDialog = new class MDWDialog {
       ${!params.headline ? '' : `<div class="mdw-header">${params.headline}</div>`}
       <div class="mdw-content">${params.message || ''}</div>
       ${actionConfirm || actionCancel ? `<div class="mdw-actions">
-        ${actionConfirm === true ? `<mdw-button onclick="MDWDialog.close('confirm')">${params.actionConfirmLabel || 'OK'}</mdw-button>` : ''}
-        ${actionCancel === true ? `<mdw-button onclick="MDWDialog.close('cancel')">${params.actionCancelLabel || 'Cancel'}</mdw-button>` : ''}
+        ${actionConfirm === true ? `<mdw-button onclick="mdwDialog.close('confirm')">${params.actionConfirmLabel || 'OK'}</mdw-button>` : ''}
+        ${actionCancel === true ? `<mdw-button onclick="mdwDialog.close('cancel')">${params.actionCancelLabel || 'Cancel'}</mdw-button>` : ''}
       </div>` : ''}
     `);
 
@@ -85,5 +85,5 @@ const MDWDialog = new class MDWDialog {
   }
 };
 
-window.MDWDialog = MDWDialog;
-export default MDWDialog;
+window.mdwDialog = mdwDialog;
+export default mdwDialog;

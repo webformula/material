@@ -1,10 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import sheet from './radio.css' assert { type: 'css' };
+import styles from './radio.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 
 customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #value = 'on';
   #checked = false;
@@ -27,8 +28,6 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
       </div>
 
       <slot></slot>
-
-      <style>${this.stringifyStyleSheet(sheet)}</style>
     `;
   }
 

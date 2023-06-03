@@ -42,7 +42,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-textfield>
+  ${page.escape(`<mdw-textfield>
     <input type="date">
     <label>Date</label>
     <mdw-date-picker></mdw-date-picker>
@@ -67,7 +67,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-textfield>
+  ${page.escape(`<mdw-textfield>
     <input type="date" min="${page.min}" max="${page.max}">
     <label>Date min max</label>
     <mdw-date-picker></mdw-date-picker>
@@ -98,7 +98,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<div style="display: flex;">
+  ${page.escape(`<div style="display: flex;">
     <mdw-textfield id="start">
       <input type="date">
       <label>Start</label>
@@ -128,7 +128,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-textfield>
+  ${page.escape(`<mdw-textfield>
     <input type="date">
     <label>Date</label>
   </mdw-textfield>`)}

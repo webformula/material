@@ -6,6 +6,7 @@ const keyColors = [
   '--mdw-neutral-baseline',
   '--mdw-neutral-variant-baseline'
 ];
+const colorRegex = /^\s?#/;
 
 
 export function generate() {
@@ -30,23 +31,18 @@ export function generate() {
 
   generateKeyTones(computedStyles, isDark);
 
-  const variables = [...document.styleSheets]
+  const colorVariables = [...document.styleSheets, ...document.adoptedStyleSheets]
     .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
     .flatMap(sheet => (
       [...sheet.cssRules]
         .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
-        .flatMap(rule => [...rule.style])
-    ))
-    .filter(style => style.startsWith('--'))
-    .map(name => ({
-      name,
-      value: computedStyles.getPropertyValue(name)
-    }));
+        .flatMap(rule => [...rule.styleMap]
+          .map(v => ({ name: v[0], value: computedStyles.getPropertyValue(v[0]) }))
+          .filter(v => v.name.startsWith('--') && !keyColors.includes(v.name) && v.value.match(colorRegex)))
+    ));
 
   // create alpha versions of colors
-  const colorRegex = /^\s?#/;
-  const colors = variables.filter(({ value, name }) => value.trim().match(colorRegex) !== null && !keyColors.includes(name));
-  colors.forEach(({ name, value }) => {
+  colorVariables.forEach(({ name, value }) => {
     document.documentElement.style.setProperty(`${name}-alpha-0`, `${value}00`);
     document.documentElement.style.setProperty(`${name}-alpha-4`, `${value}0a`);
     document.documentElement.style.setProperty(`${name}-alpha-5`, `${value}0d`);
@@ -65,20 +61,17 @@ export function generate() {
 }
 
 function generateKeyTones(computedStyles, isDark) {
-  const variables = [...document.styleSheets]
+  const colorVariables = [...document.styleSheets, ...document.adoptedStyleSheets]
     .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
     .flatMap(sheet => (
       [...sheet.cssRules]
         .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
-        .flatMap(rule => [...rule.style])
-    ))
-    .filter(style => keyColors.includes(style.split(':')[0]) || style.startsWith('--mdw-custom-color-'))
-    .map(name => ({
-      name,
-      value: computedStyles.getPropertyValue(name)
-    }));
+        .flatMap(rule => [...rule.styleMap]
+          .map(v => ({ name: v[0], value: computedStyles.getPropertyValue(v[0]) }))
+          .filter(v => (keyColors.includes(v.name) || v.name.startsWith('--mdw-custom-color-')) && v.value.match(colorRegex)))
+    ));
   
-  variables.forEach(({ name, value }) => {
+  colorVariables.forEach(({ name, value }) => {
     const tones = generateColorTones(value);
     name = name.replace('-baseline', '');
     document.documentElement.style.setProperty(`${name}-0`, tones[0]);

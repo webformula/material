@@ -1,8 +1,9 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './component.css';
 import util from '../../core/util.js';
 import { error_FILL1_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 import Formatter from './Formatter.js';
+import styles from './component.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 const handleReportValidityScrollIntoView = util.debounce(input => {
   // check if already on screen

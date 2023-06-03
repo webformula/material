@@ -1,5 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './navigation-group.css';
+import styles from './navigation-group.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 customElements.define('mdw-navigation-group', class MDWNavigationGroupElement extends HTMLElementExtended {
   #control = this.querySelector('mdw-anchor[group]');

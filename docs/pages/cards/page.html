@@ -90,7 +90,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card>
+  ${page.escape(`<mdw-card>
     <div class="mdw-card-image mdw-rounded mdw-size-medium">
       <img alt="landscape"
         src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -139,7 +139,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card>
+  ${page.escape(`<mdw-card>
     <div class="mdw-card-content">
       <div class="mdw-headline">Regular</div>
       <div class="mdw-subhead">card</div>
@@ -193,7 +193,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card>
+  ${page.escape(`<mdw-card>
     <div class="mdw-card-image mdw-rounded mdw-size-medium">
       <img alt="landscape"
         src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -300,7 +300,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card class="mdw-fullscreen">
+  ${page.escape(`<mdw-card class="mdw-fullscreen">
     <div class="mdw-card-image mdw-rounded mdw-size-medium">
       <img alt="landscape"
         src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -416,7 +416,7 @@
 
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card-group>
+  ${page.escape(`<mdw-card-group>
     ${page.cardArray.map((_, i) => `
     <mdw-card></mdw-card>
     `).join('\n')}
@@ -465,7 +465,7 @@
   
     <pre>
       <code class="language-html">
-  ${escapeHTML(`<mdw-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+  ${page.escape(`<mdw-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
     <mdw-card-swipe-action action="favorite" class="mdw-toggle">
       <mdw-icon>favorite</mdw-icon>
     </mdw-card-swipe-action>

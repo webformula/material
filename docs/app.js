@@ -1,19 +1,7 @@
-import '../src/theme.css';
-import './font.css';
-import './dracula.css';
-import './app.css';
-
-import { registerPage, enableLinkIntercepts } from '@webformula/core';
+import { registerPage, enableLinkIntercepts } from '@webformula/core/client';
 enableLinkIntercepts();
 
-window.escapeHTML = str => {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-};
+import '@webformula/material';
 
 import home from './pages/home/page.js';
 import styles from './pages/styles/page.js';
@@ -30,7 +18,7 @@ import fabs from './pages/fabs/page.js';
 import forms from './pages/forms/page.js';
 import icons from './pages/icons/page.js';
 import iconButtons from './pages/icon buttons/page.js';
-import installation from './pages/installation/page.js';
+import gettingStarted from './pages/getting started/page.js';
 import lists from './pages/lists/page.js';
 import menus from './pages/menus/page.js';
 import navigations from './pages/navigations/page.js';
@@ -69,7 +57,7 @@ registerPage(fabs, '/fabs');
 registerPage(forms, '/forms');
 registerPage(icons, '/icons');
 registerPage(iconButtons, '/icon-buttons');
-registerPage(installation, '/installation');
+registerPage(gettingStarted, '/getting-started');
 registerPage(lists, '/lists');
 registerPage(menus, '/menus');
 registerPage(navigations, '/navigations');
@@ -105,6 +93,8 @@ window.addEventListener('load', () => {
 window.addEventListener('locationchange', () => {
   setTimeout(() => {
     hljs.highlightAll();
+    if (!location.hash) return;
+    handleHashAnchor(location.hash, false);
   });
 });
 

@@ -1,7 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './navigation.css';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
+import styles from './navigation.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLElementExtended {

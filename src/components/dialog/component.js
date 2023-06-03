@@ -1,5 +1,6 @@
 import MDWPanelElement from '../panel/component.js';
-import './component.css';
+import styles from './component.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 export default class MDWDialogElement extends MDWPanelElement {
   #returnValue;

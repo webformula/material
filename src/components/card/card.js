@@ -1,11 +1,12 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import './card.css';
 import Drag from '../../core/Drag.js';
 import {
   expand_more_FILL0_wght400_GRAD0_opsz24,
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 import util from '../../core/util.js';
+import styles from './card.css' assert { type: 'css' };
+HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 // TODO drag close fullscreen and expand

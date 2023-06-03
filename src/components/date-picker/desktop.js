@@ -1,5 +1,4 @@
 import MDWPanelElement from '../panel/component.js';
-import './desktop.css';
 import dateUtil from '../../core/dateUtil.js';
 import util from '../../core/util.js';
 import { checkMinMax, monthDaysTemplate } from './helper.js';
@@ -9,6 +8,8 @@ import {
   chevron_left_FILL1_wght400_GRAD0_opsz24,
   chevron_right_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
+import styles from './desktop.css' assert { type: 'css' };
+MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 // TODO tooltips

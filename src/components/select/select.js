@@ -11,6 +11,7 @@ import util from '../../core/util.js';
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = [sheet, sheetTextField, sheetPanel];
 
   #value = '';
   #displayValue = '';
@@ -105,12 +106,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
           <slot></slot>
         </mdw-panel>
       </mdw-textfield>
-
-      <style>
-        ${this.stringifyStyleSheet(sheet) }
-        ${this.stringifyStyleSheet(sheetTextField) }
-        ${this.stringifyStyleSheet(sheetPanel) }
-      </style>
     `;
   }
 

@@ -26,13 +26,15 @@ const mdwUtil = new class MDWUtil {
   #scrollDistanceFromDirectionChange;
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
+  #styleSheets = [];
+  #styleSheetsLastCallExecuted = false;
+  #styleSheetLastCallTimer;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
 
   constructor() {
     this.#textLengthDiv.classList.add('mdw-text-length');
     document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
   }
-
   
   uid() {
     this.#uidCounter += 1;
@@ -114,6 +116,11 @@ const mdwUtil = new class MDWUtil {
       nextTickObserving = true;
       nextTickNode.data = this.#nextTickNodeData++;
     }
+    return callback;
+  }
+
+  clearNextTick(nextTickInstance) {
+    nextTickQueue.splice(nextTickQueue.indexOf(nextTickInstance), 1);
   }
 
   async wait(ms = 100) {
@@ -277,6 +284,27 @@ const mdwUtil = new class MDWUtil {
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
     generate();
     return isDark ? 'dark' : 'light';
+  }
+
+  registerStyleSheet(styleSheet) {
+    styleSheet = [].concat(styleSheet).filter(v => !this.#styleSheets.includes(v));
+    if (styleSheet.length === 0) return;
+    this.#styleSheets = this.#styleSheets.concat(styleSheet);
+    if (this.#styleSheetsLastCallExecuted !== true) return this.#styleSheetsLastCall();
+
+    // handle registers that happen after initial load
+    if (Array.isArray(styleSheet)) document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheet];
+    else document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+  }
+
+  #styleSheetsLastCall() {
+    this.clearNextTick(this.#styleSheetLastCallTimer);
+    this.#styleSheetLastCallTimer = this.nextTick(() => {
+      this.#styleSheetLastCallTimer = undefined;
+      this.#styleSheetsLastCallExecuted = true;
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...this.#styleSheets];
+      document.querySelector('html').classList.add('mdw-initiated');
+    });
   }
 
   #calculateDistance(searchTerm, target) {

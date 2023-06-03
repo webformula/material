@@ -1,16 +1,13 @@
-import { Page } from '@webformula/core';
+import { Page } from '@webformula/core/client';
 import { mdwDialog } from '@webformula/material';
 import html from './page.html';
 
 export default class extends Page {
   static pageTitle = 'Dialogs';
+  static html = html;
 
   constructor() {
     super();
-  }
-
-  template() {
-    return this.renderTemplateString(html);
   }
 
   async openSimple() {
