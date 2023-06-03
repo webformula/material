@@ -93,6 +93,8 @@ window.addEventListener('load', () => {
 window.addEventListener('locationchange', () => {
   setTimeout(() => {
     hljs.highlightAll();
+    if (!location.hash) return;
+    handleHashAnchor(location.hash, false);
   });
 });
 

@@ -5,7 +5,7 @@
 
 <h5 style="margin-bottom: 0;">Highlights</h5>
 <ul style=" margin-top: 8px; font-size: 18px; line-height: 32px; color:rgb(10, 100, 112)">
-  <li>&#9889; Lightweight - <span style="font-weight: bold; font-size: 20px; margin-right: 2px;">70</span><span
+  <li>&#9889; Lightweight - <span style="font-weight: bold; font-size: 20px; margin-right: 2px;">74</span><span
       style="font-weight: bold;">KB</span> compressed</li>
   <li>&#9889; Performant - Uses native web components</li>
   <li>&#9889; 0 dependencies</li>
@@ -18,3 +18,56 @@
 <p style="margin-top:32px;">
   Material design V3 web components that are full featured, performant and simple to use. These components are robust and work with all modern browsers. Built with mobile in mind, adapting to small screens and touch inputs. Our goal is reduce the complexity and increase usability.
 </p>
+
+
+<pre>
+  <code class="language-html">
+${page.escape(`<!-- import in index.html - NOT recommended  -->
+<script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/core.js"></script>`)}
+  </code>
+</pre>
+
+<div class="mdw-card-content" style="margin-top: 12px">
+<div class="mdw-subheader">Theme</div>
+<div class="mdw-supporting-text">theme.css should be the first file imported. You may want to copy and serve
+`theme.css` in your app. This is where you configure you custom theme. If you want to use
+the default dark and light theme, then you can use the one in the repo.</div>
+</div>
+<pre>
+  <code class="language-css">
+${`/* theme.css should be loaded first */
+
+/* import in app css */
+@import('@webformula/materia.theme.css');`}
+  </code>
+</pre>
+<pre>
+  <code class="language-html">
+${page.escape(`<!-- import in index.html -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/theme.css">`)}
+  </code>
+</pre>
+
+<div class="mdw-card-content" style="margin-top: 12px">
+<div class="mdw-subheader">Fonts and icons</div>
+<div class="mdw-supporting-text">For icons this uses Googles Material icon font. All component required icons are
+packed in with library. Only needed if using the mdw-icon component</div>
+<a href="https://fonts.google.com">Google fonts</a>
+</div>
+<pre>
+  <code class="language-html">
+${page.escape(`<!-- Load from google fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap"
+rel="stylesheet">
+
+<!--
+Load material icons via google fonts.
+All component required icons are packed in with library.
+Only needed if using the mdw-icon component
+-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`)}
+  </code>
+</pre>
