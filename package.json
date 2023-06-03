@@ -49,9 +49,9 @@
     "./components/top-app-bar": "./src/components/top-app-bar/index.js"
   },
   "scripts": {
-    "start": "node docs/build.js",
-    "build:docs": "NODE_ENV=production node docs/build.js",
-    "build": "NODE_ENV=production node docs/build.js"
+    "start": "node build.js",
+    "build:docs": "NODE_ENV=production node build.js",
+    "build": "NODE_ENV=production node build.js"
   },
   "repository": {
     "type": "git",

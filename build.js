@@ -1,7 +1,6 @@
-import build from '@webformula/core/build';
+import build, { gzipFile } from '@webformula/core/build';
 import esbuild from 'esbuild';
-import { readFile, writeFile } from 'node:fs/promises';
-import { gzip } from 'node:zlib'; 
+import { readFile } from 'node:fs/promises';
 
 const cssFilterRegex = /\.css$/;
 const plugin = {
@@ -18,13 +17,8 @@ const plugin = {
     });
 
     build.onEnd(async () => {
-      gzip(await readFile('dist/material.js'), (error, result) => {
-        writeFile('dist/material.js.gz', result);
-      });
-      gzip(await readFile('dist/theme.css'), (error, result) => {
-        writeFile('dist/theme.css.gz', result);
-      });
-    })
+      await gzipFile('dist/material.js');
+    });
   }
 };
 const context = await esbuild.context({
@@ -37,7 +31,6 @@ const context = await esbuild.context({
   plugins: [plugin],
   minify: true
 });
-
 
 build({
   basedir: 'docs/',
@@ -52,5 +45,8 @@ build({
   onStart() {
     // build separate file for iframe pages without app code.
     context.rebuild();
+  },
+  async onEnd() {
+    await gzipFile('dist/theme.css');
   }
 });
