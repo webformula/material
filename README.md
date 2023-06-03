@@ -17,14 +17,7 @@ Material design V3 web components that are full featured, performant and simple 
 - [Getting started](#gettingstarted)
   - [Installation](#installation)
   - [Importing components](#importing)
-  - [Example code](#examplecode)
-    - [index.html](#index.html)
-    - [app.js](#app.js)
-    - [app.css](#app.css)
-    - [page.js](#page.js)
-    - [page.html](#page.html)
-    - [Serve app](#iserveapp)
-    - [Build single page app](#buildspa)
+  - [Importing styles](#importingstyles)
 
 
 # Getting started
@@ -99,7 +92,8 @@ import util from  '@webformula/material/services/util';
 ```
 
 
-## **Importing theme `app.css`** theme.css should be the first file imported
+## **Importing Styles**
+<a name="importingstyles"/>
 You may want to copy and serve `theme.css` in your app. This is where you configure you custom theme. If you want to use the default dark and light theme, then you can use the one in the repo.
 ```css
 /* theme.css should be loaded first */
