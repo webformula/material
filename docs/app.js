@@ -80,9 +80,11 @@ registerPage(utilities, '/utilities');
 registerPage(notFound, '/not-found', { notFound: true });
 
 
-
-window.addEventListener('load', () => {
+document.querySelector('#hljsscript').addEventListener('load', () => {
   hljs.highlightAll();
+});
+
+window.addEventListener('DOMContentLoaded', () => {
   if (location.hash) {
     setTimeout(() => {
       handleHashAnchor(location.hash, false);
