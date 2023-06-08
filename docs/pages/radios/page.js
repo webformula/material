@@ -1,8 +1,8 @@
-import { Page } from '@webformula/core/client';
+import { Component } from '@webformula/core';
 import html from './page.html';
 
-export default class extends Page {
-  static pageTitle = 'Radios';
+export default class extends Component {
+  static title = 'Radios';
   static html = html;
 
   constructor() {

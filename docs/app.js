@@ -1,5 +1,4 @@
-import { registerPage, enableLinkIntercepts } from '@webformula/core/client';
-enableLinkIntercepts();
+import { routes } from '@webformula/core';
 
 import '@webformula/material';
 
@@ -41,43 +40,43 @@ import notFound from './pages/not found/page.js';
 
 
 
-
-registerPage(home, '/');
-registerPage(styles, '/styles');
-registerPage(badges, '/badges');
-registerPage(bottomAppBars, '/bottom-app-bars');
-registerPage(bottomSheets, '/bottom-sheets');
-registerPage(buttons, '/buttons');
-registerPage(cards, '/cards');
-registerPage(checkboxes, '/checkboxes');
-registerPage(chips, '/chips');
-registerPage(datePickers, '/date-pickers');
-registerPage(dialogs, '/dialogs');
-registerPage(fabs, '/fabs');
-registerPage(forms, '/forms');
-registerPage(icons, '/icons');
-registerPage(iconButtons, '/icon-buttons');
-registerPage(gettingStarted, '/getting-started');
-registerPage(lists, '/lists');
-registerPage(menus, '/menus');
-registerPage(navigations, '/navigations');
-registerPage(progressIndicators, '/progress-indicators');
-registerPage(radios, '/radios');
-registerPage(search, '/search');
-registerPage(segmentedButtons, '/segmented-buttons');
-registerPage(selects, '/selects');
-registerPage(sideSheets, '/side-sheets');
-registerPage(sliders, '/sliders');
-registerPage(snackbars, '/snackbars');
-registerPage(switches, '/switches');
-registerPage(tabs, '/tabs');
-registerPage(timePickers, '/time-pickers');
-registerPage(textFields, '/text-fields');
-registerPage(topAppBars, '/top-app-bars');
-registerPage(tooltips, '/tooltips');
-registerPage(utilities, '/utilities');
-
-registerPage(notFound, '/not-found', { notFound: true });
+routes([
+  { path: '/', component: home },
+  { path: '/styles', component: styles },
+  { path: '/badges', component: badges },
+  { path: '/bottom-app-bars', component: bottomAppBars },
+  { path: '/bottom-sheets', component: bottomSheets },
+  { path: '/buttons', component: buttons },
+  { path: '/cards', component: cards },
+  { path: '/checkboxes', component: checkboxes },
+  { path: '/chips', component: chips },
+  { path: '/date-pickers', component: datePickers },
+  { path: '/dialogs', component: dialogs },
+  { path: '/fabs', component: fabs },
+  { path: '/forms', component: forms },
+  { path: '/icons', component: icons },
+  { path: '/icon-buttons', component: iconButtons },
+  { path: '/getting-started', component: gettingStarted },
+  { path: '/lists', component: lists },
+  { path: '/menus', component: menus },
+  { path: '/navigations', component: navigations },
+  { path: '/progress-indicators', component: progressIndicators },
+  { path: '/radios', component: radios },
+  { path: '/search', component: search },
+  { path: '/segmented-buttons', component: segmentedButtons },
+  { path: '/selects', component: selects },
+  { path: '/side-sheets', component: sideSheets },
+  { path: '/sliders', component: sliders },
+  { path: '/snackbars', component: snackbars },
+  { path: '/switches', component: switches },
+  { path: '/tabs', component: tabs },
+  { path: '/time-pickers', component: timePickers },
+  { path: '/text-fields', component: textFields },
+  { path: '/top-app-bars', component: topAppBars },
+  { path: '/tooltips', component: tooltips },
+  { path: '/utilities', component: utilities },
+  { path: '/not-found', component: notFound, notFound: true }
+]);
 
 
 document.querySelector('#hljsscript').addEventListener('load', () => {

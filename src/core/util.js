@@ -299,10 +299,13 @@ const mdwUtil = new class MDWUtil {
 
   #styleSheetsLastCall() {
     this.clearNextTick(this.#styleSheetLastCallTimer);
-    this.#styleSheetLastCallTimer = this.nextTick(() => {
+    this.#styleSheetLastCallTimer = this.nextTick(async () => {
       this.#styleSheetLastCallTimer = undefined;
       this.#styleSheetsLastCallExecuted = true;
       document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...this.#styleSheets];
+
+      // wait till fonts are loaded to show
+      // await document.fonts.ready;
       document.querySelector('html').classList.add('mdw-initiated');
     });
   }

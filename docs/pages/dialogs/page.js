@@ -1,9 +1,9 @@
-import { Page } from '@webformula/core/client';
+import { Component } from '@webformula/core';
 import { mdwDialog } from '@webformula/material';
 import html from './page.html';
 
-export default class extends Page {
-  static pageTitle = 'Dialogs';
+export default class extends Component {
+  static title = 'Dialogs';
   static html = html;
 
   constructor() {

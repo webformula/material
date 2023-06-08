@@ -1,9 +1,9 @@
-import { Page } from '@webformula/core/client';
+import { Component } from '@webformula/core';
 import html from './page.html';
 import { mdwDate } from '@webformula/material';
 
-export default class extends Page {
-  static pageTitle = 'Time pickers';
+export default class extends Component {
+  static title = 'Time pickers';
   static html = html;
 
   constructor() {
