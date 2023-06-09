@@ -56,7 +56,9 @@ const context = await esbuild.context({
   minify: true
 });
 
-await gzipFile('dist/material.js');
+setTimeout(async () => {
+  await gzipFile('dist/material.js');
+}, 500);
 
 async function gzipFile(file) {
   const result = await asyncGzip(await readFile(file));
