@@ -1,6 +1,4 @@
-import s from './styles.css';
-const styles = new CSSStyleSheet();
-styles.replaceSync(s);
+import styles from './styles.css';
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
 
 import { generate } from './core/theme.js';

@@ -26,7 +26,6 @@ const mdwUtil = new class MDWUtil {
   #scrollDistanceFromDirectionChange;
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
-  #styleSheetLastCallTimer;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
 
   constructor() {

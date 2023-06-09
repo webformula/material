@@ -11,6 +11,7 @@ import util from '../../core/util.js';
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = [sheet, sheetTextField, sheetPanel];
 
   #value = '';
   #displayValue = '';
@@ -96,7 +97,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
 
   template() {
     return /*html*/`
-      <style>${sheet}${sheetTextField}${sheetPanel}</style>
       <mdw-textfield ${!this.#disabled ? '' : 'disabled'} ${!this.classList.contains('mdw-outlined') ? '' : 'class="mdw-outlined"'}>
         <input value="${this.#displayValue}" ${!this.#required ? '' : 'required'}>
         ${!this.#label ? '' : `<label>${this.#label}</label>`}

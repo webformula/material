@@ -6,6 +6,7 @@ import styles from './component.css' assert { type: 'css' };
 
 export default class MDWButtonElement extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #form = null;
   #name = '';
@@ -90,7 +91,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       <span class="text">
         <slot></slot>
       </span>

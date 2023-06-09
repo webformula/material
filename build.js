@@ -26,13 +26,8 @@ build({
     }
   ],
   onStart() {
-    d = Date.now()
-    console.log('start')
     // build separate file for iframe pages without app code.
     context.rebuild();
-  },
-  onEnd() {
-    console.log('end', Date.now() - d);
   }
 });
 
@@ -47,7 +42,14 @@ const plugin = {
         minify: true,
         loader: { '.css': 'css' }
       });
-      return { loader: 'text', contents: contextCss.outputFiles[0].text }
+      const contents = `
+        const styles = new CSSStyleSheet();
+        styles.replaceSync(\`${contextCss.outputFiles[0].text}\`);
+        export default styles;`;
+      return { contents };
+    })
+    build.onEnd(async () => {
+      await gzipFile('dist/material.js');
     })
   }
 };
@@ -57,7 +59,7 @@ const context = await esbuild.context({
   outfile: 'dist/material.js',
   format: 'esm',
   target: 'esnext',
-  loader: { '.html': 'text', '.css': 'css' },
+  loader: { '.html': 'text' },
   plugins: [plugin],
   minify: true
 });

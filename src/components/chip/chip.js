@@ -12,6 +12,7 @@ import {
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #type;
   #value = '';
@@ -124,7 +125,6 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       ${this.#type === 'filter' || this.#type === 'filter-menu' ? `<div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>` : ''}
       <slot></slot>
       ${this.#type === 'input' ? /*html*/`

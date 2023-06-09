@@ -64,7 +64,7 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.9.4",
+    "@webformula/core": "^0.9.5",
     "@webformula/material": "file:./",
     "esbuild": "^0.17.19"
   }

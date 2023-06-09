@@ -9,6 +9,7 @@ import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #ripple;
   #active = false;
@@ -72,7 +73,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       <div class="background"></div>
       <slot class="main"></slot>
       <slot class="rail" name="rail"></slot>

@@ -5,6 +5,7 @@ import Drag from '../../core/Drag.js';
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #disabled = false;
   #checked = false;
@@ -23,7 +24,6 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
 
   template() {
     return /* html */`
-      <style>${styles}</style>
       <slot></slot>
       <div class="track">
         <div class="thumb">

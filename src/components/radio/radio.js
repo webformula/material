@@ -5,6 +5,7 @@ import util from '../../core/util.js';
 
 customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #value = 'on';
   #checked = false;
@@ -22,7 +23,6 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       <div class="background">
         <div class="ripple"></div>
       </div>

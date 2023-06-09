@@ -17,6 +17,7 @@ const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeec
 customElements.define('mdw-search', class MDWSearchElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #value = '';
   #placeholder = 'Search';
@@ -121,7 +122,6 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       <div class="textfield">
         <slot name="leading"></slot>
         <div class="mdw-svg-icon fullscreen-back">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</div>

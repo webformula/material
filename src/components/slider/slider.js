@@ -8,6 +8,7 @@ import util from '../../core/util.js';
 customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
+  static styleSheets = styles;
 
   #disabled = false;
   #min = 0;
@@ -39,7 +40,6 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
   template() {
     return /* html */`
-      <style>${styles}</style>
       <slot></slot>
 
       <div class="control">

@@ -6,6 +6,7 @@ import styles from './range.css' assert { type: 'css' };
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #min = 0;
   #max = 100;
@@ -44,7 +45,6 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
   template() {
     return /* html */`
-      <style>${styles}</style>
       <slot></slot>
 
       <div class="control">

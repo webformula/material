@@ -5,6 +5,7 @@ import Ripple from '../../core/Ripple.js';
 
 export default class MDWCheckboxElement extends HTMLElementExtended {
   useShadowRoot = true;
+  static styleSheets = styles;
 
   #checked = false;
   #indeterminate = false;
@@ -73,7 +74,6 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
 
   template() {
     return /*html*/`
-      <style>${styles}</style>
       <input type="checkbox">
       <div class="background">
         <svg version="1.1" focusable="false" viewBox="0 0 24 24">
