@@ -1,7 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import Drag from '../../core/Drag.js';
-import styles from './chip-group.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 // TODO figure out if we should add properties to dynamically interact with chips (add, remove)
 

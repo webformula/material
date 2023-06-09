@@ -7,7 +7,7 @@ import { promisify } from 'node:util';
 const asyncGzip = promisify(gzip);
 const cssFilterRegex = /\.css$/;
 
-
+let d;
 build({
   basedir: 'docs/',
   outdir: 'dist/',
@@ -26,8 +26,13 @@ build({
     }
   ],
   onStart() {
+    d = Date.now()
+    console.log('start')
     // build separate file for iframe pages without app code.
     context.rebuild();
+  },
+  onEnd() {
+    console.log('end', Date.now() - d);
   }
 });
 
@@ -35,14 +40,15 @@ const plugin = {
   name: 'plugin',
   setup(build) {
     build.onLoad({ filter: cssFilterRegex }, async args => {
-      const css = await readFile(args.path, 'utf8');
-      const transformed = await esbuild.transform(css, { minify: true, loader: 'css' });
-      const contents = `
-        const styles = new CSSStyleSheet();
-        styles.replaceSync(\`${transformed.code}\`);
-        export default styles;`;
-      return { contents };
-    });
+      const contextCss = await esbuild.build({
+        entryPoints: [args.path],
+        bundle: true,
+        write: false,
+        minify: true,
+        loader: { '.css': 'css' }
+      });
+      return { loader: 'text', contents: contextCss.outputFiles[0].text }
+    })
   }
 };
 const context = await esbuild.context({
@@ -51,7 +57,7 @@ const context = await esbuild.context({
   outfile: 'dist/material.js',
   format: 'esm',
   target: 'esnext',
-  loader: { '.html': 'text' },
+  loader: { '.html': 'text', '.css': 'css' },
   plugins: [plugin],
   minify: true
 });

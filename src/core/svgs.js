@@ -1,4 +1,4 @@
-// TODO add all svgs in here so we do not need webpack to import
+// NOTE add all svgs in here so we do not need webpack to import
 export const expand_more_FILL0_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 15.375-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4Z"/></svg>';
 export const arrow_back_ios_FILL1_wght300_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M10 21.65.35 12 10 2.35l1.425 1.425L3.175 12l8.25 8.225Z"/></svg>';
 export const check_FILL1_wght400_GRAD0_opsz20 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4Z"/></svg>';

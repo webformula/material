@@ -5,7 +5,6 @@ import styles from './component.css' assert { type: 'css' };
 customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
 
   #max = 1;
   #value = 1;
@@ -55,6 +54,7 @@ customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTM
 
   template() {
     return /* html*/ `
+      <style>${styles}</style>
       <div class="indicator" style="width: ${(this.#value / this.#max) * 100}%;"></div>
     `;
   }

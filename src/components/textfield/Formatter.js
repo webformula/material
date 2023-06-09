@@ -244,6 +244,7 @@ export default class Formatter {
     const selection = this.#getSelection();
 
     // inset pasted ito correct section
+    if (!(event.clipboardData || window.clipboardData)) return;
     const paste = (event.clipboardData || window.clipboardData).getData('text');
     const arr = this.#rawValue.split('');
     const start = arr.slice(0, selection.rawStart).join('');

@@ -1,7 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import sheet from './select.css' assert { type: 'css' };
-import sheetTextField from '../textfield/component.css' assert { type: 'css' };
-import sheetPanel from '../panel/component.css' assert { type: 'css' };
+import sheetTextField from '../textfield/global.css' assert { type: 'css' };
+import sheetPanel from '../panel/global.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO document required and supporting-text
@@ -11,7 +11,6 @@ import util from '../../core/util.js';
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = [sheet, sheetTextField, sheetPanel];
 
   #value = '';
   #displayValue = '';
@@ -97,6 +96,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
 
   template() {
     return /*html*/`
+      <style>${sheet}${sheetTextField}${sheetPanel}</style>
       <mdw-textfield ${!this.#disabled ? '' : 'disabled'} ${!this.classList.contains('mdw-outlined') ? '' : 'class="mdw-outlined"'}>
         <input value="${this.#displayValue}" ${!this.#required ? '' : 'required'}>
         ${!this.#label ? '' : `<label>${this.#label}</label>`}

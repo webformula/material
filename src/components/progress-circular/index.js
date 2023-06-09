@@ -5,7 +5,6 @@ import styles from './component.css' assert { type: 'css' };
 customElements.define('mdw-progress-circular', class MDWProgressCircular extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
 
   #diameter = 40;
   #max = 1;
@@ -89,6 +88,7 @@ customElements.define('mdw-progress-circular', class MDWProgressCircular extends
     const endValue = 0.2 * this.#strokeCircumference;
     return /* html*/ `
       <style>
+        ${styles}
         @keyframes mdw-progress-circular-rotate-${this.#diameter} {
           0%      { stroke-dashoffset: ${startValue};  transform: rotate(0); }
           12.5%   { stroke-dashoffset: ${endValue};    transform: rotate(0); }

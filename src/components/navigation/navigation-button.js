@@ -3,8 +3,6 @@ import {
   menu_FILL1_wght400_GRAD0_opsz24,
   menu_open_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import styles from './navigation-button.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends HTMLElementExtended {
   #onclick_bound = this.#onclick.bind(this);

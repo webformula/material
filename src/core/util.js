@@ -26,8 +26,6 @@ const mdwUtil = new class MDWUtil {
   #scrollDistanceFromDirectionChange;
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
-  #styleSheets = [];
-  #styleSheetsLastCallExecuted = false;
   #styleSheetLastCallTimer;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
 
@@ -284,30 +282,6 @@ const mdwUtil = new class MDWUtil {
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
     generate();
     return isDark ? 'dark' : 'light';
-  }
-
-  registerStyleSheet(styleSheet) {
-    styleSheet = [].concat(styleSheet).filter(v => !this.#styleSheets.includes(v));
-    if (styleSheet.length === 0) return;
-    this.#styleSheets = this.#styleSheets.concat(styleSheet);
-    if (this.#styleSheetsLastCallExecuted !== true) return this.#styleSheetsLastCall();
-
-    // handle registers that happen after initial load
-    if (Array.isArray(styleSheet)) document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheet];
-    else document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
-  }
-
-  #styleSheetsLastCall() {
-    this.clearNextTick(this.#styleSheetLastCallTimer);
-    this.#styleSheetLastCallTimer = this.nextTick(async () => {
-      this.#styleSheetLastCallTimer = undefined;
-      this.#styleSheetsLastCallExecuted = true;
-      document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...this.#styleSheets];
-
-      // wait till fonts are loaded to show
-      // await document.fonts.ready;
-      document.querySelector('html').classList.add('mdw-initiated');
-    });
   }
 
   #calculateDistance(searchTerm, target) {

@@ -1,17 +1,14 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import shadowRootStyles from './anchor.css' assert { type: 'css' };
+import styles from './anchor.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
-import styles from './anchor-global.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = shadowRootStyles;
 
   #ripple;
   #active = false;
@@ -75,6 +72,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   template() {
     return /*html*/`
+      <style>${styles}</style>
       <div class="background"></div>
       <slot class="main"></slot>
       <slot class="rail" name="rail"></slot>
@@ -135,7 +133,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #focusKeydown(e) {
-    // TODO skip to first sub navigation in nav or on page
+    // TODO shoudl we skip to first sub navigation in nav or on page
     if (e.code === 'Tab') {
       const firstFocusablePageContent = [...document.body.querySelectorAll('page-content *')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
       if (firstFocusablePageContent) firstFocusablePageContent.focus();

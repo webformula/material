@@ -1,8 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
-import styles from './navigation.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLElementExtended {
@@ -31,7 +29,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     }
   }
 
-  // TODO make it so we do not need the non standard event (locationchange)
+  // TODO can we make it so we do not need the non standard event (locationchange)
   connectedCallback() {
     this.setAttribute('role', 'navigation');
     // the nested components are not ready until next frame

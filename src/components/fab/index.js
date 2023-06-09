@@ -5,7 +5,6 @@ import styles from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
 
   #ripple;
   #autoHideLabel = this.classList.contains('mdw-auto-hide-label');
@@ -40,6 +39,7 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
 
   template() {
     return /* html */`
+      <style>${styles}</style>
       <slot></slot>
       <div class="ripple"></div>
     `;

@@ -1,4 +1,3 @@
-import '../styles.js';
 import util from '../core/util.js';
 
 const templateElements = {};
@@ -10,12 +9,6 @@ export default class HTMLElementExtended extends HTMLElement {
   /** Use template element to clone from
    *   If your template uses dynamic variables you do not want to use this */
   useTemplate = true;
-
-  static styleSheets = [];
-  static registerGlobalStyleSheet(styleSheet) {
-    util.registerStyleSheet(styleSheet);
-  }
-  
   #rendered = false;
   #templateString;
   #templateElement;
@@ -85,11 +78,7 @@ export default class HTMLElementExtended extends HTMLElement {
     if (this.useShadowRoot) {
       this.attachShadow({ mode: 'open' });
       this.#root = this.shadowRoot;
-
-      if ((Array.isArray(this.constructor.styleSheets) && this.constructor.styleSheets.length > 0) || this.constructor.styleSheets instanceof CSSStyleSheet) {
-        this.#root.adoptedStyleSheets = [].concat(this.constructor.styleSheets);
-      }
-    } else this.#root = this;
+    }
   }
 
   escape(str) {

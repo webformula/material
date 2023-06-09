@@ -6,7 +6,6 @@ import util from '../../core/util.js';
 
 customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = styles;
 
   #value = this.getAttribute('value') || util.getTextFromNode(this);
   #ripple;
@@ -18,6 +17,7 @@ customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElem
 
   template() {
     return /*html*/`
+      <style>${styles}</style>
       <span class="text">
         <slot></slot>
       </span>
