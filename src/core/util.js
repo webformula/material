@@ -3,7 +3,7 @@ import { generate } from './theme.js';
 
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
-  #textLengthDiv = document.createElement('div');
+  #textLengthDiv;
   #scrollTarget;
   #lastScrollTop;
   #scrollCallbacks = [];
@@ -15,11 +15,6 @@ const mdwUtil = new class MDWUtil {
   #nextTickCallback_bound = this.#nextTickCallback.bind(this);
   #nextTickRaf;
   #nextTickQueue = [];
-
-  constructor() {
-    this.#textLengthDiv.classList.add('mdw-text-length');
-    document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
-  }
   
   uid() {
     this.#uidCounter += 1;
@@ -70,6 +65,11 @@ const mdwUtil = new class MDWUtil {
   }
 
   getTextWidth(element) {
+    if (!this.#textLengthDiv) {
+      this.#textLengthDiv = document.createElement('div');
+      this.#textLengthDiv.classList.add('mdw-text-length');
+      document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
+    }
     const styles = window.getComputedStyle(element);
     this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');
     this.#textLengthDiv.style.fontWeight = styles.getPropertyValue('font-weight');

@@ -5,16 +5,13 @@ const mdwDate = new class MDWDate {
   #timeZone;
   #yearMonthDayRegex = /([12]\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(?!\S)/;
   #yearMonthRegex = /([12]\d{3})-(0[1-9]|1[0-2])(?!\S)/;
-  #formatPatternRegex = new RegExp(`[YMDdAaHhms]+`, 'g');
-
-  constructor() {
-    const intlOptions = Intl.DateTimeFormat().resolvedOptions();
-    this.#locale = intlOptions.locale;
-    this.#timeZone = intlOptions.timeZone;
-    this.#setFormatters();
-  }
+  #formatPatternRegex = /[YMDdAaHhms]+/g;
 
   get locale() {
+    if (!this.#locale) {
+      const intlOptions = Intl.DateTimeFormat().resolvedOptions();
+      this.#locale = intlOptions.locale;
+    }
     return this.#locale;
   }
   set locale(value) {
@@ -29,6 +26,10 @@ const mdwDate = new class MDWDate {
   }
 
   get timeZone() {
+    if (!this.#timeZone) {
+      const intlOptions = Intl.DateTimeFormat().resolvedOptions();
+      this.#timeZone = intlOptions.timeZone;
+    }
     return this.#timeZone;
   }
   set timeZone(value) {
@@ -86,6 +87,7 @@ const mdwDate = new class MDWDate {
   format(date, pattern) {
     if (!this.isValid(date)) return;
 
+    if (!this.#intlFormatter) this.#setFormatters();
     const tokens = this.#intlFormatter.formatToParts(date).filter(token => token.type !== 'literal');
     const tokensLong = this.#intlFormatterLong.formatToParts(date)
       .filter(token => token.type !== 'literal')
@@ -155,12 +157,12 @@ const mdwDate = new class MDWDate {
   }
 
   getMonthNames() {
-    const formatter = new Intl.DateTimeFormat(this.#locale, { month: 'long', timeZone: this.#timeZone });
+    const formatter = new Intl.DateTimeFormat(this.locale, { month: 'long', timeZone: this.timeZone });
     return [...Array(12).keys()].map((m) => formatter.format(new Date(Date.UTC(2021, (m + 1) % 12))));
   }
 
   getMonthNamesShort() {
-    const formatter = new Intl.DateTimeFormat(this.#locale, { month: 'short', timeZone: this.#timeZone });
+    const formatter = new Intl.DateTimeFormat(this.locale, { month: 'short', timeZone: this.timeZone });
     return [...Array(12).keys()].map((m) => formatter.format(new Date(Date.UTC(2021, (m + 1) % 12))));
   }
 
@@ -190,7 +192,7 @@ const mdwDate = new class MDWDate {
 
   // style = 'long' | 'short' | 'narrow'
   getDayNames(style) {
-    const format = new Intl.DateTimeFormat(this.#locale, { weekday: style }).format;
+    const format = new Intl.DateTimeFormat(this.locale, { weekday: style }).format;
     return [...Array(7).keys()]
       .map(day => format(new Date(Date.UTC(2021, 5, day))));
   }
@@ -268,7 +270,7 @@ const mdwDate = new class MDWDate {
   }
 
   #setFormatters() {
-    this.#intlFormatter = Intl.DateTimeFormat(this.#locale, {
+    this.#intlFormatter = Intl.DateTimeFormat(this.locale, {
       weekday: 'long', // dddd
       year: 'numeric', // YYYY
       month: '2-digit', // MM
@@ -276,14 +278,14 @@ const mdwDate = new class MDWDate {
       hour: '2-digit', // hh
       minute: '2-digit', // mm
       second: '2-digit', // ss
-      timeZone: this.#timeZone
+      timeZone: this.timeZone
     });
 
-    this.#intlFormatterLong = Intl.DateTimeFormat(this.#locale, {
+    this.#intlFormatterLong = Intl.DateTimeFormat(this.locale, {
       month: 'long',
       hour: '2-digit',
       hour12: false,
-      timeZone: this.#timeZone
+      timeZone: this.timeZone
     });
   }
 

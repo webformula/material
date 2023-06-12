@@ -16,7 +16,7 @@ export default class HTMLElementExtended extends HTMLElement {
   // browser may or may not include the word "function" so we need to run an includes check
   #hasTemplate = !this.template.toString().replace(/\n|\s|\;/g, '').includes('template(){return""}');
   #root = this;
-  #classId = hashCodeForId(this.constructor.toString());
+  #classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
 
 
   constructor() {
@@ -86,9 +86,4 @@ export default class HTMLElementExtended extends HTMLElement {
       return '&#' + c.charCodeAt(0) + ';';
     });
   };
-}
-
-
-function hashCodeForId(str) {
-  return Array.from(str).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0)
 }

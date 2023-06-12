@@ -1,6 +1,6 @@
 {
   "name": "@webformula/material",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "./src/index.js",
   "type": "module",
@@ -64,8 +64,8 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.9.5",
+    "@webformula/core": "^0.9.6",
     "@webformula/material": "file:./",
-    "esbuild": "^0.17.19"
+    "esbuild": "^0.18.1"
   }
 }

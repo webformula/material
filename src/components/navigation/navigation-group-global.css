@@ -11,6 +11,14 @@ mdw-navigation-group {
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
+mdw-navigation.mdw-no-animation mdw-navigation-group {
+  transition-duration: 0ms;
+}
+
+mdw-navigation.mdw-no-animation mdw-navigation-group mdw-anchor .mdw-group-arrow {
+  transition-duration: 0ms;
+}
+
 mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor {
   margin-left: 24px;
 }
