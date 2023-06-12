@@ -1,6 +1,4 @@
 import MDWPanelElement from '../panel/component.js';
-import styles from './component.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 export default class MDWDialogElement extends MDWPanelElement {
   #returnValue;
@@ -21,8 +19,8 @@ export default class MDWDialogElement extends MDWPanelElement {
     return this.#returnValue;
   }
 
-  show() {
-    super.show();
+  show(scrim = true) {
+    super.show(scrim);
 
     const focusable = [...this.querySelectorAll('*')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
     if (focusable) {

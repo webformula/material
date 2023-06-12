@@ -76,6 +76,10 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       triggerElement: this,
       ignoreElements: [this.querySelector('mdw-menu')]
     });
+
+    if (!this.hasAttribute('aria-label')) {
+      this.setAttribute('aria-label', this.value);
+    }
   }
 
   disconnectedCallback() {

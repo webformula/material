@@ -1,4 +1,9 @@
-import './styles.js';
+import styles from './styles.css';
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
+
+import { generate } from './core/theme.js';
+generate();
+document.querySelector('html').classList.add('mdw-initiated');
 
 import './components/avatar/index.js';
 import './components/scrim/index.js';
@@ -42,3 +47,4 @@ export {
   mdwUtil,
   mdwSnackbar
 } from './services.js';
+

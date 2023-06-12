@@ -16,6 +16,7 @@ customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementEx
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
+    this.setAttribute('aria-checked', this.#checked.toString());
   }
 
   template() {

@@ -1,8 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
-import styles from './navigation.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLElementExtended {
@@ -31,24 +29,22 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     }
   }
 
-  // TODO make it so we do not need the non standard event (locationchange)
-  connectedCallback() {
+  // TODO can we make it so we do not need the non standard event (locationchange)
+  async connectedCallback() {
     this.setAttribute('role', 'navigation');
-    // the nested components are not ready until next frame
-    util.nextAnimationFrameAsync().then(() => {
-      this.#locationchange();
-    });
-    window.addEventListener('locationchange', this.#locationchange_bound);
 
-    util.nextAnimationFrameAsync().then(() => {
-      this.classList.remove('mdw-no-animation');
-      document.body.classList.remove('mdw-navigation-no-animation');
-      const active = this.querySelector('mdw-anchor.mdw-active');
-      if (active) {
-        const bounds = active.getBoundingClientRect();
-        if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView();
-      }
-    });
+    await util.nextAnimationFrameAsync();
+    this.#locationchange();
+    window.addEventListener('locationchange', this.#locationchange_bound);
+    const active = this.querySelector('mdw-anchor.mdw-active');
+    if (active) {
+      const bounds = active.getBoundingClientRect();
+      if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
+    }
+
+    await util.nextAnimationFrameAsync();
+    this.classList.remove('mdw-no-animation');
+    document.body.classList.remove('mdw-navigation-no-animation');
   }
 
   get open() {

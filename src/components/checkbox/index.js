@@ -1,14 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import shadowRootStyles from './component.css' assert { type: 'css' };
+import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
-import styles from './global.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
-
 
 export default class MDWCheckboxElement extends HTMLElementExtended {
   useShadowRoot = true;
-  static styleSheets = shadowRootStyles;
+  static styleSheets = styles;
 
   #checked = false;
   #indeterminate = false;
@@ -70,6 +67,9 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     setTimeout(() => {
       this.classList.remove('mdw-no-animation');
     }, 200);
+
+    if (this.indeterminate) this.setAttribute('aria-checked', 'mixed');
+    else this.setAttribute('aria-checked', this.#checked.toString() || 'false');
   }
 
   template() {

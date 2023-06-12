@@ -1,8 +1,6 @@
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './component.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 // TODO look into other ways of preventing body from scrolling
 //   There is some bugs on ios safari with bottom url bar

@@ -6,8 +6,6 @@ import {
 } from '../../core/svgs.js';
 import { checkMinMax, monthDaysRangeTemplate } from './helper.js';
 import util from '../../core/util.js';
-import styles from './desktop-range.css' assert { type: 'css' };
-MDWPanelElement.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeDesktopElement extends MDWPanelElement {

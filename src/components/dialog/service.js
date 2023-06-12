@@ -10,7 +10,7 @@ const mdwDialog = new class mdwDialog {
     headline: '',
     message: '',
     scrim: true,
-    clickScrimClose: false,
+    clickOutsideClose: false,
     actionConfirm: true,
     actionConfirmLabel: 'OK',
     actionCancel: false,
@@ -21,7 +21,7 @@ const mdwDialog = new class mdwDialog {
     const actionConfirm = params.actionConfirm === undefined ? true : params.actionConfirm;
     const actionCancel = params.actionCancel || false;
     const element = document.createElement('mdw-dialog');
-    element.clickScrimClose = params.clickScrimClose;
+    element.clickOutsideClose = params.clickOutsideClose;
     element.insertAdjacentHTML('afterbegin', `
       ${!params.headline ? '' : `<div class="mdw-header">${params.headline}</div>`}
       <div class="mdw-content">${params.message || ''}</div>
@@ -63,20 +63,19 @@ const mdwDialog = new class mdwDialog {
   template(params = {
     template,
     scrim: true,
-    clickScrimClose: false,
+    clickOutsideClose: false,
   }) {
     if (this.#currentDialog) throw Error('Cannot create dialog while one exists');
-
     const element = document.createElement('mdw-dialog');
-    element.clickScrimClose = params.clickScrimClose;
+    element.clickOutsideClose = params.clickOutsideClose;
     element.insertAdjacentHTML('afterbegin', params.template);
 
     document.body.appendChild(element);
 
     // for show animation
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       element.show(params.scrim === undefined ? true : params.scrim);
-    }, 0);
+    });
 
     this.#currentDialog = element;
     return new Promise(resolve => {

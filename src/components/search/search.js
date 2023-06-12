@@ -8,9 +8,7 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24,
   mic_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import shadowRootStyles from './search.css' assert { type: 'css' };
-import styles from './search-global.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
+import styles from './search.css' assert { type: 'css' };
 
 // TODO search header (fixed at top of page, hides on scroll)
 
@@ -19,7 +17,7 @@ const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeec
 customElements.define('mdw-search', class MDWSearchElement extends HTMLElementExtended {
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = shadowRootStyles;
+  static styleSheets = styles;
 
   #value = '';
   #placeholder = 'Search';

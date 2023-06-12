@@ -1,7 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import styles from './component.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 export default class MDWPanelElement extends HTMLElementExtended {
@@ -9,7 +7,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #validAnimations = ['translateY', 'scale', 'expand', 'transitionYReverse', 'opacity'];
   #animation = this.getAttribute('animation') || 'translateY';
   #scrim = false;
-  #clickOutsideClose = true;
+  #clickOutsideClose = false;
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #clickOutsideCloseIgnoreElements = [];
   #target = null;

@@ -1,7 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import styles from './component.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
 
 
 customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLElementExtended {
@@ -9,7 +7,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   #scrim;
   #scrimElement;
   #modal;
-  #clickScrimClose = false;
+  #clickOutsideClose = false;
   #placeHolder;
   #scrimClick_bound = this.#scrimClick.bind(this);
   #closeClick_bound = this.close.bind(this);
@@ -23,7 +21,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     if (this.classList.contains('mdw-global')) this.classList.add('mdw-modal')
     this.#modal = this.classList.contains('mdw-modal');
     this.#scrim = this.classList.contains('mdw-scrim');
-    this.#clickScrimClose = this.classList.contains('mdw-click-scrim-close');
+    this.#clickOutsideClose = this.classList.contains('mdw-click-scrim-close');
 
     this.#placeHolder = document.createElement('div');
     this.#placeHolder.classList.add('mdw-side-sheet-placeholder');
@@ -56,7 +54,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
       if (this.#open) {
         if (!this.#scrimElement) this.#scrimElement = document.createElement('mdw-scrim');
         this.insertAdjacentElement('beforebegin', this.#scrimElement);
-        if (this.#clickScrimClose) this.#scrimElement.addEventListener('click', this.#scrimClick_bound);
+        if (this.#clickOutsideClose) this.#scrimElement.addEventListener('click', this.#scrimClick_bound);
       } else if (this.#scrimElement) {
         this.#scrimElement.removeEventListener('click', this.#scrimClick_bound);
         this.#scrimElement.remove();
@@ -64,12 +62,12 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     }
   }
 
-  get clickScrimClose() {
-    return this.#clickScrimClose;
+  get clickOutsideClose() {
+    return this.#clickOutsideClose;
   }
 
-  set clickScrimClose(value) {
-    this.#clickScrimClose = !!value;
+  set clickOutsideClose(value) {
+    this.#clickOutsideClose = !!value;
   }
 
   get modal() {

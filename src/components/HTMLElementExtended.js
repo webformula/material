@@ -1,4 +1,3 @@
-import '../styles.js';
 import util from '../core/util.js';
 
 const templateElements = {};
@@ -6,34 +5,24 @@ const templateElements = {};
 export default class HTMLElementExtended extends HTMLElement {
   /** if not using shadowRoot templates and rendering still work */
   useShadowRoot = false;
+  static styleSheets;
 
   /** Use template element to clone from
    *   If your template uses dynamic variables you do not want to use this */
   useTemplate = true;
-
-  static styleSheets = [];
-  static registerGlobalStyleSheet(styleSheet) {
-    util.registerStyleSheet(styleSheet);
-  }
-  
   #rendered = false;
   #templateString;
   #templateElement;
   // browser may or may not include the word "function" so we need to run an includes check
   #hasTemplate = !this.template.toString().replace(/\n|\s|\;/g, '').includes('template(){return""}');
   #root = this;
-  #classId = hashCodeForId(this.constructor.toString());
+  #classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
 
 
   constructor() {
     super();
-
     if (this.#hasTemplate) {
-      /** Render as soon as possible while making sure all class variables exist
-       *    The other 2 options would be to use setTimeout or call render in connectedCallback
-       *    setTimeout is slower
-       *    connectedCallback would force the extending class to call super.connectedCallback()
-       */
+      /** Render as soon as possible while making sure all class variables exist */
       util.nextTick(() => {
         this.#prepareRender();
         this.render();
@@ -89,7 +78,7 @@ export default class HTMLElementExtended extends HTMLElement {
       if ((Array.isArray(this.constructor.styleSheets) && this.constructor.styleSheets.length > 0) || this.constructor.styleSheets instanceof CSSStyleSheet) {
         this.#root.adoptedStyleSheets = [].concat(this.constructor.styleSheets);
       }
-    } else this.#root = this;
+    }
   }
 
   escape(str) {
@@ -97,9 +86,4 @@ export default class HTMLElementExtended extends HTMLElement {
       return '&#' + c.charCodeAt(0) + ';';
     });
   };
-}
-
-
-function hashCodeForId(str) {
-  return Array.from(str).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0)
 }

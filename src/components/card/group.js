@@ -1,8 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import device from '../../core/device.js';
-import styles from './group.css' assert { type: 'css' };
-HTMLElementExtended.registerGlobalStyleSheet(styles);
-
 
 customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLElementExtended {
   #cards = [];
@@ -34,7 +31,7 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   }
 
   connectedCallback() {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.#layout();
     })
   }

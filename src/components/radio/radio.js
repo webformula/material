@@ -46,6 +46,7 @@ customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
     this.setAttribute('role', 'radio');
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this));
     this.addEventListener('focus', this.#focus_bound);
+    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
   }
 
   disconnectedCallback() {

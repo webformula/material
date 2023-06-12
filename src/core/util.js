@@ -1,24 +1,9 @@
 import { generate } from './theme.js';
 
-// used for nextTick poly
-const nextTickNode = document.createTextNode('');
-let nextTickQueue = [];
-let nextTickObserving = false;
-const nextTickObserveCallback = () => {
-  while (nextTickQueue.length) {
-    nextTickQueue.pop()();
-  }
-  nextTickObserve.disconnect();
-  nextTickObserving = false;
-};
-const nextTickObserve = new MutationObserver(nextTickObserveCallback);
-
-
 
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
-  #nextTickNodeData = 0;
-  #textLengthDiv = document.createElement('div');
+  #textLengthDiv;
   #scrollTarget;
   #lastScrollTop;
   #scrollCallbacks = [];
@@ -26,15 +11,10 @@ const mdwUtil = new class MDWUtil {
   #scrollDistanceFromDirectionChange;
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
-  #styleSheets = [];
-  #styleSheetsLastCallExecuted = false;
-  #styleSheetLastCallTimer;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
-
-  constructor() {
-    this.#textLengthDiv.classList.add('mdw-text-length');
-    document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
-  }
+  #nextTickCallback_bound = this.#nextTickCallback.bind(this);
+  #nextTickRaf;
+  #nextTickQueue = [];
   
   uid() {
     this.#uidCounter += 1;
@@ -85,6 +65,11 @@ const mdwUtil = new class MDWUtil {
   }
 
   getTextWidth(element) {
+    if (!this.#textLengthDiv) {
+      this.#textLengthDiv = document.createElement('div');
+      this.#textLengthDiv.classList.add('mdw-text-length');
+      document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
+    }
     const styles = window.getComputedStyle(element);
     this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');
     this.#textLengthDiv.style.fontWeight = styles.getPropertyValue('font-weight');
@@ -106,21 +91,16 @@ const mdwUtil = new class MDWUtil {
     return this.#textLengthDiv.offsetWidth;
   }
 
-
-  /** use observer to mimic process.nextTick behavior
-   *    This triggers faster than using setTimeout and is more predictable */
   nextTick(callback) {
-    nextTickQueue.push(callback);
-    if (nextTickObserving === false) {
-      nextTickObserve.observe(nextTickNode, { characterData: true });
-      nextTickObserving = true;
-      nextTickNode.data = this.#nextTickNodeData++;
-    }
-    return callback;
+    this.#nextTickQueue.push(callback);
+    if (!this.#nextTickRaf) this.#nextTickRaf = requestAnimationFrame(this.#nextTickCallback_bound);
   }
 
-  clearNextTick(nextTickInstance) {
-    nextTickQueue.splice(nextTickQueue.indexOf(nextTickInstance), 1);
+  #nextTickCallback() {
+    while (this.#nextTickQueue.length) {
+      this.#nextTickQueue.pop()();
+    }
+    this.#nextTickRaf = undefined;
   }
 
   async wait(ms = 100) {
@@ -284,30 +264,6 @@ const mdwUtil = new class MDWUtil {
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
     generate();
     return isDark ? 'dark' : 'light';
-  }
-
-  registerStyleSheet(styleSheet) {
-    styleSheet = [].concat(styleSheet).filter(v => !this.#styleSheets.includes(v));
-    if (styleSheet.length === 0) return;
-    this.#styleSheets = this.#styleSheets.concat(styleSheet);
-    if (this.#styleSheetsLastCallExecuted !== true) return this.#styleSheetsLastCall();
-
-    // handle registers that happen after initial load
-    if (Array.isArray(styleSheet)) document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheet];
-    else document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
-  }
-
-  #styleSheetsLastCall() {
-    this.clearNextTick(this.#styleSheetLastCallTimer);
-    this.#styleSheetLastCallTimer = this.nextTick(async () => {
-      this.#styleSheetLastCallTimer = undefined;
-      this.#styleSheetsLastCallExecuted = true;
-      document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...this.#styleSheets];
-
-      // wait till fonts are loaded to show
-      // await document.fonts.ready;
-      document.querySelector('html').classList.add('mdw-initiated');
-    });
   }
 
   #calculateDistance(searchTerm, target) {
