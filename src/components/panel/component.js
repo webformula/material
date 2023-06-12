@@ -7,7 +7,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #validAnimations = ['translateY', 'scale', 'expand', 'transitionYReverse', 'opacity'];
   #animation = this.getAttribute('animation') || 'translateY';
   #scrim = false;
-  #clickOutsideClose = true;
+  #clickOutsideClose = false;
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #clickOutsideCloseIgnoreElements = [];
   #target = null;

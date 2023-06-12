@@ -1,23 +1,8 @@
 import { generate } from './theme.js';
 
-// used for nextTick poly
-const nextTickNode = document.createTextNode('');
-let nextTickQueue = [];
-let nextTickObserving = false;
-const nextTickObserveCallback = () => {
-  while (nextTickQueue.length) {
-    nextTickQueue.pop()();
-  }
-  nextTickObserve.disconnect();
-  nextTickObserving = false;
-};
-const nextTickObserve = new MutationObserver(nextTickObserveCallback);
-
-
 
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
-  #nextTickNodeData = 0;
   #textLengthDiv = document.createElement('div');
   #scrollTarget;
   #lastScrollTop;
@@ -27,6 +12,9 @@ const mdwUtil = new class MDWUtil {
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
+  #nextTickCallback_bound = this.#nextTickCallback.bind(this);
+  #nextTickRaf;
+  #nextTickQueue = [];
 
   constructor() {
     this.#textLengthDiv.classList.add('mdw-text-length');
@@ -103,21 +91,16 @@ const mdwUtil = new class MDWUtil {
     return this.#textLengthDiv.offsetWidth;
   }
 
-
-  /** use observer to mimic process.nextTick behavior
-   *    This triggers faster than using setTimeout and is more predictable */
   nextTick(callback) {
-    nextTickQueue.push(callback);
-    if (nextTickObserving === false) {
-      nextTickObserve.observe(nextTickNode, { characterData: true });
-      nextTickObserving = true;
-      nextTickNode.data = this.#nextTickNodeData++;
-    }
-    return callback;
+    this.#nextTickQueue.push(callback);
+    if (!this.#nextTickRaf) this.#nextTickRaf = requestAnimationFrame(this.#nextTickCallback_bound);
   }
 
-  clearNextTick(nextTickInstance) {
-    nextTickQueue.splice(nextTickQueue.indexOf(nextTickInstance), 1);
+  #nextTickCallback() {
+    while (this.#nextTickQueue.length) {
+      this.#nextTickQueue.pop()();
+    }
+    this.#nextTickRaf = undefined;
   }
 
   async wait(ms = 100) {

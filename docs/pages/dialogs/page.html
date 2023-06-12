@@ -41,7 +41,7 @@ basic and full-screen.</p>
     headline: 'Question',
     message: 'Are you sure?',
     scrim: true, // default true
-    clickScrimClose: false, // default false
+    clickOutsideToClose: false, // default false
     actionConfirm: true, // default true
     actionConfirm: 'OK', // default OK
     actionCancel: true, // default false
@@ -77,7 +77,9 @@ basic and full-screen.</p>
     <pre>
       <code class="language-javascript">
   mdwDialog.template({
-    template: templateString
+    template: templateString,
+    scrim: true,
+    clickOutsideToClose: false
   });
       </code>
     </pre>
@@ -111,7 +113,9 @@ basic and full-screen.</p>
   import { mdwDialog } from '@webformula/material';
 
   const value = await mdwDialog.template({
-    template: templateString
+    template: templateString,
+    scrim: true,
+    clickOutsideToClose: false
   });
 
   // value is passed in when closing the dialog: mdwDialog.close('response value')
@@ -157,6 +161,7 @@ basic and full-screen.</p>
   const dialog = document.querySelector('#html-only-dialog');
   dialog.show(true); // show with scrim DEFAULT
   dialog.show(false); // show with NO scrim
+  dialog.clickOutsideToClose = true; // allow clicking scrim to close dialog. Default false
   console.log(dialog.open);
   dialog.addEventListener('close', event => {
     console.log(event.target.returnValue);

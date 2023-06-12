@@ -123,7 +123,8 @@ export default class Drag {
   }
 
   #touchstart(event) {
-    if (event.button !== 0) return;
+    // TODO why did i add this?
+    // if (event.button !== 0) return;
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
     this.#startTime = Date.now();
     this.#initialTouchPos = this.#getTouchPosition(event);

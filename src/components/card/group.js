@@ -31,7 +31,7 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   }
 
   connectedCallback() {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.#layout();
     })
   }
