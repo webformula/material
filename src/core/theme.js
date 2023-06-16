@@ -58,6 +58,11 @@ export function generate() {
     document.documentElement.style.setProperty(`${name}-alpha-60`, `${value}99`);
     document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
   });
+
+  document.querySelector('html').classList.add('mdw-initiated');
+  setTimeout(() => {
+    document.querySelector('body').classList.add('mdw-animation');
+  }, 50);
 }
 
 function generateKeyTones(computedStyles, isDark) {

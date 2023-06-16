@@ -35,7 +35,10 @@
   border-radius: 50%;
   background-color: var(--mdw-primary-inverse);
   opacity: 0;
-  transition: opacity 180ms;
+  transition: opacity 0ms;
+}
+:host(.mdw-animation)::after {
+  transition-duration: 180ms;
 }
 
 :host(.mdw-checkbox)::after {
@@ -56,7 +59,10 @@
 :host > svg > path {
   stroke-dashoffset: 22.910259;
   stroke-dasharray: 22.910259;
-  animation: mdw-avatar-uncheck 90ms;
+  animation: mdw-avatar-uncheck 0ms;
+}
+:host(.mdw-animation) > svg > path {
+  animation-duration: 90ms;
 }
 
 :host(.mdw-checked) > svg {
@@ -66,7 +72,10 @@
 
 :host(.mdw-checked) > svg > path {
   stroke-dashoffset: 0;
-  animation: mdw-avatar-check 180ms;
+  animation: mdw-avatar-check 0ms;
+}
+:host(.mdw-animation.mdw-checked) > svg > path {
+  animation-duration: 180ms;
 }
 
 

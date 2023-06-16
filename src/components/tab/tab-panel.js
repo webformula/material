@@ -1,5 +1,4 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import util from '../../core/util.js';
 
 
 customElements.define('mdw-tab-panel', class MDWTabPanelElement extends HTMLElementExtended {
@@ -33,5 +32,11 @@ customElements.define('mdw-tab-panel', class MDWTabPanelElement extends HTMLElem
   }
   set value(value) {
     this.#value = value;
+  }
+
+  connectedCallback() {
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 });

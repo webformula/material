@@ -17,16 +17,22 @@ mdw-navigation {
 
   width: var(--mdw-navigation-drawer-width);
 
-  transition: width 180ms, left 180ms;
+  transition: width 0ms, left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
+mdw-navigation {
+  transition-duration: 180ms;
+}
 
-mdw-navigation.mdw-hide {
+mdw-navigation.mdw-animation.mdw-hide {
   width: 0;
   left: -56px;
   pointer-events: none;
-  transition: width 180ms, left 180ms;
+  transition: width 0ms, left 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
+}
+mdw-navigation.mdw-animation.mdw-hide {
+  transition-duration: 180ms;
 }
 
 mdw-navigation .mdw-headline {
@@ -38,7 +44,10 @@ mdw-navigation .mdw-headline {
   letter-spacing: var(--mdw-font-title-letter-spacing-small);
   color: var(--mdw-on-surface-variant);
   opacity: 1;
-  transition: opacity 180ms;
+  transition: opacity 0ms;
+}
+mdw-navigation.mdw-animation .mdw-headline {
+  transition-duration: 180ms;
 }
 mdw-navigation.mdw-rail.mdw-state-rail .mdw-headline  {
   opacity: 0;
@@ -121,10 +130,4 @@ mdw-navigation.mdw-rail.mdw-state-rail + .mdw-navigation-secondary-draw {
 
 mdw-navigation.mdw-rail.mdw-state-rail.mdw-secondary-drawer-open + .mdw-navigation-secondary-draw {
   left: var(--mdw-navigation-rail-width);
-}
-
-
-mdw-navigation.mdw-no-animation,
-mdw-navigation.mdw-no-animation .mdw-headline {
-  transition: none !important;
 }

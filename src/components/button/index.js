@@ -82,6 +82,8 @@ export default class MDWButtonElement extends HTMLElementExtended {
         ignoreElements: [this.querySelector('mdw-menu')]
       });
     }
+
+    this.classList.add('mdw-animation');
   }
 
   disconnectedCallback() {

@@ -28,7 +28,11 @@ mdw-list-item {
   color: var(--mdw-on-surface-alpha-76);
 
   left: var(--mdw-list-item-swipe-position);
-  transition: left 220ms;
+  transition: left 0ms;
+}
+
+mdw-list.mdw-navigation mdw-list-item {
+  transition-duration: 220ms;
 }
 
 mdw-list-item.mdw-dragging {
@@ -69,7 +73,11 @@ mdw-list-item .mdw-action {
 mdw-list-item .mdw-action.mdw-auto-hide-action {
   cursor: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity 0ms;
+}
+
+mdw-list.mdw-animation mdw-list-item .mdw-action.mdw-auto-hide-action {
+  transition-duration: 120ms;
 }
 
 mdw-list-item > .mdw-headline,
@@ -142,16 +150,10 @@ mdw-list:not(.mdw-no-states) > mdw-list-item:focus::after {
   }
 }
 
-/* mdw-list:not(.mdw-no-states) > mdw-list-item:focus::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-surface);
-} */
-
 mdw-list:not(.mdw-no-states) > mdw-list-item.mdw-checked::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-surface-tint);
 }
-
 
 mdw-list > .mdw-sub-header {
   position: sticky;
@@ -170,7 +172,6 @@ mdw-list > .mdw-sub-header.mdw-inset {
   padding-left: 70px;
 }
 
-
 mdw-list > .mdw-sub-header::before {
   position: absolute;
   content: '';
@@ -181,24 +182,15 @@ mdw-list > .mdw-sub-header::before {
   pointer-events: none;
   background-color: none;
   background-color: var(--mdw-surface-tint-alpha-6);
-  transition: background-color 80ms linear;
+  transition: background-color 0ms linear;
+}
+mdw-list.mdw-animation mdw-list > .mdw-sub-header::before {
+  transition-duration: 80ms;
 }
 
 mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck::before {
   background-color: var(--mdw-surface-tint-alpha-8);
 }
-
-
-/* Alt for box shadow */
-/* mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck::before {
-  box-shadow: var(--mdw-elevation-1);
-}
-
-mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck {
-  z-index: 2;
-} */
-
-
 
 mdw-list > .mdw-divider {
   max-height: 16px;
@@ -215,7 +207,6 @@ mdw-list > .mdw-divider.mdw-inset {
   margin-left: 70px;
 }
 
-
 mdw-list-item > mdw-list-item-action-right {
   display: flex;
   align-items: center;
@@ -226,11 +217,13 @@ mdw-list-item > mdw-list-item-action-right {
   right: 0;
   padding-left: 12px;
   z-index: -1;
-
   background-color: var(--mdw-primary);
   color: var(--mdw-on-primary);
 
-  transition: left 220ms;
+  transition: left 0ms;
+}
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-right {
+  transition-duration: 220ms;
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-right {
@@ -247,8 +240,11 @@ mdw-list-item > mdw-list-item-action-right::after {
   background-color: var(--mdw-surface);
   z-index: 1;
 
-  transition: left 220ms;
+  transition: left 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
+}
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-right::after {
+  transition-duration: 220ms;
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-right::after {
@@ -271,8 +267,11 @@ mdw-list-item > mdw-list-item-action-left {
   background-color: var(--mdw-primary);
   color: var(--mdw-on-primary);
 
-  transition: right 220ms;
+  transition: right 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
+}
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-left {
+  transition-duration: 220ms;
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-left {
@@ -289,14 +288,16 @@ mdw-list-item > mdw-list-item-action-left::after {
   background-color: var(--mdw-surface);
   z-index: 1;
 
-  transition: right 220ms;
+  transition: right 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
+}
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-left::after {
+  transition-duration: 220ms;
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-left::after {
   transition: none;
 }
-
 
 mdw-list-item > mdw-list-item-action-right.mdw-error,
 mdw-list-item > mdw-list-item-action-left.mdw-error {
@@ -323,8 +324,14 @@ mdw-list-item > mdw-list-item-action-right > .mdw-text,
 mdw-list-item > mdw-list-item-action-left > .mdw-text {
   transform-origin: center;
   transform: scale(0.7);
-  animation: action-bounce-out 400ms;
+  animation: action-bounce-out 0ms;
   animation-timing-function: var(--mdw-transition-bounce);
+}
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-right > mdw-icon,
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-left > mdw-icon,
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-right > .mdw-text,
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-left > .mdw-text {
+  animation-duration: 400ms;
 }
 
 mdw-list-item.mdw-action-active > mdw-list-item-action-right > mdw-icon,
@@ -332,7 +339,13 @@ mdw-list-item.mdw-action-active > mdw-list-item-action-left > mdw-icon,
 mdw-list-item.mdw-action-active > mdw-list-item-action-right > .mdw-text,
 mdw-list-item.mdw-action-active > mdw-list-item-action-left > .mdw-text {
   transform: scale(1);
-  animation: action-bounce-in 400ms;
+  animation: action-bounce-in 0ms;
+}
+mdw-list.mdw-animation mdw-list-item.mdw-action-active > mdw-list-item-action-right > mdw-icon,
+mdw-list.mdw-animation mdw-list-item.mdw-action-active > mdw-list-item-action-left > mdw-icon,
+mdw-list.mdw-animation mdw-list-item.mdw-action-active > mdw-list-item-action-right > .mdw-text,
+mdw-list.mdw-animation mdw-list-item.mdw-action-active > mdw-list-item-action-left > .mdw-text {
+  animation-duration: 400ms;
 }
 
 

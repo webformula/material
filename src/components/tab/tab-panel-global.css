@@ -6,7 +6,10 @@ mdw-tab-panel {
   opacity: 0;
   height: 0;
   overflow: hidden;
-  transition: opacity 420ms;
+  transition: opacity 0ms;
+}
+mdw-tab-panel.mdw-animation {
+  transition-duration: 420ms;
 }
 
 mdw-tab-panel[active] {

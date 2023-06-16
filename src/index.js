@@ -1,10 +1,3 @@
-import styles from './styles.css';
-document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
-
-import { generate } from './core/theme.js';
-generate();
-document.querySelector('html').classList.add('mdw-initiated');
-
 import './components/avatar/index.js';
 import './components/scrim/index.js';
 import './components/badge/index.js';

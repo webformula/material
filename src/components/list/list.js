@@ -17,6 +17,9 @@ customElements.define('mdw-list', class MDWListElement extends HTMLElementExtend
     this.setAttribute('role', 'list');
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'list');
     if (this.#subHeaders.length > 0) this.#scrollParent.addEventListener('scroll', this.#scroll_bound);
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 
   disconnectedCallback() {

@@ -14,8 +14,6 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
   constructor() {
     super();
 
-    this.classList.add('mdw-no-animation');
-    document.body.classList.add('mdw-navigation-no-animation');
     if (device.isMobile) this.classList.add('mdw-hide');
     this.#open = !this.classList.contains('mdw-hide') && !this.classList.contains('mdw-state-rail');
     
@@ -43,8 +41,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     }
 
     await util.nextAnimationFrameAsync();
-    this.classList.remove('mdw-no-animation');
-    document.body.classList.remove('mdw-navigation-no-animation');
+    this.classList.add('mdw-navigation');
   }
 
   get open() {

@@ -1,19 +1,25 @@
 body.mdw-navigation-state-open page-content {
   margin-left: var(--mdw-navigation-drawer-width);
-  transition: margin-left 180ms;
+  transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
 body.mdw-navigation-state-hide page-content {
   margin-left: 0;
-  transition: margin-left 180ms;
+  transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
 }
 
 body.mdw-navigation-state-rail page-content {
   margin-left: var(--mdw-navigation-rail-width);
-  transition: margin-left 180ms;
+  transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
+}
+
+body.mdw-animation.mdw-navigation-state-open page-content,
+body.mdw-animation.mdw-navigation-state-hide page-content,
+body.mdw-animation.mdw-navigation-state-rail page-content {
+  transition-duration: 180ms;
 }
 
 

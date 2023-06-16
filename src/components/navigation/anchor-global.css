@@ -22,16 +22,24 @@ mdw-anchor [slot="rail"].mdw-small-font {
 
 
 mdw-anchor.mdw-has-rail [slot="rail"] {
-  animation: mdw-anchor-rail-hide 180ms;
+  animation: mdw-anchor-rail-hide 0ms;
 }
 
 mdw-anchor.mdw-has-rail:not(.mdw-has-icon) [slot="rail"] {
-  animation: mdw-anchor-rail-hide-no-icon 180ms;
+  animation: mdw-anchor-rail-hide-no-icon 0ms;
+}
+
+mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail [slot="rail"],
+mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail:not(.mdw-has-icon) [slot="rail"] {
+  animation-duration: 180ms;
 }
 
 mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail"] {
   display: none;
-  animation: mdw-anchor-rail-show 180ms;
+  animation: mdw-anchor-rail-show 0ms;
+}
+mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail"] {
+  animation-duration: 180ms;
 }
 
 /* outline when not active */
@@ -54,7 +62,10 @@ mdw-anchor [slot="rail"] mdw-icon {
 
 
 mdw-anchor.mdw-has-rail > mdw-icon {
-  transition: margin-top 180ms;
+  transition: margin-top 0ms;
+}
+mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail > mdw-icon {
+  transition-duration: 180ms;
 }
 
 mdw-navigation.mdw-rail.mdw-state-rail mdw-anchor.mdw-has-rail:not(.mdw-rail-has-text) > mdw-icon {

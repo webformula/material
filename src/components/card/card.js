@@ -78,12 +78,12 @@ export default class MDWCardElement extends HTMLElementExtended {
     }
     
     setTimeout(() => {
-      this.classList.remove('mdw-no-animation');
-    }, 200);
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 
   disconnectedCallback() {
-    this.classList.add('mdw-no-animation');
+    this.classList.remove('mdw-animation');
     this.#abort.abort();
     if (this.#swipeActionElement) this.#dragSwipeAction.destroy();
   }

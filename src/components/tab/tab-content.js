@@ -21,6 +21,7 @@ customElements.define('mdw-tab-content', class MDWTabContentElement extends HTML
       const active = this.querySelector(`mdw-tab-panel[value="${this.#bar.value}"]`);
       if (active) active.active = true;
     });
+    this.classList.add('mdw-animation');
   }
 
   disconnectedCallback() {

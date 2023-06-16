@@ -19,6 +19,12 @@ customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementEx
     this.setAttribute('aria-checked', this.#checked.toString());
   }
 
+  afterRender() {
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
+  }
+
   template() {
     return /* html */`
       <slot></slot>

@@ -21,6 +21,7 @@ customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended
       const text = util.getTextFromNode(this);
       this.setAttribute('aria-label', text || 'tab');
     }
+    this.classList.add('mdw-animation');
   }
 
   disconnectedCallback() {

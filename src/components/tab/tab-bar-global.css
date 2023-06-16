@@ -27,7 +27,10 @@ mdw-tab-bar .mdw-tab-underline {
   border-top: 3px solid var(--mdw-primary);
   pointer-events: none;
 
-  transition: left 220ms, width 220ms;
+  transition: left 0ms, width 0ms;
+}
+mdw-tab-bar.mdw-animation .mdw-tab-underline {
+  transition-duration: 220ms, 220ms;
 }
 
 mdw-tab-bar.mdw-tab-secondary .mdw-tab-underline {

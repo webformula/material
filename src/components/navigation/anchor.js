@@ -60,6 +60,9 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     });
     this.addEventListener('click', this.#onClick_bound);
     this.addEventListener('mousedown', this.#mousedown_bound);
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 
   disconnectedCallback() {

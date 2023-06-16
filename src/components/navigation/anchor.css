@@ -46,7 +46,10 @@
 }
 
 :host(.mdw-has-rail) .background {
-  transition: height 180ms;
+  transition: height 0ms;
+}
+:host(.mdw-animation.mdw-has-rail) .background {
+  transition-duration: 180ms;
 }
 
 :host(.mdw-active) .background {
@@ -98,25 +101,30 @@
 
 /* look in rail global for more styles */
 
-
 :host(.mdw-has-rail.mdw-has-rail) .main {
   display: block;
-  animation: mdw-anchor-main-show 180ms;
+  animation: mdw-anchor-main-show 0ms;
 }
 
 :host(.mdw-rail.mdw-state-rail.mdw-has-rail) .main {
   opacity: 0;
-  animation: mdw-anchor-main-hide 180ms;
+  animation: mdw-anchor-main-hide 0ms;
 }
 
 :host(.mdw-has-rail:not(.mdw-has-icon)) .main {
   display: block;
-  animation: mdw-anchor-main-show-no-icon 180ms;
+  animation: mdw-anchor-main-show-no-icon 0ms;
 }
 
 :host(.mdw-rail.mdw-state-rail.mdw-has-rail:not(.mdw-has-icon)) .main {
   opacity: 0;
-  animation: mdw-anchor-main-hide-no-icon 180ms;
+  animation: mdw-anchor-main-hide-no-icon 0ms;
+}
+:host(.mdw-animation.mdw-has-rail.mdw-has-rail) .main,
+:host(.mdw-animation.mdw-rail.mdw-state-rail.mdw-has-rail) .main,
+:host(.mdw-animation.mdw-has-rail:not(.mdw-has-icon)) .main,
+:host(.mdw-animation.mdw-rail.mdw-state-rail.mdw-has-rail:not(.mdw-has-icon)) .main {
+  animation-duration: 180ms;
 }
 
 /* hide text show icon using colors when no rail content and has icon */
@@ -245,7 +253,10 @@
   top: 0;
   bottom: 0;
   right: 16px;
-  transition: transform 120ms;
+  transition: transform 0ms;
+}
+:host(.mdw-animation[group]) .main::slotted(.mdw-group-arrow) {
+  transition-duration: 120ms;
 }
 
 :host([group].mdw-open) .main::slotted(.mdw-group-arrow) {

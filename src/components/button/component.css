@@ -116,7 +116,12 @@
   line-height: var(--mdw-font-icon-size-medium) !important;
   vertical-align: middle;
   margin: 0 auto;
-  transition: font-variation-settings 60ms;
+  transition: font-variation-settings;
+  transition-duration: 0ms;
+}
+:host(.mdw-animation.mdw-icon-button) ::slotted(mdw-icon),
+:host(.mdw-animation.mdw-icon-toggle-button) ::slotted(mdw-icon) {
+  transition-duration: 60ms;
 }
 
 :host(:not(.mdw-icon-toggle-button):not(.mdw-icon-button)) ::slotted([value]) {
@@ -127,7 +132,12 @@
 :host(.mdw-icon-toggle-button) ::slotted([value="on"]),
 :host(.mdw-icon-toggle-button) ::slotted([value="off"]) {
   opacity: 1;
-  transition: opacity 180ms !important;
+  transition: opacity !important;
+  transition-duration: 0ms;
+}
+:host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="on"]),
+:host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="off"]) {
+  transition-duration: 180ms;
 }
 
 :host(.mdw-icon-toggle-button) ::slotted([value="on"]) {

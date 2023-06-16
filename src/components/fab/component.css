@@ -46,16 +46,22 @@
   margin-left: 8px;
 }
 
-:host(:not(.mdw-no-animation).mdw-has-label) {
-  transition: max-width 1600ms, color 120ms;
+:host(.mdw-has-label) {
+  transition: max-width 0ms, color 00ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
+:host(.mdw-animation.mdw-has-label) {
+  transition-duration: 1600ms, 120ms;
+}
 
-:host(:not(.mdw-no-animation).mdw-hide-label.mdw-has-label) {
+:host(.mdw-hide-label.mdw-has-label) {
   transition:
-    max-width 600ms,
-    color 120ms 380ms;
+    max-width 0ms,
+    color 0ms 380ms;
   transition-timing-function: var(--mdw-transition-expand-in);
+}
+:host(.mdw-animation.mdw-hide-label.mdw-has-label) {
+  transition-duration: 600ms, 120ms;
 }
 
 :host(.mdw-hide-label.mdw-has-label) {

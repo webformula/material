@@ -12,7 +12,10 @@ mdw-tab {
   background-color: none;
   outline: none;
 
-  transition: color 120ms, background-color 220ms;
+  transition: color 0ms, background-color 0ms;
+}
+mdw-tab.mdw-animation {
+  transition-duration: 120ms, 220ms;
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
@@ -42,7 +45,10 @@ mdw-tabs .mdw-underline {
   border-top: 3px solid var(--mdw-primary);
   pointer-events: none;
 
-  transition: left 220ms, width 220ms;
+  transition: left 0ms, width 0ms;
+}
+mdw-tabs.mdw-animation .mdw-underline {
+  transition-duration: 220ms, 220ms;
 }
 
 

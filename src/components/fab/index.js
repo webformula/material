@@ -31,6 +31,9 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
       triggerElement: this,
       ignoreElements: [this.querySelector('mdw-menu')]
     });
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 
   disconnectedCallback() {

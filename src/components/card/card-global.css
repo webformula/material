@@ -16,7 +16,11 @@ mdw-card {
   margin-bottom: 8px;
 
   left: var(--mdw-card-swipe-action-position);
-  transition: left 120ms;
+  transition: left 0ms;
+}
+
+mdw-card.mdw-animation {
+  transition-duration: 120ms;
 }
 
 mdw-card::before {
@@ -35,7 +39,10 @@ mdw-card::before {
 mdw-card.mdw-remove {
   margin-top: var(--mdw-card-margin-top-remove);
   opacity: 0;
-  transition: margin-top 120ms, opacity 80ms 40ms;
+  transition: margin-top 0ms, opacity 0ms 40ms;
+}
+mdw-card.mdw-animation.mdw-remove {
+  transition: 120ms, 80ms;
 }
 
 /* fixes outline overlap */
@@ -109,17 +116,23 @@ mdw-card .mdw-card-actions mdw-button + mdw-button {
 
 mdw-card > .mdw-card-image.mdw-size-small {
   height: 60px;
-  transition: height 240ms;
+  transition: height 0ms;
 }
 
 mdw-card > .mdw-card-image.mdw-size-medium {
   height: 120px;
-  transition: height 240ms;
+  transition: height 0ms;
 }
 
 mdw-card > .mdw-card-image.mdw-size-large {
   height: 180px;
-  transition: height 240ms;
+  transition: height 0ms;
+}
+
+mdw-card > .mdw-card-image.mdw-size-small,
+mdw-card > .mdw-card-image.mdw-size-medium,
+mdw-card > .mdw-card-image.mdw-size-large {
+  transition-duration: 240ms;
 }
 
 
@@ -198,8 +211,11 @@ mdw-card.mdw-states:focus::after {
 mdw-card > .mdw-card-content .mdw-expand-arrow {
   position: absolute;
   right: 16px;
-  transition: transform 120ms;
+  transition: transform 0ms;
   cursor: pointer;
+}
+mdw-card.mdw-animation > .mdw-card-content .mdw-expand-arrow {
+  transition-duration: 120ms;
 }
 
 mdw-card.mdw-show > .mdw-card-content .mdw-expand-arrow {
@@ -213,23 +229,24 @@ mdw-card > .mdw-card-content {
 
 mdw-card > .mdw-card-content > .mdw-contracted {
   opacity: 1;
-  transition: opacity 120ms;
+  transition: opacity 0ms;
+}
+mdw-card > .mdw-card-content > .mdw-contracted {
+  transition-duration: 120ms;
 }
 
 mdw-card > .mdw-card-content > .mdw-expanded {
   height: 0;
-  /* display: none; */
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
   background-color: inherit;
 
-  transition: height 120ms;
+  transition: height 0ms;
 }
-
-/* mdw-card.mdw-show > .mdw-card-content > .mdw-expanded {
- display: block; 
-} */
+mdw-card > .mdw-card-content > .mdw-expanded {
+  transition-duration: 120ms;
+}
 
 mdw-card:not(.mdw-fullscreen).mdw-show > .mdw-card-content > .mdw-expanded {
   height: auto;
@@ -243,12 +260,11 @@ mdw-card.mdw-fullscreen {
   --mdw-card-fullscreen-width: 0;
   --mdw-card-fullscreen-height: 0;
 
-  animation: mdw-card-fullscreen-card-hide 140ms;
+  animation: mdw-card-fullscreen-card-hide 0ms;
   animation-timing-function: var(--mdw-transition-expand-out);
 }
-
-mdw-card.mdw-no-animation {
-  animation-duration: 0ms !important;
+mdw-card.mdw-animation.mdw-fullscreen {
+  animation-duration: 140ms;
 }
 
 mdw-card[onclick],
@@ -266,13 +282,19 @@ mdw-card.mdw-fullscreen.mdw-show {
   border-radius: 0;
   overflow: auto;
 
-  animation: mdw-card-fullscreen-card-show 360ms;
+  animation: mdw-card-fullscreen-card-show 0ms;
   animation-timing-function: var(--mdw-transition-expand-in);
+}
+mdw-card.mdw-animation.mdw-fullscreen.mdw-show {
+  animation-duration: 360ms;
 }
 
 mdw-card.mdw-fullscreen > .mdw-card-content > .mdw-expanded {
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity 0ms;
+}
+mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-content > .mdw-expanded {
+  transition-duration: 120ms;
 }
 
 mdw-card.mdw-fullscreen.mdw-show > .mdw-card-content > .mdw-expanded {
@@ -284,8 +306,11 @@ mdw-card.mdw-fullscreen.mdw-show > .mdw-card-content > .mdw-expanded {
 }
 
 mdw-card.mdw-fullscreen > .mdw-card-image {
-  transition: height 140ms, border-radius 80ms 60ms;
+  transition: height 0ms, border-radius 0ms 60ms;
   transition-timing-function: var(--mdw-transition-expand-out);
+}
+mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-image {
+  transition-duration: 140ms, 80ms;
 }
 
 mdw-card.mdw-fullscreen > .mdw-card-image.mdw-rounded {
@@ -294,8 +319,12 @@ mdw-card.mdw-fullscreen > .mdw-card-image.mdw-rounded {
 
 mdw-card.mdw-fullscreen.mdw-show > .mdw-card-image {
   height: var(--mdw-card-fullscreen-img-height, 300px);
-  transition: height 360ms, border-radius 120ms 120ms;
+  transition: height 0ms, border-radius 0ms 120ms;
   transition-timing-function: var(--mdw-transition-expand-in);
+}
+mdw-card.mdw-animation.mdw-duration.mdw-fullscreen.mdw-show > .mdw-card-image {
+  transition-duration: 360ms, 120ms;
+
 }
 mdw-card.mdw-fullscreen.mdw-show > .mdw-card-image.mdw-rounded {
   border-radius: 0 0 var(--mdw-shape-medium) var(--mdw-shape-medium);
@@ -370,10 +399,11 @@ mdw-card > .mdw-card-fullscreen-back {
   cursor: pointer;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity 0ms;
+}
 
-  /* color: var(--mdw-surface);
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75); */
+mdw-card.mdw-animation > .mdw-card-fullscreen-back {
+  transition-duration: 120ms;
 }
 
 mdw-card > .mdw-card-fullscreen-back .text {
@@ -389,13 +419,11 @@ mdw-card > .mdw-card-fullscreen-back .text {
     drop-shadow(1px -1px 1px rgba(0, 0, 0, .3))
     drop-shadow(1px 1px 1px rgba(0, 0, 0, .3))
     drop-shadow(-1px 1px 1px rgba(0, 0, 0, .3));
-  /* filter: drop-shadow(0 0 3px rgba(0, 0, 0, .5)); */
 }
 
 mdw-card > .mdw-card-fullscreen-back > svg {
   transform: scale(1.1);
   fill: var(--mdw-surface);
-  /* filter: drop-shadow(0 0 3px rgba(0, 0, 0, .5)); */
   filter:
     drop-shadow(-1px -1px 1px rgba(0, 0, 0, .3))
     drop-shadow(1px -1px 1px rgba(0, 0, 0, .3))
@@ -460,8 +488,11 @@ mdw-card > mdw-card-swipe-action {
   color: var(--mdw-on-surface-variant);
 
   transition:
-    left 120ms,
-    background-color 120ms;
+    left 0ms,
+    background-color 0ms;
+}
+mdw-card.mdw-animation > mdw-card-swipe-action {
+  transition-duration: 120ms, 120ms;
 }
 
 mdw-card.mdw-outlined > mdw-card-swipe-action {
@@ -499,7 +530,10 @@ mdw-card > mdw-card-swipe-action::after {
   z-index: 1;
   box-sizing: border-box;
 
-  transition: left 120ms;
+  transition: left 0ms;
+}
+mdw-card.mdw-animation > mdw-card-swipe-action::after {
+  transition-duration: 120ms;
 }
 
 mdw-card.mdw-filled > mdw-card-swipe-action::after {
@@ -521,48 +555,3 @@ mdw-card > mdw-card-swipe-action[checked] mdw-icon {
     'GRAD' 0,
     'opsz' 48
 }
-
-
-/* --- orientation landscape --- */
-
-
-/* mdw-card.mdw-card-orientation-landscape {
-  flex-direction: row;
-  overflow: hidden;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-content {
-  flex: 1;
-  margin-left: 16px;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-image {
-  aspect-ratio: 1 / 1;
-  height: 100%;
-  width: auto;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-image > img {
-  height: inherit;
-  width: auto;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-image.mdw-size-small {
-  height: 80px;
-  transition: none;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-image.mdw-size-medium {
-  height: 140px;
-  transition: none;
-}
-
-mdw-card.mdw-card-orientation-landscape > .mdw-card-image.mdw-size-large {
-  height: 200px;
-  transition: none;
-}
-
-mdw-card.mdw-card-orientation-landscape .mdw-card-actions {
-  justify-content: end;
-  width: 100%;
-} */
