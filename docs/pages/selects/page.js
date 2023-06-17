@@ -1,5 +1,6 @@
 import { Component } from '@webformula/core';
 import html from './page.html';
+import '@webformula/material/components/select';
 
 export default class extends Component {
   static title = 'Selects';

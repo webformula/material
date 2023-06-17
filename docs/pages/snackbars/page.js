@@ -1,6 +1,7 @@
 import { Component } from '@webformula/core';
-import { mdwSnackbar } from '@webformula/material';
+import { mdwSnackbar } from '@webformula/material/services';
 import html from './page.html';
+import '@webformula/material/components/snackbar';
 
 export default class extends Component {
   static title = 'Snackbars';

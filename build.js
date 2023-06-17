@@ -41,9 +41,11 @@ const context = await esbuild.context({
 });
 
 build({
+  mode: 'singleFile',
+  // gzip: false,
+  minify: false,
   basedir: 'docs/',
   outdir: 'dist/',
-  devServer: { enabled: true },
   copyFiles: [
     { from: 'src/theme.css', to: 'dist/theme.css', gzip: true },
     { from: 'docs/favicon.ico', to: 'dist/' },
@@ -52,20 +54,17 @@ build({
       from: 'docs/pages/**/(?!page)*.html',
       to: 'dist/pages/',
       transform({ content, outputFileNames }) {
-        if (outputFileNames) return content.replace('app.css', outputFileNames.find(name => name.includes('.css')).split('/').pop());
+        // if (outputFileNames) return content.replace('app.css', outputFileNames.find(v => v.entryPoint.endsWith('app.css')).output.split('/').pop());
         return content;
       }
-    }
+    },
+    { from: 'docs/icons.woff2', to: 'dist/' }
   ],
   onStart() {
     // build separate file for iframe pages without app code.
     context.rebuild();
   }
 });
-
-setTimeout(async () => {
-  await gzipFile('dist/material.js');
-}, 500);
 
 async function gzipFile(file) {
   const result = await asyncGzip(await readFile(file));

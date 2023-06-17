@@ -1,6 +1,8 @@
 import { routes } from '@webformula/core';
 
-import '@webformula/material';
+import '@webformula/material/components/navigation';
+import '@webformula/material/components/icon';
+import '@webformula/material/components/button';
 
 import home from './pages/home/page.js';
 import styles from './pages/styles/page.js';
@@ -78,18 +80,28 @@ routes([
   { path: '/not-found', component: notFound, notFound: true }
 ]);
 
-
-document.querySelector('#hljsscript').addEventListener('load', () => {
-  hljs.highlightAll();
-});
-
-window.addEventListener('DOMContentLoaded', () => {
+if (document.readyState !== 'loading') {
+  if (typeof hljs !== 'undefined') hljs.highlightAll();
+  else {
+    setTimeout(() => {
+      hljs.highlightAll();
+    }, 50);
+  }
   if (location.hash) {
     setTimeout(() => {
       handleHashAnchor(location.hash, false);
     });
   }
-});
+} else {
+  window.addEventListener('DOMContentLoaded', () => {
+    hljs.highlightAll();
+    if (location.hash) {
+      setTimeout(() => {
+        handleHashAnchor(location.hash, false);
+      });
+    }
+  });
+}
 
 window.addEventListener('locationchange', () => {
   setTimeout(() => {

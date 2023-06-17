@@ -49,7 +49,7 @@
     "./components/top-app-bar": "./src/components/top-app-bar/index.js"
   },
   "scripts": {
-    "start": "node build.js",
+    "start": "node --watch-path=./src --watch-path=./docs build.js",
     "build:docs": "NODE_ENV=production node build.js",
     "build": "NODE_ENV=production node build.js"
   },
@@ -64,7 +64,7 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.9.6",
+    "@webformula/core": "file:../core",
     "@webformula/material": "file:./",
     "esbuild": "^0.18.1"
   }

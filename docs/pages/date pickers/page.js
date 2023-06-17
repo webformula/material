@@ -1,6 +1,7 @@
 import { Component } from '@webformula/core';
 import html from './page.html';
-import { mdwDate } from '@webformula/material';
+import { mdwDate } from '@webformula/material/services';
+import '@webformula/material/components/date-picker';
 
 export default class extends Component {
   static title = 'Date pickers';
