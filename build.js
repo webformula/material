@@ -43,7 +43,6 @@ const context = await esbuild.context({
 build({
   mode: 'spaSingleFile',
   // gzip: false,
-  minify: false,
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [

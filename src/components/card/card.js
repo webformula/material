@@ -194,7 +194,6 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     const action = this.#swipeActionElement.getAttribute('action');
     const actionRemove = this.#swipeActionElement.hasAttribute('action-remove');
-    console.log(actionRemove)
     if (action) {
       this.dispatchEvent(new CustomEvent('change', {
         detail: {
