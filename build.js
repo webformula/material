@@ -41,7 +41,7 @@ const context = await esbuild.context({
 });
 
 build({
-  mode: 'singleFile',
+  mode: 'spaSingleFile',
   // gzip: false,
   minify: false,
   basedir: 'docs/',
