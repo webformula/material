@@ -62,7 +62,7 @@ export function generate() {
   document.querySelector('html').classList.add('mdw-initiated');
   setTimeout(() => {
     document.querySelector('body').classList.add('mdw-animation');
-  }, 50);
+  }, 150);
 }
 
 function generateKeyTones(computedStyles, isDark) {

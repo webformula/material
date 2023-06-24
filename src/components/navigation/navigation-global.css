@@ -20,7 +20,7 @@ mdw-navigation {
   transition: width 0ms, left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
-mdw-navigation {
+mdw-navigation.mdw-animation {
   transition-duration: 180ms;
 }
 
