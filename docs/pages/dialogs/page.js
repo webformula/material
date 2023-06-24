@@ -1,7 +1,6 @@
 import { Component } from '@webformula/core';
 import { mdwDialog } from '@webformula/material/services';
 import html from './page.html';
-import '@webformula/material/components/dialog';
 
 export default class extends Component {
   static title = 'Dialogs';

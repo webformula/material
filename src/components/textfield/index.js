@@ -7,7 +7,6 @@ const handleReportValidityScrollIntoView = util.debounce(input => {
   // check if already on screen
   const bounds = input.getBoundingClientRect();
   if (bounds.y >= 0 && (bounds.y + bounds.height) <= window.innerHeight) return;
-
   input.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }, 100);
 

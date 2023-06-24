@@ -1,7 +1,5 @@
 import { Component } from '@webformula/core';
 import html from './page.html';
-import '@webformula/material/components/list';
-import '@webformula/material/components/avatar';
 
 export default class extends Component {
   static title = 'Lists';

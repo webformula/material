@@ -1,8 +1,5 @@
 import { routes } from '@webformula/core';
-
-import '@webformula/material/components/navigation';
-import '@webformula/material/components/icon';
-import '@webformula/material/components/button';
+import '@webformula/material';
 
 import home from './pages/home/page.js';
 import styles from './pages/styles/page.js';
@@ -80,28 +77,11 @@ routes([
   { path: '/not-found', component: notFound, notFound: true }
 ]);
 
-if (document.readyState !== 'loading') {
-  if (typeof hljs !== 'undefined') hljs.highlightAll();
-  else {
-    setTimeout(() => {
-      hljs.highlightAll();
-    }, 50);
-  }
-  if (location.hash) {
-    setTimeout(() => {
-      handleHashAnchor(location.hash, false);
-    });
-  }
-} else {
-  window.addEventListener('DOMContentLoaded', () => {
-    hljs.highlightAll();
-    if (location.hash) {
-      setTimeout(() => {
-        handleHashAnchor(location.hash, false);
-      });
-    }
-  });
-}
+
+window.addEventListener('load', () => {
+  hljs.highlightAll();
+  if (location.hash) handleHashAnchor(location.hash, false);
+});
 
 window.addEventListener('locationchange', () => {
   setTimeout(() => {

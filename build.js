@@ -6,6 +6,8 @@ import { promisify } from 'node:util';
 
 const asyncGzip = promisify(gzip);
 const cssFilterRegex = /\.css$/;
+const cssTagRegex = /<\s*link[^>]*href="\.?\/?app.css"[^>]*>/;
+
 
 const plugin = {
   name: 'plugin',
@@ -41,19 +43,24 @@ const context = await esbuild.context({
 });
 
 build({
-  mode: 'spaSingleFile',
-  // gzip: false,
+  chunks: false,
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [
     { from: 'src/theme.css', to: 'dist/theme.css', gzip: true },
     { from: 'docs/favicon.ico', to: 'dist/' },
     { from: 'docs/woman.jpg', to: 'dist/' },
+    { from: 'docs/icons.woff2', to: 'dist/' },
     {
       from: 'docs/pages/**/(?!page)*.html',
       to: 'dist/pages/',
       transform({ content, outputFileNames }) {
-        // if (outputFileNames) return content.replace('app.css', outputFileNames.find(v => v.entryPoint.endsWith('app.css')).output.split('/').pop());
+        if (outputFileNames) return content.replace(cssTagRegex, () => {
+          const filename = outputFileNames
+            .filter(v => !!v.entryPoint)
+            .find(v => v.entryPoint.endsWith('app.css')).output.split('/').pop();
+          return `<link href="/${filename}" rel="stylesheet">`;
+        });
         return content;
       }
     },

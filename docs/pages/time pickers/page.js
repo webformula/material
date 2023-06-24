@@ -1,7 +1,6 @@
 import { Component } from '@webformula/core';
 import html from './page.html';
 import { mdwDate } from '@webformula/material/services';
-import '@webformula/material/components/time-picker';
 
 export default class extends Component {
   static title = 'Time pickers';

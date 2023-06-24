@@ -79,7 +79,7 @@ export default class MDWCardElement extends HTMLElementExtended {
     
     setTimeout(() => {
       this.classList.add('mdw-animation');
-    }, 50);
+    }, 150);
   }
 
   disconnectedCallback() {
