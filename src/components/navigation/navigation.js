@@ -42,6 +42,10 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
 
     await util.nextAnimationFrameAsync();
     this.classList.add('mdw-navigation');
+    window.addEventListener('mdwwindowstate', ({ detail }) => {
+      this.classList.toggle('mdw-hide', detail.isMobile);
+      this.#handleState();
+    })
   }
 
   get open() {
