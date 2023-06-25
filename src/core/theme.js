@@ -9,13 +9,17 @@ const keyColors = [
 const colorRegex = /^\s?#/;
 
 
-export function generate() {
+export async function generate() {
   /* Handle color scheme
    *  1. check localStorage for mdw-color-scheme (can be used for user preference)
    *  2. check for mdw-theme-dark class
    *  3. check for color-scheme css var on :root
    *  4. check prefers-color-scheme
    */
+  // to execute this code quickly as possible we do not wait for DOMContentLoaded
+  // 99% of the time this is fine, but once in a while document.body is not available so we add this line as a safety net
+  if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
+  
   const computedStyles = getComputedStyle(document.body);
   const localStorageColorScheme = localStorage.getItem('mdw-color-scheme');
   let isDark = false;

@@ -68,7 +68,12 @@ const mdwDevice = new class MDWDevice {
     }
 
     if (isMobile !== this.#lastState.isMobile || breakpoint !== this.#lastState.breakpoint) {
-      window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: { isMobile, breakpoint } }));
+      window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: {
+        isMobile,
+        breakpoint,
+        lastIsMobile: this.#lastState.isMobile,
+        lastBreakpoint: this.#lastState.breakpoint
+      }}));
     }
 
     this.#lastState = {

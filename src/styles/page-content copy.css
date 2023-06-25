@@ -1,21 +1,16 @@
-body:not(.mdw-mobile):not(.mdw-navigation-state-hide) page-content {
+body.mdw-navigation-state-open page-content {
   margin-left: var(--mdw-navigation-drawer-width);
   transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
-body.mdw-navigation-state-hide page-content,
-body.mdw-mobile:not(.mdw-navigation-state-show) page-content {
+body.mdw-navigation-state-hide page-content {
   margin-left: 0;
   transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
 }
 
-body.mdw-animation page-content {
-  transition-duration: 180ms;
-}
-
-/* body.mdw-navigation-state-rail page-content {
+body.mdw-navigation-state-rail page-content {
   margin-left: var(--mdw-navigation-rail-width);
   transition: margin-left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
@@ -31,4 +26,4 @@ body.mdw-navigation-no-animation mdw-top-app-bar,
 body.mdw-navigation-no-animation page-content,
 body.mdw-side-sheet-no-animation page-content {
   transition: none !important;
-} */
+}

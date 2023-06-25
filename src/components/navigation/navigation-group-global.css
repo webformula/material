@@ -7,22 +7,16 @@ mdw-navigation-group {
   overflow-y: hidden;
   height: var(--mdw-navigation-group-height);
   width: 100%;
+  margin: 0 -16px;
+  padding: 0 16px;
   transition: height 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
 
-mdw-navigation.mdw-animation mdw-navigation-group {
+body.mdw-animation mdw-navigation-group {
   transition-duration: 320ms;
 }
 
-/* mdw-navigation.mdw-no-animation mdw-navigation-group mdw-anchor .mdw-group-arrow {
-  transition-duration: 0ms;
-} */
-
-mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor {
-  margin-left: 24px;
-}
-
-mdw-navigation:not(.mdw-state-rail) mdw-navigation-group > mdw-anchor[group] {
-  margin-left: 12px;
+mdw-navigation-group > mdw-anchor:not([group]) {
+  margin-left: 16px;
 }
