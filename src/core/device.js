@@ -3,7 +3,7 @@ const mdwDevice = new class MDWDevice {
   #mediumBreakpoint = 840;
   #lastState = {
     isMobile: this.isMobile,
-    breakpoint: this.breakpoint
+    state: this.state
   };
   #setWindow_bound = this.#setWindow.bind(this);
 
@@ -27,7 +27,7 @@ const mdwDevice = new class MDWDevice {
     }
   }
 
-  get breakpoint() {
+  get state() {
     const windowWidth = window.innerWidth;
     if (windowWidth < this.#compactBreakpoint) return 'compact';
     if (windowWidth < this.#mediumBreakpoint) return 'medium';
@@ -49,13 +49,13 @@ const mdwDevice = new class MDWDevice {
 
   #setWindow() {
     const isMobile = this.isMobile;
-    const breakpoint = this.breakpoint;
+    const state = this.state;
     document.body.classList.remove('mdw-window-compact');
     document.body.classList.remove('mdw-window-medium');
     document.body.classList.remove('mdw-window-expanded');
 
     document.body.classList.toggle('mdw-mobile', isMobile);
-    switch(breakpoint) {
+    switch(state) {
       case 'compact':
         document.body.classList.add('mdw-window-compact');
         break;
@@ -67,18 +67,18 @@ const mdwDevice = new class MDWDevice {
         break;
     }
 
-    if (isMobile !== this.#lastState.isMobile || breakpoint !== this.#lastState.breakpoint) {
+    if (isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
       window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: {
         isMobile,
-        breakpoint,
+        state,
         lastIsMobile: this.#lastState.isMobile,
-        lastBreakpoint: this.#lastState.breakpoint
+        lastState: this.#lastState.state
       }}));
     }
 
     this.#lastState = {
       isMobile: this.isMobile,
-      breakpoint: this.breakpoint
+      state: this.state
     };
   }
 }

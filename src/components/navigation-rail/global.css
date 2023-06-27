@@ -1,0 +1,82 @@
+mdw-navigation-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  background-color: var(--mdw-surface);
+  padding: 18px 12px;
+  width: var(--mdw-navigation-rail-width);
+}
+
+body.mdw-window-compact.mdw-has-bottom-app-bar mdw-navigation-rail {
+  display: none;
+}
+
+
+mdw-navigation-rail > mdw-anchor {
+  flex-direction: column;
+  justify-content: center;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 12px;
+
+  font-size: var(--mdw-font-label-size-medium);
+  font-weight: var(--mdw-font-label-weight-medium);
+  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
+  border-radius: var(--mdw-shape-extra-medium);
+}
+
+mdw-navigation-rail > mdw-anchor > mdw-icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 32px;
+  margin: 0;
+  margin-top: -2px;
+  padding: 0;
+  line-height: 32px;
+  font-size: var(--mdw-font-icon-size-small);
+}
+
+mdw-navigation-rail > mdw-anchor::before {
+  left: calc(50% - 28px);
+  top: 0;
+  right: unset;
+  width: 56px;
+  border-radius: 50%;
+}
+
+mdw-navigation-rail > mdw-anchor.mdw-has-text::before {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: unset;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+mdw-navigation-rail > mdw-anchor .ripple {
+  right: unset;
+  bottom: unset;
+  left: calc(50% - 28px);
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+}
+
+mdw-navigation-rail > mdw-anchor.mdw-has-text .ripple {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: unset;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}

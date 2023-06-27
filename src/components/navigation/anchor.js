@@ -28,8 +28,9 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     super();
     this.tabIndex = 0;
 
+    const text = util.getTextFromNode(this);
+    if (text) this.classList.add('mdw-has-text');
     if (!this.hasAttribute('aria-label')) {
-      const text = util.getTextFromNode(this);
       this.setAttribute('aria-label', text);
     }
 

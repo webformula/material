@@ -15,6 +15,7 @@ import './components/icon/index.js';
 import './components/list/index.js';
 import './components/menu/index.js';
 import './components/navigation/index.js';
+import './components/navigation-rail/index.js';
 import './components/panel/index.js';
 import './components/progress-circular/index.js';
 import './components/progress-linear/index.js';

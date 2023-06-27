@@ -20,26 +20,8 @@ mdw-navigation {
   transition: width 0ms, left 0ms;
   transition-timing-function: var(--mdw-transition-expand-in);
 }
-mdw-navigation.mdw-animation {
-  transition-duration: 180ms;
-}
 
-mdw-navigation.mdw-hide,
-body.mdw-mobile mdw-navigation:not(.mdw-show) {
-  width: 0;
-  left: -56px;
-  pointer-events: none;
-  transition: width 0ms, left 0ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
-}
-
-body.mdw-mobile mdw-navigation {
-  border-radius: 0 var(--mdw-shape-large) 0 0;
-  box-shadow: var(--mdw-elevation-2);
-}
-
-body.mdw-animation mdw-navigation,
-body.mdw-animation.mdw-mobile mdw-navigation {
+body.mdw-animation mdw-navigation {
   transition-duration: 180ms;
 }
 
@@ -58,3 +40,22 @@ mdw-navigation .mdw-header {
   justify-content: space-between;
   opacity: 1;
 }
+
+
+/* states */ 
+mdw-navigation.mdw-hide,
+body.mdw-window-compact mdw-navigation:not(.mdw-show),
+body.mdw-window-medium mdw-navigation:not(.mdw-show) {
+  width: 0;
+  left: -56px;
+  pointer-events: none;
+  transition-timing-function: var(--mdw-transition-expand-out);
+}
+
+body.mdw-window-compact mdw-navigation.mdw-show,
+body.mdw-window-medium mdw-navigation.mdw-show {
+  border-radius: 0 var(--mdw-shape-large) 0 0;
+  box-shadow: var(--mdw-elevation-2);
+}
+
+/* TODO no rail and no bottom app bar adjustments */
