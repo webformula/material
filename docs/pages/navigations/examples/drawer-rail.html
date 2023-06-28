@@ -43,28 +43,42 @@
 </head>
 
 <body style="--mdw-navigation-drawer-width: 290px;">
-  <mdw-navigation class="mdw-rail">
+  <mdw-navigation>
     <div class="mdw-header">
+      <div class="mdw-headline">Headline</div>
       <mdw-navigation-button></mdw-navigation-button>
     </div>
-
-    <div class="mdw-headline">Headline</div>
-
-    <mdw-anchor href="/pages/navigations/examples/rail-drawer.html">
+  
+    <mdw-anchor href="/pages/navigations/examples/basic.html">
       <mdw-icon>home</mdw-icon>
       Welcome
     </mdw-anchor>
-    
     <mdw-anchor href="/mail">
       <mdw-icon>mail</mdw-icon>
-      Mail
-      <div slot="rail">
-        <mdw-icon>mail</mdw-icon>
-        Mail
-      </div>
+      mail
+      <mdw-badge>9999</mdw-badge>
     </mdw-anchor>
-    <mdw-anchor href="/one">Onerere</mdw-anchor>
+    <mdw-anchor href="/one">One</mdw-anchor>
+    <mdw-anchor href="/two">Two</mdw-anchor>
   </mdw-navigation>
+
+  <mdw-navigation-rail>
+    <mdw-navigation-button></mdw-navigation-button>
+    
+    <mdw-anchor href="/pages/navigations/examples/group.html">
+      <mdw-icon>home</mdw-icon>
+    </mdw-anchor>
+  
+    <mdw-anchor href="/one">
+      <mdw-icon>apps</mdw-icon>
+      One
+    </mdw-anchor>
+  
+    <mdw-anchor href="/two">
+      <mdw-icon>palette</mdw-icon>
+      Two
+    </mdw-anchor>
+  </mdw-navigation-rail>
 
   <page-content style="padding: 32px 32px;">
     <div style="font-size: 24px; margin-bottom: 12px;">Links do not work correctly in Example</div>

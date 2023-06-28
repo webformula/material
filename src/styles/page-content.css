@@ -1,5 +1,5 @@
 page-content {
-  margin-left: var(--mdw-navigation-drawer-width);
+  margin-left: 0;
   transition-timing-function: var(--mdw-transition-expand-in);
   transition: margin-left 0ms;
 }
@@ -8,9 +8,18 @@ body.mdw-animation page-content {
   transition-duration: 180ms;
 }
 
-body.mdw-navigation-state-hide page-content,
+body.mdw-has-navigation page-content {
+  margin-left: var(--mdw-navigation-drawer-width);
+}
+body.mdw-has-navigation-rail:not(.mdw-has-navigation) page-content,
+body.mdw-has-navigation-rail.mdw-navigation-state-hide page-content {
+  margin-left: var(--mdw-navigation-rail-width);
+}
+
+body.mdw-navigation-state-hide:not(.mdw-has-navigation-rail) page-content,
 body.mdw-window-compact page-content,
-body.mdw-window-medium page-content {
+body.mdw-window-medium page-content,
+body.mdw-has-navigation-rail.mdw-navigation-state-hide.mdw-window-compact.mdw-has-bottom-app-bar page-content {
   margin-left: 0;
   transition-timing-function: var(--mdw-transition-expand-out);
 }
