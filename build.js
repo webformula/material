@@ -46,7 +46,7 @@ build({
   devServer: {
     enabled: true,
     port: 3000,
-    liveReload: false
+    liveReload: true
   },
   chunks: false,
   minify: true,

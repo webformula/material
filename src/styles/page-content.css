@@ -1,4 +1,5 @@
 page-content {
+  position: relative;
   margin-left: 0;
   transition-timing-function: var(--mdw-transition-expand-in);
   transition: margin-left 0ms;
