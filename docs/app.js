@@ -77,7 +77,7 @@ routes([
   { path: '/not-found', component: notFound, notFound: true }
 ]);
 
-
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 window.addEventListener('load', () => {
   hljs.highlightAll();
   if (location.hash) handleHashAnchor(location.hash, false);

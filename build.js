@@ -43,7 +43,14 @@ const context = await esbuild.context({
 });
 
 build({
+  devServer: {
+    enabled: true,
+    port: 3000,
+    liveReload: false
+  },
   chunks: false,
+  minify: true,
+  gzip: true,
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [
