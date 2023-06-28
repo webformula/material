@@ -27,7 +27,7 @@ const plugin = {
       return { contents };
     })
     build.onEnd(async () => {
-      await gzipFile('dist/material.js');
+      await gzipFile('dist/material.js', 'dist/material.js.gz');
     })
   }
 };
@@ -49,8 +49,6 @@ build({
     liveReload: true
   },
   chunks: false,
-  minify: true,
-  gzip: true,
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [
@@ -80,7 +78,7 @@ build({
   }
 });
 
-async function gzipFile(file) {
+async function gzipFile(file, rename) {
   const result = await asyncGzip(await readFile(file));
-  await writeFile(`${file}.gz`, result);
+  await writeFile(rename, result);
 }
