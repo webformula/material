@@ -14,7 +14,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     super();
 
     document.body.classList.add('mdw-has-bottom-app-bar');
-    if (this.classList.contains('mdw-mobile-only')) document.body.classList.add('mdw-bottom-app-bar-mobile-only');
+    if (this.classList.contains('mdw-always-show')) document.body.classList.add('mdw-bottom-app-bar-always-show');
   }
 
   async connectedCallback() {

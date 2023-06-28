@@ -15,7 +15,7 @@ floating action button (FAB).</p>
   <a href="#auto-hide">Auto hide</a>
   <a href="#secondary-bar">Secondary bar by id</a>
   <a href="#secondary-bar-hash">Secondary bar by URL hash</a>
-  <a href="#mobile-only">Mobile-only</a>
+  <a href="#always-show">Always show</a>
 </div>
 
 
@@ -208,18 +208,19 @@ floating action button (FAB).</p>
 
 
 
-  <mdw-card id="mobile-only">
+  <mdw-card id="always-show">
     <div class="mdw-card-content">
-      <div class="mdw-headline">Mobile only</div>
+      <div class="mdw-headline">Always show</div>
+      <div class="mdw-supporting-text">By default the bottom app bar will only appear on compact window sizes. Use this class to always show.</div>
       
       <div class="example" style="height: 260px">
-        <iframe src="./pages/bottom app bars/mobile-only-index.html" style="height: 360px; width: 600px;"></iframe>
+        <iframe src="./pages/bottom app bars/always-show-index.html" style="height: 260px; width: 600px;"></iframe>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar class="mdw-mobile-only">
+  ${page.escape(`<mdw-bottom-app-bar class="mdw-always-show">
     <mdw-navigation-button></mdw-navigation-button>
     
     <mdw-button class="mdw-icon-button">

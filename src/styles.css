@@ -22,6 +22,7 @@
 @import url('./components/navigation/anchor-global.css');
 @import url('./components/navigation/navigation-global.css');
 @import url('./components/navigation/navigation-group-global.css');
+@import url('./components/navigation-rail/global.css');
 @import url('./components/panel/global.css');
 @import url('./components/radio/group-global.css');
 @import url('./components/scrim/global.css');

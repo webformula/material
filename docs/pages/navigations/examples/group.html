@@ -44,10 +44,6 @@
 
 <body style="--mdw-navigation-drawer-width: 290px;">
   <mdw-navigation class="mdw-rail">
-    <div class="mdw-header">
-      <mdw-navigation-button></mdw-navigation-button>
-    </div>
-
     <div class="mdw-headline">Headline</div>
 
     <mdw-anchor href="/pages/navigations/examples/rail-drawer.html">
@@ -55,14 +51,12 @@
       Welcome
     </mdw-anchor>
     
-    <mdw-anchor href="/mail">
-      <mdw-icon>mail</mdw-icon>
-      Mail
-      <div slot="rail">
-        <mdw-icon>mail</mdw-icon>
-        Mail
-      </div>
-    </mdw-anchor>
+    <mdw-navigation-group>
+      <mdw-anchor group>Links</mdw-anchor>
+    
+      <mdw-anchor href="/one">One</mdw-anchor>
+      <mdw-anchor href="/two">Two</mdw-anchor>
+    </mdw-navigation-group>
     <mdw-anchor href="/one">Onerere</mdw-anchor>
   </mdw-navigation>
 

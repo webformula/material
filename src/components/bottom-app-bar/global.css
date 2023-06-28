@@ -69,44 +69,22 @@ mdw-bottom-app-bar.mdw-auto-hide {
   bottom: var(--mdw-bottom-app-bar-scroll-position);
 }
 
-body:not(.mdw-mobile) > mdw-navigation.mdw-state-rail ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
-  left: 80px;
-}
-
-body:not(.mdw-mobile) > mdw-navigation ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
-  left: var(--mdw-navigation-drawer-width);
-}
-
-body:not(.mdw-mobile) > mdw-navigation.mdw-enable-animation:not(.mdw-state-rail) ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
-  transition: left 420ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
-}
-
-body:not(.mdw-mobile) > mdw-navigation.mdw-enable-animation.mdw-state-rail ~ mdw-bottom-app-bar:not(.mdw-mobile-only) {
-  transition: left 180ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
-}
-
-body.mdw-has-bottom-app-bar > page-content::after {
-  content: '';
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-}
-
-body:not(.mdw-mobile).mdw-has-bottom-app-bar.mdw-bottom-app-bar-mobile-only > page-content::after {
-  content: '';
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 0;
-}
-
-body:not(.mdw-mobile) mdw-bottom-app-bar.mdw-mobile-only {
+/* only show on compact */
+body.mdw-window-medium > mdw-bottom-app-bar:not(.mdw-always-show),
+body.mdw-window-expanded > mdw-bottom-app-bar:not(.mdw-always-show) {
   display: none;
+}
+
+mdw-bottom-app-bar {
+  transition: left 0ms;
+}
+
+body.mdw-animation mdw-bottom-app-bar {
+  transition-duration: 180ms;
+}
+
+body.mdw-window-expanded.mdw-navigation-state-show mdw-bottom-app-bar {
+  left: var(--mdw-navigation-drawer-width);
 }
 
 mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button,

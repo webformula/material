@@ -1,18 +1,21 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './anchor.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
+import Ripple from '../../core/Ripple.js';
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 
+const rippleTemplate = document.createElement('template');
+const rippleElement = document.createElement('div');
+rippleElement.classList.add('ripple');
+rippleTemplate.content.append(rippleElement);
 
+const arrowTemplate = document.createElement('template');
+const arrowElement = document.createElement('div');
+arrowElement.classList.add('mdw-group-arrow');
+arrowElement.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
+arrowTemplate.content.append(arrowElement);
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
-  useShadowRoot = true;
-  useTemplate = false;
-  static styleSheets = styles;
-
   #ripple;
-  #active = false;
   #target = this.getAttribute('target');
   #onClick_bound = this.#onClick.bind(this);
   #focus_bound = this.#focus.bind(this);
@@ -21,66 +24,36 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #mousedown_bound = this.#mousedown.bind(this);
   #mouseup_bound = this.#mouseup.bind(this);
 
-
   constructor() {
     super();
     this.tabIndex = 0;
-    this.#setupClasses();
-    
+
+    const text = util.getTextFromNode(this);
+    if (text) this.classList.add('mdw-has-text');
     if (!this.hasAttribute('aria-label')) {
-      const text = util.getTextFromNode(this);
       this.setAttribute('aria-label', text);
     }
-    
-    if (this.hasAttribute('group')) this.insertAdjacentHTML('beforeend', `<div class="mdw-group-arrow">${expand_more_FILL0_wght400_GRAD0_opsz24}</div>`);
-  }
 
-  #setupClasses() {
-    const hasIcon = this.querySelector(':scope > mdw-icon');
-    const rail = this.querySelector('[slot=rail]');
-    const hasRailContent = rail !== null;
-    const railHasIcon = hasRailContent ? this.querySelector('[slot=rail] mdw-icon') : false;
-    const railHasText = hasRailContent && util.getTextFromNode(rail) !== '';
-
-    if (hasIcon) this.classList.add('mdw-has-icon');
-    if (hasRailContent) this.classList.add('mdw-has-rail');
-    if (railHasIcon) this.classList.add('mdw-has-rail-icon');
-    if (railHasText) this.classList.add('mdw-has-rail-text');
+    if (this.hasAttribute('group')) this.appendChild(arrowTemplate.content.cloneNode(true));
   }
 
   connectedCallback() {
     this.setAttribute('role', 'link');
-    this.addEventListener('focusin', this.#focus_bound);
-  }
-
-  afterRender() {
+    this.appendChild(rippleTemplate.content.cloneNode(true));
     this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
+      element: this.querySelector('.ripple'),
       triggerElement: this
     });
     this.addEventListener('click', this.#onClick_bound);
+    this.addEventListener('focusin', this.#focus_bound);
     this.addEventListener('mousedown', this.#mousedown_bound);
-    setTimeout(() => {
-      this.classList.add('mdw-animation');
-    }, 50);
   }
 
   disconnectedCallback() {
     if (this.#ripple) this.#ripple.destroy();
     this.removeEventListener('click', this.#onClick_bound);
     this.removeEventListener('focusin', this.#focus_bound);
-    this.removeEventListener('blur', this.#blur_bound);
-    this.removeEventListener('keydown', this.#focusKeydown_bound);
     this.removeEventListener('mousedown', this.#mousedown_bound);
-  }
-
-  template() {
-    return /*html*/`
-      <div class="background"></div>
-      <slot class="main"></slot>
-      <slot class="rail" name="rail"></slot>
-      <div class="ripple"></div>
-    `;
   }
 
   get href() {
@@ -88,17 +61,10 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   get active() {
-    return this.#active;
+    return this.classList.contains('mdw-active');
   }
   set active(value) {
-    this.#active = !!value;
-    this.classList.toggle('mdw-active', this.#active);
-
-    if (this.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') {
-      util.nextAnimationFrameAsync().then(() => {
-        this.parentElement.updateActive();
-      });
-    }
+    this.classList.toggle('mdw-active', !!value);
   }
 
   #onClick() {
@@ -107,16 +73,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     } else if (!window.webformulaCoreLinkIntercepts) {
       location.href = this.href;
     }
-  }
-
-  // prevent focus adjustments when using mouse
-  #mousedown() {
-    this.removeEventListener('focusin', this.#focus_bound);
-    this.addEventListener('mouseup', this.#mouseup_bound);
-  }
-  #mouseup() {
-    this.addEventListener('focusin', this.#focus_bound);
-    this.removeEventListener('mouseup', this.#mouseup_bound);
   }
 
   #focus(e) {
@@ -133,6 +89,16 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #blur() {
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  // prevent focus adjustments when using mouse
+  #mousedown() {
+    this.removeEventListener('focusin', this.#focus_bound);
+    this.addEventListener('mouseup', this.#mouseup_bound);
+  }
+  #mouseup() {
+    this.addEventListener('focusin', this.#focus_bound);
+    this.removeEventListener('mouseup', this.#mouseup_bound);
   }
 
   #focusKeydown(e) {
@@ -155,16 +121,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     }
 
     // TODO add left right arrow for sub menu
-  }
-
-  walk(root) {
-    const children = [...root.children];
-    while (children.length > 0) {
-      const child = children.shift();
-      if (child.tabIndex > -1 || parseInt(child.getAttribute('tabindex') || -1) > -1) return child;
-      const walked = this.walk(child);
-      if (walked) return walked;
-    }
   }
 
   #focusNext(focusedElement) {

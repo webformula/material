@@ -1,128 +1,97 @@
-mdw-anchor [slot="rail"] {
+mdw-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 56px;
+  line-height: 56px;
+  padding-right: 8px;
+  margin-bottom: 2px;
+
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+mdw-anchor::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0;
+  right: -16px;
+  z-index: -1;
+  height: 56px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+mdw-anchor.mdw-active::before {
+  background-color: var(--mdw-secondary-container);
+}
+
+mdw-anchor:focus::before {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
+}
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  mdw-anchor:hover::before {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
+}
+
+mdw-anchor > * {
+  pointer-events: none;
+}
+
+mdw-anchor mdw-icon {
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 12px;
+  margin-left: -6px;
+}
+
+/* --- Ripple --- */
+
+mdw-anchor > .ripple {
+  overflow: hidden;
+  border-radius: inherit;
+  transform: translateZ(0);
+  /* fixes bug on ios safari */
+  position: absolute;
+  top: 0;
+  left: -16px;
+  bottom: 0;
+  right: -16px;
+  pointer-events: none;
+}
+
+mdw-anchor > .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-surface-alpha-16);
+  border-radius: 50%;
+}
+
+mdw-anchor[group] .mdw-group-arrow {
   position: absolute;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  height: 56px;
-  line-height: 20px;
-  left: 0;
-  right: 0;
-
-  font-size: var(--mdw-font-label-size-medium);
-  font-weight: var(--mdw-font-label-weight-medium);
-  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
-  border-radius: var(--mdw-shape-extra-medium);
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  transition: transform 0ms;
 }
 
-mdw-anchor [slot="rail"].mdw-small-font {
-  font-size: var(--mdw-font-label-size-small);
-  font-weight: var(--mdw-font-label-weight-small);
-  letter-spacing: var(--mdw-font-label-letter-spacing-small);
+mdw-anchor.mdw-animation[group] .mdw-group-arrow {
+  transition-duration: 120ms;
 }
 
-
-mdw-anchor.mdw-has-rail [slot="rail"] {
-  animation: mdw-anchor-rail-hide 0ms;
-}
-
-mdw-anchor.mdw-has-rail:not(.mdw-has-icon) [slot="rail"] {
-  animation: mdw-anchor-rail-hide-no-icon 0ms;
-}
-
-mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail [slot="rail"],
-mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail:not(.mdw-has-icon) [slot="rail"] {
-  animation-duration: 180ms;
-}
-
-mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail"] {
-  display: none;
-  animation: mdw-anchor-rail-show 0ms;
-}
-mdw-navigation:not(.mdw-rail.mdw-state-rail) mdw-anchor.mdw-has-rail [slot="rail"] {
-  animation-duration: 180ms;
-}
-
-/* outline when not active */
-mdw-anchor:not(.mdw-active) mdw-icon {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
-}
-
-mdw-anchor [slot="rail"] mdw-icon {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  height: 32px;
-  line-height: 32px;
-  font-size: var(--mdw-font-icon-size-small);
-}
-
-
-mdw-anchor.mdw-has-rail > mdw-icon {
-  transition: margin-top 0ms;
-}
-mdw-navigation.mdw-animation mdw-anchor.mdw-has-rail > mdw-icon {
-  transition-duration: 180ms;
-}
-
-mdw-navigation.mdw-rail.mdw-state-rail mdw-anchor.mdw-has-rail:not(.mdw-rail-has-text) > mdw-icon {
-  margin-top: -24px !important;
-}
-
-mdw-navigation.mdw-rail.mdw-state-rail mdw-anchor.mdw-has-rail.mdw-has-rail-icon:not(.mdw-has-rail-text) [slot="rail"] > mdw-icon {
-  margin: auto 0;
-}
-
-
-@keyframes mdw-anchor-rail-show {
-  0% {
-    display: inherit;
-    opacity: 1;
-  }
-
-  50% {
-    display: none;
-    opacity: 0;
-  }
-  100% {
-    display: none;
-    opacity: 0;
-  }
-}
-
-@keyframes mdw-anchor-rail-hide {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  70% {
-    display: none;
-    opacity: 0;
-  }
-
-  100% {
-    display: inherit;
-    opacity: 1;
-  }
-}
-
-@keyframes mdw-anchor-rail-hide-no-icon {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  30% {
-    display: none;
-    opacity: 0;
-  }
-
-  100% {
-    display: inherit;
-    opacity: 1;
-  }
+mdw-anchor[group].mdw-open .mdw-group-arrow {
+  transform: rotate(180deg);
 }
