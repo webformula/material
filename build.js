@@ -56,11 +56,13 @@ build({
   copyFiles: [
     { from: 'src/theme.css', to: 'dist/theme.css', gzip: true },
     { from: 'docs/favicon.ico', to: 'dist/' },
-    { from: 'docs/woman.jpg', to: 'dist/' },
-    { from: 'docs/icons.woff2', to: 'dist/' },
+    { from: 'docs/woman.jpg', to: 'dist/', gzip: true },
+    { from: 'docs/icons.woff2', to: 'dist/', gzip: true },
+    { from: 'docs/highlight-11.8.0.js', to: 'dist/', gzip: true },
     {
       from: 'docs/pages/**/(?!page)*.html',
       to: 'dist/pages/',
+      gzip: true,
       transform({ content, outputFileNames }) {
         if (outputFileNames) return content.replace(cssTagRegex, () => {
           const filename = outputFileNames
@@ -70,8 +72,7 @@ build({
         });
         return content;
       }
-    },
-    { from: 'docs/icons.woff2', to: 'dist/' }
+    }
   ],
   onStart() {
     // build separate file for iframe pages without app code.

@@ -1,8 +1,6 @@
 /dist/*
 !/dist/material.js
-!/dist/material.js.gz
 !/dist/theme.css
-!/dist/theme.css.gz
 
 # Logs
 logs
