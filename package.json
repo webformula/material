@@ -1,6 +1,6 @@
 {
   "name": "@webformula/material",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "./src/index.js",
   "type": "module",
@@ -51,7 +51,8 @@
   "scripts": {
     "start": "node --watch-path=./src --watch-path=./docs build.js",
     "build:docs": "NODE_ENV=production node build.js",
-    "build": "NODE_ENV=production node build.js"
+    "build": "NODE_ENV=production node build.js",
+    "deploy": "node deploy.js"
   },
   "repository": {
     "type": "git",
@@ -64,8 +65,9 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.12.4",
+    "@webformula/core": "^0.12.5",
     "@webformula/material": "file:./",
+    "aws-sdk": "^2.1407.0",
     "esbuild": "^0.18.1"
   }
 }
