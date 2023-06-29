@@ -132,9 +132,9 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       <div class="mdw-headline">Select time</div>
 
       <div class="mdw-time-container">
-        <input class="mdw-time-hour" readonly type="number" step="${this.#hourStep}" min="${this.#hour24 ? '0' : '1'}" max="${this.#hour24 ? '23' : '12'}" value="${parts.paddedHour}" selected>
+        <input class="mdw-time-hour" aria-label="time hour" readonly type="number" step="${this.#hourStep}" min="${this.#hour24 ? '0' : '1'}" max="${this.#hour24 ? '23' : '12'}" value="${parts.paddedHour}" selected>
         <div class="mdw-time-separator">:</div>
-        <input class="mdw-time-minute" readonly type="number" step="${this.#minuteStep}" min="0" max="59" value="${parts.paddedMinute}" selected>
+        <input class="mdw-time-minute" aria-label="time minute" readonly type="number" step="${this.#minuteStep}" min="0" max="59" value="${parts.paddedMinute}" selected>
 
         ${!this.#hour24 ? /*html*/ `
           <div class="mdw-meridiem-container">

@@ -138,7 +138,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
         
         <div class="mdw-input-container">
           <mdw-textfield>
-            <input type="date">
+            <input type="date" aria-label="date">
             <label>Enter date</label>
           </mdw-textfield>
         </div>

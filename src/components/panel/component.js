@@ -181,7 +181,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     const panelRight = bounds.left + this.#lastOffsetWidth;
 
     // Panel offscreen adjustment
-    if (panelBottom <= clientHeight) {
+    if (panelBottom <= clientHeight || (panelBottom - bounds.top) > window.innerHeight) {
       this.style.bottom = 'unset';
       if (this.#positionOverlap) this.style.top = `${bounds.top}px`;
       else this.style.top = `${bounds.bottom}px`;
@@ -189,6 +189,13 @@ export default class MDWPanelElement extends HTMLElementExtended {
       this.style.top = 'unset';
       if (this.#positionOverlap) this.style.bottom = `${clientHeight - bounds.bottom}px`;
       else this.style.bottom = `${clientHeight - bounds.top}px`;
+    }
+
+    // prefer being cutoff at bottom
+    if (this.getBoundingClientRect().y < 0) {
+      this.style.bottom = 'unset';
+      if (this.#positionOverlap) this.style.top = `${bounds.top}px`;
+      else this.style.top = `${bounds.bottom}px`;
     }
 
     if (panelRight <= clientWidth) {

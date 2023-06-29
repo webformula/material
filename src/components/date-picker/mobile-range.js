@@ -139,11 +139,11 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
 
       <div class="mdw-input-container">
         <mdw-textfield>
-          <input class="start" type="date">
+          <input class="start" type="date" aria-label="start date">
           <label>Start date</label>
         </mdw-textfield>
         <mdw-textfield>
-          <input class="end" type="date">
+          <input class="end" type="date" aria-label="end date">
           <label>End date</label>
         </mdw-textfield>
       </div>
