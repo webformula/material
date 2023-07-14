@@ -43,7 +43,8 @@ customElements.define('mdw-navigation-group', class MDWNavigationGroupElement ex
     this.open = !this.open;
   }
 
+  // TODO remove?
   #copyToSecondary() {
-    console.log([...this.children].filter(e => !e.hasAttribute('group')))
+    // console.log([...this.children].filter(e => !e.hasAttribute('group')))
   }
 });

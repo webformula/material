@@ -149,6 +149,9 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   get value() {
     return this.#value;
   }
+  set value(value) {
+    if (this.rendered) this.shadowRoot.querySelector('input').value = value;
+  }
 
   get searchValue() {
     return this.shadowRoot.querySelector('input').value;
@@ -340,8 +343,9 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     }
 
     [...this.#list.querySelectorAll('mdw-list-item')].forEach(element => {
-      const label = element.getAttribute('aria-label');
+      let label = element.getAttribute('aria-label');
       if (label?.includes('[search result]')) return;
+      if (!label) label = element.getAttribute('value');
       element.setAttribute('aria-label', `[search result] ${label}`);
     })
   }
@@ -410,13 +414,13 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     if (event.target.nodeName !== 'MDW-LIST-ITEM') return;
 
     if (event.target.hasAttribute('history')) {
-      this.#input.value = event.target.value;
+      this.value = event.target.value;
       this.pending();
       this.dispatchEvent(new Event('search'));
       return;
     }
 
-    this.#value = event.target.getAttribute('value');
+    this.value = event.target.getAttribute('value');
     this.close();
     this.dispatchEvent(new Event('change'));
   }
@@ -483,15 +487,13 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
         this.#storeHistory(this.searchValue);
         this.pending();
         this.dispatchEvent(new Event('search'));
-      }
-
-      if (focusedElement.nodeName === 'MDW-LIST-ITEM') {
+      } else if (focusedElement.nodeName === 'MDW-LIST-ITEM') {
         if (focusedElement.hasAttribute('history')) {
-          this.#input.value = focusedElement.value;
+          this.value = focusedElement.value;
           this.pending();
           this.dispatchEvent(new Event('search'));
         } else {
-          this.#value = focusedElement.getAttribute('value');
+          this.value = focusedElement.getAttribute('value');
           this.close();
           this.dispatchEvent(new Event('change'));
         }
