@@ -70,5 +70,8 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     if (active) active.classList.remove('mdw-active');
     const match = this.querySelector(`mdw-anchor[href="${path}"]`);
     if (match) match.classList.add('mdw-active');
+    setTimeout(() => {
+      if (device.state !== 'expanded') this.open = false;
+    }, 100);
   }
 });
