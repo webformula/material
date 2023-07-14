@@ -109,16 +109,17 @@ mdw-list-item > .mdw-svg-icon > svg {
 
 mdw-list-item > mdw-icon,
 mdw-list-item > .mdw-svg-icon {
-  margin-right: 32px;
+  /* margin-right: 32px; */
+  margin: 16px;
 }
 
-mdw-list-item > .mdw-text ~ mdw-icon {
+/* mdw-list-item > .mdw-text ~ mdw-icon {
   margin-right: 18px;
 }
 
 mdw-list-item > .mdw-text ~ mdw-icon:last-of-type {
   margin-right: 8px;
-}
+} */
 
 
 mdw-list:not(.mdw-no-states) > mdw-list-item::after {

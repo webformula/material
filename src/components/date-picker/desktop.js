@@ -183,7 +183,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
     if (selected) selected.removeAttribute('selected');
     event.target.setAttribute('selected', '');
 
-    // fixes clickOutsideToClose bug
+    // fixes clickOutsideClose bug
     event.stopPropagation();
   }
 
@@ -241,7 +241,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
 
     this.classList.remove('mdw-months-view');
 
-    // fixes clickOutsideToClose bug
+    // fixes clickOutsideClose bug
     event.stopPropagation();
   }
 
@@ -276,7 +276,7 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
 
     this.classList.remove('mdw-years-view');
 
-    // fixes clickOutsideToClose bug
+    // fixes clickOutsideClose bug
     event.stopPropagation();
   }
 

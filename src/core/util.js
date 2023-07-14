@@ -81,6 +81,11 @@ const mdwUtil = new class MDWUtil {
 
   getTextWidthFromInput(inputElement) {
     if (!inputElement || inputElement.nodeName !== 'INPUT') throw Error('requires input element');
+    if (!this.#textLengthDiv) {
+      this.#textLengthDiv = document.createElement('div');
+      this.#textLengthDiv.classList.add('mdw-text-length');
+      document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
+    }
 
     const styles = window.getComputedStyle(inputElement);
     this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');

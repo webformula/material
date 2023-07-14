@@ -44,7 +44,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   constructor() {
     super();
 
-    this.clickOutsideToClose = true;
+    this.clickOutsideClose = true;
   }
 
   connectedCallback() {
@@ -66,6 +66,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     this.#panel = this.shadowRoot.querySelector('mdw-panel');
     this.#panel.target = this;
     this.#panel.animation = 'expand';
+    this.#panel.clickOutsideClose = true;
     this.#panel.addClickOutsideCloseIgnore(this);
     // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
     this.#setWidth();
@@ -78,7 +79,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     }
 
     if (this.#isFilterAsync) {
-      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>');
+      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear role="option" aria-disabled="true" class="mdw-indeterminate"></mdw-progress-linear>');
     }
 
     this.#textfield.addEventListener('click', this.#onInputFocus_bound, { signal: this.#abort.signal });
@@ -293,7 +294,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     }
 
 
-    if (escape && this.clickOutsideToClose === true) this.#panel.close();
+    if (escape && this.clickOutsideClose === true) this.#panel.close();
 
     else if ((tab && !shiftKey) || downArrow) {
       this.#focusNext();
@@ -383,7 +384,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     }
     this.replaceChildren(fragment);
     if (this.#isFilterAsync) {
-      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>');
+      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear role="option" aria-disabled="true" class="mdw-indeterminate"></mdw-progress-linear>');
     }
     if (this.#options.length === 0) this.insertAdjacentHTML('beforeend', '<div class="mdw-no-items">No items</div> ');
     this.#updateOptionDisplay();
@@ -397,7 +398,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     }
     this.replaceChildren(fragment);
     if (this.#isFilterAsync) {
-      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>');
+      this.insertAdjacentHTML('afterbegin', '<mdw-progress-linear role="option" aria-disabled="true" class="mdw-indeterminate"></mdw-progress-linear>');
     }
     if (this.#originalOptions.length === 0) this.insertAdjacentHTML('beforeend', '<div class="mdw-no-items">No items</div> ');
   }

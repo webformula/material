@@ -10,6 +10,7 @@ customElements.define('mdw-suggestions', class MDWSuggestionsElement extends MDW
     super.connectedCallback();
     // this.setAttribute('role', 'menu');
 
+    this.clickOutsideClose = true;
     this.target = this.parentElement;
     this.animation = 'opacity';
     this.addClickOutsideCloseIgnore(this.parentElement);

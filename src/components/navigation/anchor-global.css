@@ -19,7 +19,7 @@ mdw-anchor {
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-anchor::before {
+mdw-anchor::after {
   content: '';
   position: absolute;
   left: -16px;
@@ -30,18 +30,26 @@ mdw-anchor::before {
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-anchor.mdw-active::before {
+mdw-anchor.mdw-active:not([group])::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0;
+  right: -16px;
+  z-index: -1;
+  height: 56px;
+  border-radius: var(--mdw-shape-extra-large);
   background-color: var(--mdw-secondary-container);
 }
 
-mdw-anchor:focus::before {
+mdw-anchor:focus::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-anchor:hover::before {
+  mdw-anchor:hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
   }

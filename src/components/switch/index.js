@@ -38,6 +38,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   connectedCallback() {
     this.tabIndex = 0;
     this.setAttribute('role', 'checkbox');
+    this.setAttribute('aria-checked', 'false');
     this.setAttribute('aria-label', util.getTextFromNode(this));
     this.addEventListener('focus', this.#focus_bound);
 

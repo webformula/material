@@ -39,15 +39,6 @@ customElements.define('mdw-navigation-group', class MDWNavigationGroupElement ex
     return this.offsetHeight, this.scrollHeight;
   }
 
-  updateActive() {
-    if (this.querySelector('mdw-anchor.mdw-active')) {
-      this.#control.classList.add('mdw-active');
-      this.open = true;
-    } else {
-      this.#control.classList.remove('mdw-active');
-    }
-  }
-
   #controlClick() {
     this.open = !this.open;
   }

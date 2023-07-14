@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', initialize);
+if (document.readyState !== 'loading') initialize();
+else document.addEventListener('DOMContentLoaded', initialize);
 function initialize() {
   window.addEventListener('formdata', onFormData);
   window.addEventListener('reset', onReset)

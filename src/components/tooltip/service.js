@@ -44,7 +44,8 @@ function removeTooltip() {
   currentElement = undefined;
 }
 
-document.addEventListener('DOMContentLoaded', initialize);
+if (document.readyState !== 'loading') initialize();
+else document.addEventListener('DOMContentLoaded', initialize);
 function initialize() {
   tooltipElement = document.createElement('mdw-tooltip');
   tooltipElement.classList.add('mdw-main-tooltip');

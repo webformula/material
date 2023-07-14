@@ -121,6 +121,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   set checked(value) {
     this.#checked = !!value;
     this.toggleAttribute('checked', this.#checked);
+    this.setAttribute('aria-checked', this.#checked.toString());
   }
 
   template() {
@@ -211,6 +212,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     if (group.classList.contains('mdw-filter')) {
       this.classList.add('mdw-filter');
       this.setAttribute('role', 'checkbox');
+      this.setAttribute('aria-checked', 'false');
       return 'filter';
     }
     if (group.classList.contains('mdw-suggestion')) {

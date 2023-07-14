@@ -19,6 +19,8 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends HTMLE
     window.addEventListener('locationchange', this.#locationchange_bound);
     const active = this.querySelector('mdw-anchor.mdw-active');
     if (active) {
+      const parent = active.parentNode;
+      if (parent.nodeName === 'MDW-NAVIGATION-GROUP') requestAnimationFrame(() => parent.open = true);
       const bounds = active.getBoundingClientRect();
       if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
     }
