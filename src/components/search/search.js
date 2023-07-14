@@ -379,7 +379,6 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
   #onInput() {
     this.#clearAll();
-
     if (this.searchValue !== '') {
       if (this.#hasSearchValue === false) this.#hasSearchValue = true;
     } else if (this.#hasSearchValue === true) {
@@ -388,6 +387,7 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     }
 
     if (this.#debounce) this.#inputSearch_debounced();
+    else this.#inputSearch();
 
     this.dispatchEvent(new Event('input'));
   }
@@ -460,16 +460,25 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
 
     if (escape && !device.isMobile) this.close();
 
+    const focusedElement = document.activeElement;
+
     if ((tab && !shiftKey) || downArrow) {
-      this.#focusNext();
+      // list focus next handled y list component
+      if (focusedElement.nodeName !== 'MDW-LIST-ITEM') {
+        const nextFocus = this.#list.querySelector('mdw-list-item');
+        if (nextFocus) nextFocus.focus();
+      }
       event.preventDefault();
     } else if ((tab && shiftKey) || upArrow) {
-      this.#focusPrevious();
+      // list focus previous handled y list component
+      if (focusedElement.nodeName !== 'MDW-LIST-ITEM') {
+        const nextFocus = [...this.#list.querySelectorAll('mdw-list-item')].pop();
+        if (nextFocus) nextFocus.focus();
+      }
       event.preventDefault();
     }
 
     if (enter && !this.#debounce) {
-      const focusedElement = document.activeElement;
       if (focusedElement.nodeName === 'MDW-SEARCH' && !!this.searchValue) {
         this.#storeHistory(this.searchValue);
         this.pending();
@@ -489,61 +498,6 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
       }
     }
   }
-
-  #focusNext() {
-    const focusedElement = document.activeElement;
-    let nextFocus;
-
-    // if no focus on options then try focusing on element after selected
-    if (!focusedElement || focusedElement.nodeName !== 'MDW-LIST-ITEM') {
-      nextFocus = this.#list.querySelector('mdw-list-item');
-    }
-
-    // try next sibling
-    else if (
-      focusedElement.nextElementSibling &&
-      focusedElement.nextElementSibling.nodeName === 'MDW-LIST-ITEM'
-    ) nextFocus = focusedElement.nextElementSibling;
-
-    // it is possible next sibling is a header so try jumping it
-    else if (
-      focusedElement.nextElementSibling &&
-      focusedElement.nextElementSibling.nextElementSibling &&
-      focusedElement.nextElementSibling.nextElementSibling.nodeName === 'MDW-LIST-ITEM'
-    ) nextFocus = focusedElement.nextElementSibling.nextElementSibling;
-
-    else if (!nextFocus) nextFocus = this.#list.querySelector('mdw-list-item');
-
-    if (nextFocus) nextFocus.focus();
-  }
-
-  #focusPrevious() {
-    const focusedElement = document.activeElement;
-    let nextFocus;
-
-    // if no focus on options then try focusing on element after selected
-    if (!focusedElement || focusedElement.nodeName !== 'MDW-LIST-ITEM') {
-      nextFocus = [...this.#list.querySelectorAll('mdw-list-item')].pop();
-    }
-
-    // try next sibling
-    else if (
-      focusedElement.previousElementSibling &&
-      focusedElement.previousElementSibling.nodeName === 'MDW-LIST-ITEM'
-    ) nextFocus = focusedElement.previousElementSibling;
-
-    // it is possible next sibling is a header so try jumping it
-    else if (
-      focusedElement.previousElementSibling &&
-      focusedElement.previousElementSibling.previousElementSibling &&
-      focusedElement.previousElementSibling.previousElementSibling.nodeName === 'MDW-LIST-ITEM'
-    ) nextFocus = focusedElement.previousElementSibling.previousElementSibling;
-
-    else if (!nextFocus) nextFocus = [...this.#list.querySelectorAll('mdw-list-item')].pop();
-
-    if (nextFocus) nextFocus.focus();
-  }
-
 
   // close when leading or trailing icons are clicked
   #clickOutsideCloseFix(event) {

@@ -90,7 +90,7 @@ export default class extends Component {
 
 
   two() {
-    document.querySelector('mdw-search#two').addEventListener('search', this.onSearch_bound);
+    document.querySelector('mdw-search#two').addEventListener('search', event => this.onSearch_bound(event, false));
   }
 
   debounce() {
@@ -186,8 +186,8 @@ export default class extends Component {
     document.querySelector('mdw-search#nine').addEventListener('search', this.onSearch_bound);
   }
 
-  async onSearch(event) {
-    await this.wait(1000);
+  async onSearch(event, addWait = true) {
+    if (addWait) await this.wait(1000);
     event.target.updateSuggestions([
       {
         value: 'one',

@@ -212,14 +212,17 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
   }
 
   #focusKeydown(e) {
+    const { key, shiftKey } = e;
+    const tab = key === 'Tab';
+
     if (e.code === 'Enter' || e.code === 'Space') {
       if (!this.parentElement.classList.contains('mdw-select')) return;
       this.checked = !this.checked;
       e.preventDefault();
-    } else if (e.code === 'ArrowDown') {
+    } else if ((tab && !shiftKey) || e.code === 'ArrowDown') {
       this.#focusNext();
       e.preventDefault();
-    } else if (e.code === 'ArrowUp') {
+    } else if ((tab && shiftKey) || e.code === 'ArrowUp') {
       this.#focusPrevious();
       e.preventDefault();
     }
