@@ -1,0 +1,209 @@
+<mdw-card class="header-card">
+  <div class="mdw-card-content">
+    <div class="mdw-headline" style="font-size: 36px;">Navigations</div>
+    <div class="mdw-supporting-text">Drawers and Rails</div>
+  </div>
+</mdw-card>
+
+<a href="https://m3.material.io/components/navigation-drawer/overview" target="_new">Material Design Guidelines:
+  Navigation drawer</a>
+<p>Navigation drawers provide ergonomic access to destinations in an app.</p>
+<a href="https://m3.material.io/components/navigation-rail/overview" target="_new">Material Design Guidelines:
+  Navigation rail</a>
+<p>Navigation rails provide access to primary destinations in apps when using tablet and desktop screens.</p>
+
+<div class="links">
+  <a href="#basic">Drawer</a>
+  <a href="#groups">Anchor groups</a>
+  <a href="#rail">Rail</a>
+  <a href="#drawer-rail">Anchor groups</a>
+</div>
+
+
+<section>
+  <h5>Types</h5>
+
+  <mdw-card id="basic">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Drawer</div>
+
+      <div class="example">
+        <iframe src="./routes/navigations/examples/basic.html" style="height: 360px; width: 850px;"></iframe>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<body>
+    <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+
+    <mdw-navigation>
+      <div class="mdw-headline">Headline</div>
+      <mdw-anchor href="/">
+        <mdw-icon>home</mdw-icon>
+        Welcome
+      </mdw-anchor>
+      <mdw-anchor href="/mail">
+        <mdw-icon>mail</mdw-icon>
+        mail
+        <mdw-badge>9999</mdw-badge>
+      </mdw-anchor>
+      <mdw-anchor href="/one">One</mdw-anchor>
+    </mdw-navigation>
+  
+    <!-- page-content -->
+    
+    <!-- show bottom app bar on mobile with navigation toggle -->
+    <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+      <mdw-navigation-button></mdw-navigation-button>
+    </mdw-bottom-app-bar>
+  </body>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="group">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Anchor groups</div>
+      <div class="mdw-supporting-text">Group anchors together into an expandable section</div>
+  
+      <div class="example">
+        <iframe src="./routes/navigations/examples/group.html" style="height: 360px; width: 850px;"></iframe>
+      </div>
+    </div>
+  
+    <pre>
+        <code class="language-html">
+    ${page.escape(`<body>
+      <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+      
+      <mdw-navigation>
+        <div class="mdw-headline">Headline</div>
+      
+        <mdw-anchor href="/routes/navigations/examples/group.html">
+          <mdw-icon>home</mdw-icon>
+          Welcome
+        </mdw-anchor>
+      
+        <mdw-navigation-group>
+          <mdw-anchor group>Links</mdw-anchor>
+      
+          <mdw-anchor href="/one">One</mdw-anchor>
+          <mdw-anchor href="/two">Two</mdw-anchor>
+        </mdw-navigation-group>
+        <mdw-anchor href="/one">Onerere</mdw-anchor>
+      </mdw-navigation>
+    
+      <!-- page-content -->
+    
+      <!-- show bottom app bar on mobile with navigation toggle -->
+      <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+        <mdw-navigation-button></mdw-navigation-button>
+      </mdw-bottom-app-bar>
+    </body>`)}
+        </code>
+      </pre>
+  </mdw-card>
+
+
+  <mdw-card id="rail">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Navigation rail</div>
+  
+      <div class="example">
+        <iframe src="./routes/navigations/examples/rail.html" style="height: 360px; width: 850px;"></iframe>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<body>
+    <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-rail-width: 80px;" default: 360px -->
+    
+    <mdw-navigation-rail>
+      <mdw-anchor href="/routes/navigations/examples/rail.html">
+        <mdw-icon>home</mdw-icon>
+      </mdw-anchor>
+    
+      <mdw-anchor href="/one">
+        <mdw-icon>apps</mdw-icon>
+        One
+      </mdw-anchor>
+    
+      <mdw-anchor href="/two">
+        <mdw-icon>palette</mdw-icon>
+        Two
+      </mdw-anchor>
+    </mdw-navigation-rail>
+  
+    <!-- page-content -->
+  
+    <!-- show bottom app bar on mobile with navigation toggle -->
+    <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+      <mdw-navigation-button></mdw-navigation-button>
+    </mdw-bottom-app-bar>
+  </body>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="drawer-rail">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Navigation drawer and rail</div>
+  
+      <div class="example">
+        <iframe src="./routes/navigations/examples/drawer-rail.html" style="height: 360px; width: 850px;"></iframe>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<body>    
+    <mdw-navigation>
+      <div class="mdw-header">
+        <div class="mdw-headline">Headline</div>
+        <mdw-navigation-button></mdw-navigation-button>
+      </div>
+    
+      <mdw-anchor href="/routes/navigations/examples/basic.html">
+        <mdw-icon>home</mdw-icon>
+        Welcome
+      </mdw-anchor>
+      <mdw-anchor href="/mail">
+        <mdw-icon>mail</mdw-icon>
+        mail
+        <mdw-badge>9999</mdw-badge>
+      </mdw-anchor>
+      <mdw-anchor href="/one">One</mdw-anchor>
+      <mdw-anchor href="/two">Two</mdw-anchor>
+    </mdw-navigation>
+    <mdw-navigation-rail>
+      <mdw-navigation-button></mdw-navigation-button>
+    
+      <mdw-anchor href="/routes/navigations/examples/draw-rail.html">
+        <mdw-icon>home</mdw-icon>
+      </mdw-anchor>
+    
+      <mdw-anchor href="/one">
+        <mdw-icon>apps</mdw-icon>
+        One
+      </mdw-anchor>
+    
+      <mdw-anchor href="/two">
+        <mdw-icon>palette</mdw-icon>
+        Two
+      </mdw-anchor>
+    </mdw-navigation-rail>
+  
+    <!-- page-content -->
+  
+    <!-- show bottom app bar on mobile with navigation toggle -->
+    <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+      <mdw-navigation-button></mdw-navigation-button>
+    </mdw-bottom-app-bar>
+  </body>`)}
+      </code>
+    </pre>
+  </mdw-card>
+</section>

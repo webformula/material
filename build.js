@@ -58,8 +58,8 @@ build({
     { from: 'docs/icons.woff2', to: 'dist/', gzip: true },
     { from: 'docs/highlight-11.8.0.js', to: 'dist/', gzip: true },
     {
-      from: 'docs/pages/**/(?!page)*.html',
-      to: 'dist/pages/',
+      from: 'docs/routes/**/(?!page)*.html',
+      to: 'dist/routes/',
       gzip: true,
       transform({ content, outputFileNames }) {
         if (outputFileNames) return content.replace(cssTagRegex, () => {
