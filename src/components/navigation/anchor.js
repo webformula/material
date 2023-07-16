@@ -26,8 +26,9 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
 
   constructor() {
     super();
-    this.tabIndex = 0;
+  }
 
+  connectedCallback() {
     const text = util.getTextFromNode(this);
     if (text) this.classList.add('mdw-has-text');
     if (!this.hasAttribute('aria-label')) {
@@ -35,9 +36,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     }
 
     if (this.hasAttribute('group')) this.appendChild(arrowTemplate.content.cloneNode(true));
-  }
-
-  connectedCallback() {
+    
+    this.tabIndex = 0;
     this.setAttribute('role', 'link');
     this.appendChild(rippleTemplate.content.cloneNode(true));
     this.#ripple = new Ripple({

@@ -34,17 +34,17 @@ export default class MDWButtonElement extends HTMLElementExtended {
 
   constructor() {
     super();
-    this.#handleTrailingIcon();
-    if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu');
   }
 
   connectedCallback() {
+    this.#handleTrailingIcon();
+    if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu');
     this.tabIndex = 0;
     if (this.parentElement.nodeName === 'MDW-MENU') this.setAttribute('role', 'menuitem');
     else this.setAttribute('role', 'button');
     if (!this.hasAttribute('aria-label')) {
       if (this.classList.contains('mdw-icon-button') || this.classList.contains('mdw-icon-toggle-button')) {
-        const text = this.querySelector('mdw-icon').innerText;
+        const text = this.querySelector('mdw-icon')?.innerText;
         if (text) this.setAttribute('aria-label', text);
       } else {
         const text = util.getTextFromNode(this);
