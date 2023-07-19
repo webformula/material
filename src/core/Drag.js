@@ -1,15 +1,12 @@
 import util from './util.js';
 import device from './device.js';
 
-
 export default class Drag {
   #element;
-  #includeMouseEvents = false;
   #isDragging = false;
   #touchstart_bound = this.#touchstart.bind(this);
   #touchend_bound = this.#touchend.bind(this);
   #touchmove_throttled = util.rafThrottle(this.#touchmove.bind(this));
-
   #onDragCallbacks = [];
   #onStartCallbacks = [];
   #onEndCallbacks = [];
@@ -22,7 +19,8 @@ export default class Drag {
   #lastTouchPos = { x: 0, y: 0 };
   #lockScrollY = false;
   #lockScrollThreshold = 12;
-  #desktopOnly = false;
+  #noTouchEvents = false;
+  #noMouseEvents = false;
   #enabled;
   #abort;
   #touchAbort;
@@ -40,11 +38,18 @@ export default class Drag {
     this.#element = value;
   }
 
-  get includeMouseEvents() {
-    return this.#includeMouseEvents;
+  get noMouseEvents() {
+    return this.#noMouseEvents || device.hasTouchScreen;
   }
-  set includeMouseEvents(value) {
-    this.#includeMouseEvents = !!value;
+  set noMouseEvents(value) {
+    this.#noMouseEvents = !!value;
+  }
+
+  get noTouchEvents() {
+    return this.#noTouchEvents;
+  }
+  set noTouchEvents(value) {
+    this.#noTouchEvents = !!value;
   }
 
   get isDragging() {
@@ -65,13 +70,6 @@ export default class Drag {
     if (isNaN(value)) throw Error('lockScrollThreshold must be a number')
     this.#lockScrollThreshold = parseInt(value);
   }
-
-  get desktopOnly() {
-    return this.#desktopOnly;
-  }
-  set desktopOnly(value) {
-    this.#desktopOnly = !!value;
-  }
   
 
   enable() {
@@ -79,12 +77,8 @@ export default class Drag {
     this.#enabled = true;
     this.#abort = new AbortController();
 
-    if (this.#desktopOnly && !device.isMobile) {
-      this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
-    } else {
-      this.#element.addEventListener('touchstart', this.#touchstart_bound, { signal: this.#abort.signal });
-      if (this.#includeMouseEvents === true) this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
-    }
+    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
+    if (!this.noTouchEvents) this.#element.addEventListener('touchstart', this.#touchstart_bound, { signal: this.#abort.signal });
   }
 
   disable() {
@@ -123,35 +117,28 @@ export default class Drag {
   }
 
   #touchstart(event) {
-    // TODO why did i add this?
-    // if (event.button !== 0) return;
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
     this.#startTime = Date.now();
     this.#initialTouchPos = this.#getTouchPosition(event);
     this.#lastDistance = this.#getDistance(event);
     this.#totalDistance = this.#getDistance(event);
-    this.#onStartCallbacks.forEach(callback => callback({
-      event,
-      element: this.#element
-    }));
     this.#touchAbort = new AbortController();
 
-    if (!this.#desktopOnly) {
+    if (!this.noTouchEvents) {
       this.#element.addEventListener('touchend', this.#touchend_bound, { signal: this.#touchAbort.signal });
       this.#element.addEventListener('touchmove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
     }
 
-    if (this.#includeMouseEvents || this.#desktopOnly) {
+    if (!this.noMouseEvents) {
       window.addEventListener('mouseup', this.#touchend_bound, { signal: this.#touchAbort.signal });
       window.addEventListener('mousemove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
     }
-
-    this.#isDragging = true;
   }
 
   #touchend(event) {
     this.#touchAbort.abort();
-
+    if (!this.#isDragging) return;
+    this.#isDragging = false;
     const distance = this.#getDistance(event);
     if (this.#lockScrollY) util.unlockPageScroll();
 
@@ -165,6 +152,14 @@ export default class Drag {
   }
 
   #touchmove(event) {
+    if (!this.#isDragging) {
+      this.#onStartCallbacks.forEach(callback => callback({
+        event,
+        element: this.#element
+      }));
+      this.#isDragging = true;
+    }
+
     this.#currentTouchPosition = this.#getTouchPosition(event);
     const distance = this.#getDistance(event);
     this.#totalDistance.x += distance.x;
@@ -181,8 +176,6 @@ export default class Drag {
       element: this.#element
     }));
     this.#lastDistance = distance;
-
-    this.#isDragging = false;
   }
 
   #getDistance(event) {

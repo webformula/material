@@ -67,6 +67,7 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     if (this.#swipeActionElement) {
       this.#dragSwipeAction = new Drag(this);
+      this.#dragSwipeAction.noMouseEvents = true;
       this.#dragSwipeAction.lockScrollY = true;
       this.#dragSwipeAction.onDrag(this.#ondragSwipeAction_bound);
       this.#dragSwipeAction.onStart(this.#ondragSwipeActionStart_bound);

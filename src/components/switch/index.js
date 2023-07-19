@@ -49,7 +49,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   }
 
   disconnectedCallback() {
-    this.shadowRoot.querySelector('.track').removeEventListener('click', this.#click_bound);
+    util.removeClickTimeout(this.shadowRoot.querySelector('.track'), this.#click_bound);
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
@@ -57,9 +57,8 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   }
 
   afterRender() {
-    this.shadowRoot.querySelector('.track').addEventListener('click', this.#click_bound);
+    util.addClickTimeout(this.shadowRoot.querySelector('.track'), this.#click_bound);
     this.#drag = new Drag(this.#thumb);
-    this.#drag.includeMouseEvents = true;
     this.#drag.onDrag(this.#onDrag_bound);
     this.#drag.onEnd(this.#onDragEnd_bound);
     this.#drag.enable();
@@ -106,6 +105,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   #click() {
     this.checked = !this.#checked;
     this.dispatchEvent(new Event('change'));
+    this.blur();
   }
 
   #focus() {
@@ -134,8 +134,10 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
 
   #onDragEnd() {
     const position = parseInt(this.#thumb.style.left.replace('px', ''));
-    if (position > 10) this.checked = false;
-    else this.checked = true;
+    const current = this.checked;
+    if (position > 10) this.checked = true;
+    else this.checked = false;
     this.#thumb.style.left = '';
+    if (this.checked !== current) this.dispatchEvent(new Event('change'));
   }
 });

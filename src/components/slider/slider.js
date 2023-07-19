@@ -83,7 +83,6 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     if (label) this.setAttribute('aria-label', label);
 
     this.#drag = new Drag(this.#thumb);
-    this.#drag.includeMouseEvents = true;
     this.#drag.onDrag(this.#onDrag_bound);
     this.#drag.onStart(this.#onDragStart_bound);
     this.#drag.enable();

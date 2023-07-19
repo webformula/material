@@ -47,6 +47,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
       this.#drag = new Drag(this);
       // TODO fix this. Ty swiping and you will see
       // this.#drag.lockScrollY = true;
+      this.#drag.noMouseEvents = true;
       this.#drag.onDrag(this.#onDrag_bound);
       this.#drag.onStart(this.#onDragStart_bound);
       this.#drag.onEnd(this.#onDragEnd_bound);

@@ -16,7 +16,7 @@ customElements.define('mdw-chip-group', class MDWChipGroupElement extends HTMLEl
   connectedCallback() {
     if (!this.#drag) {
       this.#drag = new Drag(this);
-      this.#drag.desktopOnly = true;
+      this.#drag.noTouchEvents = true;
       this.#drag.onDrag(this.#onDrag_bound);
       this.#drag.enable();
     }

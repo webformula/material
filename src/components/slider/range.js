@@ -84,13 +84,11 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     this.#setPositionTwo({ percent: this.percents[1] });
 
     this.#dragOne = new Drag(this.#thumb);
-    this.#dragOne.includeMouseEvents = true;
     this.#dragOne.onDrag(this.#onDragOne_bound);
     this.#dragOne.onStart(this.#onDragOneStart_bound);
     this.#dragOne.enable();
 
     this.#dragTwo = new Drag(this.#thumb2);
-    this.#dragTwo.includeMouseEvents = true;
     this.#dragTwo.onDrag(this.#onDragTwo_bound);
     this.#dragTwo.onStart(this.#onDragTwoStart_bound);
     this.#dragTwo.enable();
