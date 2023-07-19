@@ -84,6 +84,8 @@
         <li><b>mdwUtil:</b> mdwUtil.toggleColorScheme('' | 'light | dark')</li>
       </ul>
 
+      <div class="mdw-supporting-text">Using theme css color variable will auto adjust with light and dark themes</div>
+
       <mdw-button class="theme-toggle mdw-icon-toggle-button ${document.documentElement.classList.contains('mdw-theme-dark') ? 'mdw-toggled' : ''}" onClick="window.toggleColorScheme()">
         <mdw-icon value="on">dark_mode</mdw-icon>
         <mdw-icon value="off">light_mode</mdw-icon>
@@ -126,6 +128,18 @@
   console.log(scheme); // light | dark
   mdwUtil.toggleColorScheme('light');
   mdwUtil.toggleColorScheme('dark');`}
+      </code>
+    </pre>
+
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<!-- Using theme css color variable will auto adjust with light and dark themes -->
+
+  <mdw-icon style="color: var(--mdw-primary)">home</mdw-icon>
+  
+  .some-class {
+    color: var(--mdw-primary);
+  }`)}
       </code>
     </pre>
   </mdw-card>

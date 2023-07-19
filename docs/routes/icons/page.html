@@ -5,11 +5,11 @@
   </div>
   <div class="mdw-card-content">
     <mdw-icon class="mdw-small">favorite</mdw-icon>
-    <mdw-icon>favorite</mdw-icon>
-    <mdw-icon class="mdw-large">favorite</mdw-icon>
-    <mdw-icon class="mdw-extra-large">favorite</mdw-icon>
-    <mdw-icon class="mdw-outlined">favorite</mdw-icon>
-    <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>
+    <mdw-icon style="color: var(--mdw-neutral);"">favorite</mdw-icon>
+    <mdw-icon class="mdw-large" style="color: var(--mdw-tertiary-variant);">favorite</mdw-icon>
+    <mdw-icon class="mdw-extra-large" style="color: var(--mdw-primary);">favorite</mdw-icon>
+    <mdw-icon class="mdw-outlined" style="color: var(--mdw-neutral-variant);">favorite</mdw-icon>
+    <mdw-icon class="mdw-bold mdw-outlined" style="color: var(--mdw-error);">favorite</mdw-icon>
   </div>
 </mdw-card>
 
@@ -20,6 +20,7 @@
   <a href="#standard">Standard</a>
   <a href="#sizes">Sizes</a>
   <a href="#outlined">Outlined - Outlined bold</a>
+  <a href="#color">Color</a>
 </div>
 
 
@@ -78,6 +79,23 @@
       <code class="language-html">
   ${page.escape(`<mdw-icon class="mdw-outlined">favorite</mdw-icon>
   <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="color">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Color</div>
+      <div class="mdw-subheader">Theme color variables automatically adjust for light and dark modes</div>
+  
+      <div class="example">
+        <mdw-icon class="mdw-large" style="color: var(--mdw-primary)">favorite</mdw-icon>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<mdw-icon class="mdw-large" style="color: var(--mdw-primary)">favorite</mdw-icon>`)}
       </code>
     </pre>
   </mdw-card>
