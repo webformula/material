@@ -40,8 +40,6 @@ export default class MDWCardElement extends HTMLElementExtended {
 
   constructor() {
     super();
-
-    this.classList.add('mdw-no-animation');
   }
 
   connectedCallback() {    

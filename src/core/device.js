@@ -47,7 +47,9 @@ const mdwDevice = new class MDWDevice {
     return window.innerHeight < this.#compactBreakpoint;
   }
 
-  #setWindow() {
+  async #setWindow() {
+    if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
+    
     const isMobile = this.isMobile;
     const state = this.state;
     document.body.classList.remove('mdw-window-compact');

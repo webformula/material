@@ -19,7 +19,8 @@ export async function generate() {
   // to execute this code quickly as possible we do not wait for DOMContentLoaded
   // 99% of the time this is fine, but once in a while document.body is not available so we add this line as a safety net
   if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
-  
+  else await new Promise(resolve => requestAnimationFrame(resolve)); // make sure css is registered
+
   const computedStyles = getComputedStyle(document.body);
   const localStorageColorScheme = localStorage.getItem('mdw-color-scheme');
   let isDark = false;
