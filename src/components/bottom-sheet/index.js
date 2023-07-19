@@ -14,7 +14,9 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
-  #onScroll_bound = this.#onScroll.bind(this);
+  #onScroll_bound = util.rafThrottle(this.#onScroll.bind(this));
+  #onPageScroll_bound = util.rafThrottle(this.#onPageScroll.bind(this));
+  #positionState = 'initial';
 
   constructor() {
     super();
@@ -29,21 +31,42 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.#drag.onEnd(this.#onDragEnd_bound);
   }
 
+  #onPageScroll() {
+    switch (this.#positionState) {
+      case 'initial':
+        this.#position = this.#initialPosition;
+        break;
+      case 'minimized':
+        this.#position = this.#minimizedPosition;
+        break;
+    }
+  }
+
   connectedCallback() {
     this.#drag.enable();
+    util.trackPageScroll(this.#onPageScroll_bound);
+  }
+
+  disconnectedCallback() {
+    this.#drag.disable();
+    util.untrackPageScroll(this.#onPageScroll_bound);
   }
 
   get #initialPosition() {
+    this.#positionState = 'initial';
     const initialPositionVar = parseInt(this.style.getPropertyValue('--mdw-bottom-sheet-initial-position') || 40) / 100;
     return -(this.offsetHeight - (window.innerHeight * initialPositionVar));
   }
 
   get #topPosition() {
+    this.#positionState = 'top';
     return -(this.offsetHeight - window.innerHeight);
   }
 
   get #minimizedPosition() {
-    return -(this.offsetHeight - 80);
+    this.#positionState = 'minimized';
+    const offset = document.body.classList.contains('mdw-has-bottom-app-bar')  ? 80 : 0;
+    return -(this.offsetHeight - 80 - offset);
   }
 
   get #position() {
@@ -77,6 +100,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
 
     await util.transitionendAsync(this);
     this.classList.remove('mdw-animate-position');
+    if (this.#positionState !== 'top') requestAnimationFrame(() => util.unlockPageScroll());
   }
 
   #onDrag({ distance, direction }) {
@@ -104,17 +128,21 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #switchToScrolling(distance) {
     this.style.overflowY = 'scroll';
     this.#position = 0;
+    if (document.body.classList.contains('mdw-has-bottom-app-bar')) {
+      this.#position = -parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
+    }
     this.#isScrolling = true;
     if (distance) this.scrollTop = -distance.moveY;
     this.addEventListener('scroll', this.#onScroll_bound);
+    this.classList.add('mdw-fullscreen');
   }
 
   #switchToDragging() {
+    this.classList.remove('mdw-fullscreen');
     this.style.overflowY = 'visible';
     this.style.height = '';
     this.#initialDragPosition = this.#position;
     this.#position = this.#topPosition;
-    this.#drag.resetDistance();
     this.#isScrolling = false;
     this.removeEventListener('scroll', this.#onScroll_bound);
   }

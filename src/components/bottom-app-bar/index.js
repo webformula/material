@@ -14,6 +14,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     super();
 
     document.body.classList.add('mdw-has-bottom-app-bar');
+    document.body.style.setProperty('--mdw-bottom-app-bar-position', '0px');
     if (this.classList.contains('mdw-always-show')) document.body.classList.add('mdw-bottom-app-bar-always-show');
   }
 
@@ -83,22 +84,24 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     secondary.classList.remove('mdw-show-animation-start');
   }
 
-  #scrollTrack({ direction, distance, distanceFromDirectionChange, scrollTop }) {
-    // prevent style changes if not moving
-    const position = -parseInt(this.style.getPropertyValue('--mdw-bottom-app-bar-scroll-position').replace('px', '') || 0);
-
-    // add 90 pixel buffer before raising the bar, but do not prevent raise not enough scroll pixels
-    if (direction === 1 && (position === 0 || (distanceFromDirectionChange > -120 && scrollTop > this.#height))) return;
-    if (direction === -1 && position === this.#height) return;
-
-    // move with scroll
-    let value = position + distance;
-    if (value > this.#height) value = this.#height;
-    if (value < 0) value = 0;
-    this.style.setProperty('--mdw-bottom-app-bar-scroll-position', `${-value}px`);
+  #scrollTrack({ direction, distanceFromDirectionChange, scrollTop }) {
+    if (scrollTop <= 0) {
+      document.body.style.setProperty('--mdw-bottom-app-bar-position', '0px');
+      return;
+    }
+    
+    const position = parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
+    let offset;
+    if (direction === -1 && position > -80) {
+      offset = Math.min(distanceFromDirectionChange, 80);
+      document.body.style.setProperty('--mdw-bottom-app-bar-position', `-${offset}px`);
+    } else if (direction === 1 && position < 0) {
+      offset = Math.max(80 + distanceFromDirectionChange, 0);
+      document.body.style.setProperty('--mdw-bottom-app-bar-position', `-${offset}px`);
+    }
 
     // animate icons in
-    if (direction === 1 && position >= this.#height - 20 && value < this.#height - 20) this.#show();
+    if (direction === 1 && -position >= this.#height - 20 && offset < this.#height - 20) this.#show();
   }
 
   #hashchange() {

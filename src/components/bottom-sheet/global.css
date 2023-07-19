@@ -11,8 +11,10 @@ mdw-bottom-sheet {
   left: 0;
   margin-right: auto;
   margin-left: auto;
+  padding-bottom: 12px;
   overflow-y: visible;
   overscroll-behavior: contain;
+  box-sizing: border-box;
 
   bottom: var(--mdw-bottom-sheet-bottom);
 
@@ -23,13 +25,18 @@ mdw-bottom-sheet {
   box-shadow: var(--mdw-elevation-1);
 }
 
+mdw-bottom-sheet.mdw-fullscreen {
+  border-radius: 0;
+}
+
+body.mdw-has-bottom-app-bar.mdw-window-compact mdw-bottom-sheet {
+  bottom: calc(var(--mdw-bottom-sheet-bottom) + var(--mdw-bottom-app-bar-position));
+  padding-bottom: calc(92px + var(--mdw-bottom-app-bar-position));
+}
+
 mdw-bottom-sheet.mdw-animate-position {
   transition: bottom 300ms cubic-bezier(0, 0.55, 0.45, 1);
 }
-
-/* mdw-bottom-sheet.mdw-drag-animation {
-  transition: bottom 300ms cubic-bezier(0, 0.55, 0.45, 1);
-} */
 
 
 mdw-bottom-sheet > .mdw-drag-handle {
@@ -47,16 +54,3 @@ mdw-bottom-sheet > .mdw-drag-handle {
 mdw-bottom-sheet > .mdw-content {
   margin: 0 12px;
 }
-
-
-/* -- blank out background when over scrolling --- */
-/* mdw-bottom-sheet.mdw-over-scroll::after {
-  content: '';
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: var(--mdw-surface);
-  z-index: -1;
-} */

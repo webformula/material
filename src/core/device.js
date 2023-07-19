@@ -1,3 +1,6 @@
+import util from './util.js';
+
+
 const mdwDevice = new class MDWDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
@@ -5,12 +8,12 @@ const mdwDevice = new class MDWDevice {
     isMobile: this.isMobile,
     state: this.state
   };
-  #setWindow_bound = this.#setWindow.bind(this);
+  #setWindow_raf = util.rafThrottle(this.#setWindow.bind(this));
 
   constructor() {
     this.#setWindow();
-    screen.orientation.addEventListener("change", this.#setWindow_bound);
-    window.addEventListener('resize', this.#setWindow_bound);
+    screen.orientation.addEventListener("change", this.#setWindow_raf);
+    window.addEventListener('resize', this.#setWindow_raf);
   }
 
   get orientation() {
@@ -49,7 +52,7 @@ const mdwDevice = new class MDWDevice {
 
   async #setWindow() {
     if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
-    
+
     const isMobile = this.isMobile;
     const state = this.state;
     document.body.classList.remove('mdw-window-compact');
