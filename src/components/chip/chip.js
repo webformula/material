@@ -37,6 +37,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #menuChange_bound = this.#menuChange.bind(this);
+  #inputValueRegex = /^(.+)<(.+)>$/;
 
 
   constructor() {
@@ -55,6 +56,18 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     if (this.querySelector('mdw-menu')) {
       this.#originalLabel = util.getTextFromNode(this);
       this.#currentLabel = this.#originalLabel;
+    }
+
+    if (this.#hasMenu) {
+      const value = this.getAttribute('value');
+      if (value) {
+        const match = this.querySelector(`mdw-menu mdw-button[value="${value}"]`);
+        if (match) {
+          this.checked = true;
+          this.value = value;
+          this.#menuClose();
+        }
+      }
     }
   }
 
@@ -130,7 +143,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       <slot></slot>
       ${this.#type === 'input' ? /*html*/`
         <input value="${this.value}">
-        <span class="value-display">${this.value}</span>
+        <span class="value-display">${this.#getInputDisplayValue(this.value)}</span>
         <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
       ` : ''}
       <span class="spinner"></span>
@@ -231,12 +244,18 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
 
   #onInputBlur() {
     this.#value = this.#input.value;
-    this.#valueDisplay.innerText = this.#input.value;
+    this.#valueDisplay.innerText = this.#getInputDisplayValue(this.#input.value);
     this.classList.remove('mdw-edit');
     this.#input.removeEventListener('input', this.#onInput_bound);
     this.#input.removeEventListener('blur', this.#onInputBlur_bound);
     document.body.removeEventListener('keydown', this.#onKeydown_bound);
     this.#group.dispatchEvent(new Event('change'));
+  }
+
+  #getInputDisplayValue(str) {
+    const match = str.match(this.#inputValueRegex);
+    if (!match) return str;
+    return match[1];
   }
 
   #onKeydown(event) {

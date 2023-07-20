@@ -8,7 +8,7 @@
     <div class="example" title="test">
       <mdw-chip-group class="mdw-input" onchange="console.log(this.value)">
         <mdw-chip value="One"></mdw-chip>
-        <mdw-chip value="two"><mdw-icon>home</mdw-icon></mdw-chip>
+        <mdw-chip value="Email <one@email.com>"><mdw-icon>email</mdw-icon></mdw-chip>
       </mdw-chip-group>
 
       <mdw-chip-group class="mdw-suggestion" onchange="console.log(this.value)">
@@ -110,22 +110,30 @@ series of email contacts. There are four types of chips: assist, filter, input, 
       <div class="example">
         <mdw-chip-group class="mdw-filter">
           <mdw-chip value="one" checked>
-            <mdw-icon class="mdw-check">check</mdw-icon>
             One
           </mdw-chip>
           <mdw-chip value="two" checked>
-            <mdw-icon class="mdw-check">check</mdw-icon>
             Two
           </mdw-chip>
           <mdw-chip value="three">
-            <mdw-icon class="mdw-check">check</mdw-icon>
             Three
           </mdw-chip>
+
+          <!-- No default value -->
           <mdw-chip menu="menu">
-            Menu
+            Number
             <mdw-menu>
-              <mdw-button value="a">plain</mdw-button>
-              <mdw-button value="b">plain</mdw-button>
+              <mdw-button value="a">One</mdw-button>
+              <mdw-button value="b">Two</mdw-button>
+            </mdw-menu>
+          </mdw-chip>
+
+          <!-- Default value -->
+          <mdw-chip menu="menu" value="a">
+            Status
+            <mdw-menu>
+              <mdw-button value="a">On</mdw-button>
+              <mdw-button value="b">Off</mdw-button>
             </mdw-menu>
           </mdw-chip>
         </mdw-chip-group>
@@ -135,23 +143,25 @@ series of email contacts. There are four types of chips: assist, filter, input, 
     <pre>
       <code class="language-html">
   ${page.escape(`<mdw-chip-group class="mdw-filter">
-    <mdw-chip value="one" checked>
-      <mdw-icon class="mdw-check">check</mdw-icon>
-      One
-    </mdw-chip>
-    <mdw-chip value="two" checked>
-      <mdw-icon class="mdw-check">check</mdw-icon>
-      Two
-    </mdw-chip>
-    <mdw-chip value="three">
-      <mdw-icon class="mdw-check">check</mdw-icon>
-      Three
-    </mdw-chip>
+    <mdw-chip value="one" checked>One</mdw-chip>
+    <mdw-chip value="two" checked>Two</mdw-chip>
+    <mdw-chip value="three">Three</mdw-chip>
+    
+    <!-- No default value -->
     <mdw-chip menu="menu">
-      Menu
+      Number
       <mdw-menu>
-        <mdw-button value="a">plain</mdw-button>
-        <mdw-button value="b">plain</mdw-button>
+        <mdw-button value="a">One</mdw-button>
+        <mdw-button value="b">Two</mdw-button>
+      </mdw-menu>
+    </mdw-chip>
+    
+    <!-- Default value -->
+    <mdw-chip menu="menu" value="a">
+      Status
+      <mdw-menu>
+        <mdw-button value="a">On</mdw-button>
+        <mdw-button value="b">Off</mdw-button>
       </mdw-menu>
     </mdw-chip>
   </mdw-chip-group>`)}
@@ -166,90 +176,14 @@ series of email contacts. There are four types of chips: assist, filter, input, 
     </pre>
   </mdw-card>
 
-
-
-  <mdw-card id="menu">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">With drop menu</div>
-  
-      <div class="example">
-        <mdw-chip-group>
-          <mdw-chip-menu>
-            <ul>
-              <li mdw-action="edit">
-                <mdw-icon>edit</mdw-icon>
-                <div class="mdw-label">Edit</div>
-              </li>
-              <li mdw-action="remove">
-                <mdw-icon>remove</mdw-icon>
-                <div class="mdw-label">Remove</div>
-              </li>
-            </ul>
-          </mdw-chip-menu>
-          <mdw-chip value="one@email.com">
-            One person
-          </mdw-chip>
-          <mdw-chip value="two@email.com">
-            <div class="mdw-label">Person Two</div>
-          </mdw-chip>
-        </mdw-chip-group>
-      </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
-  ${page.escape(`<mdw-chip-group>
-    <mdw-chip-menu>
-      <ul>
-        <li mdw-action="edit">
-          <mdw-icon>edit</mdw-icon>
-          <div class="mdw-label">Edit</div>
-        </li>
-        <li mdw-action="remove">
-          <mdw-icon>remove</mdw-icon>
-          <div class="mdw-label">Remove</div>
-        </li>
-      </ul>
-    </mdw-chip-menu>
-    <mdw-chip value="one@email.com">
-      One person
-    </mdw-chip>
-    <mdw-chip value="two@email.com">
-      <div class="mdw-label">Person Two</div>
-    </mdw-chip>
-  </mdw-chip-group>`)}
-      </code>
-    </pre>
-
-    <pre>
-      <code class="language-javascript">
-  ${`// add chip
-  document.querySelector('mdw-chip-group.mdw-input').addChip({
-    label: 'Three',
-    value: 'three@email.com',
-    clearButton: true,
-    position: 'start'
-  })`}
-      </code>
-    </pre>
-  </mdw-card>
-
-
-
   <mdw-card id="input">
     <div class="mdw-card-content">
       <div class="mdw-headline">Input</div>
   
       <div class="example">
         <mdw-chip-group class="mdw-input">
-          <mdw-chip value="one@email.com">
-            one@email.com
-            <mdw-icon class="mdw-clear">clear</mdw-icon>
-          </mdw-chip>
-          <mdw-chip value="two@email.com">
-            <div class="mdw-label">two@email.com</div>
-            <mdw-icon class="mdw-clear">clear</mdw-icon>
-          </mdw-chip>
+          <mdw-chip value="Ben Rubin <ben@email.com>"></mdw-chip>
+          <mdw-chip value="Other Guy <buy@email.com>"></mdw-chip>
         </mdw-chip-group>
       </div>
     </div>
@@ -257,27 +191,9 @@ series of email contacts. There are four types of chips: assist, filter, input, 
     <pre>
       <code class="language-html">
   ${page.escape(`<mdw-chip-group class="mdw-input">
-    <mdw-chip value="one@email.com">
-      one@email.com
-      <mdw-icon class="mdw-clear">clear</mdw-icon>
-    </mdw-chip>
-    <mdw-chip value="two@email.com">
-      <div class="mdw-label">two@email.com</div>
-      <mdw-icon class="mdw-clear">clear</mdw-icon>
-    </mdw-chip>
+    <mdw-chip value="Ben Rubin <ben@email.com>"></mdw-chip>
+    <mdw-chip value="Other Guy <buy@email.com>"></mdw-chip>
   </mdw-chip-group>`)}
-      </code>
-    </pre>
-
-    <pre>
-      <code class="language-javascript">
-  ${`// add chip
-  document.querySelector('mdw-chip-group.mdw-input').addChip({
-    label: 'Three',
-    value: 'three@email.com',
-    clearButton: true,
-    position: 'start'
-  })`}
       </code>
     </pre>
   </mdw-card>
