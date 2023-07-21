@@ -51,13 +51,14 @@
   pointer-events: none;
 }
 
-:host([checked]) .check {
+:host(.mdw-checked) .check {
   display: block;
 }
 
 :host .clear {
   margin-left: 4px;
   margin-right: -4px;
+  margin-top: -1px;
   cursor: pointer;
 }
 
@@ -86,8 +87,8 @@
   user-select: none;
 }
 
-:host(.mdw-filter[checked]) ::slotted(mdw-icon),
-:host(.mdw-filter-menu[checked]) ::slotted(mdw-icon) {
+:host(.mdw-filter.mdw-checked) ::slotted(mdw-icon),
+:host(.mdw-filter-menu.mdw-checked) ::slotted(mdw-icon) {
   display: none !important;
 }
 

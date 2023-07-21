@@ -19,14 +19,14 @@ mdw-chip-group.mdw-wrap {
 }
 
 
-mdw-chip-group.mdw-filter > mdw-chip[checked],
-mdw-chip-group.mdw-filter-menu > mdw-chip[checked] {
+mdw-chip-group.mdw-filter > mdw-chip.mdw-checked,
+mdw-chip-group.mdw-filter-menu > mdw-chip.mdw-checked {
   border-color: transparent;
   background-color: var(--mdw-secondary-container);
   color: var(--mdw-on-secondary-container);
 }
 
-mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button[checked] {
+mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button.mdw-checked {
   background-color: var(--mdw-secondary-container);
   color: var(--mdw-on-secondary-container);
 }
@@ -49,7 +49,6 @@ mdw-chip-group > mdw-chip > mdw-menu.mdw-panel mdw-button::after {
   height: 32px;
 }
 
-
 mdw-chip-group > mdw-chip .mdw-select-arrow {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
@@ -64,4 +63,51 @@ mdw-chip-group > mdw-chip .mdw-select-arrow {
 
 mdw-chip-group > mdw-chip.mdw-open .mdw-select-arrow {
   transform: rotate(0);
+}
+
+
+mdw-chip-group.mdw-input {
+  height: 56px;
+  align-items: center;
+  border-bottom: 1px solid;
+  border-bottom-color: var(--mdw-on-surface-variant);
+}
+
+mdw-chip-group.mdw-input > input {
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  outline: none;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  margin-left: 8px;
+
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-family: inherit;
+  font-size: var(--mdw-font-body-size-large);
+  font-weight: var(--mdw-font-body-weight-large);
+  line-height: var(--mdw-font-body-line-height-large);
+  letter-spacing: var(--mdw-font-body-letter-spacing-large);
+  color: var(--mdw-on-surface);
+  caret-color: var(--mdw-primary);
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+mdw-chip-group.mdw-input > label {
+  margin-right: 16px;
+  margin-top: 2px;
+  font-size: var(--mdw-font-label-size-large);
+  font-weight: var(--mdw-font-label-weight-large);
+  line-height: var(--mdw-font-label-line-height-large);
+  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  text-decoration: inherit;
+  text-transform: inherit;
+
+  color: var(--mdw-on-surface-variant);
+  opacity: 0.7;
 }

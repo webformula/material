@@ -7,89 +7,64 @@ import {
   close_FILL1_wght400_GRAD0_opsz20
 } from '../../core/svgs.js';
 
-// TODO labels (initial label, action label, remove label, ...)
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
+  static styleSheets = styles;
   useShadowRoot = true;
   useTemplate = false;
-  static styleSheets = styles;
-
+  
+  static #inputValueRegex = /^(.+)<(.+)>$/;
   #type;
-  #value = '';
+  #value = this.getAttribute('value') || '';
+  #menuItemValue = '';
   #checked = false;
+  #group;
   #ripple;
   #input;
-  #valueDisplay;
-  #originalLabel;
-  #currentLabel;
-  #group;
-  #menuValue = '';
-  #hasMenu;
-  #onClick_bound = this.#onClick.bind(this);
-  #onClearClick_bound = this.#onClearClick.bind(this);
-  #onInput_bound = this.#onInput.bind(this);
-  #onInputBlur_bound = this.#onInputBlur.bind(this);
-  #onKeydown_bound = this.#onKeydown.bind(this);
-  #menuOpen_bound = this.#menuOpen.bind(this);
-  #menuClose_bound = this.#menuClose.bind(this);
+  #inputValueDisplay;
+  #hasMenu = false;
+  #originalText;
   #abort = new AbortController();
+  #onClick_bound = this.#click.bind(this);
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
-  #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #menuOpen_bound = this.#menuOpen.bind(this);
+  #menuClose_bound = this.#menuClose.bind(this);
   #menuChange_bound = this.#menuChange.bind(this);
-  #inputValueRegex = /^(.+)<(.+)>$/;
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #clearClick_bound = this.#clearClick.bind(this);
+  #onInput_bound = this.#onInput.bind(this);
+  #inputBlur_bound = this.#inputBlur.bind(this);
+  #inputKeydown_bound = this.#inputKeydown.bind(this);
 
 
   constructor() {
     super();
   }
-  
+
   connectedCallback() {
     this.tabIndex = 0;
     this.#group = this.parentElement;
     this.#hasMenu = this.querySelector('mdw-menu');
-    this.#menuValue = this.getAttribute('menu');
     this.#type = this.#getType();
 
-    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-
-    if (this.querySelector('mdw-menu')) {
-      this.#originalLabel = util.getTextFromNode(this);
-      this.#currentLabel = this.#originalLabel;
-    }
-
     if (this.#hasMenu) {
-      const value = this.getAttribute('value');
-      if (value) {
-        const match = this.querySelector(`mdw-menu mdw-button[value="${value}"]`);
-        if (match) {
+      this.#originalText = util.getTextFromNode(this);
+      const selectedValue = this.getAttribute('selected');
+      if (selectedValue) {
+        const target = this.querySelector(`mdw-menu mdw-button[value="${selectedValue}"]`);
+        if (target) {
           this.checked = true;
-          this.value = value;
-          this.#menuClose();
+          this.#menuChange({ target }, false);
         }
       }
-    }
-  }
-
-  afterRender() {
-    if (this.#hasMenu) {
       this.insertAdjacentHTML('beforeend', '<div class="mdw-select-arrow"></div>');
       this.querySelector('mdw-menu').addEventListener('open', this.#menuOpen_bound, { signal: this.#abort.signal });
-      this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
     }
+
+    if (this.hasAttribute('checked')) this.checked = true;
     util.addClickTimeout(this, this.#onClick_bound);
-
-    if (this.#type === 'input') {
-      this.#valueDisplay = this.shadowRoot.querySelector('.value-display');
-      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound, { signal: this.#abort.signal });
-      this.#input = this.shadowRoot.querySelector('input');
-    }
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      ignoreElements: [this.querySelector('mdw-menu')]
-    });
-
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     if (!this.hasAttribute('aria-label')) {
       this.setAttribute('aria-label', this.value);
     }
@@ -101,30 +76,31 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     this.#ripple.destroy();
   }
 
-  static get observedAttributes() {
-    return ['value', 'checked'];
-  }
+  afterRender() {
+    this.#ripple = new Ripple({
+      element: this.shadowRoot.querySelector('.ripple'),
+      triggerElement: this,
+      ignoreElements: [this.querySelector('mdw-menu')]
+    });
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'checked') this.checked = newValue !== null;
-    else this[name] = newValue;
+    if (this.#type === 'input') {
+      this.#inputValueDisplay = this.shadowRoot.querySelector('.value-display');
+      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clearClick_bound, { signal: this.#abort.signal });
+      this.#input = this.shadowRoot.querySelector('input');
+    }
   }
 
   get value() {
-    if (this.#menuValue) return `${this.#menuValue}:${this.#value}`;  
+    if (this.#type === 'filter' && this.#hasMenu) {
+      return `${this.#value}:${this.querySelector('mdw-menu mdw-button[checked]')?.getAttribute('value') || ''}`;
+    }
     return this.#value;
   }
   set value(value) {
-    if (this.#menuValue) {
-      this.#value = value.replace(`${this.#menuValue}:`, '');
-      const current = this.querySelector(`mdw-button[checked]`);
-      if (current) current.removeAttribute('checked');
-      const next = this.querySelector(`mdw-button[value="${this.#value}"]`);
-      if (next) next.setAttribute('checked', '');
-    } else this.#value = value;
-
-    if (this.#type === 'input') {
-      if (this.#value === '') this.remove();
+    if (this.#type === 'filter' && this.#hasMenu) {
+      let target = this.querySelector(`mdw-menu mdw-button[value="${value}"]`);
+      if (!target) target = this.querySelector('mdw-menu mdw-button[checked]');
+      if (target) this.#menuChange({ target }, false);
     }
   }
 
@@ -133,63 +109,43 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   }
   set checked(value) {
     this.#checked = !!value;
-    this.toggleAttribute('checked', this.#checked);
+    this.classList.toggle('mdw-checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString());
   }
 
   template() {
     return /*html*/`
-      ${this.#type === 'filter' || this.#type === 'filter-menu' ? `<div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>` : ''}
+      ${this.#type === 'filter' ? `<div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>` : ''}
       <slot></slot>
       ${this.#type === 'input' ? /*html*/`
-        <input value="${this.value}">
-        <span class="value-display">${this.#getInputDisplayValue(this.value)}</span>
+        <input value="${this.#value}">
+        <span class="value-display">${this.#getInputDisplayValue(this.#value)}</span>
         <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
       ` : ''}
-      <span class="spinner"></span>
       <div class="ripple"></div>
     `;
   }
 
-  #menuOpen() {
-    this.classList.add('mdw-open');
-    this.querySelector('mdw-menu').addEventListener('selected', this.#menuChange_bound);
-  }
-  #menuClose() {
-    this.classList.remove('mdw-open');
-    this.querySelector('mdw-menu').removeEventListener('selected', this.#menuChange_bound);
-    const selected = this.querySelector('mdw-menu mdw-button[checked]');
-    const labelNode = [...this.childNodes].find(node => node.nodeType === 3 && node.nodeValue.trim() === this.#currentLabel);
-    if (selected) {
-      const nextLabel = util.getTextFromNode(selected);
-      labelNode.nodeValue = nextLabel;
-      this.#currentLabel = nextLabel;
-    } else {
-      labelNode.nodeValue = this.#originalLabel;
-      this.#currentLabel = this.#originalLabel;
+  #getType() {
+    if (this.classList.contains('mdw-input')) return 'input';
+    if (this.classList.contains('mdw-filter')) {
+      if (this.#hasMenu) this.setAttribute('role', 'button');
+      else {
+        this.setAttribute('role', 'checkbox');
+        this.setAttribute('aria-checked', 'false');
+      }
+      return 'filter';
     }
+    if (this.classList.contains('mdw-suggestion')) {
+      this.setAttribute('role', 'button');
+      return 'suggestion';
+    }
+    return 'assist';
   }
 
-  #menuChange(event) {
-    const value = event.target.getAttribute('value');
-    if (this.#value !== value) {
-      this.checked = true;
-      this.value = value;
-    } else {
-      this.value = '';
-      this.checked = false;
-    }
-    this.#group.dispatchEvent(new Event('change'));
-  }
-
-  #onClick() {
-    if (this.#type === 'filter') {
+  #click() {
+    if (this.#type === 'filter' && !this.#hasMenu) {
       this.checked = !this.checked;
-      this.#group.dispatchEvent(new Event('change'));
-    }
-
-    if (this.#type === 'suggestion') {
-      this.#group.value = this.value;
       this.#group.dispatchEvent(new Event('change'));
     }
 
@@ -199,67 +155,9 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       this.#input.focus();
       this.#input.select();
       this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-      this.#input.addEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
-      document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+      this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
+      document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
     }
-  }
-
-  #onClearClick(event) {
-    this.remove();
-    event.stopPropagation();
-    this.#group.dispatchEvent(new Event('change'));
-  }
-
-  #getType() {
-    const group = this.#group;
-    if (group.classList.contains('mdw-input')) {
-      this.classList.add('mdw-input');
-      return 'input';
-    }
-    if (group.classList.contains('mdw-filter') && this.#hasMenu) {
-      this.classList.add('mdw-filter-menu');
-      this.setAttribute('role', 'button');
-      return 'filter-menu';
-    }
-
-    if (group.classList.contains('mdw-filter')) {
-      this.classList.add('mdw-filter');
-      this.setAttribute('role', 'checkbox');
-      this.setAttribute('aria-checked', 'false');
-      return 'filter';
-    }
-    if (group.classList.contains('mdw-suggestion')) {
-      this.classList.add('mdw-suggestion');
-      this.setAttribute('role', 'button');
-      return 'suggestion';
-    }
-    this.classList.add('mdw-assist');
-    return 'assist';
-  }
-
-  #onInput() {
-    const width = util.getTextWidthFromInput(this.#input);
-    this.#input.style.width = `${width + 20}px`;
-  }
-
-  #onInputBlur() {
-    this.#value = this.#input.value;
-    this.#valueDisplay.innerText = this.#getInputDisplayValue(this.#input.value);
-    this.classList.remove('mdw-edit');
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    this.#input.removeEventListener('blur', this.#onInputBlur_bound);
-    document.body.removeEventListener('keydown', this.#onKeydown_bound);
-    this.#group.dispatchEvent(new Event('change'));
-  }
-
-  #getInputDisplayValue(str) {
-    const match = str.match(this.#inputValueRegex);
-    if (!match) return str;
-    return match[1];
-  }
-
-  #onKeydown(event) {
-    if (event.key === 'Enter') this.#input.blur();
   }
 
   #focus() {
@@ -283,17 +181,16 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
         this.#input.select();
         setTimeout(() => {
           this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-          this.#input.addEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
-          document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+          this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
+          document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
         });
       }
 
-      if (this.#type === 'filter' && this.checked === false) {
-        this.checked = true;
-        this.#group.dispatchEvent(new Event('change'));
+      if (this.#type === 'filter' && !this.#hasMenu && this.checked === false) {
+        this.#click();
       }
 
-      if (this.#type === 'filter-menu') {
+      if (this.#type === 'filter' && this.#hasMenu) {
         this.click();
       }
       e.preventDefault();
@@ -307,5 +204,68 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       }
       e.preventDefault();
     }
+  }
+
+  #menuOpen() {
+    this.classList.add('mdw-open');
+    this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
+    this.querySelector('mdw-menu').addEventListener('selected', this.#menuChange_bound, { signal: this.#abort.signal });
+  }
+
+  #menuClose() {
+    this.classList.remove('mdw-open');
+    this.querySelector('mdw-menu').removeEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
+    this.querySelector('mdw-menu').removeEventListener('selected', this.#menuChange_bound, { signal: this.#abort.signal });
+  }
+
+  #menuChange(event, dispatchEvent = true) {
+    const value = event.target.getAttribute('value');
+    const text = util.getTextFromNode(event.target);
+    const currentText = util.getTextFromNode(this);
+    const textNode = [...this.childNodes].find(node => node.nodeType === 3 && node.nodeValue.trim() === currentText);
+    const selected = this.querySelector('mdw-menu mdw-button[checked]');
+    if (selected) selected.removeAttribute('checked');
+    if (this.#menuItemValue !== value) {
+      this.checked = true;
+      this.#menuItemValue = value;
+      textNode.nodeValue = text;
+      event.target.setAttribute('checked', '');
+    } else {
+      this.#menuItemValue = '';
+      this.checked = false;
+      textNode.nodeValue = this.#originalText;
+    }
+    if (dispatchEvent) this.#group.dispatchEvent(new Event('change'));
+  }
+
+  #getInputDisplayValue(str) {
+    const match = str.match(this.constructor.#inputValueRegex);
+    if (!match) return str;
+    return match[1];
+  }
+
+  #clearClick(event) {
+    this.remove();
+    event.stopPropagation();
+    this.#group.dispatchEvent(new Event('change'));
+  }
+
+  #onInput() {
+    const width = util.getTextWidthFromInput(this.#input);
+    this.#input.style.width = `${width}px`;
+  }
+
+  #inputBlur() {
+    this.#value = this.#input.value;
+    this.#inputValueDisplay.innerText = this.#getInputDisplayValue(this.#input.value);
+    this.classList.remove('mdw-edit');
+    this.#input.removeEventListener('input', this.#onInput_bound);
+    this.#input.removeEventListener('blur', this.#inputBlur_bound);
+    document.body.removeEventListener('keydown', this.#inputKeydown_bound);
+    this.#group.dispatchEvent(new Event('change'));
+  }
+
+  #inputKeydown(event) {
+    if (event.key === 'Enter') this.#input.blur();
   }
 });
