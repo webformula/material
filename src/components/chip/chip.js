@@ -13,7 +13,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   useShadowRoot = true;
   useTemplate = false;
   
-  static #inputValueRegex = /^(.+)<(.+)>$/;
+  #inputValueRegex = /^(.+)<(.+)>$/;
   #type;
   #value = this.getAttribute('value') || '';
   #menuItemValue = '';
@@ -239,7 +239,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   }
 
   #getInputDisplayValue(str) {
-    const match = str.match(this.constructor.#inputValueRegex);
+    const match = str.match(this.#inputValueRegex);
     if (!match) return str;
     return match[1];
   }

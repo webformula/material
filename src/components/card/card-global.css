@@ -13,8 +13,6 @@ mdw-card {
   outline: none;
   -webkit-tap-highlight-color: transparent;
 
-  margin-bottom: 8px;
-
   left: var(--mdw-card-swipe-action-position);
   transition: left 0ms;
 }

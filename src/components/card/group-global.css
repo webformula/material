@@ -1,8 +1,11 @@
+mdw-card-group {
+  gap: 8px;
+}
+
 mdw-card-group,
 mdw-card-group.mdw-grid {
   display: grid;
   grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
-  grid-column-gap: 8px;
   /* grid-auto-rows: minmax(80px, auto); */
 }
 

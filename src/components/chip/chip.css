@@ -12,6 +12,7 @@
   cursor: pointer;
   outline: none;
   user-select: none;
+  white-space: nowrap;
 
   font-size: var(--mdw-font-label-size-large);
   font-weight: var(--mdw-font-label-weight-large);

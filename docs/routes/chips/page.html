@@ -35,7 +35,7 @@
         </mdw-chip>
       </mdw-chip-group>
       
-      <mdw-chip-group class="mdw-input" onchange="console.log(this.value)">
+      <mdw-chip-group class="mdw-input mdw-wrap" onchange="console.log(this.value)">
         <label>Label</label>
         <mdw-chip class="mdw-input" value="One"></mdw-chip>
         <mdw-chip class="mdw-input" value="Email <one@email.com>"><mdw-icon>email</mdw-icon></mdw-chip>
@@ -170,7 +170,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
       <div class="mdw-headline">Input</div>
   
       <div class="example">
-        <mdw-chip-group class="mdw-input">
+        <mdw-chip-group class="mdw-input md-wrap">
           <label>Label</label>
           <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
           <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
@@ -180,7 +180,7 @@ series of email contacts. There are four types of chips: assist, filter, input, 
   
     <pre>
       <code class="language-html">
-  ${page.escape(`<mdw-chip-group class="mdw-input">
+  ${page.escape(`<mdw-chip-group class="mdw-input mdw-wrap">
     <label>Label</label>
     <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
     <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>

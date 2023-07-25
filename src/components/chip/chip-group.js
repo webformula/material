@@ -60,16 +60,17 @@ customElements.define('mdw-chip-group', class MDWChipGroupElement extends HTMLEl
   #inputBlur() {
     this.#input.removeEventListener('blur', this.#inputBlur_bound);
     this.#input.removeEventListener('keydown', this.#inputKeydown_bound);
-    if (this.#input.value.length > 0) {
-      this.#input.insertAdjacentHTML('beforebegin', `<mdw-chip class="mdw-input" value="${this.#input.value}"></mdw-chip>`);
-      this.#input.value = '';
-    }
+    this.#createChip();
   }
 
   #inputKeydown(event) {
-    if (event.key === 'Enter') {
-      this.#input.insertAdjacentHTML('beforebegin', `<mdw-chip class="mdw-input" value="${this.#input.value}"></mdw-chip>`);
-      this.#input.value = '';
-    }
+    if (event.key === 'Enter') this.#createChip();
+  }
+
+  #createChip() {
+    if (this.#input.value.length === 0) return;
+    this.#input.insertAdjacentHTML('beforebegin', `<mdw-chip class="mdw-input" value="${this.#input.value}"></mdw-chip>`);
+    this.#input.value = '';
+    this.dispatchEvent(new Event('change'));
   }
 });

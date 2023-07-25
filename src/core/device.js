@@ -21,17 +21,17 @@ const mdwDevice = new class MDWDevice {
     return 'landscape';
   }
 
-  // window.innerHeight and window.innerWidth show pixels converted based on density. This will give actual screen pixel count
+  // window.visualViewport.height and window.visualViewport.width show pixels converted based on density. This will give actual screen pixel count
   get windowSizeActualPixels() {
     const pixelRatio = window.devicePixelRatio;
     return {
-      width: window.innerWidth * pixelRatio,
-      height: window.innerHeight * pixelRatio
+      width: window.visualViewport.width * pixelRatio,
+      height: window.visualViewport.height * pixelRatio
     }
   }
 
   get state() {
-    const windowWidth = window.innerWidth;
+    const windowWidth = window.visualViewport.width;
     if (windowWidth < this.#compactBreakpoint) return 'compact';
     if (windowWidth < this.#mediumBreakpoint) return 'medium';
     return 'expanded';
@@ -44,10 +44,9 @@ const mdwDevice = new class MDWDevice {
 
   get isMobile() {
     if (!this.hasTouchScreen) return false;
-    // return this.breakpoint === 'compact';
 
-    if (this.orientation === 'portrait') return window.innerWidth < this.#compactBreakpoint;
-    return window.innerHeight < this.#compactBreakpoint;
+    if (this.orientation === 'portrait') return window.visualViewport.width < this.#compactBreakpoint;
+    return window.visualViewport.height < this.#compactBreakpoint;
   }
 
   async #setWindow() {

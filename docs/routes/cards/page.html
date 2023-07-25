@@ -4,49 +4,29 @@
     <div class="mdw-supporting-text">Cards contain content and actions that relate information about a subject.</div>
   </div>
 
-  <div class="mdw-card-content" style="display: flex; flex-wrap: wrap;">
-        
-    <mdw-card style="width: 200px; margin-right: 8px" value="one" onchange="console.log(event)">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Regular</div>
-        <div class="mdw-subhead">card</div>
-      </div>
-    </mdw-card>
+  <div class="mdw-card-content">
+    <mdw-card-group>
+      <mdw-card value="one" onchange="console.log(event)">
+        <div class="mdw-card-content">
+          <div class="mdw-headline">Regular</div>
+          <div class="mdw-subhead">card</div>
+        </div>
+      </mdw-card>
     
-    <mdw-card class="mdw-filled" style="width: 200px; margin-right: 8px">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Filled</div>
-        <div class="mdw-subhead">card</div>
-      </div>
-    </mdw-card>
+      <mdw-card class="mdw-filled">
+        <div class="mdw-card-content">
+          <div class="mdw-headline">Filled</div>
+          <div class="mdw-subhead">card</div>
+        </div>
+      </mdw-card>
     
-    <mdw-card class="mdw-outlined" style="width: 200px">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Outlined</div>
-        <div class="mdw-subhead">card</div>
-      </div>
-    </mdw-card>
-  </div>
-</mdw-card>
-
-<mdw-card style="width: 200px; margin-right: 8px" value="one" onchange="console.log(event)">
-  <div class="mdw-card-content">
-    <div class="mdw-headline">Regular</div>
-    <div class="mdw-subhead">card</div>
-  </div>
-</mdw-card>
-
-<mdw-card class="mdw-filled" style="width: 200px; margin-right: 8px">
-  <div class="mdw-card-content">
-    <div class="mdw-headline">Filled</div>
-    <div class="mdw-subhead">card</div>
-  </div>
-</mdw-card>
-
-<mdw-card class="mdw-outlined" style="width: 200px">
-  <div class="mdw-card-content">
-    <div class="mdw-headline">Outlined</div>
-    <div class="mdw-subhead">card</div>
+      <mdw-card class="mdw-outlined">
+        <div class="mdw-card-content">
+          <div class="mdw-headline">Outlined</div>
+          <div class="mdw-subhead">card</div>
+        </div>
+      </mdw-card>
+      </mgw-card-group>
   </div>
 </mdw-card>
 
@@ -140,20 +120,20 @@
     <pre>
       <code class="language-html">
   ${page.escape(`<mdw-card>
-    <div class="mdw-card-content">
+    <div class="mdw-card-content" style="width: 200px">
       <div class="mdw-headline">Regular</div>
       <div class="mdw-subhead">card</div>
     </div>
   </mdw-card>
   
-  <mdw-card class="mdw-filled">
+  <mdw-card class="mdw-filled" style="width: 200px">
     <div class="mdw-card-content">
       <div class="mdw-headline">Filled</div>
       <div class="mdw-subhead">card</div>
     </div>
   </mdw-card>
   
-  <mdw-card class="mdw-outlined">
+  <mdw-card class="mdw-outlined" style="width: 200px">
     <div class="mdw-card-content">
       <div class="mdw-headline">Outlined</div>
       <div class="mdw-subhead">card</div>
@@ -340,7 +320,7 @@
       <div class="example">
         <mdw-card-group class="mdw-grid">
           ${page.cardArray.map(({ height }) => `
-            <mdw-card class="mdw-fullscreen" style="height: ${height};">
+            <mdw-card class="mdw-filled" style="height: ${height};">
               <div class="mdw-card-image mdw-rounded mdw-size-medium">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -433,7 +413,7 @@
       <div class="mdw-subhead">Only works on mobile</div>
   
       <div class="example">
-        <mdw-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+        <mdw-card style="max-width: 320px; margin-bottom: 8px;" value="favorite" onchange="console.log(event.detail)">
           <mdw-card-swipe-action action="favorite" class="mdw-toggle">
             <mdw-icon>favorite</mdw-icon>
           </mdw-card-swipe-action>
