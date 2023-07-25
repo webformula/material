@@ -114,18 +114,4 @@ export default class extends Component {
       `
     });
   }
-
-  async openTemplate() {
-    const value = await mdwDialog.template({
-      template: `
-      <div class="mdw-header">Headline</div>
-      <div class="mdw-content">Here is some content for the dialog.</div>
-      <div class="mdw-actions">
-        <mdw-button onclick="mdwDialog.close('response value')">Close</mdw-button>
-      </div>
-      `
-    });
-
-    console.log(value);
-  }
 }

@@ -128,25 +128,11 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     return this.#value;
   }
 
-  set value(value = '30,60') {
-    const split = value.split(',');
-    this.#value = [parseFloat(split[0] || this.#min), parseFloat(split[1] || this.#max)];
-    this.#adjustValueOnParams();
-  }
-
   get min() {
     return `${this.#min}`;
   }
   set min(value = 0) {
     this.#min = parseInt(value);
-    this.#adjustValueOnParams();
-  }
-
-  get max() {
-    return `${this.#max}`;
-  }
-  set max(value = 100) {
-    this.#max = parseInt(value);
     this.#adjustValueOnParams();
   }
 
