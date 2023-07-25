@@ -19,3 +19,43 @@ mdw-tooltip {
 mdw-tooltip.mdw-show {
   opacity: 1;
 }
+
+mdw-tooltip.mdw-rich {
+  height: auto;
+  min-height: 24px;
+  max-width: 300px;
+  background-color: var(--mdw-on-surface-inverse);
+  color: var(--mdw-on-surface-variant);
+  font-size: unset;
+  font-weight: unset;
+  line-height: unset;
+  letter-spacing: unset;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  pointer-events: all;
+  white-space: normal;
+}
+
+mdw-tooltip.mdw-rich .mdw-subheader {
+  margin: 0;
+  font-size: var(--mdw-font-title-size-small);
+  font-weight: var(--mdw-font-title-weight-small);
+  line-height: var(--mdw-font-title-line-height-small);
+  letter-spacing: var(--mdw-font-title-letter-spacing-small);
+}
+
+mdw-tooltip.mdw-rich .mdw-supporting-text {
+  margin: 0;
+  font-size: var(--mdw-font-body-size-medium);
+  font-weight: var(--mdw-font-body-weight-medium);
+  line-height: var(--mdw-font-body-line-height-medium);
+  letter-spacing: var(--mdw-font-body-letter-spacing-medium);
+  padding-top: 4px;
+}
+
+mdw-tooltip.mdw-rich .mdw-actions {
+  padding-top: 12px;
+  margin-left: -12px;
+}

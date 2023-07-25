@@ -1,7 +1,6 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Tooltips</div>
-    <!-- <div class="mdw-supporting-text">Checkboxes can turn an option on or off</div> -->
   </div>
   <div class="mdw-card-content">
     <div class="example">
@@ -17,6 +16,7 @@
 
 <div class="links">
   <a href="#standard">Standard</a>
+  <a href="#rich">Rich</a>
 </div>
 
 
@@ -25,16 +25,51 @@
 
   <mdw-card id="standard">
     <div class="mdw-card-content">
-      <div class="mdw-headline">Text button</div>
+      <div class="mdw-headline">Tooltip</div>
       
       <div class="example">
-        <mdw-button tooltip="tooltip text">Example</mdw-button>
+        <mdw-button tooltip="tooltip text">Hover me</mdw-button>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-  ${page.escape(`<mdw-button tooltip="tooltip text">Text</mdw-button>`)}
+  ${page.escape(`<mdw-button tooltip="tooltip text">Hover me</mdw-button>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="standard">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Rich tooltip</div>
+  
+      <div class="example">
+        <mdw-button>
+          Hover me
+          <mdw-tooltip class="mdw-rich">
+            <div class="mdw-subheader">Rich tooltip</div>
+            <div class="mdw-supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the user's focus.</div>
+            <div class="mdw-actions">
+              <mdw-button>Action</mdw-button>
+            </div>
+          </mdw-tooltip>
+        </mdw-button>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<mdw-button>
+    Hover me
+    <mdw-tooltip class="mdw-rich">
+      <div class="mdw-subheader">Rich tooltip</div>
+      <div class="mdw-supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the
+        user's focus.</div>
+      <div class="mdw-actions">
+        <mdw-button>Action</mdw-button>
+      </div>
+    </mdw-tooltip>
+  </mdw-button>`)}
       </code>
     </pre>
   </mdw-card>

@@ -1,6 +1,7 @@
 import util from '../../core/util.js';
 
-let tooltipElement;
+let globalTooltipElement;
+let currentTooltipElement;
 let currentElement;
 let lastMousePosition;
 let tooltipTimer;
@@ -10,8 +11,15 @@ function mouseover(event) {
   if (event.target.hasAttribute('tooltip')) {
     lastMousePosition = event.clientX;
     currentElement = event.target;
-    currentElement.addEventListener('mouseout', mouseout);
-    currentElement.addEventListener('mousemove', mousemoveThrottled);
+
+    const text = currentElement.getAttribute('tooltip');
+    if (text !== '__internal') {
+      currentElement.addEventListener('mouseout', mouseout);
+      currentElement.addEventListener('mousemove', mousemoveThrottled);
+    } else {
+      document.body.addEventListener('click', onClickOutside);
+      window.addEventListener('keydown', onEsc);
+    }
     startTooltipTimer();
   }
 }
@@ -24,33 +32,50 @@ function mouseout() {
   removeTooltip();
 }
 
+function onClickOutside() {
+  removeTooltip();
+}
+
+function onEsc(event) {
+  if (event.code === 'Escape') removeTooltip();
+}
+
 function startTooltipTimer() {
   if (tooltipTimer) return;
   tooltipTimer = setTimeout(() => {
     const text = currentElement.getAttribute('tooltip');
-    tooltipElement.innerHTML = text;
-    tooltipElement.setAttribute('aria-label', text);
-    tooltipElement.show(currentElement, lastMousePosition);
+    if (text === '__internal') {
+      currentTooltipElement = currentElement.querySelector('mdw-tooltip');
+      currentTooltipElement.show(currentElement, lastMousePosition);
+    } else {
+      currentTooltipElement = globalTooltipElement;
+      currentTooltipElement.innerHTML = text;
+      currentTooltipElement.setAttribute('aria-label', text);
+    }
+    currentTooltipElement.show(currentElement, lastMousePosition);
   }, 1000);
 }
 
 function removeTooltip() {
   if (!tooltipTimer) return;
-  tooltipElement.hide();
+  currentTooltipElement.hide();
   clearTimeout(tooltipTimer);
   tooltipTimer = undefined;
   currentElement.removeEventListener('mouseout', mouseout);
   currentElement.removeEventListener('mousemove', mousemoveThrottled);
+  document.body.removeEventListener('click', onClickOutside);
+  window.removeEventListener('keydown', onEsc);
   currentElement = undefined;
 }
 
 if (document.readyState !== 'loading') initialize();
 else document.addEventListener('DOMContentLoaded', initialize);
 function initialize() {
-  tooltipElement = document.createElement('mdw-tooltip');
-  tooltipElement.classList.add('mdw-main-tooltip');
-  tooltipElement.setAttribute('aria-label', 'blank');
-  document.body.insertAdjacentElement('beforeend', tooltipElement);
+  globalTooltipElement = document.createElement('mdw-tooltip');
+  globalTooltipElement.classList.add('mdw-main-tooltip');
+  globalTooltipElement.setAttribute('aria-label', 'blank');
+  document.body.insertAdjacentElement('beforeend', globalTooltipElement);
+  currentTooltipElement = globalTooltipElement;
 
   window.addEventListener('mouseover', mouseover, false);
 }
