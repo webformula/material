@@ -19,26 +19,26 @@ html:not(.mdw-initiated) body {
   /* You can add custom colors that will be parsed into tones
    *  Just create a new variable in this file beginning with --mdw-custom-color-
    *
-   * --mdw-custom-color-name: #5b7166;
+   * --mdw-custom-colorName: #5b7166;
    *
    * Produces tone vars
-   * --mdw-custom-color-name-0
-   * --mdw-custom-color-name-6
-   * --mdw-custom-color-name-10
-   * --mdw-custom-color-name-20
-   * --mdw-custom-color-name-30
-   * --mdw-custom-color-name-40
-   * --mdw-custom-color-name-50
-   * --mdw-custom-color-name-60
-   * --mdw-custom-color-name-70
-   * --mdw-custom-color-name-80
-   * --mdw-custom-color-name-90
-   * --mdw-custom-color-name-92
-   * --mdw-custom-color-name-94
-   * --mdw-custom-color-name-95
-   * --mdw-custom-color-name-96
-   * --mdw-custom-color-name-98
-   * --mdw-custom-color-name-100
+   * --mdw-custom-colorName-0
+   * --mdw-custom-colorName-6
+   * --mdw-custom-colorName-10
+   * --mdw-custom-colorName-20
+   * --mdw-custom-colorName-30
+   * --mdw-custom-colorName-40
+   * --mdw-custom-colorName-50
+   * --mdw-custom-colorName-60
+   * --mdw-custom-colorName-70
+   * --mdw-custom-colorName-80
+   * --mdw-custom-colorName-90
+   * --mdw-custom-colorName-92
+   * --mdw-custom-colorName-94
+   * --mdw-custom-colorName-95
+   * --mdw-custom-colorName-96
+   * --mdw-custom-colorName-98
+   * --mdw-custom-colorName-100
    */
 
 
