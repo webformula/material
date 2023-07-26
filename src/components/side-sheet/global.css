@@ -27,6 +27,7 @@ body.mdw-mobile mdw-side-sheet,
 mdw-side-sheet.mdw-modal {
   border-radius: var(--mdw-shape-large) 0 0 var(--mdw-shape-large);
   box-shadow: var(--mdw-elevation-2);
+  background-color: var(--mdw-surface-container-low);
 }
 
 mdw-side-sheet.mdw-hide {

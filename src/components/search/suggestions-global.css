@@ -4,23 +4,10 @@ mdw-suggestions.mdw-panel {
   max-height: 320px;
   overflow-y: auto;
   border-radius: 0 0 28px 28px;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   box-sizing: border-box;
   box-shadow: var(--mdw-elevation-3);
   clip-path: inset(0px -30px -30px -30px);
-}
-
-mdw-suggestions::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  border-radius: 0 0 28px 28px;
-  background-color: var(--mdw-elevation-tint-3);
-  z-index: -1;
 }
 
 mdw-search.mdw-has-filters mdw-suggestions,
@@ -28,14 +15,14 @@ mdw-search.mdw-has-filters mdw-suggestions::after,
 mdw-search.mdw-has-search-value mdw-suggestions,
 mdw-search.mdw-has-search-value mdw-suggestions::after {
   padding: 8px 0;
-  border-top: 1px solid var(--mdw-surface-variant);
+  border-top: 1px solid var(--mdw-outline);
 }
 
 mdw-search.mdw-has-filters mdw-suggestions.mdw-panel {
   min-height: 76px;
   padding-top: 46px;
   border-top: none;
-  clip-path: inset(1px -30px -30px -30px);
+  /* clip-path: inset(1px -30px -30px -30px); */
 }
 
 .mdw-suggestions mdw-list-item,

@@ -9,7 +9,7 @@ mdw-time-picker.mdw-panel {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: var(--mdw-shape-large);
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   box-shadow: var(--mdw-elevation-3);
 }
 
@@ -18,18 +18,6 @@ mdw-time-picker.mdw-panel.mdw-input-view {
 
   height: 248px;
   max-height: 248px;
-}
-
-mdw-time-picker.mdw-panel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  box-sizing: border-box;
-  z-index: -1;
-  background-color: var(--mdw-elevation-tint-3);
 }
 
 mdw-time-picker .mdw-headline {
@@ -60,11 +48,12 @@ mdw-time-picker .mdw-time-container .mdw-time-minute {
   line-height: 80px;
   letter-spacing: var(--mdw-font-display-letter-spacing-large);
   color: var(--mdw-on-surface);
-  background-color: var(--mdw-surface-variant);
+  background-color: var(--mdw-surface-container-highest);
   border-radius: var(--mdw-shape-small);
   outline: none;
   border: none;
-  width: 98px;
+  width: 80px;
+  padding-left: 12px;
   text-align: center;
   cursor: pointer;
 }
@@ -130,7 +119,7 @@ mdw-time-picker .mdw-dial-container {
   height: 256px;
   width: 256px;
   border-radius: 50%;
-  background-color: var(--mdw-surface-variant);
+  background-color: var(--mdw-surface-container-highest);
 }
 
 body.mdw-mobile mdw-time-picker.mdw-input-view .mdw-dial-container {

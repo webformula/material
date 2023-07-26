@@ -385,13 +385,13 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
     this.#clearAll();
     if (this.searchValue !== '') {
       if (this.#hasSearchValue === false) this.#hasSearchValue = true;
+
+      if (this.#debounce) this.#inputSearch_debounced();
+      else this.#inputSearch();
     } else if (this.#hasSearchValue === true) {
       this.#hasSearchValue = false;
       this.#clearAll();
     }
-
-    if (this.#debounce) this.#inputSearch_debounced();
-    else this.#inputSearch();
 
     this.dispatchEvent(new Event('input'));
   }

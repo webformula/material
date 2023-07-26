@@ -13,20 +13,8 @@ mdw-bottom-app-bar {
   align-items: center;
   z-index: 9;
 
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container);
   box-shadow: var(--mdw-elevation-2);
-}
-
-mdw-bottom-app-bar:before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  background-color: var(--mdw-elevation-tint-2);
-  transition: background-color 80ms linear;
 }
 
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary {

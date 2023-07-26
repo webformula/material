@@ -65,9 +65,9 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.14.1",
+    "@webformula/core": "^0.14.2",
     "@webformula/material": "file:./",
     "aws-sdk": "^2.1407.0",
-    "esbuild": "^0.18.1"
+    "esbuild": "^0.18.16"
   }
 }

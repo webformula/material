@@ -9,7 +9,7 @@ mdw-tooltip {
   letter-spacing: var(--mdw-font-label-letter-spacing-small);
 
   border-radius: var(--mdw-shape-extra-small);
-  background-color: var(--mdw-on-surface-variant);
+  background-color: var(--mdw-surface-inverse);
   color: var(--mdw-on-surface-inverse);
 
   z-index: 11;
@@ -24,7 +24,7 @@ mdw-tooltip.mdw-rich {
   height: auto;
   min-height: 24px;
   max-width: 300px;
-  background-color: var(--mdw-on-surface-inverse);
+  background-color: var(--mdw-surface-container);
   color: var(--mdw-on-surface-variant);
   font-size: unset;
   font-weight: unset;
@@ -36,6 +36,7 @@ mdw-tooltip.mdw-rich {
   padding-bottom: 8px;
   pointer-events: all;
   white-space: normal;
+  box-shadow: var(--mdw-elevation-2);
 }
 
 mdw-tooltip.mdw-rich .mdw-subheader {

@@ -56,6 +56,7 @@ body.mdw-window-compact mdw-navigation.mdw-show,
 body.mdw-window-medium mdw-navigation.mdw-show {
   border-radius: 0 var(--mdw-shape-large) 0 0;
   box-shadow: var(--mdw-elevation-2);
+  background-color: var(--mdw-surface-container-low);
 }
 
 /* TODO no rail and no bottom app bar adjustments */

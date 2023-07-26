@@ -1,28 +1,13 @@
 mdw-menu.mdw-panel {
-  --mdw-menu-background-height: 100%;
-
   min-width: 112px;
   max-width: 280px;
   max-height: 320px;
   padding: 8px 0;
   overflow-y: auto;
   border-radius: var(--mdw-shape-extra-small);
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container);
   box-shadow: var(--mdw-elevation-1);
   box-sizing: border-box;
-  /* transform-origin: top; */
-}
-
-mdw-menu::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: var(--mdw-menu-background-height);
-  pointer-events: none;
-  background-color: var(--mdw-elevation-tint-2);
-  border-radius: inherit;
 }
 
 mdw-search mdw-chip-group > mdw-chip > mdw-menu.mdw-panel {

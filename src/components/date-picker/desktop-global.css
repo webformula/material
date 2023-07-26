@@ -8,21 +8,8 @@ mdw-date-picker-desktop {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: var(--mdw-shape-large);
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   box-shadow: var(--mdw-elevation-3);
-}
-
-mdw-date-picker-desktop::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  background-color: var(--mdw-elevation-tint-3);
-  z-index: 1;
-  border-radius: inherit;
 }
 
 mdw-date-picker-desktop .mdw-control-container {
@@ -345,7 +332,7 @@ mdw-date-picker-desktop .mdw-months-container {
   pointer-events: none;
   opacity: 0;
   transition: opacity 120ms;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   border-radius: var(--mdw-shape-large);
 }
 
@@ -395,7 +382,7 @@ mdw-date-picker-desktop .mdw-years-container {
   pointer-events: none;
   opacity: 0;
   transition: opacity 120ms;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   border-radius: var(--mdw-shape-large);
 }
 

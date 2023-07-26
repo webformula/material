@@ -84,19 +84,24 @@ function generateKeyTones(computedStyles, isDark) {
   colorVariables.forEach(({ name, value }) => {
     const tones = generateColorTones(value);
     name = name.replace('-baseline', '');
+ 
     document.documentElement.style.setProperty(`${name}-0`, tones[0]);
-    document.documentElement.style.setProperty(`${name}-10`, tones[1]);
-    document.documentElement.style.setProperty(`${name}-20`, tones[2]);
-    document.documentElement.style.setProperty(`${name}-30`, tones[3]);
-    document.documentElement.style.setProperty(`${name}-40`, tones[4]);
-    document.documentElement.style.setProperty(`${name}-50`, tones[5]);
-    document.documentElement.style.setProperty(`${name}-60`, tones[6]);
-    document.documentElement.style.setProperty(`${name}-70`, tones[7]);
-    document.documentElement.style.setProperty(`${name}-80`, tones[8]);
-    document.documentElement.style.setProperty(`${name}-90`, tones[9]);
-    document.documentElement.style.setProperty(`${name}-95`, tones[10]);
-    document.documentElement.style.setProperty(`${name}-99`, tones[11]);
-    document.documentElement.style.setProperty(`${name}-100`, tones[12]);
+    document.documentElement.style.setProperty(`${name}-6`, tones[1]);
+    document.documentElement.style.setProperty(`${name}-10`, tones[2]);
+    document.documentElement.style.setProperty(`${name}-20`, tones[3]);
+    document.documentElement.style.setProperty(`${name}-30`, tones[4]);
+    document.documentElement.style.setProperty(`${name}-40`, tones[5]);
+    document.documentElement.style.setProperty(`${name}-50`, tones[6]);
+    document.documentElement.style.setProperty(`${name}-60`, tones[7]);
+    document.documentElement.style.setProperty(`${name}-70`, tones[8]);
+    document.documentElement.style.setProperty(`${name}-80`, tones[9]);
+    document.documentElement.style.setProperty(`${name}-90`, tones[10]);
+    document.documentElement.style.setProperty(`${name}-92`, tones[11]);
+    document.documentElement.style.setProperty(`${name}-94`, tones[12]);
+    document.documentElement.style.setProperty(`${name}-95`, tones[13]);
+    document.documentElement.style.setProperty(`${name}-96`, tones[14]);
+    document.documentElement.style.setProperty(`${name}-98`, tones[15]);
+    document.documentElement.style.setProperty(`${name}-100`, tones[16]);
   });
 }
 
@@ -107,19 +112,23 @@ function generateColorTones(value) {
   const [h, w, b] = hexToHwb(value);
   
   return [
-    '#000000',
-    hwbToHex([h + 4, zeroValue(w - 30), zeroValue(b + 30)]),
-    hwbToHex([h + 2, zeroValue(w - 18), zeroValue(b + 20)]),
-    hwbToHex([h + 1, zeroValue(w - 10), zeroValue(b + 10)]),
-    value,
-    hwbToHex([h, zeroValue(w + 9), zeroValue(b - 10)]),
-    hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]),
-    hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]),
-    hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]),
-    hwbToHex([h + 4, zeroValue(w + 52), zeroValue(b - 54)]),
-    hwbToHex([h + 8, zeroValue(w + 59), zeroValue(b - 60)]),
-    hwbToHex([h + 10, zeroValue(w + 62), zeroValue(b - 70)]),
-    '#ffffff'
+    '#000000', // 0
+    hwbToHex([h + 5, zeroValue(w - 34), zeroValue(b + 34)]), // 6
+    hwbToHex([h + 4, zeroValue(w - 30), zeroValue(b + 30)]), // 10
+    hwbToHex([h + 2, zeroValue(w - 18), zeroValue(b + 20)]), // 20
+    hwbToHex([h + 1, zeroValue(w - 10), zeroValue(b + 10)]), // 30
+    value, // 40
+    hwbToHex([h, zeroValue(w + 9), zeroValue(b - 10)]), // 50
+    hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]), // 60
+    hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]), // 70 x
+    hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]), // 80
+    hwbToHex([h + 4, zeroValue(w + 52), zeroValue(b - 54)]), // 90
+    hwbToHex([h + 5, zeroValue(w + 55), zeroValue(b - 57)]), // 92
+    hwbToHex([h + 7, zeroValue(w + 58), zeroValue(b - 59)]), // 94
+    hwbToHex([h + 8, zeroValue(w + 59), zeroValue(b - 60)]), // 95
+    hwbToHex([h + 9, zeroValue(w + 60), zeroValue(b - 62)]), // 96
+    hwbToHex([h + 10, zeroValue(w + 61), zeroValue(b - 68)]), // 98
+    '#ffffff' // 100
   ];
 }
 

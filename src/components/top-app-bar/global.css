@@ -14,28 +14,17 @@ mdw-top-app-bar {
   background-color: var(--mdw-surface);
 }
 
+mdw-top-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled {
+  background-color: var(--mdw-surface-container);
+  transition: background-color 80ms linear;
+}
+
 mdw-top-app-bar > mdw-navigation-button {
   margin-left: -8px;
 }
 
 mdw-top-app-bar.mdw-auto-hide {
   top: var(--mdw-top-app-bar-scroll-position);
-}
-
-mdw-top-app-bar::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  background-color: none;
-  transition: background-color 80ms linear;
-}
-
-mdw-top-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled::before {
-  background-color: var(--mdw-surface-tint-alpha-6);
 }
 
 mdw-top-app-bar > .mdw-headline {

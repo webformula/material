@@ -7,8 +7,8 @@ mdw-search mdw-icon + mdw-icon {
 }
 
 mdw-search mdw-avatar {
-  background-color: var(--mdw-secondary);
-  color: var(--mdw-on-secondary);
+  /* background-color: var(--mdw-secondary); */
+  /* color: var(--mdw-on-secondary); */
   margin-right: 12px;
 }
 
@@ -17,5 +17,4 @@ mdw-search.mdw-fullscreen.mdw-open .mdw-suggestions {
   width: 100%;
   height: calc(100% - 48px);
   margin-top: 48px;
-  background-color: var(--mdw-elevation-tint-3);
 }

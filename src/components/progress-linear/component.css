@@ -6,7 +6,7 @@
   padding-top: 0;
   margin-bottom: 0;
 
-  background-color: var(--mdw-surface-variant);
+  background-color: var(--mdw-surface-container-highest);
 }
 
 :host .indicator {

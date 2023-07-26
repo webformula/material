@@ -62,7 +62,7 @@
   height: 4px;
   border-radius: 2px;
 
-  background-color: var(--mdw-surface-variant);
+  background-color: var(--mdw-surface-container-highest);
 }
 
 :host([disabled]) > .control > .mdw-track-inactive {

@@ -13,7 +13,7 @@ mdw-dialog {
   pointer-events: none;
 
   border-radius: var(--mdw-shape-extra-large);
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   box-shadow: var(--mdw-elevation-3);
 
   opacity: 0;
@@ -23,18 +23,6 @@ mdw-dialog {
   transition-timing-function: var(--mdw-transition-expand-out);
 
   overflow: auto;
-}
-
-mdw-dialog::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  background-color: var(--mdw-elevation-tint-3);
-  border-radius: inherit;
 }
 
 mdw-dialog[open] {

@@ -7,7 +7,7 @@
   position: relative;
   display: inline-block;
   min-height: 56px;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container);
   border-radius: 28px;
   box-shadow: var(--mdw-elevation-3);
 }
@@ -26,8 +26,6 @@
   box-sizing: border-box;
   height: 56px;
   border-radius: 28px;
-
-  background-color: var(--mdw-elevation-tint-3);
 }
 
 :host(.mdw-open.mdw-has-search-value) .textfield,
@@ -180,7 +178,6 @@
   top: 56px;
   left: 0;
   right: 0;
-  background-color: var(--mdw-surface);
   z-index: 12;
 
   pointer-events: none;
@@ -195,7 +192,6 @@
 }
 
 :host slot[name=filters]::slotted(mdw-chip-group) {
-  background-color: var(--mdw-elevation-tint-3);
   padding: 8px 16px;
 }
 

@@ -8,7 +8,7 @@ mdw-card {
   border-radius: var(--mdw-shape-medium);
   box-shadow: var(--mdw-elevation-1);
   box-sizing: border-box;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-low);
   color: var(--mdw-on-surface);
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -138,7 +138,7 @@ mdw-card > .mdw-card-image.mdw-size-large {
 
 mdw-card.mdw-filled {
   color: var(--mdw-on-surface-variant);
-  background-color: var(--mdw-surface-variant);
+  background-color: var(--mdw-surface-container-highest);
   box-shadow: none;
 }
 

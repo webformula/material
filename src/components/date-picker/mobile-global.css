@@ -9,7 +9,7 @@ mdw-date-picker-mobile {
   box-sizing: border-box;
   border-radius: var(--mdw-shape-large);
   box-shadow: var(--mdw-elevation-3);
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
 }
 
 mdw-date-picker-mobile .mdw-header {
@@ -138,7 +138,7 @@ mdw-date-picker-mobile .mdw-actions-container {
   height: 36px;
   padding: 12px;
   padding-top: 8px;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
   z-index: 1;
   border-radius: 0 0 var(--mdw-shape-large) var(--mdw-shape-large);;
 }
@@ -381,7 +381,7 @@ mdw-date-picker-mobile .mdw-views-container .mdw-years-container {
 mdw-date-picker-mobile.mdw-year-view .mdw-views-container .mdw-years-container {
   opacity: 1;
   pointer-events: all;
-  background-color: var(--mdw-surface);
+  background-color: var(--mdw-surface-container-high);
 }
 
 mdw-date-picker-mobile .mdw-views-container .mdw-years-container .mdw-year {

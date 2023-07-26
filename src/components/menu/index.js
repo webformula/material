@@ -52,8 +52,6 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #onPanelOpen() {
     this.addEventListener('click', this.#onItemClick_bound, { signal: this.#abort.signal });
     this.addEventListener('keydown', this.#openKeydown_bound, { signal: this.#abort.signal });
-    // fix before div height for tint layer
-    this.style.setProperty('--mdw-menu-background-height', `${this.scrollHeight}px`);
     this.querySelector('mdw-button')?.focus();
   }
 
