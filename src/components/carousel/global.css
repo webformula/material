@@ -1,0 +1,36 @@
+mdw-carousel {
+  display: flex;
+  background-color: var(--mdw-surface);
+  margin: 8px 16px;
+  max-height: 220px;
+  overflow-x: auto;
+  /* border-radius: var(--mdw-shape-extra-large); */
+}
+
+mdw-carousel .mdw-carousel-front-padding,
+mdw-carousel .mdw-carousel-back-padding {
+  flex-shrink: 0;
+}
+
+mdw-carousel-item {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  min-width: 40px;
+  flex-basis: 40px;
+  border-radius: var(--mdw-shape-extra-large);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background-color: var(--mdw-surface);
+  margin-right: 8px;
+}
+
+mdw-carousel-item:last-of-type {
+  margin-right: 0;;
+}
+
+mdw-carousel-item img {
+  height: 100%;
+}
+
