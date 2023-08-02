@@ -26,7 +26,7 @@ export default class Drag {
   #touchAbort;
   #isOverflowDragging = false;
   #overflowDrag = false;
-  #overflowDragFactor = 0.007;
+  #overflowDragFactor = 0.01;
   
   constructor(element) {
     if (element) this.#element = element;
@@ -181,14 +181,22 @@ export default class Drag {
     const negativeY = y < 0;
     if (negativeX) x *= -1;
     if (negativeY) y *= -1;
-
     x = Math.sin(x);
     y = Math.sin(y);
-
     if (x < this.#overflowDragFactor) x = 0;
     if (y < this.#overflowDragFactor) y = 0;
+    
+    const EventConstructor = event.type.startsWith('mouse') ? MouseEvent : TouchEvent;
+    const eventType = event.type.startsWith('mouse') ? 'mousemove' : 'touchmove';
+    const changedTouches = event.changedTouches ? [] : undefined;
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      changedTouches[0] = {
+        clientX: event.changedTouches[0].clientX,
+        clientY: event.changedTouches[0].clientY
+      };
+    }
     if(x + y === 0) {
-      const endEvent = new MouseEvent('end', {
+      const endEvent = new EventConstructor(eventType, {
         clientX: event.clientX,
         clientY: event.clientY,
         layerX: event.layerX,
@@ -202,7 +210,8 @@ export default class Drag {
         x: event.x,
         y: event.y,
         view: window,
-        relatedTarget: this.#element
+        relatedTarget: this.#element,
+        changedTouches
       });
       this.#removeDragEnd(endEvent);
       return;
@@ -215,8 +224,11 @@ export default class Drag {
     if (negativeY) y *= -1;
     const xMove = x * 40;
     const yMove = y * 40;
-
-    const newEvent = new MouseEvent('move', {
+    if (changedTouches) {
+      changedTouches[0].clientX += xMove;
+      changedTouches[0].clientY += yMove;
+    }
+    const newEvent = new EventConstructor(eventType, {
       clientX: event.clientX + xMove,
       clientY: event.clientY + yMove,
       layerX: event.layerX + xMove,
@@ -230,7 +242,8 @@ export default class Drag {
       x: event.x + xMove,
       y: event.y + yMove,
       view: window,
-      relatedTarget: this.#element
+      relatedTarget: this.#element,
+      changedTouches
     });
 
     this.#dragMove(newEvent);
