@@ -1,4 +1,5 @@
 mdw-carousel {
+  --mdw-carousel-item-full-width: 0;
   display: flex;
   background-color: var(--mdw-surface);
   margin: 8px 16px;
@@ -13,6 +14,7 @@ mdw-carousel .mdw-carousel-back-padding {
 }
 
 mdw-carousel-item {
+  position: relative;
   display: flex;
   flex-shrink: 0;
   justify-content: center;
@@ -29,10 +31,26 @@ mdw-carousel-item {
 }
 
 mdw-carousel-item:last-of-type {
-  margin-right: 0;;
+  margin-right: 0;
 }
 
 mdw-carousel-item img {
   height: 100%;
+  /* z-index: 0; */
+}
+
+mdw-carousel-item .mdw-text {
+  position: absolute;
+  width: inherit;
+  overflow: hidden;
+  bottom: 14px;
+  left: -14px;
+  padding-left: 28px;
+  box-sizing: border-box;
+  opacity: calc(clamp(var(--mdw-carousel-item-full-width), 0, 40) / 40);
+}
+
+mdw-carousel-item .mdw-text > * {
+  width: var(--mdw-carousel-item-full-width);
 }
 

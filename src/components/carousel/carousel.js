@@ -24,6 +24,7 @@ export default class MDWCarouselElement extends HTMLElementExtended {
 
   connectedCallback() {
     this.#widthProperty = this.hasAttribute('mdw-item-width') && parseInt(this.getAttribute('mdw-item-width'));
+    this.style.setProperty('--mdw-carousel-item-full-width', `${this.#widthProperty}px`)
     this.insertAdjacentHTML('afterbegin', '<div class="mdw-carousel-front-padding"></div>');
     this.insertAdjacentHTML('beforeend', '<div class="mdw-carousel-back-padding"></div>');
     this.#items = this.#buildItems();
@@ -71,10 +72,16 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     }
     widths.forEach((width, i) => {
       const index = startIndex + i;
+      let newWidth;
       if (index === this.#items.length - 1) {
         const endWidth = this.offsetWidth - widths.slice(0, -1).reduce((a, b) => a + b, 0);
-        this.#items[startIndex + i].element.style.flexBasis = `${Math.min(maxWidth, Math.max(this.#minWidth, endWidth))}px`;
-      } else this.#items[startIndex + i].element.style.flexBasis = `${Math.max(this.#minWidth, width - this.#gap)}px`;
+        newWidth = Math.min(maxWidth, Math.max(this.#minWidth, endWidth));
+      } else newWidth = Math.max(this.#minWidth, width - this.#gap);
+
+      const item = this.#items[startIndex + i];
+      item.element.style.flexBasis = `${newWidth}px`;
+      item.element.style.width = `${newWidth}px`;
+      if (i === 0 && item.textElement) item.textElement.style.opacity = Math.min(1, (newWidth - 40) / 80);
     });
 
     const scrollPadding = this.#items.reduce((w, i) => w += i.width - i.element.offsetWidth, 0);
@@ -87,6 +94,7 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     return [...this.querySelectorAll('mdw-carousel-item')].map(element => {
       const item = {
         element,
+        textElement: element.querySelector('.mdw-text'),
         width: this.#widthProperty || maxPossibleItemWidth
       };
 
