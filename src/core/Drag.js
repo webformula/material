@@ -15,7 +15,6 @@ export default class Drag {
   #initialTouchPos;
   #currentTouchPosition;
   #totalDistance;
-  #startTime;
   #lastTouchPos = { x: 0, y: 0 };
   #lockScrollY = false;
   #lockScrollThreshold = 12;
@@ -27,6 +26,7 @@ export default class Drag {
   #isOverflowDragging = false;
   #overflowDrag = false;
   #overflowDragFactor = 0.01;
+  #lastEventTime;
   
   constructor(element) {
     if (element) this.#element = element;
@@ -127,8 +127,12 @@ export default class Drag {
   }
 
   #dragStart(event) {
+    if (event.which === 3) {
+      this.#dragEnd(event);
+      return;
+    }
+
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
-    this.#startTime = Date.now();
     this.#initialTouchPos = this.#getTouchPosition(event);
     this.#lastDistance = this.#getDistance(event);
     this.#totalDistance = this.#getDistance(event);
@@ -153,19 +157,18 @@ export default class Drag {
 
     if (this.#overflowDrag) {
       this.#isOverflowDragging = true;
-      const distance = this.#getDistance(event);
-      this.#overflowDragHandler(this.#getVelocity(distance, Date.now() - this.#startTime), event);
+      const velocity = this.#getVelocity(this.#lastDistance, Date.now() - this.#lastEventTime);
+      this.#overflowDragHandler(velocity, event);
     } else this.#removeDragEnd(event);
   }
 
   #removeDragEnd(event) {
     this.#isOverflowDragging = false;
-    const distance = this.#getDistance(event);
     if (this.#lockScrollY) util.unlockPageScroll();
     this.#onEndCallbacks.forEach(callback => callback({
-      distance,
-      direction: this.#getDirection({ x: 0, y: 0 }, distance),
-      velocity: this.#getVelocity(distance, Date.now() - this.#startTime),
+      distance: this.#lastDistance,
+      direction: this.#getDirection({ x: 0, y: 0 }, this.#lastDistance),
+      velocity: this.#getVelocity(this.#lastDistance, Date.now() - this.#lastEventTime),
       event,
       element: this.#element
     }));
@@ -276,6 +279,7 @@ export default class Drag {
       element: this.#element
     }));
     this.#lastDistance = distance;
+    this.#lastEventTime = Date.now();
   }
 
   #getDistance(event) {
@@ -302,8 +306,8 @@ export default class Drag {
 
   #getVelocity(distance, time) {
     return {
-      x: distance.x / time,
-      y: distance.y / time
+      x: distance.moveX / time,
+      y: distance.moveY / time
     };
   }
 
