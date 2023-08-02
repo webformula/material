@@ -4,9 +4,9 @@ import device from './device.js';
 export default class Drag {
   #element;
   #isDragging = false;
-  #touchstart_bound = this.#touchstart.bind(this);
-  #touchend_bound = this.#touchend.bind(this);
-  #touchmove_throttled = util.rafThrottle(this.#touchmove.bind(this));
+  #dragStart_bound = this.#dragStart.bind(this);
+  #dragEnd_bound = this.#dragEnd.bind(this);
+  #dragMove_throttled = util.rafThrottle(this.#dragMove.bind(this));
   #onDragCallbacks = [];
   #onStartCallbacks = [];
   #onEndCallbacks = [];
@@ -24,6 +24,9 @@ export default class Drag {
   #enabled;
   #abort;
   #touchAbort;
+  #isOverflowDragging = false;
+  #overflowDrag = false;
+  #overflowDragFactor = 0.007;
   
   constructor(element) {
     if (element) this.#element = element;
@@ -52,6 +55,13 @@ export default class Drag {
     this.#noTouchEvents = !!value;
   }
 
+  get overflowDrag() {
+    return this.#overflowDrag;
+  }
+  set overflowDrag(value) {
+    this.#overflowDrag = !!value;
+  }
+
   get isDragging() {
     return this.#isDragging;
   }
@@ -77,8 +87,8 @@ export default class Drag {
     this.#enabled = true;
     this.#abort = new AbortController();
 
-    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#touchstart_bound, { signal: this.#abort.signal });
-    if (!this.noTouchEvents) this.#element.addEventListener('touchstart', this.#touchstart_bound, { signal: this.#abort.signal });
+    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#dragStart_bound, { signal: this.#abort.signal });
+    if (!this.noTouchEvents) this.#element.addEventListener('touchstart', this.#dragStart_bound, { signal: this.#abort.signal });
   }
 
   disable() {
@@ -116,32 +126,42 @@ export default class Drag {
     this.#ignoreElements = [];
   }
 
-  #touchstart(event) {
+  #dragStart(event) {
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
     this.#startTime = Date.now();
     this.#initialTouchPos = this.#getTouchPosition(event);
     this.#lastDistance = this.#getDistance(event);
     this.#totalDistance = this.#getDistance(event);
     this.#touchAbort = new AbortController();
+    this.#isOverflowDragging = false;
 
     if (!this.noTouchEvents) {
-      this.#element.addEventListener('touchend', this.#touchend_bound, { signal: this.#touchAbort.signal });
-      this.#element.addEventListener('touchmove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
+      this.#element.addEventListener('touchend', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
+      this.#element.addEventListener('touchmove', this.#dragMove_throttled, { signal: this.#touchAbort.signal });
     }
 
     if (!this.noMouseEvents) {
-      window.addEventListener('mouseup', this.#touchend_bound, { signal: this.#touchAbort.signal });
-      window.addEventListener('mousemove', this.#touchmove_throttled, { signal: this.#touchAbort.signal });
+      window.addEventListener('mouseup', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
+      window.addEventListener('mousemove', this.#dragMove_throttled, { signal: this.#touchAbort.signal });
     }
   }
 
-  #touchend(event) {
+  #dragEnd(event) {
     this.#touchAbort.abort();
     if (!this.#isDragging) return;
     this.#isDragging = false;
+
+    if (this.#overflowDrag) {
+      this.#isOverflowDragging = true;
+      const distance = this.#getDistance(event);
+      this.#overflowDragHandler(this.#getVelocity(distance, Date.now() - this.#startTime), event);
+    } else this.#removeDragEnd(event);
+  }
+
+  #removeDragEnd(event) {
+    this.#isOverflowDragging = false;
     const distance = this.#getDistance(event);
     if (this.#lockScrollY) util.unlockPageScroll();
-
     this.#onEndCallbacks.forEach(callback => callback({
       distance,
       direction: this.#getDirection({ x: 0, y: 0 }, distance),
@@ -151,8 +171,75 @@ export default class Drag {
     }));
   }
 
-  #touchmove(event) {
-    if (!this.#isDragging) {
+  // when releasing the onDrag event keeps calling with a drop off based on velocity
+  #overflowDragHandler(velocity, event) {
+    if (this.#isOverflowDragging === false) return;
+
+    let x = velocity.x;
+    let y = velocity.y;
+    const negativeX = x < 0;
+    const negativeY = y < 0;
+    if (negativeX) x *= -1;
+    if (negativeY) y *= -1;
+
+    x = Math.sin(x);
+    y = Math.sin(y);
+
+    if (x < this.#overflowDragFactor) x = 0;
+    if (y < this.#overflowDragFactor) y = 0;
+    if(x + y === 0) {
+      const endEvent = new MouseEvent('end', {
+        clientX: event.clientX,
+        clientY: event.clientY,
+        layerX: event.layerX,
+        layerY: event.layerY,
+        screenX: event.screenX,
+        screenY: event.screenY,
+        offsetX: event.offsetX,
+        offsetY: event.offsetY,
+        pageX: event.pageX,
+        pageY: event.pageY,
+        x: event.x,
+        y: event.y,
+        view: window,
+        relatedTarget: this.#element
+      });
+      this.#removeDragEnd(endEvent);
+      return;
+    }
+
+    x -= this.#overflowDragFactor;
+    y -= this.#overflowDragFactor;
+
+    if (negativeX) x *= -1;
+    if (negativeY) y *= -1;
+    const xMove = x * 40;
+    const yMove = y * 40;
+
+    const newEvent = new MouseEvent('move', {
+      clientX: event.clientX + xMove,
+      clientY: event.clientY + yMove,
+      layerX: event.layerX + xMove,
+      layerY: event.layerY + yMove,
+      screenX: event.screenX + xMove,
+      screenY: event.screenY + yMove,
+      offsetX: event.offsetX + xMove,
+      offsetY: event.offsetY + yMove,
+      pageX: event.pageX + xMove,
+      pageY: event.pageY + yMove,
+      x: event.x + xMove,
+      y: event.y + yMove,
+      view: window,
+      relatedTarget: this.#element
+    });
+
+    this.#dragMove(newEvent);
+
+    requestAnimationFrame(() => this.#overflowDragHandler({ x, y }, newEvent))
+  }
+
+  #dragMove(event) {
+    if (!this.#isDragging && !this.#isOverflowDragging) {
       this.#onStartCallbacks.forEach(callback => callback({
         event,
         element: this.#element

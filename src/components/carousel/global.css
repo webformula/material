@@ -24,6 +24,8 @@ mdw-carousel-item {
   margin: 0;
   background-color: var(--mdw-surface);
   margin-right: 8px;
+  pointer-events: none;
+  user-select: none;
 }
 
 mdw-carousel-item:last-of-type {

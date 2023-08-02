@@ -1,7 +1,11 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
+import Drag from '../../core/Drag.js';
+
 
 export default class MDWCarouselElement extends HTMLElementExtended {
+  #drag;
+  #onDrag_bound = this.#onDrag.bind(this);
   #resizeItems_bound = util.rafThrottle(this.#resizeItems.bind(this));
   #itemDisplayCountMinimum = 3;
   #sizeFactor = 0.67;
@@ -18,8 +22,6 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     super();
   }
 
-  // TODO drag scroll on desktop
-
   connectedCallback() {
     this.#widthProperty = this.hasAttribute('mdw-item-width') && parseInt(this.getAttribute('mdw-item-width'));
     this.insertAdjacentHTML('afterbegin', '<div class="mdw-carousel-front-padding"></div>');
@@ -27,6 +29,21 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     this.#items = this.#buildItems();
     setTimeout(() => this.#resizeItems());
     this.addEventListener('scroll', this.#resizeItems_bound);
+    this.#drag = new Drag(this);
+    this.#drag.noTouchEvents = true;
+    this.#drag.overflowDrag = true;
+    this.#drag.onDrag(this.#onDrag_bound);
+    this.#drag.enable();
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('scroll', this.#resizeItems_bound);
+    this.#drag.destroy();
+  }
+
+  #onDrag({ distance }) {
+    this.scrollLeft -= distance.moveX;
+    this.#resizeItems();
   }
 
   #resizeItems() {
@@ -35,6 +52,8 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     const startIndex = Math.floor(this.scrollLeft / maxWidthGap);
     const distance = maxWidthGap - (this.scrollLeft % maxWidthGap);
     const fullWidthItemsCount = Math.max(0, Math.floor(this.offsetWidth / maxWidthGap) - 2);
+    let scrollPaddingOffset = this.#minWidthGap * startIndex;
+    if (distance < this.#minWidthGap) scrollPaddingOffset += this.#minWidthGap - distance;
  
     let totalWidth = 0;
     const widths = [];
@@ -53,13 +72,11 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     widths.forEach((width, i) => {
       const index = startIndex + i;
       if (index === this.#items.length - 1) {
-        const bounds = this.#items[index - 1].element.getBoundingClientRect();
-        this.#items[startIndex + i].element.style.flexBasis = `${Math.min(maxWidth, this.offsetWidth - (bounds.x + bounds.width - this.#minWidth))}px`;
-      } else this.#items[startIndex + i].element.style.flexBasis = `${width - this.#gap}px`;
+        const endWidth = this.offsetWidth - widths.slice(0, -1).reduce((a, b) => a + b, 0);
+        this.#items[startIndex + i].element.style.flexBasis = `${Math.min(maxWidth, Math.max(this.#minWidth, endWidth))}px`;
+      } else this.#items[startIndex + i].element.style.flexBasis = `${Math.max(this.#minWidth, width - this.#gap)}px`;
     });
 
-    let scrollPaddingOffset = this.#minWidthGap * startIndex;
-    if (distance < this.#minWidthGap) scrollPaddingOffset += this.#minWidthGap - distance;
     const scrollPadding = this.#items.reduce((w, i) => w += i.width - i.element.offsetWidth, 0);
     this.querySelector('.mdw-carousel-back-padding').style.width = `${scrollPadding - this.scrollLeft + scrollPaddingOffset}px`;
     this.querySelector('.mdw-carousel-front-padding').style.width = `${this.scrollLeft - scrollPaddingOffset}px`;
