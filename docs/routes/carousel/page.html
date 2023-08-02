@@ -10,7 +10,8 @@
 <p>Carousels show a collection of items that can be scrolled on and off the screen</p>
 
 <div class="links">
-  <a href="#standard">Standard</a>
+  <a href="#standard">Images</a>
+  <a href="#text">Images and text</a>
 </div>
 
 
@@ -19,9 +20,10 @@
 
   <mdw-card id="standard">
     <div class="mdw-card-content" style="padding-left: 0; padding-right: 0;;">
-      <div class="mdw-headline" style="padding-left: 16px;">Standard</div>
+      <div class="mdw-headline" style="padding-left: 16px;">Images</div>
+      <div class="mdw-subheader" style="padding-left: 16px;">Use the <b>mdw-carousel[mdw-item-width]</b> attribute to set the width of the items</div>
       
-      <mdw-carousel mdw-item-width="170" style="max-width: 400px;">
+      <mdw-carousel mdw-item-width="170" style="max-width: 400px; margin: 0 auto; margin-top: 24px;">
         <mdw-carousel-item>
           <img alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -63,7 +65,115 @@
 
     <pre>
       <code class="language-html">
-  ${page.escape(``)}
+  ${page.escape(`<mdw-carousel mdw-item-width="170">
+    <mdw-carousel-item>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+    <mdw-carousel-item>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+    <mdw-carousel-item>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+  </mdw-carousel>`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+
+  <mdw-card id="text">
+    <div class="mdw-card-content" style="padding-left: 0; padding-right: 0;;">
+      <div class="mdw-headline" style="padding-left: 16px;">Images and text</div>
+  
+      <mdw-carousel mdw-item-width="170" style="max-width: 400px; margin: 0 auto; margin-top: 24px;">
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+        <mdw-carousel-item>
+          <div class="mdw-text">
+            <div class="mdw-font-title-medium">Title</div>
+          </div>
+          <img alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        </mdw-carousel-item>
+      </mdw-carousel>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<mdw-carousel mdw-item-width="170">
+    <mdw-carousel-item>
+      <div class="mdw-text">
+        <div class="mdw-font-title-medium">Title</div>
+      </div>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+    <mdw-carousel-item>
+      <div class="mdw-text">
+        <div class="mdw-font-title-medium">Title</div>
+      </div>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+    <mdw-carousel-item>
+      <div class="mdw-text">
+        <div class="mdw-font-title-medium">Title</div>
+      </div>
+      <img alt="landscape" src="./img.jpg"/>
+    </mdw-carousel-item>
+  </mdw-carousel>`)}
       </code>
     </pre>
   </mdw-card>
