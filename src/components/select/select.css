@@ -35,6 +35,10 @@
   display: none;
 }
 
+mdw-textfield {
+  width: 100%;
+}
+
 mdw-textfield .mdw-select-arrow {
   position: absolute;
   top: 24px;

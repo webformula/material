@@ -116,6 +116,11 @@ mdw-side-sheet .mdw-actions .mdw-divider {
   border-top: 1px solid var(--mdw-surface-variant);
 }
 
+mdw-side-sheet .mdw-actions.mdw-scrolled {
+  box-shadow: var(--mdw-elevation-2);
+  clip-path: inset(-30px 0px 0px 0px);
+}
+
 
 mdw-side-sheet.mdw-no-animation + .mdw-side-sheet-placeholder,
 mdw-side-sheet.mdw-no-animation {

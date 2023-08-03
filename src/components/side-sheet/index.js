@@ -9,8 +9,11 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   #modal;
   #clickOutsideClose = false;
   #placeHolder;
+  #content;
+  #actions;
   #scrimClick_bound = this.#scrimClick.bind(this);
   #closeClick_bound = this.close.bind(this);
+  #actionsScrolled_bound = this.#actionsScrolled.bind(this);
 
   constructor() {
     super();
@@ -33,11 +36,19 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
       this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.addEventListener('click', this.#closeClick_bound));
       this.classList.remove('mdw-no-animation');
     });
+
+    this.#content = this.querySelector('.mdw-content');
+    this.#actions = this.querySelector('.mdw-actions');
+    if (this.#content && this.#actions) {
+      this.querySelector('.mdw-content').addEventListener('scroll', this.#actionsScrolled_bound);
+      this.#actionsScrolled();
+    }
   }
 
   disconnectedCallback() {
     if (this.#scrimElement) this.#scrimElement.remove();
     this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.removeEventListener('click', this.#closeClick_bound));
+    if (this.#content && this.#actions) this.querySelector('.mdw-content').removeEventListener('scroll', this.#actionsScrolled_bound);
   }
 
   get open() {
@@ -100,5 +111,9 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
 
   #scrimClick() {
     this.open = false;
+  }
+
+  #actionsScrolled() {
+    this.#actions.classList.toggle('mdw-scrolled', (this.#content.scrollHeight - this.#content.scrollTop) > this.#content.offsetHeight);
   }
 });
