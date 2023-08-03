@@ -12,7 +12,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
   #onclickSelect_bound = this.#onclickSelect.bind(this);
   #onclickAction_bound = this.#onclickAction.bind(this);
   #hasActions = this.querySelector('[action]');
-  #hasSwipeActions = this.querySelector('mdw-list-item-action-right') || this.querySelector('mdw-list-item-action-left');
+  #hasSwipeActions = this.querySelector('mdw-list-item-action-start') || this.querySelector('mdw-list-item-action-end');
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
@@ -142,9 +142,9 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
     const action = event.target.getAttribute('action');
     const remove = event.target.hasAttribute('action-remove');
     if (remove) {
-      const leftSwipeControl = this.querySelector('mdw-list-item-action-left');
+      const leftSwipeControl = this.querySelector('mdw-list-item-action-end');
       if (leftSwipeControl) leftSwipeControl.style.opacity = 0;
-      const rightSwipeControl = this.querySelector('mdw-list-item-action-right');
+      const rightSwipeControl = this.querySelector('mdw-list-item-action-start');
       if (rightSwipeControl) rightSwipeControl.style.opacity = 0;
       this.style.setProperty('--mdw-list-item-swipe-position', `100%`);
       await util.transitionendAsync(this);
@@ -179,7 +179,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
     if (position > -this.#actionActiveThreshold && position < this.#actionActiveThreshold) {
       this.style.setProperty('--mdw-list-item-swipe-position', `0px`);
     } else {
-      const actionElement = position < -this.#actionActiveThreshold ? this.querySelector('mdw-list-item-action-left') : this.querySelector('mdw-list-item-action-right');
+      const actionElement = position < -this.#actionActiveThreshold ? this.querySelector('mdw-list-item-action-end') : this.querySelector('mdw-list-item-action-start');
       const remove = actionElement.hasAttribute('action-remove');
 
       if (remove) {
