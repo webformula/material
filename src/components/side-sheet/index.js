@@ -11,9 +11,10 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   #placeHolder;
   #content;
   #actions;
+  #header;
   #scrimClick_bound = this.#scrimClick.bind(this);
   #closeClick_bound = this.close.bind(this);
-  #actionsScrolled_bound = this.#actionsScrolled.bind(this);
+  #scrolled_bound = this.#scrolled.bind(this);
 
   constructor() {
     super();
@@ -32,23 +33,25 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   }
 
   connectedCallback() {
+    this.setAttribute('role', 'dialog');
     util.nextAnimationFrameAsync().then(() => {
       this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.addEventListener('click', this.#closeClick_bound));
       this.classList.remove('mdw-no-animation');
     });
 
-    this.#content = this.querySelector('.mdw-content');
-    this.#actions = this.querySelector('.mdw-actions');
-    if (this.#content && this.#actions) {
-      this.querySelector('.mdw-content').addEventListener('scroll', this.#actionsScrolled_bound);
-      this.#actionsScrolled();
-    }
+    // this.#content = this.querySelector('.mdw-content');
+    // this.#actions = this.querySelector('.mdw-actions');
+    // this.#header = this.querySelector('.mdw-header');
+    // if (this.#content) {
+    //   this.querySelector('.mdw-content').addEventListener('scroll', this.#scrolled_bound);
+    //   this.#scrolled();
+    // }
   }
 
   disconnectedCallback() {
     if (this.#scrimElement) this.#scrimElement.remove();
     this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.removeEventListener('click', this.#closeClick_bound));
-    if (this.#content && this.#actions) this.querySelector('.mdw-content').removeEventListener('scroll', this.#actionsScrolled_bound);
+    if (this.#content && this.#actions) this.querySelector('.mdw-content').removeEventListener('scroll', this.#scrolled_bound);
   }
 
   get open() {
@@ -113,7 +116,8 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.open = false;
   }
 
-  #actionsScrolled() {
-    this.#actions.classList.toggle('mdw-scrolled', (this.#content.scrollHeight - this.#content.scrollTop) > this.#content.offsetHeight);
+  #scrolled() {
+    if (this.#actions) this.#actions.classList.toggle('mdw-scrolled', (this.#content.scrollHeight - this.#content.scrollTop) > this.#content.offsetHeight);
+    if (this.#header) this.#header.classList.toggle('mdw-scrolled', this.#content.scrollTop > 0);
   }
 });

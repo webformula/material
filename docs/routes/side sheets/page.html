@@ -114,8 +114,10 @@
       <div class="example">
         <div>
           <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
-          <mdw-switch style="margin-left: 36px; width: 210px;"
+          <mdw-switch style="margin-left: 36px; width: 180px;"
             onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>
+          <mdw-switch style="margin-left: 36px; width: 120px;"
+            onchange="document.querySelector('mdw-side-sheet#two').classList.toggle('mdw-inset', this.checked)">Inset</mdw-switch>
         </div>
         <div style="display: flex">
           <mdw-side-sheet id="two" class="mdw-global">
@@ -151,7 +153,7 @@
     <div>
       content...
     </div>
-    <mdw-side-sheet id="two" class="mdw-global">
+    <mdw-side-sheet id="two" class="mdw-global mdw-inset">
       <div class="mdw-header">
         <div class="mdw-title">Title</div>
         <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
