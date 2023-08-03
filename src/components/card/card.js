@@ -170,8 +170,8 @@ export default class MDWCardElement extends HTMLElementExtended {
     this.#dragSwipeActionStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
   }
 
-  #ondragSwipeAction({ distance }) {
-    let position = this.#dragSwipeActionStartPosition + distance.x;
+  #ondragSwipeAction({ distanceX }) {
+    let position = this.#dragSwipeActionStartPosition + distanceX;
     if (position > 60) position = 60;
     if (position < 0) position = 0;
     this.style.setProperty('--mdw-card-swipe-action-position', `${position}px`);

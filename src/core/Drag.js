@@ -4,18 +4,11 @@ import device from './device.js';
 export default class Drag {
   #element;
   #isDragging = false;
-  #dragStart_bound = this.#dragStart.bind(this);
-  #dragEnd_bound = this.#dragEnd.bind(this);
-  #dragMove_throttled = util.rafThrottle(this.#dragMove.bind(this));
   #onDragCallbacks = [];
   #onStartCallbacks = [];
   #onEndCallbacks = [];
   #ignoreElements = [];
-  #lastDistance;
-  #initialTouchPos;
   #currentTouchPosition;
-  #totalDistance;
-  #lastTouchPos = { x: 0, y: 0 };
   #lockScrollY = false;
   #lockScrollThreshold = 12;
   #noTouchEvents = false;
@@ -25,8 +18,12 @@ export default class Drag {
   #touchAbort;
   #isOverflowDragging = false;
   #overflowDrag = false;
-  #overflowDragFactor = 0.01;
-  #lastEventTime;
+  #dragStart_bound = this.#dragStart.bind(this);
+  #dragEnd_bound = this.#dragEnd.bind(this);
+  #dragMove_bound = this.#dragMove.bind(this);
+  #timeConstant = 325;
+  #trackingDetails;
+  #releaseDetails;
   
   constructor(element) {
     if (element) this.#element = element;
@@ -113,11 +110,6 @@ export default class Drag {
   onEnd(callback = () => { }) {
     this.#onEndCallbacks.push(callback);
   }
-
-  resetDistance() {
-    this.#initialTouchPos = this.#currentTouchPosition;
-  }
-
   addIgnoreElement(element) {
     this.#ignoreElements.push(element);
   }
@@ -126,27 +118,26 @@ export default class Drag {
     this.#ignoreElements = [];
   }
 
+
   #dragStart(event) {
     if (event.which === 3) {
       this.#dragEnd(event);
       return;
     }
-
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
-    this.#initialTouchPos = this.#getTouchPosition(event);
-    this.#lastDistance = this.#getDistance(event);
-    this.#totalDistance = this.#getDistance(event);
-    this.#touchAbort = new AbortController();
+
+    this.#trackInitialize(event);
     this.#isOverflowDragging = false;
+    this.#touchAbort = new AbortController();
 
     if (!this.noTouchEvents) {
       this.#element.addEventListener('touchend', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
-      this.#element.addEventListener('touchmove', this.#dragMove_throttled, { signal: this.#touchAbort.signal });
+      this.#element.addEventListener('touchmove', this.#dragMove_bound, { signal: this.#touchAbort.signal });
     }
 
     if (!this.noMouseEvents) {
       window.addEventListener('mouseup', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
-      window.addEventListener('mousemove', this.#dragMove_throttled, { signal: this.#touchAbort.signal });
+      window.addEventListener('mousemove', this.#dragMove_bound, { signal: this.#touchAbort.signal });
     }
   }
 
@@ -155,10 +146,10 @@ export default class Drag {
     if (!this.#isDragging) return;
     this.#isDragging = false;
 
-    if (this.#overflowDrag) {
+    this.#trackRelease();
+    if (this.#overflowDrag && (this.#releaseDetails.overscrollX || this.#releaseDetails.overscrollY)) {
       this.#isOverflowDragging = true;
-      const velocity = this.#getVelocity(this.#lastDistance, Date.now() - this.#lastEventTime);
-      this.#overflowDragHandler(velocity, event);
+      requestAnimationFrame(() => this.#overscroll(event));
     } else this.#removeDragEnd(event);
   }
 
@@ -166,39 +157,77 @@ export default class Drag {
     this.#isOverflowDragging = false;
     if (this.#lockScrollY) util.unlockPageScroll();
     this.#onEndCallbacks.forEach(callback => callback({
-      distance: this.#lastDistance,
-      direction: this.#getDirection({ x: 0, y: 0 }, this.#lastDistance),
-      velocity: this.#getVelocity(this.#lastDistance, Date.now() - this.#lastEventTime),
+      ...this.#releaseDetails,
+      ...this.#trackingDetails,
       event,
       element: this.#element
     }));
   }
 
-  // when releasing the onDrag event keeps calling with a drop off based on velocity
-  #overflowDragHandler(velocity, event) {
+  #dragMove(event) {
+    if (!this.#isDragging && !this.#isOverflowDragging) {
+      this.#onStartCallbacks.forEach(callback => callback({
+        event,
+        element: this.#element
+      }));
+      this.#isDragging = true;
+    }
+
+    this.#track(event);
+    if (this.#lockScrollY) {
+      if (Math.abs(this.#trackingDetails.distanceX) > this.#lockScrollThreshold) util.lockPageScroll();
+    }
+    this.#onDragCallbacks.forEach(callback => callback({
+      ...this.#trackingDetails,
+      event,
+      element: this.#element
+    }));
+  }
+
+  #overscroll(event) {
     if (this.#isOverflowDragging === false) return;
 
-    let x = velocity.x;
-    let y = velocity.y;
-    const negativeX = x < 0;
-    const negativeY = y < 0;
-    if (negativeX) x *= -1;
-    if (negativeY) y *= -1;
-    x = Math.sin(x);
-    y = Math.sin(y);
-    if (x < this.#overflowDragFactor) x = 0;
-    if (y < this.#overflowDragFactor) y = 0;
-    
+    const elapsed = Date.now() - this.#releaseDetails.overscrollTimestamp;
+    const deltaX = -this.#releaseDetails.amplitudeX * Math.exp(-elapsed / this.#timeConstant);
+    const deltaY = -this.#releaseDetails.amplitudeY * Math.exp(-elapsed / this.#timeConstant);
+    const keepScrolling = deltaX > 0.5 || deltaX < -0.5 || deltaY > 0.5 || deltaY < -0.5;
+    const clientX = keepScrolling ? this.#releaseDetails.scrollTargetX + deltaX : this.#releaseDetails.scrollTargetX;
+    const clientY = keepScrolling ? this.#releaseDetails.scrollTargetY + deltaY : this.#releaseDetails.scrollTargetY;
+    const moveX = clientX - this.#trackingDetails.clientX;
+    const moveY = clientY - this.#trackingDetails.clientY;
     const EventConstructor = event.type.startsWith('mouse') ? MouseEvent : TouchEvent;
     const eventType = event.type.startsWith('mouse') ? 'mousemove' : 'touchmove';
     const changedTouches = event.changedTouches ? [] : undefined;
+
     if (event.changedTouches && event.changedTouches.length > 0) {
       changedTouches[0] = {
-        clientX: event.changedTouches[0].clientX,
-        clientY: event.changedTouches[0].clientY
+        clientX: event.changedTouches[0].clientX + (keepScrolling ? moveX : 0),
+        clientY: event.changedTouches[0].clientY + + (keepScrolling ? moveY : 0)
       };
     }
-    if(x + y === 0) {
+    
+    const newEvent = new EventConstructor(eventType, {
+      clientX: event.clientX + moveX,
+      clientY: event.clientY + moveY,
+      layerX: event.layerX + moveX,
+      layerY: event.layerY + moveY,
+      screenX: event.screenX + moveX,
+      screenY: event.screenY + moveY,
+      offsetX: event.offsetX + moveX,
+      offsetY: event.offsetY + moveY,
+      pageX: event.pageX + moveX,
+      pageY: event.pageY + moveY,
+      x: event.x + moveX,
+      y: event.y + moveY,
+      view: window,
+      relatedTarget: this.#element,
+      changedTouches
+    });
+
+    this.#dragMove(newEvent);
+    if (keepScrolling) {
+      requestAnimationFrame(() => this.#overscroll(newEvent));
+    } else {
       const endEvent = new EventConstructor(eventType, {
         clientX: event.clientX,
         clientY: event.clientY,
@@ -217,104 +246,76 @@ export default class Drag {
         changedTouches
       });
       this.#removeDragEnd(endEvent);
-      return;
     }
-
-    x -= this.#overflowDragFactor;
-    y -= this.#overflowDragFactor;
-
-    if (negativeX) x *= -1;
-    if (negativeY) y *= -1;
-    const xMove = x * 40;
-    const yMove = y * 40;
-    if (changedTouches) {
-      changedTouches[0].clientX += xMove;
-      changedTouches[0].clientY += yMove;
-    }
-    const newEvent = new EventConstructor(eventType, {
-      clientX: event.clientX + xMove,
-      clientY: event.clientY + yMove,
-      layerX: event.layerX + xMove,
-      layerY: event.layerY + yMove,
-      screenX: event.screenX + xMove,
-      screenY: event.screenY + yMove,
-      offsetX: event.offsetX + xMove,
-      offsetY: event.offsetY + yMove,
-      pageX: event.pageX + xMove,
-      pageY: event.pageY + yMove,
-      x: event.x + xMove,
-      y: event.y + yMove,
-      view: window,
-      relatedTarget: this.#element,
-      changedTouches
-    });
-
-    this.#dragMove(newEvent);
-
-    requestAnimationFrame(() => this.#overflowDragHandler({ x, y }, newEvent))
   }
 
-  #dragMove(event) {
-    if (!this.#isDragging && !this.#isOverflowDragging) {
-      this.#onStartCallbacks.forEach(callback => callback({
-        event,
-        element: this.#element
-      }));
-      this.#isDragging = true;
-    }
-
-    this.#currentTouchPosition = this.#getTouchPosition(event);
-    const distance = this.#getDistance(event);
-    this.#totalDistance.x += distance.x;
-    this.#totalDistance.y += distance.y;
-    this.#totalDistance.moveX += distance.moveX;
-    this.#totalDistance.moveY += distance.moveY;
-    if (this.#lockScrollY) {
-      if (Math.abs(this.#totalDistance.moveX) > this.#lockScrollThreshold) util.lockPageScroll();
-    }
-    this.#onDragCallbacks.forEach(callback => callback({
-      distance,
-      direction: this.#getDirection(this.#lastDistance, distance),
-      event,
-      element: this.#element
-    }));
-    this.#lastDistance = distance;
-    this.#lastEventTime = Date.now();
-  }
-
-  #getDistance(event) {
-    const xy = this.#getTouchPosition(event);
-    const last = this.#lastTouchPos;
-    this.#lastTouchPos = xy;
-    return {
-      x: xy.x - this.#initialTouchPos.x,
-      y: xy.y - this.#initialTouchPos.y,
-      moveX: xy.x - last.x,
-      moveY: xy.y - last.y
+  #trackInitialize({ changedTouches, clientX, clientY}) {
+    clientX = changedTouches ? changedTouches[0].clientX : clientX;
+    clientY = changedTouches ? changedTouches[0].clientY : clientY;
+    this.#trackingDetails = {
+      initial: true,
+      clientXInitial: clientX,
+      clientYInitial: clientY,
+      clientX,
+      clientY,
+      distanceX: 0,
+      distanceY: 0,
+      moveX: 0,
+      moveY: 0,
+      directionX: 0,
+      directionY: 0,
+      directionXDescription: 'none',
+      directionYDescription: 'none',
+      elapsedTime: 0,
+      timeStamp: Date.now(),
+      velocityX: 0,
+      velocityY: 0
     };
   }
 
-  #getDirection(previous, current) {
-    const x = current.x > previous.x ? 1 : current.x === previous.x ? 0 : -1;
-    const y = current.y > previous.y ? 1 : current.y === previous.y ? 0 : -1;
-    return {
-      x, y,
-      xDescription: x === 0 ? 'none' : x === 1 ? 'right' : 'left',
-      yDescription: y === 0 ? 'none' : y === 1 ? 'down' : 'up'
+  #track({ changedTouches, clientX, clientY }) {
+    clientX = changedTouches ? changedTouches[0].clientX : clientX;
+    clientY = changedTouches ? changedTouches[0].clientY : clientY;
+    const moveX = clientX - this.#trackingDetails.clientX;
+    const moveY = clientY - this.#trackingDetails.clientY;
+    const distanceX = clientX - this.#trackingDetails.clientXInitial;
+    const distanceY = clientY - this.#trackingDetails.clientYInitial;
+    const directionX = distanceX > this.#trackingDetails.distanceX ? 1 : distanceX === this.#trackingDetails.distanceX ? 0 : -1;
+    const directionY = distanceY > this.#trackingDetails.distanceY ? 1 : distanceY === this.#trackingDetails.distanceY ? 0 : -1;
+    const elapsedTime = Date.now() - this.#trackingDetails.timeStamp;
+
+    this.#trackingDetails = {
+      initial: false,
+      clientXInitial: this.#trackingDetails.clientXInitial,
+      clientYInitial: this.#trackingDetails.clientYInitial,
+      clientX,
+      clientY,
+      distanceX,
+      distanceY,
+      moveX,
+      moveY,
+      directionX,
+      directionY,
+      directionXDescription: directionX === 0 ? 'none' : directionX === 1 ? 'right' : 'left',
+      directionYDescription: directionY === 0 ? 'none' : directionY === 1 ? 'down' : 'up',
+      elapsedTime,
+      timeStamp: Date.now(),
+      velocityX: 0.4 * (1000 * moveX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
+      velocityY: 0.4 * (1000 * moveY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
     };
   }
 
-  #getVelocity(distance, time) {
-    return {
-      x: distance.moveX / time,
-      y: distance.moveY / time
+  #trackRelease() {
+    const amplitudeX = 0.8 * this.#trackingDetails.velocityX;
+    const amplitudeY = 0.8 * this.#trackingDetails.velocityY;
+    this.#releaseDetails = {
+      overscrollX: this.#trackingDetails.velocityX > 10 || this.#trackingDetails.velocityX < -10,
+      overscrollY: this.#trackingDetails.velocityY > 10 || this.#trackingDetails.velocityY < -10,
+      amplitudeX,
+      amplitudeY,
+      scrollTargetX: Math.round(this.#trackingDetails.clientX + amplitudeX),
+      scrollTargetY: Math.round(this.#trackingDetails.clientY + amplitudeY),
+      overscrollTimestamp: Date.now()
     };
-  }
-
-  #getTouchPosition(event) {
-    return {
-      x: event.changedTouches ? event.changedTouches[0].clientX : event.clientX,
-      y: event.changedTouches ? event.changedTouches[0].clientY : event.clientY,
-    }
   }
 }

@@ -340,27 +340,28 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
     this.classList.add('mdw-dragging');
   }
 
-  #onDrag({ distance }) {
-    this.style.setProperty('--mdw-months-container-drag-left', `${distance.x}px`);
+  #onDrag({ distanceX }) {
+    this.style.setProperty('--mdw-months-container-drag-left', `${distanceX}px`);
   }
 
-  async #onDragEnd({ distance }) {
-    if (distance.x > 100) {
-      this.classList.add('mdw-drag-animation');
+  async #onDragEnd({ distanceX }) {
+    this.classList.add('mdw-drag-animation');
+    if (distanceX > 100) {
       this.style.setProperty('--mdw-months-container-drag-left', '320px');
-    } else if (distance.x < -100) {
-      this.classList.add('mdw-drag-animation');
+    } else if (distanceX < -100) {
       this.style.setProperty('--mdw-months-container-drag-left', '-320px');
+    } else {
+      this.style.setProperty('--mdw-months-container-drag-left', '0px');
     }
-
+    
     await util.transitionendAsync(this);
 
     this.classList.remove('mdw-drag-animation');
 
-    if (distance.x > 100) {
+    if (distanceX > 100) {
       this.#updateDisplayDate(dateUtil.addToDateByParts(this.#displayDate, { month: -1 }), true);
       this.style.setProperty('--mdw-months-container-drag-left', '0');
-    } else if (distance.x < -100) {
+    } else if (distanceX < -100) {
       this.#updateDisplayDate(dateUtil.addToDateByParts(this.#displayDate, { month: 1 }), true);
       this.style.setProperty('--mdw-months-container-drag-left', '0');
     }

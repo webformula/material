@@ -290,8 +290,8 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     this.#dragOneStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.#controlX + 10;
   }
 
-  #onDragOne({ distance }) {
-    this.#setValueOneFromPixels(this.#dragOneStartLeftPosition + distance.x);
+  #onDragOne({ distanceX }) {
+    this.#setValueOneFromPixels(this.#dragOneStartLeftPosition + distanceX);
   }
 
   #onDragTwoStart() {
@@ -299,8 +299,8 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     this.#dragTwoStartLeftPosition = this.#thumb2.getBoundingClientRect().x - this.#controlX + 10;
   }
 
-  #onDragTwo({ distance }) {
-    this.#setValueTwoFromPixels(this.#dragTwoStartLeftPosition + distance.x);
+  #onDragTwo({ distanceX }) {
+    this.#setValueTwoFromPixels(this.#dragTwoStartLeftPosition + distanceX);
   }
 
   #onFocus() {

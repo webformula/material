@@ -32,7 +32,7 @@ mdw-list-item {
   transition: left 0ms;
 }
 
-mdw-list.mdw-navigation mdw-list-item {
+mdw-list.mdw-animation mdw-list-item {
   transition-duration: 220ms;
 }
 
@@ -224,13 +224,6 @@ mdw-list-item > mdw-list-item-action-start {
   color: var(--mdw-on-primary);
   transition: left 0ms;
 }
-mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-start {
-  transition-duration: 220ms;
-}
-
-mdw-list-item.mdw-dragging > mdw-list-item-action-start {
-  transition: none;
-}
 
 mdw-list-item > mdw-list-item-action-start::after {
   position: absolute;
@@ -246,6 +239,12 @@ mdw-list-item > mdw-list-item-action-start::after {
   transition-timing-function: var(--mdw-transition-expand-out);
 }
 
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-start,
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-start::after {
+  transition-duration: 220ms;
+}
+
+mdw-list-item.mdw-dragging > mdw-list-item-action-start,
 mdw-list-item.mdw-dragging > mdw-list-item-action-start::after {
   transition: none;
 }
@@ -269,13 +268,6 @@ mdw-list-item > mdw-list-item-action-end {
   transition: right 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
 }
-mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-end {
-  transition-duration: 220ms;
-}
-
-mdw-list-item.mdw-dragging > mdw-list-item-action-end {
-  transition: none;
-}
 
 mdw-list-item > mdw-list-item-action-end::after {
   position: absolute;
@@ -291,10 +283,12 @@ mdw-list-item > mdw-list-item-action-end::after {
   transition: right 0ms;
   transition-timing-function: var(--mdw-transition-expand-out);
 }
+mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-end,
 mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-end::after {
   transition-duration: 220ms;
 }
 
+mdw-list-item.mdw-dragging > mdw-list-item-action-end,
 mdw-list-item.mdw-dragging > mdw-list-item-action-end::after {
   transition: none;
 }

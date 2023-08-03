@@ -42,8 +42,8 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     this.#drag.destroy();
   }
 
-  #onDrag({ distance }) {
-    this.scrollLeft -= distance.moveX;
+  #onDrag({ moveX }) {
+    this.scrollLeft -= moveX;
     this.#resizeItems();
   }
 

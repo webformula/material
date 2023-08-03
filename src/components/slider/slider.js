@@ -230,8 +230,8 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
     this.#dragStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.#controlX + 10;
   }
 
-  #onDrag({ distance }) {
-    this.#setValueFromPixels(this.#dragStartLeftPosition + distance.x);
+  #onDrag({ distanceX }) {
+    this.#setValueFromPixels(this.#dragStartLeftPosition + distanceX);
   }
 
   #onFocus() {

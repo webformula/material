@@ -125,8 +125,8 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     }
   }
 
-  #onDrag({ distance }) {
-    let x = distance.x;
+  #onDrag({ distanceX }) {
+    let x = distanceX;
     if (x < 0) x = 0;
     if (x > 20) x = 20;
     this.#thumb.style.left = `${x}px`;

@@ -166,8 +166,8 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
     this.#dragStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-list-item-swipe-position').replace('px', ''));
   }
 
-  #onDrag({ distance }) {
-    const position = this.#dragStartPosition + distance.x;
+  #onDrag({ distanceX }) {
+    const position = this.#dragStartPosition + distanceX;
     this.style.setProperty('--mdw-list-item-swipe-position', `${position}px`);
     this.classList.toggle('mdw-action-active', position < -this.#actionActiveThreshold || position > this.#actionActiveThreshold);
   }
