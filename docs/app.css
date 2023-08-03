@@ -10,6 +10,10 @@ html {
   overflow-y: auto;
 }
 
+page-content {
+  overflow-x: hidden;
+}
+
 .page-title {
   margin-bottom: 0;
 }
