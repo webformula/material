@@ -59,6 +59,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   afterRender() {
     util.addClickTimeout(this.shadowRoot.querySelector('.track'), this.#click_bound);
     this.#drag = new Drag(this.#thumb);
+    this.#drag.lockScrollY = true;
     this.#drag.onDrag(this.#onDrag_bound);
     this.#drag.onEnd(this.#onDragEnd_bound);
     this.#drag.enable();

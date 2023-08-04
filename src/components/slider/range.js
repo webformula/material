@@ -12,10 +12,10 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   #max = 100;
   #value = [30, 60];
   #step = 1;
-  #dragOne = new Drag(this);
+  #dragOne;
   #onDragOne_bound = this.#onDragOne.bind(this);
   #onDragOneStart_bound = this.#onDragOneStart.bind(this);
-  #dragTwo = new Drag(this);
+  #dragTwo;
   #onDragTwo_bound = this.#onDragTwo.bind(this);
   #onDragTwoStart_bound = this.#onDragTwoStart.bind(this);
   #onclick_bound = this.#onclick.bind(this);
@@ -84,11 +84,13 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
     this.#setPositionTwo({ percent: this.percents[1] });
 
     this.#dragOne = new Drag(this.#thumb);
+    this.#dragOne.lockScrollY = true;
     this.#dragOne.onDrag(this.#onDragOne_bound);
     this.#dragOne.onStart(this.#onDragOneStart_bound);
     this.#dragOne.enable();
 
     this.#dragTwo = new Drag(this.#thumb2);
+    this.#dragTwo.lockScrollY = true;
     this.#dragTwo.onDrag(this.#onDragTwo_bound);
     this.#dragTwo.onStart(this.#onDragTwoStart_bound);
     this.#dragTwo.enable();

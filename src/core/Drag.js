@@ -8,7 +8,6 @@ export default class Drag {
   #onStartCallbacks = [];
   #onEndCallbacks = [];
   #ignoreElements = [];
-  #currentTouchPosition;
   #lockScrollY = false;
   #lockScrollThreshold = 12;
   #noTouchEvents = false;
@@ -91,6 +90,13 @@ export default class Drag {
   disable() {
     if (this.#abort) this.#abort.abort();
     if (this.#touchAbort) this.#touchAbort.abort();
+    this.#isDragging = false;
+    this.#enabled = false;
+  }
+
+  cancel() {
+    if (this.#touchAbort) this.#touchAbort.abort();
+    this.#isDragging = false;
   }
 
   destroy() {
@@ -166,16 +172,24 @@ export default class Drag {
 
   #dragMove(event) {
     if (!this.#isDragging && !this.#isOverflowDragging) {
+      this.#isDragging = true;
       this.#onStartCallbacks.forEach(callback => callback({
+        ...this.#trackingDetails,
         event,
         element: this.#element
       }));
-      this.#isDragging = true;
+
+      // cancel or disable called from onStartCallback
+      if (this.#isDragging === false) return;
     }
 
     this.#track(event);
+
     if (this.#lockScrollY) {
-      if (Math.abs(this.#trackingDetails.distanceX) > this.#lockScrollThreshold) util.lockPageScroll();
+      if (Math.abs(this.#trackingDetails.distanceX) > this.#lockScrollThreshold) {
+        util.lockPageScroll();
+        event.preventDefault();
+      }
     }
     this.#onDragCallbacks.forEach(callback => callback({
       ...this.#trackingDetails,

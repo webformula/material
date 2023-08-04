@@ -59,6 +59,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    util.unlockPageScroll();
     this.#drag.destroy();
     this.#drag = undefined;
     this.#abort.abort();
@@ -251,11 +252,13 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   #onShow() {
     this.#updateDisplayDate(this.#displayDate, true);
     this.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
+    util.lockPageScroll();
     this.#drag.enable();
   }
 
   #onClose() {
     this.removeEventListener('close', this.#onClose_bound);
+    util.unlockPageScroll();
     this.#drag.disable();
   }
 

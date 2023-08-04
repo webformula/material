@@ -1,4 +1,5 @@
 import MDWPanelElement from '../panel/component.js';
+import util from '../../core/util.js';
 
 export default class MDWDialogElement extends MDWPanelElement {
   #returnValue;
@@ -15,12 +16,18 @@ export default class MDWDialogElement extends MDWPanelElement {
     this.setAttribute('role', 'dialog');
   }
 
+  disconnectedCallback() {
+    util.unlockPageScroll();
+    super.disconnectedCallback();
+  }
+
   get returnValue() {
     return this.#returnValue;
   }
 
   show(scrim = true) {
     super.show(scrim);
+    util.lockPageScroll();
 
     const focusable = [...this.querySelectorAll('*')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
     if (focusable) {
@@ -32,6 +39,7 @@ export default class MDWDialogElement extends MDWPanelElement {
 
   close(returnValue) {
     if (this.open !== true) return;
+    util.unlockPageScroll();
 
     this.#returnValue = returnValue;
     super.close();

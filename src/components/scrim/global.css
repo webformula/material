@@ -18,3 +18,12 @@ mdw-scrim::before {
   bottom: 0;
   background-color: var(--mdw-scrim-alpha-16);
 }
+
+mdw-scrim.mdw-local,
+mdw-scrim.mdw-local::before {
+  position: absolute;
+  top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
