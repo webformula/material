@@ -85,13 +85,6 @@ mdw-side-sheet .mdw-header {
   padding-left: 16px;
 }
 
-/* mdw-side-sheet .mdw-header.mdw-scrolled:not(.mdw-no-shadow) {
-  box-shadow: 0px 0.3px 3px rgba(0, 0, 0, 0.1),
-    0px 1px 1.2px -0.7px rgba(0, 0, 0, 0.1),
-    0px 2.4px 2.9px -1.3px rgba(0, 0, 0, 0.1);
-  clip-path: inset(0px 0px -30px 0px);
-} */
-
 mdw-side-sheet .mdw-header .mdw-title {
   flex: 1;
 
@@ -128,12 +121,6 @@ mdw-side-sheet .mdw-actions .mdw-divider {
   right: 0;
   border-top: 1px solid var(--mdw-surface-variant);
 }
-
-/* mdw-side-sheet .mdw-actions.mdw-scrolled:not(.mdw-no-shadow) {
-  box-shadow: var(--mdw-elevation-2);
-  clip-path: inset(-30px 0px 0px 0px);
-} */
-
 
 mdw-side-sheet.mdw-no-animation + .mdw-side-sheet-placeholder,
 mdw-side-sheet.mdw-no-animation {
