@@ -34,6 +34,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.#drag = new Drag(this.parentElement);
     this.#drag.noMouseEvents = true;
     this.#drag.lockScrollY = true;
+    this.#drag.preventNavigation = true;
     this.#drag.onStart(this.#dragStart_bound);
     this.#drag.onEnd(this.#dragEnd_bound);
     this.#drag.onDrag(this.#dragHandler_bound);
@@ -76,10 +77,12 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
         this.insertAdjacentElement('beforebegin', this.#scrimElement);
         if (this.#clickOutsideClose) this.#scrimElement.addEventListener('click', this.#scrimClick_bound);
         this.#drag.enable();
+        util.lockPageScroll();
       } else if (this.#scrimElement) {
         this.#scrimElement.removeEventListener('click', this.#scrimClick_bound);
         this.#scrimElement.remove();
         this.#drag.disable();
+        util.unlockPageScroll();
       }
     }
   }
@@ -121,8 +124,8 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   }
 
   #dragStart({ clientX }) {
-    const startCutoff = 104;
-    const endCutoff = window.visualViewport.width - 104;
+    const startCutoff = 50;
+    const endCutoff = window.visualViewport.width - 50;
     // only allow drag from edges of screen
     if (clientX > startCutoff && clientX < endCutoff) return this.#drag.cancel();
     if (clientX < startCutoff) this.classList.add('mdw-swipe-back-from-left');
@@ -151,6 +154,6 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   #dragHandler({ distanceX }) {
     const percent = Math.max(0, 1 - (Math.abs(distanceX) / window.visualViewport.width));
     this.style.setProperty('--mdw-side-sheet-swipe-back-scale', 0.93 + (0.07 * Math.max(0.3, percent)));
-    this.style.setProperty('--mdw-side-sheet-swipe-back-move', `${Math.max(0, 0.65 - percent) * -16}px`);
+    this.style.setProperty('--mdw-side-sheet-swipe-back-move', `${Math.max(0, 0.65 - percent) * -26}px`);
   }
 });

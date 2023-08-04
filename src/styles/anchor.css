@@ -8,7 +8,7 @@ a {
   font-size: var(--mdw-font-label-size-large);
   font-weight: var(--mdw-font-label-weight-large);
   letter-spacing: var(--mdw-font-label-letter-spacing-large);
-  line-height: var(--mdw-font-label-line-height-large);
+  line-height: 40px;
   color: var(--mdw-primary);
 }
 

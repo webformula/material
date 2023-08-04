@@ -9,6 +9,7 @@ export default class Drag {
   #onEndCallbacks = [];
   #ignoreElements = [];
   #lockScrollY = false;
+  #preventNavigation = false;
   #lockScrollThreshold = 12;
   #noTouchEvents = false;
   #noMouseEvents = false;
@@ -20,6 +21,7 @@ export default class Drag {
   #dragStart_bound = this.#dragStart.bind(this);
   #dragEnd_bound = this.#dragEnd.bind(this);
   #dragMove_bound = this.#dragMove.bind(this);
+  #preventNavigationHandler_bound = this.#preventNavigationHandler.bind(this);
   #timeConstant = 325;
   #trackingDetails;
   #releaseDetails;
@@ -69,6 +71,13 @@ export default class Drag {
     this.#lockScrollY = !!value;
   }
 
+  get preventNavigation() {
+    return this.#preventNavigation;
+  }
+  set preventNavigation(value) {
+    this.#preventNavigation = !!value;
+  }
+
   get lockScrollThreshold() {
     return this.#lockScrollThreshold;
   }
@@ -82,9 +91,11 @@ export default class Drag {
     if (this.#enabled) return;
     this.#enabled = true;
     this.#abort = new AbortController();
-
     if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#dragStart_bound, { signal: this.#abort.signal });
-    if (!this.noTouchEvents) this.#element.addEventListener('touchstart', this.#dragStart_bound, { signal: this.#abort.signal });
+    if (!this.noTouchEvents) {
+      this.#element.addEventListener('touchstart', this.#dragStart_bound, { signal: this.#abort.signal });
+      if (this.#preventNavigation) document.querySelector('page-content').addEventListener('touchstart', this.#preventNavigationHandler_bound, { signal: this.#abort.signal });
+    }
   }
 
   disable() {
@@ -124,6 +135,12 @@ export default class Drag {
     this.#ignoreElements = [];
   }
 
+
+  #preventNavigationHandler(event) {
+    if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
+      event.preventDefault();
+    }
+  }
 
   #dragStart(event) {
     if (event.which === 3) {
