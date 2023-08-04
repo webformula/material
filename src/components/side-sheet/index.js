@@ -1,5 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
+import device from '../../core/device.js';
 
 
 customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLElementExtended {
@@ -15,6 +16,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
   #scrimClick_bound = this.#scrimClick.bind(this);
   #closeClick_bound = this.close.bind(this);
   #scrolled_bound = this.#scrolled.bind(this);
+  #windowState_bound = this.#windowState.bind(this);
 
   constructor() {
     super();
@@ -22,8 +24,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     this.classList.add('mdw-no-animation');
     this.classList.add('mdw-hide');
     this.#open = false;
-    if (this.classList.contains('mdw-global')) this.classList.add('mdw-modal')
-    this.#modal = this.classList.contains('mdw-modal');
+    this.modal = this.classList.contains('mdw-global') || this.classList.contains('mdw-modal') || device.state !== 'expanded';
     this.#scrim = this.classList.contains('mdw-scrim');
     this.#clickOutsideClose = this.classList.contains('mdw-click-scrim-close');
 
@@ -38,6 +39,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
       this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.addEventListener('click', this.#closeClick_bound));
       this.classList.remove('mdw-no-animation');
     });
+    window.addEventListener('mdwwindowstate', this.#windowState_bound);
 
     // this.#content = this.querySelector('.mdw-content');
     // this.#actions = this.querySelector('.mdw-actions');
@@ -52,6 +54,11 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
     if (this.#scrimElement) this.#scrimElement.remove();
     this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.removeEventListener('click', this.#closeClick_bound));
     if (this.#content && this.#actions) this.querySelector('.mdw-content').removeEventListener('scroll', this.#scrolled_bound);
+    window.removeEventListener('mdwwindowstate', this.#windowState_bound);
+  }
+
+  #windowState({ detail }) {
+    this.modal = detail.state !== 'expanded';
   }
 
   get open() {
@@ -63,7 +70,7 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends HTMLEl
 
     this.#open = !!value;
     this.classList.toggle('mdw-hide', !this.#open);
-
+    
     if (this.#modal && this.#scrim) {
       if (this.#open) {
         if (!this.#scrimElement) this.#scrimElement = document.createElement('mdw-scrim');

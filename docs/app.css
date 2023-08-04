@@ -51,10 +51,6 @@ pre {
   margin: 0;
 }
 
-mdw-card > pre:first-of-type > code {
-  margin-top: 8px;
-}
-
 pre > code {
   width: calc(100% - 16px);
 }
