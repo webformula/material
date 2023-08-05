@@ -8,4 +8,12 @@ export default class extends Component {
   constructor() {
     super();
   }
+
+  positionLocal(isLeft = false) {
+    const element = document.querySelector('mdw-side-sheet#one');
+    element.classList.toggle('mdw-left', isLeft);
+    if (isLeft) {
+      document.querySelector('#local-container').insertAdjacentElement('afterbegin', element);
+    } else document.querySelector('#local-container').insertAdjacentElement('beforeend', element);
+  }
 }

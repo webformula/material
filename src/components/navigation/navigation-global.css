@@ -1,32 +1,12 @@
 /* page-content css in src/core/page-content.css */
 
-mdw-navigation {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
+mdw-navigation.mdw-left {
+  --mdw-side-sheet-width: var(--mdw-navigation-drawer-width);
   z-index: 11;
-  box-sizing: border-box;
-  background-color: var(--mdw-surface);
   padding: 12px 28px;
-
-  width: var(--mdw-navigation-drawer-width);
-
-  transition: width 0ms, left 0ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
 }
 
-body.mdw-animation mdw-navigation {
-  transition-duration: 180ms;
-}
-
-mdw-navigation .mdw-headline {
+mdw-navigation.mdw-left .mdw-headline {
   line-height: 56px;
   height: 56px;
   vertical-align: middle;
@@ -36,28 +16,12 @@ mdw-navigation .mdw-headline {
   color: var(--mdw-on-surface-variant);
 }
 
-mdw-navigation .mdw-header {
+mdw-navigation.mdw-left .mdw-header {
   display: flex;
   justify-content: space-between;
   opacity: 1;
-}
-
-
-/* states */ 
-mdw-navigation.mdw-hide,
-body.mdw-window-compact mdw-navigation:not(.mdw-show),
-body.mdw-window-medium mdw-navigation:not(.mdw-show) {
-  width: 0;
-  left: -56px;
-  pointer-events: none;
-  transition-timing-function: var(--mdw-transition-expand-out);
-}
-
-body.mdw-window-compact mdw-navigation.mdw-show,
-body.mdw-window-medium mdw-navigation.mdw-show {
-  border-radius: 0 var(--mdw-shape-large) 0 0;
-  box-shadow: var(--mdw-elevation-2);
-  background-color: var(--mdw-surface-container-low);
+  padding-left: 0;
+  height: 56px;
 }
 
 /* TODO no rail and no bottom app bar adjustments */

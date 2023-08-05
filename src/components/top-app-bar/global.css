@@ -130,23 +130,6 @@ mdw-top-app-bar.mdw-large:not(.mdw-auto-hide).mdw-auto-shrink > .mdw-headline {
   transform: translateX(min(calc(-36px - var(--mdw-top-app-bar-scroll-position)), 0px));
 }
 
-mdw-top-app-bar ~ page-content::before {
-  content: '';
-  position: relative;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 64px;
-}
-
-mdw-top-app-bar.mdw-medium ~ page-content::before {
-  height: 112px;
-}
-
-mdw-top-app-bar.mdw-large ~ page-content::before {
-  height: 152px;
-}
-
 body.mdw-has-navigation mdw-top-app-bar {
   margin-left: var(--mdw-navigation-drawer-width);
   transition: margin-left 0ms;

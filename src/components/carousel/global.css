@@ -3,7 +3,7 @@ mdw-carousel {
   display: flex;
   background-color: var(--mdw-surface);
   margin: 8px 16px;
-  max-height: 220px;
+  min-height: 80px;
   overflow-x: auto;
   border-radius: var(--mdw-shape-extra-large);
 }

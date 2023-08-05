@@ -11,7 +11,7 @@ input {
 }
 
 body {
-  display: block;
+  display: flex;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -23,6 +23,7 @@ body {
 body page-content {
   display: flex;
   flex-direction: column;
+  flex: 1;
   box-sizing: border-box;
   min-height: 100%;
   padding: 0 12px;

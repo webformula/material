@@ -1,25 +1,29 @@
-page-content {
-  position: relative;
-  margin-left: 0;
-  transition-timing-function: var(--mdw-transition-expand-in);
-  transition: margin-left 0ms;
+mdw-top-app-bar ~ page-content {
+  padding-top: 76px;
 }
 
-body.mdw-animation page-content {
-  transition-duration: 180ms;
+mdw-top-app-bar.mdw-medium ~ page-content {
+  padding-top: 124px;
 }
 
-body.mdw-has-navigation page-content {
-  margin-left: var(--mdw-navigation-drawer-width);
+mdw-top-app-bar.mdw-large ~ page-content {
+  padding-top: 164px;
 }
+
+body.mdw-has-bottom-app-bar > page-content {
+  padding-bottom: 92px;
+}
+
+body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > page-content,
+body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > page-content {
+  padding-bottom: unset;
+}
+
 body.mdw-has-navigation-rail:not(.mdw-has-navigation) page-content,
 body.mdw-has-navigation-rail.mdw-navigation-state-hide page-content {
   margin-left: var(--mdw-navigation-rail-width);
 }
 
-body.mdw-navigation-state-hide:not(.mdw-has-navigation-rail) page-content,
-body.mdw-window-compact page-content,
-body.mdw-window-medium page-content,
 body.mdw-has-navigation-rail.mdw-navigation-state-hide.mdw-window-compact.mdw-has-bottom-app-bar page-content {
   margin-left: 0;
   transition-timing-function: var(--mdw-transition-expand-out);
@@ -28,18 +32,4 @@ body.mdw-has-navigation-rail.mdw-navigation-state-hide.mdw-window-compact.mdw-ha
 body.mdw-has-navigation-rail.mdw-window-medium page-content {
   margin-left: var(--mdw-navigation-rail-width);
   transition-timing-function: var(--mdw-transition-expand-in);
-}
-
-body.mdw-has-bottom-app-bar > page-content::after {
-  content: '';
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-}
-
-body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > page-content::after,
-body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > page-content::after {
-  height: 0px;
 }
