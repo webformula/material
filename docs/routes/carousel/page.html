@@ -23,7 +23,7 @@
       <div class="mdw-headline" style="padding-left: 16px;">Images</div>
       <div class="mdw-subheader" style="padding-left: 16px;">Use the <b>mdw-carousel[mdw-item-width]</b> attribute to set the width of the items</div>
       
-      <mdw-carousel mdw-item-width="170" style="max-width: 400px; margin: 0 auto; margin-top: 24px;">
+      <mdw-carousel mdw-item-width="170" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
         <mdw-carousel-item>
           <img alt="landscape" loading="lazy"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -65,7 +65,7 @@
 
     <pre>
       <code class="language-html">
-  ${page.escape(`<mdw-carousel mdw-item-width="170">
+  ${page.escape(`<mdw-carousel mdw-item-width="170" style="height: 180px;">
     <mdw-carousel-item>
       <img alt="landscape" loading="lazy" src="./img.jpg"/>
     </mdw-carousel-item>
@@ -85,7 +85,7 @@
     <div class="mdw-card-content" style="padding-left: 0; padding-right: 0;;">
       <div class="mdw-headline" style="padding-left: 16px;">Images and text</div>
   
-      <mdw-carousel mdw-item-width="170" style="max-width: 400px; margin: 0 auto; margin-top: 24px;">
+      <mdw-carousel mdw-item-width="170" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
         <mdw-carousel-item>
           <div class="mdw-text">
             <div class="mdw-font-title-medium">Title</div>
@@ -154,7 +154,7 @@
   
     <pre>
       <code class="language-html">
-  ${page.escape(`<mdw-carousel mdw-item-width="170">
+  ${page.escape(`<mdw-carousel mdw-item-width="170" style="height: 180px;">
     <mdw-carousel-item>
       <div class="mdw-text">
         <div class="mdw-font-title-medium">Title</div>
