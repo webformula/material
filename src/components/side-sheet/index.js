@@ -107,6 +107,10 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
     }
   }
 
+  get placeholder() {
+    return this.#placeHolder;
+  }
+
   show() {
     this.open = true;
   }

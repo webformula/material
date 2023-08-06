@@ -6,6 +6,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSi
 
   constructor() {
     super();
+    document.body.classList.add('mdw-has-navigation');
     this.classList.add('mdw-left');
     this.clickOutsideClose = true;
     this.#setState();
@@ -14,6 +15,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSi
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
+    this.placeholder.style.setProperty('--mdw-side-sheet-width', 'var(--mdw-navigation-drawer-width)');
     this.#locationchange();
     window.addEventListener('locationchange', this.#locationchange_bound);
     const active = this.querySelector('mdw-anchor.mdw-active');
@@ -38,13 +40,17 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSi
     this.dispatchEvent(new Event('change'));
   }
 
+  get open() {
+    return super.open;
+  }
+
   toggle() {
     this.open = !this.open;
   }
 
   #setState() {
-    document.body.classList.toggle('mdw-navigation-state-hide', !this.open);
-    document.body.classList.toggle('mdw-navigation-state-show', this.open);
+    document.body.classList.toggle('mdw-navigation-state-hide', !super.open);
+    document.body.classList.toggle('mdw-navigation-state-show', super.open);
   }
 
   #locationchange() {
