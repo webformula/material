@@ -5,8 +5,7 @@ import Ripple from '../../core/Ripple.js';
 
 export default class MDWBottomAppBarElement extends HTMLElementExtended {
   #rippleElements;
-  #autoHide = this.classList.contains('mdw-auto-hide');
-  #height = this.offsetHeight;
+  #autoHide;
   #scrollTrack_bound = this.#scrollTrack.bind(this);
   #hashchange_bound = this.#hashchange.bind(this);
 
@@ -24,6 +23,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
       triggerElement: element.parentNode
     }));
 
+    this.#autoHide = this.classList.contains('mdw-auto-hide');
     if (this.#autoHide) util.trackPageScroll(this.#scrollTrack_bound);
 
     if (this.querySelector('mdw-bottom-app-bar-secondary[mdw-hash]')) {
@@ -101,7 +101,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     }
 
     // animate icons in
-    if (direction === 1 && -position >= this.#height - 20 && offset < this.#height - 20) this.#show();
+    if (direction === 1 && -position >= this.offsetHeight - 20 && offset < this.offsetHeight - 20) this.#show();
   }
 
   #hashchange() {

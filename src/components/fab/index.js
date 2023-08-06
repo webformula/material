@@ -14,14 +14,13 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
 
   constructor() {
     super();
-
-    if (!!util.getTextFromNode(this)) this.classList.add('mdw-has-label');
-    this.#handleTrailingIcon();
   }
 
   connectedCallback() {
     this.tabIndex = 0;
     this.setAttribute('role', 'button');
+    if (!!util.getTextFromNode(this)) this.classList.add('mdw-has-label');
+    this.#handleTrailingIcon();
   }
 
   afterRender() {

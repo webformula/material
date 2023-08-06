@@ -42,15 +42,6 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.tabIndex = 0;
     if (this.parentElement.nodeName === 'MDW-MENU') this.setAttribute('role', 'menuitem');
     else this.setAttribute('role', 'button');
-    if (!this.hasAttribute('aria-label')) {
-      if (this.classList.contains('mdw-icon-button') || this.classList.contains('mdw-icon-toggle-button')) {
-        const text = this.querySelector('mdw-icon')?.innerText;
-        if (text) this.setAttribute('aria-label', text);
-      } else {
-        const text = util.getTextFromNode(this);
-        if (text) this.setAttribute('aria-label', text);
-      }
-    }
 
     // this needs to be added asap so it blocks all outside events
     if (this.#form && this.#type === 'cancel') {
@@ -61,6 +52,15 @@ export default class MDWButtonElement extends HTMLElementExtended {
   }
 
   afterRender() {
+    if (!this.hasAttribute('aria-label')) {
+      if (this.classList.contains('mdw-icon-button') || this.classList.contains('mdw-icon-toggle-button')) {
+        const text = this.querySelector('mdw-icon')?.innerText;
+        if (text) this.setAttribute('aria-label', text);
+      } else {
+        const text = util.getTextFromNode(this);
+        if (text) this.setAttribute('aria-label', text);
+      }
+    }
     this.addEventListener('mouseup', this.#mouseUp_bound, { signal: this.#abort.signal });
     if (this.classList.contains('mdw-icon-toggle-button')) {
       this.addEventListener('click', this.#handleToggle_bound, { signal: this.#abort.signal });

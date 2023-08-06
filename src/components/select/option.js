@@ -8,7 +8,7 @@ customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElem
   useShadowRoot = true;
   static styleSheets = styles;
 
-  #value = this.getAttribute('value') || util.getTextFromNode(this);
+  #value;
   #ripple;
 
   constructor() {

@@ -11,13 +11,12 @@ customElements.define('mdw-tab-bar', class MDWTabBarElement extends HTMLElementE
 
   constructor() {
     super();
-
-    this.#underline.classList.add('mdw-tab-underline');
-    this.insertAdjacentElement('beforeend', this.#underline);
-    this.#handleTabsWithLabelsAndIcons();
   }
 
   connectedCallback() {
+    this.#underline.classList.add('mdw-tab-underline');
+    this.insertAdjacentElement('beforeend', this.#underline);
+    this.#handleTabsWithLabelsAndIcons();
     this.addEventListener('click', this.#onClick_bound);
   }
 

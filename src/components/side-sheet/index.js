@@ -21,12 +21,9 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
   constructor() {
     super();
-
     this.classList.add('mdw-side-sheet');
     this.classList.add('mdw-no-animation');
     this.#open = !this.classList.contains('mdw-hide');
-    if (device.state !== 'expanded') this.classList.add('mdw-window-state-hide');
-    this.modal = this.classList.contains('mdw-global') || this.classList.contains('mdw-modal') || device.state !== 'expanded';
     this.#clickOutsideClose = this.classList.contains('mdw-click-scrim-close');
 
     this.#placeHolder = document.createElement('div');
@@ -43,6 +40,8 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
   connectedCallback() {
     this.setAttribute('role', 'dialog');
+    this.modal = this.classList.contains('mdw-global') || this.classList.contains('mdw-modal') || device.state !== 'expanded';
+    if (device.state !== 'expanded') this.classList.add('mdw-window-state-hide');
     this.insertAdjacentElement('afterend', this.#placeHolder);
     util.nextAnimationFrameAsync().then(() => {
       this.querySelectorAll('.mdw-side-sheet-close').forEach(element => element.addEventListener('click', this.#closeClick_bound));

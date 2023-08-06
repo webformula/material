@@ -20,11 +20,12 @@ export default class HTMLElementExtended extends HTMLElement {
   // browser may or may not include the word "function" so we need to run an includes check
   #hasTemplate = !this.template.toString().replace(/\n|\s|\;/g, '').includes('template(){return""}');
   #root = this;
-  #classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
+  #classId;
 
 
   constructor() {
     super();
+
     if (this.#hasTemplate) {
       /** Render as soon as possible while making sure all class variables exist */
       util.nextTick(() => {
@@ -65,6 +66,7 @@ export default class HTMLElementExtended extends HTMLElement {
     this.#templateString = this.template();
 
     if (this.useTemplate) {
+      if (!this.#classId) this.#classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
       if (!templateElements[this.#classId]) {
         templateElements[this.#classId] = document.createElement('template');
         templateElements[this.#classId].innerHTML = this.#templateString;

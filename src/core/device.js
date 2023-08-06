@@ -4,10 +4,9 @@ import util from './util.js';
 const mdwDevice = new class MDWDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
-  #lastState = {
-    isMobile: this.isMobile,
-    state: this.state
-  };
+  #lastState;
+  #windowWidth;
+  #windowHeight;
   #setWindow_raf = util.rafThrottle(this.#setWindow.bind(this));
 
   constructor() {
@@ -22,19 +21,26 @@ const mdwDevice = new class MDWDevice {
   }
 
   // window.visualViewport.height and window.visualViewport.width show pixels converted based on density. This will give actual screen pixel count
-  get windowSizeActualPixels() {
-    const pixelRatio = window.devicePixelRatio;
-    return {
-      width: window.visualViewport.width * pixelRatio,
-      height: window.visualViewport.height * pixelRatio
-    }
-  }
+  // get windowSizeActualPixels() {
+  //   const pixelRatio = window.devicePixelRatio;
+  //   return {
+  //     width: window.visualViewport.width * pixelRatio,
+  //     height: window.visualViewport.height * pixelRatio
+  //   }
+  // }
 
   get state() {
-    const windowWidth = window.visualViewport.width;
-    if (windowWidth < this.#compactBreakpoint) return 'compact';
-    if (windowWidth < this.#mediumBreakpoint) return 'medium';
+    if (this.windowWidth < this.#compactBreakpoint) return 'compact';
+    if (this.windowWidth < this.#mediumBreakpoint) return 'medium';
     return 'expanded';
+  }
+
+  get windowWidth() {
+    return this.#windowWidth;
+  }
+
+  get windowHeight() {
+    return this.#windowHeight;
   }
 
   get hasTouchScreen() {
@@ -45,13 +51,15 @@ const mdwDevice = new class MDWDevice {
   get isMobile() {
     if (!this.hasTouchScreen) return false;
 
-    if (this.orientation === 'portrait') return window.visualViewport.width < this.#compactBreakpoint;
-    return window.visualViewport.height < this.#compactBreakpoint;
+    if (this.orientation === 'portrait') return this.windowWidth < this.#compactBreakpoint;
+    return this.windowHeight < this.#compactBreakpoint;
   }
 
   async #setWindow() {
     if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
 
+    this.#windowWidth = window.visualViewport.width;
+    this.#windowHeight = window.visualViewport.height;
     const isMobile = this.isMobile;
     const state = this.state;
     document.body.classList.remove('mdw-window-compact');
@@ -71,7 +79,7 @@ const mdwDevice = new class MDWDevice {
         break;
     }
 
-    if (isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
+    if (this.#lastState && (isMobile !== this.#lastState.isMobile || state !== this.#lastState.state)) {
       window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: {
         isMobile,
         state,
