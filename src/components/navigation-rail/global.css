@@ -46,7 +46,8 @@ mdw-navigation-rail > mdw-anchor > mdw-icon {
   font-size: var(--mdw-font-icon-size-small);
 }
 
-mdw-navigation-rail > mdw-anchor::before {
+mdw-navigation-rail > mdw-anchor::before,
+mdw-navigation-rail > mdw-anchor.mdw-active:not([group])::before {
   left: calc(50% - 28px);
   top: 0;
   right: unset;
@@ -54,7 +55,27 @@ mdw-navigation-rail > mdw-anchor::before {
   border-radius: 50%;
 }
 
-mdw-navigation-rail > mdw-anchor.mdw-has-text::before {
+mdw-navigation-rail > mdw-anchor.mdw-has-text::before,
+mdw-navigation-rail > mdw-anchor.mdw-active.mdw-has-text::before {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: unset;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+mdw-navigation-rail > mdw-anchor::after,
+mdw-navigation-rail > mdw-anchor.mdw-active:not([group])::after {
+  left: calc(50% - 28px);
+  top: 0;
+  right: unset;
+  width: 56px;
+  border-radius: 50%;
+}
+
+mdw-navigation-rail > mdw-anchor.mdw-has-text::after,
+mdw-navigation-rail > mdw-anchor.mdw-active.mdw-has-text::after {
   left: 0;
   top: 0;
   right: 0;

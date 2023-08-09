@@ -30,6 +30,7 @@ mdw-navigation.mdw-left {
   right: unset;
   left: 0;
 }
+mdw-navigation,
 mdw-side-sheet.mdw-global,
 mdw-navigation.mdw-global {
   position: fixed;
