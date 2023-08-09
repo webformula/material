@@ -1,30 +1,30 @@
-mdw-top-app-bar ~ page-content {
+html.mdw-initiated mdw-top-app-bar ~ page-content {
   padding-top: calc(var(--mdw-page-content-padding-top) + 64px);
 }
 
-mdw-top-app-bar.mdw-medium ~ page-content {
+html.mdw-initiated mdw-top-app-bar.mdw-medium ~ page-content {
   padding-top: calc(var(--mdw-page-content-padding-top) + 112px);
 }
 
-mdw-top-app-bar.mdw-large ~ page-content {
+html.mdw-initiated mdw-top-app-bar.mdw-large ~ page-content {
   padding-top: calc(var(--mdw-page-content-padding-top) + 152px);
 }
 
-body.mdw-has-bottom-app-bar > page-content {
+html.mdw-initiated body.mdw-has-bottom-app-bar > page-content {
   padding-bottom: calc(var(--mdw-page-content-padding-bottom) + 80px);
 }
 
-body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > page-content,
-body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > page-content {
+html.mdw-initiated body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > page-content,
+html.mdw-initiated body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > page-content {
   padding-bottom: var(--mdw-page-content-padding-bottom);
 }
 
-body.mdw-has-navigation-rail:not(.mdw-has-navigation) page-content,
-body.mdw-has-navigation-rail.mdw-navigation-state-hide page-content,
-body.mdw-has-navigation-rail.mdw-window-medium page-content {
+html.mdw-initiated body.mdw-has-navigation-rail:not(.mdw-has-navigation) page-content,
+html.mdw-initiated body.mdw-has-navigation-rail.mdw-navigation-state-hide page-content,
+html.mdw-initiated body.mdw-has-navigation-rail.mdw-window-medium page-content {
   padding-left: calc(var(--mdw-navigation-rail-width) + var(--mdw-page-content-padding-left));
 }
 
-body.mdw-has-navigation-rail.mdw-window-compact page-content {
+html.mdw-initiated body.mdw-has-navigation-rail.mdw-window-compact page-content {
   padding-left: var(--mdw-page-content-padding-left)
 }

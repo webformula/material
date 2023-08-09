@@ -64,6 +64,8 @@ export async function generate() {
     document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
   });
 
+  // do not run code below ofter initiation
+  if (document.documentElement.classList.contains('mdw-initiated')) return;
 
   const pageContent = document.querySelector('page-content');
   if (pageContent) {
@@ -79,7 +81,7 @@ export async function generate() {
     pageContent.style.paddingBottom = '';
   }
 
-  document.querySelector('html').classList.add('mdw-initiated');
+  document.documentElement.classList.add('mdw-initiated');
   setTimeout(() => {
     document.querySelector('body').classList.add('mdw-animation');
   }, 150);

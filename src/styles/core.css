@@ -12,7 +12,7 @@ input {
 
 body {
   display: flex;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   margin: 0;
 
@@ -29,9 +29,7 @@ body page-content {
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-y: auto;
   box-sizing: border-box;
-  min-height: 100%;
   padding-left: var(--mdw-page-content-padding-left);
   padding-right: var(--mdw-page-content-padding-right);
   padding-top: var(--mdw-page-content-padding-top);
