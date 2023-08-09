@@ -11,12 +11,12 @@ const mdwDevice = new class MDWDevice {
 
   constructor() {
     this.#setWindow();
-    screen.orientation.addEventListener("change", this.#setWindow_raf);
     window.addEventListener('resize', this.#setWindow_raf);
   }
 
   get orientation() {
-    if (screen.orientation.type.startsWith('portrait')) return 'portrait';
+    // screen.orientation does not work on chrome ios. window.orientation is deprecated but works on chrom ios for now
+    if (screen?.orientation ? screen.orientation.type.startsWith('portrait') : Math.abs(window.orientation) !== 90) return 'portrait';
     return 'landscape';
   }
 
