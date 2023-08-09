@@ -150,9 +150,7 @@ mdw-card:not(.mdw-no-hover).mdw-filled.mdw-states:hover {
 
 mdw-card.mdw-outlined {
   background-color: var(--mdw-surface);
-  /* border: 1px solid var(--mdw-outline); */
-  /* TODO why does the outline color look too dark. It seems to match the correct value */
-  border: 1px solid var(--mdw-neutral-variant-70);
+  border: 1px solid var(--mdw-outline);
   box-shadow: none;
 }
 
