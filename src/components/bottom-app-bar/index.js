@@ -24,7 +24,6 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     }));
 
     this.#autoHide = this.classList.contains('mdw-auto-hide');
-    if (this.#autoHide) util.trackPageScroll(this.#scrollTrack_bound);
 
     if (this.querySelector('mdw-bottom-app-bar-secondary[mdw-hash]')) {
       [...this.querySelectorAll('mdw-bottom-app-bar-secondary')].forEach(element => {
@@ -34,6 +33,11 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
       window.addEventListener('hashchange', this.#hashchange_bound);
       this.#hashchange();
     }
+
+    // prevent layout calculation during script evaluation
+    if (this.#autoHide) requestAnimationFrame(() => {
+      util.trackPageScroll(this.#scrollTrack_bound);
+    });
   }
 
   disconnectedCallback() {

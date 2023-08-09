@@ -159,23 +159,21 @@ const mdwUtil = new class MDWUtil {
   }
 
   trackPageScroll(callback = () => { }) {
-    requestAnimationFrame(() => {
-      if (!this.#scrollTarget) {
-        const bodyDisplay = getComputedStyle(document.body).getPropertyValue('display');
-        if (bodyDisplay.includes('flex')) {
-          this.#scrollTarget = document.querySelector('page-content');
-          this.#scrollTargetListener = this.#scrollTarget;
-        } else {
-          this.#scrollTarget = document.documentElement;
-          this.#scrollTargetListener = window;
-        }
+    if (!this.#scrollTarget) {
+      const bodyDisplay = getComputedStyle(document.body).getPropertyValue('display');
+      if (bodyDisplay.includes('flex')) {
+        this.#scrollTarget = document.querySelector('page-content');
+        this.#scrollTargetListener = this.#scrollTarget;
+      } else {
+        this.#scrollTarget = document.documentElement;
+        this.#scrollTargetListener = window;
       }
-      if (this.#scrollCallbacks.length === 0) {
-        this.#lastScrollTop = this.#scrollTarget.scrollTop;
-        this.#scrollTargetListener.addEventListener('scroll', this.#scrollHandler_bound);
-      }
-      this.#scrollCallbacks.push(callback);
-    });
+    }
+    if (this.#scrollCallbacks.length === 0) {
+      this.#lastScrollTop = this.#scrollTarget.scrollTop;
+      this.#scrollTargetListener.addEventListener('scroll', this.#scrollHandler_bound);
+    }
+    this.#scrollCallbacks.push(callback);
   }
 
   untrackPageScroll(callback = () => { }) {

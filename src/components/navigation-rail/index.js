@@ -12,11 +12,15 @@ customElements.define('mdw-navigation-rail', class MDWNavigationElement extends 
     this.setAttribute('role', 'navigation');
     this.#locationchange();
     window.addEventListener('locationchange', this.#locationchange_bound);
-    const active = this.querySelector('mdw-anchor.mdw-active');
-    if (active) {
-      const bounds = active.getBoundingClientRect();
-      if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
-    }
+
+    // prevent layout calculation during script evaluation
+    requestAnimationFrame(() => {
+      const active = this.querySelector('mdw-anchor.mdw-active');
+      if (active) {
+        const bounds = active.getBoundingClientRect();
+        if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
+      }
+    });
   }
 
   #locationchange() {

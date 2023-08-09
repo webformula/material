@@ -137,7 +137,8 @@ export default class Drag {
 
 
   #preventNavigationHandler(event) {
-    if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
+    // if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
+    if (event.pageX < 20 || event.pageX > window.innerWidth - 20) {
       event.preventDefault();
     }
   }

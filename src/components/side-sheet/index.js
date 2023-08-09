@@ -129,7 +129,8 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
   #dragStart({ clientX }) {
     const startCutoff = 50;
-    const endCutoff = window.visualViewport.width - 50;
+    // const endCutoff = window.visualViewport.width - 50;
+    const endCutoff = window.innerWidth - 50;
     // only allow drag from edges of screen
     if (clientX > startCutoff && clientX < endCutoff) return this.#drag.cancel();
     if (clientX < startCutoff) this.classList.add('mdw-swipe-back-from-left');
@@ -138,7 +139,8 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
   }
 
   async #dragEnd({ distanceX }) {
-    const halfPoint = window.visualViewport.width / 2;
+    // const halfPoint = window.visualViewport.width / 2;
+    const halfPoint = window.innerWidth / 2;
     const shouldClose = Math.abs(distanceX) > halfPoint;
 
     if (shouldClose) {

@@ -58,8 +58,8 @@ const mdwDevice = new class MDWDevice {
   async #setWindow() {
     if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
 
-    this.#windowWidth = window.visualViewport.width;
-    this.#windowHeight = window.visualViewport.height;
+    this.#windowWidth = window.innerWidth;//window.visualViewport.width;
+    this.#windowHeight = window.innerHeight;//window.visualViewport.height;
     const isMobile = this.isMobile;
     const state = this.state;
     document.body.classList.remove('mdw-window-compact');
