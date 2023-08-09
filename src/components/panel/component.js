@@ -233,7 +233,6 @@ export default class MDWPanelElement extends HTMLElementExtended {
     this.#scrimElement = undefined;
   }
 
-  // TODO do i need other positions
   #getFixedParent() {
     let parentElement = this.#target.parentElement;
     while (parentElement !== null) {

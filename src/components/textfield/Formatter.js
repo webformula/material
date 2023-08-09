@@ -182,10 +182,9 @@ export default class Formatter {
   }
 
   #keyDown(event) {
-    // TODO handle this on mozilla window.
-    // Meta does not work on windows key
+    // Firefox does not consider the windows key to be a metaKey
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey    
-    if (event.metaKey) return;
+    if (event.metaKey || event.getModifierState('OS') || event.getModifierState('Win')) return;
 
     // do not do anything on enter
     if (event.key === 'Enter') return;

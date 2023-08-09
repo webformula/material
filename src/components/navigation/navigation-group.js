@@ -27,8 +27,7 @@ customElements.define('mdw-navigation-group', class MDWNavigationGroupElement ex
     this.#open = !!value;
     if (this.#open) {
       this.#control.classList.add('mdw-open');
-      if (this.parentElement.classList.contains('mdw-state-rail')) this.#copyToSecondary();
-      else this.style.setProperty('--mdw-navigation-group-height', `${this.#fullHeight}px`);
+      if (!this.parentElement.classList.contains('mdw-state-rail')) this.style.setProperty('--mdw-navigation-group-height', `${this.#fullHeight}px`);
     } else {
       this.style.setProperty('--mdw-navigation-group-height', '56px');
       this.#control.classList.remove('mdw-open');
@@ -41,10 +40,5 @@ customElements.define('mdw-navigation-group', class MDWNavigationGroupElement ex
 
   #controlClick() {
     this.open = !this.open;
-  }
-
-  // TODO remove?
-  #copyToSecondary() {
-    // console.log([...this.children].filter(e => !e.hasAttribute('group')))
   }
 });

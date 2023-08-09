@@ -2,7 +2,6 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import Drag from '../../core/Drag.js';
 import styles from './range.css' assert { type: 'css' };
 
-// TODO work out proper height, considering labels
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
   useShadowRoot = true;

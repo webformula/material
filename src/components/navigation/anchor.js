@@ -102,7 +102,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #focusKeydown(e) {
-    // TODO shoudl we skip to first sub navigation in nav or on page
+    // TODO should we skip to first sub navigation in nav or on page
     if (e.code === 'Tab') {
       const firstFocusablePageContent = [...document.body.querySelectorAll('page-content *')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
       if (firstFocusablePageContent) firstFocusablePageContent.focus();
@@ -119,8 +119,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       this.#focusPrevious(e.target);
       e.preventDefault();
     }
-
-    // TODO add left right arrow for sub menu
   }
 
   #focusNext(focusedElement) {

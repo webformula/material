@@ -2,8 +2,6 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
 
-// TODO add shrink for medium and large
-
 customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLElementExtended {
   #autoHide = this.classList.contains('mdw-auto-hide');
   #shrink = !this.#autoHide && this.classList.contains('mdw-auto-shrink');
