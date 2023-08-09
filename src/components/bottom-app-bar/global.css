@@ -143,7 +143,7 @@ mdw-bottom-app-bar a > .mdw-ripple {
   bottom: 0;
   right: 0;
   pointer-events: none;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-bottom-app-bar a > .mdw-ripple > .mdw-ripple-element {

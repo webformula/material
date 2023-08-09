@@ -83,7 +83,7 @@ mdw-anchor > .ripple {
 
 mdw-anchor > .ripple > .mdw-ripple-element {
   background-color: var(--mdw-on-surface-alpha-16);
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-anchor[group] .mdw-group-arrow {

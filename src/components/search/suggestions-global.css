@@ -3,7 +3,7 @@ mdw-suggestions.mdw-panel {
   max-width: 280px;
   max-height: 320px;
   overflow-y: auto;
-  border-radius: 0 0 28px 28px;
+  border-radius: 0 0 var(--mdw-shape-extra-large) var(--mdw-shape-extra-large);
   background-color: var(--mdw-surface-container-high);
   box-sizing: border-box;
   box-shadow: var(--mdw-elevation-3);

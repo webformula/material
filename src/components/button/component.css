@@ -98,14 +98,14 @@
   line-height: 40px;
   padding: 0;
   margin: 8px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   justify-content: center;
   color: var(--mdw-on-surface-variant);
 }
 
 :host(.mdw-icon-toggle-button)::after,
 :host(.mdw-icon-button)::after {
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 :host(.mdw-icon-button) ::slotted(mdw-icon),
@@ -346,7 +346,7 @@
 .ripple > .mdw-ripple-element {
   background-color: var(--mdw-primary);
   opacity: var(--mdw-state-layer-opacity-pressed);
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 :host(.mdw-filled) .ripple > .mdw-ripple-element {

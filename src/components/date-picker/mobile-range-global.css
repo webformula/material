@@ -339,7 +339,7 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day {
   box-sizing: border-box;
   cursor: pointer;
   pointer-events: none;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: 1;
   -webkit-tap-highlight-color: transparent;
 
@@ -358,7 +358,7 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day::before {
   bottom: 0;
   right: 0;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: -1;
 }
 
@@ -390,7 +390,7 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day[selected]::
   right: 0;
   z-index: -1;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   margin: 1px;
 }
@@ -405,7 +405,7 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day[selected][s
   z-index: -1;
   box-sizing: border-box;
   background-color: var(--mdw-surface-variant);
-  border-radius: 50% 0 0 50%;
+  border-radius: var(--mdw-shape-full) 0 0 var(--mdw-shape-full);
   margin-top: 1px;
   margin-bottom: 1px;
   margin-right: -6px;
@@ -421,7 +421,7 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day[selected][e
   z-index: -1;
   box-sizing: border-box;
   background-color: var(--mdw-surface-variant);
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 var(--mdw-shape-full) var(--mdw-shape-full) 0;
   margin-top: 1px;
   margin-bottom: 1px;
   margin-left: -6px;

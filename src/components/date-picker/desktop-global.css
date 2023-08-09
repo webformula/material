@@ -166,7 +166,7 @@ mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container .mdw-day {
   box-sizing: border-box;
   cursor: pointer;
   pointer-events: none;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: 1;
 
   font-size: var(--mdw-font-label-size-small);
@@ -184,7 +184,7 @@ mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container .mdw-day::
   bottom: 0;
   right: 0;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: -1;
 }
 

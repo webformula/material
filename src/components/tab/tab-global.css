@@ -69,5 +69,5 @@ mdw-tabs.mdw-animation .mdw-underline {
 
 .mdw-ripple > .mdw-ripple-element {
   background-color: var(--mdw-primary-alpha-16);
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }

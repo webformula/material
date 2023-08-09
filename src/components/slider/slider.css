@@ -75,7 +75,7 @@
   margin-left: -10px;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   cursor: pointer;
 
   background-color: var(--mdw-primary);
@@ -99,7 +99,7 @@
   left: -10px;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   opacity: 0;
   transition: opacity 100ms;
@@ -123,7 +123,7 @@
   pointer-events: none;
   width: 28px;
   height: 28px;
-  border-radius: 50% 50% 0 50%;
+  border-radius: var(--mdw-shape-full) var(--mdw-shape-full) 0 var(--mdw-shape-full);
   box-sizing: border-box;
   transform-origin: center;
   transform: rotate(45deg);
@@ -179,7 +179,7 @@
 :host > .control > .marks > .mark {
   width: 4px;
   height: 4px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 :host > .control > .marks > .mark.active {

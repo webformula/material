@@ -8,13 +8,13 @@
   display: inline-block;
   min-height: 56px;
   background-color: var(--mdw-surface-container);
-  border-radius: 28px;
+  border-radius: var(--mdw-shape-extra-large);
   box-shadow: var(--mdw-elevation-3);
 }
 
 :host(.mdw-open.mdw-has-search-value),
 :host(.mdw-open.mdw-has-filters) {
-  border-radius: 28px 28px 0 0;
+  border-radius: var(--mdw-shape-extra-large-top);
 }
 
 :host .textfield {
@@ -25,12 +25,12 @@
   position: relative;
   box-sizing: border-box;
   height: 56px;
-  border-radius: 28px;
+  border-radius: var(--mdw-shape-extra-large);
 }
 
 :host(.mdw-open.mdw-has-search-value) .textfield,
 :host(.mdw-open.mdw-has-filters) .textfield {
-  border-radius: 28px 28px 0 0;
+  border-radius: var(--mdw-shape-extra-large-top);
 }
 
 :host .textfield > input {

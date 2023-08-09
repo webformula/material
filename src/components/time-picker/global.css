@@ -118,7 +118,7 @@ mdw-time-picker .mdw-dial-container {
   align-self: center;
   height: 256px;
   width: 256px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-surface-container-highest);
 }
 
@@ -154,7 +154,7 @@ mdw-time-picker .mdw-dial-container .mdw-dial-minute .mdw-dial-label {
   display: flex;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -489,7 +489,7 @@ mdw-time-picker .mdw-dial-container .mdw-selector-center {
   height: 8px;
   margin-left: -4px;
   margin-top: -4px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   pointer-events: none;
 }
@@ -510,7 +510,7 @@ mdw-time-picker .mdw-dial-container .mdw-selector {
   height: 48px;
   margin-left: -24px;
   margin-top: -126px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   cursor: pointer;
 }

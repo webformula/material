@@ -52,7 +52,7 @@ mdw-navigation-rail > mdw-anchor.mdw-active:not([group])::before {
   top: 0;
   right: unset;
   width: 56px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-navigation-rail > mdw-anchor.mdw-has-text::before,
@@ -71,7 +71,7 @@ mdw-navigation-rail > mdw-anchor.mdw-active:not([group])::after {
   top: 0;
   right: unset;
   width: 56px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-navigation-rail > mdw-anchor.mdw-has-text::after,
@@ -90,7 +90,7 @@ mdw-navigation-rail > mdw-anchor .ripple {
   left: calc(50% - 28px);
   height: 56px;
   width: 56px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-navigation-rail > mdw-anchor.mdw-has-text .ripple {

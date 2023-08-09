@@ -68,7 +68,7 @@
   left: -1px;
   right: -3px;
   bottom: -3px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 :host(.mdw-input) .clear {

@@ -124,7 +124,7 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day {
   box-sizing: border-box;
   cursor: pointer;
   pointer-events: none;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: 1;
 
   font-size: var(--mdw-font-label-size-small);
@@ -142,7 +142,7 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day::before {
   bottom: 0;
   right: 0;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: -1;
 }
 
@@ -179,26 +179,26 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected]:
   bottom: 0;
   right: 0;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   z-index: -1;
   background-color: var(--mdw-primary);
   margin: 1px;
 }
 
 mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][start]::before {
-  border-radius: 50% 0 0 50%;
+  border-radius: var(--mdw-shape-full) 0 0 var(--mdw-shape-full);
 }
 
 mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][start].mdw-week-day-6::before {
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][end]::before {
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 var(--mdw-shape-full) var(--mdw-shape-full) 0;
 }
 
 mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day[selected][end].mdw-week-day-0::before {
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
 }
 
 mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day:not(.mdw-not-current-month)[in-selection-range]::before {
@@ -236,7 +236,7 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day.mdw-today:
   bottom: 0;
   right: 0;
   box-sizing: border-box;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   border: 1px solid var(--mdw-outline-alpha-60);
   margin: 2px;
   z-index: 11;

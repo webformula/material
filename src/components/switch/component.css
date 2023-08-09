@@ -32,7 +32,7 @@
   width: 16px;
   height: 16px;
   margin: 6px;
-  border-radius: 50%;
+  border-radius: var(--mdw-shape-full);
   box-sizing: border-box;
 
   background-color: var(--mdw-outline);
