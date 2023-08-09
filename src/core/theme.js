@@ -64,6 +64,21 @@ export async function generate() {
     document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
   });
 
+
+  const pageContent = document.querySelector('page-content');
+  if (pageContent) {
+    const computedStyle = getComputedStyle(pageContent);
+    pageContent.style.setProperty('--mdw-page-content-padding-left', computedStyle.paddingLeft);
+    pageContent.style.setProperty('--mdw-page-content-padding-right', computedStyle.paddingRight);
+    pageContent.style.setProperty('--mdw-page-content-padding-top', computedStyle.paddingTop);
+    pageContent.style.setProperty('--mdw-page-content-padding-bottom', computedStyle.paddingBottom);
+    pageContent.style.padding = '';
+    pageContent.style.paddingLeft = '';
+    pageContent.style.paddingRight = '';
+    pageContent.style.paddingTop = '';
+    pageContent.style.paddingBottom = '';
+  }
+
   document.querySelector('html').classList.add('mdw-initiated');
   setTimeout(() => {
     document.querySelector('body').classList.add('mdw-animation');
