@@ -165,7 +165,6 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
   #windowState({ detail }) {
     const isNotExpanded = detail.state !== 'expanded';
-    console.log(this.id, isNotExpanded, this.#initialState)
     this.modal = isNotExpanded;
     if (this.#initialState) this.classList.toggle('mdw-window-state-hide', isNotExpanded);
     else this.classList.remove('mdw-window-state-hide');
