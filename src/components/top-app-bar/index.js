@@ -21,7 +21,10 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
       this.#height = this.offsetHeight - 64;
     }
 
-    util.trackPageScroll(this.#scrollTrack_bound);
+    // prevent layout calculation during script evaluation
+    requestAnimationFrame(() => {
+      util.trackPageScroll(this.#scrollTrack_bound);
+    });
   }
 
   disconnectedCallback() {
