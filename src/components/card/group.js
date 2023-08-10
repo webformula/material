@@ -9,9 +9,14 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
 
   constructor() {
     super();
+  }
 
-    this.#layout();
-    this.#observer.observe(this, { childList: true });
+  connectedCallback() {
+    // prevent style calculation during script evaluation
+    requestAnimationFrame(() => {
+      this.#layout();
+      this.#observer.observe(this, { childList: true });
+    });
   }
 
   disconnectedCallback() {
@@ -28,12 +33,6 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   set autoSpanRow(value) {
     this.#autoSpanRow = !!value;
     this.#layout();
-  }
-
-  connectedCallback() {
-    requestAnimationFrame(() => {
-      this.#layout();
-    })
   }
 
   #layout() {

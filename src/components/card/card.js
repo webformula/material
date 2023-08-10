@@ -63,8 +63,6 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     }
 
-    this.#calculateImgMaxHeightForFullscreen();
-
     if (this.#swipeActionElement) {
       this.#dragSwipeAction = new Drag(this);
       this.#dragSwipeAction.noMouseEvents = true;
@@ -75,6 +73,11 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#dragSwipeAction.enable();
       this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
     }
+
+    // prevent style calculation during script evaluation
+    requestAnimationFrame(() => {
+      this.#calculateImgMaxHeightForFullscreen();
+    })
     
     setTimeout(() => {
       this.classList.add('mdw-animation');

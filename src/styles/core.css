@@ -20,7 +20,8 @@ body {
   color: var(--mdw-on-background);
 }
 
-body page-content {
+body page-content,
+body #page-content {
   --mdw-page-content-padding-left: 12px;
   --mdw-page-content-padding-right: 12px;
   --mdw-page-content-padding-top: 12px;

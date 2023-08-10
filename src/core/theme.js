@@ -67,7 +67,7 @@ export async function generate() {
   // do not run code below ofter initiation
   if (document.documentElement.classList.contains('mdw-initiated')) return;
 
-  const pageContent = document.querySelector('page-content');
+  const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
   if (pageContent) {
     const computedStyle = getComputedStyle(pageContent);
     pageContent.style.setProperty('--mdw-page-content-padding-left', computedStyle.paddingLeft);

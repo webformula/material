@@ -10,7 +10,7 @@ html {
   overflow-y: auto;
 }
 
-page-content {
+#page-content {
   overflow-x: hidden;
 }
 
@@ -93,11 +93,11 @@ mdw-card.header-card > .mdw-headline {
   font-size: 32px;
 }
 
-page-content > section > mdw-card {
+#page-content > section > mdw-card {
   margin-bottom: 36px;
 }
 
-page-content > a {
+#page-content > a {
   align-self: flex-start;
 }
 

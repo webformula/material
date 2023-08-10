@@ -243,7 +243,7 @@ body.mdw-mobile mdw-textfield.mdw-has-time-picker input[type="month"] {
 
 mdw-textfield .mdw-autocomplete {
   position: absolute;
-  top: 21px;
+  top: 22px;
   left: 0;
   box-sizing: border-box;
   border: none;

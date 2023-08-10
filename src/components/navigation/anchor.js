@@ -104,7 +104,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #focusKeydown(e) {
     // TODO should we skip to first sub navigation in nav or on page
     if (e.code === 'Tab') {
-      const firstFocusablePageContent = [...document.body.querySelectorAll('page-content *')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
+      const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
+      const firstFocusablePageContent = [...pageContent.querySelectorAll('*')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
       if (firstFocusablePageContent) firstFocusablePageContent.focus();
       e.preventDefault();
     } if (e.code === 'Enter' || e.code === 'Space') {

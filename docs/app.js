@@ -25,13 +25,14 @@ window.addEventListener('hashchange', () => {
 
 
 function handleHashAnchor(hash, animate = true) {
+  console.log('handleHashAnchor')
   try {
     const element = document.querySelector(hash);
     if (element) {
-      if (animate)  document.querySelector('page-content').scroll({ top: element.offsetTop, behavior: 'smooth' });
-      else document.querySelector('page-content').scroll({ top: element.offsetTop });
+      if (animate)  document.documentElement.scroll({ top: element.offsetTop, behavior: 'smooth' });
+      else document.documentElement.scroll({ top: element.offsetTop });
     }
-  } catch { console.log('error'); }
+  } catch(e) { console.log('error', e); }
 }
 
 

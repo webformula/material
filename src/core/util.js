@@ -3,7 +3,7 @@ import { generate } from './theme.js';
 
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
-  #textLengthDiv;
+  #textWidthCanvas;
   #scrollTarget;
   #scrollTargetListener;
   #lastScrollTop;
@@ -66,35 +66,24 @@ const mdwUtil = new class MDWUtil {
   }
 
   getTextWidth(element) {
-    if (!this.#textLengthDiv) {
-      this.#textLengthDiv = document.createElement('div');
-      this.#textLengthDiv.classList.add('mdw-text-length');
-      document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
-    }
+    if (!this.#textWidthCanvas) this.#textWidthCanvas = document.createElement('canvas');
     const styles = window.getComputedStyle(element);
-    this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');
-    this.#textLengthDiv.style.fontWeight = styles.getPropertyValue('font-weight');
-    this.#textLengthDiv.style.linHeight = styles.getPropertyValue('line-height');
-    this.#textLengthDiv.style.letterSpacing = styles.getPropertyValue('letter-spacing');
-    this.#textLengthDiv.innerText = this.getTextFromNode(element);
-    return this.#textLengthDiv.offsetWidth;
+    const context = this.#textWidthCanvas.getContext('2d');
+    context.font = `${styles.getPropertyValue('font-weight')} ${styles.getPropertyValue('font-size')} ${styles.getPropertyValue('font-family') }`;
+    context.letterSpacing = styles.getPropertyValue('letter-spacing');
+    const metrics = context.measureText(this.getTextFromNode(element));
+    return Math.ceil(metrics.width);
   }
 
   getTextWidthFromInput(inputElement) {
     if (!inputElement || inputElement.nodeName !== 'INPUT') throw Error('requires input element');
-    if (!this.#textLengthDiv) {
-      this.#textLengthDiv = document.createElement('div');
-      this.#textLengthDiv.classList.add('mdw-text-length');
-      document.body.insertAdjacentElement('beforeend', this.#textLengthDiv);
-    }
-
+    if (!this.#textWidthCanvas) this.#textWidthCanvas = document.createElement('canvas');
     const styles = window.getComputedStyle(inputElement);
-    this.#textLengthDiv.style.fontSize = styles.getPropertyValue('font-size');
-    this.#textLengthDiv.style.fontWeight = styles.getPropertyValue('font-weight');
-    this.#textLengthDiv.style.linHeight = styles.getPropertyValue('line-height');
-    this.#textLengthDiv.style.letterSpacing = styles.getPropertyValue('letter-spacing');
-    this.#textLengthDiv.innerText = inputElement.value;
-    return this.#textLengthDiv.offsetWidth;
+    const context = this.#textWidthCanvas.getContext('2d');
+    context.font = `${styles.getPropertyValue('font-weight')} ${styles.getPropertyValue('font-size')} ${styles.getPropertyValue('font-family')}`;
+    context.letterSpacing = styles.getPropertyValue('letter-spacing');
+    const metrics = context.measureText(inputElement.value);
+    return Math.ceil(metrics.width);
   }
 
   nextTick(callback) {

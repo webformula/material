@@ -1,6 +1,7 @@
 mdw-chip-group {
   display: flex;
   overflow-x: auto;
+  padding: 8px 0;
   gap: 8px;
 }
 

@@ -94,7 +94,10 @@ export default class Drag {
     if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#dragStart_bound, { signal: this.#abort.signal });
     if (!this.noTouchEvents) {
       this.#element.addEventListener('touchstart', this.#dragStart_bound, { signal: this.#abort.signal });
-      if (this.#preventNavigation) document.querySelector('page-content').addEventListener('touchstart', this.#preventNavigationHandler_bound, { signal: this.#abort.signal });
+      if (this.#preventNavigation) {
+        const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
+        pageContent.addEventListener('touchstart', this.#preventNavigationHandler_bound, { signal: this.#abort.signal });
+      }
     }
   }
 

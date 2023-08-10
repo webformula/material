@@ -158,6 +158,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
       document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
     }
+    this.blur();
   }
 
   #focus() {
