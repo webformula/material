@@ -18,43 +18,30 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   #onInvalid_bound = this.#onInvalid.bind(this);
   #onInput_bound = this.#onInput.bind(this);
   #clear_bound = this.clear.bind(this);
-  #originalSupportingText = this.querySelector('.mdw-supporting-text')?.innerText;
+  #originalSupportingText;
   #autocomplete;
-  #formatter = new Formatter(this);
-  #abort = new AbortController();
+  #formatter;
+  #abort;
 
 
   constructor() {
     super();
 
-    // used in css for label position
-    this.#input = this.querySelector('input');
-    const placeholder = this.#input.getAttribute('placeholder');
-    this.#input.setAttribute('placeholder', placeholder || ' ');
     this.classList.add('mdw-no-animation');
+    this.#input = this.querySelector('input');
+    this.#formatter = new Formatter(this);
+    const inputPattern = this.#input.pattern;
+    if (inputPattern) this.pattern = inputPattern;
+  }
 
-    this.#handleDisabledInput();
-    this.#overrideInputSetCustomValidity();
+  connectedCallback() {
+    this.#input.setAttribute('placeholder', this.#input.getAttribute('placeholder') || ' ');
+    if (this.pattern) this.#formatter.enable();
 
-    if (this.classList.contains('mdw-outlined')) {
-      this.insertAdjacentHTML('afterbegin', `
-        <div class="mdw-outlined-border-container">
-          <div class="mdw-outlined-leading"></div>
-          <div class="mdw-outlined-notch"></div>
-          <div class="mdw-outlined-trailing"></div>
-        </div>
-      `);
-      
-      if (this.#input.value || this.#input.type === 'date' || this.#input.type === 'month' || this.#input.type === 'time' || this.#input.placeholder !== ' ') this.#setNotchWidth();
-      this.#input.addEventListener('focus', this.#setNotchWidth_bound, { signal: this.#abort.signal });
-      this.#input.addEventListener('blur', this.#unsetNotchWidth_bound, { signal: this.#abort.signal });
-    }
-
-    this.insertAdjacentHTML('beforeend', `<div class="mdw-autocomplete"></div>`);
-
+    this.#abort = new AbortController();
     this.#input.addEventListener('invalid', this.#onInvalid_bound, { signal: this.#abort.signal });
     this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-
+    
     const inputClearIcon = this.querySelector('mdw-icon.mdw-input-clear');
     if (inputClearIcon) inputClearIcon.addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
 
@@ -64,21 +51,35 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
       if (!id) this.#input.id = `mdw-textfield-${util.uid()}`;
       label.setAttribute('for', this.#input.id);
     }
-  }
 
-  connectedCallback() {
-    const inputPattern = this.#input.pattern;
-    if (inputPattern) this.pattern = inputPattern;
-    if (this.pattern) this.#formatter.enable();
+    this.#handleDisabledInput();
+    this.#overrideInputSetCustomValidity();
+    if (this.querySelector('.mdw-outlined-border-container + mdw-icon')) this.classList.add('mdw-has-leading-icon');
 
-    if (this.querySelector('.mdw-outlined-border-container + mdw-icon')) {
-      this.classList.add('mdw-has-leading-icon');
+    const isOutlined = this.classList.contains('mdw-outlined');
+    if (isOutlined) {
+      this.insertAdjacentHTML('afterbegin', `
+        <div class="mdw-outlined-border-container">
+          <div class="mdw-outlined-leading"></div>
+          <div class="mdw-outlined-notch"></div>
+          <div class="mdw-outlined-trailing"></div>
+        </div>
+      `);
+
+      this.#input.addEventListener('focus', this.#setNotchWidth_bound, { signal: this.#abort.signal });
+      this.#input.addEventListener('blur', this.#unsetNotchWidth_bound, { signal: this.#abort.signal });
     }
 
-    if (!this.#input.hasAttribute('aria-label')) {
-      const text = this.querySelector('label')?.innerText;
-      if (text) this.#input.setAttribute('aria-label', text);
-    }
+    requestAnimationFrame(() => {
+      if (isOutlined && (this.#input.value || this.#input.type === 'date' || this.#input.type === 'month' || this.#input.type === 'time' || this.#input.placeholder !== ' ')) this.#setNotchWidth();
+
+      this.#originalSupportingText = this.querySelector('.mdw-supporting-text')?.innerText;
+
+      if (!this.#input.hasAttribute('aria-label')) {
+        const text = this.querySelector('label')?.innerText;
+        if (text) this.#input.setAttribute('aria-label', text);
+      }
+    });
 
     setTimeout(() => {
       this.classList.remove('mdw-no-animation');
@@ -173,11 +174,8 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   }
 
   #handleDisabledInput() {
-    if (this.#input.hasAttribute('disabled')) {
-      this.setAttribute('disabled', '');
-    } else {
-      this.removeAttribute('disabled');
-    }
+    if (this.#input.hasAttribute('disabled')) this.setAttribute('disabled', '');
+    else this.removeAttribute('disabled');
 
     const descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'disabled');
     const originalSet = descriptor.set;
@@ -261,13 +259,15 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   #setAutocomplete() {
     if (typeof this.#autocomplete !== 'string') return;
+    if (!this.querySelector('.mdw-autocomplete')) this.insertAdjacentHTML('beforeend', `<div class="mdw-autocomplete"></div>`);
+    const autoCompleteElement = this.querySelector('.mdw-autocomplete');
 
     const match = this.#autocomplete.match(new RegExp(`^${this.#input.value}(.*)`, 'i'));
     const value = !match || match[0] === match[1] ? '' : match[1];
 
-    this.querySelector('.mdw-autocomplete').innerText = value;
+    autoCompleteElement.innerText = value;
     const offset = util.getTextWidthFromInput(this.#input);
-    this.querySelector('.mdw-autocomplete').style.left = `${offset + 16}px`;
+    autoCompleteElement.style.left = `${offset + 16}px`;
   }
 }
 
