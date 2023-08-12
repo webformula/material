@@ -1,8 +1,8 @@
+import util from '../core/util.js';
 import styles from '../styles.css';
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
 import { generate } from '../core/theme.js';
 generate();
-import util from '../core/util.js';
 
 const templateElements = {};
 

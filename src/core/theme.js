@@ -34,35 +34,40 @@ export async function generate() {
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
   }
 
-  generateKeyTones(computedStyles, isDark);
+  // Theme can be pre build or generated at runtime. 
+  // Skip runtime generation if pre generated
+  const themeGenerated = !!computedStyles.getPropertyValue('--mdw-primary-0');
+  if (!themeGenerated) {
+    generateKeyTones(computedStyles, isDark);
 
-  const colorVariables = [...document.styleSheets, ...document.adoptedStyleSheets]
-    .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
-    .flatMap(sheet => (
-      [...sheet.cssRules]
-        .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
-        .flatMap(rule => [...rule.styleMap]
-          .map(v => ({ name: v[0], value: computedStyles.getPropertyValue(v[0]) }))
-          .filter(v => v.name.startsWith('--') && !keyColors.includes(v.name) && v.value.match(colorRegex)))
-    ));
+    const colorVariables = [...document.styleSheets, ...document.adoptedStyleSheets]
+      .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
+      .flatMap(sheet => (
+        [...sheet.cssRules]
+          .filter(rule => rule.selectorText === ':root' || (isDark && rule.selectorText === ':root.mdw-theme-dark'))
+          .flatMap(rule => [...rule.styleMap]
+            .map(v => ({ name: v[0], value: computedStyles.getPropertyValue(v[0]) }))
+            .filter(v => v.name.startsWith('--') && !keyColors.includes(v.name) && v.value.match(colorRegex)))
+      ));
 
-  // create alpha versions of colors
-  colorVariables.forEach(({ name, value }) => {
-    document.documentElement.style.setProperty(`${name}-alpha-0`, `${value}00`);
-    document.documentElement.style.setProperty(`${name}-alpha-4`, `${value}0a`);
-    document.documentElement.style.setProperty(`${name}-alpha-5`, `${value}0d`);
-    document.documentElement.style.setProperty(`${name}-alpha-6`, `${value}0f`);
-    document.documentElement.style.setProperty(`${name}-alpha-8`, `${value}14`);
-    document.documentElement.style.setProperty(`${name}-alpha-10`, `${value}1a`);
-    document.documentElement.style.setProperty(`${name}-alpha-11`, `${value}1c`);
-    document.documentElement.style.setProperty(`${name}-alpha-12`, `${value}1f`);
-    document.documentElement.style.setProperty(`${name}-alpha-16`, `${value}29`);
-    document.documentElement.style.setProperty(`${name}-alpha-20`, `${value}33`);
-    document.documentElement.style.setProperty(`${name}-alpha-26`, `${value}42`);
-    document.documentElement.style.setProperty(`${name}-alpha-38`, `${value}61`);
-    document.documentElement.style.setProperty(`${name}-alpha-60`, `${value}99`);
-    document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
-  });
+    // create alpha versions of colors
+    colorVariables.forEach(({ name, value }) => {
+      document.documentElement.style.setProperty(`${name}-alpha-0`, `${value}00`);
+      document.documentElement.style.setProperty(`${name}-alpha-4`, `${value}0a`);
+      document.documentElement.style.setProperty(`${name}-alpha-5`, `${value}0d`);
+      document.documentElement.style.setProperty(`${name}-alpha-6`, `${value}0f`);
+      document.documentElement.style.setProperty(`${name}-alpha-8`, `${value}14`);
+      document.documentElement.style.setProperty(`${name}-alpha-10`, `${value}1a`);
+      document.documentElement.style.setProperty(`${name}-alpha-11`, `${value}1c`);
+      document.documentElement.style.setProperty(`${name}-alpha-12`, `${value}1f`);
+      document.documentElement.style.setProperty(`${name}-alpha-16`, `${value}29`);
+      document.documentElement.style.setProperty(`${name}-alpha-20`, `${value}33`);
+      document.documentElement.style.setProperty(`${name}-alpha-26`, `${value}42`);
+      document.documentElement.style.setProperty(`${name}-alpha-38`, `${value}61`);
+      document.documentElement.style.setProperty(`${name}-alpha-60`, `${value}99`);
+      document.documentElement.style.setProperty(`${name}-alpha-76`, `${value}c2`);
+    });
+  }
 
   // do not run code below ofter initiation
   if (document.documentElement.classList.contains('mdw-initiated')) return;
@@ -103,22 +108,28 @@ function generateKeyTones(computedStyles, isDark) {
     name = name.replace('-baseline', '');
  
     document.documentElement.style.setProperty(`${name}-0`, tones[0]);
-    document.documentElement.style.setProperty(`${name}-6`, tones[1]);
-    document.documentElement.style.setProperty(`${name}-10`, tones[2]);
-    document.documentElement.style.setProperty(`${name}-20`, tones[3]);
-    document.documentElement.style.setProperty(`${name}-30`, tones[4]);
-    document.documentElement.style.setProperty(`${name}-40`, tones[5]);
-    document.documentElement.style.setProperty(`${name}-50`, tones[6]);
-    document.documentElement.style.setProperty(`${name}-60`, tones[7]);
-    document.documentElement.style.setProperty(`${name}-70`, tones[8]);
-    document.documentElement.style.setProperty(`${name}-80`, tones[9]);
-    document.documentElement.style.setProperty(`${name}-90`, tones[10]);
-    document.documentElement.style.setProperty(`${name}-92`, tones[11]);
-    document.documentElement.style.setProperty(`${name}-94`, tones[12]);
-    document.documentElement.style.setProperty(`${name}-95`, tones[13]);
-    document.documentElement.style.setProperty(`${name}-96`, tones[14]);
-    document.documentElement.style.setProperty(`${name}-98`, tones[15]);
-    document.documentElement.style.setProperty(`${name}-100`, tones[16]);
+    document.documentElement.style.setProperty(`${name}-4`, tones[1]);
+    document.documentElement.style.setProperty(`${name}-6`, tones[2]);
+    document.documentElement.style.setProperty(`${name}-10`, tones[3]);
+    document.documentElement.style.setProperty(`${name}-12`, tones[4]);
+    document.documentElement.style.setProperty(`${name}-17`, tones[5]);
+    document.documentElement.style.setProperty(`${name}-20`, tones[6]);
+    document.documentElement.style.setProperty(`${name}-22`, tones[7]);
+    document.documentElement.style.setProperty(`${name}-24`, tones[8]);
+    document.documentElement.style.setProperty(`${name}-30`, tones[9]);
+    document.documentElement.style.setProperty(`${name}-40`, tones[10]);
+    document.documentElement.style.setProperty(`${name}-50`, tones[11]);
+    document.documentElement.style.setProperty(`${name}-60`, tones[12]);
+    document.documentElement.style.setProperty(`${name}-70`, tones[13]);
+    document.documentElement.style.setProperty(`${name}-80`, tones[14]);
+    document.documentElement.style.setProperty(`${name}-87`, tones[15]);
+    document.documentElement.style.setProperty(`${name}-90`, tones[16]);
+    document.documentElement.style.setProperty(`${name}-92`, tones[17]);
+    document.documentElement.style.setProperty(`${name}-94`, tones[18]);
+    document.documentElement.style.setProperty(`${name}-95`, tones[19]);
+    document.documentElement.style.setProperty(`${name}-96`, tones[20]);
+    document.documentElement.style.setProperty(`${name}-98`, tones[21]);
+    document.documentElement.style.setProperty(`${name}-100`, tones[22]);
   });
 }
 
@@ -130,15 +141,21 @@ function generateColorTones(value) {
   
   return [
     '#000000', // 0
+    hwbToHex([h + 6, zeroValue(w - 36), zeroValue(b + 36)]), // 4
     hwbToHex([h + 5, zeroValue(w - 34), zeroValue(b + 34)]), // 6
     hwbToHex([h + 4, zeroValue(w - 30), zeroValue(b + 30)]), // 10
+    hwbToHex([h + 4, zeroValue(w - 28), zeroValue(b + 28)]), // 12
+    hwbToHex([h + 3, zeroValue(w - 12), zeroValue(b + 22)]), // 17
     hwbToHex([h + 2, zeroValue(w - 18), zeroValue(b + 20)]), // 20
+    hwbToHex([h + 2, zeroValue(w - 16), zeroValue(b + 18)]), // 22
+    hwbToHex([h + 2, zeroValue(w - 15), zeroValue(b + 16)]), // 24
     hwbToHex([h + 1, zeroValue(w - 10), zeroValue(b + 10)]), // 30
     value, // 40
     hwbToHex([h, zeroValue(w + 9), zeroValue(b - 10)]), // 50
     hwbToHex([h + 1, zeroValue(w + 22), zeroValue(b - 20)]), // 60
     hwbToHex([h + 2, zeroValue(w + 34), zeroValue(b - 30)]), // 70 x
     hwbToHex([h + 3, zeroValue(w + 42), zeroValue(b - 40)]), // 80
+    hwbToHex([h + 4, zeroValue(w + 49), zeroValue(b - 50)]), // 87
     hwbToHex([h + 4, zeroValue(w + 52), zeroValue(b - 54)]), // 90
     hwbToHex([h + 5, zeroValue(w + 55), zeroValue(b - 57)]), // 92
     hwbToHex([h + 7, zeroValue(w + 58), zeroValue(b - 59)]), // 94

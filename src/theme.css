@@ -15,6 +15,7 @@ html:not(.mdw-initiated) body {
   --mdw-error-baseline: #B3261E;
   --mdw-neutral-baseline: #67616f;
   --mdw-neutral-variant-baseline: #605666;
+  
 
   /* You can add custom colors that will be parsed into tones
    *  Just create a new variable in this file beginning with --mdw-custom-color-
@@ -23,15 +24,21 @@ html:not(.mdw-initiated) body {
    *
    * Produces tone vars
    * --mdw-custom-colorName-0
+   * --mdw-custom-colorName-4
    * --mdw-custom-colorName-6
    * --mdw-custom-colorName-10
+   * --mdw-custom-colorName-12
+   * --mdw-custom-colorName-17
    * --mdw-custom-colorName-20
+   * --mdw-custom-colorName-22
+   * --mdw-custom-colorName-24
    * --mdw-custom-colorName-30
    * --mdw-custom-colorName-40
    * --mdw-custom-colorName-50
    * --mdw-custom-colorName-60
    * --mdw-custom-colorName-70
    * --mdw-custom-colorName-80
+   * --mdw-custom-colorName-87
    * --mdw-custom-colorName-90
    * --mdw-custom-colorName-92
    * --mdw-custom-colorName-94
@@ -199,11 +206,6 @@ html:not(.mdw-initiated) body {
 } */
 
 :root.mdw-theme-dark {
-  /* --- Overrides ---
-   *  By default these colors are filled out tones of the colors above
-   *  You can override them here
-   */
-
   --mdw-primary: var(--mdw-primary-80);
   --mdw-primary-container: var(--mdw-primary-30);
   --mdw-on-primary: var(--mdw-primary-20);

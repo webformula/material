@@ -3,6 +3,7 @@ import esbuild from 'esbuild';
 import { readFile, writeFile } from 'node:fs/promises';
 import { gzip } from 'node:zlib';
 import { promisify } from 'node:util';
+import generate from '@webformula/material/themeGenerator';
 
 const asyncGzip = promisify(gzip);
 const cssFilterRegex = /\.css$/;
@@ -42,6 +43,7 @@ const context = await esbuild.context({
   minify: true
 });
 
+generate('./src/theme.css', './docs/theme.css');
 build({
   devServer: {
     enabled: true,
@@ -52,7 +54,7 @@ build({
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [
-    { from: 'src/theme.css', to: 'dist/theme.css', gzip: true },
+    { from: 'docs/theme.css', to: 'dist/theme.css', gzip: true },
     { from: 'docs/favicon.ico', to: 'dist/' },
     { from: 'docs/woman.jpg', to: 'dist/', gzip: true },
     { from: 'docs/icons.woff2', to: 'dist/', gzip: true },
