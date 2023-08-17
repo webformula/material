@@ -6,6 +6,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
+    "./themeGenerator": "./src/themeGenerator.js",
     "./theme.css": "./src/theme.css",
     "./services": "./src/services.js",
     "./services/date": "./src/core/dateUtil.js",
@@ -65,9 +66,9 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.16.1",
+    "@webformula/core": "^0.17.0",
     "@webformula/material": "file:./",
     "aws-sdk": "^2.1407.0",
-    "esbuild": "^0.19.0"
+    "esbuild": "^0.19.2"
   }
 }
