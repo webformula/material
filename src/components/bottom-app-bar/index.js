@@ -89,7 +89,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
   }
 
   #scrollTrack({ direction, distanceFromDirectionChange, scrollTop }) {
-    if (scrollTop <= 0) {
+    if (scrollTop <= 0 || (document.documentElement.scrollHeight - document.documentElement.offsetHeight) < 160) {
       document.body.style.setProperty('--mdw-bottom-app-bar-position', '0px');
       return;
     }

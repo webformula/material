@@ -147,13 +147,16 @@ const mdwUtil = new class MDWUtil {
     };
   }
 
+  // helps prevent a layout calculation when using a bottom app bar
+  #initialScroll = true;
   trackPageScroll(callback = () => { }) {
     if (!this.#scrollTarget) {
       this.#scrollTarget = document.documentElement;
       this.#scrollTargetListener = window;
     }
     if (this.#scrollCallbacks.length === 0) {
-      this.#lastScrollTop = this.#scrollTarget.scrollTop;
+      if (!this.#initialScroll) this.#lastScrollTop = this.#scrollTarget.scrollTop;
+      else this.#initialScroll = false;
       this.#scrollTargetListener.addEventListener('scroll', this.#scrollHandler_bound);
     }
     this.#scrollCallbacks.push(callback);
