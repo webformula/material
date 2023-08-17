@@ -18,6 +18,7 @@ Material design V3 web components that are full featured, performant and simple 
   - [Installation](#installation)
   - [Importing components](#importing)
   - [Importing styles](#importingstyles)
+  - [Building theme](#buildingTheme)
 
 
 # Getting started
@@ -128,4 +129,19 @@ For icons this uses Googles Material icon font. All component required icons are
   Only needed if using the mdw-icon component
 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+```
+
+
+## **Building theme**
+<a name="buildingTheme"/>
+Theme css can be generated at build time or at runtime. It is suggested to generate at build time (helps with loading performance and times).
+
+If you do not generate at build time, then the theme css will be generated from the theme.css file at runtime.
+
+`build.js` build script
+```javascript
+import generate from '@webformula/material/themeGenerator';
+
+// generate(input path, output path)
+generate('./src/theme.css', './docs/theme.css');
 ```

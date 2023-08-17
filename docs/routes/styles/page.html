@@ -12,6 +12,7 @@
 <div class="links">
   <a href="#css">theme.css</a>
   <a href="#scheme">Color scheme</a>
+  <a href="#build">Build theme file</a>
 </div>
 
 <section style="margin-top: 48px">
@@ -144,6 +145,39 @@
   .some-class {
     color: var(--mdw-primary);
   }`)}
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="build">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Generating theme at runtime</div>  
+    </div>
+  
+  
+    <pre>
+      <code class="language-javascript">
+  ${`// add to build script
+    
+  import generate from '@webformula/material/themeGenerator';
+
+  // generate(input path, output path)
+  generate('./src/theme.css', './docs/theme.css');`}
+      </code>
+    </pre>
+
+    <div class="mdw-card-content">
+      <div class="mdw-subheader">If you do not generate the theme during build time you can import the theme.css file and it will generate at runtime</div>
+    </div>    
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<link href="./theme.css" rel="stylesheet">`)}
+      </code>
+    </pre>
+    <pre>
+      <code class="language-css">
+  ${`/* import in app css */
+  @import('@webformula/materia.theme.css');`}
       </code>
     </pre>
   </mdw-card>
