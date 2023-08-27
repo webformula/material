@@ -352,7 +352,7 @@ export default class Drag {
   }
 
   #nearestSingle(target, directionPercent) {
-    return this.#scrollSnapPositions.map(v => v.x || v.y).reduce((a, b) => {
+    return this.#scrollSnapPositions.map(v => v.x !== undefined ? v.x : v.y).reduce((a, b) => {
       if (target > b) return b;
       const percent = (target - a) / (b - a);
       return percent > directionPercent ? b : a;
