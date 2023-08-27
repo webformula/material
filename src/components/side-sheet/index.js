@@ -33,9 +33,9 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
     this.#drag.noMouseEvents = true;
     this.#drag.lockScrollY = true;
     this.#drag.preventNavigation = true;
-    this.#drag.onStart(this.#dragStart_bound);
-    this.#drag.onEnd(this.#dragEnd_bound);
-    this.#drag.onDrag(this.#dragHandler_bound);
+    this.#drag.on('mdwdragstart', this.#dragStart_bound);
+    this.#drag.on('mdwdragend', this.#dragEnd_bound);
+    this.#drag.on('mdwdragmove', this.#dragHandler_bound);
   }
 
   connectedCallback() {

@@ -84,14 +84,14 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
     this.#dragOne = new Drag(this.#thumb);
     this.#dragOne.lockScrollY = true;
-    this.#dragOne.onDrag(this.#onDragOne_bound);
-    this.#dragOne.onStart(this.#onDragOneStart_bound);
+    this.#dragOne.on('mdwdragmove', this.#onDragOne_bound);
+    this.#dragOne.on('mdwdragstart', this.#onDragOneStart_bound);
     this.#dragOne.enable();
 
     this.#dragTwo = new Drag(this.#thumb2);
     this.#dragTwo.lockScrollY = true;
-    this.#dragTwo.onDrag(this.#onDragTwo_bound);
-    this.#dragTwo.onStart(this.#onDragTwoStart_bound);
+    this.#dragTwo.on('mdwdragmove', this.#onDragTwo_bound);
+    this.#dragTwo.on('mdwdragstart', this.#onDragTwoStart_bound);
     this.#dragTwo.enable();
 
     this.#inactiveTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });

@@ -47,9 +47,9 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
       this.#drag = new Drag(this);
       this.#drag.lockScrollY = true;
       this.#drag.noMouseEvents = true;
-      this.#drag.onDrag(this.#onDrag_bound);
-      this.#drag.onStart(this.#onDragStart_bound);
-      this.#drag.onEnd(this.#onDragEnd_bound);
+      this.#drag.on('mdwdragmove', this.#onDrag_bound);
+      this.#drag.on('mdwdragstart', this.#onDragStart_bound);
+      this.#drag.on('mdwdragend', this.#onDragEnd_bound);
       this.#drag.enable();
     }
 

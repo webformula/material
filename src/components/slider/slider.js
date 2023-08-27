@@ -83,8 +83,8 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
 
     this.#drag = new Drag(this.#thumb);
     this.#drag.lockScrollY = true;
-    this.#drag.onDrag(this.#onDrag_bound);
-    this.#drag.onStart(this.#onDragStart_bound);
+    this.#drag.on('mdwdragmove', this.#onDrag_bound);
+    this.#drag.on('mdwdragstart', this.#onDragStart_bound);
     this.#drag.enable();
 
     this.#inactiveTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });

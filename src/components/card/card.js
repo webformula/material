@@ -67,9 +67,9 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#dragSwipeAction = new Drag(this);
       this.#dragSwipeAction.noMouseEvents = true;
       this.#dragSwipeAction.lockScrollY = true;
-      this.#dragSwipeAction.onDrag(this.#ondragSwipeAction_bound);
-      this.#dragSwipeAction.onStart(this.#ondragSwipeActionStart_bound);
-      this.#dragSwipeAction.onEnd(this.#ondragSwipeActionEnd_bound);
+      this.#dragSwipeAction.on('mdwdragmove', this.#ondragSwipeAction_bound);
+      this.#dragSwipeAction.on('mdwdragstart', this.#ondragSwipeActionStart_bound);
+      this.#dragSwipeAction.on('mdwdragend', this.#ondragSwipeActionEnd_bound);
       this.#dragSwipeAction.enable();
       this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
     }

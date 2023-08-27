@@ -1,31 +1,38 @@
 import util from './util.js';
 import device from './device.js';
 
+
 export default class Drag {
   #element;
+  #enabled = false;
   #isDragging = false;
-  #onDragCallbacks = [];
-  #onStartCallbacks = [];
-  #onEndCallbacks = [];
-  #ignoreElements = [];
-  #lockScrollY = false;
-  #preventNavigation = false;
-  #lockScrollThreshold = 12;
   #noTouchEvents = false;
   #noMouseEvents = false;
-  #enabled;
-  #abort;
-  #touchAbort;
+  #lockScrollY = false;
+  #preventSwipeNavigation = false;
+  #timeConstant = 325;
+  #lockScrollThreshold = 12;
+  #ignoreElements = [];
+  #listeners = {
+    'mdwdragmove': [],
+    'mdwdragstart': [],
+    'mdwdragend': []
+  };
+  #abortMain;
+  #abortDrag;
+  #trackingDetails;
+  #overscrollTrackingDetails;
+  #pageContent;
+  #hasScrollSnapPositions = false;
+  #isSnapped = false;
+  #scrollSnapPositions;
   #isOverflowDragging = false;
   #overflowDrag = false;
-  #dragStart_bound = this.#dragStart.bind(this);
-  #dragEnd_bound = this.#dragEnd.bind(this);
-  #dragMove_bound = this.#dragMove.bind(this);
-  #preventNavigationHandler_bound = this.#preventNavigationHandler.bind(this);
-  #timeConstant = 325;
-  #trackingDetails;
-  #releaseDetails;
-  
+  #drag_bound = this.#drag.bind(this);
+  #start_bound = this.#start.bind(this);
+  #end_bound = this.#end.bind(this);
+  #preventSwipeNavigationHandler_bound = this.#preventSwipeNavigationHandler.bind(this);
+
   constructor(element) {
     if (element) this.#element = element;
   }
@@ -53,13 +60,6 @@ export default class Drag {
     this.#noTouchEvents = !!value;
   }
 
-  get overflowDrag() {
-    return this.#overflowDrag;
-  }
-  set overflowDrag(value) {
-    this.#overflowDrag = !!value;
-  }
-
   get isDragging() {
     return this.#isDragging;
   }
@@ -71,13 +71,6 @@ export default class Drag {
     this.#lockScrollY = !!value;
   }
 
-  get preventNavigation() {
-    return this.#preventNavigation;
-  }
-  set preventNavigation(value) {
-    this.#preventNavigation = !!value;
-  }
-
   get lockScrollThreshold() {
     return this.#lockScrollThreshold;
   }
@@ -85,51 +78,83 @@ export default class Drag {
     if (isNaN(value)) throw Error('lockScrollThreshold must be a number')
     this.#lockScrollThreshold = parseInt(value);
   }
-  
+
+  get scrollSnapPositions() {
+    return this.#scrollSnapPositions;
+  }
+  set scrollSnapPositions(value) {
+    this.#hasScrollSnapPositions = Array.isArray(value) && value.length > 0;
+    if (this.#hasScrollSnapPositions) this.#scrollSnapPositions = value;
+    else this.#scrollSnapPositions = undefined;
+  }
+
+  get overflowDrag() {
+    return this.#overflowDrag;
+  }
+  set overflowDrag(value) {
+    this.#overflowDrag = !!value;
+  }
+
+  get preventSwipeNavigation() {
+    return this.#preventSwipeNavigation;
+  }
+  set preventSwipeNavigation(value) {
+    this.#preventSwipeNavigation = !!value;
+  }
+
 
   enable() {
     if (this.#enabled) return;
+    if (!this.#element) throw Error('Element is required');
     this.#enabled = true;
-    this.#abort = new AbortController();
-    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#dragStart_bound, { signal: this.#abort.signal });
+    this.#abortMain = new AbortController();
+
+    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#start_bound, { signal: this.#abortMain.signal });
     if (!this.noTouchEvents) {
-      this.#element.addEventListener('touchstart', this.#dragStart_bound, { signal: this.#abort.signal });
-      if (this.#preventNavigation) {
-        const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
-        pageContent.addEventListener('touchstart', this.#preventNavigationHandler_bound, { signal: this.#abort.signal });
-      }
+      this.#element.addEventListener('touchstart', this.#start_bound, { signal: this.#abortMain.signal });
+      this.#pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
     }
   }
 
   disable() {
-    if (this.#abort) this.#abort.abort();
-    if (this.#touchAbort) this.#touchAbort.abort();
+    if (this.#abortMain) this.#abortMain.abort();
+    if (this.#abortDrag) this.#abortDrag.abort();
     this.#isDragging = false;
     this.#enabled = false;
   }
 
   cancel() {
-    if (this.#touchAbort) this.#touchAbort.abort();
+    if (this.#abortDrag) this.#abortDrag.abort();
     this.#isDragging = false;
   }
 
   destroy() {
     this.disable();
     this.#element = undefined;
+    this.#listeners = {
+      'mdwdragmove': [],
+      'mdwdragstart': [],
+      'mdwdragend': []
+    };
     util.unlockPageScroll();
   }
 
-  onDrag(callback = () => { }) {
-    this.#onDragCallbacks.push(callback);
+  on(eventType, callback) {
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend');
+    this.#listeners[eventType].push(callback);
   }
 
-  onStart(callback = () => { }) {
-    this.#onStartCallbacks.push(callback);
+  off(eventType, callback) {
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend');
+    if (this.#listeners[eventType].includes(callback)) this.#listeners[eventType].splice(this.#listeners[eventType].indexOf(callback), 1);
   }
 
-  onEnd(callback = () => { }) {
-    this.#onEndCallbacks.push(callback);
+  trigger(event) {
+    if (!this.#listeners[event.type]) return;
+    this.#element.dispatchEvent(event);
+    this.#listeners[event.type].forEach(callback => callback(event));
   }
+
   addIgnoreElement(element) {
     this.#ignoreElements.push(element);
   }
@@ -139,180 +164,97 @@ export default class Drag {
   }
 
 
-  #preventNavigationHandler(event) {
-    // if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
-    if (event.pageX < 20 || event.pageX > window.innerWidth - 20) {
-      event.preventDefault();
+  #start(event) {
+    // does this need to be on always
+    if (this.#preventSwipeNavigation) {
+      this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
     }
-  }
 
-  #dragStart(event) {
+    // right click
     if (event.which === 3) {
-      this.#dragEnd(event);
+      if (this.#isDragging) this.#end(event);
       return;
     }
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
 
-    this.#trackInitialize(event);
+    this.#isSnapped = false;
     this.#isOverflowDragging = false;
-    this.#touchAbort = new AbortController();
+    this.#abortDrag = new AbortController();
+    this.#resetTrack(event);
 
     if (!this.noTouchEvents) {
-      this.#element.addEventListener('touchend', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
-      this.#element.addEventListener('touchmove', this.#dragMove_bound, { signal: this.#touchAbort.signal });
+      this.#element.addEventListener('touchend', this.#end_bound, { signal: this.#abortDrag.signal });
+      this.#element.addEventListener('touchmove', this.#drag_bound, { signal: this.#abortDrag.signal });
     }
 
     if (!this.noMouseEvents) {
-      window.addEventListener('mouseup', this.#dragEnd_bound, { signal: this.#touchAbort.signal });
-      window.addEventListener('mousemove', this.#dragMove_bound, { signal: this.#touchAbort.signal });
+      window.addEventListener('mouseup', this.#end_bound, { signal: this.#abortDrag.signal });
+      window.addEventListener('mousemove', this.#drag_bound, { signal: this.#abortDrag.signal });
     }
   }
 
-  #dragEnd(event) {
-    this.#touchAbort.abort();
+  #end(event) {
+    if (this.#abortDrag) this.#abortDrag.abort();
     if (!this.#isDragging) return;
     this.#isDragging = false;
 
-    this.#trackRelease();
-    if (this.#overflowDrag && (this.#releaseDetails.overscrollX || this.#releaseDetails.overscrollY)) {
-      this.#isOverflowDragging = true;
-      requestAnimationFrame(() => this.#overscroll(event));
-    } else this.#removeDragEnd(event);
-  }
+    // does this need to be on always
+    if (this.#preventSwipeNavigation) {
+      this.#pageContent.removeEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
+    }
 
-  #removeDragEnd(event) {
-    this.#isOverflowDragging = false;
     if (this.#lockScrollY) util.unlockPageScroll();
-    this.#onEndCallbacks.forEach(callback => callback({
-      ...this.#releaseDetails,
-      ...this.#trackingDetails,
-      event,
-      element: this.#element
-    }));
+
+    const dragEvent = this.#track(event, 'mdwdragend');
+    if (this.#overflowDrag) this.#trackOverscroll();
+    if (this.#overflowDrag && (this.#overscrollTrackingDetails.overscrollX || this.#overscrollTrackingDetails.overscrollY)) {
+      this.#isOverflowDragging = true;
+      requestAnimationFrame(() => this.#overscroll(dragEvent));
+    } else {
+      this.#endPost(dragEvent);
+    }
   }
 
-  #dragMove(event) {
-    if (!this.#isDragging && !this.#isOverflowDragging) {
-      this.#isDragging = true;
-      this.#onStartCallbacks.forEach(callback => callback({
-        ...this.#trackingDetails,
-        event,
-        element: this.#element
-      }));
+  #endPost(event) {
+    if (this.#hasScrollSnapPositions && !this.#isSnapped) {
+      this.#snap(event);
+    } else {
+      this.trigger(event);
+    }
+  }
 
-      // cancel or disable called from onStartCallback
+  #drag(event) {
+    // drag start
+    if (!this.#isDragging) {
+      this.#isDragging = true;
+      const dragEvent = this.#track(event, 'mdwdragstart');
+      this.trigger(dragEvent);
+      // cancel or disable called from mdwdragstart canceling
       if (this.#isDragging === false) return;
     }
 
-    this.#track(event);
 
+    const dragEvent = this.#track(event, 'mdwdragmove');
+
+    // TODO do i need to always call preventDefault
     if (this.#lockScrollY) {
-      if (Math.abs(this.#trackingDetails.distanceX) > this.#lockScrollThreshold) {
+      if (Math.abs(dragEvent.distanceX) > this.#lockScrollThreshold) {
         util.lockPageScroll();
-        event.preventDefault();
+        // might not have a real event passed in on overscroll or snap
+        if (event.preventDefault) event.preventDefault();
       }
     }
-    this.#onDragCallbacks.forEach(callback => callback({
-      ...this.#trackingDetails,
-      event,
-      element: this.#element
-    }));
+
+    this.trigger(dragEvent);
+    return dragEvent;
   }
 
-  #overscroll(event) {
-    if (this.#isOverflowDragging === false) return;
 
-    const elapsed = Date.now() - this.#releaseDetails.overscrollTimestamp;
-    const deltaX = -this.#releaseDetails.amplitudeX * Math.exp(-elapsed / this.#timeConstant);
-    const deltaY = -this.#releaseDetails.amplitudeY * Math.exp(-elapsed / this.#timeConstant);
-    const keepScrolling = deltaX > 0.5 || deltaX < -0.5 || deltaY > 0.5 || deltaY < -0.5;
-    const clientX = keepScrolling ? this.#releaseDetails.scrollTargetX + deltaX : this.#releaseDetails.scrollTargetX;
-    const clientY = keepScrolling ? this.#releaseDetails.scrollTargetY + deltaY : this.#releaseDetails.scrollTargetY;
-    const moveX = clientX - this.#trackingDetails.clientX;
-    const moveY = clientY - this.#trackingDetails.clientY;
-    const EventConstructor = event.type.startsWith('mouse') ? MouseEvent : TouchEvent;
-    const eventType = event.type.startsWith('mouse') ? 'mousemove' : 'touchmove';
-    const changedTouches = event.changedTouches ? [] : undefined;
-
-    if (event.changedTouches && event.changedTouches.length > 0) {
-      changedTouches[0] = {
-        clientX: event.changedTouches[0].clientX + (keepScrolling ? moveX : 0),
-        clientY: event.changedTouches[0].clientY + + (keepScrolling ? moveY : 0)
-      };
-    }
-    
-    const newEvent = new EventConstructor(eventType, {
-      clientX: event.clientX + moveX,
-      clientY: event.clientY + moveY,
-      layerX: event.layerX + moveX,
-      layerY: event.layerY + moveY,
-      screenX: event.screenX + moveX,
-      screenY: event.screenY + moveY,
-      offsetX: event.offsetX + moveX,
-      offsetY: event.offsetY + moveY,
-      pageX: event.pageX + moveX,
-      pageY: event.pageY + moveY,
-      x: event.x + moveX,
-      y: event.y + moveY,
-      view: window,
-      relatedTarget: this.#element,
-      changedTouches
-    });
-
-    this.#dragMove(newEvent);
-    if (keepScrolling) {
-      requestAnimationFrame(() => this.#overscroll(newEvent));
-    } else {
-      const endEvent = new EventConstructor(eventType, {
-        clientX: event.clientX,
-        clientY: event.clientY,
-        layerX: event.layerX,
-        layerY: event.layerY,
-        screenX: event.screenX,
-        screenY: event.screenY,
-        offsetX: event.offsetX,
-        offsetY: event.offsetY,
-        pageX: event.pageX,
-        pageY: event.pageY,
-        x: event.x,
-        y: event.y,
-        view: window,
-        relatedTarget: this.#element,
-        changedTouches
-      });
-      this.#removeDragEnd(endEvent);
-    }
-  }
-
-  #trackInitialize({ changedTouches, clientX, clientY}) {
-    clientX = changedTouches ? changedTouches[0].clientX : clientX;
-    clientY = changedTouches ? changedTouches[0].clientY : clientY;
-    this.#trackingDetails = {
-      initial: true,
-      clientXInitial: clientX,
-      clientYInitial: clientY,
-      clientX,
-      clientY,
-      distanceX: 0,
-      distanceY: 0,
-      moveX: 0,
-      moveY: 0,
-      directionX: 0,
-      directionY: 0,
-      directionXDescription: 'none',
-      directionYDescription: 'none',
-      elapsedTime: 0,
-      timeStamp: Date.now(),
-      velocityX: 0,
-      velocityY: 0
-    };
-  }
-
-  #track({ changedTouches, clientX, clientY }) {
-    clientX = changedTouches ? changedTouches[0].clientX : clientX;
-    clientY = changedTouches ? changedTouches[0].clientY : clientY;
-    const moveX = clientX - this.#trackingDetails.clientX;
-    const moveY = clientY - this.#trackingDetails.clientY;
+  #track(event, eventType) {
+    const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+    const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+    const movementX = clientX - this.#trackingDetails.clientX;
+    const movementY = clientY - this.#trackingDetails.clientY;
     const distanceX = clientX - this.#trackingDetails.clientXInitial;
     const distanceY = clientY - this.#trackingDetails.clientYInitial;
     const directionX = distanceX > this.#trackingDetails.distanceX ? 1 : distanceX === this.#trackingDetails.distanceX ? 0 : -1;
@@ -320,30 +262,60 @@ export default class Drag {
     const elapsedTime = Date.now() - this.#trackingDetails.timeStamp;
 
     this.#trackingDetails = {
-      initial: false,
       clientXInitial: this.#trackingDetails.clientXInitial,
       clientYInitial: this.#trackingDetails.clientYInitial,
       clientX,
       clientY,
       distanceX,
       distanceY,
-      moveX,
-      moveY,
+      movementX,
+      movementY,
       directionX,
       directionY,
       directionXDescription: directionX === 0 ? 'none' : directionX === 1 ? 'right' : 'left',
       directionYDescription: directionY === 0 ? 'none' : directionY === 1 ? 'down' : 'up',
       elapsedTime,
       timeStamp: Date.now(),
-      velocityX: 0.4 * (1000 * moveX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
-      velocityY: 0.4 * (1000 * moveY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
+      velocityX: 0.8 * (1000 * movementX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
+      velocityY: 0.8 * (1000 * movementY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
+    };
+
+    const dragEvent = new CustomEvent(eventType);
+    dragEvent.clientX = this.#trackingDetails.clientX;
+    dragEvent.clientY = this.#trackingDetails.clientY;
+    dragEvent.distanceX = this.#trackingDetails.distanceX;
+    dragEvent.distanceY = this.#trackingDetails.distanceY;
+    dragEvent.movementX = this.#trackingDetails.movementX;
+    dragEvent.movementY = this.#trackingDetails.movementY;
+    dragEvent.directionX = this.#trackingDetails.directionX;
+    dragEvent.directionY = this.#trackingDetails.directionY;
+    dragEvent.directionXDescription = this.#trackingDetails.directionXDescription;
+    dragEvent.directionYDescription = this.#trackingDetails.directionYDescription;
+    // can be passed customEvents during overscroll and snap
+    if (event.preventDefault) dragEvent.preventDefault = () => event.preventDefault();
+    return dragEvent;
+  }
+
+  #resetTrack(event) {
+    const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+    const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+    this.#trackingDetails = {
+      clientXInitial: clientX,
+      clientYInitial: clientY,
+      clientX,
+      clientY,
+      distanceX: 0,
+      distanceY: 0,
+      timeStamp: Date.now(),
+      velocityX: 0,
+      velocityY: 0
     };
   }
 
-  #trackRelease() {
+  #trackOverscroll() {
     const amplitudeX = 0.8 * this.#trackingDetails.velocityX;
     const amplitudeY = 0.8 * this.#trackingDetails.velocityY;
-    this.#releaseDetails = {
+    this.#overscrollTrackingDetails = {
       overscrollX: this.#trackingDetails.velocityX > 10 || this.#trackingDetails.velocityX < -10,
       overscrollY: this.#trackingDetails.velocityY > 10 || this.#trackingDetails.velocityY < -10,
       amplitudeX,
@@ -352,5 +324,108 @@ export default class Drag {
       scrollTargetY: Math.round(this.#trackingDetails.clientY + amplitudeY),
       overscrollTimestamp: Date.now()
     };
+  }
+
+  #preventSwipeNavigationHandler(event) {
+    // if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
+    if (event.pageX < 20 || event.pageX > window.innerWidth - 20) {
+      event.preventDefault();
+    }
+  }
+
+  #snap(event) {
+    const nextScrollLeft = this.element.scrollLeft;
+    const nextScrollTop = this.element.scrollTop;
+    const directionPercent = event.directionX === 1 ? 0.76 : 0.24; // preference towards the next element
+    const hasX = this.#scrollSnapPositions[0].x !== undefined;
+    const hasY = this.#scrollSnapPositions[0].y !== undefined;
+    let target;
+    if (hasX && hasY) target = this.#nearestCoord(nextScrollLeft, nextScrollTop, directionPercent);
+    else {
+      const value = this.#nearestSingle(hasX ? nextScrollLeft : nextScrollTop, directionPercent);
+      target = {
+        [hasX ? 'x' : 'y']: value,
+        [hasX ? 'y' : 'x']: 0
+      };
+    }
+    requestAnimationFrame(() => this.#snapMove(target, event, event.directionX, event.directionY));
+  }
+
+  #nearestSingle(target, directionPercent) {
+    return this.#scrollSnapPositions.map(v => v.x || v.y).reduce((a, b) => {
+      if (target > b) return b;
+      const percent = (target - a) / (b - a);
+      return percent > directionPercent ? b : a;
+    });
+  }
+
+  #nearestCoord(x, y, directionPercent) {
+    return this.#scrollSnapPositions.reduce((a, b) => {
+      if (x > b.x || y > b.y) return b;
+      const percentX = (x - a.x) / (b.x - a.y);
+      const percentY = (y - a.y) / (b.y - a.y);
+      return percentX > directionPercent && percentY > directionPercent ? b : a;
+    });
+  }
+
+  // #distance(x, y, target) {
+  //   const diffX = x - target.x;
+  //   const diffY = y - target.y;
+  //   return diffX * diffX + diffY * diffY;
+  // }
+
+  #snapMove(target, lastEvent, previousDirectionX, previousDirectionY) {
+    const diffX = target.x - this.element.scrollLeft;
+    const diffY = target.y - this.element.scrollTop;
+    const isBounceBackX = (previousDirectionX < 0 && diffX < 0) || (previousDirectionX > 0 && diffX > 0);
+    const isBounceBackY = (previousDirectionY < 0 && diffX < 0) || (previousDirectionY > 0 && diffX > 0);
+    let percent = Math.exp(-(Date.now() - this.#trackingDetails.timeStamp) / this.#timeConstant) * 0.2;
+    // speed change for reverse
+    if (isBounceBackX || isBounceBackY) percent *= 0.5;
+
+    const movementX = -diffX * percent;
+    const movementY = -diffY * percent;
+    const isMaxScrollX = (this.#element.scrollWidth === this.#element.offsetWidth) || this.#element.scrollWidth - this.#element.offsetWidth === this.#element.scrollLeft;
+    const isMaxScrollY = (this.#element.scrollHeight === this.#element.offsetHeight) || this.#element.scrollHeight - this.#element.offsetHeight === this.#element.scrollTop;
+    const keepScrollingX = (movementX > 1 || movementX < -1) && !isMaxScrollX;
+    const keepScrollingY = (movementY > 1 || movementY < -1) && !isMaxScrollY;
+    if (!keepScrollingX && !keepScrollingY) {
+      this.#isSnapped = true;
+      this.#endPost(lastEvent);
+      return;
+    }
+
+    const clientX = lastEvent.changedTouches ? lastEvent.changedTouches[0].clientX : lastEvent.clientX;
+    const clientY = lastEvent.changedTouches ? lastEvent.changedTouches[0].clientY : lastEvent.clientY;
+    const dragEvent = this.#drag({
+      clientX: clientX + movementX,
+      clientY: clientY + movementY
+    });
+    requestAnimationFrame(() => this.#snapMove(target, dragEvent, previousDirectionX, previousDirectionY));
+  }
+
+  #overscroll(event) {
+    if (this.#isOverflowDragging === false) return;
+
+    const elapsed = Date.now() - this.#overscrollTrackingDetails.overscrollTimestamp;
+    const deltaX = -this.#overscrollTrackingDetails.amplitudeX * Math.exp(-elapsed / this.#timeConstant);
+    const deltaY = -this.#overscrollTrackingDetails.amplitudeY * Math.exp(-elapsed / this.#timeConstant);
+    const keepScrollingX = deltaX > 1 || deltaX < -1;
+    const keepScrollingY = deltaY > 1 || deltaY < -1;
+    if ((!keepScrollingX && !keepScrollingY) || (this.#hasScrollSnapPositions && Math.abs(deltaX) < 140)) {
+      this.#endPost(this.#track(event, 'mdwdragend'));
+      return;
+    }
+
+    const clientX = keepScrollingX ? this.#overscrollTrackingDetails.scrollTargetX + deltaX : this.#overscrollTrackingDetails.scrollTargetX;
+    const clientY = keepScrollingY ? this.#overscrollTrackingDetails.scrollTargetY + deltaY : this.#overscrollTrackingDetails.scrollTargetY;
+    const movementX = clientX - event.clientX;
+    const movementY = clientY - event.clientY;
+
+    const dragEvent = this.#drag({
+      clientX: event.clientX + movementX,
+      clientY: event.clientY + movementY
+    });
+    requestAnimationFrame(() => this.#overscroll(dragEvent));
   }
 }

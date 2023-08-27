@@ -26,9 +26,9 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.style.overflowY = 'visible'; // used in drag events
 
     this.#drag = new Drag(this);
-    this.#drag.onDrag(this.#onDrag_bound);
-    this.#drag.onStart(this.#onDragStart_bound);
-    this.#drag.onEnd(this.#onDragEnd_bound);
+    this.#drag.on('mdwdragmove', this.#onDrag_bound);
+    this.#drag.on('mdwdragstart', this.#onDragStart_bound);
+    this.#drag.on('mdwdragend', this.#onDragEnd_bound);
   }
 
   #onPageScroll() {
