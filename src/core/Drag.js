@@ -237,7 +237,7 @@ export default class Drag {
     const dragEvent = this.#track(event, 'mdwdragmove');
 
     // TODO do i need to always call preventDefault
-    if (this.#lockScrollY) {
+    if (this.#lockScrollY && !this.#isOverflowDragging && !this.#isSnapped) {
       if (Math.abs(dragEvent.distanceX) > this.#lockScrollThreshold) {
         util.lockPageScroll();
         // might not have a real event passed in on overscroll or snap

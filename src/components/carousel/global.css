@@ -1,11 +1,22 @@
 mdw-carousel {
-  --mdw-carousel-item-full-width: 0;
   display: flex;
   background-color: var(--mdw-surface);
   margin: 8px 16px;
   min-height: 80px;
   overflow-x: auto;
   border-radius: var(--mdw-shape-extra-large);
+  opacity: 0;
+}
+
+mdw-carousel::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+}
+
+mdw-carousel.mdw-loaded {
+  opacity: 1;
+  transition: opacity 240ms;
 }
 
 mdw-carousel .mdw-carousel-front-padding,
@@ -14,6 +25,7 @@ mdw-carousel .mdw-carousel-back-padding {
 }
 
 mdw-carousel-item {
+  --mdw-carousel-item-text-opacity: 0;
   position: relative;
   display: flex;
   flex-shrink: 0;
@@ -36,7 +48,6 @@ mdw-carousel-item:last-of-type {
 
 mdw-carousel-item img {
   height: 100%;
-  /* z-index: 0; */
 }
 
 mdw-carousel-item .mdw-text {
@@ -47,10 +58,7 @@ mdw-carousel-item .mdw-text {
   left: -14px;
   padding-left: 28px;
   box-sizing: border-box;
-  opacity: calc(clamp(var(--mdw-carousel-item-full-width), 0, 40) / 40);
+  opacity: var(--mdw-carousel-item-text-opacity);
+  color: var(--mdw-on-surface-inverse);
+  text-shadow: 1px 1px 6px var(--mdw-shadow);
 }
-
-mdw-carousel-item .mdw-text > * {
-  width: var(--mdw-carousel-item-full-width);
-}
-
