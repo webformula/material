@@ -25,6 +25,7 @@ export default class Drag {
   #pageContent;
   #hasScrollSnapPositions = false;
   #isSnapped = false;
+  #isSnapping = false;
   #scrollSnapPositions;
   #isOverflowDragging = false;
   #overflowDrag = false;
@@ -178,6 +179,7 @@ export default class Drag {
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
 
     this.#isSnapped = false;
+    this.#isSnapping = false;
     this.#isOverflowDragging = false;
     this.#abortDrag = new AbortController();
     this.#resetTrack(event);
@@ -219,6 +221,7 @@ export default class Drag {
     if (this.#hasScrollSnapPositions && !this.#isSnapped) {
       this.#snap(event);
     } else {
+      this.#isSnapping = false;
       this.trigger(event);
     }
   }
@@ -334,6 +337,7 @@ export default class Drag {
   }
 
   #snap(event) {
+    this.#isSnapping = true;
     const nextScrollLeft = this.element.scrollLeft;
     const nextScrollTop = this.element.scrollTop;
     const directionPercent = event.directionX === 1 ? 0.76 : 0.24; // preference towards the next element
@@ -368,13 +372,9 @@ export default class Drag {
     });
   }
 
-  // #distance(x, y, target) {
-  //   const diffX = x - target.x;
-  //   const diffY = y - target.y;
-  //   return diffX * diffX + diffY * diffY;
-  // }
-
   #snapMove(target, lastEvent, previousDirectionX, previousDirectionY) {
+    if (!this.#isSnapping) return;
+
     const diffX = target.x - this.element.scrollLeft;
     const diffY = target.y - this.element.scrollTop;
     const isBounceBackX = (previousDirectionX < 0 && diffX < 0) || (previousDirectionX > 0 && diffX > 0);

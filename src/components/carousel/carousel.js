@@ -83,13 +83,28 @@ export default class MDWCarouselElement extends HTMLElementExtended {
   #calculateLayout() {
     switch(this.#strategy) {
       case 'multi-browse':
-        this.#calculateLayoutMultiBrowse();
+        this.#calculateLayoutRunner({
+          minWidth: 40,
+          maxWidth: this.offsetWidth - 40 + 8,
+          useOpacity: true,
+          snapOffset: 0
+        });
         break;
       case 'hero-start':
-        this.#calculateLayoutHeroStart();
+        this.#calculateLayoutRunner({
+          minWidth: 56,
+          maxWidth: this.offsetWidth - 56 + 8,
+          useOpacity: false,
+          snapOffset: 0
+        });
         break;
       case 'hero-center':
-        this.#calculateLayoutHeroCenter();
+        this.#calculateLayoutRunner({
+          minWidth: 56,
+          maxWidth: this.offsetWidth - ((56 + 8) * 2),
+          useOpacity: false,
+          snapOffset: 56 + 8
+        });
         if (!this.#hasDragged) this.scrollToItem(Math.floor(this.querySelectorAll('mdw-carousel-item').length / 2), false);
         break;
     }
@@ -100,206 +115,75 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     }
   }
 
-  #calculateLayoutMultiBrowse() {
+  #calculateLayoutRunner({
+    minWidth,
+    maxWidth,
+    useOpacity,
+    snapOffset
+  }) {
     const gap = 8;
-    const minWidth = 40;
     const minWidthGap = minWidth + gap;
     const opacityWidth = (minWidth * 2) - gap;
     const displayWidth = this.offsetWidth;
     const scrollLeft = this.scrollLeft;
+    const scrollSnapPositions = [];
     const bounds = this.getBoundingClientRect();
     const itemElements = [...this.querySelectorAll('mdw-carousel-item')];
-    const scrollSnapPositions = [];
+
     let totalWidth = 0;
     let totalAdjustedWidth = 0;
     let scrollLeftPadding = 0;
-    let isFirstItem = false;
+    let pastFirstItem = false;
     let leftOverSpace;
 
     for (const [index, itemElement] of itemElements.entries()) {
-      const maxItemWidth = this.offsetWidth - minWidthGap;
       const itemBounds = itemElement.getBoundingClientRect();
-      const itemWidth = Math.max(minWidth, Math.min(maxItemWidth, itemElement.width || 0));
-      let adjustWidth = minWidth;
+      const itemWidth = Math.max(minWidth, Math.min(maxWidth, itemElement.width || 0));
       const itemWidthAndGap = itemWidth + gap;
-      this.#itemScrollPositions[index] = totalWidth;
-      scrollSnapPositions.push(totalWidth);
+      this.#itemScrollPositions[index] = index === 0 ? 0 : totalWidth - snapOffset;
+      scrollSnapPositions.push(index === 0 ? 0 : totalWidth - snapOffset);
       totalWidth += itemWidthAndGap;
       const itemScrollDistance = Math.max(0, totalWidth - scrollLeft);
+      const isFirstItem = itemScrollDistance > 0 && itemScrollDistance <= itemWidthAndGap;
+      const isVisible = itemBounds.left < bounds.right;
+      const lastItem = index === itemElements.length - 1;
+      let adjustWidth = minWidth;
       let opacity = 0;
       let textOpacity = 0;
 
-      if (itemScrollDistance > 0 && itemScrollDistance <= itemWidthAndGap) {
-        isFirstItem = true;
+      if (isFirstItem) {
+        pastFirstItem = true;
         leftOverSpace = displayWidth - itemScrollDistance;
-        const percent = Math.max(0, itemScrollDistance - minWidth) / (itemWidthAndGap - minWidth);
-        adjustWidth = Math.min(itemWidth, ((itemWidth - minWidth) * percent) + minWidth);
-        
-        // adjust scroll padding for current first item
+        const adjustPercent = Math.max(0, itemScrollDistance - minWidth) / (itemWidthAndGap - minWidth);
+        adjustWidth = Math.min(itemWidth, ((itemWidth - minWidth) * adjustPercent) + minWidth);
         scrollLeftPadding += itemWidth - adjustWidth;
-        opacity = (opacityWidth - Math.max(0, scrollLeft - totalWidth + opacityWidth)) / opacityWidth;
+        if (useOpacity) opacity = (opacityWidth - Math.max(0, scrollLeft - totalWidth + opacityWidth)) / opacityWidth;
         textOpacity = (opacityWidth - Math.max(0, scrollLeft - totalWidth + opacityWidth + (itemWidth / 3))) / opacityWidth;
-        
-      } else if (!isFirstItem) { // before first item
-        adjustWidth = minWidth;
+
+      } else if (!pastFirstItem) { // before first
         scrollLeftPadding += itemWidth - minWidth;
-        
-      } else if (itemBounds.left < bounds.right - minWidth) { // visible items after first
-        opacity = Math.min(1, (bounds.right - itemBounds.left) / opacityWidth);
+
+      } else if (isVisible && lastItem) { // last item is visible
+        adjustWidth = Math.min(itemWidth, Math.max(minWidth, leftOverSpace));
+        if (useOpacity) opacity = Math.min(1, (bounds.right - itemBounds.left) / opacityWidth);
         textOpacity = Math.min(1, (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth);
 
-        if (index === itemElements.length - 1) { // last item
-          adjustWidth = Math.min(itemWidth, Math.max(minWidth, leftOverSpace));
-        } else {
-          const tamperWidth = this.offsetWidth - minWidthGap - minWidth;
-          const left = Math.max(0, itemBounds.left - bounds.left - minWidthGap);
-          const tamperPercent = (left / tamperWidth);
-          const temperOffset = Math.ceil(tamperPercent * (itemWidth / 2));
-          adjustWidth = Math.min(leftOverSpace, itemWidth - temperOffset);
-          leftOverSpace -= (adjustWidth + gap);
-        }
-      } else if (itemBounds.left < bounds.right) {
-        opacity = (bounds.right - itemBounds.left) / opacityWidth;
-        textOpacity = (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth;
+      } else if (isVisible) { // visible
+        const tamperWidth = this.offsetWidth - minWidthGap - minWidth;
+        const left = Math.max(0, itemBounds.left - bounds.left - minWidthGap);
+        const tamperPercent = (left / tamperWidth);
+        const temperOffset = Math.ceil(tamperPercent * (itemWidth / 2));
+        adjustWidth = Math.min(leftOverSpace, itemWidth - temperOffset);
+        leftOverSpace -= (adjustWidth + gap);
+
+        if (useOpacity) opacity = Math.min(1, (bounds.right - itemBounds.left) / opacityWidth);
+        textOpacity = Math.min(1, (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth);
       }
 
       totalAdjustedWidth += adjustWidth + gap;
       itemElement.style.flexBasis = `${adjustWidth}px`;
       itemElement.style.width = `${adjustWidth}px`;
-      itemElement.style.opacity = opacity;
-      itemElement.style.setProperty('--mdw-carousel-item-text-opacity', textOpacity);
-    }
-
-    this.querySelector('.mdw-carousel-front-padding').style.width = `${scrollLeftPadding}px`;
-    this.querySelector('.mdw-carousel-back-padding').style.width = `${totalWidth - (totalAdjustedWidth + scrollLeftPadding)}px`;
-    this.#drag.scrollSnapPositions = scrollSnapPositions.map(x => ({ x }));
-  }
-
-  #calculateLayoutHeroStart() {
-    const gap = 8;
-    const minWidth = 56;
-    const minWidthGap = minWidth + gap;
-    const displayWidth = this.offsetWidth;
-    const maxWidth = this.offsetWidth - minWidthGap;
-    const maxWidthGap = maxWidth + gap;
-    const scrollLeft = this.scrollLeft;
-    const bounds = this.getBoundingClientRect();
-    const itemElements = [...this.querySelectorAll('mdw-carousel-item')];
-    const scrollSnapPositions = [];
-    const opacityWidth = (minWidth * 2) - gap;
-    let isFirstItem = false;
-    let totalWidth = 0;
-    let scrollLeftPadding = 0;
-    let totalAdjustedWidth = 0;
-    let leftOverSpace;
-
-    for (const [index, itemElement] of itemElements.entries()) {
-      let adjustWidth = minWidth;
-      const itemWidth = maxWidth;
-      const itemBounds = itemElement.getBoundingClientRect();
-      const itemWidthAndGap = maxWidthGap;
-      this.#itemScrollPositions[index] = totalWidth;
-      scrollSnapPositions.push(totalWidth);
-      totalWidth += itemWidthAndGap;
-      const itemScrollDistance = Math.max(0, totalWidth - scrollLeft);
-      let textOpacity = 0;
-
-      if (itemScrollDistance > 0 && itemScrollDistance <= itemWidthAndGap) {
-        isFirstItem = true;
-        leftOverSpace = displayWidth - itemScrollDistance;
-        const percent = Math.max(0, itemScrollDistance - minWidth) / (itemWidth - minWidth);
-        adjustWidth = Math.min(itemWidth, ((itemWidth - minWidth) * percent) + minWidth);
-        textOpacity = (opacityWidth - Math.max(0, scrollLeft - totalWidth + opacityWidth + (itemWidth / 3))) / opacityWidth;
-
-        // adjust scroll padding for current first item
-        scrollLeftPadding += itemWidth - adjustWidth;
-
-      } else if (!isFirstItem) { // before first item
-        adjustWidth = minWidth;
-        scrollLeftPadding += itemWidth - minWidth;
-        textOpacity = Math.min(1, (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth);
-
-      } else if (itemBounds.left < bounds.right - minWidth) {
-        if (index === itemElements.length - 1) { // last item
-          adjustWidth = Math.min(itemWidth, Math.max(minWidth, leftOverSpace));
-        } else {
-          adjustWidth = Math.min(leftOverSpace, itemWidth);
-          leftOverSpace -= (adjustWidth + gap);
-        }
-      } else if (itemBounds.left < bounds.right) {
-        textOpacity = (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth;
-      }
-
-      totalAdjustedWidth += adjustWidth + gap;
-      itemElement.style.flexBasis = `${adjustWidth}px`;
-      itemElement.style.width = `${adjustWidth}px`;
-      itemElement.style.setProperty('--mdw-carousel-item-text-opacity', textOpacity);
-    }
-
-    this.querySelector('.mdw-carousel-front-padding').style.width = `${scrollLeftPadding}px`;
-    this.querySelector('.mdw-carousel-back-padding').style.width = `${totalWidth - (totalAdjustedWidth + scrollLeftPadding)}px`;
-    this.#drag.scrollSnapPositions = scrollSnapPositions.map(x => ({ x }));
-  }
-
-  // TODO scroll snap is not working correctly
-  #calculateLayoutHeroCenter() {
-    const gap = 8;
-    const minWidth = 56;
-    const minWidthGap = minWidth + gap;
-    const displayWidth = this.offsetWidth;
-    const maxWidth = this.offsetWidth - (minWidthGap * 2);
-    const maxWidthGap = maxWidth + gap;
-    const scrollLeft = this.scrollLeft;
-    const bounds = this.getBoundingClientRect();
-    const itemElements = [...this.querySelectorAll('mdw-carousel-item')];
-    const scrollSnapPositions = [];
-    const opacityWidth = (minWidth * 2) - gap;
-    let isFirstItem = false;
-    let totalWidth = 0;
-    let scrollLeftPadding = 0;
-    let totalAdjustedWidth = 0;
-    let leftOverSpace;
-    
-    for (const [index, itemElement] of itemElements.entries()) {
-      let adjustWidth = minWidth;
-      const itemWidth = maxWidth;
-      const itemBounds = itemElement.getBoundingClientRect();
-      const itemWidthAndGap = maxWidthGap;
-      this.#itemScrollPositions[index] = index === 0 ? totalWidth : totalWidth - minWidthGap;
-      scrollSnapPositions.push(index === 0 ? 0 : totalWidth - minWidthGap);
-      totalWidth += itemWidthAndGap;
-      const itemScrollDistance = Math.max(0, totalWidth - scrollLeft);
-      let textOpacity = 0;
-
-      if (itemScrollDistance > 0 && itemScrollDistance <= itemWidthAndGap) {
-        isFirstItem = true;
-        leftOverSpace = displayWidth - itemScrollDistance;
-        const percent = Math.max(0, itemScrollDistance - minWidth) / (itemWidth - minWidth);
-        adjustWidth = Math.min(itemWidth, ((itemWidth - minWidth) * percent) + minWidth);
-        textOpacity = (opacityWidth - Math.max(0, scrollLeft - totalWidth + opacityWidth + (itemWidth / 3))) / opacityWidth;
-
-        // adjust scroll padding for current first item
-        scrollLeftPadding += itemWidth - adjustWidth;
-
-      } else if (!isFirstItem) { // before first item
-        adjustWidth = minWidth;
-        scrollLeftPadding += itemWidth - minWidth;
-        textOpacity = Math.min(1, (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth);
-
-      } else if (itemBounds.left < bounds.right - minWidth) {
-        if (index === itemElements.length - 1) { // last item
-          adjustWidth = Math.min(itemWidth, Math.max(minWidth, leftOverSpace));
-        } else {
-          adjustWidth = Math.min(leftOverSpace, itemWidth);
-          leftOverSpace -= (adjustWidth + gap);
-        }
-      } else if (itemBounds.left < bounds.right) {
-        textOpacity = (bounds.right - itemBounds.left - (minWidth / 2)) / opacityWidth;
-      }
-
-      totalAdjustedWidth += adjustWidth + gap;
-      itemElement.style.flexBasis = `${adjustWidth}px`;
-      itemElement.style.width = `${adjustWidth}px`;
+      if (useOpacity) itemElement.style.opacity = opacity;
       itemElement.style.setProperty('--mdw-carousel-item-text-opacity', textOpacity);
     }
 
