@@ -48,7 +48,7 @@ mdw-chip-group > mdw-chip .mdw-select-arrow {
   margin-right: -4px;
   transform-origin: center;
   transform: rotate(-180deg);
-  transition: transform 180ms;
+  transition: transform var(--mdw-motion-duration-short3);
   pointer-events: none;
 }
 

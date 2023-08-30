@@ -61,3 +61,15 @@ mdw-snackbar .mdw-icon-svg > svg {
 mdw-divider {
   border-bottom: 1px solid var(--mdw-outline-variant);
 }
+
+body {
+  --mdw-motion-easing: var(--mdw-motion-easing-standard);
+  --mdw-motion-easing-accelerate: var(--mdw-motion-easing-standard-accelerate);
+  --mdw-motion-easing-decelerate: var(--mdw-motion-easing-standard-decelerate);
+}
+/* TODO document this */
+body.mdw-motion-emphasized {
+  --mdw-motion-easing: var(--mdw-motion-easing-emphasized);
+  --mdw-motion-easing-accelerate: var(--mdw-motion-easing-emphasized-accelerate);
+  --mdw-motion-easing-decelerate: var(--mdw-motion-easing-emphasized-decelerate);
+}

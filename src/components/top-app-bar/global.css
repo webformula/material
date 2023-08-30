@@ -16,7 +16,7 @@ mdw-top-app-bar {
 
 mdw-top-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled {
   background-color: var(--mdw-surface-container);
-  transition: background-color 80ms linear;
+  transition: background-color var(--mdw-motion-duration-short2) linear;
 }
 
 mdw-top-app-bar > mdw-navigation-button {
@@ -133,14 +133,14 @@ mdw-top-app-bar.mdw-large:not(.mdw-auto-hide).mdw-auto-shrink > .mdw-headline {
 body.mdw-has-navigation mdw-top-app-bar {
   margin-left: var(--mdw-navigation-drawer-width);
   transition: margin-left 0ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 body.mdw-has-navigation-rail:not(.mdw-has-navigation) mdw-top-app-bar,
 body.mdw-has-navigation-rail.mdw-navigation-state-hide mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
   transition: margin-left 0ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 body.mdw-navigation-state-hide:not(.mdw-has-navigation-rail) mdw-top-app-bar,
@@ -148,15 +148,15 @@ body.mdw-window-compact mdw-top-app-bar,
 body.mdw-window-medium mdw-top-app-bar,
 body.mdw-has-navigation-rail.mdw-navigation-state-hide.mdw-window-compact.mdw-has-bottom-app-bar mdw-top-app-bar {
   margin-left: 0;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
   transition: margin-left 0ms;
 }
 
 body.mdw-has-navigation-rail.mdw-window-medium mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 mdw-top-app-bar {
-  transition-duration: 180ms;
+  transition-duration: var(--mdw-motion-duration-short4);
 }

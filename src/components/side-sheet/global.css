@@ -22,9 +22,13 @@ mdw-navigation {
 
   width: var(--mdw-side-sheet-width);
   transform: translateX(0);
-  transition: transform 180ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+
+  transition: transform var(--mdw-motion-duration-medium2);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
+
+
+
 mdw-side-sheet.mdw-left,
 mdw-navigation.mdw-left {
   right: unset;
@@ -95,13 +99,13 @@ mdw-navigation.mdw-swipe-back-from-right.mdw-left::after {
 
 mdw-side-sheet.mdw-swipe-back-animate-out,
 mdw-navigation.mdw-swipe-back-animate-out {
-  transition: transform 60ms, right 60ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: transform var(--mdw-motion-duration-short1), right var(--mdw-motion-duration-short1);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 mdw-side-sheet.mdw-swipe-back-animate-out.mdw-left,
 mdw-navigation.mdw-swipe-back-animate-out.mdw-left {
-  transition: transform 60ms, left 60ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: transform var(--mdw-motion-duration-short1), left var(--mdw-motion-duration-short1);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 mdw-side-sheet.mdw-modal,
@@ -129,8 +133,8 @@ mdw-side-sheet.mdw-window-state-hide,
 mdw-navigation.mdw-window-state-hide {
   pointer-events: none;
   transform: translateX(var(--mdw-side-sheet-width));
-  transition: transform 180ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: transform var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 mdw-side-sheet.mdw-modal.mdw-hide,
@@ -145,8 +149,8 @@ mdw-side-sheet + .mdw-side-sheet-placeholder,
 mdw-navigation + .mdw-side-sheet-placeholder {
   width: var(--mdw-side-sheet-width);
   flex-shrink: 0;
-  transition: width 180ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition: width var(--mdw-motion-duration-medium2);
+  transition-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-side-sheet.mdw-hide + .mdw-side-sheet-placeholder,
@@ -156,8 +160,8 @@ mdw-navigation.mdw-hide + .mdw-side-sheet-placeholder,
 mdw-navigation.mdw-window-state-hide + .mdw-side-sheet-placeholder,
 mdw-navigation.mdw-modal + .mdw-side-sheet-placeholder {
   width: 0;
-  transition: width 180ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: width var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 mdw-side-sheet.mdw-left.mdw-hide,

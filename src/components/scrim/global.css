@@ -2,7 +2,8 @@ mdw-scrim {
   position: fixed;
   z-index: 11;
   opacity: 0;
-  transition: opacity 240ms;
+  transition: opacity var(--mdw-motion-duration-short4);
+  transition-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-scrim.mdw-show {

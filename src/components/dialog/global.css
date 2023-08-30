@@ -1,37 +1,12 @@
-mdw-dialog {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
+mdw-dialog.mdw-panel {
   min-width: 280px;
   max-width: 560px;
   max-height: calc(100% - 84px);
   padding: 24px;
-  box-sizing: border-box;
-  z-index: 11;
-  left: 50%;
-  top: 50%;
-  pointer-events: none;
-
   border-radius: var(--mdw-shape-extra-large);
   background-color: var(--mdw-surface-container-high);
   box-shadow: var(--mdw-elevation-3);
-
-  opacity: 0;
-  transform: translate(-50%, calc(-50% - 120px));
-
-  transition: opacity 120ms, transform 280ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
-
   overflow: auto;
-}
-
-mdw-dialog[open] {
-  opacity: 1;
-  transform: translate(-50%, -50%);
-  pointer-events: all;
-
-  transition: opacity 120ms, transform 280ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
 }
 
 mdw-dialog > .mdw-content {

@@ -22,7 +22,7 @@
 
 :host(.mdw-indeterminate) .indicator {
   width: 100%;
-  transition: all 0.2s linear;
+  transition: all var(--mdw-motion-duration-medium1) linear;
   animation: mdw-progress-linear-indeterminate .8s infinite cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
 

@@ -38,7 +38,7 @@
   transition: opacity 0ms;
 }
 :host(.mdw-animation)::after {
-  transition-duration: 180ms;
+  transition-duration: var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-checkbox)::after {

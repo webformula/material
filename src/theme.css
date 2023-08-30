@@ -99,7 +99,6 @@ html:not(.mdw-initiated) body {
   --mdw-state-layer-opacity-focus: 0.12;
   --mdw-state-layer-opacity-pressed: 0.12;
   --mdw-state-layer-opacity-dragged: 0.16;
-  --mdw-shape-no-rounding: 0;
   --mdw-shape-extra-small: 4px;
   --mdw-shape-extra-small-top: 4px 4px 0 0;
   --mdw-shape-small: 8px;
@@ -111,13 +110,9 @@ html:not(.mdw-initiated) body {
   --mdw-shape-extra-large-top: 28px 28px 0 0;
   --mdw-shape-full: 50%;
   --mdw-navigation-rail-width: 88px;
-  --mdw-button-radius: 20px;
   --mdw-navigation-drawer-width: 360px;
   --mdw-card-group-columns: 4;
   --mdw-side-sheet-width: 296px;
-  --mdw-transition-expand-in: cubic-bezier(.13, 1.02, .25, .95);
-  --mdw-transition-expand-out: cubic-bezier(0.550, 0.085, 0.680, 0.530);
-  --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
   --mdw-bottom-sheet-initial-position: 40%;
   --mdw-bottom-sheet-minimized-position: 64px;
 
@@ -193,6 +188,33 @@ html:not(.mdw-initiated) body {
   --mdw-font-body-line-height-small: 1rem;
   --mdw-font-body-weight-small: 400;
   --mdw-font-body-letter-spacing-small: 0.025rem;
+
+
+  /* --- Motion --- */
+  --mdw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --mdw-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --mdw-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --mdw-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --mdw-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --mdw-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
+
+  --mdw-motion-duration-short1: 50ms;
+  --mdw-motion-duration-short2: 100ms;
+  --mdw-motion-duration-short3: 150ms;
+  --mdw-motion-duration-short4: 200ms;
+  --mdw-motion-duration-medium1: 250ms;
+  --mdw-motion-duration-medium2: 300ms;
+  --mdw-motion-duration-medium3: 350ms;
+  --mdw-motion-duration-medium4: 400ms;
+  --mdw-motion-duration-long1: 450ms;
+  --mdw-motion-duration-long2: 500ms;
+  --mdw-motion-duration-long3: 550ms;
+  --mdw-motion-duration-long4: 600ms;
+  --mdw-motion-duration-extra-long1: 700ms;
+  --mdw-motion-duration-extra-long2: 800ms;
+  --mdw-motion-duration-extra-long3: 900ms;
+  --mdw-motion-duration-extra-long4: 1000ms;
 }
 
 

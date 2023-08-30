@@ -25,8 +25,8 @@ mdw-panel,
   /* kick off screen so pointer events to hit */
   transform: translateY(10000px);
 
-  animation: mdw-panel-hide 280ms;
-  animation-timing-function: var(--mdw-transition-expand-out);
+  animation: mdw-panel-hide var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 /* mdw-panel:not([open]),
@@ -42,7 +42,7 @@ mdw-panel.mdw-animating::-webkit-scrollbar,
 mdw-panel.mdw-target,
 .mdw-panel.mdw-target {
   /* transform: translateY(-120px); */
-  animation: mdw-panel-hide-target 280ms;
+  animation: mdw-panel-hide-target var(--mdw-motion-duration-long2);
 }
 
 
@@ -53,28 +53,28 @@ mdw-panel[open],
   transform: translate(-50%, -50%);
   pointer-events: all;
 
-  animation: mdw-panel-show 280ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-panel-show var(--mdw-motion-duration-long2);
+  animation-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 mdw-panel[open].mdw-target,
 .mdw-panel[open].mdw-target {
   transform: translateY(0);
-  animation: mdw-panel-show-target 280ms;
+  animation: mdw-panel-show-target var(--mdw-motion-duration-long2);
 }
 
 mdw-panel.mdw-animation-scale,
 mdw-panel.mdw-animation-scale.mdw-target,
 .mdw-panel.mdw-animation-scale,
 .mdw-panel.mdw-animation-scale.mdw-target {
-  animation: mdw-panel-hide-scale 180ms;
+  animation: mdw-panel-hide-scale var(--mdw-motion-duration-short3);
 }
 
 mdw-panel[open].mdw-animation-scale,
 mdw-panel[open].mdw-animation-scale.mdw-target,
 .mdw-panel[open].mdw-animation-scale,
 .mdw-panel[open].mdw-animation-scale.mdw-target {
-  animation: mdw-panel-show-scale 180ms;
+  animation: mdw-panel-show-scale var(--mdw-motion-duration-long2);
 }
 
 /** have to use transition for max-height because it can be set from more than one place
@@ -85,30 +85,30 @@ mdw-panel:not([open]).mdw-animation-expand.mdw-target,
 .mdw-panel:not([open]).mdw-animation-expand,
 .mdw-panel:not([open]).mdw-animation-expand.mdw-target {
   max-height: 12px;
-  transition: max-height 100ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
-  animation: mdw-panel-hide-expand 180ms;
+  transition: max-height var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
+  animation: mdw-panel-hide-expand var(--mdw-motion-duration-short3);
 }
 
 mdw-panel[open].mdw-animation-expand,
 mdw-panel[open].mdw-animation-expand.mdw-target,
 .mdw-panel[open].mdw-animation-expand,
 .mdw-panel[open].mdw-animation-expand.mdw-target {
-  animation: mdw-panel-show-expand 180ms;
+  animation: mdw-panel-show-expand var(--mdw-motion-duration-short4);
 }
 
 mdw-panel:not([open]).mdw-animation-transitionYReverse,
 mdw-panel:not([open]).mdw-animation-transitionYReverse.mdw-target,
 .mdw-panel:not([open]).mdw-animation-transitionYReverse,
 .mdw-panel:not([open]).mdw-animation-transitionYReverse.mdw-target {
-  animation: mdw-panel-hide-transitionYReverse 180ms;
+  animation: mdw-panel-hide-transitionYReverse var(--mdw-motion-duration-short3);
 }
 
 mdw-panel[open].mdw-animation-transitionYReverse,
 mdw-panel[open].mdw-animation-transitionYReverse.mdw-target,
 .mdw-panel[open].mdw-animation-transitionYReverse,
 .mdw-panel[open].mdw-animation-transitionYReverse.mdw-target {
-  animation: mdw-panel-show-transitionYReverse 180ms;
+  animation: mdw-panel-show-transitionYReverse var(--mdw-motion-duration-long2);
 }
 
 
@@ -117,7 +117,7 @@ mdw-panel:not([open]).mdw-animation-opacity.mdw-target,
 .mdw-panel:not([open]).mdw-animation-opacity,
 .mdw-panel:not([open]).mdw-animation-opacity.mdw-target {
   transition-timing-function: linear;
-  animation: mdw-panel-hide-opacity 80ms;
+  animation: mdw-panel-hide-opacity var(--mdw-motion-duration-short3);
 }
 
 mdw-panel[open].mdw-animation-opacity,
@@ -125,7 +125,7 @@ mdw-panel[open].mdw-animation-opacity.mdw-target,
 .mdw-panel[open].mdw-animation-opacity,
 .mdw-panel[open].mdw-animation-opacity.mdw-target {
   transition-timing-function: linear;
-  animation: mdw-panel-show-opacity 80ms;
+  animation: mdw-panel-show-opacity var(--mdw-motion-duration-short4);
 }
 
 mdw-panel.mdw-no-animation,

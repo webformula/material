@@ -30,7 +30,7 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
   pointer-events: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
@@ -42,7 +42,7 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
 
   pointer-events: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
@@ -66,7 +66,7 @@ mdw-bottom-app-bar {
 }
 
 body.mdw-animation mdw-bottom-app-bar {
-  transition-duration: 180ms;
+  transition-duration: var(--mdw-motion-duration-short3);
 }
 
 body.mdw-window-expanded.mdw-navigation-state-show mdw-bottom-app-bar {
@@ -77,7 +77,7 @@ mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button,
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-show mdw-button.mdw-icon-button,
 mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show mdw-button.mdw-icon-button {
   transform: translateY(0);
-  transition: transform 180ms 50ms;
+  transition: transform var(--mdw-motion-duration-short3) 50ms;
 }
 
 mdw-bottom-app-bar.mdw-auto-hide > mdw-button.mdw-icon-button:nth-child(2),
@@ -117,14 +117,13 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show-animation-start mdw-b
   transition: transform;
   transition-duration: 0ms;
   transition-delay: 0ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
 }
 
 mdw-bottom-app-bar mdw-fab {
   position: fixed;
   bottom: 12px;
   right: 16px;
-  transition: bottom 180ms;
+  transition: bottom var(--mdw-motion-duration-short3);
 }
 
 mdw-bottom-app-bar.mdw-auto-hide mdw-fab {

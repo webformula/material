@@ -97,7 +97,7 @@ mdw-anchor[group] .mdw-group-arrow {
 }
 
 mdw-anchor.mdw-animation[group] .mdw-group-arrow {
-  transition-duration: 120ms;
+  transition-duration: var(--mdw-motion-duration-short3);
 }
 
 mdw-anchor[group].mdw-open .mdw-group-arrow {

@@ -60,8 +60,9 @@
   border-radius: 2px;
 
   transition:
-    border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),
-    background-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+    border-color var(--mdw-motion-duration-short2),
+    background-color var(--mdw-motion-duration-short2);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 :host > .background::before {
@@ -74,19 +75,19 @@
   border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host(:focus) > .background::before {
   opacity: var(--mdw-state-layer-opacity-focus);
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short3);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
   :host(:hover) > .background::before {
     opacity: var(--mdw-state-layer-opacity-focus);
-    transition: opacity 180ms;
+    transition: opacity var(--mdw-motion-duration-short3);
   }
 }
 
@@ -125,7 +126,7 @@
   stroke-width: 3px;
 
   stroke: var(--mdw-on-primary);
-  animation: uncheck 90ms;
+  animation: uncheck var(--mdw-motion-duration-short2);
 }
 
 :host(.mdw-error) > .background > svg > path {
@@ -134,7 +135,7 @@
 
 :host(.mdw-checked:not(.mdw-indeterminate)) > .background > svg > path {
   stroke-dashoffset: 0;
-  animation: check 180ms;
+  animation: check var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-no-animation) > .background > svg > path {
@@ -153,12 +154,12 @@
   background-color: var(--mdw-on-primary);
   pointer-events: none;
 
-  transition: width 90ms;
+  transition: width var(--mdw-motion-duration-short2);
 }
 
 :host(.mdw-indeterminate) > .background > .indeterminate-check {
   width: 8px;
-  transition: width 180ms;
+  transition: width var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-indeterminate.mdw-error) > .background > .indeterminate-check {
@@ -174,7 +175,7 @@
   }
 
   50% {
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1);
+    animation-timing-function: var(--mdw-motion-easing-decelerate);
   }
 
   100% {
@@ -184,7 +185,7 @@
 
 @keyframes uncheck {
   from {
-    animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    animation-timing-function: var(--mdw-motion-easing-accelerate);
     stroke-dashoffset: 0
   }
 

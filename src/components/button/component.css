@@ -15,7 +15,7 @@
   padding: 0 16px;
   height: 40px;
   line-height: 40px;
-  border-radius: var(--mdw-button-radius);
+  border-radius: var(--mdw-shape-extra-large);
 
   color: var(--mdw-primary);
 }
@@ -68,7 +68,7 @@
   bottom: 0;
   right: 0;
   opacity: 0;
-  border-radius: var(--mdw-button-radius);
+  border-radius: var(--mdw-shape-extra-large);
 }
 :host(:focus)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
@@ -121,7 +121,7 @@
 }
 :host(.mdw-animation.mdw-icon-button) ::slotted(mdw-icon),
 :host(.mdw-animation.mdw-icon-toggle-button) ::slotted(mdw-icon) {
-  transition-duration: 60ms;
+  transition-duration: var(--mdw-motion-duration-short1);
 }
 
 :host(:not(.mdw-icon-toggle-button):not(.mdw-icon-button)) ::slotted([value]) {
@@ -137,7 +137,7 @@
 }
 :host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="on"]),
 :host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="off"]) {
-  transition-duration: 180ms;
+  transition-duration: var(--mdw-motion-duration-short4);
 }
 
 :host(.mdw-icon-toggle-button) ::slotted([value="on"]) {

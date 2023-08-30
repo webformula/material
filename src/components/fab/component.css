@@ -47,21 +47,21 @@
 }
 
 :host(.mdw-has-label) {
-  transition: max-width 0ms, color 00ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition: max-width 0ms, color 0ms;
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 :host(.mdw-animation.mdw-has-label) {
-  transition-duration: 1600ms, 120ms;
+  transition-duration: var(--mdw-motion-duration-extra-long4), var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-hide-label.mdw-has-label) {
   transition:
     max-width 0ms,
     color 0ms 380ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 :host(.mdw-animation.mdw-hide-label.mdw-has-label) {
-  transition-duration: 600ms, 120ms;
+  transition-duration: var(--mdw-motion-duration-long4), var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-hide-label.mdw-has-label) {

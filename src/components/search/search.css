@@ -182,17 +182,17 @@
 
   pointer-events: none;
   opacity: 0;
-  transition: opacity 20ms;
+  transition: opacity var(--mdw-motion-duration-short1);
 }
 
 :host(.mdw-open) slot[name=filters] {
   opacity: 1;
   pointer-events: all;
-  transition: opacity 80ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host slot[name=filters]::slotted(mdw-chip-group) {
-  padding: 8px 16px;
+  padding: 8px 16px !important;
 }
 
 
@@ -207,8 +207,8 @@
   --mdw-search-fullscreen-width: 0;
   --mdw-search-fullscreen-height: 0;
 
-  animation: mdw-search-fullscreen-close 120ms;
-  animation-timing-function: var(--mdw-transition-expand-out);
+  animation: mdw-search-fullscreen-close var(--mdw-motion-duration-short4);
+  animation-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 :host(.mdw-fullscreen.mdw-open) {
@@ -221,8 +221,8 @@
   border-radius: 0;
   overflow: auto;
 
-  animation: mdw-search-fullscreen-open 200ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-search-fullscreen-open var(--mdw-motion-duration-long2);
+  animation-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 :host(.mdw-fullscreen.mdw-open) .textfield {

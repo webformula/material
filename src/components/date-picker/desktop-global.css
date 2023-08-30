@@ -103,7 +103,7 @@ mdw-date-picker-desktop .mdw-month-days-container {
   justify-content: space-between;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short3);
 }
 
 mdw-date-picker-desktop.mdw-years-view .mdw-month-days-container,
@@ -222,7 +222,7 @@ mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container .mdw-day.m
 mdw-date-picker-desktop .mdw-actions {
   display: flex;
   opacity: 1;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short3);
 }
 
 mdw-date-picker-desktop.mdw-years-view .mdw-actions,
@@ -237,19 +237,23 @@ mdw-date-picker-desktop .mdw-actions > mdw-button:first-of-type {
 
 
 mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container.mdw-animation-next-to-active {
-  animation: mdw-month-next-to-active 180ms;
+  animation: mdw-month-next-to-active var(--mdw-motion-duration-short4);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container.mdw-animation-next-from-active {
-  animation: mdw-month-next-from-active 180ms;
+  animation: mdw-month-next-from-active var(--mdw-motion-duration-short4);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container.mdw-animation-previous-to-active {
-  animation: mdw-month-previous-to-active 180ms;
+  animation: mdw-month-previous-to-active var(--mdw-motion-duration-short4);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-date-picker-desktop .mdw-month-days-container .mdw-days-container.mdw-animation-previous-from-active {
-  animation: mdw-month-previous-from-active 180ms;
+  animation: mdw-month-previous-from-active var(--mdw-motion-duration-short4);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 
@@ -331,7 +335,7 @@ mdw-date-picker-desktop .mdw-months-container {
   flex-direction: column;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short3);
   background-color: var(--mdw-surface-container-high);
   border-radius: var(--mdw-shape-large);
 }
@@ -381,7 +385,7 @@ mdw-date-picker-desktop .mdw-years-container {
   flex-direction: column;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 120ms;
+  transition: opacity var(--mdw-motion-duration-short3);
   background-color: var(--mdw-surface-container-high);
   border-radius: var(--mdw-shape-large);
 }

@@ -19,7 +19,7 @@
 :host > svg > circle {
   fill: transparent;
   transform-origin: center;
-  transition: stroke-dashoffset 225ms linear;
+  transition: stroke-dashoffset var(--mdw-motion-duration-medium1) linear;
   stroke: var(--mdw-primary);
 }
 

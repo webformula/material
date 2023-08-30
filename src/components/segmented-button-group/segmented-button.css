@@ -31,11 +31,11 @@
 
 :host(:last-of-type) {
   border-right: 1px solid var(--mdw-outline);
-  border-radius: 0 var(--mdw-button-radius) var(--mdw-button-radius) 0;
+  border-radius: 0 var(--mdw-shape-extra-large) var(--mdw-shape-extra-large) 0;
 }
 
 :host(:first-of-type) {
-  border-radius: var(--mdw-button-radius) 0 0 var(--mdw-button-radius);
+  border-radius: var(--mdw-shape-extra-large) 0 0 var(--mdw-shape-extra-large);
 }
 
 :host(:hover)::after {
@@ -62,20 +62,20 @@
 
 :host(.mdw-selected-icon) .slot-container {
   transform: translateX(-10px);
-  transition: transform 180ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: transform var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing);
 }
 
 :host(.mdw-selected-icon.mdw-checked) .slot-container {
   transform: translateX(0);
-  transition: transform 220ms;
+  transition: transform var(--mdw-motion-duration-short4);
 }
 
 :host svg {
   margin-left: -32px;
   width: 32px;
-  transition: opacity 80ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition: opacity var(--mdw-motion-duration-short2);
+  transition-timing-function: var(--mdw-motion-easing);
 }
 
 :host(.mdw-checked) svg {
@@ -87,7 +87,7 @@
   stroke-dasharray: 22.910259;
 
   stroke: var(--mdw-on-secondary-container);
-  animation: mdw-segmented-button-uncheck 120ms;
+  animation: mdw-segmented-button-uncheck var(--mdw-motion-duration-short3);
 }
 
 :host svg path {
@@ -96,7 +96,7 @@
 
 :host(.mdw-checked) svg path {
   stroke-dashoffset: 12;
-  animation: mdw-segmented-button-check 220ms;
+  animation: mdw-segmented-button-check var(--mdw-motion-duration-short4);
 }
 
 @keyframes mdw-segmented-button-check {

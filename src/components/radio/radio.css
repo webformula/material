@@ -27,12 +27,12 @@
   border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host(.mdw-checked) > .background::after {
   opacity: 1;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host > .background::before {
@@ -45,22 +45,22 @@
   border-radius: var(--mdw-shape-full);
   background-color: var(--mdw-primary);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host(:hover) > .background::before {
   opacity: var(--mdw-state-layer-opacity-hover);
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }
 
 :host(:focus) > .background::before {
   opacity: var(--mdw-state-layer-opacity-pressed);
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }
 
 :host(:active) > .background::before {
   opacity: var(--mdw-state-layer-opacity-focus);
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }
 
 :host > slot {

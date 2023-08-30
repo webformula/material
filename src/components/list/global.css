@@ -33,7 +33,7 @@ mdw-list-item {
 }
 
 mdw-list.mdw-animation mdw-list-item {
-  transition-duration: 220ms;
+  transition-duration: var(--mdw-motion-duration-medium1);
 }
 
 mdw-list-item.mdw-dragging {
@@ -78,7 +78,7 @@ mdw-list-item .mdw-action.mdw-auto-hide-action {
 }
 
 mdw-list.mdw-animation mdw-list-item .mdw-action.mdw-auto-hide-action {
-  transition-duration: 120ms;
+  transition-duration: var(--mdw-motion-duration-short3);
 }
 
 mdw-list-item > .mdw-headline,
@@ -187,7 +187,7 @@ mdw-list > .mdw-sub-header::before {
   transition: background-color 0ms linear;
 }
 mdw-list.mdw-animation mdw-list > .mdw-sub-header::before {
-  transition-duration: 80ms;
+  transition-duration: var(--mdw-motion-duration-short2);
 }
 
 mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck::before {
@@ -236,12 +236,12 @@ mdw-list-item > mdw-list-item-action-start::after {
   z-index: -1;
   margin: -1px;
   transition: left 0ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-start,
 mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-start::after {
-  transition-duration: 220ms;
+  transition-duration: var(--mdw-motion-duration-medium1);
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-start,
@@ -266,7 +266,7 @@ mdw-list-item > mdw-list-item-action-end {
   background-color: var(--mdw-primary);
   color: var(--mdw-on-primary);
   transition: right 0ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 
 mdw-list-item > mdw-list-item-action-end::after {
@@ -281,11 +281,11 @@ mdw-list-item > mdw-list-item-action-end::after {
   z-index: 1;
   
   transition: right 0ms;
-  transition-timing-function: var(--mdw-transition-expand-out);
+  transition-timing-function: var(--mdw-motion-easing-accelerate);
 }
 mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-end,
 mdw-list.mdw-animation mdw-list-item > mdw-list-item-action-end::after {
-  transition-duration: 220ms;
+  transition-duration: var(--mdw-motion-duration-medium1);
 }
 
 mdw-list-item.mdw-dragging > mdw-list-item-action-end,

@@ -170,7 +170,7 @@
   transform: rotate(45deg);
   background-color: var(--mdw-primary);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
 }
 
 :host > .control > .mdw-thumb > .mdw-label > .mdw-label-text {
@@ -192,5 +192,5 @@
 :host > .control > .mdw-thumb:focus > .mdw-label,
 :host > .control > .mdw-thumb:active > .mdw-label {
   opacity: 1;
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }

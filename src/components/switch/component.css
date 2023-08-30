@@ -69,7 +69,7 @@
 
 :host > .track > .thumb > svg {
   opacity: 0;
-  transition: opacity 200ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }
 
 :host(.mdw-icon.mdw-checked) > .track > .thumb > svg {
@@ -139,7 +139,7 @@
   border-radius: inherit;
   background-color: var(--mdw-primary);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
   pointer-events: none;
 }
 
@@ -153,13 +153,13 @@
   border-radius: inherit;
   background-color: var(--mdw-on-surface);
   opacity: 0;
-  transition: opacity 100ms;
+  transition: opacity var(--mdw-motion-duration-short2);
   pointer-events: none;
 }
 
 :host(:not(.mdw-checked):focus) > .track > .thumb::before {
   opacity: var(--mdw-state-layer-opacity-focus);
-  transition: opacity 180ms;
+  transition: opacity var(--mdw-motion-duration-short4);
 }
 
 :host(:not(.mdw-checked):focus) > .track > .thumb {
@@ -182,7 +182,7 @@
 @media (hover: hover) {
   :host(:not(.mdw-checked):hover) > .track > .thumb::before {
     opacity: var(--mdw-state-layer-opacity-focus);
-    transition: opacity 180ms;
+    transition: opacity var(--mdw-motion-duration-short4);
   }
 
   :host(:not(.mdw-checked):hover) > .track > .thumb {

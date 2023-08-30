@@ -10,11 +10,11 @@ mdw-navigation-group {
   margin: 0 -16px;
   padding: 0 16px;
   transition: height 0ms;
-  transition-timing-function: var(--mdw-transition-expand-in);
+  transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
 body.mdw-animation mdw-navigation-group {
-  transition-duration: 320ms;
+  transition-duration: var(--mdw-motion-duration-short4);
 }
 
 mdw-navigation-group > mdw-anchor:not([group]) {

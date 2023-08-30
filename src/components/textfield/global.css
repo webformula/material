@@ -118,8 +118,8 @@ mdw-textfield > label {
   color: var(--mdw-on-surface-variant);
 
   transform-origin: left top;
-  animation: mdw-textfield-label-reverse 164ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-textfield-label-reverse var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-textfield:focus-within > label {
@@ -140,8 +140,8 @@ mdw-textfield > input:not([placeholder=" "]) + label,
 mdw-textfield > input:not(:placeholder-shown) + label {
   font-size: var(--mdw-font-body-size-small);
   top: 4px;
-  animation: mdw-textfield-label 164ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-textfield-label var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-textfield.mdw-no-animation > label {
@@ -281,14 +281,14 @@ mdw-textfield.mdw-outlined > input {
 
 mdw-textfield.mdw-outlined label {
   transform-origin: left top;
-  animation: mdw-textfield-label-outlined-reverse 164ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-textfield-label-outlined-reverse var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-textfield.mdw-outlined > mdw-icon + input + label {
   transform-origin: left top;
-  animation: mdw-textfield-label-outlined-reverse-icon 164ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-textfield-label-outlined-reverse-icon var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-textfield.mdw-outlined.mdw-raise-label label,
@@ -298,8 +298,8 @@ mdw-textfield.mdw-outlined > input:not(:placeholder-shown) + label {
   font-size: var(--mdw-font-body-size-small);
   top: -12px;
   left: 14px;
-  animation: mdw-textfield-label-outlined 164ms;
-  animation-timing-function: var(--mdw-transition-expand-in);
+  animation: mdw-textfield-label-outlined var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-textfield > .mdw-outlined-border-container {
