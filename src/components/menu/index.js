@@ -24,7 +24,6 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
     super();
 
     this.clickOutsideClose = true;
-    // if (!this.#controlSelector) throw Error('No control found. Must provide the attributer "control" with a valid css selector');
   }
 
   connectedCallback() {

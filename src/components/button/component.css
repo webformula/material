@@ -1,6 +1,7 @@
 :host {
   position: relative;
   display: inline-flex;
+  justify-content: center;
   user-select: none;
   border: none;
   cursor: pointer;

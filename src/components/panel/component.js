@@ -166,20 +166,21 @@ export default class MDWPanelElement extends HTMLElementExtended {
     let bounds = this.#target.getBoundingClientRect();
     const { clientWidth, clientHeight } = document.documentElement;
 
+    // TODO is this needed?
     // offset for nested fixed div
-    if (this.#fixedParent) {
-      const fixedBounds = this.#fixedParent.getBoundingClientRect();
-      bounds = {
-        x: bounds.x - fixedBounds.x,
-        left: bounds.left - fixedBounds.left,
-        right: bounds.right - fixedBounds.right,
-        y: bounds.y - fixedBounds.y,
-        top: bounds.top - fixedBounds.top,
-        bottom: bounds.bottom - fixedBounds.bottom,
-        width: bounds.width,
-        height: bounds.height
-      };
-    }
+    // if (this.#fixedParent) {
+    //   const fixedBounds = this.#fixedParent.getBoundingClientRect();
+    //   bounds = {
+    //     x: bounds.x - fixedBounds.x,
+    //     left: bounds.left - fixedBounds.left,
+    //     right: bounds.right - fixedBounds.right,
+    //     y: bounds.y - fixedBounds.y,
+    //     top: bounds.top - fixedBounds.top,
+    //     bottom: bounds.bottom - fixedBounds.bottom,
+    //     width: bounds.width,
+    //     height: bounds.height
+    //   };
+    // }
 
     // initial position is top left panel aligned with bottom left target
 

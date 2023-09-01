@@ -8,7 +8,7 @@
   white-space: nowrap;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  z-index: 11;
+  z-index: 9;
 
   font-size: var(--mdw-font-label-size-large);
   font-weight: var(--mdw-font-label-weight-large);
@@ -30,6 +30,12 @@
 
 :host(.mdw-fixed) {
   position: fixed !important;
+  z-index: 11;
+}
+
+:host-context(mdw-bottom-app-bar),
+:host-context(body.mdw-has-bottom-app-bar.mdw-window-compact) {
+  box-shadow: none;
 }
 
 :host ::slotted(mdw-icon) {
@@ -44,24 +50,6 @@
 :host(.mdw-has-label) ::slotted(mdw-icon.mdw-trailing) {
   margin-right: 0;
   margin-left: 8px;
-}
-
-:host(.mdw-has-label) {
-  transition: max-width 0ms, color 0ms;
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
-}
-:host(.mdw-animation.mdw-has-label) {
-  transition-duration: var(--mdw-motion-duration-extra-long4), var(--mdw-motion-duration-short3);
-}
-
-:host(.mdw-hide-label.mdw-has-label) {
-  transition:
-    max-width 0ms,
-    color 0ms 380ms;
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
-}
-:host(.mdw-animation.mdw-hide-label.mdw-has-label) {
-  transition-duration: var(--mdw-motion-duration-long4), var(--mdw-motion-duration-short3);
 }
 
 :host(.mdw-hide-label.mdw-has-label) {
@@ -210,6 +198,86 @@
   left: 16px;
 }
 
+:host(.mdw-has-label.mdw-auto-hide-label) {
+  transition: max-width, color;
+  transition-duration: var(--mdw-motion-duration-medium4);
+  transition-delay: 0ms, 60ms;
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+:host(.mdw-has-label.mdw-auto-hide-label.mdw-hide-label) {
+  transition-duration: var(--mdw-motion-duration-short3);
+}
+
+:host(.mdw-has-label.mdw-auto-hide) {
+  transition: transform;
+  transition-duration: var(--mdw-motion-duration-medium2);
+  transition-timing-function: var(--mdw-motion-easing);
+  overflow: hidden;
+  transform: scale(1);
+  transform-origin: bottom right;
+}
+
+:host(.mdw-has-label.mdw-auto-hide.mdw-hide) {
+  transition-duration: var(--mdw-motion-duration-medium2);
+  transform: scale(0);
+}
+
+/* this should be true for bottom-navigation not bottom app bar */
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom) {
+  transition: bottom;
+  transition-duration: var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing);
+  bottom: 96px;
+}
+
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label) {
+  transition: max-width, color, bottom;
+  transition-delay: 0ms, 60ms, 0ms;
+  transition-duration: var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-auto-hide),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-auto-hide),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-auto-hide),
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide) {
+  transition: transform, bottom;
+  transition-duration: var(--mdw-motion-duration-medium2), var(--mdw-motion-duration-short3);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-left-bottom),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-right.mdw-auto-hide),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-right-bottom.mdw-auto-hide),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-left.mdw-auto-hide),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-right.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-right-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-bottom-left.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-bottom-app-bar-hide):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-left-bottom) {
+  bottom: 16px;
+}
+
+:host(:not(.mdw-animation).mdw-has-label.mdw-auto-hide-label),
+:host(:not(.mdw-animation).mdw-auto-hide) {
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+}
+
 :host(.mdw-position-top-right),
 :host(.mdw-position-right-top) {
   position: absolute;
@@ -224,6 +292,13 @@
   left: 16px;
 }
 
+:host-context(mdw-bottom-app-bar) {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  top: unset;
+  left: unset;
+}
 
 
 /* --- Ripple --- */

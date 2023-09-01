@@ -238,12 +238,13 @@ design files and implementations.</p>
     </div>
   
     <pre>
-        <code class="language-html">
-    ${page.escape(`<mdw-fab class="mdw-auto-hide-label mdw-position-bottom-right mdw-fixed">
-      <mdw-icon>edit</mdw-icon>
-      Example
-    </mdw-fab>`)}
-        </code>
-      </pre>
+      <code class="language-html">
+  ${page.escape(`<!-- you can use className 'mdw-auto-hide' to hide the entire FAB when scrolling, not just the label -->
+    <mdw-fab class="mdw-auto-hide-label mdw-position-bottom-right mdw-fixed">
+    <mdw-icon>edit</mdw-icon>
+    Example
+  </mdw-fab>`)}
+      </code>
+    </pre>
   </mdw-card>
 </section>

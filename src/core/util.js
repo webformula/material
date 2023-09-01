@@ -167,6 +167,30 @@ const mdwUtil = new class MDWUtil {
     if (this.#scrollCallbacks.length === 0) this.#scrollTargetListener.removeEventListener('scroll', this.#scrollHandler_bound);
   }
 
+  // Track when scroll direction changes with buffer. Used for bottom app bar, fab, top app bar, page-content
+  #scrollDistanceChangeCallbacks = [];
+  trackScrollDirectionChange(callback = () => { }) {
+    let lastDirectionChange;
+    function wrapper({ direction, distanceFromDirectionChange }) {
+      if (direction === -1 && lastDirectionChange !== direction && distanceFromDirectionChange > 20) {
+        lastDirectionChange = direction;
+        callback(-1);
+      } else if (direction === 1 && lastDirectionChange !== direction && distanceFromDirectionChange < -10) {
+        lastDirectionChange = direction;
+        callback(1);
+      }
+    };
+    this.#scrollDistanceChangeCallbacks.push([callback, wrapper]);
+    this.trackPageScroll(wrapper);
+  }
+
+  untrackScrollDirectionChange(callback = () => { }) {
+    const wrapper = this.#scrollDistanceChangeCallbacks.find(c => c[0] === callback);
+    if (!wrapper) return;
+    this.#scrollDistanceChangeCallbacks = this.#scrollDistanceChangeCallbacks.filter(c => c[0] !== callback);
+    this.untrackPageScroll(wrapper[1]);
+  }
+
   // can use array of strings ['one', 'two']
   // can also use array of objects with label property [{ label: 'one' }, { label: 'two' }]
   fuzzySearch(searchTerm, items = [], distanceCap = 2) {

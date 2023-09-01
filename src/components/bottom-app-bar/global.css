@@ -15,7 +15,33 @@ mdw-bottom-app-bar {
 
   background-color: var(--mdw-surface-container);
   box-shadow: var(--mdw-elevation-2);
+
+  margin-bottom: 0;
+  transition: margin-bottom, left;
+  transition-duration: 0;
+  transition-timing-function: var(---mdw-motion-easing);
 }
+
+body.mdw-animation mdw-bottom-app-bar {
+  transition-duration: var(--mdw-motion-duration-short3);
+}
+
+/* only show on compact */
+body.mdw-window-medium > mdw-bottom-app-bar:not(.mdw-always-show),
+body.mdw-window-expanded > mdw-bottom-app-bar:not(.mdw-always-show) {
+  display: none;
+}
+
+mdw-bottom-app-bar.mdw-hide {
+  margin-bottom: -80px;
+}
+
+body.mdw-window-expanded.mdw-navigation-state-show mdw-bottom-app-bar {
+  left: var(--mdw-navigation-drawer-width);
+}
+
+
+/* primary / secondary */
 
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
   position: absolute;
@@ -30,7 +56,9 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
 mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--mdw-motion-duration-short2);
+  transition: opacity, bottom;
+  transition-duration: var(--mdw-motion-duration-short2);
+  transition-timing-function: var(--mdw-motion-easing);
 }
 
 mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
@@ -51,17 +79,113 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
   transition: none;
 }
 
-mdw-bottom-app-bar.mdw-auto-hide {
+
+/* items animation */
+
+mdw-bottom-app-bar mdw-button,
+mdw-bottom-app-bar mdw-navigation-button {
+  transform: translateY(0);
+  transition: transform;
+  transition-duration: var(--mdw-motion-duration-short3);
+  transition-delay: 50ms;
+}
+
+mdw-bottom-app-bar mdw-button:nth-child(2) {
+  transition-delay: 100ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(3) {
+  transition-delay: 150ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(4) {
+  transition-delay: 200ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(5) {
+  transition-delay: 250ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(6) {
+  transition-delay: 300ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(7) {
+  transition-delay: 350ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(8) {
+  transition-delay: 400ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(9) {
+  transition-delay: 450ms;
+}
+mdw-bottom-app-bar mdw-button:nth-child(10) {
+  transition-delay: 500ms;
+}
+
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-button,
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+  transform: translateY(60px);
+}
+
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-button,
+mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+  transition-duration: 0ms;
+  transition-delay: var(--mdw-motion-duration-short3);
+}
+
+body:not(.mdw-animation) mdw-bottom-app-bar mdw-button,
+body:not(.mdw-animation) mdw-bottom-app-bar mdw-navigation-button {
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+}
+
+
+
+/* mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  opacity: 1;
+  transition: none;
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity, bottom;
+  transition-duration: var(--mdw-motion-duration-short2);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--mdw-motion-duration-short2);
+}
+
+mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
+  opacity: 1;
+  pointer-events: all;
+  transition: none;
+} */
+
+/* mdw-bottom-app-bar.mdw-auto-hide {
   margin-bottom: var(--mdw-bottom-app-bar-position);
-}
+} */
 
-/* only show on compact */
-body.mdw-window-medium > mdw-bottom-app-bar:not(.mdw-always-show),
-body.mdw-window-expanded > mdw-bottom-app-bar:not(.mdw-always-show) {
-  display: none;
-}
-
-mdw-bottom-app-bar {
+/* mdw-bottom-app-bar {
   transition: left 0ms;
 }
 
@@ -124,16 +248,16 @@ mdw-bottom-app-bar mdw-fab {
   bottom: 12px;
   right: 16px;
   transition: bottom var(--mdw-motion-duration-short3);
-}
+} */
 
-mdw-bottom-app-bar.mdw-auto-hide mdw-fab {
+/* mdw-bottom-app-bar.mdw-auto-hide mdw-fab {
   bottom: max(calc(var(--mdw-bottom-app-bar-position) + 12px), 6px);
-}
+} */
 
 
 /* --- Ripple --- */
 
-mdw-bottom-app-bar a > .mdw-ripple {
+/* mdw-bottom-app-bar a > .mdw-ripple {
   overflow: hidden;
   border-radius: inherit;
   position: absolute;
@@ -148,4 +272,4 @@ mdw-bottom-app-bar a > .mdw-ripple {
 mdw-bottom-app-bar a > .mdw-ripple > .mdw-ripple-element {
   opacity: var(--mdw-state-layer-opacity-pressed);
   background-color: var(--mdw-on-surface);
-}
+} */
