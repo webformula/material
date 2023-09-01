@@ -191,6 +191,7 @@ html:not(.mdw-initiated) body {
 
 
   /* --- Motion --- */
+  
   --mdw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --mdw-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
   --mdw-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
