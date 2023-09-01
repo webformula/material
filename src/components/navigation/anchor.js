@@ -1,12 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import Ripple from '../../core/Ripple.js';
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
-
-const rippleTemplate = document.createElement('template');
-const rippleElement = document.createElement('div');
-rippleElement.classList.add('ripple');
-rippleTemplate.content.append(rippleElement);
 
 const arrowTemplate = document.createElement('template');
 const arrowElement = document.createElement('div');
@@ -15,7 +9,6 @@ arrowElement.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
 arrowTemplate.content.append(arrowElement);
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementExtended {
-  #ripple;
   #target = this.getAttribute('target');
   #onClick_bound = this.#onClick.bind(this);
   #focus_bound = this.#focus.bind(this);
@@ -39,18 +32,12 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     
     this.tabIndex = 0;
     this.setAttribute('role', 'link');
-    this.appendChild(rippleTemplate.content.cloneNode(true));
-    this.#ripple = new Ripple({
-      element: this.querySelector('.ripple'),
-      triggerElement: this
-    });
     this.addEventListener('click', this.#onClick_bound);
     this.addEventListener('focusin', this.#focus_bound);
     this.addEventListener('mousedown', this.#mousedown_bound);
   }
 
   disconnectedCallback() {
-    if (this.#ripple) this.#ripple.destroy();
     this.removeEventListener('click', this.#onClick_bound);
     this.removeEventListener('focusin', this.#focus_bound);
     this.removeEventListener('mousedown', this.#mousedown_bound);
@@ -110,7 +97,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
       e.preventDefault();
     } if (e.code === 'Enter' || e.code === 'Space') {
       this.click();
-      this.#ripple.trigger();
       this.blur();
       e.preventDefault();
     } else if (e.code === 'ArrowDown') {

@@ -30,14 +30,23 @@ mdw-anchor::after {
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-anchor.mdw-active:not([group])::before {
+mdw-anchor:not([group])::before {
   content: '';
   position: absolute;
-  left: -16px;
+  left: 40%;
+  right: 40%;
   top: 0;
-  right: -16px;
   z-index: -1;
   height: 56px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+mdw-anchor.mdw-active:not([group])::before {
+  left: -16px;
+  right: -16px;
+  transition: left, right;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
   border-radius: var(--mdw-shape-extra-large);
   background-color: var(--mdw-secondary-container);
 }
@@ -49,7 +58,7 @@ mdw-anchor:focus::after {
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-anchor:hover::after {
+  mdw-anchor:not(.mdw-active):hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
   }
@@ -64,26 +73,6 @@ mdw-anchor mdw-icon {
   margin-top: -2px;
   margin-right: 12px;
   margin-left: -6px;
-}
-
-/* --- Ripple --- */
-
-mdw-anchor > .ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  transform: translateZ(0);
-  /* fixes bug on ios safari */
-  position: absolute;
-  top: 0;
-  left: -16px;
-  bottom: 0;
-  right: -16px;
-  pointer-events: none;
-}
-
-mdw-anchor > .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-surface-alpha-16);
-  border-radius: var(--mdw-shape-full);
 }
 
 mdw-anchor[group] .mdw-group-arrow {
@@ -102,4 +91,9 @@ mdw-anchor.mdw-animation[group] .mdw-group-arrow {
 
 mdw-anchor[group].mdw-open .mdw-group-arrow {
   transform: rotate(180deg);
+}
+
+mdw-anchor[group]:has(~ mdw-anchor.mdw-active)::after {
+  opacity: var(--mdw-state-layer-opacity-hover);
+  background-color: var(--mdw-on-surface);
 }
