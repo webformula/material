@@ -21,6 +21,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #scrimElement;
   #fixedParent;
   #onEsc_bound = this.#onEsc.bind(this);
+  #position;
   
   constructor() {
     super();
@@ -93,6 +94,10 @@ export default class MDWPanelElement extends HTMLElementExtended {
     this.#clickOutsideCloseIgnoreElements.push(element);
   }
 
+  setPosition(x, y) {
+    this.#position = { x, y };
+  }
+
 
   show(scrim = this.#scrim) {
     this.classList.remove('mdw-no-animation');
@@ -103,7 +108,8 @@ export default class MDWPanelElement extends HTMLElementExtended {
     if (this.#animation === 'transitionYReverse') this.classList.add('mdw-animation-transitionYReverse');
     if (this.#animation === 'opacity') this.classList.add('mdw-animation-opacity');
     if (scrim) this.#addScrim();
-    if (this.#target) this.#setupTarget();
+    if (this.#position) this.#setupPosition();
+    else if (this.#target) this.#setupTarget();
     this.setAttribute('open', '');
     this.dispatchEvent(new Event('open'));
     if (this.#clickOutsideClose === true) {
@@ -207,6 +213,12 @@ export default class MDWPanelElement extends HTMLElementExtended {
       this.style.left = 'unset';
       this.style.right = `${client.width - bounds.right}px`;
     }
+  }
+
+  #setupPosition() {
+    this.classList.add('mdw-target');
+    this.style.top = `${this.#position.y}px`;
+    this.style.left = `${this.#position.x}px`;
   }
 
   #onTargetScroll() {

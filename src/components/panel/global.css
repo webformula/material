@@ -84,8 +84,8 @@ mdw-panel:not([open]).mdw-animation-expand,
 mdw-panel:not([open]).mdw-animation-expand.mdw-target,
 .mdw-panel:not([open]).mdw-animation-expand,
 .mdw-panel:not([open]).mdw-animation-expand.mdw-target {
-  max-height: 12px;
-  transition: max-height var(--mdw-motion-duration-short3);
+  max-height: 54px;
+  transition: max-height var(--mdw-motion-duration-short2);
   transition-timing-function: var(--mdw-motion-easing-accelerate);
   animation: mdw-panel-hide-expand var(--mdw-motion-duration-short3);
 }
@@ -94,7 +94,8 @@ mdw-panel[open].mdw-animation-expand,
 mdw-panel[open].mdw-animation-expand.mdw-target,
 .mdw-panel[open].mdw-animation-expand,
 .mdw-panel[open].mdw-animation-expand.mdw-target {
-  animation: mdw-panel-show-expand var(--mdw-motion-duration-short4);
+  overflow-y: hidden;
+  animation: mdw-panel-show-expand var(--mdw-motion-duration-medium1);
 }
 
 mdw-panel:not([open]).mdw-animation-transitionYReverse,
@@ -219,10 +220,14 @@ mdw-panel.mdw-no-animation.mdw-target,
 @keyframes mdw-panel-show-expand {
   0% {
     opacity: 0;
-    max-height: 12px;
+    /* if max height is less than the first item + padding then the padding will animate */
+    max-height: 54px;
   }
   60% {
     opacity: 1;
+  }
+  100% {
+
   }
 }
 

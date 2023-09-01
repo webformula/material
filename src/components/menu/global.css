@@ -2,7 +2,7 @@ mdw-menu.mdw-panel {
   min-width: 112px;
   max-width: 280px;
   max-height: 320px;
-  padding: 8px 0;
+  padding: 4px 0;
   overflow-y: auto;
   border-radius: var(--mdw-shape-extra-small);
   background-color: var(--mdw-surface-container);

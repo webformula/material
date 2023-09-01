@@ -6,16 +6,19 @@ import util from '../../core/util.js';
 
 customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #control;
-  #controlSelector = this.getAttribute('control');
+  #isContextMenu;
+  #controlSelector;
   #onControlClick_bound = this.#onControlClick.bind(this);
   #onPanelOpen_bound = this.#onPanelOpen.bind(this);
   #onPanelClose_bound = this.#onPanelClose.bind(this);
   #onItemClick_bound = this.#onItemClick.bind(this);
   #openKeydown_bound = this.#openKeydown.bind(this);
+  #rightClick_bound = this.#rightClick.bind(this);
   #abort = new AbortController();
   #textSearchOver_debounced = util.debounce(this.#textSearchOver, 240);
   #searchKeys = '';
   #searchItems;
+  #contentMenuTarget;
 
   constructor() {
     super();
@@ -28,14 +31,19 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
     super.connectedCallback();
     this.setAttribute('role', 'menu');
 
-    if (this.#controlSelector) this.#control = document.querySelector(this.#controlSelector);
-    else this.#control = this.parentElement;
-    if (!this.#control) throw Error('No control found. Must provide the attributer "control" with a valid css selector');
-
-    this.target = this.#control;
     this.animation = 'expand';
+    this.#isContextMenu = this.hasAttribute('context-menu');
+    if (this.#isContextMenu) {
+      document.addEventListener('contextmenu', this.#rightClick_bound, { signal: this.#abort.signal });
+    } else {
+      this.#controlSelector = this.getAttribute('control')
+      if (this.#controlSelector) this.#control = document.querySelector(this.#controlSelector);
+      else this.#control = this.parentElement;
+      if (!this.#control) throw Error('No control found. Must provide the attributer "control" with a valid css selector');
+      this.target = this.#control;
+      this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
+    }
 
-    this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
     this.addEventListener('open', this.#onPanelOpen_bound, { signal: this.#abort.signal });
     this.addEventListener('close', this.#onPanelClose_bound, { signal: this.#abort.signal });
   }
@@ -43,6 +51,10 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#abort.abort();
+  }
+
+  get contentMenuTarget() {
+    return this.#contentMenuTarget;
   }
 
   #onControlClick() {
@@ -117,5 +129,27 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #textSearchOver() {
     this.#searchKeys = '';
     this.#searchItems = undefined;
+  }
+
+  #rightClick(event) {
+    if (this.open) {
+      event.preventDefault();
+      return;
+    }
+    const contextMenuParent = this.#checkForContextMenuAttribute(event.target);
+    if (!contextMenuParent) return;
+    event.preventDefault();
+    this.setPosition(event.clientX, event.clientY);
+    this.show();
+    this.#contentMenuTarget = contextMenuParent;
+  }
+
+  #checkForContextMenuAttribute(node) {
+    const id = this.id;
+    let parentElement = node
+    while (parentElement !== null && parentElement !== document.body) {
+      if (parentElement.getAttribute('context-menu') === id) return parentElement;
+      parentElement = parentElement.parentElement;
+    }
   }
 });

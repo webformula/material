@@ -31,6 +31,7 @@
 <div class="links">
   <a href="#basic">Basic</a>
   <a href="#position-overlap">Position overlap</a>
+  <a href="#context-menu">Context menu</a>
 </div>
 
 
@@ -138,5 +139,51 @@
     </mdw-menu>`)}
         </code>
       </pre>
+  </mdw-card>
+
+  <mdw-card id="context-menu">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Context menu</div>
+  
+      <div class="example">
+        <div context-menu="cm1">Right click me</div>
+        
+        <mdw-menu id="cm1" context-menu>
+          <mdw-button onclick="console.log(cm1.contentMenuTarget)">
+            <mdw-icon>content_copy</mdw-icon>
+            copy
+          </mdw-button>
+          <mdw-button>
+            <mdw-icon>content_paste</mdw-icon>
+            paste
+          </mdw-button>
+          <mdw-button>plain</mdw-button>
+          <mdw-button>plain</mdw-button>
+        </mdw-menu>
+      </div>
+    </div>
+  
+    <pre>
+      <code class="language-html">
+  ${page.escape(`<!-- add [context-menu="id of mdw-menu[context-menu]"] -->
+  <div context-menu="cm1">Right click me</div>
+
+  <!-- place anywhere in body -->
+  <mdw-menu id="cm1" context-menu>
+
+    <!-- reference the context-menu target element using mdw-menu[id].contentMenuTarget -->
+    <mdw-button onclick="console.log(cm1.contentMenuTarget)">
+      <mdw-icon>content_copy</mdw-icon>
+      copy
+    </mdw-button>
+    <mdw-button>
+      <mdw-icon>content_paste</mdw-icon>
+      paste
+    </mdw-button>
+    <mdw-button>plain</mdw-button>
+    <mdw-button>plain</mdw-button>
+  </mdw-menu>`)}
+      </code>
+    </pre>
   </mdw-card>
 </section>
