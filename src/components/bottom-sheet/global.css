@@ -30,8 +30,7 @@ mdw-bottom-sheet.mdw-fullscreen {
 }
 
 body.mdw-has-bottom-app-bar.mdw-window-compact mdw-bottom-sheet {
-  bottom: calc(var(--mdw-bottom-sheet-bottom) + var(--mdw-bottom-app-bar-position));
-  padding-bottom: calc(92px + var(--mdw-bottom-app-bar-position));
+  padding-bottom: 92px;
 }
 
 mdw-bottom-sheet.mdw-animate-position {

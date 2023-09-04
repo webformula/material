@@ -77,7 +77,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   }
 
 
-  #onDragStart({ event }) {
+  #onDragStart(event) {
     if (this.#isScrolling) return;
 
     this.#initialDragPosition = this.#position;
@@ -103,7 +103,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     if (this.#positionState !== 'top') requestAnimationFrame(() => util.unlockPageScroll());
   }
 
-  #onDrag({ distanceY, moveY, directionY }) {
+  #onDrag({ distanceY, movementY, directionY }) {
     if (this.scrollTop <= 0 && directionY === 1 && this.style.overflowY !== 'visible') {
       this.#switchToDragging();
       return;
@@ -113,7 +113,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
 
     // container has been drag to top and needs to be converted to scroll
     if (this.#position >= this.#topPosition && directionY === -1) {
-      this.#switchToScrolling(moveY);
+      this.#switchToScrolling(movementY);
       return;
     }
 
@@ -125,14 +125,15 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.#switchToScrolling();
   }
 
-  #switchToScrolling(moveY) {
+  #switchToScrolling(movementY) {
     this.style.overflowY = 'scroll';
     this.#position = 0;
-    if (document.body.classList.contains('mdw-has-bottom-app-bar')) {
-      this.#position = -parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
-    }
+    // TODO
+    // if (document.body.classList.contains('mdw-has-bottom-app-bar')) {
+    //   this.#position = -parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
+    // }
     this.#isScrolling = true;
-    if (moveY) this.scrollTop = -moveY;
+    if (movementY) this.scrollTop = -movementY;
     this.addEventListener('scroll', this.#onScroll_bound);
     this.classList.add('mdw-fullscreen');
   }
