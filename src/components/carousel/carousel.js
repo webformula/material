@@ -2,15 +2,12 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
-// TODO snapping
-
 
 export default class MDWCarouselElement extends HTMLElementExtended {
   #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #calculateLayout_debounce = util.debounce(this.#calculateLayout.bind(this), 0);
   #calculateLayout_bound = this.#calculateLayout.bind(this);
-  #scrollToItemOnScrollEnd_bound = this.#scrollToItemOnScrollEnd.bind(this);
   #strategy = 'multi-browse';
   #strategies = ['multi-browser', 'hero-start', 'hero-center'];
   #itemScrollPositions = [];
@@ -24,8 +21,6 @@ export default class MDWCarouselElement extends HTMLElementExtended {
   }
 
   connectedCallback() {
-    // TODO replace for opacity
-    // this.style.setProperty('--mdw-carousel-item-full-width', `${this.#widthProperty}px`)
     this.insertAdjacentHTML('afterbegin', '<div class="mdw-carousel-front-padding"></div>');
     this.insertAdjacentHTML('beforeend', '<div class="mdw-carousel-back-padding"></div>');
     this.addEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
@@ -36,10 +31,12 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     this.#drag.on('mdwdragstart', () => this.#hasDragged = true);
     this.#drag.on('mdwdragmove', this.#onDrag_bound);
     this.#drag.enable();
+    this.addEventListener('scroll', this.#calculateLayout_bound);
     this.#initiated = true;
   }
 
   disconnectedCallback() {
+    this.removeEventListener('scroll', this.#calculateLayout_bound);
     this.removeEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
     this.#drag.destroy();
   }
@@ -63,21 +60,11 @@ export default class MDWCarouselElement extends HTMLElementExtended {
   }
 
   scrollToItem(index, animation = true) {
-    this.addEventListener('scroll', this.#calculateLayout_bound);
-    this.addEventListener('scrollend', this.#scrollToItemOnScrollEnd_bound);
     this.scrollTo({ left: this.#itemScrollPositions[index], behavior: animation ? 'smooth' : 'instant' });
-  }
-
-
-
-  #scrollToItemOnScrollEnd() {
-    this.removeEventListener('scroll', this.#calculateLayout_bound);
-    this.removeEventListener('scrollend', this.#scrollToItemOnScrollEnd_bound);
   }
 
   #onDrag({ movementX }) {
     this.scrollLeft -= movementX;
-    this.#calculateLayout();
   }
 
   #calculateLayout() {

@@ -122,11 +122,13 @@ export default class Drag {
     if (this.#abortDrag) this.#abortDrag.abort();
     this.#isDragging = false;
     this.#enabled = false;
+    if (this.#lockScrollY) util.unlockPageScroll();
   }
 
   cancel() {
     if (this.#abortDrag) this.#abortDrag.abort();
     this.#isDragging = false;
+    if (this.#lockScrollY) util.unlockPageScroll();
   }
 
   destroy() {
@@ -137,7 +139,6 @@ export default class Drag {
       'mdwdragstart': [],
       'mdwdragend': []
     };
-    util.unlockPageScroll();
   }
 
   on(eventType, callback) {
@@ -181,6 +182,8 @@ export default class Drag {
     this.#isSnapped = false;
     this.#isSnapping = false;
     this.#isOverflowDragging = false;
+    this.#isDragging = false;
+    if (this.#abortDrag) this.#abortDrag.abort();
     this.#abortDrag = new AbortController();
     this.#resetTrack(event);
 
@@ -198,7 +201,6 @@ export default class Drag {
   #end(event) {
     if (this.#abortDrag) this.#abortDrag.abort();
     if (!this.#isDragging) return;
-    this.#isDragging = false;
 
     // does this need to be on always
     if (this.#preventSwipeNavigation) {
@@ -221,6 +223,7 @@ export default class Drag {
     if (this.#hasScrollSnapPositions && !this.#isSnapped) {
       this.#snap(event);
     } else {
+      this.#isDragging = false;
       this.#isSnapping = false;
       this.trigger(event);
     }
@@ -232,6 +235,9 @@ export default class Drag {
       this.#isDragging = true;
       const dragEvent = this.#track(event, 'mdwdragstart');
       this.trigger(dragEvent);
+
+      if (this.#lockScrollY) util.lockPageScroll();
+
       // cancel or disable called from mdwdragstart canceling
       if (this.#isDragging === false) return;
     }
@@ -239,13 +245,8 @@ export default class Drag {
 
     const dragEvent = this.#track(event, 'mdwdragmove');
 
-    // TODO do i need to always call preventDefault
-    if (this.#lockScrollY && !this.#isOverflowDragging && !this.#isSnapped) {
-      if (Math.abs(dragEvent.distanceX) > this.#lockScrollThreshold) {
-        util.lockPageScroll();
-        // might not have a real event passed in on overscroll or snap
-        if (event.preventDefault) event.preventDefault();
-      }
+    if (this.#lockScrollY) {
+      if (event.preventDefault) event.preventDefault();
     }
 
     this.trigger(dragEvent);
@@ -254,34 +255,36 @@ export default class Drag {
 
 
   #track(event, eventType) {
-    const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
-    const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-    const movementX = clientX - this.#trackingDetails.clientX;
-    const movementY = clientY - this.#trackingDetails.clientY;
-    const distanceX = clientX - this.#trackingDetails.clientXInitial;
-    const distanceY = clientY - this.#trackingDetails.clientYInitial;
-    const directionX = distanceX > this.#trackingDetails.distanceX ? 1 : distanceX === this.#trackingDetails.distanceX ? 0 : -1;
-    const directionY = distanceY > this.#trackingDetails.distanceY ? 1 : distanceY === this.#trackingDetails.distanceY ? 0 : -1;
-    const elapsedTime = Date.now() - this.#trackingDetails.timeStamp;
+    if (eventType !== 'mdwdragend') {
+      const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+      const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+      const movementX = clientX - this.#trackingDetails.clientX;
+      const movementY = clientY - this.#trackingDetails.clientY;
+      const distanceX = clientX - this.#trackingDetails.clientXInitial;
+      const distanceY = clientY - this.#trackingDetails.clientYInitial;
+      const directionX = distanceX > this.#trackingDetails.distanceX ? 1 : distanceX === this.#trackingDetails.distanceX ? 0 : -1;
+      const directionY = distanceY > this.#trackingDetails.distanceY ? 1 : distanceY === this.#trackingDetails.distanceY ? 0 : -1;
+      const elapsedTime = Date.now() - this.#trackingDetails.timeStamp;
 
-    this.#trackingDetails = {
-      clientXInitial: this.#trackingDetails.clientXInitial,
-      clientYInitial: this.#trackingDetails.clientYInitial,
-      clientX,
-      clientY,
-      distanceX,
-      distanceY,
-      movementX,
-      movementY,
-      directionX,
-      directionY,
-      directionXDescription: directionX === 0 ? 'none' : directionX === 1 ? 'right' : 'left',
-      directionYDescription: directionY === 0 ? 'none' : directionY === 1 ? 'down' : 'up',
-      elapsedTime,
-      timeStamp: Date.now(),
-      velocityX: 0.8 * (1000 * movementX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
-      velocityY: 0.8 * (1000 * movementY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
-    };
+      this.#trackingDetails = {
+        clientXInitial: this.#trackingDetails.clientXInitial,
+        clientYInitial: this.#trackingDetails.clientYInitial,
+        clientX,
+        clientY,
+        distanceX,
+        distanceY,
+        movementX,
+        movementY,
+        directionX,
+        directionY,
+        directionXDescription: directionX === 0 ? 'none' : directionX === 1 ? 'right' : 'left',
+        directionYDescription: directionY === 0 ? 'none' : directionY === 1 ? 'down' : 'up',
+        elapsedTime,
+        timeStamp: Date.now(),
+        velocityX: 0.4 * (1000 * movementX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
+        velocityY: 0.4 * (1000 * movementY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
+      };
+    }
 
     const dragEvent = new CustomEvent(eventType);
     dragEvent.clientX = this.#trackingDetails.clientX;
