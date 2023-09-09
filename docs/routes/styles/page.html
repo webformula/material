@@ -169,7 +169,10 @@
   import generate from '@webformula/material/themeGenerator';
 
   // generate(input path, output path)
-  generate('./src/theme.css', './docs/theme.css');`}
+  generate('./src/theme.css', './docs/theme.css');
+  
+  // use default theme.css file from @webformula/material
+  generate('./node_modules/@webformula/material/src/theme.css', './docs/theme.css');`}
         </code>
       </pre>
 
