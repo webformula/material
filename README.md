@@ -1,5 +1,5 @@
-## @webfurmula/core
-Simple no thrills micro framework. Super performant and light-weight!
+## @webfurmula/material
+Material design v3 web components. Performant, light-weight, full features, optimized for multiple devices.
 [Webformula material docs](http://material.webformula.io/)
 
 ### Highlights
