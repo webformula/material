@@ -1,7 +1,9 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Buttons</div>
-    <div class="mdw-supporting-text">Buttons help people initiate actions, from sending an email, to sharing a document, to liking a post.</div>
+    <div class="mdw-supporting-text">Buttons help people initiate actions, from sending an email, to sharing a document, to liking a post</div>
+    <div class="mdw-supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined, and text</div>
+    <a href="https://m3.material.io/components/buttons/overview" target="_new">Material Design Guidelines: Buttons</a>
   </div>
   <div class="mdw-card-content">
     <mdw-button>Text</mdw-button>
@@ -16,142 +18,142 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/buttons/overview" target="_new">Material Design Guidelines: Buttons</a>
-<p>There are five types of common buttons: elevated, filled, filled tonal, outlined, and text.</p>
 
-<div class="links">
-  <a href="#text_button">Text button</a>
-  <a href="#elevated_button">Elevated button</a>
-  <a href="#filled_button">Filled button</a>
-  <a href="#filled_tonal_button">Filled tonal button</a>
-  <a href="#outlined_button">Outlined button</a>
-  <a href="#icon_button">Button with icon</a>
-  <a href="#async_button">Async button</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <li><a href="#text_button">Text button</a></li>
+      <li><a href="#elevated_button">Elevated button</a></li>
+      <li><a href="#filled_button">Filled button</a></li>
+      <li><a href="#filled_tonal_button">Filled tonal button</a></li>
+      <li><a href="#outlined_button">Outlined button</a></li>
+      <li><a href="#icon_button">Button with icon</a></li>
+      <li><a href="#async_button">Async button</a></li>
+    </ul>
+  </nav>
 
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="text_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Text button</div>
-      
-      <div class="example">
-        <mdw-button>Example</mdw-button>
+  <div class="page-content-container">
+    <mdw-card id="text_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Text button</div>
+        
+        <div class="example">
+          <mdw-button>Example</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button>Text</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="elevated_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Elevated button</div>
-      
-      <div class="example">
-        <mdw-button class="mdw-elevated">Example</mdw-button>
+    <mdw-card id="elevated_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Elevated button</div>
+        
+        <div class="example">
+          <mdw-button class="mdw-elevated">Example</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
-${page.escape(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="filled_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Filled button</div>
-      
-      <div class="example">
-        <mdw-button class="mdw-filled">Example</mdw-button>
+    <mdw-card id="filled_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Filled button</div>
+        
+        <div class="example">
+          <mdw-button class="mdw-filled">Example</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
-${page.escape(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="filled_tonal_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Filled tonal button</div>
-      
-      <div class="example">
-        <mdw-button class="mdw-filled-tonal">Example</mdw-button>
+    <mdw-card id="filled_tonal_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Filled tonal button</div>
+        
+        <div class="example">
+          <mdw-button class="mdw-filled-tonal">Example</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="outlined_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Outlined button</div>
-      
-      <div class="example">
-        <mdw-button class="mdw-outlined">Example</mdw-button>
+    <mdw-card id="outlined_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Outlined button</div>
+        
+        <div class="example">
+          <mdw-button class="mdw-outlined">Example</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button class="mdw-outlined">Outlined</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="icon_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Button with icon</div>
-      
-      <div class="example">
-        <mdw-button>
-          <mdw-icon>home</mdw-icon>
-          Icon
-        </mdw-button>
+    <mdw-card id="icon_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Button with icon</div>
+        
+        <div class="example">
+          <mdw-button>
+            <mdw-icon>home</mdw-icon>
+            Icon
+          </mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button>
     <mdw-icon>add</mdw-icon>
     Icon
   </mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="async_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Async button</div>
-      
-      <div class="example">
-        <mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
-        <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>
+    <mdw-card id="async_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Async button</div>
+        
+        <div class="example">
+          <mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
+          <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
   <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

@@ -2,6 +2,10 @@
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Icons</div>
     <div class="mdw-supporting-text">Google material font icons</div>
+    <a href="https://fonts.google.com/icons" target="_new">Material Design Guidelines: Icons</a>
+    <div>
+      <a href="https://fonts.google.com/icons">Icons use material designs font library</a>
+    </div>
   </div>
   <div class="mdw-card-content">
     <mdw-icon class="mdw-small">favorite</mdw-icon>
@@ -13,90 +17,90 @@
   </div>
 </mdw-card>
 
-<a href="https://fonts.google.com/icons" target="_new">Material Design Guidelines: Icons</a>
-<p>Icons use material designs font library <a href="https://fonts.google.com/icons">https://fonts.google.com/icons</a></p>
 
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#sizes">Sizes</a>
-  <a href="#outlined">Outlined - Outlined bold</a>
-  <a href="#color">Color</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#sizes">Sizes</a>
+      <a href="#outlined">Outlined - Outlined bold</a>
+      <a href="#color">Color</a>
+    </ul>
+  </nav>
 
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Standard</div>
-      
-      <div class="example">
-        <mdw-icon>favorite</mdw-icon>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Standard</div>
+        
+        <div class="example">
+          <mdw-icon>favorite</mdw-icon>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-icon>favorite</mdw-icon>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="sizes">  
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Sized</div>
-      
-      <div class="example">
-        <mdw-icon class="mdw-small">favorite</mdw-icon>
-        <mdw-icon>favorite</mdw-icon>
-        <mdw-icon class="mdw-large">favorite</mdw-icon>
-        <mdw-icon class="mdw-extra-large">favorite</mdw-icon>
+    <mdw-card id="sizes">  
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Sized</div>
+        
+        <div class="example">
+          <mdw-icon class="mdw-small">favorite</mdw-icon>
+          <mdw-icon>favorite</mdw-icon>
+          <mdw-icon class="mdw-large">favorite</mdw-icon>
+          <mdw-icon class="mdw-extra-large">favorite</mdw-icon>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-icon class="mdw-small">favorite</mdw-icon>
   <mdw-icon>favorite</mdw-icon>
   <mdw-icon class="mdw-large">favorite</mdw-icon>
   <mdw-icon class="mdw-extra-large">favorite</mdw-icon>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="outlined">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Outlined, Outlined bold</div>
-      
-      <div class="example">
-        <mdw-icon class="mdw-outlined">favorite</mdw-icon>
-        <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>
+    <mdw-card id="outlined">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Outlined, Outlined bold</div>
+        
+        <div class="example">
+          <mdw-icon class="mdw-outlined">favorite</mdw-icon>
+          <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-icon class="mdw-outlined">favorite</mdw-icon>
   <mdw-icon class="mdw-bold mdw-outlined">favorite</mdw-icon>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="color">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Color</div>
-      <div class="mdw-subheader">Theme color variables automatically adjust for light and dark modes</div>
-  
-      <div class="example">
-        <mdw-icon class="mdw-large" style="color: var(--mdw-primary)">favorite</mdw-icon>
+    <mdw-card id="color">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Color</div>
+        <div class="mdw-subheader">Theme color variables automatically adjust for light and dark modes</div>
+    
+        <div class="example">
+          <mdw-icon class="mdw-large" style="color: var(--mdw-primary)">favorite</mdw-icon>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-icon class="mdw-large" style="color: var(--mdw-primary)">favorite</mdw-icon>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

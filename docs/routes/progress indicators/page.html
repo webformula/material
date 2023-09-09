@@ -1,7 +1,10 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Progress indicators</div>
-    <div class="mdw-supporting-text">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form.</div>
+    <div class="mdw-supporting-text">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form</div>
+    <div class="mdw-supporting-text">There are two types of progress indicators: Linear and circular</div>
+    <a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines:
+      Progress indicators</a>
   </div>
   <div class="mdw-card-content" style="display: flex; flex-direction: column; align-items: center;">
     <mdw-progress-linear value="0.4"></mdw-progress-linear>
@@ -10,85 +13,84 @@
 </mdw-card>
 
 
-<a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines: Progress indicators</a>
-<p>There are two types of progress indicators: Linear and circular.</p>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#linear_determinate">Linear determinate</a>
+      <a href="#linear_indeterminate">Linear indeterminate</a>
+      <a href="#circular_determinate">Circular determinate</a>
+      <a href="#circular_indeterminate">Circular indeterminate</a>
+    </ul>
+  </nav>
 
-<div class="links">
-  <a href="#linear_determinate">Linear determinate</a>
-  <a href="#linear_indeterminate">Linear indeterminate</a>
-  <a href="#circular_determinate">Circular determinate</a>
-  <a href="#circular_indeterminate">Circular indeterminate</a>
-</div>
-
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card class="mdw-no-states" id="linear_determinate">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Linear determinate</div>
-      <div class="mdw-subhead">'max' attribute default = 1</div>
-      
-      <div class="example">
-        <mdw-progress-linear value="0.4"></mdw-progress-linear>
+  <div class="page-content-container">
+    <mdw-card class="mdw-no-states" id="linear_determinate">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Linear determinate</div>
+        <div class="mdw-subhead">'max' attribute default = 1</div>
+        
+        <div class="example">
+          <mdw-progress-linear value="0.4"></mdw-progress-linear>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- 'max' attribute default = 1 -->
   <mdw-progress-linear value="0.4" max="1"></mdw-progress-linear>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card class="mdw-no-states" id="linear_indeterminate">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Linear indeterminate</div>
-      
-      <div class="example">
-        <mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>
+    <mdw-card class="mdw-no-states" id="linear_indeterminate">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Linear indeterminate</div>
+        
+        <div class="example">
+          <mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card class="mdw-no-states" id="circular_determinate">  
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Circular determinate</div>
-      <div class="mdw-subhead">'max' attribute default = 1</div>
-      
-      <div class="example">
-        <mdw-progress-circular value="0.4"></mdw-progress-circular>
+    <mdw-card class="mdw-no-states" id="circular_determinate">  
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Circular determinate</div>
+        <div class="mdw-subhead">'max' attribute default = 1</div>
+        
+        <div class="example">
+          <mdw-progress-circular value="0.4"></mdw-progress-circular>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- 'max' attribute default = 1 -->
   <mdw-progress-circular value="0.4" max="1"></mdw-progress-circular>`)}
-      </code>
-    </pre>
-  </mdw-card>
-  
-  <mdw-card class="mdw-no-states" id="circular_indeterminate">     
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Circular indeterminate</div>
-      
-      <div class="example">
-        <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+        </code>
+      </pre>
+    </mdw-card>
+    
+    <mdw-card class="mdw-no-states" id="circular_indeterminate">     
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Circular indeterminate</div>
+        
+        <div class="example">
+          <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

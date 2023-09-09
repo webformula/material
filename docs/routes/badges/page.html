@@ -1,8 +1,8 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Badges</div>
-    <div class="mdw-supporting-text">Badges convey dynamic information, such as counts or status. A badge can include labels or numbers.
-</div>
+    <div class="mdw-supporting-text">Badges convey dynamic information, such as counts or status. A badge can include labels or numbers</div>
+    <a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
   </div>
   <div class="mdw-card-content">
     <mdw-button class="mdw-icon-button">
@@ -17,49 +17,48 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
-<p>Badges convey dynamic information, such as counts or status. A badge can include labels or numbers.</p>
 
-<div class="links">
-  <a href="#basic">Basic</a>
-  <a href="#text_button">Text button</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#basic">Basic</a>
+      <a href="#text_button">Text button</a>
+    </ul>
+  </nav>
+
+  <div class="page-content-container">
+    <mdw-card id="basic">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Basic</div>
+
+        <div class="example">
+          <mdw-button class="mdw-icon-button">
+            <mdw-badge>0</mdw-badge>
+            <mdw-icon>inbox</mdw-icon>
+          </mdw-button>
 
 
-<section>
-  <h5>Types</h5>
+          <mdw-button class="mdw-icon-button">
+            <mdw-badge class="mdw-non-counting">1</mdw-badge>
+            <mdw-icon>inbox</mdw-icon>
+          </mdw-button>
 
-  <mdw-card id="basic">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Basic</div>
+          
+          <mdw-button class="mdw-icon-button">
+            <mdw-badge>99</mdw-badge>
+            <mdw-icon>inbox</mdw-icon>
+          </mdw-button>
 
-      <div class="example">
-        <mdw-button class="mdw-icon-button">
-          <mdw-badge>0</mdw-badge>
-          <mdw-icon>inbox</mdw-icon>
-        </mdw-button>
-
-
-        <mdw-button class="mdw-icon-button">
-          <mdw-badge class="mdw-non-counting">1</mdw-badge>
-          <mdw-icon>inbox</mdw-icon>
-        </mdw-button>
-
-        
-        <mdw-button class="mdw-icon-button">
-          <mdw-badge>99</mdw-badge>
-          <mdw-icon>inbox</mdw-icon>
-        </mdw-button>
-
-        <mdw-button class="mdw-icon-button">
-          <mdw-badge>1000</mdw-badge>
-          <mdw-icon>inbox</mdw-icon>
-        </mdw-button>
+          <mdw-button class="mdw-icon-button">
+            <mdw-badge>1000</mdw-badge>
+            <mdw-icon>inbox</mdw-icon>
+          </mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button class="mdw-icon-button">
     <mdw-badge>0</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
@@ -80,50 +79,51 @@
     <mdw-badge>1000</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
   </mdw-button>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-javascript">
+      <pre>
+        <code class="language-javascript">
   ${`// Update using value
   document.querySelector('mdw-badge').value = 99;
 
   // Update using value. 1000 -> 999+
   document.querySelector('mdw-badge').value = 1000;`}
-      </code>
-    </pre>
-  </mdw-card>
-
-
-  <mdw-card id="text_button">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Text button</div>
-  
-      <div class="example">
-        <mdw-button>
-          Inbox
-          <mdw-badge>0</mdw-badge>
-        </mdw-button>
-
-        <mdw-button>
-          Inbox
-          <mdw-badge>1000</mdw-badge>
-        </mdw-button>
-      </div>
-    </div>
-  
-    <pre>
-        <code class="language-html">
-    ${page.escape(`<mdw-button>
-      Inbox
-      <mdw-badge>0</mdw-badge>
-    </mdw-button>
-    
-    <mdw-button>
-      Inbox
-      <mdw-badge>1000</mdw-badge>
-    </mdw-button>`)}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
+
+
+    <mdw-card id="text_button">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Text button</div>
+    
+        <div class="example">
+          <mdw-button>
+            Inbox
+            <mdw-badge>0</mdw-badge>
+          </mdw-button>
+
+          <mdw-button>
+            Inbox
+            <mdw-badge>1000</mdw-badge>
+          </mdw-button>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-button>
+    Inbox
+    <mdw-badge>0</mdw-badge>
+  </mdw-button>
+  
+  <mdw-button>
+    Inbox
+    <mdw-badge>1000</mdw-badge>
+  </mdw-button>`)}
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

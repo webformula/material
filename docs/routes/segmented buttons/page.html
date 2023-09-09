@@ -1,7 +1,10 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Segmented buttons</div>
-    <div class="mdw-supporting-text">Segmented buttons help people select options, switch views, or sort elements.</div>
+    <div class="mdw-supporting-text">Segmented buttons help people select options, switch views, or sort elements</div>
+    <div class="mdw-supporting-text">There are two types of segmented buttons: single-select and multi-select</div>
+    <a href="https://m3.material.io/components/segmented-buttons/overview" target="_new">Material Design Guidelines:
+      Segmented buttons</a>
   </div>
   <div class="mdw-card-content">
     <mdw-segmented-button-group>
@@ -18,41 +21,39 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/segmented-buttons/overview" target="_new">Material Design Guidelines: Segmented buttons</a>
-<p>There are two types of segmented buttons: single-select and multi-select.
-</p>
 
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#select-icon">Select icon</a>
-  <a href="#multi-select">Multi select</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#select-icon">Select icon</a>
+      <a href="#multi-select">Multi select</a>
+    </ul>
+  </nav>
 
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Standard</div>
-      
-      <div class="example">
-        <mdw-segmented-button-group>
-          <mdw-segmented-button checked value="1">
-            <mdw-icon>format_align_right</mdw-icon>
-          </mdw-segmented-button>
-          <mdw-segmented-button value="2">
-            <mdw-icon>format_align_center</mdw-icon>
-          </mdw-segmented-button>
-          <mdw-segmented-button value="3">
-            <mdw-icon>format_align_left</mdw-icon>
-          </mdw-segmented-button>
-        </mdw-segmented-button-group>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Standard</div>
+        
+        <div class="example">
+          <mdw-segmented-button-group>
+            <mdw-segmented-button checked value="1">
+              <mdw-icon>format_align_right</mdw-icon>
+            </mdw-segmented-button>
+            <mdw-segmented-button value="2">
+              <mdw-icon>format_align_center</mdw-icon>
+            </mdw-segmented-button>
+            <mdw-segmented-button value="3">
+              <mdw-icon>format_align_left</mdw-icon>
+            </mdw-segmented-button>
+          </mdw-segmented-button-group>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-segmented-button-group>
     <mdw-segmented-button checked value="1">
       <mdw-icon>format_align_right</mdw-icon>
@@ -64,69 +65,70 @@
       <mdw-icon>format_align_left</mdw-icon>
     </mdw-segmented-button>
   </mdw-segmented-button-group>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="select-icons">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Select icons</div>
-      
-      <div class="example">
-        <mdw-segmented-button-group class="mdw-checked-icon">
-          <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-          <mdw-segmented-button value="two">Two</mdw-segmented-button>
-          <mdw-segmented-button value="three">Three</mdw-segmented-button>
-        </mdw-segmented-button-group>
+    <mdw-card id="select-icons">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Select icons</div>
+        
+        <div class="example">
+          <mdw-segmented-button-group class="mdw-checked-icon">
+            <mdw-segmented-button checked value="one">One</mdw-segmented-button>
+            <mdw-segmented-button value="two">Two</mdw-segmented-button>
+            <mdw-segmented-button value="three">Three</mdw-segmented-button>
+          </mdw-segmented-button-group>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-segmented-button-group class="mdw-checked-icon">
     <mdw-segmented-button checked value="one">One</mdw-segmented-button>
     <mdw-segmented-button value="two">Two</mdw-segmented-button>
     <mdw-segmented-button value="three">Three</mdw-segmented-button>
   </mdw-segmented-button-group>`)}
-      </code>
-    </pre>
-    
-    <pre>
-      <code class="language-javascript">
-  ${`console.log(document.querySelector('#multi-select').value); // "one"`}
-      </code>
-    </pre>
-  </mdw-card>
-
-
-  <mdw-card id="multi-select">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Multi select</div>
+        </code>
+      </pre>
       
-      <div class="example">
-        <mdw-segmented-button-group id="multi-select" class="mdw-multi-select">
-          <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-          <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
-          <mdw-segmented-button value="three">Three</mdw-segmented-button>
-        </mdw-segmented-button-group>
-      </div>
-    </div>
+      <pre>
+        <code class="language-javascript">
+  ${`console.log(document.querySelector('#multi-select').value); // "one"`}
+        </code>
+      </pre>
+    </mdw-card>
 
-    <pre>
-      <code class="language-html">
+
+    <mdw-card id="multi-select">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Multi select</div>
+        
+        <div class="example">
+          <mdw-segmented-button-group id="multi-select" class="mdw-multi-select">
+            <mdw-segmented-button checked value="one">One</mdw-segmented-button>
+            <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
+            <mdw-segmented-button value="three">Three</mdw-segmented-button>
+          </mdw-segmented-button-group>
+        </div>
+      </div>
+
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-segmented-button-group id="multi-select" class="mdw-multi-select">
     <mdw-segmented-button checked value="one">One</mdw-segmented-button>
     <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
     <mdw-segmented-button value="three">Three</mdw-segmented-button>
   </mdw-segmented-button-group>`)}
-      </code>
-    </pre>
-    
-    <pre>
-      <code class="language-javascript">
+        </code>
+      </pre>
+      
+      <pre>
+        <code class="language-javascript">
   ${`console.log(document.querySelector('#multi-select').value); // "one,two"
   console.log(document.querySelector('#multi-select').multiValue); // ["one","two"]`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

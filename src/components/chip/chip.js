@@ -73,7 +73,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   disconnectedCallback() {
     this.#abort.abort();
     util.removeClickTimeout(this, this.#onClick_bound);
-    this.#ripple.destroy();
+    if (this.#ripple) this.#ripple.destroy();
   }
 
   afterRender() {

@@ -1,80 +1,76 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Side sheets</div>
-    <div class="mdw-supporting-text">Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow.</div>
-  </div>
-</mdw-card>
-
+<h3 class="page-title">Side sheets</h3>
+<div class="page-subheader mdw-font-title-medium">Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow</div>
 <a href="https://m3.material.io/components/side-sheets/overview" target="_new">Material Design Guidelines:
   Side sheets</a>
-<p>Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow.</p>
-
-<div class="links">
-  <a href="#local">Local</a>
-  <a href="#global">Global</a>
-  <a href="#top">Top level</a>
-  <a href="#forms">Forms</a>
-</div>
 
 
-<section>
-  <h5>Types</h5>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#local">Local</a>
+      <a href="#global">Global</a>
+      <a href="#top">Top level</a>
+      <a href="#forms">Forms</a>
+    </ul>
+  </nav>
 
-  <mdw-card id="local">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Local</div>
-      <div class="mdw-subheader">Contained inside of div</div>
-  
-      <div class="example">
-        <div>
-          <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
-          <mdw-switch style="margin-left: 16px; width: 110px;" onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
-          <mdw-switch style="margin-left: 36px; width: 160px;"
-            onchange="document.querySelector('mdw-side-sheet#one').scrim = this.checked">Scrim (modal)</mdw-switch>
-            <mdw-switch style="margin-left: 36px; width: 130px;"
-              onchange="page.positionLocal(this.checked)">Left side</mdw-switch>
-        </div>
-        <div id="local-container" style="display: flex; position: relative; min-height: 360px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--mdw-outline); margin-top: 16px; padding-top: 0">
+  <div class="page-content-container">
+    <mdw-card id="local">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Local</div>
+        <div class="mdw-subheader">Contained inside of div</div>
+    
+        <div class="example">
           <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
+            <mdw-switch style="margin-left: 16px; width: 110px;" onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
+            <mdw-switch style="margin-left: 36px; width: 160px;"
+              onchange="document.querySelector('mdw-side-sheet#one').scrim = this.checked">Scrim (modal)</mdw-switch>
+              <mdw-switch style="margin-left: 36px; width: 130px;"
+                onchange="page.positionLocal(this.checked)">Left side</mdw-switch>
           </div>
-          <mdw-side-sheet id="one" class="mdw-click-scrim-close mdw-hide">
-            <div class="mdw-header">
-              <div class="mdw-title">Title</div>
-              <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
-            </div>
-          
-            <div class="mdw-content">
+          <div id="local-container" style="display: flex; position: relative; min-height: 360px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--mdw-outline); margin-top: 16px; padding-top: 0">
+            <div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
                 aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
-          
-            <div class="mdw-actions">
-              <mdw-button class="mdw-primary">action</mdw-button>
-            </div>
-          </mdw-side-sheet>
+            <mdw-side-sheet id="one" class="mdw-click-scrim-close mdw-hide">
+              <div class="mdw-header">
+                <div class="mdw-title">Title</div>
+                <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+              </div>
+            
+              <div class="mdw-content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Duis
+                  aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+              </div>
+            
+              <div class="mdw-actions">
+                <mdw-button class="mdw-primary">action</mdw-button>
+              </div>
+            </mdw-side-sheet>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<div style="display: flex">
     <div>
       content...
@@ -94,65 +90,65 @@
       </div>
     </mdw-side-sheet>
   </div>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- Controls-->
   <mdw-button onclick="document.querySelector('mdw-side-sheet#one').toggle()">Toggle side sheet</mdw-button>
   <mdw-switch style="margin-left: 16px; width: 120px;"
     onchange="document.querySelector('mdw-side-sheet#one').modal = this.checked">Modal</mdw-switch>
   <mdw-switch style="margin-left: 36px; width: 210px;"
     onchange="document.querySelector('mdw-side-sheet#one').scrim = this.checked">Scrim (modal)</mdw-switch>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="global">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Global</div>
-      <div class="mdw-subheader">Fill entire page (modal only)</div>
-  
-      <div class="example">
-        <div>
-          <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
-          <mdw-switch style="margin-left: 36px; width: 180px;"
-            onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>
-          <mdw-switch style="margin-left: 36px; width: 120px;"
-            onchange="document.querySelector('mdw-side-sheet#two').classList.toggle('mdw-inset', this.checked)">Inset</mdw-switch>
-        </div>
-        <div style="display: flex">
-          <mdw-side-sheet id="two" class="mdw-global mdw-hide">
-            <div class="mdw-header">
-              <div class="mdw-title">Title</div>
-              <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
-            </div>
-  
-            <div class="mdw-content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </div>
-  
-            <div class="mdw-actions">
-              <mdw-button class="mdw-primary">action</mdw-button>
-            </div>
-          </mdw-side-sheet>
+    <mdw-card id="global">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Global</div>
+        <div class="mdw-subheader">Fill entire page (modal only)</div>
+    
+        <div class="example">
+          <div>
+            <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
+            <mdw-switch style="margin-left: 36px; width: 180px;"
+              onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>
+            <mdw-switch style="margin-left: 36px; width: 120px;"
+              onchange="document.querySelector('mdw-side-sheet#two').classList.toggle('mdw-inset', this.checked)">Inset</mdw-switch>
+          </div>
+          <div style="display: flex">
+            <mdw-side-sheet id="two" class="mdw-global mdw-hide">
+              <div class="mdw-header">
+                <div class="mdw-title">Title</div>
+                <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
+              </div>
+    
+              <div class="mdw-content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna
+                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                  Duis
+                  aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Excepteur sint
+                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+              </div>
+    
+              <div class="mdw-actions">
+                <mdw-button class="mdw-primary">action</mdw-button>
+              </div>
+            </mdw-side-sheet>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<div style="display: flex">
     <div>
       content...
@@ -172,26 +168,26 @@
       </div>
     </mdw-side-sheet>
   </div>`)}
-      </code>
-    </pre>
-    <pre>
-      <code class="language-html">
+        </code>
+      </pre>
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- Controls-->
   <mdw-button onclick="document.querySelector('mdw-side-sheet#two').toggle()">Toggle side sheet</mdw-button>
   <mdw-switch style="margin-left: 36px; width: 210px;"
     onchange="document.querySelector('mdw-side-sheet#two').scrim = this.checked">Scrim (modal)</mdw-switch>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="top">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Top level</div>
-      <div class="mdw-subheader">You can have a side sheet at the top level. This would be usfule as a general secondary content container.</div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    <mdw-card id="top">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Top level</div>
+        <div class="mdw-subheader">You can have a side sheet at the top level. This would be usfule as a general secondary content container.</div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<body>
     <mdw-navigation></mdw-navigation>
     <page-content></page-content>
@@ -211,63 +207,63 @@
     </mdw-side-sheet>
     <mdw-bottom-app-bar class="mdw-auto-hide"></mdw-bottom-app-bar>
   </body>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="forms">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Form with change detection</div>
-      <div class="mdw-supporting-text">Make a change in one of the inputs and click cancel to see message.</div>
-  
-      <div class="example">
-        <div>
-          <mdw-button onclick="document.querySelector('mdw-side-sheet#three').toggle()">Toggle side sheet</mdw-button>
-          <mdw-switch style="margin-left: 36px; width: 210px;" checked
-            onchange="document.querySelector('mdw-side-sheet#three').scrim = this.checked">Scrim (modal)</mdw-switch>
-        </div>
-        <div style="display: flex">
-          <mdw-side-sheet id="three" class="mdw-global mdw-hide">
-            <div class="mdw-header">
-              <div class="mdw-title">Title</div>
-            </div>
-  
-            <div class="mdw-content">
-              <form id="threeform" method="dialog" onsubmit="document.querySelector('#three').close()" style="display: flex; flex-direction: column;">
-                <mdw-textfield>
-                  <input name="name" required>
-                  <label>Name</label>
-                  <div class="mdw-supporting-text"></div>
-                </mdw-textfield>
-            
-                <mdw-textfield>
-                  <input name="email" type="email">
-                  <label>Name</label>
-                  <div class="mdw-supporting-text"></div>
-                </mdw-textfield>
-            
-                <mdw-select name="select" label="Label" required supporting-text>
-                  <mdw-option value="1">one</mdw-option>
-                  <mdw-option value="2">two</mdw-option>
-                  <mdw-option value="3">three</mdw-option>
-                </mdw-select>
-            
-                <mdw-checkbox name="check" required></mdw-checkbox>
-              </form>
-            </div>
-            
-            <div class="mdw-actions">
-              <div class="mdw-divider"></div>
-              <mdw-button class="mdw-filled mdw-primary" form="threeform" type="submit">Save</mdw-button>
-              <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary" form="threeform" type="cancel">Cancel</mdw-button>
-            </div>
-          </mdw-side-sheet>
+    <mdw-card id="forms">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Form with change detection</div>
+        <div class="mdw-supporting-text">Make a change in one of the inputs and click cancel to see message.</div>
+    
+        <div class="example">
+          <div>
+            <mdw-button onclick="document.querySelector('mdw-side-sheet#three').toggle()">Toggle side sheet</mdw-button>
+            <mdw-switch style="margin-left: 36px; width: 210px;" checked
+              onchange="document.querySelector('mdw-side-sheet#three').scrim = this.checked">Scrim (modal)</mdw-switch>
+          </div>
+          <div style="display: flex">
+            <mdw-side-sheet id="three" class="mdw-global mdw-hide">
+              <div class="mdw-header">
+                <div class="mdw-title">Title</div>
+              </div>
+    
+              <div class="mdw-content">
+                <form id="threeform" method="dialog" onsubmit="document.querySelector('#three').close()" style="display: flex; flex-direction: column;">
+                  <mdw-textfield>
+                    <input name="name" required>
+                    <label>Name</label>
+                    <div class="mdw-supporting-text"></div>
+                  </mdw-textfield>
+              
+                  <mdw-textfield>
+                    <input name="email" type="email">
+                    <label>Name</label>
+                    <div class="mdw-supporting-text"></div>
+                  </mdw-textfield>
+              
+                  <mdw-select name="select" label="Label" required supporting-text>
+                    <mdw-option value="1">one</mdw-option>
+                    <mdw-option value="2">two</mdw-option>
+                    <mdw-option value="3">three</mdw-option>
+                  </mdw-select>
+              
+                  <mdw-checkbox name="check" required></mdw-checkbox>
+                </form>
+              </div>
+              
+              <div class="mdw-actions">
+                <div class="mdw-divider"></div>
+                <mdw-button class="mdw-filled mdw-primary" form="threeform" type="submit">Save</mdw-button>
+                <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary" form="threeform" type="cancel">Cancel</mdw-button>
+              </div>
+            </mdw-side-sheet>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-side-sheet id="three" class="mdw-global mdw-hide">
     <div class="mdw-header">
       <div class="mdw-title">Title</div>
@@ -303,7 +299,8 @@
       <mdw-button class="mdw-side-sheet-close mdw-outlined mdw-primary" form="threeform" type="cancel">Cancel</mdw-button>
     </div>
   </mdw-side-sheet>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

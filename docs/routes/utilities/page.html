@@ -1,28 +1,27 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Utilities</div>
-    <div class="mdw-supporting-text">A set of helper methods that are used to support the components, that can be used.</div>
-  </div>
-  <div class="mdw-card-content">
-  </div>
-</mdw-card>
-
-<div class="links">
-  <a href="#util">Util</a>
-  <a href="#date">Date</a>
-  <a href="#device">Device</a>
-</div>
+<h3 class="page-title">Utilities</h3>
+<div class="page-subheader mdw-font-title-medium">A set of helper methods that are used to support the components, that can be used</div>
 
 
-<section style="margin-top: 48px">
-  <mdw-card id="util">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Util</div>
-      <div class="mdw-subheader">Methods for various use cases</div>
-    </div>
 
-    <pre>
-      <code class="language-javascript">
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#util">Util</a>
+      <a href="#date">Date</a>
+      <a href="#device">Device</a>
+    </ul>
+  </nav>
+
+  <div class="page-content-container">
+    <mdw-card id="util">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Util</div>
+        <div class="mdw-subheader">Methods for various use cases</div>
+      </div>
+
+      <pre>
+        <code class="language-javascript">
   ${`import { mdwUtil } from '@webformula/material/services';
   
   // --- Below are some of the more useful methods ---
@@ -37,85 +36,83 @@
   mdwUtil.rafThrottle(() => {});
 
   // toggle between dark and light color schemes. This can also be done via css
-  mdwUtil.toggleColorScheme();
-  `}
-      </code>
-    </pre>
-  </mdw-card>
-
-
-  <mdw-card id="date">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Date</div>
-      <div class="mdw-subheader">Wrapper class around Date and Intl.DateTimeFormat, used by date pickers</div>
-    </div>
-  
-    <pre>
-        <code class="language-javascript">
-    ${`import { mdwDate } from '@webformula/material/services';
-    
-    // --- Below are some of the more useful methods ---
-  
-    // Set local for anything using this util, including date pickers
-    mdwDate.locale = 'EN-US';
-  
-    // Set timezone for anything using this util, including date pickers
-    mdwDate.timeZone = 'GMT';
-
-    // Parse accepts strings (yyyy-mm-dd) and Date objects
-    // returns Date object
-    mdwDate.parse('2023-01-20');
-
-    // build on top of Intl.DateTimeFormat, using the utils locale and timezone
-    // returns String
-    // ddd, MMM DD = Thu, Dec 12
-    // YYYY-MMMM-dddd = 2019-month-wednesday
-    // YY/MMM/ddd = 19/10/22
-    mdwDate.format(new Date(), 'yyyy-mm-dd');
-
-    // returns Date object
-    mdwDate.buildFromParts({ year: '2023', month: '01', day: '20' });
-
-    mdwDate.getYear(new Date());
-    mdwDate.getMonth(new Date());
-    mdwDate.getWeekDay(new Date());
-    mdwDate.getMonthDay(new Date());
-    mdwDate.getFirstDateOfMonth(new Date());
-    mdwDate.getParts(new Date()); // { year, month, day }
-
-    mdwDate.getMonthNames();
-    mdwDate.getMonthNamesShort();
-    mdwDate.getDayNames('long | short | narrow'); // mon, tue, wed, thur, fri
-
-    // Add to individual parts of date, use negative numbers to subtract
-    // returns Date object
-    mdwDate.addToDateByParts(new Date(), { year: 1, month: 1, day: 1 });
-
-    // Set individual parts of date
-    // returns Date object
-    mdwDate.setDateByParts(new Date(), { year: 1, month: 1, day: 1 });
-    `}
+  mdwUtil.toggleColorScheme();`}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
 
 
-  <mdw-card id="device">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Device</div>
-      <div class="mdw-subheader">Used to determine information about current device</div>
-    </div>
+    <mdw-card id="date">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Date</div>
+        <div class="mdw-subheader">Wrapper class around Date and Intl.DateTimeFormat, used by date pickers</div>
+      </div>
+    
+      <pre>
+        <code class="language-javascript">
+  ${`import { mdwDate } from '@webformula/material/services';
   
-    <pre>
-      <code class="language-javascript">
+  // --- Below are some of the more useful methods ---
+
+  // Set local for anything using this util, including date pickers
+  mdwDate.locale = 'EN-US';
+
+  // Set timezone for anything using this util, including date pickers
+  mdwDate.timeZone = 'GMT';
+
+  // Parse accepts strings (yyyy-mm-dd) and Date objects
+  // returns Date object
+  mdwDate.parse('2023-01-20');
+
+  // build on top of Intl.DateTimeFormat, using the utils locale and timezone
+  // returns String
+  // ddd, MMM DD = Thu, Dec 12
+  // YYYY-MMMM-dddd = 2019-month-wednesday
+  // YY/MMM/ddd = 19/10/22
+  mdwDate.format(new Date(), 'yyyy-mm-dd');
+
+  // returns Date object
+  mdwDate.buildFromParts({ year: '2023', month: '01', day: '20' });
+
+  mdwDate.getYear(new Date());
+  mdwDate.getMonth(new Date());
+  mdwDate.getWeekDay(new Date());
+  mdwDate.getMonthDay(new Date());
+  mdwDate.getFirstDateOfMonth(new Date());
+  mdwDate.getParts(new Date()); // { year, month, day }
+
+  mdwDate.getMonthNames();
+  mdwDate.getMonthNamesShort();
+  mdwDate.getDayNames('long | short | narrow'); // mon, tue, wed, thur, fri
+
+  // Add to individual parts of date, use negative numbers to subtract
+  // returns Date object
+  mdwDate.addToDateByParts(new Date(), { year: 1, month: 1, day: 1 });
+
+  // Set individual parts of date
+  // returns Date object
+  mdwDate.setDateByParts(new Date(), { year: 1, month: 1, day: 1 });`}
+        </code>
+      </pre>
+    </mdw-card>
+
+
+    <mdw-card id="device">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Device</div>
+        <div class="mdw-subheader">Used to determine information about current device</div>
+      </div>
+    
+      <pre>
+        <code class="language-javascript">
   ${`import { mdwDevice } from '@webformula/material/services';
 
   mdwDevice.isMobile;
   mdwDevice.isIOS;
   mdwDevice.isAndroid;
-  mdwDevice.hasTouch;
-  `}
-      </code>
-    </pre>
-  </mdw-card>
+  mdwDevice.hasTouch;`}
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

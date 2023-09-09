@@ -10,9 +10,9 @@ html {
   overflow-y: auto;
 }
 
-#page-content {
+/* #page-content {
   overflow-x: hidden;
-}
+} */
 
 .page-title {
   margin-bottom: 0;
@@ -24,6 +24,7 @@ html {
 
 .page-secondary-header {
   margin-bottom: 18px;
+  margin-top: 28px;
 }
 
 .page-list {
@@ -49,10 +50,11 @@ section {
 pre {
   display: contents;
   margin: 0;
+  white-space: pre-wrap;
 }
 
-pre > code {
-  width: calc(100% - 16px);
+mdw-card > pre:first-of-type > code {
+  margin-top: 8px;
 }
 
 mdw-card > pre:last-of-type > code {
@@ -61,19 +63,6 @@ mdw-card > pre:last-of-type > code {
 
 mdw-card .example {
   margin-top: 18px;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  margin-top: -12px;
-  padding-left: 16px;
-}
-
-.links a {
-  width: 0;
-  white-space: nowrap;
 }
 
 .github-link {
@@ -93,14 +82,14 @@ mdw-card.header-card > .mdw-headline {
   font-size: 32px;
 }
 
-#page-content > section > mdw-card {
+mdw-card > .mdw-card-content > .mdw-headline + .mdw-subheader {
+  margin-top: 2px;
+}
+
+#page-content > section > mdw-card,
+#page-content > section > .page-content-container > mdw-card {
   margin-bottom: 36px;
 }
-
-#page-content > a {
-  align-self: flex-start;
-}
-
 
 .code-collapse-top code {
   margin-top: 0;
@@ -148,4 +137,49 @@ mdw-card.header-card > .mdw-headline {
 
 .mdw-supporting-text + .example {
   margin-top: 32px;
+}
+
+
+.page-content-section {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+body.mdw-window-compact .page-content-section {
+  flex-direction: column;
+}
+
+.links-nav {
+  margin-left: 82px;
+  box-sizing: border-box;
+  min-width: 180px;
+}
+
+.links-nav .page-secondary-header {
+  padding-top: 16px;
+  position: sticky;
+  top: 0;
+}
+
+.links-nav .links {
+  position: sticky;
+  top: 48px;
+  list-style-type: none;
+  margin-top: -12px;
+  padding-left: 0px;
+}
+
+.links a {
+  width: 0;
+  white-space: nowrap;
+  display: block;
+}
+
+.page-content-container {
+  flex: 1;
+}
+
+.page-content-container mdw-card:first-child {
+  margin-top: 48px;
 }

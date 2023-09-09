@@ -1,7 +1,8 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Date Picker</div>
-    <div class="mdw-supporting-text"></div>
+    <div class="mdw-headline" style="font-size: 36px;">Date pickers</div>
+    <div class="mdw-supporting-text">Time pickers help users select and set a specific time</div>
+    <a href="https://m3.material.io/components/time-pickers/overview" target="_new">Material Design Guidelines: Time pickers</a>
   </div>
   <div class="mdw-card-content">
     <mdw-textfield>
@@ -12,91 +13,91 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
-<p>Badges convey dynamic information, such as counts or status. A badge can include labels or numbers.</p>
-
-<div class="links">
-  <a href="#basic">Time</a>
-  <a href="#hour24">24 Format</a>
-  <a href="#step">Time step</a>
-  <a href="#native">Time native component</a>
-</div>
 
 
-<section>
-  <h5>Types</h5>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#basic">Time</a>
+      <a href="#hour24">24 Format</a>
+      <a href="#step">Time step</a>
+      <a href="#native">Time native component</a>
+    </ul>
+  </nav>
 
-  <mdw-card id="basic">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Time</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="time">
-          <label>Time</label>
-          <mdw-time-picker></mdw-time-picker>
-        </mdw-textfield>
+  <div class="page-content-container">
+    <mdw-card id="basic">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Time</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="time">
+            <label>Time</label>
+            <mdw-time-picker></mdw-time-picker>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="time">
     <label>Time</label>
     <mdw-time-picker></mdw-time-picker>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="hour24">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Time formatted in 24 hours</div>
-      <div class="mdw-subheader">The browser controls the format of the input it self</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="time">
-          <label>Time 24 hour</label>
-          <mdw-time-picker hour-24></mdw-time-picker>
-        </mdw-textfield>
+    <mdw-card id="hour24">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Time formatted in 24 hours</div>
+        <div class="mdw-subheader">The browser controls the format of the input it self</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="time">
+            <label>Time 24 hour</label>
+            <mdw-time-picker hour-24></mdw-time-picker>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="time">
     <label>Time 24 hour</label>
     <mdw-time-picker hour-24></mdw-time-picker>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="step">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Step</div>
-      <div class="mdw-subheader">The step attribute is in seconds</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="time" step="600">
-          <label>10 min step</label>
-          <mdw-time-picker></mdw-time-picker>
-        </mdw-textfield>
+    <mdw-card id="step">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Step</div>
+        <div class="mdw-subheader">The step attribute is in seconds</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="time" step="600">
+            <label>10 min step</label>
+            <mdw-time-picker></mdw-time-picker>
+          </mdw-textfield>
 
-        <mdw-textfield>
-          <input type="time" step="7200">
-          <label>2 hour step</label>
-          <mdw-time-picker></mdw-time-picker>
-        </mdw-textfield>
+          <mdw-textfield>
+            <input type="time" step="7200">
+            <label>2 hour step</label>
+            <mdw-time-picker></mdw-time-picker>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="time" step="600">
     <label>10 min step</label>
@@ -108,29 +109,30 @@
     <label>2 hour step</label>
     <mdw-time-picker></mdw-time-picker>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="native">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Native component</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="time">
-          <label>Time native</label>
-        </mdw-textfield>
+    <mdw-card id="native">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Native component</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="time">
+            <label>Time native</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="time">
     <label>Time native</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

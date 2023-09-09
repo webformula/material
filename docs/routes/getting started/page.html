@@ -1,33 +1,37 @@
 <h3 class="page-title">Getting Started</h3>
 <div class="page-subheader mdw-font-title-medium">Install components and styles</div>
 
-<div class="mdw-font-headline-small page-secondary-header">Highlights</div>
-<div class="links">
-  <a href="#install">Installation</a>
-  <a href="#import">Importing components</a>
-  <a href="#importstyles">Import styles</a>
-</div>
 
-<section style="margin-top: 46px;">
-  <mdw-card id="install">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Installation</div>
-    </div>
-    <pre>
-      <code class="language-bash">
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <li><a href="#install">Installation</a></li>
+      <li><a href="#import">Importing components</a></li>
+      <li><a href="#importstyles">Import styles</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-content-container">
+    <mdw-card id="install">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Installation</div>
+      </div>
+      <pre>
+        <code class="language-bash">
   ${`npm install @webformula/material`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="import">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Import components</div>
-    </div>
-    
-    <pre>
-      <code class="language-javascript">
+    <mdw-card id="import">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Import components</div>
+      </div>
+      
+      <pre>
+        <code class="language-javascript">
   ${`// import everything
   import '@webformula/material';
   
@@ -77,43 +81,43 @@
   
   // importing individual services
   import util from '@webformula/material/services/util';`}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <div class="mdw-card-content" style="margin-top: 12px">
-      <div class="mdw-subheader">CDN</div>
-      <div class="mdw-supporting-text">not recommended</div>
-    </div>
-    <pre>
-      <code class="language-html">
+      <div class="mdw-card-content" style="margin-top: 12px">
+        <div class="mdw-subheader">CDN</div>
+        <div class="mdw-supporting-text">not recommended</div>
+      </div>
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- import in index.html - NOT recommended  -->
   <script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/material.js"></script>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="importstyles">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Import styles</div>
-      <div class="mdw-supporting-text">Styles include <strong>theme.css</strong>, fonts and icons</div>
-      <div class="mdw-supporting-text"><strong>theme.css</strong> should be the first file imported or loaded</div>
-      <div class="mdw-supporting-text"><strong>theme.css</strong> can be generated at build time or runtime <a href="/styles">read more</a></div>
-      <div class="mdw-supporting-text">
-        <strong>theme.css</strong> can be customized to update light and dark color schemes. If you use the one in the repo it will be the default schemes.
+    <mdw-card id="importstyles">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Import styles</div>
+        <div class="mdw-supporting-text">Styles include <strong>theme.css</strong>, fonts and icons</div>
+        <div class="mdw-supporting-text"><strong>theme.css</strong> should be the first file imported or loaded</div>
+        <div class="mdw-supporting-text"><strong>theme.css</strong> can be generated at build time or runtime <a href="/styles">read more</a></div>
+        <div class="mdw-supporting-text">
+          <strong>theme.css</strong> can be customized to update light and dark color schemes. If you use the one in the repo it will be the default schemes.
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-css">
+    
+      <pre>
+        <code class="language-css">
   ${`/* theme.css should be loaded first */
   
   /* import in app css */
   @import('@webformula/materia.theme.css');`}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- import in index.html -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/theme.css">`)}
       </code>
@@ -144,5 +148,6 @@
       media="print" onload="this.media='all'" />`)}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
+  </div>
 </section>

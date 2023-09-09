@@ -1,7 +1,8 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Tabs</div>
-    <div class="mdw-supporting-text">Tabs organize content across different screens, data sets, and other interactions.</div>
+    <div class="mdw-supporting-text">Tabs organize content across different screens, data sets, and other interactions</div>
+    <a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
   </div>
   <div class="mdw-card-content">
     <div class="example" title="test">
@@ -36,73 +37,64 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
-<p>Tabs are useful for switching between views of distinct and related groups of information. There are two types of tabs:
-primary and secondary.</p>
 
-<div class="links">
-  <a href="#basic">Basic</a>
-</div>
+<section class="page-content-section">
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Basic</div>
+        
+        <div class="example" style="height: 200px; overflow-y: auto;">
+          <mdw-tabs id="one">
+            <div class="mdw-tab">
+              <div class="mdw-label">One</div>
+              <div class="mdw-ripple"></div>
+            </div>
+            <div class="mdw-tab">
+              <mdw-icon>inbox</mdw-icon>
+              <div class="mdw-ripple"></div>
+            </div>
+            <div class="mdw-tab">
+              <mdw-icon>inbox</mdw-icon>
+              Inbox
+              <div class="mdw-ripple"></div>
+            </div>
+          </mdw-tabs>
 
+          <mdw-tabs-content mdw-tabs="one">
+            <div class="mdw-content">
+              One<br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              <br />one
+              
+            </div>
 
-<section>
-  <h5>Types</h5>
+            <div class="mdw-content">
+              Two
+            </div>
 
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Basic</div>
-      
-      <div class="example" style="height: 200px; overflow-y: auto;">
-        <mdw-tabs id="one">
-          <div class="mdw-tab">
-            <div class="mdw-label">One</div>
-            <div class="mdw-ripple"></div>
-          </div>
-          <div class="mdw-tab">
-            <mdw-icon>inbox</mdw-icon>
-            <div class="mdw-ripple"></div>
-          </div>
-          <div class="mdw-tab">
-            <mdw-icon>inbox</mdw-icon>
-            Inbox
-            <div class="mdw-ripple"></div>
-          </div>
-        </mdw-tabs>
-
-        <mdw-tabs-content mdw-tabs="one">
-          <div class="mdw-content">
-            One<br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            
-          </div>
-
-          <div class="mdw-content">
-            Two
-          </div>
-
-          <div class="mdw-content">
-            
-            Three
-          </div>
-        </mdw-tabs-content>
+            <div class="mdw-content">
+              
+              Three
+            </div>
+          </mdw-tabs-content>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-tabs id="one">
     <div class="mdw-tab">
       <div class="mdw-label">One</div>
@@ -148,7 +140,8 @@ primary and secondary.</p>
       Three
     </div>
   </mdw-tabs-content>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

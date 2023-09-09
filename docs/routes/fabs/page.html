@@ -1,7 +1,11 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">FABs</div>
-    <div class="mdw-supporting-text">The FAB represents the most important action on a screen. It puts key actions within reach.</div>
+    <div class="mdw-supporting-text">The FAB represents the most important action on a screen. It puts key actions within reach</div>
+    <div class="mdw-supporting-text">This section contains component attributes, token mappings, and default values for quick reference or building your own
+    design files and implementations</div>
+    <a href="https://m3.material.io/components/floating-action-button/specs" target="_new">Material Design Guidelines:
+      FAB</a>
   </div>
   <div class="mdw-card-content" style="display: flex; align-items: center;">
     <mdw-fab class="mdw-large" style="margin-right: 8px">
@@ -23,69 +27,67 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/floating-action-button/specs" target="_new">Material Design Guidelines:
-  FAB</a>
-<p>This section contains component attributes, token mappings, and default values for quick reference or building your own
-design files and implementations.</p>
-
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#positioning">Positioning</a>
-  <a href="#colors">Colors</a>
-  <a href="#sizes">Sizes</a>
-  <a href="#label">Label</a>
-  <a href="#fixed">Fixed</a>
-</div>
 
 
-<section>
-  <h5>Types</h5>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#positioning">Positioning</a>
+      <a href="#colors">Colors</a>
+      <a href="#sizes">Sizes</a>
+      <a href="#label">Label</a>
+      <a href="#fixed">Fixed</a>
+    </ul>
+  </nav>
 
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">FAB</div>
-      
-      <div class="example">
-        <mdw-fab>
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">FAB</div>
+        
+        <div class="example">
+          <mdw-fab>
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-fab>
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="positioning">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">FAB positioning</div>
-      
-      <div class="example" style="height: 200px; position: relative;">
-        <mdw-fab class="mdw-position-bottom-right">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-position-bottom-left">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-position-top-right">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-position-top-left">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
+    <mdw-card id="positioning">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">FAB positioning</div>
+        
+        <div class="example" style="height: 200px; position: relative;">
+          <mdw-fab class="mdw-position-bottom-right">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-position-bottom-left">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-position-top-right">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-position-top-left">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-fab class="mdw-position-bottom-right">
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>
@@ -101,36 +103,36 @@ design files and implementations.</p>
   <mdw-fab class="mdw-position-top-left">
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="colors">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">FAB colors</div>
-      
-      <div class="example">
-        <mdw-fab>
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-surface">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-secondary">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-tertiary">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
+    <mdw-card id="colors">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">FAB colors</div>
+        
+        <div class="example">
+          <mdw-fab>
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-surface">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-secondary">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-tertiary">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-fab>
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>
@@ -146,32 +148,32 @@ design files and implementations.</p>
   <mdw-fab class="mdw-tertiary">
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="sizes">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">FAB sizes</div>
-      
-      <div class="example">
-        <mdw-fab>
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-small">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-large">
-          <mdw-icon>edit</mdw-icon>
-        </mdw-fab>
+    <mdw-card id="sizes">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">FAB sizes</div>
+        
+        <div class="example">
+          <mdw-fab>
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-small">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-large">
+            <mdw-icon>edit</mdw-icon>
+          </mdw-fab>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-fab>
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>
@@ -183,30 +185,30 @@ design files and implementations.</p>
   <mdw-fab class="mdw-large">
     <mdw-icon>edit</mdw-icon>
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="label">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">FAB label</div>
-      
-      <div class="example">
-        <mdw-fab id="hide-label" onclick="page.toggleLabel()">
-          <mdw-icon>edit</mdw-icon>
-          Toggle
-        </mdw-fab>
-      
-        <mdw-fab class="mdw-hide-label">
-          <mdw-icon>edit</mdw-icon>
-          Toggle
-        </mdw-fab>
+    <mdw-card id="label">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">FAB label</div>
+        
+        <div class="example">
+          <mdw-fab id="hide-label" onclick="page.toggleLabel()">
+            <mdw-icon>edit</mdw-icon>
+            Toggle
+          </mdw-fab>
+        
+          <mdw-fab class="mdw-hide-label">
+            <mdw-icon>edit</mdw-icon>
+            Toggle
+          </mdw-fab>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-fab>
     <mdw-icon>edit</mdw-icon>
     Toggle
@@ -216,35 +218,36 @@ design files and implementations.</p>
     <mdw-icon>edit</mdw-icon>
     Toggle
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="fixed">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Fixed position</div>
-  
-      <div class="example" style="flex-direction: column; display: flex;">
-        The FAB in the bottom right corner of the page. If you do not set it to fixed then it would be bound to the bottom
-        right of this container.
-        <mdw-switch style="width: 200px"
-          onchange="document.querySelector('#fixed-fab').classList.toggle('mdw-fixed', !this.checked)">Toggle fixed
-        </mdw-switch>
-        <mdw-fab id="fixed-fab" class="mdw-auto-hide-label mdw-position-bottom-right mdw-fixed">
-          <mdw-icon>edit</mdw-icon>
-          Example
-        </mdw-fab>
+    <mdw-card id="fixed">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Fixed position</div>
+    
+        <div class="example" style="flex-direction: column; display: flex;">
+          The FAB in the bottom right corner of the page. If you do not set it to fixed then it would be bound to the bottom
+          right of this container.
+          <mdw-switch style="width: 200px"
+            onchange="document.querySelector('#fixed-fab').classList.toggle('mdw-fixed', !this.checked)">Toggle fixed
+          </mdw-switch>
+          <mdw-fab id="fixed-fab" class="mdw-auto-hide-label mdw-position-bottom-right mdw-fixed">
+            <mdw-icon>edit</mdw-icon>
+            Example
+          </mdw-fab>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- you can use className 'mdw-auto-hide' to hide the entire FAB when scrolling, not just the label -->
     <mdw-fab class="mdw-auto-hide-label mdw-position-bottom-right mdw-fixed">
     <mdw-icon>edit</mdw-icon>
     Example
   </mdw-fab>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

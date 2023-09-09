@@ -1,7 +1,9 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Sliders</div>
-    <div class="mdw-supporting-text">Dialogs provide important prompts in a user flow.</div>
+    <div class="mdw-supporting-text">Sliders let users make selections from a range of values</div>
+    <div class="mdw-supporting-text">There are two types of sliders: continuous and discrete</div>
+    <a href="https://m3.material.io/components/sliders/overview" target="_new">Material Design Guidelines: Sliders</a>
   </div>
   <div class="mdw-card-content">
     <mdw-slider min="0" max="100" value="50" aria-label="one"></mdw-slider>
@@ -15,38 +17,36 @@
 </mdw-card>
 
 
-<a href="https://m3.material.io/components/sliders/overview" target="_new">Material Design Guidelines: Sliders</a>
-<p>There are two types of sliders: continuous and discrete.</p>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#discrete">Siscrete</a>
+      <a href="#range">Range</a>
+      <a href="#range-discrete">Range discrete</a>
+    </ul>
+  </nav>
 
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#discrete">Siscrete</a>
-  <a href="#range">Range</a>
-  <a href="#range-discrete">Range discrete</a>
-</div>
-
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Slider</div>
-      
-      <div class="example">
-        <mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
-        <mdw-slider min="0" max="100" value="50">
-          label
-        </mdw-slider>
-        <mdw-slider min="0" max="100" value="50">
-          <mdw-icon>volume_up</mdw-icon>
-          volume
-        </mdw-slider>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Slider</div>
+        
+        <div class="example">
+          <mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
+          <mdw-slider min="0" max="100" value="50">
+            label
+          </mdw-slider>
+          <mdw-slider min="0" max="100" value="50">
+            <mdw-icon>volume_up</mdw-icon>
+            volume
+          </mdw-slider>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-slider min="0" max="100" value="50" aria-label="two"></mdw-slider>
   <mdw-slider min="0" max="100" value="50">
     label
@@ -55,44 +55,44 @@
     <mdw-icon>volume_up</mdw-icon>
     volume
   </mdw-slider>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="discrete">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Slider discrete (locked to steps)</div>
-      
-      <div class="example">
-        <mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete" aria-label="three"></mdw-slider>
+    <mdw-card id="discrete">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Slider discrete (locked to steps)</div>
+        
+        <div class="example">
+          <mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete" aria-label="three"></mdw-slider>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-slider min="0" max="100" step="10" value="50" class="mdw-discrete" aria-label="three"></mdw-slider>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="range">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Slider range</div>
-      
-      <div class="example">
-        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
-        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">
-          label
-        </mdw-slider-range>
-        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">
-          <mdw-icon>volume_up</mdw-icon>
-          volume
-        </mdw-slider-range>
+    <mdw-card id="range">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Slider range</div>
+        
+        <div class="example">
+          <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
+          <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">
+            label
+          </mdw-slider-range>
+          <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">
+            <mdw-icon>volume_up</mdw-icon>
+            volume
+          </mdw-slider-range>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
   <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four">
     label
@@ -101,23 +101,24 @@
     <mdw-icon>volume_up</mdw-icon>
     volume
   </mdw-slider-range>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="range-discrete">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Slider range discrete</div>
-      
-      <div class="example">
-        <mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete" aria-label="five"></mdw-slider-range>
+    <mdw-card id="range-discrete">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Slider range discrete</div>
+        
+        <div class="example">
+          <mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete" aria-label="five"></mdw-slider-range>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-slider-range min="0" max="100" step="10" value="30,60" class="mdw-discrete" aria-label="five"></mdw-slider-range>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

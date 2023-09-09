@@ -1,7 +1,9 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Checkboxes</div>
-    <div class="mdw-supporting-text">Checkboxes can turn an option on or off</div>
+    <div class="mdw-supporting-text">Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off</div>
+    <a href="https://m3.material.io/components/checkbox/overview" target="_new">Material Design Guidelines:
+      Checkbox</a>
   </div>
   <div class="mdw-card-content" style="display: flex; flex-direction:column;">
     <mdw-checkbox checked>Checked</mdw-checkbox>
@@ -10,90 +12,88 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/checkbox/overview" target="_new">Material Design Guidelines:
-  Checkbox</a>
-<p>Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off.</p>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#left_label">Left label</a>
+      <a href="#error">Error style</a>
+      <a href="#indeterminate">Indeterminate state</a>
+    </ul>
+  </nav>
 
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#left_label">Left label</a>
-  <a href="#error">Error style</a>
-  <a href="#indeterminate">Indeterminate state</a>
-</div>
-
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Checkboxes</div>
-      
-      <div class="example" style="flex-direction: column; display: flex;">
-        <mdw-checkbox checked>Checked</mdw-checkbox>
-        <mdw-checkbox>Unchecked</mdw-checkbox>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Checkboxes</div>
+        
+        <div class="example" style="flex-direction: column; display: flex;">
+          <mdw-checkbox checked>Checked</mdw-checkbox>
+          <mdw-checkbox>Unchecked</mdw-checkbox>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-checkbox checked>Checked</mdw-checkbox>
   <mdw-checkbox>Unchecked</mdw-checkbox>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="left_label">    
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Label right</div>
-      
-      <div class="example" style="flex-direction: column; display: flex;">
-        <mdw-checkbox class="mdw-label-right">Label right</mdw-checkbox>
+    <mdw-card id="left_label">    
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Label right</div>
+        
+        <div class="example" style="flex-direction: column; display: flex;">
+          <mdw-checkbox class="mdw-label-right">Label right</mdw-checkbox>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
-${page.escape(`<mdw-checkbox class="mdw-label-right">Label right</mdw-checkbox>`)}
-      </code>
-    </pre>
-  </mdw-card>
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-checkbox class="mdw-label-right">Label right</mdw-checkbox>`)}
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="error">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Checkboxes error style</div>
-  
-      <div class="example" style="flex-direction: column; display: flex;">
-        <mdw-checkbox checked class="mdw-error">Checked error</mdw-checkbox>
-        <mdw-checkbox class="mdw-error">Unchecked error</mdw-checkbox>
+    <mdw-card id="error">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Checkboxes error style</div>
+    
+        <div class="example" style="flex-direction: column; display: flex;">
+          <mdw-checkbox checked class="mdw-error">Checked error</mdw-checkbox>
+          <mdw-checkbox class="mdw-error">Unchecked error</mdw-checkbox>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`mdw-checkbox checked class="mdw-error">Checked error</mdw-checkbox>
   <mdw-checkbox class="mdw-error">Unchecked error</mdw-checkbox>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="indeterminate">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Indeterminate</div>
-      <div class="mdw-subhead">There is no input attribute for Indeterminate, only a property. An attribute has been added to mdw-checkbox for convenience</div>
-      <div class="mdw-subhead">Indeterminate overrides checked and unchecked states. If checked is changed then indeterminate will be set false.</div>
-  
-      <div class="example" style="flex-direction: column; display: flex;">
-        <mdw-checkbox indeterminate checked>Checked indeterminate</mdw-checkbox>
-        <mdw-checkbox indeterminate>Unchecked indeterminate</mdw-checkbox>
+    <mdw-card id="indeterminate">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Indeterminate</div>
+        <div class="mdw-subhead">There is no input attribute for Indeterminate, only a property. An attribute has been added to mdw-checkbox for convenience</div>
+        <div class="mdw-subhead">Indeterminate overrides checked and unchecked states. If checked is changed then indeterminate will be set false.</div>
+    
+        <div class="example" style="flex-direction: column; display: flex;">
+          <mdw-checkbox indeterminate checked>Checked indeterminate</mdw-checkbox>
+          <mdw-checkbox indeterminate>Unchecked indeterminate</mdw-checkbox>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-checkbox indeterminate checked>Checked indeterminate</mdw-checkbox>
   <mdw-checkbox indeterminate>Unchecked indeterminate</mdw-checkbox>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

@@ -2,7 +2,8 @@
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Search</div>
     <div class="mdw-supporting-text">Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
-    navigation.</div>
+    navigation</div>
+    <a href="https://m3.material.io/components/search/overview" target="_new">Material Design Guidelines: Search</a>
   </div>
   <div class="mdw-card-content">
     <mdw-search id="one" placeholder="search" history="one" speech>
@@ -25,44 +26,42 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/search/overview" target="_new">Material Design Guidelines: Search</a>
-<p>Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
-navigation.</p>
 
-<div class="links">
-  <a href="#basic">Basic</a>
-  <a href="#debounce-search">Debounce search</a>
-  <a href="#icons">Icons</a>
-  <a href="#history ">History</a>
-  <a href="#speech">Speech</a>
-  <a href="#sections">Sections</a>
-  <a href="#templates">Templates</a>
-  <a href="#quickResults">Quick results</a>
-  <a href="#filters">Filters</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#basic">Basic</a>
+      <a href="#debounce-search">Debounce search</a>
+      <a href="#icons">Icons</a>
+      <a href="#history ">History</a>
+      <a href="#speech">Speech</a>
+      <a href="#sections">Sections</a>
+      <a href="#templates">Templates</a>
+      <a href="#quickResults">Quick results</a>
+      <a href="#filters">Filters</a>
+    </ul>
+  </nav>
 
+  <div class="page-content-container">
+    <mdw-card id="basic">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Standard</div>
+        <div class="mdw-supporting-text">By default the search event only triggers on enter key. Look at next example for how to change that.</div>
 
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="basic">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Standard</div>
-      <div class="mdw-supporting-text">By default the search event only triggers on enter key. Look at next example for how to change that.</div>
-
-      <div class="example">
-        <mdw-search id="two" placeholder="search"></mdw-search>
+        <div class="example">
+          <mdw-search id="two" placeholder="search"></mdw-search>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="two" placeholder="search"></mdw-search>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-javascript">
+      <pre>
+        <code class="language-javascript">
   ${`// search executed (enter key)
   document.querySelector('mdw-search#two').addEventListener('search', event => {
     event.target.updateQuickResults([{
@@ -80,126 +79,124 @@ navigation.</p>
   // search result selected
   document.querySelector('mdw-search#two').addEventListener('change', event => {
     console.log(event.target.value);
-  });
-  `}
-      </code>
-    </pre>
-  </mdw-card>
+  });`}
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="debounce-search">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Debounce search on input</div>
-      <div class="mdw-supporting-text">Specify the debounce milliseconds in the \`debounce\` attribute. Default is 300. If this is not set then search event is triggered on enter key</div>
-      <div class="mdw-supporting-text">You can hide spinner by adding the class name \`mdw-no-spinner\`</div>
+    <mdw-card id="debounce-search">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Debounce search on input</div>
+        <div class="mdw-supporting-text">Specify the debounce milliseconds in the \`debounce\` attribute. Default is 300. If this is not set then search event is triggered on enter key</div>
+        <div class="mdw-supporting-text">You can hide spinner by adding the class name \`mdw-no-spinner\`</div>
 
-      <div class="example">
-        <mdw-search id="debounce" placeholder="search" debounce="300"></mdw-search>
+        <div class="example">
+          <mdw-search id="debounce" placeholder="search" debounce="300"></mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
+    
+      <pre>
         <code class="language-html">
-    ${page.escape(`<mdw-search id="debounce" placeholder="search" debounce="300"></mdw-search>`)}
+  ${page.escape(`<mdw-search id="debounce" placeholder="search" debounce="300"></mdw-search>`)}
         </code>
       </pre>
-  
-    <pre>
+    
+      <pre>
         <code class="language-javascript">
-    ${`// search executed (enter key)
-    document.querySelector('mdw-search#debounce').addEventListener('search', event => {
-      event.target.updateQuickResults([{
-        value: 'one',
-        primary: 'One',
-      },{
-        value: 'two',
-        primary: 'Two'
-      }].filter(v => v.primary.toLocaleLowerCase().includes(event.target.searchValue)));
-    });
-  
-    // text input
-    document.querySelector('mdw-search#two').addEventListener('input', () => {});
-  
-    // search result selected
-    document.querySelector('mdw-search#two').addEventListener('change', event => {
-      console.log(event.target.value);
-    });
-    `}
+  ${`// search executed (enter key)
+  document.querySelector('mdw-search#debounce').addEventListener('search', event => {
+    event.target.updateQuickResults([{
+      value: 'one',
+      primary: 'One',
+    },{
+      value: 'two',
+      primary: 'Two'
+    }].filter(v => v.primary.toLocaleLowerCase().includes(event.target.searchValue)));
+  });
+
+  // text input
+  document.querySelector('mdw-search#two').addEventListener('input', () => {});
+
+  // search result selected
+  document.querySelector('mdw-search#two').addEventListener('change', event => {
+    console.log(event.target.value);
+  });`}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
 
 
-  <mdw-card id="icons">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Icons</div>
-      <div class="mdw-subheader">Leading and trailing icons</div>
-  
-      <div class="example">
-        <mdw-search id="three" placeholder="search">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="icons">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Icons</div>
+        <div class="mdw-subheader">Leading and trailing icons</div>
+    
+        <div class="example">
+          <mdw-search id="three" placeholder="search">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="three" placeholder="search">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="history">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">History</div>
-      <div class="mdw-subheader">You can specify a history id, so multiple searches can use the same history</div>
-  
-      <div class="example">
-        <mdw-search id="four" placeholder="search" history="historyId">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="history">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">History</div>
+        <div class="mdw-subheader">You can specify a history id, so multiple searches can use the same history</div>
+    
+        <div class="example">
+          <mdw-search id="four" placeholder="search" history="historyId">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="four" placeholder="search" history="historyId">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="speech">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Speech</div>
-      <div class="mdw-subheader">Speech recognition will only show if browser supports it</div>
-  
-      <div class="example">
-        <mdw-search id="five" placeholder="search" history="historyId" speech>
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="speech">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Speech</div>
+        <div class="mdw-subheader">Speech recognition will only show if browser supports it</div>
+    
+        <div class="example">
+          <mdw-search id="five" placeholder="search" history="historyId" speech>
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="five" placeholder="search" history="historyId" speech>
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-javascript">
+      <pre>
+        <code class="language-javascript">
   ${`// add sections with headers
   document.querySelector('mdw-search#six').registerSection('alt', 'Alt results');
 
@@ -212,111 +209,112 @@ navigation.</p>
       primary: 'Two',
       section: 'alt'
     }].filter(v => v.primary.toLocaleLowerCase().includes(event.target.searchValue)));
-  });
-  `}
-      </code>
-    </pre>
-  </mdw-card>
+  });`}
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="sections">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Sections</div>
-      <div class="mdw-subheader">You can show results in multiple sections with headers</div>
-  
-      <div class="example">
-        <mdw-search id="six" placeholder="search" history="historyId">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="sections">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Sections</div>
+        <div class="mdw-subheader">You can show results in multiple sections with headers</div>
+    
+        <div class="example">
+          <mdw-search id="six" placeholder="search" history="historyId">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="six" placeholder="search" history="historyId">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre class="code-collapse-bottom">
-      <code class="language-javascript">
+      <pre class="code-collapse-bottom">
+        <code class="language-javascript">
   ${`// add sections with headers
   document.querySelector('mdw-search#six').registerSection('alt', 'Alt results');`}
-    </code>
-  </pre>
-  </mdw-card>
+      </code>
+    </pre>
+    </mdw-card>
 
 
 
-  <mdw-card id="templates">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Templates</div>
-      <div class="mdw-subheader">You can add custom templates by section</div>
-  
-      <div class="example">
-        <mdw-search id="seven" placeholder="search" history="historyId">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="templates">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Templates</div>
+        <div class="mdw-subheader">You can add custom templates by section</div>
+    
+        <div class="example">
+          <mdw-search id="seven" placeholder="search" history="historyId">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="seven" placeholder="search" history="historyId">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
-  
-  <pre class="code-collapse-bottom">
-    <code class="language-javascript">
+        </code>
+      </pre>
+    
+    <pre class="code-collapse-bottom">
+      <code class="language-javascript">
   ${`// add sections with headers
   document.querySelector('mdw-search#seven').registerSection('alt', 'Alt results');
   
   // add template, specifying section
   // override default template
   document.querySelector('mdw-search#seven').registerTemplate(data => \``}
-    </code>
-  </pre>
-  <pre class="code-collapse">
-    <code class="language-html">
+      </code>
+    </pre>
+    <pre class="code-collapse">
+      <code class="language-html">
     ${page.escape(`<mdw-list-item value="\${data.value}">
       <mdw-avatar>A</mdw-avatar>
       \${data.primary}
     </mdw-list-item>`)}
-    </code>
-  </pre>
-  <pre class="code-collapse-bottom">
-    <code class="language-javascript">
+      </code>
+    </pre>
+    <pre class="code-collapse-bottom">
+      <code class="language-javascript">
   ${`\`, 'default');
 
 
   // add template for alt section
   document.querySelector('mdw-search#seven').registerTemplate(data => \``}
-    </code>
-  </pre>
-  <pre class="code-collapse">
-    <code class="language-html">
-  ${page.escape(`<mdw-list-item value="\${data.value}" class="mdw-line-two">
-    <mdw-icon>inbox</mdw-icon>
-    <div class="mdw-text">
-      <div class="mdw-headline">\${data.primary}</div>
-      <div class="mdw-supporting-text">\${data.secondary}</div>
-    </div>
-  </mdw-list-item>`)}
-    </code>
-  </pre>
-  <pre class="code-collapse-top">
-    <code class="language-javascript">
-  ${`\`, 'alt');
-
-
-  document.querySelector('mdw-search#six').addEventListener('search', event => {
+      </code>
+    </pre>
+    <pre class="code-collapse">
+      <code class="language-html">
+    ${page.escape(`<mdw-list-item value="\${data.value}" class="mdw-line-two">
+      <mdw-icon>inbox</mdw-icon>
+      <div class="mdw-text">
+        <div class="mdw-headline">\${data.primary}</div>
+        <div class="mdw-supporting-text">\${data.secondary}</div>
+      </div>
+    </mdw-list-item>`)}
+      </code>
+    </pre>
+    <pre class="code-collapse-top">
+      <code class="language-javascript">
+  ${`\`, 'alt');`}
+      </code>
+    </pre>
+    <pre class="code-collapse-top">
+      <code class="language-javascript">
+  ${`document.querySelector('mdw-search#six').addEventListener('search', event => {
     event.target.updateQuickResults([{
       value: 'one',
       primary: 'One',
@@ -326,77 +324,81 @@ navigation.</p>
       section: 'alt'
     }].filter(v => v.primary.toLocaleLowerCase().includes(event.target.searchValue)));
   });`}
-    </code>
-  </pre>
-  </mdw-card>
+      </code>
+    </pre>
+    </mdw-card>
 
-  <mdw-card id="quickResults">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Quick results</div>
-      <div class="mdw-supporting-text">You can show quick results while the user is typing alongside of history. Once the user hits enter, they will be replaced by suggestions</div>
-  
-      <div class="example">
-        <mdw-search id="eight" placeholder="search" history="historyId">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        </mdw-search>
+    <mdw-card id="quickResults">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Quick results</div>
+        <div class="mdw-supporting-text">You can show quick results while the user is typing alongside of history. Once the user hits enter, they will be replaced by suggestions</div>
+    
+        <div class="example">
+          <mdw-search id="eight" placeholder="search" history="historyId">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="eight" placeholder="search" history="historyId">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
   </mdw-search>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre class="code-collapse-bottom">
-    <code class="language-javascript">
+      <pre class="code-collapse-bottom">
+      <code class="language-javascript">
   ${`// add sections with headers
   document.querySelector('mdw-search#eight').registerSection('alt', 'Alt results');
   
   // add template, specifying section
   // override default template
   document.querySelector('mdw-search#eight').registerTemplate(data => \``}
-    </code>
-  </pre>
-  <pre class="code-collapse">
-    <code class="language-html">
+      </code>
+    </pre>
+    <pre class="code-collapse">
+      <code class="language-html">
     ${page.escape(`<mdw-list-item value="\${data.value}">
       <mdw-avatar>A</mdw-avatar>
       \${data.primary}
     </mdw-list-item>`)}
-    </code>
-  </pre>
-  <pre class="code-collapse-bottom">
-    <code class="language-javascript">
-  ${`\`, 'default');
-
-
-  // add template for quick results section
+      </code>
+    </pre>
+    <pre class="code-collapse-bottom">
+      <code class="language-javascript">
+  ${`\`, 'default');`}
+      </code>
+    </pre>
+    <pre class="code-collapse-bottom">
+      <code class="language-javascript">
+  ${`// add template for quick results section
   // overrides default quickResults template
   document.querySelector('mdw-search#eight').registerTemplate(data => \``}
-    </code>
-  </pre>
-  <pre class="code-collapse">
-    <code class="language-html">
-  ${page.escape(`<mdw-list-item value="\${data.value}" class="mdw-line-two">
-    <mdw-icon>inbox</mdw-icon>
-    <div class="mdw-text">
-      <div class="mdw-headline">\${data.primary}</div>
-      <div class="mdw-supporting-text">\${data.secondary}</div>
-    </div>
-  </mdw-list-item>`)}
-    </code>
-  </pre>
-  <pre class="code-collapse-top">
-    <code class="language-javascript">
-  ${`\`, 'quick');
-
-
-  document.querySelector('mdw-search#eight').addEventListener('input', event => {
+      </code>
+    </pre>
+    <pre class="code-collapse">
+      <code class="language-html">
+    ${page.escape(`<mdw-list-item value="\${data.value}" class="mdw-line-two">
+      <mdw-icon>inbox</mdw-icon>
+      <div class="mdw-text">
+        <div class="mdw-headline">\${data.primary}</div>
+        <div class="mdw-supporting-text">\${data.secondary}</div>
+      </div>
+    </mdw-list-item>`)}
+      </code>
+    </pre>
+    <pre class="code-collapse-top">
+      <code class="language-javascript" wfc-no-binding>
+  ${`\`, 'quick');`}
+      </code>
+    </pre>
+    <pre class="code-collapse-top">
+      <code class="language-javascript" wfc-no-binding>
+  ${`document.querySelector('mdw-search#eight').addEventListener('input', event => {
     event.target.updateQuickResults([{
       value: 'one',
       primary: 'One',
@@ -410,39 +412,39 @@ navigation.</p>
     }].filter(v => v.primary.toLocaleLowerCase().includes(event.target.searchValue)));
   });
   document.querySelector('mdw-search#eight').addEventListener('search', this.onSearch_bound);`}
-    </code>
-  </pre>
-  </mdw-card>
+      </code>
+    </pre>
+    </mdw-card>
 
 
-  <mdw-card id="filters">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Filters</div>
-      <div class="mdw-subheader">Filter trigger the <b>search</b> event and the <b>filter</b> event</div>
-  
-      <div class="example">
-        <mdw-search id="nine" placeholder="search" history="historyId">
-          <mdw-navigation-button slot="leading"></mdw-navigation-button>
-          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-        
-          <mdw-chip-group slot="filters" class="mdw-filter">
-            <mdw-chip value="one">One</mdw-chip>
-            <mdw-chip value="two">Two</mdw-chip>
-            <mdw-chip menu="three">
-              Three
-              <mdw-menu>
-                <mdw-button value="a">3A</mdw-button>
-                <mdw-button value="b">3B</mdw-button>
-                <mdw-button value="c">3C</mdw-button>
-              </mdw-menu>
-            </mdw-chip>
-          </mdw-chip-group>
-        </mdw-search>
+    <mdw-card id="filters">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Filters</div>
+        <div class="mdw-subheader">Filter trigger the <b>search</b> event and the <b>filter</b> event</div>
+    
+        <div class="example">
+          <mdw-search id="nine" placeholder="search" history="historyId">
+            <mdw-navigation-button slot="leading"></mdw-navigation-button>
+            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+          
+            <mdw-chip-group slot="filters" class="mdw-filter">
+              <mdw-chip value="one">One</mdw-chip>
+              <mdw-chip value="two">Two</mdw-chip>
+              <mdw-chip menu="three">
+                Three
+                <mdw-menu>
+                  <mdw-button value="a">3A</mdw-button>
+                  <mdw-button value="b">3B</mdw-button>
+                  <mdw-button value="c">3C</mdw-button>
+                </mdw-menu>
+              </mdw-chip>
+            </mdw-chip-group>
+          </mdw-search>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-search id="nine" placeholder="search" history="historyId">
     <mdw-navigation-button slot="leading"></mdw-navigation-button>
     <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
@@ -460,16 +462,17 @@ navigation.</p>
       </mdw-chip>
     </mdw-chip-group>
   </mdw-search>`)}
-      </code>
-    </pre>
-  
-    <pre class="code-collapse-bottom">
-        <code class="language-javascript">
-    ${`document.querySelector('mdw-search#nine').addEventListener('search', this.onSearch_bound);
-    document.querySelector('mdw-search#nine').addEventListener('filter', event => {
-      console.log(event.target.filterValue);
-    });`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    
+      <pre class="code-collapse-bottom">
+          <code class="language-javascript" wfc-no-binding>
+  ${`document.querySelector('mdw-search#nine').addEventListener('search', this.onSearch_bound);
+  document.querySelector('mdw-search#nine').addEventListener('filter', event => {
+    console.log(event.target.filterValue);
+  });`}
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

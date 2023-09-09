@@ -1,7 +1,8 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Date Picker</div>
-    <div class="mdw-supporting-text"></div>
+    <div class="mdw-headline" style="font-size: 36px;">Date pickers</div>
+    <div class="mdw-supporting-text">Date pickers let people select a date, or a range of dates</div>
+    <a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
   </div>
   <div class="mdw-card-content">
     <mdw-textfield>
@@ -12,92 +13,90 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
-<p>Badges convey dynamic information, such as counts or status. A badge can include labels or numbers.</p>
 
-<div class="links">
-  <a href="#basic">Date</a>
-  <a href="#dateminmax">Date min max</a>
-  <a href="#daterange">Date range</a>
-  <a href="#native">Date native component</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#basic">Date</a>
+      <a href="#dateminmax">Date min max</a>
+      <a href="#daterange">Date range</a>
+      <a href="#native">Date native component</a>
+    </ul>
+  </nav>
 
+  <div class="page-content-container">
+    <mdw-card id="basic">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Basic</div>
 
-<section>
-  <h5>Types</h5>
-
-
-  <mdw-card id="basic">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Basic</div>
-
-      <div class="example">
-        <mdw-textfield id="temp">
-          <input type="date">
-          <label>Date</label>
-          <mdw-date-picker></mdw-date-picker>
-        </mdw-textfield>
+        <div class="example">
+          <mdw-textfield id="temp">
+            <input type="date">
+            <label>Date</label>
+            <mdw-date-picker></mdw-date-picker>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="date">
     <label>Date</label>
     <mdw-date-picker></mdw-date-picker>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="dateminmax">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Min max</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="date" min="${page.min}" max="${page.max}">
-          <label>Date min max</label>
-          <mdw-date-picker></mdw-date-picker>
-        </mdw-textfield>
+    <mdw-card id="dateminmax">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Min max</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="date" min="${page.min}" max="${page.max}">
+            <label>Date min max</label>
+            <mdw-date-picker></mdw-date-picker>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="date" min="${page.min}" max="${page.max}">
     <label>Date min max</label>
     <mdw-date-picker></mdw-date-picker>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="daterange">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Date range</div>
-  
-      <div class="example">
-        <div style="display: flex;">
-          <mdw-textfield id="start">
-            <input type="date" value="${page.min}">
-            <label>Start</label>
-            <mdw-date-picker-range end-input="#end" label="Departures"></mdw-date-picker-range>
-          </mdw-textfield>
-        
-          <mdw-textfield id="end">
-            <input type="date" value="${page.max}">
-            <label>End</label>
-          </mdw-textfield>
+    <mdw-card id="daterange">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Date range</div>
+    
+        <div class="example">
+          <div style="display: flex;">
+            <mdw-textfield id="start">
+              <input type="date" value="${page.min}">
+              <label>Start</label>
+              <mdw-date-picker-range end-input="#end" label="Departures"></mdw-date-picker-range>
+            </mdw-textfield>
+          
+            <mdw-textfield id="end">
+              <input type="date" value="${page.max}">
+              <label>End</label>
+            </mdw-textfield>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<div style="display: flex;">
     <mdw-textfield id="start">
       <input type="date">
@@ -110,29 +109,30 @@
       <label>End</label>
     </mdw-textfield>
   </div>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="native">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Date native component</div>
-  
-      <div class="example">
-        <mdw-textfield>
-          <input type="date">
-          <label>Date</label>
-        </mdw-textfield>
+    <mdw-card id="native">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Date native component</div>
+    
+        <div class="example">
+          <mdw-textfield>
+            <input type="date">
+            <label>Date</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input type="date">
     <label>Date</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

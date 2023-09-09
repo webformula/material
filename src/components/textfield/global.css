@@ -118,7 +118,8 @@ mdw-textfield > label {
   color: var(--mdw-on-surface-variant);
 
   transform-origin: left top;
-  animation: mdw-textfield-label-reverse var(--mdw-motion-duration-short3);
+  animation: mdw-textfield-label-reverse;
+  animation-duration: var(--mdw-motion-duration-short3);
   animation-timing-function: var(--mdw-motion-easing);
 }
 
@@ -140,7 +141,8 @@ mdw-textfield > input:not([placeholder=" "]) + label,
 mdw-textfield > input:not(:placeholder-shown) + label {
   font-size: var(--mdw-font-body-size-small);
   top: 4px;
-  animation: mdw-textfield-label var(--mdw-motion-duration-short3);
+  animation: mdw-textfield-label;
+  animation-duration: var(--mdw-motion-duration-short3);
   animation-timing-function: var(--mdw-motion-easing);
 }
 

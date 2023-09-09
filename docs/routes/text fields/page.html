@@ -1,7 +1,9 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Text fields</div>
-    <div class="mdw-supporting-text">Text fields allow users to enter text into a UI. They typically appear in forms and dialogs.</div>
+    <div class="mdw-supporting-text">Text fields allow users to enter text into a UI. They typically appear in forms and dialogs</div>
+    <a href="https://m3.material.io/components/text-fields/overview" target="_new">Material Design Guidelines:
+      Text fields</a>
   </div>
   <div class="mdw-card-content" style="display: flex; flex-direction:column; width: 250px">
     <mdw-textfield>
@@ -21,309 +23,307 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/text-fields/overview" target="_new">Material Design Guidelines:
-  Text fields</a>
-<p>There are two types of text fields: filled and outlined.</p>
 
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#outlined">Outlined</a>
-  <a href="#leading">Leading icon</a>
-  <a href="#trailing">Trailing icon</a>
-  <a href="#search">Search with clear</a>
-  <a href="#required">Required</a>
-  <a href="#required-message">Required default html error</a>
-  <a href="#required-custom">Required custom error</a>
-  <a href="#supporting">Supporting message</a>
-  <a href="#autocomplete">Autocomplete</a>
-  <a href="#format">Format</a>
-  <a href="#mask">Mask</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#outlined">Outlined</a>
+      <a href="#leading">Leading icon</a>
+      <a href="#trailing">Trailing icon</a>
+      <a href="#search">Search with clear</a>
+      <a href="#required">Required</a>
+      <a href="#required-message">Required default html error</a>
+      <a href="#required-custom">Required custom error</a>
+      <a href="#supporting">Supporting message</a>
+      <a href="#autocomplete">Autocomplete</a>
+      <a href="#format">Format</a>
+      <a href="#mask">Mask</a>
+    </ul>
+  </nav>
 
-
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Standard</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input>
-          <label>Label</label>
-        </mdw-textfield>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Standard</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input>
+            <label>Label</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input>
     <label>Label</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
-
-  <mdw-card id="outlined">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Outlined</div>
-  
-      <div class="example">
-        <mdw-textfield class="mdw-outlined">
-          <input>
-          <label>Label</label>
-        </mdw-textfield>
-      </div>
-    </div>
-  
-    <pre>
-        <code class="language-html">
-    ${page.escape(`<mdw-textfield class="mdw-outlined">
-      <input>
-      <label>Label</label>
-    </mdw-textfield>`)}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
 
-
-  <mdw-card id="leading">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Leading icon</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <mdw-icon>search</mdw-icon>
-          <input>
-          <label>Label</label>
-        </mdw-textfield>
+    <mdw-card id="outlined">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Outlined</div>
+    
+        <div class="example">
+          <mdw-textfield class="mdw-outlined">
+            <input>
+            <label>Label</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-textfield class="mdw-outlined">
+    <input>
+    <label>Label</label>
+  </mdw-textfield>`)}
+        </code>
+      </pre>
+    </mdw-card>
 
-    <pre>
-      <code class="language-html">
+
+    <mdw-card id="leading">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Leading icon</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <mdw-icon>search</mdw-icon>
+            <input>
+            <label>Label</label>
+          </mdw-textfield>
+        </div>
+      </div>
+
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <mdw-icon>search</mdw-icon>
     <input>
     <label>Label</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="trailing">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Trailing icon</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input>
-          <label>Label</label>
-          <mdw-icon class="mdw-outlined">person</mdw-icon>
-        </mdw-textfield>
+    <mdw-card id="trailing">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Trailing icon</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input>
+            <label>Label</label>
+            <mdw-icon class="mdw-outlined">person</mdw-icon>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input>
     <label>Label</label>
     <mdw-icon class="mdw-outlined">person</mdw-icon>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="search">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Search with clear</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <mdw-icon>search</mdw-icon>
-          <input type="search">
-          <label>Label</label>
-          <mdw-icon class="mdw-outlined mdw-input-clear">cancel</mdw-icon>
-        </mdw-textfield>
+    <mdw-card id="search">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Search with clear</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <mdw-icon>search</mdw-icon>
+            <input type="search">
+            <label>Label</label>
+            <mdw-icon class="mdw-outlined mdw-input-clear">cancel</mdw-icon>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <mdw-icon>search</mdw-icon>
     <input type="search">
     <label>Label</label>
     <mdw-icon class="mdw-outlined mdw-input-clear">cancel</mdw-icon>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="required">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Required</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input required>
-          <label>Label</label>
-        </mdw-textfield>
+    <mdw-card id="required">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Required</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input required>
+            <label>Label</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input required>
     <label>Label</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="required-message">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Required with default html error</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input required>
-          <label>Label</label>
-          <div class="mdw-supporting-text"></div>
-        </mdw-textfield>
+    <mdw-card id="required-message">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Required with default html error</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input required>
+            <label>Label</label>
+            <div class="mdw-supporting-text"></div>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input required>
     <label>Label</label>
     <div class="mdw-supporting-text"></div>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="required-custom">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Required custom error</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input id="require-custom" required>
-          <label>Label</label>
-          <div class="mdw-supporting-text"></div>
-        </mdw-textfield>
+    <mdw-card id="required-custom">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Required custom error</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input id="require-custom" required>
+            <label>Label</label>
+            <div class="mdw-supporting-text"></div>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input id="require-custom" required>
     <label>Label</label>
     <div class="mdw-supporting-text"></div>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-    <pre>
-      <code class="language-javascript">
+        </code>
+      </pre>
+      <pre>
+        <code class="language-javascript">
   ${`// set custom error message https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity
   document.querySelector('#require-custom').setCustomValidity('Custom error message')`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="supporting">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Supporting message</div>
-      
-      <div class="example">
-        <mdw-textfield>
-          <input required>
-          <label>Label</label>
-          <div class="mdw-supporting-text">Supporting message</div>
-        </mdw-textfield>
+    <mdw-card id="supporting">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Supporting message</div>
+        
+        <div class="example">
+          <mdw-textfield>
+            <input required>
+            <label>Label</label>
+            <div class="mdw-supporting-text">Supporting message</div>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield>
     <input required>
     <label>Label</label>
     <div class="mdw-supporting-text">Supporting message</div>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="autocomplete">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Autocomplete</div>
-      
-      <div class="example">
-        <mdw-textfield id="autocomplete-textfield">
-          <input value="auto">
-          <label>Label</label>
-        </mdw-textfield>
+    <mdw-card id="autocomplete">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Autocomplete</div>
+        
+        <div class="example">
+          <mdw-textfield id="autocomplete-textfield">
+            <input value="auto">
+            <label>Label</label>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-textfield id="autocomplete-textfield">
     <input value="auto">
     <label>Label</label>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-    <pre>
-      <code class="language-javascript">
+        </code>
+      </pre>
+      <pre>
+        <code class="language-javascript">
   ${"document.querySelector('#autocomplete-textfield').autocomplete = 'complete';"}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
 
-  <mdw-card id="format">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Format</div>
-      <div class="mdw-subheader">Use string replacers with pattern regular expressions to format input</div>
-      <div class="mdw-supporting-text">Set attribute <b>format</b> with a string replacer. Currently only the number group
-        selector works ($1, $2, ...). The formatter works off the input <b>pattern</b> regex. You can use groups to split
-        value into parts.</div>
-      <div class="mdw-supporting-text"><b>Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
+    <mdw-card id="format">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Format</div>
+        <div class="mdw-subheader">Use string replacers with pattern regular expressions to format input</div>
+        <div class="mdw-supporting-text">Set attribute <b>format</b> with a string replacer. Currently only the number group
+          selector works ($1, $2, ...). The formatter works off the input <b>pattern</b> regex. You can use groups to split
+          value into parts.</div>
+        <div class="mdw-supporting-text"><b>Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
 
-      <div class="example">
-        <mdw-textfield format="$1-$2-$3" id="ssn">
-          <input pattern="^([0-9]{3})[- ]?([0-9]{2})[- ]?([0-9]{4})$">
-          <label>SSN</label>
-          <div class="mdw-supporting-text"></div>
-        </mdw-textfield>
+        <div class="example">
+          <mdw-textfield format="$1-$2-$3" id="ssn">
+            <input pattern="^([0-9]{3})[- ]?([0-9]{2})[- ]?([0-9]{4})$">
+            <label>SSN</label>
+            <div class="mdw-supporting-text"></div>
+          </mdw-textfield>
 
-        <mdw-textfield format="($1) $2 $3" id="phone">
-          <input pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$">
-          <label>US Phone</label>
-          <div class="mdw-supporting-text"></div>
-        </mdw-textfield>
+          <mdw-textfield format="($1) $2 $3" id="phone">
+            <input pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$">
+            <label>US Phone</label>
+            <div class="mdw-supporting-text"></div>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- Social Security Number -->
   <!-- converts (123121234, 123-12-1234, 123 12 1234) into 123-12-1234 -->
   <mdw-textfield format="$1-$2-$3" id="ssn">
@@ -340,10 +340,10 @@
     <label>US Phone</label>
     <div class="mdw-supporting-text"></div>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-    <pre>
-      <code class="language-javascript">
+        </code>
+      </pre>
+      <pre>
+        <code class="language-javascript">
   ${`const inputSSN = document.querySelector('input#ssn');
   console.log(inputSSN.value); // the typed input 123121234
   console.log(inputSSN.formattedvalue); // the formatted input 123-12-1234
@@ -351,28 +351,28 @@
   const inputPhone = document.querySelector('input#ssn');
   console.log(inputPhone.value); // the typed input 1231231234
   console.log(inputPhone.formattedvalue); // the formatted input (123) 123 1234`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="mask">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Mask format</div>
-      <div class="mdw-subheader">Use string replacers with format to mask the input</div>
-      <div class="mdw-supporting-text">Set attribute <b>mask</b> with a string replacer. Currently only the number group
-        selector works ($1, $2, ...). The mask requires a <b>format</b> to be set</div>
-  
-      <div class="example">
-        <mdw-textfield mask="xxx-xx-$3" format="$1-$2-$3" id="ssnMask">
-          <input pattern="^([0-9]{3})[- ]?([0-9]{2})[- ]?([0-9]{4})$">
-          <label>SSN</label>
-          <div class="mdw-supporting-text"></div>
-        </mdw-textfield>
+    <mdw-card id="mask">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Mask format</div>
+        <div class="mdw-subheader">Use string replacers with format to mask the input</div>
+        <div class="mdw-supporting-text">Set attribute <b>mask</b> with a string replacer. Currently only the number group
+          selector works ($1, $2, ...). The mask requires a <b>format</b> to be set</div>
+    
+        <div class="example">
+          <mdw-textfield mask="xxx-xx-$3" format="$1-$2-$3" id="ssnMask">
+            <input pattern="^([0-9]{3})[- ]?([0-9]{2})[- ]?([0-9]{4})$">
+            <label>SSN</label>
+            <div class="mdw-supporting-text"></div>
+          </mdw-textfield>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<!-- Social Security Number -->
   <!-- converts (123121234, 123-12-1234, 123 12 1234) into xxx-xx-1234 -->
   <mdw-textfield mask="xxx-xx-$3" format="$1-$2-$3" id="ssnMask">
@@ -380,15 +380,16 @@
     <label>SSN</label>
     <div class="mdw-supporting-text"></div>
   </mdw-textfield>`)}
-      </code>
-    </pre>
-    <pre>
-      <code class="language-javascript">
+        </code>
+      </pre>
+      <pre>
+        <code class="language-javascript">
   ${`const inputSSNMask = document.querySelector('input#ssnMask');
   console.log(inputSSNMask.value); // the typed input 123121234
   console.log(inputSSNMask.maskedValue); // the formatted input xxx-xx-1234
   console.log(inputSSNMask.formattedvalue); // the formatted input 123-12-1234`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

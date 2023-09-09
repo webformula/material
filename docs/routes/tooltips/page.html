@@ -1,64 +1,54 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Tooltips</div>
-  </div>
-  <div class="mdw-card-content">
-    <div class="example">
-      <mdw-button tooltip="tooltip text">
-        Example
-      </mdw-button>
-    </div>
-  </div>
-</mdw-card>
-
-<a href="https://m3.material.io/components/buttons/overview" target="_new">Material Design Guidelines: Buttons</a>
-<p>There are five types of common buttons: elevated, filled, filled tonal, outlined, and text.</p>
-
-<div class="links">
-  <a href="#standard">Standard</a>
-  <a href="#rich">Rich</a>
-</div>
+<h3 class="page-title">Tooltips</h3>
+<div class="page-subheader mdw-font-title-medium">Tooltips display brief labels or messages</div>
+<a href="https://m3.material.io/components/tooltips/overview" target="_new">Material Design Guidelines: Tooltips</a>
 
 
-<section>
-  <h5>Types</h5>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#standard">Standard</a>
+      <a href="#rich">Rich</a>
+    </ul>
+  </nav>
 
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Tooltip</div>
-      
-      <div class="example">
-        <mdw-button tooltip="tooltip text">Hover me</mdw-button>
+  <div class="page-content-container">
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Tooltip</div>
+        
+        <div class="example">
+          <mdw-button tooltip="tooltip text">Hover me</mdw-button>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button tooltip="tooltip text">Hover me</mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="standard">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Rich tooltip</div>
-  
-      <div class="example">
-        <mdw-button>
-          Hover me
-          <mdw-tooltip class="mdw-rich">
-            <div class="mdw-subheader">Rich tooltip</div>
-            <div class="mdw-supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the user's focus.</div>
-            <div class="mdw-actions">
-              <mdw-button>Action</mdw-button>
-            </div>
-          </mdw-tooltip>
-        </mdw-button>
+    <mdw-card id="standard">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Rich tooltip</div>
+    
+        <div class="example">
+          <mdw-button>
+            Hover me
+            <mdw-tooltip class="mdw-rich">
+              <div class="mdw-subheader">Rich tooltip</div>
+              <div class="mdw-supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the user's focus.</div>
+              <div class="mdw-actions">
+                <mdw-button>Action</mdw-button>
+              </div>
+            </mdw-tooltip>
+          </mdw-button>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-button>
     Hover me
     <mdw-tooltip class="mdw-rich">
@@ -70,7 +60,8 @@
       </div>
     </mdw-tooltip>
   </mdw-button>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>

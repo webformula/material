@@ -1,8 +1,10 @@
 <mdw-card class="header-card">
   <div class="mdw-card-content">
     <div class="mdw-headline" style="font-size: 36px;">Chips</div>
-    <div class="mdw-supporting-text">Chips help people enter information, make selections, filter content, or trigger actions.
-    </div>
+    <div class="mdw-supporting-text">Chips help people enter information, make selections, filter content, or trigger actions</div>
+    <div class="mdw-supporting-text">Chips can show multiple interactive elements together in the same area, such as a list of selectable movie times, or a
+    series of email contacts. There are four types of chips: assist, filter, input, and suggestion</div>
+    <a href="https://m3.material.io/components/chips/overview" target="_new">Material Design Guidelines: Chips</a>
   </div>
   <div class="mdw-card-content">
     <div class="example" title="test">
@@ -44,44 +46,42 @@
   </div>
 </mdw-card>
 
-<a href="https://m3.material.io/components/chips/overview" target="_new">Material Design Guidelines: Chips</a>
-<p>Chips can show multiple interactive elements together in the same area, such as a list of selectable movie times, or a
-series of email contacts. There are four types of chips: assist, filter, input, and suggestion.</p>
 
-<div class="links">
-  <a href="#assist">Assist</a>
-  <a href="#filter">Filter</a>
-  <a href="#menu">Menu</a>
-  <a href="#input">Input</a>
-  <a href="#input">wrap</a>
-</div>
+<section class="page-content-section">
+  <nav class="links-nav" aria-label="page-content">
+    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <ul class="links">
+      <a href="#assist">Assist</a>
+      <a href="#filter">Filter</a>
+      <a href="#menu">Menu</a>
+      <a href="#input">Input</a>
+      <a href="#input">wrap</a>
+    </ul>
+  </nav>
 
+  <div class="page-content-container">
+    <mdw-card id="assist">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Assist</div>
 
-<section>
-  <h5>Types</h5>
-
-  <mdw-card id="assist">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Assist</div>
-
-      <div class="example">
-        <mdw-chip-group>
-          <mdw-chip onclick="console.log('do something')">
-            One
-          </mdw-chip>
-          <mdw-chip onclick="console.log('do something')">
-            <mdw-icon>inbox</mdw-icon>
-            icon
-          </mdw-chip>
-          <mdw-chip onclick="console.log('do something')">
-            Three
-          </mdw-chip>
-        </mdw-chip-group>
+        <div class="example">
+          <mdw-chip-group>
+            <mdw-chip onclick="console.log('do something')">
+              One
+            </mdw-chip>
+            <mdw-chip onclick="console.log('do something')">
+              <mdw-icon>inbox</mdw-icon>
+              icon
+            </mdw-chip>
+            <mdw-chip onclick="console.log('do something')">
+              Three
+            </mdw-chip>
+          </mdw-chip-group>
+        </div>
       </div>
-    </div>
 
-    <pre>
-      <code class="language-html">
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-chip-group>
     <mdw-chip onclick="console.log('do something')">
       One
@@ -94,43 +94,43 @@ series of email contacts. There are four types of chips: assist, filter, input, 
       Three
     </mdw-chip>
   </mdw-chip-group>`)}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="filter">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Filter</div>
-  
-      <div class="example">
-        <mdw-chip-group>
-          <mdw-chip class="mdw-filter" value="one">One</mdw-chip>
-          <mdw-chip class="mdw-filter" value="two" checked>Two</mdw-chip>
-          <mdw-chip class="mdw-filter" value="three"><mdw-icon>inbox</mdw-icon>Three</mdw-chip>
+    <mdw-card id="filter">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Filter</div>
+    
+        <div class="example">
+          <mdw-chip-group>
+            <mdw-chip class="mdw-filter" value="one">One</mdw-chip>
+            <mdw-chip class="mdw-filter" value="two" checked>Two</mdw-chip>
+            <mdw-chip class="mdw-filter" value="three"><mdw-icon>inbox</mdw-icon>Three</mdw-chip>
 
-          <!-- No default value -->
-          <mdw-chip class="mdw-filter" value="prefix" selected="one">
-            Number
-            <mdw-menu>
-              <mdw-button value="one">One</mdw-button>
-              <mdw-button value="two">Two</mdw-button>
-            </mdw-menu>
-          </mdw-chip>
-          
-          <!-- Default value -->
-          <mdw-chip class="mdw-filter" value="status" value="on">
-            Status
-            <mdw-menu>
-              <mdw-button value="on">On</mdw-button>
-              <mdw-button value="off">Off</mdw-button>
-            </mdw-menu>
-          </mdw-chip>
-        </mdw-chip-group>
+            <!-- No default value -->
+            <mdw-chip class="mdw-filter" value="prefix" selected="one">
+              Number
+              <mdw-menu>
+                <mdw-button value="one">One</mdw-button>
+                <mdw-button value="two">Two</mdw-button>
+              </mdw-menu>
+            </mdw-chip>
+            
+            <!-- Default value -->
+            <mdw-chip class="mdw-filter" value="status" value="on">
+              Status
+              <mdw-menu>
+                <mdw-button value="on">On</mdw-button>
+                <mdw-button value="off">Off</mdw-button>
+              </mdw-menu>
+            </mdw-chip>
+          </mdw-chip-group>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-chip-group class="mdw-filter">
     <mdw-chip class="mdw-filter" value="one">One</mdw-chip>
     <mdw-chip class="mdw-filter" value="two" checked>Two</mdw-chip>
@@ -154,77 +154,78 @@ series of email contacts. There are four types of chips: assist, filter, input, 
       </mdw-menu>
     </mdw-chip>
   </mdw-chip-group>`)}
-      </code>
-    </pre>
+        </code>
+      </pre>
 
-    <pre>
-      <code class="language-javascript">
+      <pre>
+        <code class="language-javascript">
   ${`// set value
   document.querySelector('mdw-chip-group.mdw-filter').value = 'one,status:on';`}
-      </code>
-    </pre>
-  </mdw-card>
+        </code>
+      </pre>
+    </mdw-card>
 
-  <mdw-card id="input">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Input</div>
-  
-      <div class="example">
-        <mdw-chip-group class="mdw-input md-wrap">
-          <label>Label</label>
-          <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
-          <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
-        </mdw-chip-group>
+    <mdw-card id="input">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Input</div>
+    
+        <div class="example">
+          <mdw-chip-group class="mdw-input md-wrap">
+            <label>Label</label>
+            <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
+            <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
+          </mdw-chip-group>
+        </div>
       </div>
-    </div>
-  
-    <pre>
-      <code class="language-html">
+    
+      <pre>
+        <code class="language-html">
   ${page.escape(`<mdw-chip-group class="mdw-input mdw-wrap">
     <label>Label</label>
     <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
     <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
   </mdw-chip-group>`)}
-      </code>
-    </pre>
-  </mdw-card>
-
-
-  <mdw-card id="wrap">
-    <div class="mdw-card-content">
-      <div class="mdw-headline">Wrap</div>
-  
-      <div class="example">
-        <div style="width: 300px; padding: 8px; border: 1px solid;">
-          <mdw-chip-group class="mdw-wrap">
-            <mdw-chip>One</mdw-chip>
-            <mdw-chip>Two</mdw-chip>
-            <mdw-chip>Three</mdw-chip>
-            <mdw-chip>Four</mdw-chip>
-            <mdw-chip>Five</mdw-chip>
-            <mdw-chip>Six</mdw-chip>
-            <mdw-chip>Seven</mdw-chip>
-            <mdw-chip>Eight</mdw-chip>
-            <mdw-chip>Nine</mdw-chip>
-          </mdw-chip-group>
-        </div>
-      </div>
-    </div>
-  
-    <pre>
-        <code class="language-html">
-    ${page.escape(`<mdw-chip-group class="mdw-wrap">
-      <mdw-chip>One</mdw-chip>
-      <mdw-chip>Two</mdw-chip>
-      <mdw-chip>Three</mdw-chip>
-      <mdw-chip>Four</mdw-chip>
-      <mdw-chip>Five</mdw-chip>
-      <mdw-chip>Six</mdw-chip>
-      <mdw-chip>Seven</mdw-chip>
-      <mdw-chip>Eight</mdw-chip>
-      <mdw-chip>Nine</mdw-chip>
-    </mdw-chip-group>`)}
         </code>
       </pre>
-  </mdw-card>
+    </mdw-card>
+
+
+    <mdw-card id="wrap">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Wrap</div>
+    
+        <div class="example">
+          <div style="width: 300px; padding: 8px; border: 1px solid;">
+            <mdw-chip-group class="mdw-wrap">
+              <mdw-chip>One</mdw-chip>
+              <mdw-chip>Two</mdw-chip>
+              <mdw-chip>Three</mdw-chip>
+              <mdw-chip>Four</mdw-chip>
+              <mdw-chip>Five</mdw-chip>
+              <mdw-chip>Six</mdw-chip>
+              <mdw-chip>Seven</mdw-chip>
+              <mdw-chip>Eight</mdw-chip>
+              <mdw-chip>Nine</mdw-chip>
+            </mdw-chip-group>
+          </div>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-chip-group class="mdw-wrap">
+    <mdw-chip>One</mdw-chip>
+    <mdw-chip>Two</mdw-chip>
+    <mdw-chip>Three</mdw-chip>
+    <mdw-chip>Four</mdw-chip>
+    <mdw-chip>Five</mdw-chip>
+    <mdw-chip>Six</mdw-chip>
+    <mdw-chip>Seven</mdw-chip>
+    <mdw-chip>Eight</mdw-chip>
+    <mdw-chip>Nine</mdw-chip>
+  </mdw-chip-group>`)}
+        </code>
+      </pre>
+    </mdw-card>
+  </div>
 </section>
