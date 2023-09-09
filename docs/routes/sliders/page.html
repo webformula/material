@@ -1,20 +1,6 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Sliders</div>
-    <div class="mdw-supporting-text">Sliders let users make selections from a range of values</div>
-    <div class="mdw-supporting-text">There are two types of sliders: continuous and discrete</div>
-    <a href="https://m3.material.io/components/sliders/overview" target="_new">Material Design Guidelines: Sliders</a>
-  </div>
-  <div class="mdw-card-content">
-    <mdw-slider min="0" max="100" value="50" aria-label="one"></mdw-slider>
-    <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
-    <mdw-slider min="0" max="100" value="50">label</mdw-slider>
-    <mdw-slider min="0" max="100" value="50">
-      <mdw-icon>volume_up</mdw-icon>
-      volume
-    </mdw-slider>
-  </div>
-</mdw-card>
+<h3 class="page-title">Sliders</h3>
+<div class="page-subheader mdw-font-title-medium">Sliders let users make selections from a range of values</div>
+<a href="https://m3.material.io/components/sliders/overview" target="_new">Material Design Guidelines: Sliders</a>
 
 
 <section class="page-content-section">
@@ -29,6 +15,22 @@
   </nav>
 
   <div class="page-content-container">
+    <mdw-card>
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Example</div>
+        <div class="mdw-supporting-text">There are two types of sliders: continuous and discrete</div>
+      </div>
+      <div class="mdw-card-content">
+        <mdw-slider min="0" max="100" value="50" aria-label="one"></mdw-slider>
+        <mdw-slider-range min="0" max="100" step="1" value="30,60" aria-label="four"></mdw-slider-range>
+        <mdw-slider min="0" max="100" value="50">label</mdw-slider>
+        <mdw-slider min="0" max="100" value="50">
+          <mdw-icon>volume_up</mdw-icon>
+          volume
+        </mdw-slider>
+      </div>
+    </mdw-card>
+    
     <mdw-card id="standard">
       <div class="mdw-card-content">
         <div class="mdw-headline">Slider</div>

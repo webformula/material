@@ -1,30 +1,8 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Search</div>
-    <div class="mdw-supporting-text">Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
-    navigation</div>
-    <a href="https://m3.material.io/components/search/overview" target="_new">Material Design Guidelines: Search</a>
-  </div>
-  <div class="mdw-card-content">
-    <mdw-search id="one" placeholder="search" history="one" speech>
-      <mdw-navigation-button slot="leading"></mdw-navigation-button>
-      <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-    
-      <mdw-chip-group slot="filters" class="mdw-filter">
-        <mdw-chip value="one">One</mdw-chip>
-        <mdw-chip value="two">Two</mdw-chip>
-        <mdw-chip menu="three">
-          Three
-          <mdw-menu>
-            <mdw-button value="a">3A</mdw-button>
-            <mdw-button value="b">3B</mdw-button>
-            <mdw-button value="c">3C</mdw-button>
-          </mdw-menu>
-        </mdw-chip>
-      </mdw-chip-group>
-    </mdw-search>
-  </div>
-</mdw-card>
+<h3 class="page-title">Search</h3>
+<div class="page-subheader mdw-font-title-medium">Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
+navigation</div>
+<a href="https://m3.material.io/components/search/overview" target="_new">Material Design Guidelines: Search</a>
+
 
 
 <section class="page-content-section">
@@ -44,6 +22,31 @@
   </nav>
 
   <div class="page-content-container">
+    <mdw-card>
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Example</div>
+      </div>
+      <div class="mdw-card-content">
+        <mdw-search id="one" placeholder="search" history="one" speech>
+          <mdw-navigation-button slot="leading"></mdw-navigation-button>
+          <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
+    
+          <mdw-chip-group slot="filters" class="mdw-filter">
+            <mdw-chip value="one">One</mdw-chip>
+            <mdw-chip value="two">Two</mdw-chip>
+            <mdw-chip menu="three">
+              Three
+              <mdw-menu>
+                <mdw-button value="a">3A</mdw-button>
+                <mdw-button value="b">3B</mdw-button>
+                <mdw-button value="c">3C</mdw-button>
+              </mdw-menu>
+            </mdw-chip>
+          </mdw-chip-group>
+        </mdw-search>
+      </div>
+    </mdw-card>
+    
     <mdw-card id="basic">
       <div class="mdw-card-content">
         <div class="mdw-headline">Standard</div>

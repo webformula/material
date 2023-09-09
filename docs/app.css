@@ -180,6 +180,6 @@ body.mdw-window-compact .page-content-section {
   flex: 1;
 }
 
-.page-content-container mdw-card:first-child {
+.page-content-container > mdw-card:first-of-type {
   margin-top: 48px;
 }

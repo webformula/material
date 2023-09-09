@@ -1,45 +1,47 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Tabs</div>
-    <div class="mdw-supporting-text">Tabs organize content across different screens, data sets, and other interactions</div>
-    <a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
-  </div>
-  <div class="mdw-card-content">
-    <div class="example" title="test">
-      <mdw-tab-bar id="main">
-        <mdw-tab value="1" >
-          Label
-        </mdw-tab>
-        <mdw-tab value="2">
-          <mdw-icon>home</mdw-icon>
-        </mdw-tab>
-
-        <mdw-tab value="3" active>
-          <!-- <mdw-icon>home</mdw-icon> -->
-          label
-        </mdw-tab>
-      </mdw-tab-bar>
-
-      <mdw-tab-content bar="#main">
-        <mdw-tab-panel value="1">
-          content 1
-        </mdw-tab-panel>
-
-        <mdw-tab-panel value="2">
-          content 2
-        </mdw-tab-panel>
-
-        <mdw-tab-panel value="3">
-          content 3
-        </mdw-tab-panel>
-      </mdw-tab-content>
-    </div>
-  </div>
-</mdw-card>
+<h3 class="page-title">Tabs</h3>
+<div class="page-subheader mdw-font-title-medium">Tabs organize content across different screens, data sets, and other interactions</div>
+<a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
 
 
 <section class="page-content-section">
   <div class="page-content-container">
+    <mdw-card>
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Example</div>
+      </div>
+      <div class="mdw-card-content">
+        <div class="example" title="test">
+          <mdw-tab-bar id="main">
+            <mdw-tab value="1">
+              Label
+            </mdw-tab>
+            <mdw-tab value="2">
+              <mdw-icon>home</mdw-icon>
+            </mdw-tab>
+    
+            <mdw-tab value="3" active>
+              <!-- <mdw-icon>home</mdw-icon> -->
+              label
+            </mdw-tab>
+          </mdw-tab-bar>
+    
+          <mdw-tab-content bar="#main">
+            <mdw-tab-panel value="1">
+              content 1
+            </mdw-tab-panel>
+    
+            <mdw-tab-panel value="2">
+              content 2
+            </mdw-tab-panel>
+    
+            <mdw-tab-panel value="3">
+              content 3
+            </mdw-tab-panel>
+          </mdw-tab-content>
+        </div>
+      </div>
+    </mdw-card>
+    
     <mdw-card id="standard">
       <div class="mdw-card-content">
         <div class="mdw-headline">Basic</div>

@@ -1,16 +1,7 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Progress indicators</div>
-    <div class="mdw-supporting-text">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form</div>
-    <div class="mdw-supporting-text">There are two types of progress indicators: Linear and circular</div>
-    <a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines:
-      Progress indicators</a>
-  </div>
-  <div class="mdw-card-content" style="display: flex; flex-direction: column; align-items: center;">
-    <mdw-progress-linear value="0.4"></mdw-progress-linear>
-    <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
-  </div>
-</mdw-card>
+<h3 class="page-title">Progress indicators</h3>
+<div class="page-subheader mdw-font-title-medium">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form</div>
+<a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines:
+  Progress indicators</a>
 
 
 <section class="page-content-section">
@@ -25,6 +16,17 @@
   </nav>
 
   <div class="page-content-container">
+    <mdw-card>
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Example</div>
+        <div class="mdw-supporting-text">There are two types of progress indicators: Linear and circular</div>
+      </div>
+      <div class="mdw-card-content" style="display: flex; flex-direction: column; align-items: center;">
+        <mdw-progress-linear value="0.4"></mdw-progress-linear>
+        <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+      </div>
+    </mdw-card>
+    
     <mdw-card class="mdw-no-states" id="linear_determinate">
       <div class="mdw-card-content">
         <div class="mdw-headline">Linear determinate</div>

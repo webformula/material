@@ -1,16 +1,8 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Checkboxes</div>
-    <div class="mdw-supporting-text">Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off</div>
-    <a href="https://m3.material.io/components/checkbox/overview" target="_new">Material Design Guidelines:
-      Checkboxes</a>
-  </div>
-  <div class="mdw-card-content" style="display: flex; flex-direction:column;">
-    <mdw-checkbox checked>Checked</mdw-checkbox>
-    <mdw-checkbox>Unchecked</mdw-checkbox>
-    <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>
-  </div>
-</mdw-card>
+<h3 class="page-title">Checkboxes</h3>
+<div class="page-subheader mdw-font-title-medium">Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off</div>
+<a href="https://m3.material.io/components/checkbox/overview" target="_new">Material Design Guidelines:
+  Checkboxes</a>
+  
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
@@ -31,13 +23,15 @@
         <div class="example" style="flex-direction: column; display: flex;">
           <mdw-checkbox checked>Checked</mdw-checkbox>
           <mdw-checkbox>Unchecked</mdw-checkbox>
+          <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
   ${page.escape(`<mdw-checkbox checked>Checked</mdw-checkbox>
-  <mdw-checkbox>Unchecked</mdw-checkbox>`)}
+  <mdw-checkbox>Unchecked</mdw-checkbox>
+  <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>`)}
         </code>
       </pre>
     </mdw-card>

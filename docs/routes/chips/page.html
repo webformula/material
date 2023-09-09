@@ -1,50 +1,6 @@
-<mdw-card class="header-card">
-  <div class="mdw-card-content">
-    <div class="mdw-headline" style="font-size: 36px;">Chips</div>
-    <div class="mdw-supporting-text">Chips help people enter information, make selections, filter content, or trigger actions</div>
-    <div class="mdw-supporting-text">Chips can show multiple interactive elements together in the same area, such as a list of selectable movie times, or a
-    series of email contacts. There are four types of chips: assist, filter, input, and suggestion</div>
-    <a href="https://m3.material.io/components/chips/overview" target="_new">Material Design Guidelines: Chips</a>
-  </div>
-  <div class="mdw-card-content">
-    <div class="example" title="test">
-      <mdw-chip-group>
-        <mdw-chip class="mdw-suggestion mdw-elevated">One</mdw-chip>
-        <mdw-chip class="mdw-suggestion">two</mdw-chip>
-      </mdw-chip-group>
-
-      <mdw-chip-group onchange="console.log(this.value)">
-        <mdw-chip class="mdw-filter" value="one" checked>One</mdw-chip>
-        <mdw-chip class="mdw-filter" value="home">
-          <mdw-icon>home</mdw-icon>
-          home
-        </mdw-chip>
-        <mdw-chip class="mdw-filter" value="menu">
-          Menu
-          <mdw-menu>
-            <mdw-button value="a">M One</mdw-button>
-            <mdw-button value="b">M Two</mdw-button>
-          </mdw-menu>
-        </mdw-chip>
-      </mdw-chip-group>
-
-
-      <mdw-chip-group>
-        <mdw-chip value="one">One</mdw-chip>
-        <mdw-chip value="home">
-          <mdw-icon>home</mdw-icon>
-          home
-        </mdw-chip>
-      </mdw-chip-group>
-      
-      <mdw-chip-group class="mdw-input mdw-wrap" onchange="console.log(this.value)">
-        <label>Label</label>
-        <mdw-chip class="mdw-input" value="One"></mdw-chip>
-        <mdw-chip class="mdw-input" value="Email <one@email.com>"><mdw-icon>email</mdw-icon></mdw-chip>
-      </mdw-chip-group>
-    </div>
-  </div>
-</mdw-card>
+<h3 class="page-title">Chips</h3>
+<div class="page-subheader mdw-font-title-medium">Chips help people enter information, make selections, filter content, or trigger actions</div>
+<a href="https://m3.material.io/components/chips/overview" target="_new">Material Design Guidelines: Chips</a>
 
 
 <section class="page-content-section">
@@ -60,6 +16,53 @@
   </nav>
 
   <div class="page-content-container">
+    <mdw-card>
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Example</div>
+        <div class="mdw-supporting-text">Chips can show multiple interactive elements together in the same area, such as a
+          list of selectable movie times, or a
+          series of email contacts. There are four types of chips: assist, filter, input, and suggestion</div>
+      </div>
+      <div class="mdw-card-content">
+        <div class="example" title="test">
+          <mdw-chip-group>
+            <mdw-chip class="mdw-suggestion mdw-elevated">One</mdw-chip>
+            <mdw-chip class="mdw-suggestion">two</mdw-chip>
+          </mdw-chip-group>
+    
+          <mdw-chip-group onchange="console.log(this.value)">
+            <mdw-chip class="mdw-filter" value="one" checked>One</mdw-chip>
+            <mdw-chip class="mdw-filter" value="home">
+              <mdw-icon>home</mdw-icon>
+              home
+            </mdw-chip>
+            <mdw-chip class="mdw-filter" value="menu">
+              Menu
+              <mdw-menu>
+                <mdw-button value="a">M One</mdw-button>
+                <mdw-button value="b">M Two</mdw-button>
+              </mdw-menu>
+            </mdw-chip>
+          </mdw-chip-group>
+    
+    
+          <mdw-chip-group>
+            <mdw-chip value="one">One</mdw-chip>
+            <mdw-chip value="home">
+              <mdw-icon>home</mdw-icon>
+              home
+            </mdw-chip>
+          </mdw-chip-group>
+    
+          <mdw-chip-group class="mdw-input mdw-wrap" onchange="console.log(this.value)">
+            <label>Label</label>
+            <mdw-chip class="mdw-input" value="One"></mdw-chip>
+            <mdw-chip class="mdw-input" value="Email <one@email.com>"><mdw-icon>email</mdw-icon></mdw-chip>
+          </mdw-chip-group>
+        </div>
+      </div>
+    </mdw-card>
+    
     <mdw-card id="assist">
       <div class="mdw-card-content">
         <div class="mdw-headline">Assist</div>
