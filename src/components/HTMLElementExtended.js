@@ -8,12 +8,13 @@ const templateElements = {};
 
 export default class HTMLElementExtended extends HTMLElement {
   /** if not using shadowRoot templates and rendering still work */
-  useShadowRoot = false;
-  static styleSheets;
+  static useShadowRoot = false;
 
   /** Use template element to clone from
    *   If your template uses dynamic variables you do not want to use this */
-  useTemplate = true;
+  static useTemplate = true;
+  static styleSheets;
+  
   #rendered = false;
   #templateString;
   #templateElement;
@@ -56,7 +57,7 @@ export default class HTMLElementExtended extends HTMLElement {
   // If template is set then initial rendering will happen automatically
   render() {
     if (this.#rendered) this.beforeRender();
-    if (!this.useTemplate) this.#templateElement.innerHTML = this.template(); // always re-render
+    if (!this.constructor.useTemplate) this.#templateElement.innerHTML = this.template(); // always re-render
     this.#root.replaceChildren(this.#templateElement.content.cloneNode(true));
     this.#rendered = true;
     this.afterRender();
@@ -65,7 +66,7 @@ export default class HTMLElementExtended extends HTMLElement {
   #prepareRender() {
     this.#templateString = this.template();
 
-    if (this.useTemplate) {
+    if (this.constructor.useTemplate) {
       if (!this.#classId) this.#classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
       if (!templateElements[this.#classId]) {
         templateElements[this.#classId] = document.createElement('template');
@@ -77,7 +78,7 @@ export default class HTMLElementExtended extends HTMLElement {
       this.#templateElement = document.createElement('template');
     }
 
-    if (this.useShadowRoot) {
+    if (this.constructor.useShadowRoot) {
       this.attachShadow({ mode: 'open' });
       this.#root = this.shadowRoot;
 
