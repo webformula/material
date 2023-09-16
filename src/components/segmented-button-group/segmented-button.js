@@ -3,8 +3,8 @@ import styles from './segmented-button.css' assert { type: 'css' };
 
 
 customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement extends MDWButtonElement {
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   static styleSheets = styles;
 
   #checked = false;

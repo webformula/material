@@ -8,7 +8,7 @@ import './mobile.js';
 // NOTE for now this only works with text fields, but there is no reason it cannot work with other controls
 
 customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTMLElementExtended {
-  useTemplate = false;
+  static useTemplate = false;
 
   #control;
   #input;

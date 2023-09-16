@@ -15,8 +15,8 @@ import styles from './search.css' assert { type: 'css' };
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
 customElements.define('mdw-search', class MDWSearchElement extends HTMLElementExtended {
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   static styleSheets = styles;
 
   #value = '';

@@ -4,7 +4,7 @@ import styles from './range.css' assert { type: 'css' };
 
 
 customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #min = 0;

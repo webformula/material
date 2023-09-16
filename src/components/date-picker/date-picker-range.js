@@ -7,7 +7,7 @@ import './mobile-range.js';
 
 
 customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement extends HTMLElementExtended {
-  useTemplate = false;
+  static useTemplate = false;
 
   #controlStart;
   #inputStart;

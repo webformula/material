@@ -4,7 +4,7 @@ import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #ripple;

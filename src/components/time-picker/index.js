@@ -9,7 +9,7 @@ import {
 // TODO min max
 
 customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWPanelElement {
-  useTemplate = false;
+  static useTemplate = false;
 
   #control;
   #input;

@@ -8,7 +8,7 @@ import {
 } from '../../core/svgs.js';
 
 customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMobileElement extends MDWPanelElement {
-  useTemplate = false;
+  static useTemplate = false;
 
   #showInputView_bound = this.#showInputView.bind(this);
   #onInputStart_bound = util.debounce(this.#onInputStart, 100).bind(this);

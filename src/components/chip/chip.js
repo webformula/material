@@ -10,8 +10,8 @@ import {
 
 customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
   static styleSheets = styles;
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   
   #inputValueRegex = /^(.+)<(.+)>$/;
   #type;

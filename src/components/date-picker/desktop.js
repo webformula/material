@@ -15,7 +15,7 @@ import {
 // TODO accessability
 
 customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopElement extends MDWPanelElement {
-  useTemplate = false;
+  static useTemplate = false;
 
   #dayClick_bound = this.#dayClick.bind(this);
   #nextMonth_bound = this.#nextMonth.bind(this);

@@ -6,8 +6,8 @@ import util from '../../core/util.js';
 
 
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   static styleSheets = [sheet, sheetTextField, sheetPanel];
 
   #value = '';

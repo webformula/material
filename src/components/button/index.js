@@ -5,7 +5,7 @@ import dialog from '../dialog/service.js';
 import styles from './component.css' assert { type: 'css' };
 
 export default class MDWButtonElement extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #form = null;
@@ -30,7 +30,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #formState;
   #onclickAttribute;
   #abort = new AbortController();
-
+  
 
   constructor() {
     super();

@@ -5,7 +5,7 @@ import util from '../../core/util.js';
 
 
 customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #value;

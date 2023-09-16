@@ -13,7 +13,7 @@ import {
 // TODO accessability
 
 customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement extends MDWPanelElement {
-  useTemplate = false;
+  static useTemplate = false;
 
   #showInputView_bound = this.#showInputView.bind(this);
   #onInput_bound = util.debounce(this.#onInput, 100).bind(this);

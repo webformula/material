@@ -3,8 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 
 
 customElements.define('mdw-progress-circular', class MDWProgressCircular extends HTMLElementExtended {
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   static styleSheets = styles;
 
   #diameter = 40;

@@ -3,8 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 
 
 customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTMLElementExtended {
-  useShadowRoot = true;
-  useTemplate = false;
+  static useShadowRoot = true;
+  static useTemplate = false;
   static styleSheets = styles;
 
   #max = 1;

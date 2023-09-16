@@ -9,7 +9,7 @@ import util from '../../core/util.js';
 
 
 customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeDesktopElement extends MDWPanelElement {
-  useTemplate = false;
+  static useTemplate = false;
 
   #onInputStart_bound = util.debounce(this.#onInputStart, 100).bind(this);
   #onInputEnd_bound = util.debounce(this.#onInputEnd, 100).bind(this);

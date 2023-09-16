@@ -4,7 +4,7 @@ import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #disabled = false;

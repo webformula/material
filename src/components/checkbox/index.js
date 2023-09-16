@@ -4,7 +4,7 @@ import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
 
 export default class MDWCheckboxElement extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   static styleSheets = styles;
 
   #checked = false;

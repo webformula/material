@@ -2,7 +2,7 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import styles from './component.css' assert { type: 'css' };
 
 customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementExtended {
-  useShadowRoot = true;
+  static useShadowRoot = true;
   #checked = false;
   static styleSheets = styles;
 
