@@ -107,12 +107,9 @@
   height: 100%;
   opacity: 0;
   border-radius: var(--mdw-shape-large);
-}
-
-:host(:hover)::after {
-  box-shadow: var(--mdw-elevation-4);
-  opacity: var(--mdw-state-layer-opacity-hover);
-  background-color: var(--mdw-on-primary-container);
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
+  transition-property: opacity, background-color;
 }
 
 :host(:active)::after {
@@ -136,10 +133,6 @@
   background-color: var(--mdw-surface);
 }
 
-:host(.mdw-surface:hover)::after {
-  background-color: var(--mdw-on-surface);
-}
-
 :host(.mdw-surface:active)::after {
   background-color: var(--mdw-on-surface);
 }
@@ -152,10 +145,6 @@
 :host(.mdw-secondary) {
   color: var(--mdw-on-secondary-container);
   background-color: var(--mdw-secondary-container);
-}
-
-:host(.mdw-secondary:hover)::after {
-  background-color: var(--mdw-on-secondary-container);
 }
 
 :host(.mdw-secondary:active)::after {
@@ -171,16 +160,40 @@
   background-color: var(--mdw-tertiary-container);
 }
 
-:host(.mdw-tertiary:hover)::after {
-  background-color: var(--mdw-on-tertiary-container);
-}
-
 :host(.mdw-tertiary:active)::after {
   background-color: var(--mdw-on-tertiary-container);
 }
 
 :host(.mdw-tertiary:focus)::after {
   background-color: var(--mdw-on-tertiary-container);
+}
+
+
+/* hover state layers. Media needed to prevent hover on mobile */
+@media (hover: hover) {
+  :host {
+    transition-duration: var(--mdw-motion-duration-medium1);
+    transition-timing-function: var(--mdw-motion-easing);
+    transition-property: box-shadow;
+  }
+
+  :host(:hover) {
+    box-shadow: var(--mdw-elevation-4);
+  }
+
+  :host(:hover)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-primary-container);
+  }
+  :host(.mdw-surface:hover)::after {
+    background-color: var(--mdw-on-surface);
+  }
+  :host(.mdw-secondary:hover)::after {
+    background-color: var(--mdw-on-secondary-container);
+  }
+  :host(.mdw-tertiary:hover)::after {
+    background-color: var(--mdw-on-tertiary-container);
+  }
 }
 
 /* --- positioning --- */

@@ -21,12 +21,6 @@
   color: var(--mdw-primary);
 }
 
-:host(.mdw-elevated) {
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing);
-  transition-property: box-shadow;
-}
-
 :host ::slotted(mdw-icon) {
   margin-right: 2px;
   margin-left: -2px;
@@ -76,7 +70,11 @@
   right: 0;
   opacity: 0;
   border-radius: var(--mdw-shape-extra-large);
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
+  transition-property: opacity, background-color;
 }
+
 :host(:focus)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
@@ -276,15 +274,16 @@
   background-color: var(--mdw-primary);
 }
 
-
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
+  :host(.mdw-elevated),
   :host(.mdw-filled),
   :host(.mdw-filled-tonal) {
     transition-duration: var(--mdw-motion-duration-medium1);
     transition-timing-function: var(--mdw-motion-easing);
     transition-property: box-shadow;
   }
+
   :host(:hover)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-primary);
