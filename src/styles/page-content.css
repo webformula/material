@@ -1,3 +1,8 @@
+html page-content,
+html #page-content {
+  width: 100%;
+}
+
 html.mdw-initiated mdw-top-app-bar ~ page-content,
 html.mdw-initiated mdw-top-app-bar ~ #page-content {
   padding-top: calc(var(--mdw-page-content-padding-top) + 64px);
