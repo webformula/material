@@ -6,7 +6,6 @@ mdw-card {
   display: flex;
   flex-direction: column;
   border-radius: var(--mdw-shape-medium);
-  box-shadow: var(--mdw-elevation-1);
   box-sizing: border-box;
   background-color: var(--mdw-surface-container-low);
   color: var(--mdw-on-surface);
@@ -15,6 +14,10 @@ mdw-card {
 
   left: var(--mdw-card-swipe-action-position);
   transition: left 0ms;
+}
+
+mdw-card:not(.mdw-filled):not(.mdw-outlined) {
+  box-shadow: var(--mdw-elevation-1);
 }
 
 mdw-card.mdw-animation {
@@ -29,7 +32,6 @@ mdw-card::before {
   top: 0;
   bottom: 0;
   pointer-events: none;
-  background-color: var(--mdw-elevation-tint-1);
   z-index: 1;
   border-radius: inherit;
 }
@@ -139,19 +141,11 @@ mdw-card > .mdw-card-image.mdw-size-large {
 mdw-card.mdw-filled {
   color: var(--mdw-on-surface-variant);
   background-color: var(--mdw-surface-container-highest);
-  box-shadow: none;
-}
-
-mdw-card.mdw-filled.mdw-states:focus,
-mdw-card.mdw-filled.mdw-states:active,
-mdw-card:not(.mdw-no-hover).mdw-filled.mdw-states:hover {
-  box-shadow: var(--mdw-elevation-1);
 }
 
 mdw-card.mdw-outlined {
   background-color: var(--mdw-surface);
   border: 1px solid var(--mdw-outline);
-  box-shadow: none;
 }
 
 mdw-card.mdw-outlined::before {
@@ -187,16 +181,6 @@ mdw-card.mdw-states:focus::after {
   mdw-card.mdw-states:hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
-  }
-
-  mdw-card.mdw-filled.mdw-fullscreen:not(.mdw-show):hover,
-  mdw-card.mdw-filled[onclick]:hover {
-    box-shadow: var(--mdw-elevation-1);
-  }
-
-  mdw-card:not(.mdw-filled).mdw-fullscreen:not(.mdw-show):hover,
-  mdw-card:not(.mdw-filled)[onclick]:hover {
-    box-shadow: var(--mdw-elevation-2);
   }
 }
 

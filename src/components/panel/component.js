@@ -212,7 +212,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
       this.style.left = `${bounds.left}px`;
     } else {
       this.style.left = 'unset';
-      this.style.right = `${client.width - bounds.right}px`;
+      this.style.right = `${clientWidth - bounds.right}px`;
     }
   }
 

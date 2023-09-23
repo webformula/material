@@ -213,7 +213,7 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
   }
 
   template() {
-    if (device.isMobile) return `<mdw-date-picker-range-mobile></mdw-date-picker-range-mobile>`;
+    if (device.state === 'compact') return `<mdw-date-picker-range-mobile></mdw-date-picker-range-mobile>`;
     else return `<mdw-date-picker-range-desktop></mdw-date-picker-range-desktop>`;
   }
 });

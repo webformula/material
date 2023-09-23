@@ -1,26 +1,26 @@
-/* https://www.joshwcomeau.com/shadow-palette/ */
 :root {
-  --mdw-elevation-1: 0px 0.3px 3px rgba(0, 0, 0, 0.1),
-    0px 1px 1.2px -0.7px rgba(0, 0, 0, 0.1),
-    0px 2.4px 2.9px -1.3px rgba(0, 0, 0, 0.1),
-    0.1px 5.6px 6.7px -2px rgba(0, 0, 0, 0.1);
+  --mdw-elevation-1:
+    0px 1px 2px 0px var(--mdw-shadow-alpha-26),
+    0px 1px 3px 1px var(--mdw-shadow-alpha-16);
   --mdw-elevation-tint-1: var(--mdw-surface-tint-alpha-5);
 
-  --mdw-elevation-2: 0px 0.6px 6px rgba(0, 0, 0, 0.1),
-    0px 2.1px 2.5px -0.7px rgba(0, 0, 0, 0.1),
-    0px 5px 6px -1.3px rgba(0, 0, 0, 0.1),
-    0.1px 11.7px 14px -2px rgba(0, 0, 0, 0.1);
+  --mdw-elevation-2:
+    0px 1px 2px 0px var(--mdw-shadow-alpha-26),
+    0px 2px 6px 2px var(--mdw-shadow-alpha-16);
   --mdw-elevation-tint-2: var(--mdw-surface-tint-alpha-8);
 
-  --mdw-elevation-3: 0px 0.9px 9px rgba(0, 0, 0, 0.1),
-    0px 3.1px 3.5px -0.7px rgba(0, 0, 0, 0.1),
-    0px 7.5px 9px -1.3px rgba(0, 0, 0, 0.1),
-    0.1px 15px 20px -2px rgba(0, 0, 0, 0.1);
+  --mdw-elevation-3:
+    0px 1px 3px 0px var(--mdw-shadow-alpha-26),
+    0px 4px 8px 3px var(--mdw-shadow-alpha-16);
   --mdw-elevation-tint-3: var(--mdw-surface-tint-alpha-11);
 
-  --mdw-elevation-4: 0px 0.9px 9px rgba(0, 0, 0, 0.15),
-    0px 3.1px 3.5px -0.7px rgba(0, 0, 0, 0.15),
-    0px 7.5px 9px -1.3px rgba(0, 0, 0, 0.15),
-    0.1px 15px 20px -2px rgba(0, 0, 0, 0.15);
+  --mdw-elevation-4:
+    0px 2px 3px 0px var(--mdw-shadow-alpha-26),
+    0px 6px 10px 4px var(--mdw-shadow-alpha-16);
   --mdw-elevation-tint-4: var(--mdw-surface-tint-alpha-12);
+
+  --mdw-elevation-5:
+    0px 4px 4px 0px var(--mdw-shadow-alpha-26),
+    0px 8px 12px 6px var(--mdw-shadow-alpha-16);
+  --mdw-elevation-tint-5: var(--mdw-surface-tint-alpha-16);
 }

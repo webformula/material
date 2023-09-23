@@ -20,8 +20,9 @@
 }
 
 :host(.mdw-elevated) {
-  background-color: var(--mdw-surface-container-low);
   box-shadow: var(--mdw-elevation-1);
+  border: none;
+  background-color: var(--mdw-surface-container-low);
 }
 
 :host .check,
@@ -103,6 +104,10 @@
 
 
 @media (hover: hover) {
+  :host(:hover.mdw-elevated) {
+      --elevation-level: 2;
+  }
+  
   :host(:hover)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
   }

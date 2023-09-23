@@ -28,14 +28,6 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
     this.#placeHolder = document.createElement('div');
     this.#placeHolder.classList.add('mdw-side-sheet-placeholder');
-
-    this.#drag = new Drag(this.parentElement);
-    this.#drag.noMouseEvents = true;
-    this.#drag.lockScrollY = true;
-    this.#drag.preventNavigation = true;
-    this.#drag.on('mdwdragstart', this.#dragStart_bound);
-    this.#drag.on('mdwdragend', this.#dragEnd_bound);
-    this.#drag.on('mdwdragmove', this.#dragHandler_bound);
   }
 
   connectedCallback() {
@@ -48,6 +40,14 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
       this.classList.remove('mdw-no-animation');
     });
     window.addEventListener('mdwwindowstate', this.#windowState_bound);
+
+    this.#drag = new Drag(this.parentElement);
+    this.#drag.noMouseEvents = true;
+    this.#drag.lockScrollY = true;
+    this.#drag.preventNavigation = true;
+    this.#drag.on('mdwdragstart', this.#dragStart_bound);
+    this.#drag.on('mdwdragend', this.#dragEnd_bound);
+    this.#drag.on('mdwdragmove', this.#dragHandler_bound);
   }
 
   disconnectedCallback() {

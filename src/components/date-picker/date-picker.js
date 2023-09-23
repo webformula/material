@@ -123,7 +123,7 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
   }
 
   template() {
-    if (device.isMobile) return `<mdw-date-picker-mobile></mdw-date-picker-mobile>`;
+    if (device.state === 'compact') return `<mdw-date-picker-mobile></mdw-date-picker-mobile>`;
     else return `<mdw-date-picker-desktop></mdw-date-picker-desktop>`;
   }
 });
