@@ -10,9 +10,9 @@ mdw-navigation.mdw-left .mdw-headline {
   line-height: 56px;
   height: 56px;
   vertical-align: middle;
-  font-size: var(--mdw-font-title-size-small);
-  font-weight: var(--mdw-font-title-weight-small);
-  letter-spacing: var(--mdw-font-title-letter-spacing-small);
+  font-size: var(--mdw-font-small-title-size);
+  font-weight: var(--mdw-font-small-title-weight);
+  letter-spacing: var(--mdw-font-small-title-tracking);
   color: var(--mdw-on-surface-variant);
 }
 

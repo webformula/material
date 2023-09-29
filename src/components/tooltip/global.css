@@ -3,10 +3,10 @@ mdw-tooltip {
   position: fixed;
   height: 24px;
   padding: 0 8px;
-  font-size: var(--mdw-font-label-size-small);
-  font-weight: var(--mdw-font-label-weight-small);
+  font-size: var(--mdw-font-small-label-size);
+  font-weight: var(--mdw-font-small-label-weight);
   line-height: 24px;
-  letter-spacing: var(--mdw-font-label-letter-spacing-small);
+  letter-spacing: var(--mdw-font-small-label-tracking);
 
   border-radius: var(--mdw-shape-extra-small);
   background-color: var(--mdw-surface-inverse);
@@ -41,18 +41,18 @@ mdw-tooltip.mdw-rich {
 
 mdw-tooltip.mdw-rich .mdw-subheader {
   margin: 0;
-  font-size: var(--mdw-font-title-size-small);
-  font-weight: var(--mdw-font-title-weight-small);
-  line-height: var(--mdw-font-title-line-height-small);
-  letter-spacing: var(--mdw-font-title-letter-spacing-small);
+  font-size: var(--mdw-font-small-title-size);
+  font-weight: var(--mdw-font-small-title-weight);
+  line-height: var(--mdw-font-small-title-line-height);
+  letter-spacing: var(--mdw-font-small-title-tracking);
 }
 
 mdw-tooltip.mdw-rich .mdw-supporting-text {
   margin: 0;
-  font-size: var(--mdw-font-body-size-medium);
-  font-weight: var(--mdw-font-body-weight-medium);
-  line-height: var(--mdw-font-body-line-height-medium);
-  letter-spacing: var(--mdw-font-body-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-body-size);
+  font-weight: var(--mdw-font-medium-body-weight);
+  line-height: var(--mdw-font-medium-body-line-height);
+  letter-spacing: var(--mdw-font-medium-body-tracking);
   padding-top: 4px;
 }
 

@@ -32,10 +32,10 @@ mdw-top-app-bar > .mdw-headline {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: var(--mdw-font-title-size-large);
-  font-weight: var(--mdw-font-title-weight-large);
-  line-height: var(--mdw-font-title-line-height-large);
-  letter-spacing: var(--mdw-font-title-letter-spacing-large);
+  font-size: var(--mdw-font-large-title-size);
+  font-weight: var(--mdw-font-large-title-weight);
+  line-height: var(--mdw-font-large-title-line-height);
+  letter-spacing: var(--mdw-font-large-title-tracking);
   color: var(--mdw-on-surface);
 }
 
@@ -65,10 +65,10 @@ mdw-top-app-bar.mdw-medium {
 }
 
 mdw-top-app-bar.mdw-medium > .mdw-headline {
-  font-size: var(--mdw-font-headline-size-small);
-  font-weight: var(--mdw-font-headline-weight-small);
-  line-height: var(--mdw-font-headline-line-height-small);
-  letter-spacing: var(--mdw-font-headline-letter-spacing-small);
+  font-size: var(--mdw-font-small-headline-size);
+  font-weight: var(--mdw-font-small-headline-weight);
+  line-height: var(--mdw-font-small-headline-line-height);
+  letter-spacing: var(--mdw-font-small-headline-tracking);
 
   margin-top: 44px;
   transform: translateX(-36px);
@@ -98,10 +98,10 @@ mdw-top-app-bar.mdw-large {
 }
 
 mdw-top-app-bar.mdw-large > .mdw-headline {
-  font-size: var(--mdw-font-headline-size-medium);
-  font-weight: var(--mdw-font-headline-weight-medium);
-  line-height: var(--mdw-font-headline-line-height-medium);
-  letter-spacing: var(--mdw-font-headline-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-headline-size);
+  font-weight: var(--mdw-font-medium-headline-weight);
+  line-height: var(--mdw-font-medium-headline-line-height);
+  letter-spacing: var(--mdw-font-medium-headline-tracking);
 
   text-overflow: ellipsis;
   overflow: hidden;

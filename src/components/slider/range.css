@@ -8,9 +8,9 @@
 
 :host > slot {
   display: block;
-  font-size: var(--mdw-font-title-size-large);
-  font-weight: var(--mdw-font-title-weight-large);
-  letter-spacing: var(--mdw-font-title-letter-spacing-large);
+  font-size: var(--mdw-font-large-title-size);
+  font-weight: var(--mdw-font-large-title-weight);
+  letter-spacing: var(--mdw-font-large-title-tracking);
   line-height: var(--mdw-font-title-line-height);
   height: 42px;
 }
@@ -181,9 +181,9 @@
   vertical-align: center;
   transform-origin: center;
   transform: rotate(-45deg);
-  font-size: var(--mdw-font-label-size-medium);
-  font-weight: var(--mdw-font-label-weight-medium);
-  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
   color: var(--mdw-on-primary);
 }
 

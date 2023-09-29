@@ -10,9 +10,9 @@
   -webkit-tap-highlight-color: transparent;
   z-index: 9;
 
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
 
   padding: 16px;
   box-sizing: border-box;
@@ -84,10 +84,10 @@
 }
 
 :host(.mdw-large) ::slotted(mdw-icon) {
-  width: var(--mdw-font-icon-size-large) !important;
-  height: var(--mdw-font-icon-size-large) !important;
-  font-size: var(--mdw-font-icon-size-large) !important;
-  line-height: var(--mdw-font-icon-size-large) !important;
+  width: var(--mdw-font-large-icon-size) !important;
+  height: var(--mdw-font-large-icon-size) !important;
+  font-size: var(--mdw-font-large-icon-size) !important;
+  line-height: var(--mdw-font-large-icon-size) !important;
 }
 
 

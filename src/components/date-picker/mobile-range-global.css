@@ -41,9 +41,9 @@ mdw-date-picker-range-mobile .mdw-header .mdw-supporting-text {
 }
 
 mdw-date-picker-range-mobile .mdw-header .mdw-select-date-text {
-  font-size: var(--mdw-font-headline-size-large);
-  font-weight: var(--mdw-font-headline-weight-large);
-  letter-spacing: var(--mdw-font-headline-letter-spacing-large);
+  font-size: var(--mdw-font-large-headline-size);
+  font-weight: var(--mdw-font-large-headline-weight);
+  letter-spacing: var(--mdw-font-large-headline-tracking);
   color: var(--mdw-on-surface-variant);
   line-height: 16px;
   height: 16px;
@@ -59,9 +59,9 @@ mdw-date-picker-range-mobile .mdw-header .mdw-display-date-container {
 }
 
 mdw-date-picker-range-mobile .mdw-header .mdw-display-date-container .mdw-display-date-text {
-  font-size: var(--mdw-font-headline-size-large);
-  font-weight: var(--mdw-font-headline-weight-large);
-  letter-spacing: var(--mdw-font-headline-letter-spacing-large);
+  font-size: var(--mdw-font-large-headline-size);
+  font-weight: var(--mdw-font-large-headline-weight);
+  letter-spacing: var(--mdw-font-large-headline-tracking);
   line-height: 40px;
   height: 40px;
   color: var(--mdw-on-surface-variant);
@@ -80,10 +80,10 @@ mdw-date-picker-range-mobile .mdw-header .mdw-days-header {
   padding: 26px 16px;
   padding-bottom: 4px;
 
-  font-size: var(--mdw-font-body-size-small);
-  font-weight: var(--mdw-font-body-weight-small);
-  line-height: var(--mdw-font-body-line-height-small);
-  letter-spacing: var(--mdw-font-body-letter-spacing-small);
+  font-size: var(--mdw-font-small-body-size);
+  font-weight: var(--mdw-font-small-body-weight);
+  line-height: var(--mdw-font-small-body-line-height);
+  letter-spacing: var(--mdw-font-small-body-tracking);
   color: var(--mdw-on-surface);
 }
 
@@ -139,10 +139,10 @@ mdw-date-picker-range-mobile .mdw-controls-container > .mdw-year-drop-down {
 }
 
 mdw-date-picker-range-mobile .mdw-controls-container > .mdw-year-drop-down {
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  line-height: var(--mdw-font-label-line-height-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -232,10 +232,10 @@ mdw-date-picker-range-mobile .mdw-months-container .mdw-month .mdw-month-header 
   padding-top: 16px;
   padding-bottom: 12px;
   padding-left: 36px;
-  font-size: var(--mdw-font-title-size-small);
-  font-weight: var(--mdw-font-title-weight-small);
-  line-height: var(--mdw-font-title-line-height-small);
-  letter-spacing: var(--mdw-font-title-letter-spacing-small);
+  font-size: var(--mdw-font-small-title-size);
+  font-weight: var(--mdw-font-small-title-weight);
+  line-height: var(--mdw-font-small-title-line-height);
+  letter-spacing: var(--mdw-font-small-title-tracking);
   color: var(--mdw-on-surface);
 }
 
@@ -343,10 +343,10 @@ mdw-date-picker-range-mobile .mdw-month .mdw-days-container .mdw-day {
   z-index: 1;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-body-size-small);
-  font-weight: var(--mdw-font-body-weight-small);
-  line-height: var(--mdw-font-body-line-height-small);
-  letter-spacing: var(--mdw-font-body-letter-spacing-small);
+  font-size: var(--mdw-font-small-body-size);
+  font-weight: var(--mdw-font-small-body-weight);
+  line-height: var(--mdw-font-small-body-line-height);
+  letter-spacing: var(--mdw-font-small-body-tracking);
   color: var(--mdw-on-surface);
 }
 
@@ -486,10 +486,10 @@ mdw-date-picker-range-mobile .mdw-views-container .mdw-years-container .mdw-year
   margin: 7px;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-label-size-medium);
-  font-weight: var(--mdw-font-label-weight-medium);
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
   line-height: 36px;
-  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
   color: var(--mdw-on-surface);
 }
 

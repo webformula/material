@@ -28,9 +28,9 @@ mdw-navigation-rail > mdw-anchor {
   margin: 0;
   margin-bottom: 12px;
 
-  font-size: var(--mdw-font-label-size-medium);
-  font-weight: var(--mdw-font-label-weight-medium);
-  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
   border-radius: var(--mdw-shape-extra-medium);
 }
 
@@ -43,7 +43,7 @@ mdw-navigation-rail > mdw-anchor > mdw-icon {
   margin-top: -2px;
   padding: 0;
   line-height: 32px;
-  font-size: var(--mdw-font-icon-size-small);
+  font-size: var(--mdw-font-small-icon-size);
 }
 
 mdw-navigation-rail > mdw-anchor::before,

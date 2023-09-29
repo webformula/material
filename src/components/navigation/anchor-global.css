@@ -13,9 +13,9 @@ mdw-anchor {
   padding-right: 8px;
   margin-bottom: 2px;
 
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   border-radius: var(--mdw-shape-extra-large);
 }
 

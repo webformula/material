@@ -66,9 +66,9 @@
 :host > slot {
   display: block;
   cursor: pointer;
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   line-height: 20px;
   height: 20px;
 }

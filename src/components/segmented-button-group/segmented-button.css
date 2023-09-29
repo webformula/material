@@ -8,9 +8,9 @@
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
 
   padding: 0 16px;
   height: 40px;

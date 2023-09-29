@@ -11,8 +11,8 @@ const errorBaseLineRegex = /--mdw-error-baseline:\s?(.+);/;
 const neutralBaseLineRegex = /--mdw-neutral-baseline:\s?(.+);/;
 const neutralVariantBaseLineRegex = /--mdw-neutral-variant-baseline:\s?(.+);/;
 const customColorRegex = /--mdw-custom-(.+):\s?(.+);/g;
-const colorVarRegex = /--mdw-(.+):\s?var\(--mdw-(.+)\);/g;
-const otherVarRegex = /--mdw-(.+):\s?[^v#;]*;/g;
+const colorVarRegex = /--mdw-(.+):\s?var\(--mdw-((?:(?!font).)+)\);/g;
+const otherVarRegex = /--mdw-font-.+:\s?[^#;]*;|--mdw-.+:\s?[^v#;]*;/g;
 
 export default async function generate(styleSheet, outputFilePath) {
   if (!outputFilePath) throw Error('outputFilePath required');
@@ -61,7 +61,6 @@ export default async function generate(styleSheet, outputFilePath) {
       [`${name}-100`, tones[22]],
     ];
   });
- 
   const colorVarsLight = [...light.matchAll(colorVarRegex)]
     .map(([_, name, varName]) => [name, toneValues.find(v => v[0] === varName)[1]]);
   const colorVarsAlphasLight = colorVarsLight.flatMap(([name, value]) => [

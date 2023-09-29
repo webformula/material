@@ -8,9 +8,9 @@
   outline: none;
   -webkit-tap-highlight-color: transparent;
 
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
 
   height: 48px;
   line-height: 48px;
@@ -22,10 +22,10 @@
   vertical-align: middle;
   margin-left: -2px;
   margin-right: 8px;
-  width: var(--mdw-font-icon-size-medium) !important;
-  height: var(--mdw-font-icon-size-medium) !important;
-  font-size: var(--mdw-font-icon-size-medium) !important;
-  line-height: var(--mdw-font-icon-size-medium) !important;
+  width: var(--mdw-font-medium-icon-size) !important;
+  height: var(--mdw-font-medium-icon-size) !important;
+  font-size: var(--mdw-font-medium-icon-size) !important;
+  line-height: var(--mdw-font-medium-icon-size) !important;
 }
 
 :host ::slotted(mdw-icon.mdw-trailing) {

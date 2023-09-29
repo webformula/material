@@ -35,10 +35,10 @@ mdw-date-picker-range-desktop .mdw-control-container .mdw-month-next[disabled] {
 
 mdw-date-picker-range-desktop .mdw-control-container .mdw-month-label,
 mdw-date-picker-range-desktop .mdw-control-container .mdw-year-label {
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  line-height: var(--mdw-font-label-line-height-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   color: var(--mdw-on-surface);
   margin-right: 6px;
   margin-left: 6px;
@@ -83,10 +83,10 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-header {
   margin-bottom: 16px;
   margin-right: 26px;
 
-  font-size: var(--mdw-font-body-size-small);
-  font-weight: var(--mdw-font-body-weight-small);
-  line-height: var(--mdw-font-body-line-height-small);
-  letter-spacing: var(--mdw-font-body-letter-spacing-small);
+  font-size: var(--mdw-font-small-body-size);
+  font-weight: var(--mdw-font-small-body-weight);
+  line-height: var(--mdw-font-small-body-line-height);
+  letter-spacing: var(--mdw-font-small-body-tracking);
   color: var(--mdw-on-surface);
 }
 
@@ -127,10 +127,10 @@ mdw-date-picker-range-desktop .mdw-month .mdw-days-container .mdw-day {
   border-radius: var(--mdw-shape-full);
   z-index: 1;
 
-  font-size: var(--mdw-font-label-size-small);
-  font-weight: var(--mdw-font-label-weight-small);
-  line-height: var(--mdw-font-label-line-height-small);
-  letter-spacing: var(--mdw-font-label-letter-spacing-small);
+  font-size: var(--mdw-font-small-label-size);
+  font-weight: var(--mdw-font-small-label-weight);
+  line-height: var(--mdw-font-small-label-line-height);
+  letter-spacing: var(--mdw-font-small-label-tracking);
   color: var(--mdw-on-surface);
 }
 

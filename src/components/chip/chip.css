@@ -12,9 +12,9 @@
   user-select: none;
   white-space: nowrap;
 
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
 
   color: var(--mdw-on-surface);
 }
@@ -75,10 +75,10 @@
   margin-top: -2px;
   margin-right: 5px;
   margin-left: -5px;
-  width: var(--mdw-font-icon-size-small) !important;
-  height: var(--mdw-font-icon-size-small) !important;
-  font-size: var(--mdw-font-icon-size-small) !important;
-  line-height: var(--mdw-font-icon-size-small) !important;
+  width: var(--mdw-font-small-icon-size) !important;
+  height: var(--mdw-font-small-icon-size) !important;
+  font-size: var(--mdw-font-small-icon-size) !important;
+  line-height: var(--mdw-font-small-icon-size) !important;
   user-select: none;
 }
 
@@ -156,9 +156,9 @@
 
   text-decoration: inherit;
   text-transform: inherit;
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   color: var(--mdw-on-surface);
   caret-color: var(--mdw-primary);
 

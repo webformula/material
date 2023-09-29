@@ -21,10 +21,10 @@ mdw-time-picker.mdw-panel.mdw-input-view {
 }
 
 mdw-time-picker .mdw-headline {
-  font-size: var(--mdw-font-label-size-medium);
-  font-weight: var(--mdw-font-label-weight-medium);
-  line-height: var(--mdw-font-label-line-height-medium);
-  letter-spacing: var(--mdw-font-label-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
+  line-height: var(--mdw-font-medium-label-line-height);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
   color: var(--mdw-on-surface-variant);
 }
 
@@ -42,11 +42,11 @@ mdw-time-picker[hour-24] .mdw-time-container {
 
 mdw-time-picker .mdw-time-container .mdw-time-hour,
 mdw-time-picker .mdw-time-container .mdw-time-minute {
-  font-size: var(--mdw-font-display-size-large);
-  font-weight: var(--mdw-font-display-weight-large);
-  line-height: var(--mdw-font-display-line-height-large);
+  font-size: var(--mdw-font-large-display-size);
+  font-weight: var(--mdw-font-large-display-weight);
+  line-height: var(--mdw-font-large-display-line-height);
   line-height: 80px;
-  letter-spacing: var(--mdw-font-display-letter-spacing-large);
+  letter-spacing: var(--mdw-font-large-display-tracking);
   color: var(--mdw-on-surface);
   background-color: var(--mdw-surface-container-highest);
   border-radius: var(--mdw-shape-small);
@@ -66,10 +66,10 @@ mdw-time-picker .mdw-time-container .mdw-time-minute[selected] {
 
 
 mdw-time-picker .mdw-time-container .mdw-time-separator {
-  font-size: var(--mdw-font-display-size-large);
-  font-weight: var(--mdw-font-display-weight-large);
-  line-height: var(--mdw-font-display-line-height-large);
-  letter-spacing: var(--mdw-font-display-letter-spacing-large);
+  font-size: var(--mdw-font-large-display-size);
+  font-weight: var(--mdw-font-large-display-weight);
+  line-height: var(--mdw-font-large-display-line-height);
+  letter-spacing: var(--mdw-font-large-display-tracking);
   color: var(--mdw-on-surface);
   width: 24px;
   text-align: center;
@@ -86,10 +86,10 @@ mdw-time-picker .mdw-time-container .mdw-meridiem-container {
 
 mdw-time-picker .mdw-time-container .mdw-meridiem-container .mdw-am,
 mdw-time-picker .mdw-time-container .mdw-meridiem-container .mdw-pm {
-  font-size: var(--mdw-font-title-size-medium);
-  font-weight: var(--mdw-font-title-weight-medium);
+  font-size: var(--mdw-font-medium-title-size);
+  font-weight: var(--mdw-font-medium-title-weight);
   line-height: 39px;
-  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
+  letter-spacing: var(--mdw-font-medium-title-tracking);
   color: var(--mdw-on-surface-variant);
   text-align: center;
   cursor: pointer;
@@ -158,10 +158,10 @@ mdw-time-picker .mdw-dial-container .mdw-dial-minute .mdw-dial-label {
   text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  line-height: var(--mdw-font-label-line-height-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   color: var(--mdw-on-surface);
   z-index: 1;
   user-select: none;

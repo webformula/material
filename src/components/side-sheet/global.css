@@ -193,9 +193,9 @@ mdw-side-sheet .mdw-header .mdw-title,
 mdw-navigation .mdw-header .mdw-title {
   flex: 1;
 
-  font-size: var(--mdw-font-title-size-medium);
-  font-weight: var(--mdw-font-title-weight-medium);
-  letter-spacing: var(--mdw-font-title-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-title-size);
+  font-weight: var(--mdw-font-medium-title-weight);
+  letter-spacing: var(--mdw-font-medium-title-tracking);
   color: var(--mdw-on-surface-variant);
 }
 

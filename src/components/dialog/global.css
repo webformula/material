@@ -11,10 +11,10 @@ mdw-dialog.mdw-panel {
 
 mdw-dialog > .mdw-content {
   flex: 1;
-  font-size: var(--mdw-font-body-size-medium);
-  font-weight: var(--mdw-font-body-weight-medium);
-  line-height: var(--mdw-font-body-line-height-medium);
-  letter-spacing: var(--mdw-font-body-letter-spacing-medium);
+  font-size: var(--mdw-font-medium-body-size);
+  font-weight: var(--mdw-font-medium-body-weight);
+  line-height: var(--mdw-font-medium-body-line-height);
+  letter-spacing: var(--mdw-font-medium-body-tracking);
   color: var(--mdw-on-surface-variant);
 }
 
@@ -26,9 +26,9 @@ mdw-dialog > .mdw-actions {
 
 mdw-dialog > .mdw-header {
   margin-bottom: 16px;
-  font-size: var(--mdw-font-headline-size-small);
-  font-weight: var(--mdw-font-headline-weight-small);
-  line-height: var(--mdw-font-headline-line-height-small);
-  letter-spacing: var(--mdw-font-headline-letter-spacing-small);
+  font-size: var(--mdw-font-small-headline-size);
+  font-weight: var(--mdw-font-small-headline-weight);
+  line-height: var(--mdw-font-small-headline-line-height);
+  letter-spacing: var(--mdw-font-small-headline-tracking);
   color: var(--mdw-on-surface);
 }

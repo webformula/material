@@ -81,10 +81,10 @@ mdw-chip-group.mdw-input > input {
   text-decoration: inherit;
   text-transform: inherit;
   font-family: inherit;
-  font-size: var(--mdw-font-body-size-large);
-  font-weight: var(--mdw-font-body-weight-large);
-  line-height: var(--mdw-font-body-line-height-large);
-  letter-spacing: var(--mdw-font-body-letter-spacing-large);
+  font-size: var(--mdw-font-large-body-size);
+  font-weight: var(--mdw-font-large-body-weight);
+  line-height: var(--mdw-font-large-body-line-height);
+  letter-spacing: var(--mdw-font-large-body-tracking);
   color: var(--mdw-on-surface);
   caret-color: var(--mdw-primary);
 
@@ -96,10 +96,10 @@ mdw-chip-group.mdw-input > input {
 mdw-chip-group.mdw-input > label {
   margin-right: 16px;
   margin-top: 2px;
-  font-size: var(--mdw-font-label-size-large);
-  font-weight: var(--mdw-font-label-weight-large);
-  line-height: var(--mdw-font-label-line-height-large);
-  letter-spacing: var(--mdw-font-label-letter-spacing-large);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
   text-decoration: inherit;
   text-transform: inherit;
 

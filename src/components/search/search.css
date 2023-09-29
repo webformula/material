@@ -47,10 +47,10 @@
 
   text-decoration: inherit;
   text-transform: inherit;
-  font-size: var(--mdw-font-body-size-large);
-  font-weight: var(--mdw-font-body-weight-large);
-  line-height: var(--mdw-font-body-line-height-large);
-  letter-spacing: var(--mdw-font-body-letter-spacing-large);
+  font-size: var(--mdw-font-large-body-size);
+  font-weight: var(--mdw-font-large-body-weight);
+  line-height: var(--mdw-font-large-body-line-height);
+  letter-spacing: var(--mdw-font-large-body-tracking);
   color: var(--mdw-on-surface);
   caret-color: var(--mdw-primary);
 
