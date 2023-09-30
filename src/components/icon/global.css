@@ -1,7 +1,7 @@
 mdw-icon {
   width: var(--mdw-font-medium-icon-size);
   height: var(--mdw-font-medium-icon-size);
-  font-family: 'Material Symbols Outlined';
+  font-family: 'Material Symbols Outlined', 'Material Symbols Sharp', 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
   font-size: var(--mdw-font-medium-icon-size);
@@ -16,7 +16,7 @@ mdw-icon {
   -webkit-font-smoothing: antialiased;
 
   font-variation-settings:
-    'FILL' 1,
+    'FILL' 0,
     'wght' 400,
     'GRAD' 0,
     'opsz' 48
@@ -52,26 +52,30 @@ mdw-icon.mdw-extra-large {
   line-height: var(--mdw-font-large-icon-size-extra);
 }
 
-mdw-icon.mdw-outlined {
+mdw-icon.mdw-rounded {
+  font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Symbols Sharp';
+}
+
+mdw-icon.mdw-filled {
   font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48;
 }
 
 
 mdw-icon.mdw-light {
   font-variation-settings:
-    'FILL' 1,
+    'FILL' 0,
     'wght' 100,
     'GRAD' 0,
     'opsz' 48;
 }
 
-mdw-icon.mdw-light.mdw-outlined {
+mdw-icon.mdw-light.mdw-filled {
   font-variation-settings:
-    'FILL' 0,
+    'FILL' 1,
     'wght' 100,
     'GRAD' 0,
     'opsz' 48;
@@ -79,15 +83,15 @@ mdw-icon.mdw-light.mdw-outlined {
 
 mdw-icon.mdw-bold {
   font-variation-settings:
-    'FILL' 1,
+    'FILL' 0,
     'wght' 700,
     'GRAD' 0,
     'opsz' 48;
 }
 
-mdw-icon.mdw-bold.mdw-outlined {
+mdw-icon.mdw-bold.mdw-filled {
   font-variation-settings:
-    'FILL' 0,
+    'FILL' 1,
     'wght' 700,
     'GRAD' 0,
     'opsz' 48;

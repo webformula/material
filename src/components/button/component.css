@@ -159,6 +159,14 @@
   opacity: 0;
 }
 
+:host(.mdw-icon-toggle-button.mdw-toggled) ::slotted(mdw-icon:not([value])) {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48 !important
+}
+
 :host(.mdw-icon-toggle-button:not(.mdw-toggled)) ::slotted(mdw-icon:not([value])) {
   font-variation-settings:
     'FILL' 0,
@@ -180,18 +188,18 @@
 }
 
 :host(.mdw-icon-toggle-button.mdw-filled) {
-  color: var(--mdw-on-primary);
-  background-color: var(--mdw-primary);
-}
-
-:host(.mdw-icon-toggle-button.mdw-filled.mdw-toggled) {
   color: var(--mdw-on-secondary-container);
   background-color: var(--mdw-surface-container-highest);
 }
 
+:host(.mdw-icon-toggle-button.mdw-filled.mdw-toggled) {
+  color: var(--mdw-on-primary);
+  background-color: var(--mdw-primary);
+}
+
 :host(.mdw-icon-toggle-button.mdw-filled-tonal) {
   color: var(--mdw-on-surface-variant);
-  background-color: var(--mdw-surface-container-highest);
+  background-color: var(--mdw-surface-variant);
 }
 
 :host(.mdw-icon-toggle-button.mdw-filled-tonal.mdw-toggled) {
