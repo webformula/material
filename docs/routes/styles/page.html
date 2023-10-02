@@ -11,6 +11,7 @@
       <li><a href="#css">theme.css</a></li>
       <li><a href="#scheme">Color scheme</a></li>
       <li><a href="#motion">Motion</a></li>
+      <li><a href="#using-vars">Using theme variables</a></li>
       <li><a href="#build">Build theme file</a></li>
     </ul>
   </nav>
@@ -198,6 +199,38 @@
     --mdw-motion-duration-extra-long2: 800ms;
     --mdw-motion-duration-extra-long3: 900ms;
     --mdw-motion-duration-extra-long4: 1000ms;
+  }`}
+        </code>
+      </pre>
+    </mdw-card>
+
+    <mdw-card id="using-vars">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Using theme variables</div>
+        <div class="mdw-supporting-text">You can use the theme.css variables in your css classes to modify colors</div>
+        <div class="mdw-supporting-text"><strong>Tones</strong> 0 4 6 10 12 17 20 22 24 30 40 50 60 70 80 87 90 92 94 95 96 98 100</div>
+        <div class="mdw-supporting-text"><strong>Alphas</strong> 0 4 5 6 8 10 11 12 16 20 26 38 60 76</div>
+      </div>
+    
+      <pre>
+        <code class="language-css">
+  ${`/* use theme color */
+  .someclass {
+    color: var(--mdw-primary);
+    /* use custom theme color */
+    color: var(--mdw-custom-color);
+  }
+  
+  /* use theme color tone */
+  .someclass {
+    color: var(--mdw-primary-10);
+    /* use custom theme color */
+    color: var(--mdw-custom-color-10);
+  }
+  
+  /* use theme color with alpha */
+  .someclass {
+    color: var(--mdw-primary-alpha-76);
   }`}
         </code>
       </pre>

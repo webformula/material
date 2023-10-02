@@ -89,7 +89,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   }
 
   #focusKeydown(e) {
-    // TODO should we skip to first sub navigation in nav or on page
+    // TODO should we skip to first sub navigation in nav or jump to first element on page
     if (e.code === 'Tab') {
       const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
       const firstFocusablePageContent = [...pageContent.querySelectorAll('*')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
