@@ -30,11 +30,11 @@ html.mdw-initiated body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show)
   padding-bottom: var(--mdw-page-content-padding-bottom);
 }
 
-html.mdw-initiated body.mdw-has-navigation-rail:not(.mdw-has-navigation) page-content,
-html.mdw-initiated body.mdw-has-navigation-rail.mdw-navigation-state-hide page-content,
+html.mdw-initiated body.mdw-has-navigation-rail:not(.mdw-has-navigation-drawer) page-content,
+html.mdw-initiated body.mdw-has-navigation-rail.mdw-navigation-drawer-state-hide page-content,
 html.mdw-initiated body.mdw-has-navigation-rail.mdw-window-medium page-content,
-html.mdw-initiated body.mdw-has-navigation-rail:not(.mdw-has-navigation) #page-content,
-html.mdw-initiated body.mdw-has-navigation-rail.mdw-navigation-state-hide #page-content,
+html.mdw-initiated body.mdw-has-navigation-rail:not(.mdw-has-navigation-drawer) #page-content,
+html.mdw-initiated body.mdw-has-navigation-rail.mdw-navigation-drawer-state-hide #page-content,
 html.mdw-initiated body.mdw-has-navigation-rail.mdw-window-medium #page-content {
   padding-left: calc(var(--mdw-navigation-rail-width) + var(--mdw-page-content-padding-left));
 }

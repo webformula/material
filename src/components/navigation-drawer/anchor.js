@@ -65,7 +65,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   #focus(e) {
     // on first anchor focus redirect to active anchor
     if (e.relatedTarget?.nodeName !== 'MDW-ANCHOR') {
-      const selected = document.body.querySelector('mdw-navigation mdw-anchor.mdw-active:not([group])');
+      const selected = document.body.querySelector('mdw-navigation-drawer mdw-anchor.mdw-active:not([group])');
       if (selected && this !== selected) return selected.focus();
     }
 
@@ -113,16 +113,16 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     let nextFocus = focusedElement.nextElementSibling;
 
     // step out of navigation group
-    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') nextFocus = focusedElement.parentElement.nextElementSibling;
+    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') nextFocus = focusedElement.parentElement.nextElementSibling;
     
     while (nextFocus) {
-      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') break;
+      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') break;
       nextFocus = nextFocus.nextElementSibling;
     }
     if (!nextFocus) return;
 
     // step into navigation group
-    if (nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') {
+    if (nextFocus.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') {
       nextFocus.open = true;
       nextFocus = nextFocus.querySelector('mdw-anchor:not([group])');
     }
@@ -135,16 +135,16 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
     let nextFocus = focusedElement.previousElementSibling;
 
     // step out of navigation group
-    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-GROUP') nextFocus = focusedElement.parentElement.previousElementSibling;
+    if (!nextFocus && focusedElement.parentElement.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') nextFocus = focusedElement.parentElement.previousElementSibling;
 
     while (nextFocus) {
-      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') break;
+      if (nextFocus.nodeName === 'MDW-ANCHOR' || nextFocus.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') break;
       nextFocus = nextFocus.previousElementSibling;
     }
     if (!nextFocus) return;
 
     // step into navigation group
-    if (nextFocus.nodeName === 'MDW-NAVIGATION-GROUP') {
+    if (nextFocus.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') {
       nextFocus.open = true;
       nextFocus = nextFocus.querySelector('mdw-anchor:not([group]):last-of-type');
     }

@@ -36,7 +36,7 @@ mdw-bottom-app-bar.mdw-hide {
   margin-bottom: -80px;
 }
 
-body.mdw-window-expanded.mdw-navigation-state-show mdw-bottom-app-bar {
+body.mdw-window-expanded.mdw-navigation-drawer-state-show mdw-bottom-app-bar {
   left: var(--mdw-navigation-drawer-width);
 }
 
@@ -193,7 +193,7 @@ body.mdw-animation mdw-bottom-app-bar {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-body.mdw-window-expanded.mdw-navigation-state-show mdw-bottom-app-bar {
+body.mdw-window-expanded.mdw-navigation-drawer-state-show mdw-bottom-app-bar {
   left: var(--mdw-navigation-drawer-width);
 }
 

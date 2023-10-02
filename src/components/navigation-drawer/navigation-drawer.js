@@ -1,7 +1,7 @@
 import MDWSideSheetElement from '../side-sheet';
 import device from '../../core/device.js';
 
-customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSideSheetElement {
+customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement extends MDWSideSheetElement {
   #locationchange_bound = this.#locationchange.bind(this);
 
   constructor() {
@@ -27,7 +27,7 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSi
       const active = this.querySelector('mdw-anchor.mdw-active');
       if (active) {
         const parent = active.parentNode;
-        if (parent.nodeName === 'MDW-NAVIGATION-GROUP') requestAnimationFrame(() => parent.open = true);
+        if (parent.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') requestAnimationFrame(() => parent.open = true);
         const bounds = active.getBoundingClientRect();
         if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
       }
@@ -53,8 +53,8 @@ customElements.define('mdw-navigation', class MDWNavigationElement extends MDWSi
   }
 
   #setState() {
-    document.body.classList.toggle('mdw-navigation-state-hide', !super.open);
-    document.body.classList.toggle('mdw-navigation-state-show', super.open);
+    document.body.classList.toggle('mdw-navigation-drawer-state-hide', !super.open);
+    document.body.classList.toggle('mdw-navigation-drawer-state-show', super.open);
   }
 
   #locationchange() {

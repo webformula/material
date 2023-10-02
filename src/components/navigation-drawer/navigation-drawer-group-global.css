@@ -1,11 +1,11 @@
-mdw-navigation-group {
-  --mdw-navigation-group-height: 56px;
+mdw-navigation-drawer-group {
+  --mdw-navigation-drawer-group-height: 56px;
   position: relative;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   overflow-y: hidden;
-  height: var(--mdw-navigation-group-height);
+  height: var(--mdw-navigation-drawer-group-height);
   width: 100%;
   margin: 0 -16px;
   padding: 0 16px;
@@ -13,10 +13,10 @@ mdw-navigation-group {
   transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
-body.mdw-animation mdw-navigation-group {
+body.mdw-animation mdw-navigation-drawer-group {
   transition-duration: var(--mdw-motion-duration-short4);
 }
 
-mdw-navigation-group > mdw-anchor:not([group]) {
+mdw-navigation-drawer-group > mdw-anchor:not([group]) {
   margin-left: 16px;
 }

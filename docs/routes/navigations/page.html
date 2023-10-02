@@ -37,7 +37,7 @@
   ${page.escape(`<body>
     <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
 
-    <mdw-navigation>
+    <mdw-navigation-drawer>
       <div class="mdw-headline">Headline</div>
       <mdw-anchor href="/">
         <mdw-icon>home</mdw-icon>
@@ -49,7 +49,7 @@
         <mdw-badge>9999</mdw-badge>
       </mdw-anchor>
       <mdw-anchor href="/one">One</mdw-anchor>
-    </mdw-navigation>
+    </mdw-navigation-drawer>
   
     <!-- page-content -->
     
@@ -78,7 +78,7 @@
   ${page.escape(`<body>
     <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
     
-    <mdw-navigation>
+    <mdw-navigation-drawer>
       <div class="mdw-headline">Headline</div>
     
       <mdw-anchor href="/routes/navigations/examples/group.html">
@@ -86,14 +86,14 @@
         Welcome
       </mdw-anchor>
     
-      <mdw-navigation-group>
+      <mdw-navigation-drawer-group>
         <mdw-anchor group>Links</mdw-anchor>
     
         <mdw-anchor href="/one">One</mdw-anchor>
         <mdw-anchor href="/two">Two</mdw-anchor>
-      </mdw-navigation-group>
+      </mdw-navigation-drawer-group>
       <mdw-anchor href="/one">Onerere</mdw-anchor>
-    </mdw-navigation>
+    </mdw-navigation-drawer>
   
     <!-- page-content -->
   
@@ -160,7 +160,7 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<body>    
-    <mdw-navigation>
+    <mdw-navigation-drawer>
       <div class="mdw-header">
         <div class="mdw-headline">Headline</div>
         <mdw-navigation-button></mdw-navigation-button>
@@ -177,7 +177,7 @@
       </mdw-anchor>
       <mdw-anchor href="/one">One</mdw-anchor>
       <mdw-anchor href="/two">Two</mdw-anchor>
-    </mdw-navigation>
+    </mdw-navigation-drawer>
     <mdw-navigation-rail>
       <mdw-navigation-button></mdw-navigation-button>
     

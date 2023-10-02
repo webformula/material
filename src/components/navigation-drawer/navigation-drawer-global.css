@@ -1,12 +1,12 @@
 /* page-content css in src/core/page-content.css */
 
-mdw-navigation.mdw-left {
+mdw-navigation-drawer.mdw-left {
   --mdw-side-sheet-width: var(--mdw-navigation-drawer-width);
   z-index: 11;
   padding: 12px 28px;
 }
 
-mdw-navigation.mdw-left .mdw-headline {
+mdw-navigation-drawer.mdw-left .mdw-headline {
   line-height: 56px;
   height: 56px;
   vertical-align: middle;
@@ -16,7 +16,7 @@ mdw-navigation.mdw-left .mdw-headline {
   color: var(--mdw-on-surface-variant);
 }
 
-mdw-navigation.mdw-left .mdw-header {
+mdw-navigation-drawer.mdw-left .mdw-header {
   display: flex;
   justify-content: space-between;
   opacity: 1;

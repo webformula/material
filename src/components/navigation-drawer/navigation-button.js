@@ -19,18 +19,18 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
   }
 
   get navigation() {
-    return document.body.querySelector('mdw-navigation');
+    return document.body.querySelector('mdw-navigation-drawer');
   }
 
   get open() {
-    return document.body.querySelector('mdw-navigation').open;
+    return document.body.querySelector('mdw-navigation-drawer').open;
   }
   set open(value) {
-    document.body.querySelector('mdw-navigation').open = !!value;
+    document.body.querySelector('mdw-navigation-drawer').open = !!value;
   }
 
   toggle() {
-    document.body.querySelector('mdw-navigation').toggle();
+    document.body.querySelector('mdw-navigation-drawer').toggle();
   }
 
   afterRender() {
