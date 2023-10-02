@@ -152,6 +152,7 @@ const mdwUtil = new class MDWUtil {
   trackPageScroll(callback = () => { }) {
     if (!this.#scrollTarget) {
       this.#scrollTarget = document.documentElement;
+      this.#lastScrollTop = this.#scrollTarget.scrollTop;
       this.#scrollTargetListener = window;
     }
     if (this.#scrollCallbacks.length === 0) {
@@ -322,6 +323,7 @@ const mdwUtil = new class MDWUtil {
 
   #scrollHandler(event) {
     const distance = this.#scrollTarget.scrollTop - this.#lastScrollTop;
+    
     if (distance === 0) return;
 
     const direction = this.#scrollTarget.scrollTop >= this.#lastScrollTop ? -1 : 1;

@@ -1,7 +1,7 @@
 mdw-top-app-bar {
   --mdw-top-app-bar-scroll-position: 0px;
 
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -11,20 +11,34 @@ mdw-top-app-bar {
   box-sizing: border-box;
   padding: 0 16px;
   z-index: 9;
-  background-color: var(--mdw-surface);
 }
 
-mdw-top-app-bar:not(.mdw-no-states):not(.mdw-auto-hide).mdw-scrolled {
+mdw-top-app-bar.mdw-sticky,
+mdw-top-app-bar.mdw-compress {
+  position: fixed;
+}
+
+mdw-top-app-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-color: var(--mdw-surface);
+
+  transition: background-color;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+mdw-top-app-bar.mdw-scrolled::before {
   background-color: var(--mdw-surface-container);
-  transition: background-color var(--mdw-motion-duration-short2) linear;
 }
 
 mdw-top-app-bar > mdw-navigation-button {
   margin-left: -8px;
-}
-
-mdw-top-app-bar.mdw-auto-hide {
-  top: var(--mdw-top-app-bar-scroll-position);
 }
 
 mdw-top-app-bar > .mdw-headline {
@@ -78,11 +92,11 @@ mdw-top-app-bar.mdw-medium > mdw-navigation-button {
   margin-top: -8px;
 }
 
-mdw-top-app-bar.mdw-medium:not(.mdw-auto-hide).mdw-auto-shrink {
+mdw-top-app-bar.mdw-medium.mdw-compress {
   height: calc(112px + var(--mdw-top-app-bar-scroll-position));
 }
 
-mdw-top-app-bar.mdw-medium:not(.mdw-auto-hide).mdw-auto-shrink > .mdw-headline {
+mdw-top-app-bar.mdw-medium.mdw-compress > .mdw-headline {
   margin-top: max(calc(44px + var(--mdw-top-app-bar-scroll-position)), -4px);
   transform: translateX(min(calc(-36px - var(--mdw-top-app-bar-scroll-position)), 0px));
 }
@@ -121,11 +135,11 @@ mdw-top-app-bar.mdw-large > mdw-navigation-button {
   margin-top: -6px;
 }
 
-mdw-top-app-bar.mdw-large:not(.mdw-auto-hide).mdw-auto-shrink {
+mdw-top-app-bar.mdw-large.mdw-compress {
   height: calc(152px + var(--mdw-top-app-bar-scroll-position));
 }
 
-mdw-top-app-bar.mdw-large:not(.mdw-auto-hide).mdw-auto-shrink > .mdw-headline {
+mdw-top-app-bar.mdw-large.mdw-compress > .mdw-headline {
   margin-bottom: max(calc(16px + var(--mdw-top-app-bar-scroll-position)), 14px);
   transform: translateX(min(calc(-36px - var(--mdw-top-app-bar-scroll-position)), 0px));
 }

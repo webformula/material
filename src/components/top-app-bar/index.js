@@ -3,8 +3,8 @@ import util from '../../core/util.js';
 
 
 customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLElementExtended {
-  #autoHide = this.classList.contains('mdw-auto-hide');
-  #shrink = !this.#autoHide && this.classList.contains('mdw-auto-shrink');
+  #sticky = this.classList.contains('mdw-sticky');
+  #compress = this.classList.contains('mdw-compress');
   #height;
   #scrollTrack_bound = this.#scrollTrack.bind(this);
 
@@ -14,8 +14,7 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
   }
 
   connectedCallback() {
-    if (this.#autoHide) this.#height = this.offsetHeight;
-    else if (this.#shrink && (this.classList.contains('mdw-medium') || this.classList.contains('mdw-large'))) {
+    if (this.#compress && (this.classList.contains('mdw-medium') || this.classList.contains('mdw-large'))) {
       this.#height = this.offsetHeight - 64;
     }
 
@@ -30,17 +29,12 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
   }
 
   #scrollTrack({ isScrolled, direction, distance, scrollTop }) {
-    // for color change
-    if (!this.#autoHide && !this.#shrink) {
-      this.classList.toggle('mdw-scrolled', isScrolled);
-      return;
-    }
-
     // prevent style changes if not moving
     const position = -parseInt(this.style.getPropertyValue('--mdw-top-app-bar-scroll-position').replace('px', '') || 0);
 
     // adjust scroll check based on header position for scrolled
-    this.classList.toggle('mdw-scrolled', scrollTop - Math.max(0, position + distance) > 0);
+    if (this.#compress) this.classList.toggle('mdw-scrolled', scrollTop - Math.max(0, position + distance) > 0);
+    else if (this.#sticky) this.classList.toggle('mdw-scrolled', isScrolled);
 
     if (direction === 1 && position === 0) return;
     if (direction === -1 && position === this.#height) return;

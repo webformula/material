@@ -25,7 +25,6 @@ window.addEventListener('hashchange', () => {
 
 
 function handleHashAnchor(hash, animate = true) {
-  console.log('handleHashAnchor')
   try {
     const element = document.querySelector(hash);
     if (element) {
