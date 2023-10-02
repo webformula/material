@@ -56,7 +56,8 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
     return this.#contentMenuTarget;
   }
 
-  #onControlClick() {
+  #onControlClick(event) {
+    if (event.target !== this.#control) return;
     this.show();
   }
 

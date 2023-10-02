@@ -10,6 +10,7 @@
     <ul class="links">
       <li><a href="#css">theme.css</a></li>
       <li><a href="#scheme">Color scheme</a></li>
+      <li><a href="#motion">Motion</a></li>
       <li><a href="#build">Build theme file</a></li>
     </ul>
   </nav>
@@ -152,6 +153,52 @@
   .some-class {
     color: var(--mdw-primary);
   }`)}
+        </code>
+      </pre>
+    </mdw-card>
+
+
+    <mdw-card id="motion">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Standard and emphasized transitions and interactions</div>
+        <a href="https://m3.material.io/styles/motion/overview">Material Design Guidelines: Motion</a>
+        <div class="mdw-supporting-text">The default is <strong>emphasized</strong>. You can change to <strong>standard</strong> by adding <strong>class="mdw-motion-standard"</strong> to the <strong>body</strong> element</div>
+        <div class="mdw-supporting-text">You can also change the individual transitions and durations</div>
+      </div>
+    
+    
+      <pre>
+        <code class="language-css">
+  ${`/* theme.css */
+  
+  :root {
+    ...
+    
+    --mdw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --mdw-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+    --mdw-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+    --mdw-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    --mdw-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --mdw-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
+
+    --mdw-motion-duration-short1: 50ms;
+    --mdw-motion-duration-short2: 100ms;
+    --mdw-motion-duration-short3: 150ms;
+    --mdw-motion-duration-short4: 200ms;
+    --mdw-motion-duration-medium1: 250ms;
+    --mdw-motion-duration-medium2: 300ms;
+    --mdw-motion-duration-medium3: 350ms;
+    --mdw-motion-duration-medium4: 400ms;
+    --mdw-motion-duration-long1: 450ms;
+    --mdw-motion-duration-long2: 500ms;
+    --mdw-motion-duration-long3: 550ms;
+    --mdw-motion-duration-long4: 600ms;
+    --mdw-motion-duration-extra-long1: 700ms;
+    --mdw-motion-duration-extra-long2: 800ms;
+    --mdw-motion-duration-extra-long3: 900ms;
+    --mdw-motion-duration-extra-long4: 1000ms;
+  }`}
         </code>
       </pre>
     </mdw-card>

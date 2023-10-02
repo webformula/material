@@ -63,13 +63,19 @@ mdw-divider {
 }
 
 body {
-  --mdw-motion-easing: var(--mdw-motion-easing-standard);
-  --mdw-motion-easing-accelerate: var(--mdw-motion-easing-standard-accelerate);
-  --mdw-motion-easing-decelerate: var(--mdw-motion-easing-standard-decelerate);
+  --mdw-motion-easing: var(--mdw-motion-easing-emphasized);
+  --mdw-motion-easing-accelerate: var(--mdw-motion-easing-emphasized-accelerate);
+  --mdw-motion-easing-decelerate: var(--mdw-motion-easing-emphasized-decelerate);
 }
-/* TODO document this */
+
 body.mdw-motion-emphasized {
   --mdw-motion-easing: var(--mdw-motion-easing-emphasized);
   --mdw-motion-easing-accelerate: var(--mdw-motion-easing-emphasized-accelerate);
   --mdw-motion-easing-decelerate: var(--mdw-motion-easing-emphasized-decelerate);
+}
+
+body.mdw-motion-standard {
+  --mdw-motion-easing: var(--mdw-motion-easing-standard);
+  --mdw-motion-easing-accelerate: var(--mdw-motion-easing-standard-accelerate);
+  --mdw-motion-easing-decelerate: var(--mdw-motion-easing-standard-decelerate);
 }
