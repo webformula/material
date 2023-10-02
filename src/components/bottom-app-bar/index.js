@@ -5,6 +5,8 @@ import util from '../../core/util.js';
 export default class MDWBottomAppBarElement extends HTMLElementExtended {
   #autoHide;
   #scrollDirectionChange_bound = this.#scrollDirectionChange.bind(this);
+  #hashchange_bound = this.#hashchange.bind(this);
+
 
   constructor() {
     super();
@@ -20,10 +22,20 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
     if (this.#autoHide) requestAnimationFrame(() => {
       util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
     });
+
+    if (this.querySelector('mdw-bottom-app-bar-secondary[hash]')) {
+      [...this.querySelectorAll('mdw-bottom-app-bar-secondary')].forEach(element => {
+        const id = element.getAttribute('id');
+        element.setAttribute('id', id || `bottom-app-bar-secondary-${util.uid()}`);
+      })
+      window.addEventListener('hashchange', this.#hashchange_bound);
+      this.#hashchange();
+    }
   }
 
   disconnectedCallback() {
     if (this.#autoHide) util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+    window.removeEventListener('hashchange', this.#hashchange_bound);
   }
 
   async showPrimary() {
@@ -57,6 +69,12 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
   #scrollDirectionChange(direction) {
     this.classList.toggle('mdw-hide', direction === -1);
     document.body.classList.toggle('mdw-bottom-app-bar-hide', direction === -1);
+  }
+
+  #hashchange() {
+    const secondaryByHash = this.querySelector(`mdw-bottom-app-bar-secondary[hash="${location.hash}"]`);
+    if (secondaryByHash) this.showSecondary(secondaryByHash.getAttribute('id'));
+    else this.showPrimary();
   }
 }
 
