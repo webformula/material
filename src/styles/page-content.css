@@ -19,14 +19,20 @@ html.mdw-initiated mdw-top-app-bar.mdw-large ~ #page-content {
 }
 
 html.mdw-initiated body.mdw-has-bottom-app-bar > page-content,
-html.mdw-initiated body.mdw-has-bottom-app-bar > #page-content {
+html.mdw-initiated body.mdw-has-bottom-app-bar > #page-content,
+html.mdw-initiated body.mdw-has-navigation-bar > page-content,
+html.mdw-initiated body.mdw-has-navigation-bar > #page-content {
   padding-bottom: calc(var(--mdw-page-content-padding-bottom) + 80px);
 }
 
 html.mdw-initiated body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > page-content,
 html.mdw-initiated body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > page-content,
 html.mdw-initiated body.mdw-window-medium:not(.mdw-bottom-app-bar-always-show) > #page-content,
-html.mdw-initiated body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > #page-content {
+html.mdw-initiated body.mdw-window-expanded:not(.mdw-bottom-app-bar-always-show) > #page-content,
+html.mdw-initiated body.mdw-window-medium:not(.mdw-navigation-bar-always-show) > page-content,
+html.mdw-initiated body.mdw-window-expanded:not(.mdw-navigation-bar-always-show) > page-content,
+html.mdw-initiated body.mdw-window-medium:not(.mdw-navigation-bar-always-show) > #page-content,
+html.mdw-initiated body.mdw-window-expanded:not(.mdw-navigation-bar-always-show) > #page-content {
   padding-bottom: var(--mdw-page-content-padding-bottom);
 }
 

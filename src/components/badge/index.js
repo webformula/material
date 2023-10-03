@@ -8,7 +8,7 @@ export default class MDWBadgeElement extends HTMLElementExtended {
   constructor() {
     super();
 
-    if (this.classList.contains('mdw-non-counting')) this.#nonCounting = true;
+    if (this.classList.contains('mdw-no-label')) this.#nonCounting = true;
   }
 
   connectedCallback() {

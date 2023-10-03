@@ -15,6 +15,7 @@ import './components/form/index.js';
 import './components/icon/index.js';
 import './components/list/index.js';
 import './components/menu/index.js';
+import './components/navigation-bar/index.js';
 import './components/navigation-drawer/index.js';
 import './components/navigation-rail/index.js';
 import './components/panel/index.js';

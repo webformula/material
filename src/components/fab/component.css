@@ -34,7 +34,8 @@
 }
 
 :host-context(mdw-bottom-app-bar),
-:host-context(body.mdw-has-bottom-app-bar.mdw-window-compact) {
+:host-context(body.mdw-has-bottom-app-bar.mdw-window-compact),
+:host-context(body.mdw-has-navigation-bar.mdw-window-compact) {
   box-shadow: none;
 }
 
@@ -240,7 +241,11 @@
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left),
-:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom) {
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-left-bottom) {
   transition: bottom;
   transition-duration: var(--mdw-motion-duration-short3);
   transition-timing-function: var(--mdw-motion-easing);
@@ -250,7 +255,11 @@
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-has-label.mdw-auto-hide-label),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-has-label.mdw-auto-hide-label),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-has-label.mdw-auto-hide-label),
-:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label) {
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label) {
   transition: max-width, color, bottom;
   transition-delay: 0ms, 60ms, 0ms;
   transition-duration: var(--mdw-motion-duration-short3);
@@ -260,7 +269,11 @@
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-auto-hide),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-auto-hide),
 :host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-auto-hide),
-:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide) {
+:host-context(body.mdw-has-bottom-app-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-right.mdw-auto-hide),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-right-bottom.mdw-auto-hide),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-bottom-left.mdw-auto-hide),
+:host-context(body.mdw-has-navigation-bar):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide) {
   transition: transform, bottom;
   transition-duration: var(--mdw-motion-duration-medium2), var(--mdw-motion-duration-short3);
   transition-timing-function: var(--mdw-motion-easing);
@@ -281,7 +294,23 @@
 :host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-right),
 :host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-right-bottom),
 :host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-left),
-:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-left-bottom) {
+:host-context(body.mdw-has-bottom-app-bar:not(.mdw-bottom-app-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-left-bottom),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-left-bottom),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-right.mdw-auto-hide),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-right-bottom.mdw-auto-hide),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-left.mdw-auto-hide),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-left-bottom.mdw-auto-hide),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-right.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-right-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-bottom-left.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-navigation-bar-hide):host(.mdw-fixed.mdw-position-left-bottom.mdw-has-label.mdw-auto-hide-label),
+:host-context(body.mdw-has-navigation-bar:not(.mdw-navigation-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-right),
+:host-context(body.mdw-has-navigation-bar:not(.mdw-navigation-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-right-bottom),
+:host-context(body.mdw-has-navigation-bar:not(.mdw-navigation-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-bottom-left),
+:host-context(body.mdw-has-navigation-bar:not(.mdw-navigation-bar-always-show):not(.mdw-window-compact)):host(.mdw-fixed.mdw-position-left-bottom) {
   bottom: 16px;
 }
 

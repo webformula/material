@@ -24,6 +24,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLElementEx
   connectedCallback() {
     const text = util.getTextFromNode(this);
     if (text) this.classList.add('mdw-has-text');
+    if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
     if (!this.hasAttribute('aria-label')) {
       this.setAttribute('aria-label', text);
     }

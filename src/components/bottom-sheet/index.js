@@ -65,7 +65,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
 
   get #minimizedPosition() {
     this.#positionState = 'minimized';
-    const offset = document.body.classList.contains('mdw-has-bottom-app-bar')  ? 80 : 0;
+    const offset = document.body.classList.contains('mdw-has-bottom-app-bar') || document.body.classList.contains('mdw-has-navigation-bar')  ? 80 : 0;
     return -(this.offsetHeight - 80 - offset);
   }
 
@@ -129,7 +129,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.style.overflowY = 'scroll';
     this.#position = 0;
     // TODO
-    // if (document.body.classList.contains('mdw-has-bottom-app-bar')) {
+    // if (document.body.classList.contains('mdw-has-bottom-app-bar') || document.body.classList.contains('mdw-has-navigation-bar')) {
     //   this.#position = -parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
     // }
     this.#isScrolling = true;

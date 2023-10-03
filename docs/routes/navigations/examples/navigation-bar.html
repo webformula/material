@@ -20,7 +20,7 @@
       font-weight: 100 700;
       src: url(/icons.woff2) format('woff2');
     }
-  
+
     .material-symbols-outlined {
       font-family: 'Material Symbols Outlined';
       font-weight: normal;
@@ -48,7 +48,7 @@
       <div class="mdw-headline">Headline</div>
       <mdw-navigation-button></mdw-navigation-button>
     </div>
-  
+
     <mdw-anchor href="/routes/navigations/examples/basic.html">
       <mdw-icon>home</mdw-icon>
       Welcome
@@ -61,24 +61,6 @@
     <mdw-anchor href="/one">One</mdw-anchor>
     <mdw-anchor href="/two">Two</mdw-anchor>
   </mdw-navigation-drawer>
-
-  <mdw-navigation-rail>
-    <mdw-navigation-button></mdw-navigation-button>
-    
-    <mdw-anchor href="/routes/navigations/examples/group.html">
-      <mdw-icon>home</mdw-icon>
-    </mdw-anchor>
-  
-    <mdw-anchor href="/one">
-      <mdw-icon>apps</mdw-icon>
-      One
-    </mdw-anchor>
-  
-    <mdw-anchor href="/two">
-      <mdw-icon>palette</mdw-icon>
-      Two
-    </mdw-anchor>
-  </mdw-navigation-rail>
 
   <page-content style="padding: 32px 32px;">
     <div style="font-size: 24px; margin-bottom: 12px;">Links do not work correctly in Example</div>
@@ -109,9 +91,23 @@
     accompanied by English versions from the 1914 translation by H. Rackham.
   </page-content>
 
-  <mdw-bottom-app-bar class="mdw-auto-hide mdw-mobile-only">
+  <mdw-navigation-bar class="mdw-auto-hide">
     <mdw-navigation-button></mdw-navigation-button>
-  </mdw-bottom-app-bar>
+    <mdw-anchor href="/routes/navigations/examples/navigation-bar.html">
+      <mdw-icon>home</mdw-icon>
+      Home
+    </mdw-anchor>
+  
+    <mdw-anchor href="/one">
+      <mdw-icon>circle</mdw-icon>
+      One
+    </mdw-anchor>
+  
+    <mdw-anchor href="/two">
+      <mdw-icon>circle</mdw-icon>
+      Two
+    </mdw-anchor>
+  </mdw-navigation-bar>
 </body>
 
 </html>

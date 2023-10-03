@@ -15,7 +15,7 @@ mdw-badge.mdw-has-value {
   opacity: 1;
 }
 
-mdw-badge.mdw-has-value:not(.mdw-non-counting) {
+mdw-badge.mdw-has-value:not(.mdw-no-label) {
   border-radius: 8px;
   line-height: 8px;
   padding: 4px;
@@ -27,8 +27,8 @@ mdw-icon mdw-badge {
   left: calc(50% + 5px);
   top: 9px;
 }
-.mdw-icon-button mdw-badge.mdw-has-value:not(.mdw-non-counting),
-mdw-icon mdw-badge.mdw-has-value:not(.mdw-non-counting) {
+.mdw-icon-button mdw-badge.mdw-has-value:not(.mdw-no-label),
+mdw-icon mdw-badge.mdw-has-value:not(.mdw-no-label) {
   left: calc(50% - 2px);
   top: 3px;
 }

@@ -18,6 +18,7 @@ body {
 
   background-color: var(--mdw-background);
   color: var(--mdw-on-background);
+  overflow-y: auto;
 }
 
 body page-content,

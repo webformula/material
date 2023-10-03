@@ -17,9 +17,14 @@ mdw-anchor {
   font-weight: var(--mdw-font-large-label-weight);
   letter-spacing: var(--mdw-font-large-label-tracking);
   border-radius: var(--mdw-shape-extra-large);
+  color: var(--mdw-on-surface-variant);
 }
 
-mdw-anchor::after {
+mdw-anchor.mdw-active {
+  color: var(--mdw-on-surface);
+}
+
+mdw-navigation-drawer mdw-anchor::after {
   content: '';
   position: absolute;
   left: -16px;
@@ -33,22 +38,27 @@ mdw-anchor::after {
 mdw-anchor:not([group])::before {
   content: '';
   position: absolute;
+  z-index: -1;
+}
+mdw-navigation-drawer mdw-anchor:not([group])::before {
   left: 40%;
   right: 40%;
   top: 0;
-  z-index: -1;
   height: 56px;
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-anchor.mdw-active:not([group])::before {
+mdw-navigation-drawer mdw-anchor.mdw-active:not([group])::before {
   left: -16px;
   right: -16px;
   transition: left, right;
   transition-duration: var(--mdw-motion-duration-medium1);
   transition-timing-function: var(--mdw-motion-easing);
   border-radius: var(--mdw-shape-extra-large);
+}
+mdw-anchor.mdw-active:not([group])::before {
   background-color: var(--mdw-secondary-container);
+  color: var(--mdw-on-surface);
 }
 
 mdw-anchor:focus::after {
@@ -73,6 +83,10 @@ mdw-anchor mdw-icon {
   margin-top: -2px;
   margin-right: 12px;
   margin-left: -6px;
+  color: var(--mdw-on-surface);
+}
+mdw-anchor.mdw-active mdw-icon {
+  color: var(--mdw-on-secondary-container);
 }
 
 mdw-anchor[group] .mdw-group-arrow {
@@ -96,4 +110,153 @@ mdw-anchor[group].mdw-open .mdw-group-arrow {
 mdw-anchor[group]:has(~ mdw-anchor.mdw-active)::after {
   opacity: var(--mdw-state-layer-opacity-hover);
   background-color: var(--mdw-on-surface);
+}
+
+
+mdw-navigation-bar mdw-anchor,
+mdw-navigation-rail mdw-anchor {
+  flex-direction: column;
+  justify-content: center;
+  line-height: 20px;
+  padding: 0 16px;
+  margin: 0;
+
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
+  border-radius: var(--mdw-shape-extra-medium);
+}
+
+mdw-navigation-bar mdw-anchor mdw-icon,
+mdw-navigation-rail mdw-anchor mdw-icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 32px;
+  margin: 0;
+  margin-top: -2px;
+  padding: 0;
+  line-height: 32px;
+  font-size: var(--mdw-font-small-icon-size);
+}
+
+
+mdw-navigation-bar mdw-anchor::before,
+mdw-navigation-rail mdw-anchor::before {
+  top: 11px;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+  transform: scaleX(0);
+  transition: transform;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+mdw-navigation-bar mdw-anchor.mdw-active::before {
+  transform: scaleX(1);
+}
+
+mdw-navigation-rail mdw-anchor::before {
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--mdw-shape-full);
+  transform: scale(0);
+}
+mdw-navigation-rail mdw-anchor.mdw-active::before {
+  transform: scale(1);
+}
+
+
+mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon::before,
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::before {
+  top: 0;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+  transform: scaleX(0);
+  transition: transform;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::before {
+  width: 56px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-active.mdw-has-text.mdw-has-icon::before,
+mdw-navigation-rail mdw-anchor.mdw-active.mdw-has-text.mdw-has-icon::before {
+  transform: scaleX(1);
+}
+
+mdw-navigation-bar mdw-anchor::after {
+  left: 0;
+  top: 11px;
+  right: 0;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+mdw-navigation-rail mdw-anchor::after {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--mdw-shape-full);
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon::after,
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::after {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::after {
+  width: 56px;
+}
+
+
+mdw-navigation-bar mdw-anchor.mdw-has-text mdw-badge,
+mdw-navigation-rail mdw-anchor.mdw-has-text mdw-badge {
+  position: absolute;
+  right: 3px;
+  top: 7px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-text mdw-badge.mdw-no-label,
+mdw-navigation-rail mdw-anchor.mdw-has-text mdw-badge.mdw-no-label {
+  position: absolute;
+  right: 12px;
+  top: 20px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-icon mdw-badge,
+mdw-navigation-rail mdw-anchor.mdw-has-icon mdw-badge {
+  position: absolute;
+  right: 7px;
+  top: 6px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-icon mdw-badge.mdw-no-label,
+mdw-navigation-rail mdw-anchor.mdw-has-icon mdw-badge.mdw-no-label {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge,
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge {
+  position: absolute;
+  right: 16px;
+  top: -3px;
+}
+
+mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label,
+mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label {
+  position: absolute;
+  right: 24px;
+  top: 5px;
 }
