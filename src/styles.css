@@ -4,6 +4,7 @@
 @import url('./styles/page-content.css');
 @import url('./styles/anchor.css');
 
+@import url('./components/anchor/global.css');
 @import url('./components/badge/global.css');
 @import url('./components/bottom-app-bar/global.css');
 @import url('./components/bottom-sheet/global.css');
@@ -21,7 +22,6 @@
 @import url('./components/list/global.css');
 @import url('./components/menu/global.css');
 @import url('./components/navigation-bar/global.css');
-@import url('./components/navigation-drawer/anchor-global.css');
 @import url('./components/navigation-drawer/navigation-drawer-global.css');
 @import url('./components/navigation-drawer/navigation-drawer-group-global.css');
 @import url('./components/navigation-rail/global.css');
