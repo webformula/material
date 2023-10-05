@@ -340,6 +340,13 @@
   bottom: 16px;
   top: unset;
   left: unset;
+  transition: bottom;
+  transition-duration: var(--mdw-motion-duration-medium3);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+:host-context(mdw-bottom-app-bar.mdw-hide) {
+  bottom: 8px;
 }
 
 

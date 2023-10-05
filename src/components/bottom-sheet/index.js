@@ -16,6 +16,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #onDragEnd_bound = this.#onDragEnd.bind(this);
   #onScroll_bound = util.rafThrottle(this.#onScroll.bind(this));
   #onPageScroll_bound = util.rafThrottle(this.#onPageScroll.bind(this));
+  #setInitialPositionOnCompact_bound = this.#setInitialPositionOnCompact.bind(this);
   #positionState = 'initial';
 
   constructor() {
@@ -45,11 +46,13 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   connectedCallback() {
     this.#drag.enable();
     util.trackPageScroll(this.#onPageScroll_bound);
+    window.addEventListener('mdwwindowstate', this.#setInitialPositionOnCompact_bound);
   }
 
   disconnectedCallback() {
     this.#drag.disable();
     util.untrackPageScroll(this.#onPageScroll_bound);
+    window.removeEventListener('mdwwindowstate', this.#setInitialPositionOnCompact_bound);
   }
 
   get #initialPosition() {
@@ -76,6 +79,10 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.style.setProperty('--mdw-bottom-sheet-bottom', `${value}px`);
   }
 
+
+  #setInitialPositionOnCompact({ detail }) {
+    if (detail.state === 'compact') this.#position = this.#initialPosition
+  }
 
   #onDragStart(event) {
     if (this.#isScrolling) return;

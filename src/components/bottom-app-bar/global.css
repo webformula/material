@@ -43,7 +43,7 @@ body.mdw-window-expanded.mdw-navigation-drawer-state-show mdw-bottom-app-bar {
 
 /* primary / secondary */
 
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
+mdw-bottom-app-bar mdw-bottom-app-bar-primary {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -53,7 +53,7 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-primary {
   transition: none;
 }
 
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide {
   pointer-events: none;
   opacity: 0;
   transition: opacity, bottom;
@@ -61,7 +61,7 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide {
   transition-timing-function: var(--mdw-motion-easing);
 }
 
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -73,7 +73,7 @@ mdw-bottom-app-bar > mdw-bottom-app-bar-secondary {
   transition: opacity var(--mdw-motion-duration-short2);
 }
 
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary.mdw-show {
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary.mdw-show {
   opacity: 1;
   pointer-events: all;
   transition: none;
@@ -120,19 +120,19 @@ mdw-bottom-app-bar mdw-button:nth-child(10) {
 
 mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-button,
 mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
   transform: translateY(60px);
 }
 
 mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-button,
 mdw-bottom-app-bar.mdw-auto-hide.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
-mdw-bottom-app-bar > mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
   transition-duration: 0ms;
   transition-delay: var(--mdw-motion-duration-short3);
 }

@@ -25,6 +25,11 @@ mdw-bottom-sheet {
   box-shadow: var(--mdw-elevation-1);
 }
 
+body:not(.mdw-window-compact) mdw-bottom-sheet {
+  display: none;
+  pointer-events: none;
+}
+
 mdw-bottom-sheet.mdw-fullscreen {
   border-radius: 0;
 }
