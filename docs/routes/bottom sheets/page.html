@@ -11,16 +11,29 @@ to liking a post</div>
     <div class="mdw-card-content">
       <div class="mdw-headline">Bottom sheet</div>
       <div class="mdw-subheader">Bottom sheet will only show up on mobile view</div>
-
-      <div class="example" style="overscroll-behavior: contain;">
-        
-      </div>
     </div>
 
     <pre>
       <code class="language-html">
   ${page.escape(`<!-- --mdw-bottom-sheet-initial-position default is 40% -->
   <mdw-bottom-sheet style="--mdw-bottom-sheet-initial-position: 40%">
+    <!-- optional drag handle -->
+    <div class="mdw-drag-handle"></div>
+    <div class="mdw-content">
+      ...
+    </div>
+  </mdw-bottom-sheet>
+  
+  
+  <!-- fixed height. This will be based on the content -->
+  <mdw-bottom-sheet class="mdw-fixed-height">
+    <div class="mdw-content">
+      ...
+    </div>
+  </mdw-bottom-sheet>
+  
+  <!-- no shape (rounded corners) -->
+  <mdw-bottom-sheet class="mdw-no-shape">
     <div class="mdw-content">
       ...
     </div>
@@ -31,6 +44,7 @@ to liking a post</div>
 </section>
 
 <mdw-bottom-sheet style="--mdw-bottom-sheet-initial-position: 40%">
+  <div class="mdw-drag-handle"></div>
   <div class="mdw-content">
     <div class="mdw-supporting-text">
       Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin

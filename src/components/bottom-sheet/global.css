@@ -11,7 +11,7 @@ mdw-bottom-sheet {
   left: 0;
   margin-right: auto;
   margin-left: auto;
-  padding-bottom: 12px;
+  /* padding-bottom: 12px; */
   overflow-y: visible;
   overscroll-behavior: contain;
   box-sizing: border-box;
@@ -25,6 +25,10 @@ mdw-bottom-sheet {
   box-shadow: var(--mdw-elevation-1);
 }
 
+mdw-bottom-sheet.mdw-no-shape {
+  border-radius: 0;
+}
+
 body:not(.mdw-window-compact) mdw-bottom-sheet {
   display: none;
   pointer-events: none;
@@ -35,7 +39,7 @@ mdw-bottom-sheet.mdw-fullscreen {
 }
 
 body.mdw-has-bottom-app-bar.mdw-window-compact mdw-bottom-sheet {
-  padding-bottom: 92px;
+  padding-bottom: 80px;
 }
 
 mdw-bottom-sheet.mdw-animate-position {
