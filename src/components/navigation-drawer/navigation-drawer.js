@@ -1,5 +1,6 @@
 import MDWSideSheetElement from '../side-sheet';
 import device from '../../core/device.js';
+import AnchorController from '../anchor/controller.js';
 
 customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement extends MDWSideSheetElement {
   #locationchange_bound = this.#locationchange.bind(this);
@@ -16,6 +17,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
     this.placeholder.style.setProperty('--mdw-side-sheet-width', 'var(--mdw-navigation-drawer-width)');
+    [...this.querySelectorAll('a')].forEach(element => new AnchorController(element));
     this.#locationchange();
     window.addEventListener('locationchange', this.#locationchange_bound);
     window.addEventListener('mdwwindowstate', ({ detail }) => {
@@ -24,7 +26,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
 
     // prevent layout calculation during script evaluation
     requestAnimationFrame(() => {
-      const active = this.querySelector('mdw-anchor.mdw-active');
+      const active = this.querySelector('.mdw-active');
       if (active) {
         const parent = active.parentNode;
         if (parent.nodeName === 'MDW-NAVIGATION-DRAWER-GROUP') requestAnimationFrame(() => parent.open = true);
@@ -59,9 +61,10 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
 
   #locationchange() {
     const path = `${location.pathname}${location.hash}${location.search}`;
-    const active = this.querySelector(`mdw-anchor.mdw-active`);
+    const active = this.querySelector(`.mdw-active`);
     if (active) active.classList.remove('mdw-active');
-    const match = this.querySelector(`mdw-anchor[href="${path}"]`);
+    const match = this.querySelector(`[href="${path}"]`);
+    console.log(match)
     if (match) match.classList.add('mdw-active');
     setTimeout(() => {
       if (device.state !== 'expanded') this.open = false;

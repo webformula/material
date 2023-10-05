@@ -1,7 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 
 customElements.define('mdw-navigation-drawer-group', class MDWNavigationDrawerGroupElement extends HTMLElementExtended {
-  #control = this.querySelector('mdw-anchor[group]');
+  #control = this.querySelector('a[group]');
   #open = false;
   #controlClick_bound = this.#controlClick.bind(this);
 
@@ -9,7 +9,7 @@ customElements.define('mdw-navigation-drawer-group', class MDWNavigationDrawerGr
   constructor() {
     super();
 
-    if (!this.#control) throw Error('requires a control anchor: mdw-anchor[group] (no href)');
+    if (!this.#control) throw Error('requires a control anchor: a[group] (no href)');
   }
 
   connectedCallback() {

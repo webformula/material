@@ -1,6 +1,7 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-import '../anchor/index.js';
+import AnchorController from '../anchor/controller.js';
+
 
 export default class MDWNavigationBarElement extends HTMLElementExtended {
   #autoHide = false;
@@ -17,6 +18,7 @@ export default class MDWNavigationBarElement extends HTMLElementExtended {
   connectedCallback() {
     this.setAttribute('role', 'navigation');
     this.#autoHide = this.classList.contains('mdw-auto-hide');
+    [...this.querySelectorAll('a')].forEach(element => new AnchorController(element));
 
     // prevent layout calculation during script evaluation with requestAnimationFrame
     if (this.#autoHide) requestAnimationFrame(() => {
@@ -39,9 +41,9 @@ export default class MDWNavigationBarElement extends HTMLElementExtended {
 
   #locationchange() {
     const path = `${location.pathname}${location.hash}${location.search}`;
-    const active = this.querySelector(`mdw-anchor.mdw-active`);
+    const active = this.querySelector(`.mdw-active`);
     if (active) active.classList.remove('mdw-active');
-    const match = this.querySelector(`mdw-anchor[href="${path}"]`);
+    const match = this.querySelector(`[href="${path}"]`);
     if (match) match.classList.add('mdw-active');
   }
 }

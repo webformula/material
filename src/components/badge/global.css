@@ -33,7 +33,7 @@ mdw-icon mdw-badge.mdw-has-value:not(.mdw-no-label) {
   top: 3px;
 }
 
-mdw-anchor mdw-badge {
+a mdw-badge {
   position: absolute;
   right: 20px;
 }

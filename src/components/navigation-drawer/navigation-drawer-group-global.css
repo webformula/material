@@ -17,6 +17,6 @@ body.mdw-animation mdw-navigation-drawer-group {
   transition-duration: var(--mdw-motion-duration-short4);
 }
 
-mdw-navigation-drawer-group > mdw-anchor:not([group]) {
+mdw-navigation-drawer-group > a:not([group]) {
   margin-left: 16px;
 }

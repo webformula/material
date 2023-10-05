@@ -1,4 +1,6 @@
-mdw-anchor {
+mdw-navigation-bar a,
+mdw-navigation-drawer a,
+mdw-navigation-rail a {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -18,13 +20,27 @@ mdw-anchor {
   letter-spacing: var(--mdw-font-large-label-tracking);
   border-radius: var(--mdw-shape-extra-large);
   color: var(--mdw-on-surface-variant);
+  text-decoration: none;
 }
 
-mdw-anchor.mdw-active {
+mdw-navigation-bar a:-webkit-any-link:active,
+mdw-navigation-drawer a:-webkit-any-link:active,
+mdw-navigation-rail a:-webkit-any-link:active {
+  color: unset;
+}
+
+mdw-navigation-bar a:focus,
+mdw-navigation-drawer a:focus,
+mdw-navigation-rail a:focus {
+  opacity: unset;
+  background-color: unset;
+}
+
+a.mdw-active {
   color: var(--mdw-on-surface);
 }
 
-mdw-navigation-drawer mdw-anchor::after {
+mdw-navigation-drawer a::after {
   content: '';
   position: absolute;
   left: -16px;
@@ -35,12 +51,12 @@ mdw-navigation-drawer mdw-anchor::after {
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-anchor:not([group])::before {
+a:not([group])::before {
   content: '';
   position: absolute;
   z-index: -1;
 }
-mdw-navigation-drawer mdw-anchor:not([group])::before {
+mdw-navigation-drawer a:not([group])::before {
   left: 40%;
   right: 40%;
   top: 0;
@@ -48,7 +64,7 @@ mdw-navigation-drawer mdw-anchor:not([group])::before {
   border-radius: var(--mdw-shape-extra-large);
 }
 
-mdw-navigation-drawer mdw-anchor.mdw-active:not([group])::before {
+mdw-navigation-drawer a.mdw-active:not([group])::before {
   left: -16px;
   right: -16px;
   transition: left, right;
@@ -56,40 +72,41 @@ mdw-navigation-drawer mdw-anchor.mdw-active:not([group])::before {
   transition-timing-function: var(--mdw-motion-easing);
   border-radius: var(--mdw-shape-extra-large);
 }
-mdw-anchor.mdw-active:not([group])::before {
+a.mdw-active:not([group])::before {
   background-color: var(--mdw-secondary-container);
   color: var(--mdw-on-surface);
 }
 
-mdw-anchor:focus::after {
+a:focus::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-anchor:not(.mdw-active):hover::after {
+  a:not(.mdw-active):hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
+    mix-blend-mode: unset;
   }
 }
 
-mdw-anchor > * {
+a > * {
   pointer-events: none;
 }
 
-mdw-anchor mdw-icon {
+a mdw-icon {
   vertical-align: middle;
   margin-top: -2px;
   margin-right: 12px;
   margin-left: -6px;
   color: var(--mdw-on-surface);
 }
-mdw-anchor.mdw-active mdw-icon {
+a.mdw-active mdw-icon {
   color: var(--mdw-on-secondary-container);
 }
 
-mdw-anchor[group] .mdw-group-arrow {
+a[group] .mdw-group-arrow {
   position: absolute;
   display: flex;
   align-items: center;
@@ -99,22 +116,22 @@ mdw-anchor[group] .mdw-group-arrow {
   transition: transform 0ms;
 }
 
-mdw-anchor.mdw-animation[group] .mdw-group-arrow {
+a.mdw-animation[group] .mdw-group-arrow {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-anchor[group].mdw-open .mdw-group-arrow {
+a[group].mdw-open .mdw-group-arrow {
   transform: rotate(180deg);
 }
 
-mdw-anchor[group]:has(~ mdw-anchor.mdw-active)::after {
+a[group]:has(~ a.mdw-active)::after {
   opacity: var(--mdw-state-layer-opacity-hover);
   background-color: var(--mdw-on-surface);
 }
 
 
-mdw-navigation-bar mdw-anchor,
-mdw-navigation-rail mdw-anchor {
+mdw-navigation-bar a,
+mdw-navigation-rail a {
   flex-direction: column;
   justify-content: center;
   line-height: 20px;
@@ -127,8 +144,8 @@ mdw-navigation-rail mdw-anchor {
   border-radius: var(--mdw-shape-extra-medium);
 }
 
-mdw-navigation-bar mdw-anchor mdw-icon,
-mdw-navigation-rail mdw-anchor mdw-icon {
+mdw-navigation-bar a mdw-icon,
+mdw-navigation-rail a mdw-icon {
   position: relative;
   display: flex;
   justify-content: center;
@@ -141,8 +158,8 @@ mdw-navigation-rail mdw-anchor mdw-icon {
 }
 
 
-mdw-navigation-bar mdw-anchor::before,
-mdw-navigation-rail mdw-anchor::before {
+mdw-navigation-bar a::before,
+mdw-navigation-rail a::before {
   top: 11px;
   width: 64px;
   height: 32px;
@@ -152,24 +169,24 @@ mdw-navigation-rail mdw-anchor::before {
   transition-duration: var(--mdw-motion-duration-medium1);
   transition-timing-function: var(--mdw-motion-easing);
 }
-mdw-navigation-bar mdw-anchor.mdw-active::before {
+mdw-navigation-bar a.mdw-active::before {
   transform: scaleX(1);
 }
 
-mdw-navigation-rail mdw-anchor::before {
+mdw-navigation-rail a::before {
   top: 0;
   width: 56px;
   height: 56px;
   border-radius: var(--mdw-shape-full);
   transform: scale(0);
 }
-mdw-navigation-rail mdw-anchor.mdw-active::before {
+mdw-navigation-rail a.mdw-active::before {
   transform: scale(1);
 }
 
 
-mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon::before,
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::before {
+mdw-navigation-bar a.mdw-has-text.mdw-has-icon::before,
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon::before {
   top: 0;
   width: 64px;
   height: 32px;
@@ -179,83 +196,84 @@ mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::before {
   transition-duration: var(--mdw-motion-duration-medium1);
   transition-timing-function: var(--mdw-motion-easing);
 }
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::before {
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon::before {
   width: 56px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-active.mdw-has-text.mdw-has-icon::before,
-mdw-navigation-rail mdw-anchor.mdw-active.mdw-has-text.mdw-has-icon::before {
+mdw-navigation-bar a.mdw-active.mdw-has-text.mdw-has-icon::before,
+mdw-navigation-rail a.mdw-active.mdw-has-text.mdw-has-icon::before {
   transform: scaleX(1);
 }
 
-mdw-navigation-bar mdw-anchor::after {
-  left: 0;
+
+
+mdw-navigation-bar a::after,
+mdw-navigation-rail a::after {
+  left: unset;
+  right: unset;
   top: 11px;
-  right: 0;
   width: 64px;
   height: 32px;
   border-radius: var(--mdw-shape-extra-large);
 }
-mdw-navigation-rail mdw-anchor::after {
-  left: 0;
+
+mdw-navigation-rail a::after {
   top: 0;
-  right: 0;
   width: 56px;
   height: 56px;
   border-radius: var(--mdw-shape-full);
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon::after,
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::after {
-  left: 0;
+mdw-navigation-bar a.mdw-has-text.mdw-has-icon::after,
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon::after {
   top: 0;
-  right: 0;
   width: 64px;
   height: 32px;
   border-radius: var(--mdw-shape-extra-large);
 }
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon::after {
+
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon::after {
   width: 56px;
 }
 
 
-mdw-navigation-bar mdw-anchor.mdw-has-text mdw-badge,
-mdw-navigation-rail mdw-anchor.mdw-has-text mdw-badge {
+mdw-navigation-bar a.mdw-has-text mdw-badge,
+mdw-navigation-rail a.mdw-has-text mdw-badge {
   position: absolute;
   right: 3px;
   top: 7px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-text mdw-badge.mdw-no-label,
-mdw-navigation-rail mdw-anchor.mdw-has-text mdw-badge.mdw-no-label {
+mdw-navigation-bar a.mdw-has-text mdw-badge.mdw-no-label,
+mdw-navigation-rail a.mdw-has-text mdw-badge.mdw-no-label {
   position: absolute;
   right: 12px;
   top: 20px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-icon mdw-badge,
-mdw-navigation-rail mdw-anchor.mdw-has-icon mdw-badge {
+mdw-navigation-bar a.mdw-has-icon mdw-badge,
+mdw-navigation-rail a.mdw-has-icon mdw-badge {
   position: absolute;
   right: 7px;
   top: 6px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-icon mdw-badge.mdw-no-label,
-mdw-navigation-rail mdw-anchor.mdw-has-icon mdw-badge.mdw-no-label {
+mdw-navigation-bar a.mdw-has-icon mdw-badge.mdw-no-label,
+mdw-navigation-rail a.mdw-has-icon mdw-badge.mdw-no-label {
   position: absolute;
   right: 16px;
   top: 16px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge,
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge {
+mdw-navigation-bar a.mdw-has-text.mdw-has-icon mdw-badge,
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon mdw-badge {
   position: absolute;
   right: 16px;
   top: -3px;
 }
 
-mdw-navigation-bar mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label,
-mdw-navigation-rail mdw-anchor.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label {
+mdw-navigation-bar a.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label,
+mdw-navigation-rail a.mdw-has-text.mdw-has-icon mdw-badge.mdw-no-label {
   position: absolute;
   right: 24px;
   top: 5px;

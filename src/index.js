@@ -1,4 +1,3 @@
-import './components/anchor/index.js';
 import './components/avatar/index.js';
 import './components/scrim/index.js';
 import './components/badge/index.js';

@@ -18,6 +18,9 @@ body {
 
   background-color: var(--mdw-background);
   color: var(--mdw-on-background);
+}
+/* prevents bottom bars from flickering on scroll. When location changes the scroll is reset to 0 and the bottom bars flicker */
+body.mdw-window-compact {
   overflow-y: auto;
 }
 
