@@ -1,4 +1,5 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
+import '../anchor/index.js';
 
 customElements.define('mdw-navigation-rail', class MDWNavigationElement extends HTMLElementExtended {
   #locationchange_bound = this.#locationchange.bind(this);

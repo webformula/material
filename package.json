@@ -1,6 +1,6 @@
 {
   "name": "@webformula/material",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "description": "Material web components. Performant, light-weight, full features, optimized for multiple devices.",
   "main": "./src/index.js",
   "type": "module",
@@ -30,7 +30,9 @@
     "./components/icon": "./src/components/icon/index.js",
     "./components/list": "./src/components/list/index.js",
     "./components/menu": "./src/components/menu/index.js",
-    "./components/navigation": "./src/components/navigation/index.js",
+    "./components/navigation-bar": "./src/components/navigation-bar/index.js",
+    "./components/navigation-drawer": "./src/components/navigation-drawer/index.js",
+    "./components/navigation-rail": "./src/components/navigation-rail/index.js",
     "./components/panel": "./src/components/panel/index.js",
     "./components/progress-circular": "./src/components/progress-circular/index.js",
     "./components/progress-linear": "./src/components/progress-linear/index.js",

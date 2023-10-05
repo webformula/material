@@ -1,6 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
-
+import '../anchor/index.js';
 
 export default class MDWNavigationBarElement extends HTMLElementExtended {
   #autoHide = false;
