@@ -53,7 +53,7 @@
     "start": "node --watch-path=./src --watch-path=./docs build.js",
     "build:docs": "NODE_ENV=production node build.js",
     "build": "NODE_ENV=production node build.js",
-    "deploy": "node deploy.js"
+    "deploy": "npm run build && node deploy.js"
   },
   "repository": {
     "type": "git",
