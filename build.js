@@ -45,12 +45,6 @@ const context = await esbuild.context({
 
 generate('./src/theme.css', './docs/theme.css');
 build({
-  devServer: {
-    enabled: true,
-    port: 3000,
-    liveReload: true
-  },
-  gzip: true,
   chunks: false,
   basedir: 'docs/',
   outdir: 'dist/',
