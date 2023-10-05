@@ -11,6 +11,7 @@
       <a href="#basic">Basic</a>
       <a href="#filter">Filter</a>
       <a href="#async-filter">Async filter</a>
+      <a href="#bottomsheet">Bottom sheet</a>
     </ul>
   </nav>
 
@@ -234,6 +235,46 @@
     console.log(e.target.display); // what is being typed
     e.target.optionValues = [{ label: 'One', value: 1 }, { label: 'Two', value: 2}];
   });`}
+        </code>
+      </pre>
+    </mdw-card>
+
+
+    <mdw-card id="bottomsheet">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Bottom sheets on window compact</div>
+        <div class="mdw-subheader">To enable bottom sheets on compact layout add <b>class="mdw-use-bottom-sheet"</b></div>
+    
+        <div class="example">
+          <mdw-select class="mdw-use-bottom-sheet" label="label">
+            <mdw-option value="1">one</mdw-option>
+            <mdw-option value="2">two</mdw-option>
+            <mdw-option value="3">three</mdw-option>
+            <mdw-option value="4">four</mdw-option>
+            <mdw-option value="5">five</mdw-option>
+            <mdw-option value="6">six</mdw-option>
+            <mdw-option value="7">seven</mdw-option>
+            <mdw-option value="8">eight</mdw-option>
+            <mdw-option value="9">nine</mdw-option>
+            <mdw-option value="10">ten</mdw-option>
+          </mdw-select>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-select class="mdw-use-bottom-sheet" label="label">
+    <mdw-option value="1">one</mdw-option>
+    <mdw-option value="2">two</mdw-option>
+    <mdw-option value="3">three</mdw-option>
+    <mdw-option value="4">four</mdw-option>
+    <mdw-option value="5">five</mdw-option>
+    <mdw-option value="6">six</mdw-option>
+    <mdw-option value="7">seven</mdw-option>
+    <mdw-option value="8">eight</mdw-option>
+    <mdw-option value="9">nine</mdw-option>
+    <mdw-option value="10">ten</mdw-option>
+  </mdw-select>`)}
         </code>
       </pre>
     </mdw-card>

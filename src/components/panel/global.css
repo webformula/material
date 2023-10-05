@@ -94,7 +94,7 @@ mdw-panel[open].mdw-animation-expand,
 mdw-panel[open].mdw-animation-expand.mdw-target,
 .mdw-panel[open].mdw-animation-expand,
 .mdw-panel[open].mdw-animation-expand.mdw-target {
-  overflow-y: hidden;
+  overflow-y: auto;
   animation: mdw-panel-show-expand var(--mdw-motion-duration-medium1);
 }
 

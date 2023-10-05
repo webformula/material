@@ -1,3 +1,4 @@
+@import url("../bottom-sheet/global.css");
 :host {
   display: inline-flex;
   box-sizing: border-box;
@@ -87,4 +88,10 @@ mdw-panel.mdw-option-group {
 
 :host mdw-panel[open] ::slotted(mdw-option) {
   pointer-events: all;
+}
+
+
+:host mdw-bottom-sheet > .mdw-content {
+  display: flex;
+  flex-direction: column;
 }

@@ -3,6 +3,7 @@ import sheet from './select.css' assert { type: 'css' };
 import sheetTextField from '../textfield/global.css' assert { type: 'css' };
 import sheetPanel from '../panel/global.css' assert { type: 'css' };
 import util from '../../core/util.js';
+import device from '../../core/device.js';
 
 
 customElements.define('mdw-select', class MDWSelectElement extends HTMLElementExtended {
@@ -36,6 +37,8 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #abort = new AbortController();
   #textSearchOver_debounced = util.debounce(this.#textSearchOver, 240);
   #searchKeys = '';
+  #bottomSheet = this.classList.contains('mdw-use-bottom-sheet') && device.state === 'compact';
+  #bottomSheetElement;
 
 
   constructor() {
@@ -60,19 +63,31 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     this.#arrowElement = this.shadowRoot.querySelector('.mdw-select-arrow');
     this.#textfield = this.shadowRoot.querySelector('mdw-textfield');
     this.#input = this.shadowRoot.querySelector('input');
-    this.#panel = this.shadowRoot.querySelector('mdw-panel');
-    this.#panel.target = this;
-    this.#panel.animation = 'expand';
-    this.#panel.clickOutsideClose = true;
-    this.#panel.addClickOutsideCloseIgnore(this);
-    // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
-    this.#setWidth();
 
-    // makes the input not usable, only clickable. Create normal select
-    if (!this.#isFilter && !this.#isFilterAsync) {
-      this.#textfield.classList.add('mdw-select-no-filter');
-      // this.#input.setAttribute('readonly', '');
-      this.#panel.positionOverlap = true;
+    if (this.#bottomSheet) {
+      this.#bottomSheetElement = this.shadowRoot.querySelector('mdw-bottom-sheet');
+      // makes the input not usable, only clickable. Create normal select
+      if (!this.#isFilter && !this.#isFilterAsync) {
+        this.#textfield.classList.add('mdw-select-no-filter');
+      }
+      this.#bottomSheetElement.addEventListener('open', this.#onOpen_bound, { signal: this.#abort.signal });
+      this.#bottomSheetElement.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
+    } else {
+      this.#panel = this.shadowRoot.querySelector('mdw-panel');
+      this.#panel.target = this;
+      this.#panel.animation = 'expand';
+      this.#panel.clickOutsideClose = true;
+      this.#panel.addClickOutsideCloseIgnore(this);
+      // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
+      this.#setWidth();
+
+      // makes the input not usable, only clickable. Create normal select
+      if (!this.#isFilter && !this.#isFilterAsync) {
+        this.#textfield.classList.add('mdw-select-no-filter');
+        this.#panel.positionOverlap = true;
+      }
+      this.#panel.addEventListener('open', this.#onOpen_bound, { signal: this.#abort.signal });
+      this.#panel.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
     }
 
     if (this.#isFilterAsync) {
@@ -81,8 +96,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
 
     this.#textfield.addEventListener('click', this.#onInputFocus_bound, { signal: this.#abort.signal });
     this.#input.addEventListener('focus', this.#onInputFocus_bound, { signal: this.#abort.signal });
-    this.#panel.addEventListener('open', this.#onOpen_bound, { signal: this.#abort.signal });
-    this.#panel.addEventListener('close', this.#onClose_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
@@ -100,9 +113,11 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
         ${!this.#label ? '' : `<label>${this.#label}</label>`}
         <div class="mdw-select-arrow"></div>
         ${this.hasAttribute('supporting-text') ? `<div class="mdw-supporting-text">${this.#supportingText}</div>` : ''}
-        <mdw-panel class="mdw-option-group" role="listbox" aria-label="${this.#label}">
+        ${this.#bottomSheet ? `<mdw-bottom-sheet class="mdw-option-group mdw-hide" role="listbox" aria-label="${this.#label}">
+          <div class="mdw-content"><slot></slot></div>
+        </mdw-bottom-sheet>` : `<mdw-panel class="mdw-option-group" role="listbox" aria-label="${this.#label}">
           <slot></slot>
-        </mdw-panel>
+        </mdw-panel>`}
       </mdw-textfield>
     `;
   }
@@ -131,7 +146,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       this.#input.value = this.#displayValue;
       if (this.#input.parentElement.classList.contains('mdw-outlined')) this.#input.parentElement.updateNotch();
     }
-    if (this.#panel && this.#panel.open === true) this.#updateOptionDisplay();
+    if (this.#panel && (this.#bottomSheet ? this.#bottomSheetElement.open === true : this.#panel.open === true)) this.#updateOptionDisplay();
   }
 
   get display() {
@@ -185,7 +200,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     // prevent input rom being typed in and autocomplete
     if (!this.#isFilter && !this.#isFilterAsync) this.#input.setAttribute('readonly', '');
 
-    if (event.type === 'click') return this.#panel.show();
+    if (event.type === 'click') return this.#bottomSheet ? this.#bottomSheetElement.show() : this.#panel.show();
 
     // if focused via tab then the user needs to press down to open
     document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
@@ -195,8 +210,9 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #onInputBlur(event) {
     // enable input validation
     if (!this.#isFilter && !this.#isFilterAsync) this.#input.removeAttribute('readonly');
-    if (!this.#panel.open) document.body.removeEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
+    if (this.#bottomSheet ? !this.#bottomSheetElement.open : !this.#panel.open) document.body.removeEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
     event.target.removeEventListener('blur', this.#onInputBlur_bound, { signal: this.#abort.signal });
+    if (this.#bottomSheet) setTimeout(() => this.#bottomSheetElement.close(), 120);
   }
 
   // set the min width of the select to the input width
@@ -235,7 +251,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     this.#input.value = this.#displayValue;
 
     if (this.#isFilter || this.#isFilterAsync) {
-      await util.animationendAsync(this.#panel);
+      await util.animationendAsync(this.#bottomSheet ? this.#bottomSheetElement : this.#panel);
       this.#renderInitialOptions();
     }
   }
@@ -243,7 +259,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #onClick(event) {
     if (event.target.nodeName === 'MDW-OPTION') {
       this.#selectOption(event.target);
-      this.#panel.close();
+      if (!this.#bottomSheet) this.#panel.close();
     }
   }
 
@@ -273,7 +289,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       nextSelected.setAttribute('selected', '');
       nextSelected.setAttribute('aria-selected', 'true');
       nextSelected.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (this.#panel.scrollTop < 56) this.#panel.scrollTop = 0;
+      if (this.#panel && this.#panel.scrollTop < 56) this.#panel.scrollTop = 0;
     }
   }
 
@@ -285,13 +301,18 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     const downArrow = key === 'ArrowDown';
     const upArrow = key === 'ArrowUp';
 
-    if (!this.#panel.open) {
+    if (!this.#bottomSheet && !this.#panel.open) {
       if (downArrow || upArrow || enter) this.#panel.show();
       else return;
     }
 
+    if (this.#bottomSheet && !this.#bottomSheetElement.open) {
+      if (downArrow || upArrow || enter) this.#bottomSheetElement.show();
+      else return;
+    }
 
-    if (escape && this.clickOutsideClose === true) this.#panel.close();
+
+    if (escape && this.clickOutsideClose === true) this.#bottomSheet ? this.#bottomSheetElement.close() : this.#panel.close();
 
     else if ((tab && !shiftKey) || downArrow) {
       this.#focusNext();
@@ -306,12 +327,12 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       if (focusedElement.nodeName === 'INPUT') {
         const firstOption = this.querySelector('mdw-option');
         firstOption.click();
-        this.#panel.close();
+        this.#bottomSheet ? this.#bottomSheetElement.close() : this.#panel.close();
       }
 
       if (focusedElement.nodeName === 'MDW-OPTION') {
         event.target.click();
-        this.#panel.close();
+        this.#bottomSheet ? this.#bottomSheetElement.close() : this.#panel.close();
       }
     }
 

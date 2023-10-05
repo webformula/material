@@ -18,6 +18,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #onPageScroll_bound = util.rafThrottle(this.#onPageScroll.bind(this));
   #setInitialPositionOnCompact_bound = this.#setInitialPositionOnCompact.bind(this);
   #positionState = 'initial';
+  #open = true;
 
   constructor() {
     super();
@@ -30,17 +31,8 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.#drag.on('mdwdragmove', this.#onDrag_bound);
     this.#drag.on('mdwdragstart', this.#onDragStart_bound);
     this.#drag.on('mdwdragend', this.#onDragEnd_bound);
-  }
 
-  #onPageScroll() {
-    switch (this.#positionState) {
-      case 'initial':
-        this.#position = this.#initialPosition;
-        break;
-      case 'minimized':
-        this.#position = this.#minimizedPosition;
-        break;
-    }
+    if (this.classList.contains('mdw-hide')) this.close();
   }
 
   connectedCallback() {
@@ -53,6 +45,27 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.#drag.disable();
     util.untrackPageScroll(this.#onPageScroll_bound);
     window.removeEventListener('mdwwindowstate', this.#setInitialPositionOnCompact_bound);
+  }
+
+  async close() {
+    this.#open = false;
+    this.#positionState = 'hide';
+    this.#position = -(this.offsetHeight);
+    this.dispatchEvent(new Event('close', this));
+    if (this.classList.contains('mdw-animate-position')) {
+      util.unlockPageScroll();
+      await util.animationendAsync(this);
+      this.classList.remove('mdw-animate-position');
+    }
+  }
+  async show() {
+    this.#open = true;
+    this.classList.add('mdw-animate-position');
+    this.#position = this.#initialPosition;
+    this.dispatchEvent(new Event('open', this));
+  }
+  get open() {
+    return this.#open;
   }
 
   get #initialPosition() {
@@ -79,6 +92,16 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.style.setProperty('--mdw-bottom-sheet-bottom', `${value}px`);
   }
 
+  #onPageScroll() {
+    switch (this.#positionState) {
+      case 'initial':
+        this.#position = this.#initialPosition;
+        break;
+      case 'minimized':
+        this.#position = this.#minimizedPosition;
+        break;
+    }
+  }
 
   #setInitialPositionOnCompact({ detail }) {
     if (detail.state === 'compact') this.#position = this.#initialPosition
