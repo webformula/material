@@ -200,6 +200,14 @@ mdw-navigation-rail a.mdw-has-text.mdw-has-icon::before {
   width: 56px;
 }
 
+body:not(.mdw-animation) mdw-navigation-drawer a.mdw-active:not([group])::before,
+body:not(.mdw-animation) mdw-navigation-bar a.mdw-has-text.mdw-has-icon::before,
+body:not(.mdw-animation) mdw-navigation-rail a.mdw-has-text.mdw-has-icon::before,
+body:not(.mdw-animation) mdw-navigation-bar a::before,
+body:not(.mdw-animation) mdw-navigation-rail a::before {
+  transition-duration: 0s;
+}
+
 mdw-navigation-bar a.mdw-active.mdw-has-text.mdw-has-icon::before,
 mdw-navigation-rail a.mdw-active.mdw-has-text.mdw-has-icon::before {
   transform: scaleX(1);
