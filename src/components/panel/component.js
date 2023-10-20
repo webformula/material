@@ -17,6 +17,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #lastOffsetWidth;
   #targetScrollContainer;
   #positionOverlap = false;
+  #positionSide = false;
   #onTargetScroll_bound = util.rafThrottle(this.#onTargetScroll.bind(this));
   #scrimElement;
   #fixedParent;
@@ -31,6 +32,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     this.classList.add('mdw-panel');
     this.classList.add('mdw-no-animation');
     if (this.classList.contains('mdw-position-overlap')) this.#positionOverlap = true;
+    if (this.classList.contains('mdw-position-side')) this.#positionSide = true;
   }
 
   disconnectedCallback() {
@@ -88,6 +90,13 @@ export default class MDWPanelElement extends HTMLElementExtended {
   }
   set positionOverlap(value) {
     this.#positionOverlap = !!value;
+  }
+
+  get positionSide() {
+    return this.#positionSide;
+  }
+  set positionSide(value) {
+    this.#positionSide = !!value;
   }
 
   addClickOutsideCloseIgnore(element) {
@@ -192,27 +201,37 @@ export default class MDWPanelElement extends HTMLElementExtended {
     // Panel offscreen adjustment
     if (panelBottom <= clientHeight || (panelBottom - bounds.top) > window.innerHeight) {
       this.style.bottom = 'unset';
-      if (this.#positionOverlap) this.style.top = `${bounds.top}px`;
+      if (this.#positionOverlap || this.#positionSide) this.style.top = `${bounds.top}px`;
       else this.style.top = `${bounds.bottom}px`;
     } else {
       this.style.top = 'unset';
-      if (this.#positionOverlap) this.style.bottom = `${clientHeight - bounds.bottom}px`;
+      if (this.#positionOverlap || this.#positionSide) this.style.bottom = `${clientHeight - bounds.bottom}px`;
       else this.style.bottom = `${clientHeight - bounds.top}px`;
     }
 
     // prefer being cutoff at bottom
     if (this.getBoundingClientRect().y < 0) {
       this.style.bottom = 'unset';
-      if (this.#positionOverlap) this.style.top = `${bounds.top}px`;
+      if (this.#positionOverlap || this.#positionSide) this.style.top = `${bounds.top}px`;
       else this.style.top = `${bounds.bottom}px`;
     }
 
     if (panelRight <= clientWidth) {
-      this.style.right = 'unset';
-      this.style.left = `${bounds.left}px`;
+      if (this.#positionSide) {
+        this.style.left = `${bounds.right}px`;
+        this.style.right = 'unset';
+      } else {
+        this.style.right = 'unset';
+        this.style.left = `${bounds.left}px`;
+      }
     } else {
-      this.style.left = 'unset';
-      this.style.right = `${clientWidth - bounds.right}px`;
+      if (this.#positionSide) {
+        this.style.right = `${bounds.left}px`;
+        this.style.left = 'unset';
+      } else {
+        this.style.left = 'unset';
+        this.style.right = `${clientWidth - bounds.right}px`;
+      }
     }
   }
 

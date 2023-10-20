@@ -11,6 +11,7 @@
       <a href="#basic">Basic</a>
       <a href="#position-overlap">Position overlap</a>
       <a href="#context-menu">Context menu</a>
+      <a href="#nested">Nested menu</a>
     </ul>
   </nav>
 
@@ -21,7 +22,7 @@
         <div class="mdw-supporting-text">Menus can be connected top controls by adding a selector or nesting them inside.</div>
         
         <div class="example">
-          <mdw-button id="control">Selector</mdw-button>
+          <mdw-button id="control">Control</mdw-button>
           <mdw-menu control="#control">
             <mdw-button>
               <mdw-icon>content_copy</mdw-icon>
@@ -38,7 +39,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button id="control">Selector</mdw-button>
+  ${page.escape(`<mdw-button id="control">Control</mdw-button>
   <mdw-menu control="#control">
     <mdw-button>
       <mdw-icon>content_copy</mdw-icon>
@@ -148,5 +149,52 @@
         </code>
       </pre>
     </mdw-card>
-  </div>
+
+    <mdw-card id="nested">
+      <div class="mdw-card-content">
+        <div class="mdw-headline">Nested menu</div>
+  
+        <div class="example">
+          <mdw-button id="control3">Control</mdw-button>
+          <mdw-menu control="#control3">
+            <mdw-button>
+              <mdw-icon>content_copy</mdw-icon>
+              copy
+            </mdw-button>
+            <mdw-button>
+              <mdw-icon>content_paste</mdw-icon>
+              paste
+            </mdw-button>
+            <mdw-button id="subcontrol">Nested</mdw-button>
+          </mdw-menu>
+          <mdw-menu control="#subcontrol">
+            <mdw-button>one</mdw-button>
+            <mdw-button>two</mdw-button>
+            <mdw-button>three</mdw-button>
+          </mdw-menu>
+        </div>
+      </div>
+  
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-button id="control3">Control</mdw-button>
+  <mdw-menu control="#control3">
+    <mdw-button>
+      <mdw-icon>content_copy</mdw-icon>
+      copy
+    </mdw-button>
+    <mdw-button>
+      <mdw-icon>content_paste</mdw-icon>
+      paste
+    </mdw-button>
+    <mdw-button id="subcontrol">Nested</mdw-button>
+  </mdw-menu>
+  <mdw-menu control="#subcontrol">
+    <mdw-button>one</mdw-button>
+    <mdw-button>two</mdw-button>
+    <mdw-button>three</mdw-button>
+  </mdw-menu>`)}
+        </code>
+      </pre>
+    </mdw-card>
 </section>

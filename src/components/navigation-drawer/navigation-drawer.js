@@ -64,7 +64,6 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     const active = this.querySelector(`.mdw-active`);
     if (active) active.classList.remove('mdw-active');
     const match = this.querySelector(`[href="${path}"]`);
-    console.log(match)
     if (match) match.classList.add('mdw-active');
     setTimeout(() => {
       if (device.state !== 'expanded') this.open = false;

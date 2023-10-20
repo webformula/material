@@ -2,7 +2,6 @@ import MDWPanelElement from '../panel/component.js';
 import util from '../../core/util.js';
 
 // TODO bottom sheet on mobile
-// TODO sub menus
 
 customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #control;
@@ -14,11 +13,12 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
   #onItemClick_bound = this.#onItemClick.bind(this);
   #openKeydown_bound = this.#openKeydown.bind(this);
   #rightClick_bound = this.#rightClick.bind(this);
-  #abort = new AbortController();
+  #abort;
   #textSearchOver_debounced = util.debounce(this.#textSearchOver, 240);
   #searchKeys = '';
   #searchItems;
   #contentMenuTarget;
+  #nestedMenu;
 
   constructor() {
     super();
@@ -32,13 +32,16 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
 
     this.animation = 'expand';
     this.#isContextMenu = this.hasAttribute('context-menu');
+    this.#abort = new AbortController();
     if (this.#isContextMenu) {
       document.addEventListener('contextmenu', this.#rightClick_bound, { signal: this.#abort.signal });
     } else {
-      this.#controlSelector = this.getAttribute('control')
+      this.#controlSelector = this.getAttribute('control');
       if (this.#controlSelector) this.#control = document.querySelector(this.#controlSelector);
       else this.#control = this.parentElement;
       if (!this.#control) throw Error('No control found. Must provide the attributer "control" with a valid css selector');
+      this.#control.classList.add('mdw-menu-control');
+      if (this.#control.parentElement.nodeName === 'MDW-MENU') this.#nestedMenu = true;
       this.target = this.#control;
       this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
     }
@@ -58,6 +61,7 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
 
   #onControlClick(event) {
     if (event.target !== this.#control) return;
+    if (this.#nestedMenu) this.positionSide = true;
     this.show();
   }
 
@@ -74,6 +78,7 @@ customElements.define('mdw-menu', class MDWMenuElement extends MDWPanelElement {
 
   // delay close so button press animation is seen
   #onItemClick(event) {
+    if (event.target.classList.contains('mdw-menu-control')) return;
     if (event.target.nodeName !== 'MDW-BUTTON') return;
     event.target.dispatchEvent(new CustomEvent('selected', { bubbles: true }));
 
