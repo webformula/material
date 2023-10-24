@@ -11,7 +11,6 @@ import util from '../../core/util.js';
 // TODO expanded card on drag. Look at material guidelines for video
 // TODO drag reorder grid
 // TODO ripple
-// TODO aria labels
 
 
 export default class MDWCardElement extends HTMLElementExtended {
@@ -77,11 +76,13 @@ export default class MDWCardElement extends HTMLElementExtended {
     // prevent style calculation during script evaluation
     requestAnimationFrame(() => {
       this.#calculateImgMaxHeightForFullscreen();
-    })
+    });
     
     setTimeout(() => {
       this.classList.add('mdw-animation');
     }, 150);
+
+    this.#handleAria();
   }
 
   disconnectedCallback() {
@@ -229,6 +230,23 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.click();
       e.preventDefault();
     }
+  }
+
+  #handleAria() {
+    const headline = this.querySelector(':scope > .mdw-card-content > .mdw-headline') || this.querySelector(':scope > .mdw-headline');
+    if (headline) {
+      if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
+      if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
+    }
+
+    const subhead = this.querySelector(':scope > .mdw-card-content > .mdw-subhead') || this.querySelector(':scope > .mdw-subhead');
+    if (subhead && !subhead.hasAttribute('aria-label')) subhead.setAttribute('aria-label', subhead.innerText);
+
+    const supportingText = this.querySelector(':scope > .mdw-card-content > .mdw-supporting-text') || this.querySelector(':scope > .mdw-supporting-text');
+    if (supportingText && !supportingText.hasAttribute('aria-label')) supportingText.setAttribute('aria-label', supportingText.innerText);
+
+    const img = this.querySelector(':scope > .mdw-card-image > img') || this.querySelector(':scope > img');
+    if (img && !img.hasAttribute('alt')) img.setAttribute('alt', supportingText ? supportingText.innerText : subhead ? subhead.innerText : headline ? headline.innerText : 'image');
   }
 }
 
