@@ -33,6 +33,7 @@ export default class Drag {
   #start_bound = this.#start.bind(this);
   #end_bound = this.#end.bind(this);
   #preventSwipeNavigationHandler_bound = this.#preventSwipeNavigationHandler.bind(this);
+  #resetTrackingDetails = false;
 
   constructor(element) {
     if (element) this.#element = element;
@@ -141,6 +142,10 @@ export default class Drag {
     };
   }
 
+  resetTracking() {
+    this.#resetTrackingDetails = true;
+  }
+
   on(eventType, callback) {
     if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend');
     this.#listeners[eventType].push(callback);
@@ -167,6 +172,8 @@ export default class Drag {
 
 
   #start(event) {
+    this.#resetTrackingDetails = false;
+
     // does this need to be on always
     if (this.#preventSwipeNavigation) {
       this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
@@ -243,6 +250,10 @@ export default class Drag {
     }
 
 
+    if (this.#resetTrackingDetails) {
+      this.#resetTrack(event);
+      this.#resetTrackingDetails = false;
+    }
     const dragEvent = this.#track(event, 'mdwdragmove');
 
     if (this.#lockScrollY) {
@@ -302,7 +313,7 @@ export default class Drag {
     return dragEvent;
   }
 
-  #resetTrack(event) {
+  #resetTrack(event = { clientX: 0, clientY: 0 }) {
     const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
     const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
     this.#trackingDetails = {

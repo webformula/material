@@ -38,7 +38,8 @@ mdw-bottom-sheet.mdw-fullscreen {
   border-radius: 0;
 }
 
-body.mdw-has-bottom-app-bar.mdw-window-compact mdw-bottom-sheet {
+body.mdw-has-bottom-app-bar.mdw-window-compact mdw-bottom-sheet,
+body.mdw-has-navigation-bar.mdw-window-compact mdw-bottom-sheet {
   padding-bottom: 80px;
 }
 

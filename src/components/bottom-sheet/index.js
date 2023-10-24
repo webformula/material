@@ -2,9 +2,6 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 import HTMLElementExtended from '../HTMLElementExtended.js';
 
-// TODO look into other ways of preventing body from scrolling
-//   There is some bugs on ios safari with bottom url bar
-//   could try locking the scroll to the body. Right now it is scrolling on html. We want to see if we can maintain address bar behavior
 
 customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HTMLElementExtended {
   #drag;
@@ -166,10 +163,6 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   #switchToScrolling(movementY) {
     this.style.overflowY = 'scroll';
     this.#position = 0;
-    // TODO
-    // if (document.body.classList.contains('mdw-has-bottom-app-bar') || document.body.classList.contains('mdw-has-navigation-bar')) {
-    //   this.#position = -parseInt(document.body.style.getPropertyValue('--mdw-bottom-app-bar-position').replace('px', '') || 0);
-    // }
     this.#isScrolling = true;
     if (movementY) this.scrollTop = -movementY;
     this.addEventListener('scroll', this.#onScroll_bound);
@@ -177,13 +170,14 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   }
 
   #switchToDragging() {
+    this.removeEventListener('scroll', this.#onScroll_bound);
+    this.#initialDragPosition = 0;
+    this.#position = 0;
     this.classList.remove('mdw-fullscreen');
     this.style.overflowY = 'visible';
     this.style.height = '';
-    this.#initialDragPosition = this.#position;
-    this.#position = this.#topPosition;
     this.#isScrolling = false;
-    this.removeEventListener('scroll', this.#onScroll_bound);
+    this.#drag.resetTracking();
   }
 
   // wait for overscroll to settle then switch back to drag
