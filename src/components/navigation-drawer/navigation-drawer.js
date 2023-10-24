@@ -7,7 +7,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
 
   constructor() {
     super();
-    document.body.classList.add('mdw-has-navigation');
+    document.body.classList.add('mdw-has-navigation-drawer');
     this.classList.add('mdw-left');
     this.clickOutsideClose = true;
     this.#setState();
