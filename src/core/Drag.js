@@ -34,6 +34,16 @@ export default class Drag {
   #end_bound = this.#end.bind(this);
   #preventSwipeNavigationHandler_bound = this.#preventSwipeNavigationHandler.bind(this);
   #resetTrackingDetails = false;
+  #reorder = false;
+  #reorderPreviewOnDrag = true;
+  #reorderHorizontalOnly = false;
+  #reorderVerticalOnly = false;
+  #reorderParentElement;
+  #reorderParentElementBounds;
+  #reorderElementIndex;
+  #reorderClosestIndex;
+  #reorderElementsAndBounds;
+  #reorderDragClone;
 
   constructor(element) {
     if (element) this.#element = element;
@@ -102,6 +112,41 @@ export default class Drag {
   }
   set preventSwipeNavigation(value) {
     this.#preventSwipeNavigation = !!value;
+  }
+
+  get reorderParentElement() {
+    return this.#reorderParentElement;
+  }
+  set reorderParentElement(value) {
+    if (!(value instanceof HTMLElement) || !value.contains(this.#element)) {
+      this.#reorderParentElement = undefined;
+      this.#reorder = false;
+      console.warn('reorderParent requires an html element that contains the drag element');
+    } else {
+      this.#reorderParentElement = value;
+      this.#reorder = true;
+    }
+  }
+
+  get reorderPreviewOnDrag() {
+    return this.#reorderPreviewOnDrag;
+  }
+  set reorderPreviewOnDrag(value) {
+    this.#reorderPreviewOnDrag = !!value;
+  }
+
+  get reorderHorizontalOnly() {
+    return this.#reorderHorizontalOnly;
+  }
+  set reorderHorizontalOnly(value) {
+    this.#reorderHorizontalOnly = !!value;
+  }
+
+  get reorderVerticalOnly() {
+    return this.#reorderVerticalOnly;
+  }
+  set reorderVerticalOnly(value) {
+    this.#reorderVerticalOnly = !!value;
   }
 
 
@@ -194,6 +239,38 @@ export default class Drag {
     this.#abortDrag = new AbortController();
     this.#resetTrack(event);
 
+    if (this.#reorder) {
+      this.#reorderParentElementBounds = this.#reorderParentElement.getBoundingClientRect();
+      const elements = [...this.#reorderParentElement.children];
+      this.#reorderElementsAndBounds = [...this.#reorderParentElement.children].map(element => ({
+        element,
+        bounds: element.getBoundingClientRect()
+      }));
+      this.#reorderElementIndex = elements.indexOf(this.#element);
+      this.#reorderClosestIndex = this.#reorderElementIndex;
+      this.#reorderDragClone = this.#element.cloneNode(true);
+      const computedStyles = getComputedStyle(this.#element);
+      const bounds = this.#element.getBoundingClientRect();
+      this.#reorderDragClone.setAttribute('id', '');
+      this.#reorderDragClone.style.position = 'fixed';
+      this.#reorderDragClone.style.top = `${bounds.top}px`;
+      this.#reorderDragClone.style.left = `${bounds.left}px`;
+      this.#reorderDragClone.style.width = `${bounds.width}px`;
+      this.#reorderDragClone.style.height = `${bounds.height}px`;
+      this.#reorderDragClone.style.transition = 'none';
+      this.#reorderDragClone.style.animation = 'none';
+      this.#reorderDragClone.style.display = computedStyles.display;
+      this.#reorderDragClone.style.flexDirection = computedStyles.flexDirection;
+      this.#reorderDragClone.style.overflow = computedStyles.overflow;
+      this.#reorderDragClone.classList.remove('mdw-animation');
+      const hasUncachedImg = [...this.#reorderDragClone.querySelectorAll('img')].find(img => !img.complete)
+      if (hasUncachedImg) {
+        console.warn('It appears that the images in the drag element is not cached, this will cause some flashing when starting to drag. This could be caused by the browser cache being disabled or the image not having proper cache headers');
+      }
+      document.body.append(this.#reorderDragClone);
+      this.#element.style.opacity = 0;
+    }
+
     if (!this.noTouchEvents) {
       this.#element.addEventListener('touchend', this.#end_bound, { signal: this.#abortDrag.signal });
       this.#element.addEventListener('touchmove', this.#drag_bound, { signal: this.#abortDrag.signal });
@@ -232,6 +309,34 @@ export default class Drag {
     } else {
       this.#isDragging = false;
       this.#isSnapping = false;
+
+      if (this.#reorder) {
+        this.#element.style.transform = '';
+        this.#element.style.opacity = '';
+        this.#reorderDragClone.style.display = 'none';
+        this.#reorderDragClone.parentElement.removeChild(this.#reorderDragClone);
+        this.#reorderDragClone = undefined;
+        if (this.#reorderClosestIndex !== this.#reorderElementIndex) {
+          const elements = this.#reorderElementsAndBounds.map(v => v.element);
+          elements[this.#reorderClosestIndex].style.opacity = '';
+          setTimeout(() => {
+            const elementNextElement = elements[this.#reorderElementIndex].nextElementSibling;
+            const closestNextElement = elements[this.#reorderClosestIndex].nextElementSibling;
+            if (!elementNextElement) {
+              this.#reorderParentElement.append(elements[this.#reorderClosestIndex]);
+            } else {
+              this.#reorderParentElement.insertBefore(elements[this.#reorderClosestIndex], elementNextElement);
+            }
+            if (!closestNextElement) {
+              this.#reorderParentElement.append(elements[this.#reorderElementIndex]);
+            } else {
+              this.#reorderParentElement.insertBefore(elements[this.#reorderElementIndex], closestNextElement);
+            }
+              elements.forEach((e, i) => e.style.order = '');
+          }, 0);
+        }
+      }
+
       this.trigger(event);
     }
   }
@@ -260,8 +365,58 @@ export default class Drag {
       if (event.preventDefault) event.preventDefault();
     }
 
+    if (this.#reorder) {
+      const distanceX = this.#reorderVerticalOnly ? 0 : dragEvent.distanceX;
+      const distanceY = this.#reorderHorizontalOnly ? 0 : dragEvent.distanceY;
+      this.#reorderDragClone.style.transform = `translate(${distanceX}px,${distanceY}px)`;
+      const originalBounds = this.#reorderElementsAndBounds[this.#reorderElementIndex].bounds;
+      const bounds = {
+        x: originalBounds.x + distanceX,
+        left: originalBounds.left + distanceX,
+        right: originalBounds.right + distanceX,
+
+        y: originalBounds.y + distanceY,
+        top: originalBounds.top + distanceY,
+        bottom: originalBounds.bottom + distanceY
+      };
+      const elements = this.#reorderElementsAndBounds.map(v => v.element);
+
+      // is outside of all elements
+      if (bounds.left > this.#reorderParentElementBounds.right
+        || bounds.right < this.#reorderParentElementBounds.left
+        || bounds.top > this.#reorderParentElementBounds.bottom
+        || bounds.bottom < this.#reorderParentElementBounds.top) {
+        if (this.#reorderClosestIndex !== this.#reorderElementIndex)  {
+          elements[this.#reorderClosestIndex].style.opacity = '';
+          this.#reorderElementsAndBounds.forEach((v, i) => v.element.style.order = i);
+        }
+        this.#reorderClosestIndex = this.#reorderElementIndex;
+        return;
+      }
+
+      const closestElementAndBounds = this.#reorderElementsAndBounds.reduce((previous, item) => {
+        const previousBounds = previous.bounds;
+        return this.#getDistance(previousBounds, bounds) < this.#getDistance(item.bounds, bounds) ? previous : item;
+      });
+
+      const closestIndex = this.#reorderElementsAndBounds.indexOf(closestElementAndBounds);
+      if (closestIndex !== this.#reorderClosestIndex) {
+        if (this.#reorderClosestIndex !== this.#reorderElementIndex) elements[this.#reorderClosestIndex].style.opacity = '';
+        if (closestIndex !== this.#reorderElementIndex) elements[closestIndex].style.opacity = '0.6';
+        if (this.#reorderPreviewOnDrag) {
+          [elements[closestIndex], elements[this.#reorderElementIndex]] = [elements[this.#reorderElementIndex], elements[closestIndex]];
+          elements.forEach((e, i) => e.style.order = i);
+        }
+      }
+      this.#reorderClosestIndex = closestIndex;
+    }
+
     this.trigger(dragEvent);
     return dragEvent;
+  }
+
+  #getDistance(p1, p2) {
+    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2))
   }
 
 

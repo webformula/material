@@ -9,7 +9,7 @@ mdw-card-group.mdw-grid {
   /* grid-auto-rows: minmax(80px, auto); */
 }
 
-body.mdw-mobile mdw-card-group:not(.mdw-grid),
+body.mdw-window-compact mdw-card-group:not(.mdw-grid),
 mdw-card-group.mdw-list {
   display: flex;
   flex-direction: column;
@@ -19,3 +19,12 @@ mdw-card-group.mdw-list {
 mdw-card-group > mdw-card.mdw-card-grid-cell {
   height: fit-content;
 }
+
+
+mdw-card-group.mdw-reorder {
+  cursor: pointer;
+}
+
+/* mdw-card-group.mdw-reorder mdw-card.mdw-dragging-reorder {
+  z-index: 9;
+} */

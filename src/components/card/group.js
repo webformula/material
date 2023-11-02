@@ -5,6 +5,7 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   #cards = [];
   #autoSpanRow = this.classList.contains('mdw-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
+  #handleWindowState_bound = this.#handleWindowState.bind(this);
 
 
   constructor() {
@@ -17,14 +18,16 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
       this.#layout();
       this.#observer.observe(this, { childList: true });
     });
+    window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
   }
 
   disconnectedCallback() {
+    window.removeEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.#observer.disconnect();
   }
 
   get #isGrid() {
-    return this.classList.contains('mdw-grid') || (!this.classList.contains('mdw-grid') && !device.isMobile);
+    return this.classList.contains('mdw-grid') || (!this.classList.contains('mdw-grid') && device.state !== 'compact');
   }
 
   get autoSpanRow() {
@@ -43,8 +46,10 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
     });
 
 
-    this.#cards = [...this.querySelectorAll('mdw-card')].map(element => {
+    this.#cards = [...this.querySelectorAll('mdw-card')].map((element, i) => {
+      element.style.order = i;
       return {
+        order: i,
         height: element.offsetHeight,
         styleHeight: element.style.height,
         element
@@ -93,6 +98,12 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   }
 
   #onMutation() {
+    this.#observer.disconnect();
+    this.#layout();
+    this.#observer.observe(this, { childList: true });
+  }
+
+  #handleWindowState() {
     this.#observer.disconnect();
     this.#layout();
     this.#observer.observe(this, { childList: true });

@@ -116,17 +116,20 @@ mdw-card .mdw-card-actions mdw-button + mdw-button {
 
 mdw-card > .mdw-card-image.mdw-size-small {
   height: 60px;
-  transition: height 0ms;
+  transition: height;
+  transition-duration: 0s;
 }
 
 mdw-card > .mdw-card-image.mdw-size-medium {
   height: 120px;
-  transition: height 0ms;
+  transition: height;
+  transition-duration: 0s;
 }
 
 mdw-card > .mdw-card-image.mdw-size-large {
   height: 180px;
-  transition: height 0ms;
+  transition: height;
+  transition-duration: 0s;
 }
 
 mdw-card > .mdw-card-image.mdw-size-small,
@@ -425,25 +428,31 @@ mdw-card.mdw-fullscreen.mdw-show > .mdw-card-fullscreen-back {
 
 /* --- group ---- */
 
-mdw-card-group:not(.mdw-grid) > mdw-card {
+mdw-card-group:not(.mdw-grid) > mdw-card,
+mdw-card.mdw-grid-list-item {
   flex-direction: row;
   height: 80px;
   overflow: hidden;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image {
+mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image,
+mdw-card.mdw-grid-list-item > .mdw-card-image {
   width: 80px;
   height: 80px;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image > img {
+mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image > img,
+mdw-card.mdw-grid-list-item > .mdw-card-image > img {
   width: unset;
   height: 100%;
 }
 
 mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-supporting-text,
 mdw-card-group:not(.mdw-grid) > mdw-card .mdw-card-content > .mdw-supporting-text,
-mdw-card-group:not(.mdw-grid) > mdw-card.mdw-card-list-item .mdw-card-actions {
+mdw-card-group:not(.mdw-grid) > mdw-card.mdw-card-list-item .mdw-card-actions,
+mdw-card.mdw-grid-list-item > .mdw-supporting-text,
+mdw-card.mdw-grid-list-item .mdw-card-content > .mdw-supporting-text,
+mdw-card.mdw-grid-list-item.mdw-card-list-item .mdw-card-actions {
   display: none;
 }
 

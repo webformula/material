@@ -5,11 +5,11 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 import util from '../../core/util.js';
+import device from '../../core/device.js';
 
 
 // TODO drag close fullscreen and expand
 // TODO expanded card on drag. Look at material guidelines for video
-// TODO drag reorder grid
 // TODO ripple
 
 
@@ -35,13 +35,16 @@ export default class MDWCardElement extends HTMLElementExtended {
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #handleWindowState_bound = this.#handleWindowState.bind(this);
+  #hasReorder = false;
+  #drag;
 
 
   constructor() {
     super();
   }
 
-  connectedCallback() {    
+  connectedCallback() {   
     const arrow = this.querySelector('.mdw-expand-arrow');
     if (arrow) arrow.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
 
@@ -62,6 +65,7 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     }
 
+    this.#hasReorder = this.parentElement.classList.contains('mdw-reorder');
     if (this.#swipeActionElement) {
       this.#dragSwipeAction = new Drag(this);
       this.#dragSwipeAction.noMouseEvents = true;
@@ -71,6 +75,12 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#dragSwipeAction.on('mdwdragend', this.#ondragSwipeActionEnd_bound);
       this.#dragSwipeAction.enable();
       this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
+    } else if (this.#hasReorder) {
+      this.#drag = new Drag(this);
+      // this.#drag.noMouseEvents = true;
+      this.#drag.lockScrollY = true;
+      this.#drag.reorderParentElement = this.parentElement;
+      this.#drag.enable();
     }
 
     // prevent style calculation during script evaluation
@@ -83,12 +93,20 @@ export default class MDWCardElement extends HTMLElementExtended {
     }, 150);
 
     this.#handleAria();
+
+    window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
+    this.#handleWindowState();
   }
 
   disconnectedCallback() {
+    window.removeEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.classList.remove('mdw-animation');
     this.#abort.abort();
     if (this.#swipeActionElement) this.#dragSwipeAction.destroy();
+    if (this.#drag) {
+      this.#drag.destroy();
+      this.#drag = undefined;
+    }
   }
 
   static get observedAttributes() {
@@ -247,6 +265,12 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     const img = this.querySelector(':scope > .mdw-card-image > img') || this.querySelector(':scope > img');
     if (img && !img.hasAttribute('alt')) img.setAttribute('alt', supportingText ? supportingText.innerText : subhead ? subhead.innerText : headline ? headline.innerText : 'image');
+  }
+
+  #handleWindowState() {
+    const compact = device.state === 'compact';
+    if (this.#hasReorder && this.#drag) this.#drag.reorderVerticalOnly = compact;
+    if (this.#hasReorder) this.classList.toggle('mdw-grid-list-item', compact);
   }
 }
 
