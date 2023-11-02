@@ -362,7 +362,7 @@
         <div class="example">
           <mdw-card-group class="mdw-reorder">
             ${page.cardArray.map(({ height }, i) => `
-            <mdw-card class="mdw-filled" style="height: 220px;">
+            <mdw-card class="${i} mdw-filled" style="height: 220px;">
               <div class="mdw-card-image mdw-rounded">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -379,14 +379,47 @@
             `).join('\n')}
           </mdw-card-group>
         </div>
+
+        <div class="mdw-headline" style="margin-top: 42px;">Drag reorder using swap</div>
+        <div class="mdw-subhead">Swap two cards positions</div>
+        <div class="example">
+          <mdw-card-group class="mdw-reorder-swap">
+            ${page.cardArray.map(({ height }, i) => `
+            <mdw-card class="${i} mdw-filled" style="height: 220px;">
+              <div class="mdw-card-image mdw-rounded">
+                <img alt="landscape"
+                  src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+              </div>
+        
+              <div class="mdw-card-content">
+                <div class="mdw-headline">${i}</div>
+                <div class="mdw-subhead">Subhead</div>
+                <div class="mdw-supporting-text">
+                  one two three four five six.
+                </div>
+              </div>
+            </mdw-card>
+            `).join('\n')}
+          </mdw-card-group>
+        </div>
       </div>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<mdw-card-group class="mdw-reorder">
-    ${page.cardArray.map((_, i) => `
     <mdw-card></mdw-card>
-    `).join('\n')}
+    <mdw-card></mdw-card>
+    <mdw-card></mdw-card>
+  </mdw-card-group>`)}
+        </code>
+      </pre>
+
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-card-group class="mdw-reorder-swap">
+    <mdw-card></mdw-card>
+    <mdw-card></mdw-card>
+    <mdw-card></mdw-card>
   </mdw-card-group>`)}
         </code>
       </pre>

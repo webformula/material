@@ -65,7 +65,7 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     }
 
-    this.#hasReorder = this.parentElement.classList.contains('mdw-reorder');
+    this.#hasReorder = this.parentElement.classList.contains('mdw-reorder') || this.parentElement.classList.contains('mdw-reorder-swap');
     if (this.#swipeActionElement) {
       this.#dragSwipeAction = new Drag(this);
       this.#dragSwipeAction.noMouseEvents = true;
@@ -80,6 +80,7 @@ export default class MDWCardElement extends HTMLElementExtended {
       // this.#drag.noMouseEvents = true;
       this.#drag.lockScrollY = true;
       this.#drag.reorderParentElement = this.parentElement;
+      this.#drag.reorderSwap = this.parentElement.classList.contains('mdw-reorder-swap');
       this.#drag.enable();
     }
 
