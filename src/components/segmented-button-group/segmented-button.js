@@ -1,5 +1,6 @@
 import MDWButtonElement from '../button/index.js';
 import styles from './segmented-button.css' assert { type: 'css' };
+import util from '../../core/util.js';
 
 
 customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement extends MDWButtonElement {
@@ -32,6 +33,15 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'radio');
+    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    if (!this.hasAttribute('aria-label')) {
+      const text = util.getTextFromNode(this);
+      if (text) this.setAttribute('aria-label', text);
+      else {
+        const icon = this.querySelector('mdw-icon');
+        if (icon) this.setAttribute('aria-label', icon.innerText);
+      }
+    }
   }
 
   get checked() {
@@ -40,6 +50,7 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
+    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
     this.parentElement.updateSelection(this.value, this.checked);
   }
 

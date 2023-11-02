@@ -23,7 +23,7 @@ const mdwDialog = new class mdwDialog {
     const element = document.createElement('mdw-dialog');
     element.clickOutsideClose = params.clickOutsideClose;
     element.insertAdjacentHTML('afterbegin', `
-      ${!params.headline ? '' : `<div class="mdw-header">${params.headline}</div>`}
+      ${!params.headline ? '' : `<div class="mdw-headline">${params.headline}</div>`}
       <div class="mdw-content">${params.message || ''}</div>
       ${actionConfirm || actionCancel ? `<div class="mdw-actions">
         ${actionConfirm === true ? `<mdw-button onclick="mdwDialog.close('confirm')">${params.actionConfirmLabel || 'OK'}</mdw-button>` : ''}

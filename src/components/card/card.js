@@ -256,6 +256,7 @@ export default class MDWCardElement extends HTMLElementExtended {
     if (headline) {
       if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
       if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
+      if (!headline.hasAttribute('aria-level')) headline.setAttribute('aria-level', '2');
     }
 
     const subhead = this.querySelector(':scope > .mdw-card-content > .mdw-subhead') || this.querySelector(':scope > .mdw-subhead');

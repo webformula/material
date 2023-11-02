@@ -12,10 +12,10 @@
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#simple">Simple</a>
-      <a href="#template">Template</a>
-      <a href="#response">Response</a>
-      <a href="#html">HTML Only</a>
+      <a href="#simple" role="listitem">Simple</a>
+      <a href="#template" role="listitem">Template</a>
+      <a href="#response" role="listitem">Response</a>
+      <a href="#html" role="listitem">HTML Only</a>
     </ul>
   </nav>
 
@@ -64,7 +64,7 @@
       <pre>
         <code class="language-html">
   ${page.escape(`// templateString
-  <div class="mdw-header">Headline</div>
+  <div class="mdw-headline">Headline</div>
   <div class="mdw-content">Here is some content for the dialog.</div>
   <div class="mdw-actions">
     <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
@@ -96,7 +96,7 @@
         <code class="language-html">
   ${page.escape(`// templateString
   <mdw-dialog>
-    <div class="mdw-header">Headline</div>
+    <div class="mdw-headline">Headline</div>
     <div class="mdw-content">Here is some content for the dialog.</div>
     <div class="mdw-actions">
       <mdw-button onclick="mdwDialog.close('response value')">Close</mdw-button>
@@ -129,7 +129,7 @@
     
         <div class="example">
           <mdw-dialog id="html-only-dialog">
-            <div class="mdw-header">Headline</div>
+            <div class="mdw-headline">Headline</div>
             <div class="mdw-content">Here is some content for the dialog.</div>
             <div class="mdw-actions">
               <mdw-button onclick="document.querySelector('#html-only-dialog').close('returnValue')">Close</mdw-button>
@@ -145,7 +145,7 @@
   ${page.escape(`// Added directly to document
   // Adding the 'open' attribute will automatically show the dialog
   <mdw-dialog id="html-only-dialog">
-    <div class="mdw-header">Headline</div>
+    <div class="mdw-headline">Headline</div>
     <div class="mdw-content">Here is some content for the dialog.</div>
     <div class="mdw-actions">
       <mdw-button onclick="document.querySelector('#html-only-dialog').close('returnValue')">Close</mdw-button>

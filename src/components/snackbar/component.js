@@ -13,5 +13,7 @@ customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWPanelE
     super.connectedCallback();
     
     this.setAttribute('role', 'alertdialog');
+    const textDiv = this.querySelector('.mdw-text');
+    if (textDiv) this.setAttribute('aria-label', textDiv.innerHTML);
   }
 });

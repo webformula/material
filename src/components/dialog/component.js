@@ -14,6 +14,16 @@ export default class MDWDialogElement extends MDWPanelElement {
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'dialog');
+    const headline = this.querySelector('.mdw-headline');
+    if (headline) {
+      const text = util.getTextFromNode(headline);
+      if (text) {
+        if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', text);
+        if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
+        if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
+        if (!headline.hasAttribute('aria-level')) headline.setAttribute('aria-level', '2');
+      }
+    }
   }
 
   disconnectedCallback() {

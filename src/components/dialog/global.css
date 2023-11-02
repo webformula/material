@@ -24,7 +24,7 @@ mdw-dialog > .mdw-actions {
   margin-top: 24px;
 }
 
-mdw-dialog > .mdw-header {
+mdw-dialog > .mdw-headline {
   margin-bottom: 16px;
   font-size: var(--mdw-font-small-headline-size);
   font-weight: var(--mdw-font-small-headline-weight);
