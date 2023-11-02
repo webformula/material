@@ -261,7 +261,7 @@ const mdwUtil = new class MDWUtil {
     function up(event) {
       element.removeEventListener('mouseup', up);
       clearTimeout(timeout);
-      if (target === event.target) listener(event);
+      if (target === event.target || element.contains(event.target)) listener(event);
     }
 
     element.addEventListener('mousedown', down);
