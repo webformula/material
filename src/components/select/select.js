@@ -78,7 +78,6 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       this.#panel.animation = 'expand';
       this.#panel.clickOutsideClose = true;
       this.#panel.addClickOutsideCloseIgnore(this);
-      // this.#panel.addClickOutsideCloseIgnore(this.#textfield);
       this.#setWidth();
 
       // makes the input not usable, only clickable. Create normal select
@@ -180,6 +179,10 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       });
     }
     this.#renderOptions();
+  }
+
+  focus(options) {
+    this.shadowRoot.querySelector('input').focus(options);
   }
 
   // remove progress bar. This automatically called after optionValues are set

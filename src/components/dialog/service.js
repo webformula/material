@@ -2,26 +2,25 @@ import util from '../../core/util.js';
 
 
 const mdwDialog = new class mdwDialog {
-  #currentDialog;
-  #currentDialogPromiseResolve;
-  #onClose_bound = this.#onClose.bind(this);
+  #dialogStack = [];
 
-  simple(params = {
+  async simple(params = {
     headline: '',
     message: '',
     scrim: true,
     clickOutsideClose: false,
+    preventNavigation: true,
     actionConfirm: true,
     actionConfirmLabel: 'OK',
     actionCancel: false,
     actionCancelLabel: 'Cancel'
   }) {
-    if (this.#currentDialog) throw Error('Cannot create dialog while one exists');
-
     const actionConfirm = params.actionConfirm === undefined ? true : params.actionConfirm;
     const actionCancel = params.actionCancel || false;
     const element = document.createElement('mdw-dialog');
+    element.removeOnClose = true;
     element.clickOutsideClose = params.clickOutsideClose;
+    if (params.preventNavigation !== undefined) element.preventNavigation = params.preventNavigation;
     element.insertAdjacentHTML('afterbegin', `
       ${!params.headline ? '' : `<div class="mdw-headline">${params.headline}</div>`}
       <div class="mdw-content">${params.message || ''}</div>
@@ -32,55 +31,63 @@ const mdwDialog = new class mdwDialog {
     `);
 
     document.body.appendChild(element);
-    element.addEventListener('close', this.#onClose_bound);
-    element.show(params.scrim === undefined ? true : params.scrim);
-
-    this.#currentDialog = element;
-    return new Promise(resolve => {
-      this.#currentDialogPromiseResolve = resolve;
-    });
+    return element.show(params.scrim === undefined ? true : params.scrim);
   }
 
-  #onClose() {
-    this.#currentDialog.removeEventListener('close', this.#onClose_bound);
-    this.#currentDialog = undefined;
-  }
-
-  async close(returnValue) {
-    if (!this.#currentDialog) throw Error('No dialog to close');
-
-    this.#currentDialog.removeEventListener('close', this.#onClose_bound);
-    if (this.#currentDialogPromiseResolve) this.#currentDialogPromiseResolve(returnValue);
-    this.#currentDialog.close(returnValue);
-
-    await util.animationendAsync(this.#currentDialog);
-
-    this.#currentDialog.remove();
-    this.#currentDialog = undefined;
-    this.#currentDialogPromiseResolve = undefined;
-  }
-
-  template(params = {
+  async template(params = {
     template,
     scrim: true,
     clickOutsideClose: false,
+    preventNavigation: true
   }) {
-    if (this.#currentDialog) throw Error('Cannot create dialog while one exists');
     const element = document.createElement('mdw-dialog');
+    element.removeOnClose = true;
     element.clickOutsideClose = params.clickOutsideClose;
+    if (params.preventNavigation !== undefined) element.preventNavigation = params.preventNavigation;
     element.insertAdjacentHTML('afterbegin', params.template);
 
     document.body.appendChild(element);
 
     // for show animation
-    requestAnimationFrame(() => {
-      element.show(params.scrim === undefined ? true : params.scrim);
+    await util.nextAnimationFrameAsync();
+    return element.show(params.scrim === undefined ? true : params.scrim);
+  }
+
+  async close(returnValue) {
+    const currentDialog = this.#dialogStack.pop();
+    if (!currentDialog) throw Error('No dialog to close');
+
+    currentDialog.resolve(returnValue);
+    currentDialog.element.panelClose(returnValue);
+    
+    await util.animationendAsync(currentDialog.element);
+
+    if (currentDialog.element.removeOnClose === true) currentDialog.element.parentNode.removeChild(currentDialog.element);
+  }
+
+  track(dialogElement) {
+    if (dialogElement.nodeName !== 'MDW-DIALOG') throw Error('Can only track mdw-dialog elements');
+    let resolveMethod;
+    const promise = new Promise(resolve => {
+      resolveMethod = resolve;
+    });
+    this.#dialogStack.push({
+      element: dialogElement,
+      promise,
+      resolve: resolveMethod
     });
 
-    this.#currentDialog = element;
-    return new Promise(resolve => {
-      this.#currentDialogPromiseResolve = resolve;
-    });
+    return promise;
+  }
+
+  untrack(dialogElement) {
+    const dialog = this.#dialogStack.find(({ element }) => element === dialogElement);
+    if (!dialog) return;
+
+    // prevent promises from never resolving
+    // This could happen if the element is removed from the screen before closing
+    dialog.resolve();
+    this.#dialogStack = this.#dialogStack.filter(({ element }) => element !== dialogElement);
   }
 };
 

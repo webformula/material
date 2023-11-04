@@ -10,6 +10,8 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #animation = this.getAttribute('animation') || 'translateY';
   #scrim = false;
   #clickOutsideClose = false;
+  #preventNavigation = true;
+  #preventNavigationSet = false;
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #clickOutsideCloseIgnoreElements = [];
   #target = null;
@@ -22,6 +24,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
   #scrimElement;
   #fixedParent;
   #onEsc_bound = this.#onEsc.bind(this);
+  #beforeUnload_bound = this.#beforeUnload.bind(this);
   #position;
   
   constructor() {
@@ -38,7 +41,8 @@ export default class MDWPanelElement extends HTMLElementExtended {
   disconnectedCallback() {
     this.#removeScrim();
     document.body.removeEventListener('click', this.#onClickOutside_bound);
-    window.addEventListener('keydown', this.#onEsc_bound);
+    window.removeEventListener('beforeunload', this.#beforeUnload_bound);
+    window.removeEventListener('keydown', this.#onEsc_bound);
     if (this.#targetScrollContainer) this.#targetScrollContainer.removeEventListener('scroll', this.#onTargetScroll_bound);
   }
 
@@ -73,7 +77,18 @@ export default class MDWPanelElement extends HTMLElementExtended {
     return this.#clickOutsideClose;
   }
   set clickOutsideClose(value) {
-    this.#clickOutsideClose = value;
+    this.#clickOutsideClose = !!value;
+    if (!this.#preventNavigationSet) this.#preventNavigation = !value;
+  }
+
+  // if preventNavigation is not set it will stay in sync with clickOutsideClose;
+  get preventNavigation() {
+    return this.#preventNavigation;
+  }
+  set preventNavigation(value) {
+    this.#preventNavigationSet = true;
+    this.#preventNavigation = !!value;
+    if (!value) window.removeEventListener('beforeunload', this.#beforeUnload_bound);
   }
 
   get target() {
@@ -128,6 +143,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
       }, 100);
     }
 
+    if (this.#preventNavigation) window.addEventListener('beforeunload', this.#beforeUnload_bound);
     if (this.#targetScrollContainer) this.#targetScrollContainer.addEventListener('scroll', this.#onTargetScroll_bound);
 
     this.classList.add('mdw-animating');
@@ -140,7 +156,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
 
   close() {
     if (this.open !== true) return;
-
+    window.removeEventListener('beforeunload', this.#beforeUnload_bound);
     if (this.#clickOutsideClose === true)  {
       document.body.removeEventListener('click', this.#onClickOutside_bound);
       window.removeEventListener('keydown', this.#onEsc_bound);
@@ -155,6 +171,12 @@ export default class MDWPanelElement extends HTMLElementExtended {
     util.animationendAsync(this).finally(() => {
       this.classList.remove('mdw-animating');
     });
+  }
+
+  // for prevent navigation
+  #beforeUnload(event) {
+    event.preventDefault();
+    event.returnValue = 'Changes you made may not be saved.';
   }
 
   #onClickOutside(event) {
@@ -177,19 +199,19 @@ export default class MDWPanelElement extends HTMLElementExtended {
 
     // TODO is this needed?
     // offset for nested fixed div
-    // if (this.#fixedParent) {
-    //   const fixedBounds = this.#fixedParent.getBoundingClientRect();
-    //   bounds = {
-    //     x: bounds.x - fixedBounds.x,
-    //     left: bounds.left - fixedBounds.left,
-    //     right: bounds.right - fixedBounds.right,
-    //     y: bounds.y - fixedBounds.y,
-    //     top: bounds.top - fixedBounds.top,
-    //     bottom: bounds.bottom - fixedBounds.bottom,
-    //     width: bounds.width,
-    //     height: bounds.height
-    //   };
-    // }
+    if (this.#fixedParent) {
+      const fixedBounds = this.#fixedParent.getBoundingClientRect();
+      bounds = {
+        x: bounds.x - fixedBounds.x,
+        left: bounds.left - fixedBounds.left,
+        right: bounds.right - fixedBounds.right,
+        y: bounds.y - fixedBounds.y,
+        top: bounds.top - fixedBounds.top,
+        bottom: bounds.bottom - fixedBounds.bottom,
+        width: bounds.width,
+        height: bounds.height
+      };
+    }
 
     // initial position is top left panel aligned with bottom left target
 

@@ -21,6 +21,7 @@ mdw-panel,
   
 
   opacity: 0;
+  visibility: hidden;
   /* transform: translate(-50%, calc(-50% - 120px)); */
   /* kick off screen so pointer events to hit */
   transform: translateY(10000px);
@@ -50,6 +51,7 @@ mdw-panel[open],
 .mdw-panel[open] {
   display: flex;
   opacity: 1;
+  visibility: visible;
   transform: translate(-50%, -50%);
   pointer-events: all;
 

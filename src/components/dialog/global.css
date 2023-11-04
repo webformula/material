@@ -6,7 +6,6 @@ mdw-dialog.mdw-panel {
   border-radius: var(--mdw-shape-extra-large);
   background-color: var(--mdw-surface-container-high);
   box-shadow: var(--mdw-elevation-3);
-  overflow: auto;
 }
 
 mdw-dialog > .mdw-content {
