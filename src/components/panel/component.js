@@ -154,7 +154,7 @@ export default class MDWPanelElement extends HTMLElementExtended {
     });
   }
 
-  close() {
+  async close() {
     if (this.open !== true) return;
     window.removeEventListener('beforeunload', this.#beforeUnload_bound);
     if (this.#clickOutsideClose === true)  {
@@ -168,9 +168,8 @@ export default class MDWPanelElement extends HTMLElementExtended {
     this.dispatchEvent(new Event('close'));
 
     this.classList.add('mdw-animating');
-    util.animationendAsync(this).finally(() => {
-      this.classList.remove('mdw-animating');
-    });
+    await util.animationendAsync(this);
+    this.classList.remove('mdw-animating');
   }
 
   // for prevent navigation

@@ -1,6 +1,7 @@
 import MDWPanelElement from '../panel/component.js';
 import util from '../../core/util.js';
 import dialogService from './service.js';
+import device from '../../core/device.js';
 
 
 export default class MDWDialogElement extends MDWPanelElement {
@@ -10,6 +11,7 @@ export default class MDWDialogElement extends MDWPanelElement {
   #focusableElements = [];
   #focusableIndex = -1;
   #onTab_bound = this.#onTab.bind(this);
+  #isFullscreen = false;
 
   constructor() {
     super();
@@ -18,6 +20,7 @@ export default class MDWDialogElement extends MDWPanelElement {
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'dialog');
+    this.#isFullscreen = this.classList.contains('mdw-fullscreen');
     const headline = this.querySelector('.mdw-headline');
     if (headline) {
       const text = util.getTextFromNode(headline);
@@ -49,6 +52,8 @@ export default class MDWDialogElement extends MDWPanelElement {
   }
 
   show(scrim = true) {
+    if (this.#isFullscreen && device.state === 'compact') this.animation = 'scale';
+    else this.animation = 'translateY';
     super.show(scrim);
     util.lockPageScroll();
     this.#focusableElements = util.getFocusableElements(this);
@@ -57,6 +62,10 @@ export default class MDWDialogElement extends MDWPanelElement {
       // this.#focusableElements[0].focus();
       window.addEventListener('keydown', this.#onTab_bound);
     }
+
+    const scrollable = this.scrollHeight > this.offsetHeight;
+    this.classList.toggle('mdw-scroll', scrollable);
+    if (scrollable) this.scrollTop = 0;
 
     return dialogService.track(this);
   }
@@ -69,12 +78,12 @@ export default class MDWDialogElement extends MDWPanelElement {
 
   // original panel close
   // This should not be called directly
-  panelClose(returnValue) {
+  async panelClose(returnValue) {
     if (this.open !== true) return;
     window.removeEventListener('keydown', this.#onTab_bound);
     util.unlockPageScroll();
     this.#returnValue = returnValue;
-    super.close();
+    await super.close();
     if (this.#lastFocused) this.#lastFocused.focus();
   }
 

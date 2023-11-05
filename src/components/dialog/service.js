@@ -58,9 +58,7 @@ const mdwDialog = new class mdwDialog {
     if (!currentDialog) throw Error('No dialog to close');
 
     currentDialog.resolve(returnValue);
-    currentDialog.element.panelClose(returnValue);
-    
-    await util.animationendAsync(currentDialog.element);
+    await currentDialog.element.panelClose(returnValue);
 
     if (currentDialog.element.removeOnClose === true) currentDialog.element.parentNode.removeChild(currentDialog.element);
   }
