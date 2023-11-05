@@ -6,15 +6,20 @@ export default class extends Component {
   static title = 'Dialogs';
   static html = html;
 
+  clickOutsideClose = false;
+  preventNavigation = true;
+
   constructor() {
     super();
   }
 
-  async openSimple() {
+  async openSimple(clickOutsideClose = false, preventNavigation = true) {
     const answer = await mdwDialog.simple({
       headline: 'Question',
       message: 'Are you sure?',
-      actionCancel: true
+      actionCancel: true,
+      clickOutsideClose,
+      preventNavigation
     });
 
     if (answer === 'confirm') console.log('User pressed ok');

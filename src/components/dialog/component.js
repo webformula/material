@@ -73,7 +73,7 @@ export default class MDWDialogElement extends MDWPanelElement {
   // proxy for mdwDialog.close
   async close(returnValue) {
     window.removeEventListener('keydown', this.#onTab_bound);
-    await Service.close(returnValue);
+    await dialogService.close(returnValue);
   }
 
   // original panel close
