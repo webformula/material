@@ -611,10 +611,10 @@ export default class Drag {
 
     const closestIndex = this.#reorderElementsAndBounds.indexOf(closestElementAndBounds);
     if (closestIndex !== this.#reorderClosestIndex) {
-      if (this.#reorderClosestIndex !== this.#reorderElementIndex) elements[this.#reorderClosestIndex].style.opacity = '';
-      if (closestIndex !== this.#reorderElementIndex) elements[closestIndex].style.opacity = '0.6';
       if (this.#reorderPreviewOnDrag) {
         if (this.#reorderSwap) {
+          if (this.#reorderClosestIndex !== this.#reorderElementIndex) elements[this.#reorderClosestIndex].style.opacity = '';
+          if (closestIndex !== this.#reorderElementIndex) elements[closestIndex].style.opacity = '0.6';
           [elements[closestIndex], elements[this.#reorderElementIndex]] = [elements[this.#reorderElementIndex], elements[closestIndex]];
         } else {
           const toMove = elements.splice(this.#reorderElementIndex, 1);
