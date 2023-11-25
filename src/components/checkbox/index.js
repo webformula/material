@@ -18,6 +18,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
 
 
   constructor() {
@@ -31,6 +32,8 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     if (this.parentElement?.nodeName !== 'MDW-LIST-ITEM') this.tabIndex = 0;
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this) || 'checkbox');
     this.addEventListener('focus', this.#focus_bound);
+    this.addEventListener('mousedown', this.#focusMousedown_bound);
+
 
     if (!this.hasAttribute('aria-label')) {
       const text = util.getTextFromNode(this);
@@ -43,6 +46,7 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
+    this.removeEventListener('mousedown', this.#focusMousedown_bound);
     this.#input.removeEventListener('invalid', this.#onInvalid_bound);
     this.#ripple.destroy();
   }
@@ -152,7 +156,6 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #click() {
     this.checked = !this.#checked;
     this.#onInvalid();
-    this.blur();
     this.dispatchEvent(new Event('change'));
   }
 
@@ -164,6 +167,11 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #focus() {
     this.addEventListener('blur', this.#blur_bound);
     this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  // prevent focus on click
+  #focusMousedown(event) {
+    event.preventDefault();
   }
 
   #blur() {

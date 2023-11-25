@@ -17,7 +17,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #isToggle = this.classList.contains('mdw-icon-toggle-button');
   #isAsync = this.classList.contains('mdw-async');
   #ripple;
-  #mouseUp_bound = this.#mouseup.bind(this);
+  #asyncMouseup_bound = this.#asyncMouseup.bind(this);
   #handleToggle_bound = this.#handleToggle.bind(this);
   #formSubmit_bound = this.#formSubmit.bind(this);
   #formFocusIn_bound = this.#formFocusIn.bind(this);
@@ -27,9 +27,10 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #formState;
   #onclickAttribute;
-  #abort = new AbortController();
+  #abort;
   
 
   constructor() {
@@ -37,6 +38,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
   }
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.#handleTrailingIcon();
     if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu');
     this.tabIndex = 0;
@@ -49,6 +51,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
     }
 
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
   }
 
   afterRender() {
@@ -61,7 +64,7 @@ export default class MDWButtonElement extends HTMLElementExtended {
         if (text) this.setAttribute('aria-label', text);
       }
     }
-    this.addEventListener('mouseup', this.#mouseUp_bound, { signal: this.#abort.signal });
+    if (this.#isAsync) this.addEventListener('mouseup', this.#asyncMouseup_bound, { signal: this.#abort.signal });
     if (this.classList.contains('mdw-icon-toggle-button')) {
       this.addEventListener('click', this.#handleToggle_bound, { signal: this.#abort.signal });
     }
@@ -167,9 +170,13 @@ export default class MDWButtonElement extends HTMLElementExtended {
     this.shadowRoot.querySelector('.spinner').innerHTML = '';
   }
 
-  #mouseup() {
-    if (this.#isAsync) this.pending();
-    this.blur();
+  // prevent focus on click
+  #focusMousedown(event) {
+    event.preventDefault();
+  }
+
+  #asyncMouseup() {
+    this.pending();
   }
 
   // auto add class .mdw-trailing to icon so it will space correctly

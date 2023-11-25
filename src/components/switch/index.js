@@ -17,6 +17,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
 
   constructor() {
     super();
@@ -41,6 +42,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     this.setAttribute('aria-checked', 'false');
     this.setAttribute('aria-label', util.getTextFromNode(this));
     this.addEventListener('focus', this.#focus_bound);
+    this.addEventListener('mousedown', this.#focusMousedown_bound);
 
     if (!this.hasAttribute('aria-label')) {
       const text = util.getTextFromNode(this);
@@ -53,6 +55,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
+    this.removeEventListener('mousedown', this.#focusMousedown_bound);
     this.#drag.destroy();
   }
 
@@ -106,12 +109,16 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   #click() {
     this.checked = !this.#checked;
     this.dispatchEvent(new Event('change'));
-    this.blur();
   }
 
   #focus() {
     this.addEventListener('blur', this.#blur_bound);
     this.addEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  // prevent focus on click
+  #focusMousedown(event) {
+    event.preventDefault();
   }
 
   #blur() {

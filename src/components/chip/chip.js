@@ -36,6 +36,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #onInput_bound = this.#onInput.bind(this);
   #inputBlur_bound = this.#inputBlur.bind(this);
   #inputKeydown_bound = this.#inputKeydown.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
 
 
   constructor() {
@@ -66,6 +67,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
     if (this.hasAttribute('checked')) this.checked = true;
     util.addClickTimeout(this, this.#onClick_bound);
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     if (!this.hasAttribute('aria-label')) {
       this.setAttribute('aria-label', this.value);
     }
@@ -159,12 +161,17 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
       this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
       document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
     }
-    this.blur();
   }
 
   #focus() {
     this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
     this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  // prevent focus on click
+  #focusMousedown(event) {
+    console.log('focusMousedown')
+    event.preventDefault();
   }
 
   #blur() {
