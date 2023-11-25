@@ -22,11 +22,11 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
   #onControlClick_bound = this.#onControlClick.bind(this);
   #onShow_bound = this.#onShow.bind(this);
   #onClose_bound = this.#onClose.bind(this);
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
-
+    
     this.#controlStart = this.parentNode;
     if (this.#controlStart.nodeName !== 'MDW-TEXTFIELD') throw Error('mdw-date-picker-range must be a child of mdw-textfield');
     this.#controlEnd = document.querySelector(this.getAttribute('end-input'));
@@ -39,6 +39,10 @@ customElements.define('mdw-date-picker-range', class MDWDatePickerRangeElement e
     this.#displayDateEnd = dateUtil.parse(this.valueEnd ? this.valueEnd : dateUtil.today());
     this.#initialValueStart = this.valueStart;
     this.#initialValueEnd = this.valueEnd;
+  }
+
+  connectedCallback() {
+    this.#abort = new AbortController();
   }
 
   afterRender() {

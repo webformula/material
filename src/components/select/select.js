@@ -34,7 +34,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   #onInputFilterAsync_bound = this.#onInputFilterAsync.bind(this);
   #filterAsyncEvent_debounced = util.debounce(this.#filterAsyncEvent, 300).bind(this);
   #originalOptions;
-  #abort = new AbortController();
+  #abort;
   #textSearchOver_debounced = util.debounce(this.#textSearchOver, 240);
   #searchKeys = '';
   #bottomSheet = this.classList.contains('mdw-use-bottom-sheet') && device.state === 'compact';
@@ -48,6 +48,9 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   }
 
   connectedCallback() {
+    this.#abort = new AbortController();
+
+    // NOTE
     // it seems the shadow root is breaking this role
     // this.setAttribute('role', 'select');
 

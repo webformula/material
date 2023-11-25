@@ -21,7 +21,7 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
   #onScroll_throttle = util.rafThrottle(this.#onScroll.bind(this));
   #selectedDateA;
   #selectedDateB;
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
@@ -30,6 +30,11 @@ customElements.define('mdw-date-picker-range-mobile', class MDWDatePickerRangeMo
     this.scrim = false;
     this.animation = 'opacity';
     this.addClickOutsideCloseIgnore(this.parentElement.control);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.#abort = new AbortController();
   }
 
   afterRender() {

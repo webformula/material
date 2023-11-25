@@ -32,7 +32,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
   #onKeydown_bound = this.#onKeydown.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
-  #abort = new AbortController();
+  #abort;
 
 
   constructor() {
@@ -67,6 +67,7 @@ customElements.define('mdw-slider-range', class MDWSliderRange extends HTMLEleme
 
   connectedCallback() {
     this.setAttribute('role', 'slider');
+    this.#abort = new AbortController();
   }
 
   afterRender() {

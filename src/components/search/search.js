@@ -53,7 +53,7 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   #hasSpeech = this.hasAttribute('speech');
   #micClick_bound = this.#micClick.bind(this);
   #noSpinner = this.classList.contains('mdw-no-spinner');
-  #abort = new AbortController();
+  #abort;
   #openAbort;
 
 
@@ -76,6 +76,7 @@ customElements.define('mdw-search', class MDWSearchElement extends HTMLElementEx
   }
 
   connectedCallback() {
+    this.#abort = new AbortController();
     const filters = this.querySelector('[slot=filters]');
     if (filters) this.classList.add('mdw-has-filters');
 

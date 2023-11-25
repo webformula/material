@@ -30,7 +30,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
   #onClose_bound = this.#onClose.bind(this);
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
@@ -43,6 +43,12 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
     this.#drag.noMouseEvents = true;
     this.#drag.on('mdwdragstart', this.#onDragStart_bound);
     this.#drag.on('mdwdragend', this.#onDragEnd_bound);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.#abort = new AbortController();
   }
 
   afterRender() {

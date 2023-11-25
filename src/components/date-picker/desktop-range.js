@@ -22,7 +22,7 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
   #nextMonth_bound = this.#nextMonth.bind(this);
   #selectedDateA;
   #selectedDateB;
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
@@ -34,6 +34,11 @@ customElements.define('mdw-date-picker-range-desktop', class MDWDatePickerRangeD
     this.clickOutsideClose = true;
     this.addClickOutsideCloseIgnore(this.#inputStart);
     this.addClickOutsideCloseIgnore(this.#inputEnd);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.#abort = new AbortController();
   }
 
   afterRender() {

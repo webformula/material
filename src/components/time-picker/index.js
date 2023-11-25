@@ -42,7 +42,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
   #keyboardClick_bound = this.#keyboardClick.bind(this);
   #hourInput_bound = this.#hourInput.bind(this);
   #minuteInput_bound = this.#minuteInput.bind(this);
-  #abort = new AbortController();
+  #abort;
   #openAbort;
 
 
@@ -67,6 +67,11 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     this.addClickOutsideCloseIgnore(this.#control);
     this.#setInitialTime();
     this.#buildThetaData();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.#abort = new AbortController();
   }
 
   afterRender() {

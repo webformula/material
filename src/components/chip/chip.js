@@ -24,7 +24,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   #inputValueDisplay;
   #hasMenu = false;
   #originalText;
-  #abort = new AbortController();
+  #abort;
   #onClick_bound = this.#click.bind(this);
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
@@ -43,6 +43,7 @@ customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtend
   }
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.tabIndex = 0;
     this.#group = this.parentElement;
     this.#hasMenu = this.querySelector('mdw-menu');

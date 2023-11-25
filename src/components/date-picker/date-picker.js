@@ -18,7 +18,7 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
   #onControlClick_bound = this.#onControlClick.bind(this);
   #onShow_bound = this.#onShow.bind(this);
   #onClose_bound = this.#onClose.bind(this);
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
@@ -29,6 +29,10 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends HTML
     this.#control.classList.add('mdw-has-date-picker');
     this.#displayDate = dateUtil.parse(this.value ? this.value : dateUtil.today());
     this.#initialValue = this.value;
+  }
+
+  connectedCallback() {
+    this.#abort = new AbortController();
   }
 
   afterRender() {

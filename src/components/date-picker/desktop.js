@@ -30,17 +30,23 @@ customElements.define('mdw-date-picker-desktop', class MDWDatePickerDesktopEleme
   #clear_bound = this.#clear.bind(this);
   #cancel_bound = this.#cancel.bind(this);
   #onShow_bound = this.#onShow.bind(this);
-  #abort = new AbortController();
+  #abort;
 
   constructor() {
     super();
-
+    
     this.animation = 'scale';
     this.scrim = false;
     this.clickOutsideClose = true;
     this.target = this.parentElement.control;
 
     this.addClickOutsideCloseIgnore(this.parentElement.control);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.#abort = new AbortController();
   }
 
   afterRender() {

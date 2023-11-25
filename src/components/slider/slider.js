@@ -28,7 +28,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   #onKeydown_bound = this.#onKeydown.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
-  #abort = new AbortController();
+  #abort;
 
 
   constructor() {
@@ -59,6 +59,7 @@ customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended 
   }
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.tabIndex = 0;
     this.setAttribute('role', 'slider');
     this.setAttribute('aria-valuenow', this.#value);
