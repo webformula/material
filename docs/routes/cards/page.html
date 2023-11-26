@@ -46,7 +46,15 @@
               <div class="mdw-subhead">card</div>
             </div>
           </mdw-card>
-          </mgw-card-group>
+
+          <mdw-card onclick="console.log('action')">
+            <div class="mdw-card-content">
+              <div class="mdw-headline">Actionable</div>
+              <div class="mdw-subhead">ripple</div>
+            </div>
+            <div class="mdw-ripple"></div>
+          </mdw-card>
+        </mgw-card-group>
       </div>
     </mdw-card>
     
@@ -54,7 +62,7 @@
       <div class="mdw-card-content">
         <div class="mdw-headline">Basic card</div>
         
-        <div class="example">
+        <div class="example" style="display: flex; gap: 20px; flex-wrap: wrap;">
           <mdw-card style="max-width: 320px">
             <div class="mdw-card-image mdw-rounded mdw-size-medium">
               <img
@@ -66,6 +74,15 @@
               <div class="mdw-subhead">Subhead</div>
               <div class="mdw-supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
             </div>
+          </mdw-card>
+
+          <mdw-card style="width: 220px; height: 120px;" onclick="console.log('action')">
+            <div class="mdw-card-content">
+              <div class="mdw-headline">Actionable</div>
+              <div class="mdw-subhead">Ripple</div>
+              <div class="mdw-supporting-text">Click to see ripple</div>
+            </div>
+            <div class="mdw-ripple"></div>
           </mdw-card>
         </div>
       </div>
@@ -84,6 +101,15 @@
       <div class="mdw-supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.
       </div>
     </div>
+  </mdw-card>
+  
+  <mdw-card onclick="console.log('action')">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Actionable</div>
+      <div class="mdw-subhead">Ripple</div>
+      <div class="mdw-supporting-text">Click to see ripple</div>
+    </div>
+    <div class="mdw-ripple"></div>
   </mdw-card>`)}
         </code>
       </pre>
@@ -150,7 +176,7 @@
       <div class="mdw-card-content">
         <div class="mdw-headline">Expanding card</div>
     
-        <div class="example">
+        <div class="example" style="display: flex; flex-wrap: wrap; gap: 20px;">
           <mdw-card style="max-width: 320px">
             <div class="mdw-card-image mdw-rounded mdw-size-medium">
               <img alt="landscape"
@@ -166,6 +192,44 @@
                 <div class="mdw-supporting-text">
                   Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
                   literature
+                </div>
+              </div>
+            </div>
+          </mdw-card>
+
+          <mdw-card style="max-width: 320px">
+            <div class="mdw-card-image mdw-rounded mdw-size-medium">
+              <img alt="landscape"
+                src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+            </div>
+          
+            <div class="mdw-card-content">
+              <div class="mdw-expand-arrow"></div>
+              <div class="mdw-headline">Expanding with scroll</div>
+              <div class="mdw-subhead">Subhead</div>
+          
+              <div class="mdw-expanded">
+                <div class="mdw-supporting-text">
+                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
+                  literature
+                  from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in
+                  Virginia,
+                  looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the
+                  cites of
+                  the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
+                  1.10.33
+                  of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
+                  treatise
+                  on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
+                  sit
+                  amet..", comes from a line in section 1.10.32.
+                  
+                  The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
+                  1.10.32 and
+                  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
+                  accompanied
+                  by
+                  English versions from the 1914 translation by H. Rackham.
                 </div>
               </div>
             </div>
@@ -322,7 +386,7 @@
         <div class="example">
           <mdw-card-group>
             ${page.cardArray.map(({ height }) => `
-              <mdw-card class="mdw-filled" style="height: ${height};">
+              <mdw-card class="mdw-filled">
                 <div class="mdw-card-image mdw-rounded">
                   <img alt="landscape"
                     src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -333,6 +397,7 @@
                   <div class="mdw-subhead">Subhead</div>
                   <div class="mdw-supporting-text">
                     one two three four five six.
+                    ${height !== '' ? 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature' : ''}
                   </div>
                 </div>
               </mdw-card>
@@ -362,7 +427,7 @@
         <div class="example">
           <mdw-card-group class="mdw-reorder">
             ${page.cardArray.map(({ height }, i) => `
-            <mdw-card class="${i} mdw-filled" style="height: 220px;">
+            <mdw-card class="${i} mdw-filled">
               <div class="mdw-card-image mdw-rounded">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -385,7 +450,7 @@
         <div class="example">
           <mdw-card-group class="mdw-reorder-swap">
             ${page.cardArray.map(({ height }, i) => `
-            <mdw-card class="${i} mdw-filled" style="height: 220px;">
+            <mdw-card class="${i} mdw-filled">
               <div class="mdw-card-image mdw-rounded">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />

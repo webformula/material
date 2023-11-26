@@ -1,8 +1,9 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import device from '../../core/device.js';
 
+// TODO keyboard controls
+
 customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLElementExtended {
-  #cards = [];
   #autoSpanRow = this.classList.contains('mdw-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
   #handleWindowState_bound = this.#handleWindowState.bind(this);
@@ -39,24 +40,6 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
   }
 
   #layout() {
-    // reset height style for reflow
-    this.#cards.forEach(({ element, styleHeight }) => {
-      if (element.classList.contains('mdw-show')) element.style.height = '';
-      else element.style.height = styleHeight || '';
-    });
-
-
-    this.#cards = [...this.querySelectorAll('mdw-card')].map((element, i) => {
-      element.style.order = i;
-      return {
-        order: i,
-        height: element.offsetHeight,
-        styleHeight: element.style.height,
-        element
-      };
-    });
-    
-    if (this.#cards.length === 0) return;
     if (this.#isGrid) this.#layoutGrid();
     else this.#layoutList();
   }
@@ -65,18 +48,30 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
     this.classList.add('mdw-grid');
     this.classList.remove('mdw-list');
 
-    this.#cards.sort((a, b) => a.height - b.height);
-    const baseHeight = this.#cards[0].height;
+    const cards = [...this.querySelectorAll('mdw-card')].map((element, i) => {
+      element.style.order = i;
+      const innerContentHeight = [...element.children].reduce((a, b) => {
+        // prevent ripple element from adjusting height
+        if (b.classList.contains('mdw-ripple')) return a;
+        return a + b.offsetHeight;
+      }, 0);
 
-    this.#cards.forEach(({ element, height }) => {
+      return {
+        order: i,
+        height: parseInt(element.style.height || innerContentHeight),
+        element
+      };
+    }).sort((a, b) => a.height - b.height);
+    if (cards.length === 0) return;
+
+    const baseHeight = cards[0].height;
+    this.style.setProperty('--mdw-card-group-row-height', `${baseHeight}px`);
+
+    cards.forEach(({ element, height }) => {
       if (element.classList.contains('mdw-show')) return;
 
       const span = Math.ceil(height / baseHeight);
-      if (baseHeight > 1) {
-        element.style.gridRowEnd = `span ${span}`;
-        if (this.#autoSpanRow) element.style.height = `${baseHeight * span}px`;
-        else element.style.height = `${height}px`;
-      }
+      if (baseHeight > 1) element.style.gridRowEnd = `span ${span}`;
     });
 
     // auto adjust column count to keep content on screen
@@ -92,9 +87,6 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
 
   #layoutList() {
     this.classList.remove('mdw-grid');
-    this.#cards.forEach(({ element }) => {
-      element.style.height = 'unset';
-    });
   }
 
   #onMutation() {

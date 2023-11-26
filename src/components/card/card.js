@@ -6,11 +6,11 @@ import {
 } from '../../core/svgs.js';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
+import Ripple from '../../core/Ripple.js';
 
 
-// TODO drag close fullscreen and expand
-// TODO expanded card on drag. Look at material guidelines for video
-// TODO ripple
+
+// TODO drag reorder animation
 
 
 export default class MDWCardElement extends HTMLElementExtended {
@@ -25,26 +25,31 @@ export default class MDWCardElement extends HTMLElementExtended {
   #ondragSwipeActionStart_bound = this.#ondragSwipeActionStart.bind(this);
   #ondragSwipeActionEnd_bound = this.#ondragSwipeActionEnd.bind(this);
   #swipeActionClick_bound = this.#swipeActionClick.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #fullscreenPlaceHolder;
   #fullscreenBackButton;
   #swipeActionElement = this.querySelector(':scope > mdw-card-swipe-action');
   #dragSwipeActionStartPosition;
   #dragSwipeAction;
   #value = '';
-  #abort = new AbortController();
+  #abort;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #handleWindowState_bound = this.#handleWindowState.bind(this);
   #hasReorder = false;
   #drag;
+  #ripple;
+  #expandDrag;
+  #expandDragStart_bound = this.#expandDragStart.bind(this);
 
 
   constructor() {
     super();
   }
 
-  connectedCallback() {   
+  connectedCallback() {
+    this.#abort = new AbortController();
     const arrow = this.querySelector('.mdw-expand-arrow');
     if (arrow) arrow.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
 
@@ -57,12 +62,21 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#fullscreenBackButton.addEventListener('click', this.#fullscreenBackClick_bound, { signal: this.#abort.signal });
       this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
     } else if (this.#isExpanding) {
+      this.classList.add('mdw-expanding');
       this.addEventListener('click', this.#expandClick_bound, { signal: this.#abort.signal });
+      if (device.state === 'compact') {
+        this.#expandDrag = new Drag(this);
+        this.#expandDrag.noMouseEvents = true;
+        this.#expandDrag.addIgnoreElement(this.querySelector('.mdw-expanded'));
+        this.#expandDrag.on('mdwdragstart', this.#expandDragStart_bound);
+        this.#expandDrag.enable();
+      }
     }
 
     if (this.#isFullscreen || this.hasAttribute('onclick')) {
       this.tabIndex = 0;
       this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+      this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     }
 
     this.#hasReorder = this.parentElement.classList.contains('mdw-reorder') || this.parentElement.classList.contains('mdw-reorder-swap');
@@ -83,11 +97,6 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.#drag.reorderSwap = this.parentElement.classList.contains('mdw-reorder-swap');
       this.#drag.enable();
     }
-
-    // prevent style calculation during script evaluation
-    requestAnimationFrame(() => {
-      this.#calculateImgMaxHeightForFullscreen();
-    });
     
     setTimeout(() => {
       this.classList.add('mdw-animation');
@@ -97,13 +106,28 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.#handleWindowState();
+
+    const rippleElement = this.querySelector(':scope > .mdw-ripple');
+    if (rippleElement) {
+      this.#ripple = new Ripple({
+        element: rippleElement,
+        triggerElement: this
+      });
+    }
+
+    // prevent style calculation during script evaluation
+    requestAnimationFrame(() => {
+      this.#calculateImgMaxHeightForFullscreen();
+    });
   }
 
   disconnectedCallback() {
     window.removeEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.classList.remove('mdw-animation');
     this.#abort.abort();
+    if (this.#ripple) this.#ripple.destroy();
     if (this.#swipeActionElement) this.#dragSwipeAction.destroy();
+    if (this.#expandDrag) this.#expandDrag.destroy();
     if (this.#drag) {
       this.#drag.destroy();
       this.#drag = undefined;
@@ -133,9 +157,13 @@ export default class MDWCardElement extends HTMLElementExtended {
   }
 
   async #fullscreen() {
-    if (!this.#fullscreenPlaceHolder) this.#fullscreenPlaceHolder = document.createElement('div');
+    const initialized = !!this.#fullscreenPlaceHolder;
+    if (!initialized) this.#fullscreenPlaceHolder = document.createElement('div');
     const bounds = this.getBoundingClientRect();
 
+    // TODO change this to a sheet? currently we are just centering with a max-width of 600
+    if (device.state !== 'compact') this.style.setProperty('--mdw-card-fullscreen-expanded-left', `calc(50% - ${bounds.width / 2}px)`);
+    else this.style.setProperty('--mdw-card-fullscreen-expanded-left', `0px`);
 
     this.#fullscreenPlaceHolder.style.height = `${bounds.height}px`;
     this.#fullscreenPlaceHolder.style.width = `${bounds.width}px`;
@@ -145,18 +173,52 @@ export default class MDWCardElement extends HTMLElementExtended {
     this.style.setProperty('--mdw-card-fullscreen-left', `${bounds.left}px`);
     this.style.setProperty('--mdw-card-fullscreen-width', `${bounds.width}px`);
     this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
+    this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
+    if (!initialized) this.classList.add('mdw-fullscreen-initialized');
     this.classList.add('mdw-show');
   }
 
-  #expandClick() {
+  #expandClick(event) {
     const expanded = this.querySelector('.mdw-card-content > .mdw-expanded');
+    if (event.target === expanded || expanded.contains(event.target)) return;
+
+    const isCompact = device.state === 'compact';
+    
     if (this.classList.contains('mdw-show')) {
       expanded.style.height = '';
+      if (!isCompact) this.style.marginBottom = '';
       this.classList.remove('mdw-show');
+      util.transitionendAsync(this).then(() => {
+        this.style.zIndex = '';
+      });
     } else {
-      expanded.style.height = `${expanded.offsetHeight + expanded.scrollHeight}px`;
+      const expandedBounds = expanded.getBoundingClientRect();
+      let expandedHeight = expanded.offsetHeight + expanded.scrollHeight;
+      if (!isCompact) {
+        // max expand hight. will scroll if taller
+        if (expandedHeight > 300) expandedHeight = 300;
+
+        // do not expand off screen
+        const { clientHeight } = document.documentElement;
+        if (expandedBounds.top + expandedHeight > clientHeight - 12) expandedHeight = clientHeight - expandedBounds.top - 12;
+
+        // prevent offscreen expand from being too small
+        if (expandedHeight < 80) expandedHeight = 80;
+      }
+      if (!isCompact && expandedHeight > 300) {
+        expandedHeight = 300;
+      }
+      expanded.style.height = `${expandedHeight}px`;
+      if (!isCompact) this.style.marginBottom = `-${expandedHeight}px`;
+      this.style.zIndex = '1';
       this.classList.add('mdw-show')
     }
+  }
+
+  // expand cards with scroll
+  #expandDragStart({ directionY }) {
+    if (directionY === -1 && !this.classList.contains('mdw-show')) this.#expandClick({ target: this });
+    if (directionY === 1 && this.classList.contains('mdw-show')) this.#expandClick({ target: this });
   }
 
   #fullscreenClick() {
@@ -178,7 +240,7 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     if (!img.height) img.addEventListener('load', this.#imgOnload_bound, { signal: this.#abort.signal });
     else {
-      const maxHeight = img.height / img.width * window.innerWidth;
+      const maxHeight = Math.min(img.height, img.height / img.width * window.innerWidth);
       this.style.setProperty('--mdw-card-fullscreen-img-height', `${maxHeight}px`);
     }
   }
@@ -237,6 +299,11 @@ export default class MDWCardElement extends HTMLElementExtended {
   #focus() {
     this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
     this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  // prevent focus on click
+  #focusMousedown(event) {
+    event.preventDefault();
   }
 
   #blur() {

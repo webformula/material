@@ -8,7 +8,7 @@ export default class extends Component {
   constructor() {
     super();
 
-    this.cardArray = [...new Array(6).keys()].map((_, i) => ({ height: i % 4 === 0 ? '488px' : '244px'}));
+    this.cardArray = [...new Array(6).keys()].map((_, i) => ({ height: i % 4 === 0 ? '400px' : ''}));
   }
 
   onSwipeAction(element) {

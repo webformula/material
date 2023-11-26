@@ -6,7 +6,6 @@ mdw-card-group,
 mdw-card-group.mdw-grid {
   display: grid;
   grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
-  /* grid-auto-rows: minmax(80px, auto); */
 }
 
 body.mdw-window-compact mdw-card-group:not(.mdw-grid),
