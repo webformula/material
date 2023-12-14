@@ -1,4 +1,4 @@
-import { Component, i18nLanguage } from '@webformula/core';
+import { Component } from '@webformula/core';
 import { mdwDialog } from '@webformula/material/services';
 import html from './page.html';
 

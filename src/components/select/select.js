@@ -345,7 +345,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
       }
     }
 
-    else if (!this.#isFilter && ![38, 40, 13].includes(event.keyCode)) return this.#textSearch(event.key);
+    else if (!this.#isFilter && !this.#isFilterAsync  && ![38, 40, 13].includes(event.keyCode)) return this.#textSearch(event.key);
   }
 
   #focusNext() {

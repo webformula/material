@@ -1,7 +1,6 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
-// TODO fix spinner position
 // TODO Should i remove dialog after prevent navigation alert ok click? When the user clicks ok on the alert the page will navigate back and the dialog will still be there.
 
 

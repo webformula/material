@@ -1,17 +1,13 @@
 
 :host {
   display: block;
-  position: relative;
   margin: 4px;
   width: 40px;
   height: 40px;
 }
 
 :host > svg {
-  position: absolute;
   transform: rotate(-90deg);
-  top: 0;
-  left: 0;
   transform-origin: center;
   overflow: visible;
 }
