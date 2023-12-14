@@ -1,4 +1,5 @@
 @import url(./theme.css);
+@import url(./colorTokens.css);
 @import url(./dracula.css);
 
 :root {

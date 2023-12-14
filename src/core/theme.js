@@ -114,10 +114,6 @@ export async function generateBrowser() {
             .filter(v => v.startsWith('--mdw-custom-color-'))
             .map(v => ({ name: v.replace('--mdw-custom-color-', ''), color: rule.style.getPropertyValue(v) }))
     }));
-  // const customColors = sheetRoots
-  //   .flatMap(rule => [...rule.styleMap]
-  //     .filter(v => v[0].startsWith('--mdw-custom-color-'))
-  //     .map(v => ({ name: v[0].replace('--mdw-custom-color-', ''), color: computedStyles.getPropertyValue(v[0]) })));
   
   const palette = generatePalette({
     coreColors: {
@@ -130,7 +126,7 @@ export async function generateBrowser() {
     },
     customColors
   });
-  console.log(palette)
+
   Object.entries(palette.palettes).forEach(([name, tones]) => {
     Object.entries(tones).forEach(([tone, color]) => {
       document.documentElement.style.setProperty(`--mdw-${name}-${tone}`, color);
