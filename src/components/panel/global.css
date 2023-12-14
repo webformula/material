@@ -209,17 +209,11 @@ mdw-panel.mdw-no-animation.mdw-target,
 
 @keyframes mdw-panel-show-scale {
   0% {
-    top: 0;
-    left: 0;
     opacity: 0;
     transform: scale(0.9);
   }
   60% {
     opacity: 1;
-  }
-  99% {
-    top: 0;
-    left: 0;
   }
   100% {
     transform: scale(1);
@@ -228,17 +222,11 @@ mdw-panel.mdw-no-animation.mdw-target,
 
 @keyframes mdw-panel-hide-scale {
   0% {
-    top: 0;
-    left: 0;
     opacity: 1;
     transform: scale(1);
   }
   70% {
     opacity: 0;
-  }
-  99% {
-    top: 0;
-    left: 0;
   }
   100% {
     transform: scale(0.9);

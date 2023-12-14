@@ -255,6 +255,8 @@ export default class MDWPanelElement extends HTMLElementExtended {
         this.style.right = `${clientWidth - bounds.right}px`;
       }
     }
+
+    this.style.transformOrigin = `${this.style.top ? 'top' : 'bottom'} ${this.style.left ? 'left' : 'right'}`;
   }
 
   #setupPosition() {

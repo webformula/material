@@ -9,7 +9,7 @@ import {
   chevron_right_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-// TODO open animation position
+
 // TODO tooltips
 // TODO keyboard
 // TODO input
