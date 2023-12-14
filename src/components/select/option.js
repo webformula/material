@@ -3,7 +3,7 @@ import styles from './option.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 
-// TODO selected style in panel
+
 customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElementExtended {
   static useShadowRoot = true;
   static styleSheets = styles;

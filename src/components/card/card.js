@@ -9,10 +9,6 @@ import device from '../../core/device.js';
 import Ripple from '../../core/Ripple.js';
 
 
-
-// TODO drag reorder animation
-
-
 export default class MDWCardElement extends HTMLElementExtended {
   #isFullscreen = this.classList.contains('mdw-fullscreen');
   #isExpanding = !!this.querySelector(':Scope > .mdw-card-content > .mdw-expanded');

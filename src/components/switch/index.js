@@ -3,8 +3,6 @@ import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
-// TODO verify aria-checked
-
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   static useShadowRoot = true;
   static styleSheets = styles;

@@ -55,10 +55,13 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
     // this.setAttribute('role', 'select');
 
     // grab initial options
-    this.#options = [...this.querySelectorAll('mdw-option')].map(element => ({
-      label: util.getTextFromNode(element),
-      element
-    }));
+    this.#options = [...this.querySelectorAll('mdw-option')].map(element => {
+      if (!element.hasAttribute('value')) element.setAttribute('value', util.getTextFromNode(element));
+      return {
+        label: util.getTextFromNode(element),
+        element
+      };
+    });
     this.#originalOptions = this.#options;
   }
 
@@ -284,7 +287,7 @@ customElements.define('mdw-select', class MDWSelectElement extends HTMLElementEx
   }
 
   #updateOptionDisplay() {
-    const currentSelected = this.querySelector('mdw-option[selected]')
+    const currentSelected = this.querySelector('mdw-option[selected]');
     if (currentSelected) {
       currentSelected.removeAttribute('selected');
       currentSelected.removeAttribute('aria-selected');

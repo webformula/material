@@ -54,7 +54,7 @@ build({
     { from: 'docs/woman.jpg', to: 'dist/', gzip: true },
     { from: 'docs/icons.woff2', to: 'dist/', gzip: true },
     { from: 'docs/outlined-icons-variable.woff2', to: 'dist/', gzip: true },
-    { from: 'docs/rounded-icons.woff2', to: 'dist/', gzip: false },
+    { from: 'docs/rounded-icons.woff2', to: 'dist/', gzip: true },
     { from: 'docs/highlight-11.8.0.js', to: 'dist/', gzip: true },
     {
       from: 'docs/routes/**/(?!page)*.html',
