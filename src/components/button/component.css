@@ -1,4 +1,20 @@
 :host {
+  --mdw-button-text-text-color: var(--mdw-primary);
+  --mdw-button-text-state-layer-color: var(--mdw-primary);
+  --mdw-button-elevated-text-color: var(--mdw-primary);
+  --mdw-button-elevated-container-color: var(--mdw-surface-container-low);
+  --mdw-button-elevated-state-layer-color: var(--mdw-primary);
+  --mdw-button-filled-text-color: var(--mdw-on-primary);
+  --mdw-button-filled-container-color: var(--mdw-primary);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-primary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-outlined-text-color: var(--mdw-primary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-primary);
+
+
   position: relative;
   display: inline-flex;
   justify-content: center;
@@ -18,7 +34,262 @@
   line-height: 40px;
   border-radius: var(--mdw-shape-extra-large);
 
-  color: var(--mdw-primary);
+  color: var(--mdw-button-text-text-color);
+}
+
+:host(.mdw-on-primary) {
+  --mdw-button-text-text-color: var(--mdw-on-primary);
+  --mdw-button-text-state-layer-color: var(--mdw-on-primary);
+  --mdw-button-elevated-text-color: var(--mdw-primary);
+  --mdw-button-elevated-container-color: var(--mdw-on-primary);
+  --mdw-button-elevated-state-layer-color: var(--mdw-primary);
+  --mdw-button-filled-text-color: var(--mdw-primary);
+  --mdw-button-filled-container-color: var(--mdw-on-primary);
+  --mdw-button-filled-state-layer-color: var(--mdw-primary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-primary);
+  --mdw-button-outlined-text-color: var(--mdw-on-primary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary);
+}
+
+:host(.mdw-primary-container) {
+  --mdw-button-text-text-color: var(--mdw-on-primary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-on-primary-container);
+  --mdw-button-elevated-text-color: var(--mdw-on-primary-container);
+  --mdw-button-elevated-container-color: var(--mdw-primary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-primary-container);
+  --mdw-button-filled-text-color: var(--mdw-on-primary-container);
+  --mdw-button-filled-container-color: var(--mdw-primary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-primary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-outlined-text-color: var(--mdw-on-primary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary-container);
+}
+
+:host(.mdw-on-primary-container) {
+  --mdw-button-text-text-color: var(--mdw-on-primary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-on-primary-container);
+  --mdw-button-elevated-text-color: var(--mdw-primary-container);
+  --mdw-button-elevated-container-color: var(--mdw-on-primary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-primary-container);
+  --mdw-button-filled-text-color: var(--mdw-primary-container);
+  --mdw-button-filled-container-color: var(--mdw-on-primary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-primary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary-container);
+  --mdw-button-outlined-text-color: var(--mdw-on-primary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary-container);
+}
+
+:host(.mdw-secondary) {
+  --mdw-button-text-text-color: var(--mdw-secondary);
+  --mdw-button-text-state-layer-color: var(--mdw-secondary);
+  --mdw-button-elevated-text-color: var(--mdw-on-secondary);
+  --mdw-button-elevated-container-color: var(--mdw-secondary);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-secondary);
+  --mdw-button-filled-text-color: var(--mdw-on-secondary);
+  --mdw-button-filled-container-color: var(--mdw-secondary);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-secondary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary);
+  --mdw-button-filled-tonal-container-color: var(--mdw-secondary);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary);
+  --mdw-button-outlined-text-color: var(--mdw-secondary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-secondary);
+}
+
+:host(.mdw-on-secondary) {
+  --mdw-button-text-text-color: var(--mdw-on-secondary);
+  --mdw-button-text-state-layer-color: var(--mdw-on-secondary);
+  --mdw-button-elevated-text-color: var(--mdw-secondary);
+  --mdw-button-elevated-container-color: var(--mdw-on-secondary);
+  --mdw-button-elevated-state-layer-color: var(--mdw-secondary);
+  --mdw-button-filled-text-color: var(--mdw-secondary);
+  --mdw-button-filled-container-color: var(--mdw-on-secondary);
+  --mdw-button-filled-state-layer-color: var(--mdw-secondary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-secondary);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary);
+  --mdw-button-outlined-text-color: var(--mdw-on-secondary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-secondary);
+}
+
+:host(.mdw-secondary-container) {
+  --mdw-button-text-text-color: var(--mdw-secondary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-secondary-container);
+  --mdw-button-elevated-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-elevated-container-color: var(--mdw-secondary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-container-color: var(--mdw-secondary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-outlined-text-color: var(--mdw-secondary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-secondary-container);
+}
+
+:host(.mdw-on-secondary-container) {
+  --mdw-button-text-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-on-secondary-container);
+  --mdw-button-elevated-text-color: var(--mdw-secondary-container);
+  --mdw-button-elevated-container-color: var(--mdw-on-secondary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-secondary-container);
+  --mdw-button-filled-text-color: var(--mdw-secondary-container);
+  --mdw-button-filled-container-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-secondary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary-container);
+  --mdw-button-outlined-text-color: var(--mdw-on-secondary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-secondary-container);
+}
+
+:host(.mdw-tertiary) {
+  --mdw-button-text-text-color: var(--mdw-tertiary);
+  --mdw-button-text-state-layer-color: var(--mdw-tertiary);
+  --mdw-button-elevated-text-color: var(--mdw-on-tertiary);
+  --mdw-button-elevated-container-color: var(--mdw-tertiary);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-text-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-container-color: var(--mdw-tertiary);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-tonal-container-color: var(--mdw-tertiary);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-tertiary);
+  --mdw-button-outlined-text-color: var(--mdw-tertiary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-tertiary);
+}
+
+:host(.mdw-on-tertiary) {
+  --mdw-button-text-text-color: var(--mdw-on-tertiary);
+  --mdw-button-text-state-layer-color: var(--mdw-on-tertiary);
+  --mdw-button-elevated-text-color: var(--mdw-tertiary);
+  --mdw-button-elevated-container-color: var(--mdw-on-tertiary);
+  --mdw-button-elevated-state-layer-color: var(--mdw-tertiary);
+  --mdw-button-filled-text-color: var(--mdw-tertiary);
+  --mdw-button-filled-container-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-state-layer-color: var(--mdw-tertiary);
+  --mdw-button-filled-tonal-text-color: var(--mdw-tertiary);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-tertiary);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-tertiary);
+  --mdw-button-outlined-text-color: var(--mdw-on-tertiary);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-tertiary);
+}
+
+:host(.mdw-tertiary-container) {
+  --mdw-button-text-text-color: var(--mdw-tertiary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-tertiary-container);
+  --mdw-button-elevated-text-color: var(--mdw-on-tertiary-container);
+  --mdw-button-elevated-container-color: var(--mdw-tertiary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-text-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-container-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-tertiary-container);
+  --mdw-button-outlined-text-color: var(--mdw-tertiary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-tertiary-container);
+}
+
+:host(.mdw-on-tertiary-container) {
+  --mdw-button-text-text-color: var(--mdw-on-tertiary-container);
+  --mdw-button-text-state-layer-color: var(--mdw-on-tertiary-container);
+  --mdw-button-elevated-text-color: var(--mdw-tertiary-container);
+  --mdw-button-elevated-container-color: var(--mdw-on-tertiary-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-text-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-container-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-tertiary-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-tertiary-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-tertiary-container);
+  --mdw-button-outlined-text-color: var(--mdw-on-tertiary-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-tertiary-container);
+}
+
+:host(.mdw-error) {
+  --mdw-button-text-text-color: var(--mdw-error);
+  --mdw-button-text-state-layer-color: var(--mdw-error);
+  --mdw-button-elevated-text-color: var(--mdw-on-error);
+  --mdw-button-elevated-container-color: var(--mdw-error);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-error);
+  --mdw-button-filled-text-color: var(--mdw-on-error);
+  --mdw-button-filled-container-color: var(--mdw-error);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-error);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-error);
+  --mdw-button-filled-tonal-container-color: var(--mdw-error);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-error);
+  --mdw-button-outlined-text-color: var(--mdw-error);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-error);
+}
+
+:host(.mdw-on-error) {
+  --mdw-button-text-text-color: var(--mdw-on-error);
+  --mdw-button-text-state-layer-color: var(--mdw-on-error);
+  --mdw-button-elevated-text-color: var(--mdw-error);
+  --mdw-button-elevated-container-color: var(--mdw-on-error);
+  --mdw-button-elevated-state-layer-color: var(--mdw-error);
+  --mdw-button-filled-text-color: var(--mdw-error);
+  --mdw-button-filled-container-color: var(--mdw-on-error);
+  --mdw-button-filled-state-layer-color: var(--mdw-error);
+  --mdw-button-filled-tonal-text-color: var(--mdw-error);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-error);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-error);
+  --mdw-button-outlined-text-color: var(--mdw-on-error);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-error);
+}
+
+:host(.mdw-error-container) {
+  --mdw-button-text-text-color: var(--mdw-error-container);
+  --mdw-button-text-state-layer-color: var(--mdw-error-container);
+  --mdw-button-elevated-text-color: var(--mdw-on-error-container);
+  --mdw-button-elevated-container-color: var(--mdw-error-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-on-error-container);
+  --mdw-button-filled-text-color: var(--mdw-on-error-container);
+  --mdw-button-filled-container-color: var(--mdw-error-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-on-error-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-on-error-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-error-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-error-container);
+  --mdw-button-outlined-text-color: var(--mdw-error-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
+  --mdw-button-outlined-state-layer-color: var(--mdw-error-container);
+}
+
+:host(.mdw-on-error-container) {
+  --mdw-button-text-text-color: var(--mdw-on-error-container);
+  --mdw-button-text-state-layer-color: var(--mdw-on-error-container);
+  --mdw-button-elevated-text-color: var(--mdw-error-container);
+  --mdw-button-elevated-container-color: var(--mdw-on-error-container);
+  --mdw-button-elevated-state-layer-color: var(--mdw-error-container);
+  --mdw-button-filled-text-color: var(--mdw-error-container);
+  --mdw-button-filled-container-color: var(--mdw-on-error-container);
+  --mdw-button-filled-state-layer-color: var(--mdw-error-container);
+  --mdw-button-filled-tonal-text-color: var(--mdw-error-container);
+  --mdw-button-filled-tonal-container-color: var(--mdw-on-error-container);
+  --mdw-button-filled-tonal-state-layer-color: var(--mdw-error-container);
+  --mdw-button-outlined-text-color: var(--mdw-on-error-container);
+  --mdw-button-outlined-outline-color: var(--mdw-outline);
+  --mdw-button-outlined-state-layer-color: var(--mdw-on-error-container);
 }
 
 :host ::slotted(mdw-icon) {
@@ -220,8 +491,8 @@
 /* --- Types --- */
 
 :host(.mdw-filled) {
-  color: var(--mdw-on-primary);
-  background-color: var(--mdw-primary);
+  color: var(--mdw-button-filled-text-color);
+  background-color: var(--mdw-button-filled-container-color);
 }
 :host([disabled].mdw-filled) {
   background-color: var(--mdw-on-surface-alpha-12);
@@ -231,14 +502,15 @@
 /* state layer */
 :host(:focus.mdw-filled)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  background-color: var(--mdw-button-filled-state-layer-color);
 }
 :host(:focus.mdw-filled) {
   box-shadow: var(--mdw-elevation-1);
 }
 
 :host(.mdw-elevated) {
-  background-color: var(--mdw-surface-container-low);
+  color: var(--mdw-button-elevated-text-color);
+  background-color: var(--mdw-button-elevated-container-color);
   box-shadow: var(--mdw-elevation-1);
 }
 :host([disabled].mdw-elevated) {
@@ -249,12 +521,12 @@
 /* state layer */
 :host(:focus.mdw-elevated)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  background-color: var(--mdw-button-elevate-state-layer-color);
 }
 
 :host(.mdw-filled-tonal) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--mdw-button-filled-tonal-text-color);
+  background-color: var(--mdw-button-filled-tonal-container-color);
 }
 :host([disabled].mdw-filled-tonal) {
   background-color: var(--mdw-on-surface-alpha-12);
@@ -264,13 +536,13 @@
 /* state layer */
 :host(:focus.mdw-filled-tonal)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  background-color: var(--mdw-button-filled-tonal-state-layer-color);
 }
 
 :host(.mdw-outlined) {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-surface);
-  border: 1px solid var(--mdw-outline);
+  color: var(--mdw-button-outlined-text-color);
+  background-color: var(--mdw-button-outlined-container-color);
+  border: 1px solid var(--mdw-button-outlined-outline-color);
 }
 :host([disabled].mdw-outlined) {
   color: var(--mdw-on-surface-alpha-38);
@@ -279,7 +551,7 @@
 /* state layer */
 :host(:focus.mdw-outlined)::after {
   opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  background-color: var(--mdw-button-outlined-state-layer-color);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
@@ -294,7 +566,7 @@
 
   :host(:hover)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    background-color: var(--mdw-button-text-state-layer-color);
   }
 
   :host(:hover.mdw-elevated) {
@@ -302,12 +574,22 @@
   }
   :host(:hover.mdw-elevated)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    background-color: var(--mdw-button-elevated-state-layer-color);
   }
 
   :host(:hover.mdw-outlined)::after {
     opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    background-color: var(--mdw-button-outlined-state-layer-color);
+  }
+
+  :host(:hover.mdw-filled)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-button-filled-state-layer-color);
+  }
+  
+  :host(:hover.mdw-filled-tonal)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-button-filled-tonal-state-layer-color);
   }
 
   :host(:hover.mdw-filled),
@@ -363,15 +645,19 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-primary);
+  background-color: var(--mdw-button-text-state-layer-color);
   opacity: var(--mdw-state-layer-opacity-pressed);
   border-radius: var(--mdw-shape-full);
 }
 
 :host(.mdw-filled) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-primary);
+  background-color: var(--mdw-button-filled-state-layer-color);
+}
+
+:host(.mdw-elevated) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-button-elevated-state-layer-color);
 }
 
 :host(.mdw-filled-tonal) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-button-filled-tonal-state-layer-color);
 }

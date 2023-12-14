@@ -42,7 +42,7 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
     window.addEventListener('mdwwindowstate', this.#windowState_bound);
 
     this.#drag = new Drag(this.parentElement);
-    this.#drag.noMouseEvents = true;
+    this.#drag.disableMouseEvents = true;
     this.#drag.lockScrollY = true;
     this.#drag.preventNavigation = true;
     this.#drag.on('mdwdragstart', this.#dragStart_bound);

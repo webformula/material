@@ -1,4 +1,4 @@
-import { generate } from './theme.js';
+import { generateBrowser } from './theme.js';
 
 
 const mdwUtil = new class MDWUtil {
@@ -12,6 +12,7 @@ const mdwUtil = new class MDWUtil {
   #scrollDistanceFromDirectionChange;
   #pageScrollIsLocked = false;
   #pageScrollLockHTMLScrollTop;
+  #pageScrollLockHTMLScrollMargin;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
   #nextTickCallback_bound = this.#nextTickCallback.bind(this);
   #nextTickRaf;
@@ -228,6 +229,7 @@ const mdwUtil = new class MDWUtil {
 
     const htmlElement = document.documentElement;
     this.#pageScrollLockHTMLScrollTop = htmlElement.scrollTop;
+    this.#pageScrollLockHTMLScrollMargin = 0;
     htmlElement.style.overflow = 'hidden';
     htmlElement.style.position = 'relative';
     htmlElement.style.touchAction = 'none';
@@ -235,11 +237,22 @@ const mdwUtil = new class MDWUtil {
     return this.#pageScrollLockHTMLScrollTop;
   }
 
+  scrollYLockedPage(movementY) {
+    if (!movementY) return;
+    if (this.#pageScrollIsLocked !== true) return;
+
+    this.#pageScrollLockHTMLScrollMargin += movementY;
+    document.documentElement.style.marginTop = `${this.#pageScrollLockHTMLScrollMargin}px`;
+    // document.documentElement.scrollTop = scrollTop;
+    this.#pageScrollLockHTMLScrollTop -= movementY;
+  }
+
   unlockPageScroll() {
     if (this.#pageScrollIsLocked === false) return;
     this.#pageScrollIsLocked = false;
 
     const htmlElement = document.documentElement;
+    htmlElement.style.marginTop = '';
     htmlElement.style.overflow = '';
     htmlElement.style.position = '';
     htmlElement.style.touchAction = '';
@@ -285,10 +298,79 @@ const mdwUtil = new class MDWUtil {
     });
   }
 
+  #longPressListeners = [];
+  addLongPressListener(element, listener, config = {
+    ms: 1500,
+    disableMouseEvents: false,
+    disableTouchEvents: false
+  }) {
+    let timeout;
+    let target;
+    let startX;
+    let startY;
+    let lastEvent;
+
+    function remove() {
+      if (timeout) clearTimeout(timeout);
+      lastEvent = undefined;
+      element.removeEventListener('mouseup', remove);
+      element.removeEventListener('mousemove', move);
+      element.removeEventListener('touchend', remove);
+      element.removeEventListener('touchmove', move);
+    }
+
+    function start(event) {
+      target = event.target;
+      timeout = setTimeout(() => {
+        listener(lastEvent);
+        remove();
+      }, config.ms || 500);
+      lastEvent = event;
+      startX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+      startY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+      if (!config.disableMouseEvents) {
+        element.addEventListener('mouseup', remove);
+        element.addEventListener('mousemove', move);
+      }
+      if (!config.disableTouchEvents) {
+        element.addEventListener('touchend', remove);
+        element.addEventListener('touchmove', move);
+      }
+    }
+
+    function move(event) {
+      lastEvent = event;
+      const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+      const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+      const distanceX = x - startX;
+      const distanceY = y - startY;
+      const distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+      if (distance > 3) remove();
+    }
+
+    if (!config.disableMouseEvents) element.addEventListener('mousedown', start);
+    if (!config.disableTouchEvents) element.addEventListener('touchstart', start);
+
+    this.#longPressListeners.push({
+      element,
+      remove
+    });
+  }
+
+  removeLongPressListener(element) {
+    this.#longPressListeners = this.#longPressListeners.filter(v => {
+      if (v.element === element) {
+        v.remove();
+        return false;
+      }
+      return true;
+    });
+  }
+
   toggleColorScheme(scheme) {
     const isDark = ['dark', 'light'].includes(scheme) ? scheme === 'dark' : !document.documentElement.classList.contains('mdw-theme-dark');
     document.documentElement.classList.toggle('mdw-theme-dark', isDark);
-    generate();
+    generateBrowser();
     return isDark ? 'dark' : 'light';
   }
 

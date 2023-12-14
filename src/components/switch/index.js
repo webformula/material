@@ -3,6 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
+// TODO verify aria-checked
+
 customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended {
   static useShadowRoot = true;
   static styleSheets = styles;
@@ -51,12 +53,15 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   }
 
   disconnectedCallback() {
-    util.removeClickTimeout(this.shadowRoot.querySelector('.track'), this.#click_bound);
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
     this.removeEventListener('mousedown', this.#focusMousedown_bound);
-    this.#drag.destroy();
+
+    if (this.rendered) {
+      util.removeClickTimeout(this.shadowRoot.querySelector('.track'), this.#click_bound);
+      this.#drag.destroy();
+    }
   }
 
   afterRender() {
@@ -84,6 +89,7 @@ customElements.define('mdw-switch', class MDWSwitch extends HTMLElementExtended 
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
+    this.toggleAttribute('checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString() || 'false');
   }
 

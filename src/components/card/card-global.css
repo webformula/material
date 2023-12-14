@@ -159,6 +159,23 @@ mdw-card::after {
   border-radius: var(--mdw-shape-medium);
 }
 
+mdw-card.mdw-drag-reorder-active {
+  box-shadow: var(--mdw-elevation-4);
+}
+mdw-card.mdw-drag-reorder-active::after {
+  opacity: var(--mdw-state-layer-opacity-dragged);
+  background-color: var(--mdw-on-surface);
+}
+
+mdw-card.mdw-filled.mdw-drag-reorder-active,
+mdw-card.mdw-outlined.mdw-drag-reorder-active {
+  box-shadow: var(--mdw-elevation-3);
+}
+
+mdw-card.mdw-outlined.mdw-drag-reorder-active::after {
+  outline: 1px solid var(--mdw-outline-variant);
+}
+
 mdw-card[onclick]:focus::after,
 mdw-card.mdw-fullscreen:not(.mdw-show):focus::after,
 mdw-card.mdw-states:focus::after {
@@ -166,17 +183,34 @@ mdw-card.mdw-states:focus::after {
   background-color: var(--mdw-on-surface);
 }
 
+mdw-card.mdw-outlined[onclick]:focus,
+mdw-card.mdw-outlined.mdw-fullscreen:not(.mdw-show):focus,
+mdw-card.mdw-outlined.mdw-states:focus {
+  outline: 1px solid var(--mdw-on-surface);
+}
+
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-card:not(.mdw-filled):not(.mdw-outlined)[onclick]:hover,
-  mdw-card:not(.mdw-filled):not(.mdw-outlined).mdw-states:hover {
+  mdw-card[onclick]:hover,
+  mdw-card.mdw-states:hover {
     box-shadow: var(--mdw-elevation-2);
   }
 
-  mdw-card:not(.mdw-filled):not(.mdw-outlined)[onclick]:hover::after,
-  mdw-card:not(.mdw-filled):not(.mdw-outlined).mdw-states:hover::after {
+  mdw-card.mdw-filled[onclick]:hover,
+  mdw-card.mdw-filled.mdw-states:hover,
+  mdw-card.mdw-outlined[onclick]:hover,
+  mdw-card.mdw-outlined.mdw-states:hover {
+    box-shadow: var(--mdw-elevation-1);
+  }
+
+  mdw-card[onclick]:hover::after,
+  mdw-card.mdw-states:hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
+  }
+
+  mdw-card.mdw-outlined:hover {
+    outline: 1px solid var(--mdw-outline-variant);
   }
 }
 
@@ -602,8 +636,4 @@ mdw-card > .mdw-ripple > .mdw-ripple-element {
 
 mdw-card.mdw-filled > .mdw-ripple > .mdw-ripple-element {
   background-color: var(--mdw-on-primary);
-}
-
-mdw-card.mdw-filled-tonal > .mdw-ripple > .mdw-ripple-element {
-  background-color: var(--mdw-on-secondary-container);
 }

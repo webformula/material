@@ -43,7 +43,7 @@ const context = await esbuild.context({
   minify: true
 });
 
-generate('./src/theme.css', './docs/theme.css');
+generate('./src/theme.css', './docs/colorTokens.css');
 build({
   chunks: false,
   basedir: 'docs/',

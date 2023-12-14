@@ -1,0 +1,150 @@
+:root {
+  --mdw-state-layer-opacity-hover: 0.08;
+  --mdw-state-layer-opacity-focus: 0.12;
+  --mdw-state-layer-opacity-pressed: 0.12;
+  --mdw-state-layer-opacity-dragged: 0.16;
+  
+  --mdw-shape-extra-small: 4px;
+  --mdw-shape-extra-small-top: 4px 4px 0 0;
+  --mdw-shape-small: 8px;
+  --mdw-shape-medium: 12px;
+  --mdw-shape-large: 16px;
+  --mdw-shape-large-end: 0 16px 16px 0;
+  --mdw-shape-large-top: 16px 16px 0 0;
+  --mdw-shape-extra-large: 28px;
+  --mdw-shape-extra-large-top: 28px 28px 0 0;
+  --mdw-shape-full: 50%;
+  --mdw-navigation-rail-width: 88px;
+  --mdw-navigation-drawer-width: 360px;
+  --mdw-card-group-columns: 4;
+  --mdw-side-sheet-width: 296px;
+  --mdw-bottom-sheet-initial-position: 40%;
+  --mdw-bottom-sheet-minimized-position: 64px;
+
+
+  --mdw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --mdw-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --mdw-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --mdw-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --mdw-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --mdw-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
+
+  --mdw-motion-duration-short1: 50ms;
+  --mdw-motion-duration-short2: 100ms;
+  --mdw-motion-duration-short3: 150ms;
+  --mdw-motion-duration-short4: 200ms;
+  --mdw-motion-duration-medium1: 250ms;
+  --mdw-motion-duration-medium2: 300ms;
+  --mdw-motion-duration-medium3: 350ms;
+  --mdw-motion-duration-medium4: 400ms;
+  --mdw-motion-duration-long1: 450ms;
+  --mdw-motion-duration-long2: 500ms;
+  --mdw-motion-duration-long3: 550ms;
+  --mdw-motion-duration-long4: 600ms;
+  --mdw-motion-duration-extra-long1: 700ms;
+  --mdw-motion-duration-extra-long2: 800ms;
+  --mdw-motion-duration-extra-long3: 900ms;
+  --mdw-motion-duration-extra-long4: 1000ms;
+
+
+  --mdw-font-small-icon-size: 1.25rem;
+  --mdw-font-medium-icon-size: 1.5rem;
+  --mdw-font-large-icon-size: 2.25rem;
+  --mdw-font-large-icon-size-extra: 3rem;
+
+  /* display */
+  --mdw-font-large-display-font: var(--mdw-font-brand, inherit);
+  --mdw-font-large-display-size: 3.5625rem;
+  --mdw-font-large-display-line-height: 4rem;
+  --mdw-font-large-display-weight: 400;
+  --mdw-font-large-display-tracking: -0.015625rem;
+
+  --mdw-font-medium-display-font: var(--mdw-font-brand, inherit);
+  --mdw-font-medium-display-size: 2.8125rem;
+  --mdw-font-medium-display-line-height: 3.25rem;
+  --mdw-font-medium-display-weight: 400;
+  --mdw-font-medium-display-tracking: 0rem;
+
+  --mdw-font-small-display-font: var(--mdw-font-brand, inherit);
+  --mdw-font-small-display-size: 2.25rem;
+  --mdw-font-small-display-line-height: 2.75rem;
+  --mdw-font-small-display-weight: 400;
+  --mdw-font-small-display-tracking: 0rem;
+
+  /* headline */
+  --mdw-font-large-headline-font: var(--mdw-font-brand, inherit);
+  --mdw-font-large-headline-size: 2rem;
+  --mdw-font-large-headline-line-height: 2.5rem;
+  --mdw-font-large-headline-weight: 400;
+  --mdw-font-large-headline-tracking: 0rem;
+
+  --mdw-font-medium-headline-font: var(--mdw-font-brand, inherit);
+  --mdw-font-medium-headline-size: 1.75rem;
+  --mdw-font-medium-headline-line-height: 2.25rem;
+  --mdw-font-medium-headline-weight: 400;
+  --mdw-font-medium-headline-tracking: 0rem;
+
+  --mdw-font-small-headline-font: var(--mdw-font-brand, inherit);
+  --mdw-font-small-headline-size: 1.5rem;
+  --mdw-font-small-headline-line-height: 2rem;
+  --mdw-font-small-headline-weight: 400;
+  --mdw-font-small-headline-tracking: 0rem;
+
+  /* title */
+  --mdw-font-large-title-font: var(--mdw-font-brand, inherit);
+  --mdw-font-large-title-size: 1.375rem;
+  --mdw-font-large-title-line-height: 1.75rem;
+  --mdw-font-large-title-weight: 400;
+  --mdw-font-large-title-tracking: 0rem;
+
+  --mdw-font-medium-title-font: var(--mdw-font-brand, inherit);
+  --mdw-font-medium-title-size: 1rem;
+  --mdw-font-medium-title-line-height: 1.5rem;
+  --mdw-font-medium-title-weight: 500;
+  --mdw-font-medium-title-tracking: 0.009375rem;
+
+  --mdw-font-small-title-font: var(--mdw-font-brand, inherit);
+  --mdw-font-small-title-size: 0.875rem;
+  --mdw-font-small-title-line-height: 1.25rem;
+  --mdw-font-small-title-weight: 500;
+  --mdw-font-small-title-tracking: 0.00625rem;
+
+  /* label */
+  --mdw-font-large-label-font: var(--mdw-font-plain, inherit);
+  --mdw-font-large-label-size: 0.875rem;
+  --mdw-font-large-label-line-height: 1.25rem;
+  --mdw-font-large-label-weight: 500;
+  --mdw-font-large-label-tracking: 0.00625rem;
+
+  --mdw-font-medium-label-font: var(--mdw-font-plain, inherit);
+  --mdw-font-medium-label-size: 0.75rem;
+  --mdw-font-medium-label-line-height: 1rem;
+  --mdw-font-medium-label-weight: 500;
+  --mdw-font-medium-label-tracking: 0.03125rem;
+
+  --mdw-font-small-label-font: var(--mdw-font-plain, inherit);
+  --mdw-font-small-label-size: 0.6875rem;
+  --mdw-font-small-label-line-height: 1rem;
+  --mdw-font-small-label-weight: 500;
+  --mdw-font-small-label-tracking: 0.03125rem;
+
+  /* body */
+  --mdw-font-large-body-font: var(--mdw-font-plain, inherit);
+  --mdw-font-large-body-size: 1rem;
+  --mdw-font-large-body-line-height: 1.5rem;
+  --mdw-font-large-body-weight: 400;
+  --mdw-font-large-body-tracking: 0.03125rem;
+
+  --mdw-font-medium-body-font: var(--mdw-font-plain, inherit);
+  --mdw-font-medium-body-size: 0.875rem;
+  --mdw-font-medium-body-line-height: 1.25rem;
+  --mdw-font-medium-body-weight: 400;
+  --mdw-font-medium-body-tracking: 0.015625rem;
+
+  --mdw-font-small-body-font: var(--mdw-font-plain, inherit);
+  --mdw-font-small-body-size: 0.75rem;
+  --mdw-font-small-body-line-height: 1rem;
+  --mdw-font-small-body-weight: 400;
+  --mdw-font-small-body-tracking: 0.025rem;
+}

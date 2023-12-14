@@ -46,7 +46,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
     if (this.#hasSwipeActions) {
       this.#drag = new Drag(this);
       this.#drag.lockScrollY = true;
-      this.#drag.noMouseEvents = true;
+      this.#drag.disableMouseEvents = true;
       this.#drag.on('mdwdragmove', this.#onDrag_bound);
       this.#drag.on('mdwdragstart', this.#onDragStart_bound);
       this.#drag.on('mdwdragend', this.#onDragEnd_bound);

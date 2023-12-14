@@ -121,7 +121,7 @@
       <div class="mdw-card-content">
         <div class="mdw-headline">Card types</div>
     
-        <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap">
+        <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
           <mdw-card style="width: 200px">
             <div class="mdw-card-content">
               <div class="mdw-headline">Regular</div>
@@ -420,8 +420,9 @@
 
     <mdw-card id="dragreorder">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Drag reorder</div>
-        <div class="mdw-subhead">By default the container will auto swap between grid and list based on screen size. You can
+        <div class="mdw-headline">Drag reorder - move item position</div>
+        <div class="mdw-subhead">Press and hold on card to reorder</div>
+        <div class="mdw-supporting-text">By default the container will auto swap between grid and list based on screen size. You can
           for it to always be be one or the other by using classes: 'mdw-grid' 'mdw-list'</div>
     
         <div class="example">
@@ -445,8 +446,8 @@
           </mdw-card-group>
         </div>
 
-        <div class="mdw-headline" style="margin-top: 42px;">Drag reorder using swap</div>
-        <div class="mdw-subhead">Swap two cards positions</div>
+        <div class="mdw-headline" style="margin-top: 42px;">Drag reorder - swap two items</div>
+        <div class="mdw-subhead">Press and hold on card to reorder</div>
         <div class="example">
           <mdw-card-group class="mdw-reorder-swap">
             ${page.cardArray.map(({ height }, i) => `
@@ -471,7 +472,8 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card-group class="mdw-reorder">
+  ${page.escape(`<!-- 'mdw-reorder-no-animation' class will remove the reorder animation -->
+  <mdw-card-group class="mdw-reorder mdw-reorder-no-animation">
     <mdw-card></mdw-card>
     <mdw-card></mdw-card>
     <mdw-card></mdw-card>

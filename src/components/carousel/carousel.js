@@ -24,10 +24,11 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     this.insertAdjacentHTML('afterbegin', '<div class="mdw-carousel-front-padding"></div>');
     this.insertAdjacentHTML('beforeend', '<div class="mdw-carousel-back-padding"></div>');
     this.addEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
-    this.#drag = new Drag(this);
-    this.#drag.noTouchEvents = true;
-    this.#drag.overflowDrag = true;
-    this.#drag.lockScrollY = true;
+    this.#drag = new Drag(this, {
+      disableTouchEvents: true,
+      overflowDrag: true,
+      lockScrollY: true
+    });
     this.#drag.on('mdwdragstart', () => this.#hasDragged = true);
     this.#drag.on('mdwdragmove', this.#onDrag_bound);
     this.#drag.enable();
@@ -63,8 +64,8 @@ export default class MDWCarouselElement extends HTMLElementExtended {
     this.scrollTo({ left: this.#itemScrollPositions[index], behavior: animation ? 'smooth' : 'instant' });
   }
 
-  #onDrag({ movementX }) {
-    this.scrollLeft -= movementX;
+  #onDrag({ distanceDeltaX }) {
+    this.scrollLeft -= distanceDeltaX;
   }
 
   #calculateLayout() {

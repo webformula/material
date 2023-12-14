@@ -1,80 +1,105 @@
 import util from './util.js';
 import device from './device.js';
 
+const defaultConfig = {
+  disableMouseEvents: false,
+  disableTouchEvents: !device.hasTouchScreen,
+  lockScrollY: false,
+  ignoreElements: [],
+  swipeVelocityThreshold: 0.3,
+  swipeDistanceThreshold: 10,
+  reorder: false,
+  reorderSwap: false,
+  reorderHorizontalOnly: false,
+  reorderVerticalOnly: false,
+  reorderAnimation: true,
+  reorderScrollDelayMS: 250,
+  overflowDrag: false,
+  scrollSnapPositions: []
+};
 
 export default class Drag {
   #element;
-  #enabled = false;
-  #isDragging = false;
-  #noTouchEvents = false;
-  #noMouseEvents = false;
-  #lockScrollY = false;
-  #preventSwipeNavigation = false;
-  #timeConstant = 325;
-  #lockScrollThreshold = 12;
-  #ignoreElements = [];
-  #listeners = {
-    'mdwdragmove': [],
-    'mdwdragstart': [],
-    'mdwdragend': []
-  };
   #abortMain;
   #abortDrag;
   #trackingDetails;
   #overscrollTrackingDetails;
-  #pageContent;
-  #hasScrollSnapPositions = false;
+  #reorderElementsAndBounds;
+  #enabled = false;
+  #isDragging = false;
+  #resetTrackingDetails = false;
+  #swapOffsetY = 0;
+  #swapOffsetX = 0;
+  #swapLastClosestIndex;
+  #reorderAnimateTimestamp;
+  #dragOffsetPosition = 0;
+  #overflowTimeConstant = 150;
+  #stopOverscroll = false;
   #isSnapped = false;
-  #isSnapping = false;
-  #scrollSnapPositions;
-  #isOverflowDragging = false;
-  #overflowDrag = false;
+  #stopSnapping = false;
+  #listeners = {
+    'mdwdragmove': [],
+    'mdwdragstart': [],
+    'mdwdragend': [],
+    'mdwdragreorder': []
+  };
+
   #drag_bound = this.#drag.bind(this);
   #start_bound = this.#start.bind(this);
   #end_bound = this.#end.bind(this);
-  #preventSwipeNavigationHandler_bound = this.#preventSwipeNavigationHandler.bind(this);
-  #resetTrackingDetails = false;
-  #reorder = false;
+
+  #disableMouseEvents = false;
+  #disableTouchEvents = !device.hasTouchScreen;
+  #lockScrollY = false;
+  #ignoreElements = [];
+  #swipeVelocityThreshold = 0.3;
+  #swipeDistanceThreshold = 10;
   #reorderSwap = false;
-  #reorderPreviewOnDrag = true;
+  #reorder = false;
   #reorderHorizontalOnly = false;
   #reorderVerticalOnly = false;
-  #reorderParentElement;
-  #reorderParentElementBounds;
-  #reorderElementIndex;
-  #reorderClosestIndex;
-  #reorderElementsAndBounds;
-  #reorderDragClone;
+  #reorderAnimation = true;
+  #reorderScrollDelayMS = 250;
+  #overflowDrag = false;
+  #scrollSnapPositions = [];
+  // #preventSwipeNavigation = false;
 
-  constructor(element) {
-    if (element) this.#element = element;
-  }
 
-  get element() {
-    return this.#element;
-  }
-  set element(value) {
-    if (this.#element) throw Error('element had already been set, cannot change.');
-    if (!(value instanceof HTMLElement)) throw Error('element must be an instance HTMLElement');
-    this.#element = value;
-  }
-
-  get noMouseEvents() {
-    return this.#noMouseEvents || device.hasTouchScreen;
-  }
-  set noMouseEvents(value) {
-    this.#noMouseEvents = !!value;
-  }
-
-  get noTouchEvents() {
-    return this.#noTouchEvents;
-  }
-  set noTouchEvents(value) {
-    this.#noTouchEvents = !!value;
+  constructor(element, config = defaultConfig) {
+    if (!(element instanceof HTMLElement)) throw Error('HTMLElement required');
+    config = {
+      ...defaultConfig,
+      ...config
+    };
+    this.#element = element;
+    this.#disableMouseEvents = config.disableMouseEvents;
+    this.#disableTouchEvents = config.disableTouchEvents;
+    this.#lockScrollY = config.lockScrollY;
+    this.#ignoreElements = config.ignoreElements;
+    this.#swipeVelocityThreshold = config.swipeVelocityThreshold;
+    this.#swipeDistanceThreshold = config.swipeDistanceThreshold;
+    this.#reorder = config.reorder;
+    this.#reorderSwap = config.reorderSwap;
+    this.reorderHorizontalOnly = config.reorderHorizontalOnly;
+    this.reorderVerticalOnly = config.reorderVerticalOnly;
+    this.#reorderAnimation = config.reorderAnimation;
+    this.#reorderScrollDelayMS = config.reorderScrollDelayMS;
+    this.#overflowDrag = config.overflowDrag;
+    this.#scrollSnapPositions = config.scrollSnapPositions;
   }
 
-  get isDragging() {
-    return this.#isDragging;
+  get disableMouseEvents() {
+    return this.#disableMouseEvents;
+  }
+  set disableMouseEvents(value) {
+    this.#disableMouseEvents = !!value;
+  }
+
+  get disableTouchEvents() {
+    return this.#disableTouchEvents;
+  }
+  set disableTouchEvents(value) {
+    this.#disableTouchEvents = !!value;
   }
 
   get lockScrollY() {
@@ -84,49 +109,11 @@ export default class Drag {
     this.#lockScrollY = !!value;
   }
 
-  get lockScrollThreshold() {
-    return this.#lockScrollThreshold;
+  get reorder() {
+    return this.#reorder;
   }
-  set lockScrollThreshold(value) {
-    if (isNaN(value)) throw Error('lockScrollThreshold must be a number')
-    this.#lockScrollThreshold = parseInt(value);
-  }
-
-  get scrollSnapPositions() {
-    return this.#scrollSnapPositions;
-  }
-  set scrollSnapPositions(value) {
-    this.#hasScrollSnapPositions = Array.isArray(value) && value.length > 0;
-    if (this.#hasScrollSnapPositions) this.#scrollSnapPositions = value;
-    else this.#scrollSnapPositions = undefined;
-  }
-
-  get overflowDrag() {
-    return this.#overflowDrag;
-  }
-  set overflowDrag(value) {
-    this.#overflowDrag = !!value;
-  }
-
-  get preventSwipeNavigation() {
-    return this.#preventSwipeNavigation;
-  }
-  set preventSwipeNavigation(value) {
-    this.#preventSwipeNavigation = !!value;
-  }
-
-  get reorderParentElement() {
-    return this.#reorderParentElement;
-  }
-  set reorderParentElement(value) {
-    if (!(value instanceof HTMLElement) || !value.contains(this.#element)) {
-      this.#reorderParentElement = undefined;
-      this.#reorder = false;
-      console.warn('reorderParent requires an html element that contains the drag element');
-    } else {
-      this.#reorderParentElement = value;
-      this.#reorder = true;
-    }
+  set reorder(value) {
+    this.#reorder = !!value;
   }
 
   get reorderSwap() {
@@ -136,18 +123,12 @@ export default class Drag {
     this.#reorderSwap = !!value;
   }
 
-  get reorderPreviewOnDrag() {
-    return this.#reorderPreviewOnDrag;
-  }
-  set reorderPreviewOnDrag(value) {
-    this.#reorderPreviewOnDrag = !!value;
-  }
-
   get reorderHorizontalOnly() {
     return this.#reorderHorizontalOnly;
   }
   set reorderHorizontalOnly(value) {
     this.#reorderHorizontalOnly = !!value;
+    if (this.#reorderHorizontalOnly) this.#reorderVerticalOnly = false;
   }
 
   get reorderVerticalOnly() {
@@ -155,32 +136,71 @@ export default class Drag {
   }
   set reorderVerticalOnly(value) {
     this.#reorderVerticalOnly = !!value;
+    if (this.#reorderVerticalOnly) this.#reorderHorizontalOnly = false;
+  }
+
+  get reorderAnimation() {
+    return this.#reorderAnimation;
+  }
+  set reorderAnimation(value) {
+    this.#reorderAnimation = !!value;
+  }
+
+  get reorderScrollDelayMS() {
+    return this.#reorderScrollDelayMS;
+  }
+  set reorderScrollDelayMS(value) {
+    this.#reorderScrollDelayMS = value;
+  }
+
+  get overflowDrag() {
+    return this.#overflowDrag;
+  }
+  set overflowDrag(value) {
+    this.#overflowDrag = !!value;
+  }
+
+  get scrollSnapPositions() {
+    return this.#scrollSnapPositions;
+  }
+  set scrollSnapPositions(value) {
+    if (Array.isArray(value)) this.#scrollSnapPositions = value;
+    else this.#scrollSnapPositions = [];
   }
 
 
   enable() {
     if (this.#enabled) return;
-    if (!this.#element) throw Error('Element is required');
     this.#enabled = true;
     this.#abortMain = new AbortController();
 
-    if (!this.noMouseEvents) this.#element.addEventListener('mousedown', this.#start_bound, { signal: this.#abortMain.signal });
-    if (!this.noTouchEvents) {
-      this.#element.addEventListener('touchstart', this.#start_bound, { signal: this.#abortMain.signal });
-      this.#pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
+    if (this.#reorder) {
+      util.addLongPressListener(this.#element, this.#start_bound, {
+        disableMouseEvents: this.#disableMouseEvents,
+        disableTouchEvents: this.#disableTouchEvents
+      });
+    } else {
+      if (!this.#disableMouseEvents) this.#element.addEventListener('mousedown', this.#start_bound, { signal: this.#abortMain.signal });
+      if (!this.#disableTouchEvents) {
+        this.#element.addEventListener('touchstart', this.#start_bound, { signal: this.#abortMain.signal });
+        // this.#pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
+      }
     }
   }
 
   disable() {
     if (this.#abortMain) this.#abortMain.abort();
-    if (this.#abortDrag) this.#abortDrag.abort();
-    this.#isDragging = false;
+    util.removeLongPressListener(this.#element, this.#start_bound);
     this.#enabled = false;
+    this.cancel();
     if (this.#lockScrollY) util.unlockPageScroll();
   }
 
   cancel() {
     if (this.#abortDrag) this.#abortDrag.abort();
+    this.#element.classList.remove('mdw-drag-active');
+    this.#element.classList.remove('mdw-drag-reorder-active');
+    this.#cleanupReorder();
     this.#isDragging = false;
     if (this.#lockScrollY) util.unlockPageScroll();
   }
@@ -188,11 +208,7 @@ export default class Drag {
   destroy() {
     this.disable();
     this.#element = undefined;
-    this.#listeners = {
-      'mdwdragmove': [],
-      'mdwdragstart': [],
-      'mdwdragend': []
-    };
+    this.#listeners = {};
   }
 
   resetTracking() {
@@ -200,19 +216,13 @@ export default class Drag {
   }
 
   on(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend, mdwdragreorder');
     this.#listeners[eventType].push(callback);
   }
 
   off(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend, mdwdragreorder');
     if (this.#listeners[eventType].includes(callback)) this.#listeners[eventType].splice(this.#listeners[eventType].indexOf(callback), 1);
-  }
-
-  trigger(event) {
-    if (!this.#listeners[event.type]) return;
-    this.#element.dispatchEvent(event);
-    this.#listeners[event.type].forEach(callback => callback(event));
   }
 
   addIgnoreElement(element) {
@@ -223,14 +233,20 @@ export default class Drag {
     this.#ignoreElements = [];
   }
 
+  #trigger(event) {
+    if (!this.#listeners[event.type]) return;
+    this.#element.dispatchEvent(event);
+    this.#listeners[event.type].forEach(callback => callback(event));
+  }
 
   #start(event) {
     this.#resetTrackingDetails = false;
 
-    // does this need to be on always
-    if (this.#preventSwipeNavigation) {
-      this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
-    }
+    // // does this need to be on always
+    // if (this.#preventSwipeNavigation) {
+    //   // TODO do i need passive: false?
+    //   this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
+    // }
 
     // right click
     if (event.which === 3) {
@@ -240,8 +256,9 @@ export default class Drag {
     if (this.#ignoreElements.find(v => v === event.target || v.contains(event.target))) return;
 
     this.#isSnapped = false;
-    this.#isSnapping = false;
-    this.#isOverflowDragging = false;
+    this.#stopOverscroll = true;
+    this.#stopSnapping = true;
+
     this.#isDragging = false;
     if (this.#abortDrag) this.#abortDrag.abort();
     this.#abortDrag = new AbortController();
@@ -249,247 +266,467 @@ export default class Drag {
 
     if (this.#reorder) this.#setupReorder();
 
-    if (!this.noTouchEvents) {
+    if (!this.#disableTouchEvents) {
+      // this break click
+      // if (this.#lockScrollY && event.preventDefault) event.preventDefault(); // prevents click
       this.#element.addEventListener('touchend', this.#end_bound, { signal: this.#abortDrag.signal });
-      this.#element.addEventListener('touchmove', this.#drag_bound, { signal: this.#abortDrag.signal });
+      this.#element.addEventListener('touchmove', this.#drag_bound, { passive: false, signal: this.#abortDrag.signal });
     }
 
-    if (!this.noMouseEvents) {
+    if (!this.#disableMouseEvents) {
       window.addEventListener('mouseup', this.#end_bound, { signal: this.#abortDrag.signal });
       window.addEventListener('mousemove', this.#drag_bound, { signal: this.#abortDrag.signal });
     }
+
+    this.#isDragging = true;
+    this.#element.classList.add('mdw-drag-active');
+    const dragEvent = this.#track(event, 'mdwdragstart');
+    if (this.#lockScrollY) util.lockPageScroll();
+    this.#trigger(dragEvent);
   }
 
   #end(event) {
     if (this.#abortDrag) this.#abortDrag.abort();
     if (!this.#isDragging) return;
 
-    // does this need to be on always
-    if (this.#preventSwipeNavigation) {
-      this.#pageContent.removeEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
-    }
+    // // does this need to be on always
+    // if (this.#preventSwipeNavigation) {
+    //   this.#pageContent.removeEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
+    // }
 
-    if (this.#lockScrollY) util.unlockPageScroll();
-
+    if (this.#lockScrollY || this.#reorder) util.unlockPageScroll();
     const dragEvent = this.#track(event, 'mdwdragend');
-    if (this.#overflowDrag) this.#trackOverscroll();
-    if (this.#overflowDrag && (this.#overscrollTrackingDetails.overscrollX || this.#overscrollTrackingDetails.overscrollY)) {
-      this.#isOverflowDragging = true;
-      requestAnimationFrame(() => this.#overscroll(dragEvent));
-    } else {
-      this.#endPost(dragEvent);
-    }
+    if (this.#overflowDrag) this.#startOverscroll(dragEvent);
+    else this.#endFinal(dragEvent);
   }
 
-  #endPost(event) {
-    if (this.#hasScrollSnapPositions && !this.#isSnapped) {
-      this.#snap(event);
-    } else {
-      this.#isDragging = false;
-      this.#isSnapping = false;
-      if (this.#reorder) this.#endReorder();
-      this.trigger(event);
-    }
+  #endFinal(event) {
+    if (this.#scrollSnapPositions && this.#scrollSnapPositions.length > 0 && !this.#isSnapped) return this.#snap(event)
+    this.#element.classList.remove('mdw-drag-active');
+    if (this.#reorder) this.#endReorder();
+    this.#isDragging = false;
+    this.#trigger(event);
   }
 
   #drag(event) {
-    // drag start
-    if (!this.#isDragging) {
-      this.#isDragging = true;
-      const dragEvent = this.#track(event, 'mdwdragstart');
-      this.trigger(dragEvent);
-
-      if (this.#lockScrollY) util.lockPageScroll();
-
-      // cancel or disable called from mdwdragstart canceling
-      if (this.#isDragging === false) return;
-    }
-
-
+    // cancel or disable called from mdwdragstart canceling
+    if (this.#isDragging === false) return;
+  
     if (this.#resetTrackingDetails) {
       this.#resetTrack(event);
       this.#resetTrackingDetails = false;
     }
+    if (event.preventDefault && (this.#lockScrollY || this.#reorder)) event.preventDefault();
     const dragEvent = this.#track(event, 'mdwdragmove');
-
-    if (this.#lockScrollY) {
-      if (event.preventDefault) event.preventDefault();
-    }
-
+    
     if (this.#reorder) this.#reorderDrag(dragEvent);
 
-    this.trigger(dragEvent);
+    this.#trigger(dragEvent);
     return dragEvent;
   }
 
-  #getDistance(p1, p2) {
-    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2))
+
+
+  #getClientPosition(event) {
+    return {
+      clientX: event.changedTouches ? event.changedTouches[0].clientX : event.clientX,
+      clientY: event.changedTouches ? event.changedTouches[0].clientY : event.clientY
+    };
   }
 
+  // Note: distance and distanceDelta will always be positive because of squaring the x y distances
+  #getDistance(x, y, previousX, previousY, initialX, initialY) {
+    const distanceX = x - initialX;
+    const distanceY = y - initialY;
+    const distanceDeltaX = x - previousX;
+    const distanceDeltaY = y - previousY;
+    return {
+      distanceX,
+      distanceY,
+      distance: Math.sqrt((distanceX * distanceX) + (distanceY * distanceY)),
+      distanceDeltaX,
+      distanceDeltaY,
+      distanceDelta: Math.sqrt((distanceDeltaX * distanceDeltaX) + (distanceDeltaY * distanceDeltaY))
+    };
+  }
+
+  #getDirection({ distanceX, distanceY, distanceDeltaX, distanceDeltaY }) {
+    let direction = 'none';
+    if (Math.abs(distanceX) > Math.abs(distanceY)) direction = distanceX < 0 ? 'left' : 'right';
+    else direction = distanceY < 0 ? 'up' : 'down';
+
+    let directionDelta = 'none';
+    if (Math.abs(distanceDeltaX) > Math.abs(distanceDeltaY)) directionDelta = distanceDeltaX < 0 ? 'left' : 'right';
+    else directionDelta = distanceDeltaY < 0 ? 'up' : 'down';
+
+    return {
+      directionX: distanceX === 0 ? 0 : distanceX > 0 ? 1 : -1,
+      directionY: distanceY === 0 ? 0 : distanceY > 0 ? 1 : -1,
+      direction,
+      directionDeltaX: distanceDeltaX === 0 ? 0 : distanceDeltaX > 0 ? 1 : -1,
+      directionDeltaY: distanceDeltaY === 0 ? 0 : distanceDeltaY > 0 ? 1 : -1,
+      directionDelta
+    };
+  }
+
+  #getVelocity(distance, elapsedTime, elapsedTimeDelta, previousVelocityDeltaX, previousVelocityDeltaY, previousVelocityDelta) {
+    const velocityX = distance.distanceX / elapsedTime;
+    const velocityY = distance.distanceY / elapsedTime;
+    const velocity = distance.distance / elapsedTime;
+    const velocityDeltaX = 0.4 * (1000 * distance.distanceDeltaX / (1 + elapsedTimeDelta)) + 0.2 * previousVelocityDeltaX;
+    const velocityDeltaY = 0.4 * (1000 * distance.distanceDeltaY / (1 + elapsedTimeDelta)) + 0.2 * previousVelocityDeltaY;
+    const velocityDelta = 0.4 * (1000 * distance.distanceDelta / (1 + elapsedTimeDelta)) + 0.2 * previousVelocityDelta;
+    return {
+      velocityX,
+      velocityY,
+      velocity,
+      velocityDeltaX,
+      velocityDeltaY,
+      velocityDelta
+    };
+  }
+
+  #getSwipe({
+    pointers,
+    distanceX,
+    distanceY,
+    distance,
+    velocity,
+    velocityX,
+    velocityY
+  }) {
+    const hasPointer = pointers === 1;
+    return {
+      swipeX: hasPointer && Math.abs(distanceX) > this.#swipeDistanceThreshold && Math.abs(velocityX) > this.#swipeVelocityThreshold,
+      swipeY: hasPointer && Math.abs(distanceY) > this.#swipeDistanceThreshold && Math.abs(velocityY) > this.#swipeVelocityThreshold,
+      swipe: hasPointer && distance > this.#swipeDistanceThreshold && Math.abs(velocity) > this.#swipeVelocityThreshold
+    };
+  }
+
+  #resetTrack(event = { clientX: 0, clientY: 0 }) {
+    const client = this.#getClientPosition(event);
+    this.#trackingDetails = {
+      clientInitialX: client.clientX,
+      clientInitialY: client.clientY,
+      ...client,
+      distanceX: 0,
+      distanceY: 0,
+      distance: 0,
+      distanceDeltaX: 0,
+      distanceDeltaY: 0,
+      distanceDelta: 0,
+      elapsedTime: 0,
+      elapsedTimeDelta: 0,
+      pointers: 0,
+      timeStamp: Date.now(),
+      timeStampDelta: Date.now(),
+      velocityX: 0,
+      velocityY: 0,
+      velocity: 0,
+      velocityDeltaX: 0,
+      velocityDeltaY: 0,
+      velocityDelta: 0
+    };
+  }
 
   #track(event, eventType) {
-    if (eventType !== 'mdwdragend') {
-      const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
-      const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-      const movementX = clientX - this.#trackingDetails.clientX;
-      const movementY = clientY - this.#trackingDetails.clientY;
-      const distanceX = clientX - this.#trackingDetails.clientXInitial;
-      const distanceY = clientY - this.#trackingDetails.clientYInitial;
-      const directionX = distanceX > this.#trackingDetails.distanceX ? 1 : distanceX === this.#trackingDetails.distanceX ? 0 : -1;
-      const directionY = distanceY > this.#trackingDetails.distanceY ? 1 : distanceY === this.#trackingDetails.distanceY ? 0 : -1;
-      const elapsedTime = Date.now() - this.#trackingDetails.timeStamp;
+    // if (eventType !== 'mdwdragend') {
+      const client = this.#getClientPosition(event);
+      const clientInitialX = this.#trackingDetails.clientInitialX || client.clientX;
+      const clientInitialY = this.#trackingDetails.clientInitialY || client.clientY;
+      const distance = this.#getDistance(
+        client.clientX,
+        client.clientY,
+        this.#trackingDetails.clientX,
+        this.#trackingDetails.clientY,
+        clientInitialX,
+        clientInitialY
+      );
+      const direction = this.#getDirection(distance);
+      const timeStampDelta = Date.now();
+      const timeStamp = this.#trackingDetails.timeStamp || timeStampDelta;
+      const elapsedTime = timeStampDelta - this.#trackingDetails.timeStamp;
+      const elapsedTimeDelta = timeStampDelta - this.#trackingDetails.timeStampDelta;
+      const pointers = event.changedTouches ? event.changedTouches.length : 1;
+      const velocity = this.#getVelocity(
+        distance,
+        elapsedTime,
+        elapsedTimeDelta,
+        this.#trackingDetails.velocityDeltaX,
+        this.#trackingDetails.velocityDeltaY,
+        this.#trackingDetails.velocityDelta
+      );
 
       this.#trackingDetails = {
-        clientXInitial: this.#trackingDetails.clientXInitial,
-        clientYInitial: this.#trackingDetails.clientYInitial,
-        clientX,
-        clientY,
-        distanceX,
-        distanceY,
-        movementX,
-        movementY,
-        directionX,
-        directionY,
-        directionXDescription: directionX === 0 ? 'none' : directionX === 1 ? 'right' : 'left',
-        directionYDescription: directionY === 0 ? 'none' : directionY === 1 ? 'down' : 'up',
+        ...client,
+        clientInitialX,
+        clientInitialY,
+        ...distance,
+        ...direction,
         elapsedTime,
-        timeStamp: Date.now(),
-        velocityX: 0.4 * (1000 * movementX / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityX,
-        velocityY: 0.4 * (1000 * movementY / (1 + elapsedTime)) + 0.2 * this.#trackingDetails.velocityY
+        elapsedTimeDelta,
+        pointers,
+        timeStamp,
+        timeStampDelta,
+        ...velocity,
       };
-    }
+    // }
 
     const dragEvent = new CustomEvent(eventType);
     dragEvent.clientX = this.#trackingDetails.clientX;
     dragEvent.clientY = this.#trackingDetails.clientY;
     dragEvent.distanceX = this.#trackingDetails.distanceX;
     dragEvent.distanceY = this.#trackingDetails.distanceY;
-    dragEvent.movementX = this.#trackingDetails.movementX;
-    dragEvent.movementY = this.#trackingDetails.movementY;
+    dragEvent.distance = this.#trackingDetails.distance;
+    dragEvent.distanceDeltaX = this.#trackingDetails.distanceDeltaX;
+    dragEvent.distanceDeltaY = this.#trackingDetails.distanceDeltaY;
+    dragEvent.distanceDelta = this.#trackingDetails.distanceDelta;
     dragEvent.directionX = this.#trackingDetails.directionX;
     dragEvent.directionY = this.#trackingDetails.directionY;
-    dragEvent.directionXDescription = this.#trackingDetails.directionXDescription;
-    dragEvent.directionYDescription = this.#trackingDetails.directionYDescription;
+    dragEvent.direction = this.#trackingDetails.direction;
+    dragEvent.directionDeltaX = this.#trackingDetails.directionDeltaX;
+    dragEvent.directionDeltaY = this.#trackingDetails.directionDeltaY;
+    dragEvent.directionDelta = this.#trackingDetails.directionDelta;
+    dragEvent.velocityX = this.#trackingDetails.velocityX;
+    dragEvent.velocityY = this.#trackingDetails.velocityY;
+    dragEvent.velocity = this.#trackingDetails.velocity;
+    dragEvent.velocityDeltaX = this.#trackingDetails.velocityDeltaX;
+    dragEvent.velocityDeltaY = this.#trackingDetails.velocityDeltaY;
+    dragEvent.velocityDelta = this.#trackingDetails.velocityDelta;
+    dragEvent.elapsedTime = this.#trackingDetails.elapsedTime;
+    dragEvent.elapsedTimeDelta = this.#trackingDetails.elapsedTimeDelta;
+
+    if (eventType === 'mdwdragend') {
+      const swipes = this.#getSwipe(this.#trackingDetails);
+      dragEvent.swipeX = swipes.swipeX;
+      dragEvent.swipeY = swipes.swipeY;
+      dragEvent.swipe = swipes.swipe;
+    }
+    // dragEvent.timeStamp = this.#trackingDetails.timeStamp;
+    // dragEvent.timeStampDelta = this.#trackingDetails.timeStampDelta;
     // can be passed customEvents during overscroll and snap
     if (event.preventDefault) dragEvent.preventDefault = () => event.preventDefault();
     return dragEvent;
   }
 
-  #resetTrack(event = { clientX: 0, clientY: 0 }) {
-    const clientX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
-    const clientY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-    this.#trackingDetails = {
-      clientXInitial: clientX,
-      clientYInitial: clientY,
-      clientX,
-      clientY,
-      distanceX: 0,
-      distanceY: 0,
-      timeStamp: Date.now(),
-      velocityX: 0,
-      velocityY: 0
-    };
+  #getDistanceBetweenBounds(b1, b2) {
+    return Math.sqrt(Math.pow((b1.x + b1.width / 2) - (b2.x + b2.width / 2), 2) + Math.pow((b1.y + b1.height / 2) - (b2.y + b2.height / 2), 2))
   }
 
-  #trackOverscroll() {
-    const amplitudeX = 0.8 * this.#trackingDetails.velocityX;
-    const amplitudeY = 0.8 * this.#trackingDetails.velocityY;
+
+
+
+
+  // --- Reorder ----
+
+  #setupReorder() {
+    this.#element.classList.add('mdw-drag-reorder-active');
+    util.lockPageScroll();
+    // we use transform to move the dragged item so we need to raise it above all items
+    this.#element.style.zIndex = 999;
+    this.#reorderElementsAndBounds = [...this.#element.parentElement.children].map((element, i) => ({
+      element,
+      originalBounds: element.getBoundingClientRect(),
+      index: i,
+      initialIndex: i
+    }));
+    // need to do this do the getBoundingClientRect on the elements is correct for animations in reorderDrag
+    this.#reorderElementsAndBounds.forEach(({ element, index }) => element.style.order = index);
+    this.#animateReorderOffset();
+  }
+
+  #endReorder() {
+    const dragged = this.#reorderElementsAndBounds.find(i => i.dragged);
+    const target = this.#reorderElementsAndBounds.find(i => i.target);
+    this.#cleanupReorder();
+    if (!dragged || !target || dragged.index === target.index || dragged.index === dragged.initialIndex) return;
+
+    const closestNextElement = target.element.nextElementSibling;
+    if (this.#reorderSwap) {
+      const elementNextElement = dragged.element.nextElementSibling;
+      if (!elementNextElement) {
+        this.#element.parentElement.append(target.element);
+      } else {
+        this.#element.parentElement.insertBefore(target.element, elementNextElement);
+      }
+      if (!closestNextElement) {
+        this.#element.parentElement.append(dragged.element);
+      } else {
+        this.#element.parentElement.insertBefore(dragged.element, closestNextElement);
+      }
+    } else {
+      if (dragged.index > target.index) {
+        // last position check
+        if (!closestNextElement) this.#element.parentElement.append(dragged.element);
+        else this.#element.parentElement.insertBefore(dragged.element, closestNextElement);
+      } else {
+        this.#element.parentElement.insertBefore(dragged.element, target.element);
+      }
+    }
+
+    this.#trigger(new Event('mdwdragreorder'));
+  }
+
+  #cleanupReorder() {
+    (this.#reorderElementsAndBounds || []).forEach(({ element }) => {
+      element.style.order = '';
+      element.style.zIndex = '';
+      element.style.opacity = '';
+      element.style.transform = '';
+      element.style.transition = '';
+      element.style.transitionTimingFunction = '';
+    });
+    this.#reorderElementsAndBounds = [];
+    this.#swapOffsetY = 0;
+    this.#swapOffsetX = 0;
+    this.#swapLastClosestIndex = undefined;
+    this.#dragOffsetPosition = 0;
+    this.#reorderAnimateTimestamp = undefined;
+    this.#element.classList.remove('mdw-drag-reorder-active');
+  }
+
+  #reorderDrag(dragEvent) {
+    const distanceX = this.#reorderVerticalOnly ? 0 : dragEvent.distanceX;
+    const distanceY = this.#reorderHorizontalOnly ? 0 : dragEvent.distanceY;
+    this.#element.style.transform = `translate(${distanceX + this.#swapOffsetX}px,${distanceY + this.#swapOffsetY}px) translate(-${this.#dragOffsetPosition}px, -${this.#dragOffsetPosition}px)`;
+    
+    const dragBounds = this.#element.getBoundingClientRect();
+    const closestItem = this.#reorderElementsAndBounds
+      .filter(({ originalBounds }) => { // remove any items not overlapping
+        if (dragBounds.left >= originalBounds.right || originalBounds.left >= dragBounds.right) return false;
+        if (dragBounds.top >= originalBounds.bottom || originalBounds.top >= dragBounds.bottom) return false;
+        return true;
+      }).reduce((previous, item) => { // get nearest by center point
+        if (!previous) return item;
+        return this.#getDistanceBetweenBounds(previous.originalBounds, dragBounds) < this.#getDistanceBetweenBounds(item.originalBounds, dragBounds) ? previous : item;
+      }, undefined);
+    
+
+    if (!closestItem) return;
+
+    const dragItem = this.#reorderElementsAndBounds.find(({ element }) => element === this.#element);
+    // reset data
+    this.#reorderElementsAndBounds.forEach(item => {
+      item.lastIndex = item.index;
+      item.index = item.initialIndex;
+      item.target = false;
+    });
+    dragItem.index = closestItem.initialIndex;
+    // mark for end event
+    dragItem.dragged = true;
+    closestItem.target = true;
+
+    if (this.#reorderSwap) {
+      closestItem.index = dragItem.initialIndex;
+    } else {
+      // shift all items before or after dragged
+      const startIndex = dragItem.initialIndex > closestItem.initialIndex ? closestItem.initialIndex : dragItem.initialIndex + 1;
+      const endIndex = dragItem.initialIndex > closestItem.initialIndex ? dragItem.initialIndex : closestItem.initialIndex + 1;
+      this.#reorderElementsAndBounds.slice(startIndex, endIndex).forEach(item => {
+        if (dragItem.initialIndex > closestItem.initialIndex) item.index += 1;
+        else item.index -= 1;
+      });
+    }
+
+    if (this.#reorderAnimation) {
+      // use css order to preview changes
+      this.#reorderElementsAndBounds.forEach(item => {
+        if (item.index === item.lastIndex || this.#element === item.element || item.inTransition) return;
+
+        item.inTransition = true;
+        item.previousBounds = item.element.getBoundingClientRect();
+        requestAnimationFrame(() => {
+          const currentBounds = item.element.getBoundingClientRect();
+          const distance = this.#getDistanceBetweenBounds(item.previousBounds, currentBounds);
+          item.element.style.transform = `translate(${item.previousBounds.x - currentBounds.x}px, ${item.previousBounds.y - currentBounds.y}px)`;
+
+          if (!item.transitionStarted) {
+            item.transitionStarted = true;
+            requestAnimationFrame(() => {
+              item.element.style.transition = `transform ${Math.abs(distance) * 1.5 + 200}ms`;
+              item.element.style.transitionTimingFunction = 'var(--mdw-motion-easing-decelerate)';
+              item.element.style.transform = '';
+              util.transitionendAsync(item.element).then(() => {
+                item.inTransition = false;
+                item.transitionStarted = false;
+                item.element.style.transition = '';
+                item.element.style.transitionTimingFunction = '';
+              });
+            });
+          }
+        });
+      });
+    }
+
+    this.#reorderElementsAndBounds.forEach(item => {
+      item.element.style.order = item.index;
+    });
+
+    // track bounds offset ass css order changes
+    // This will keep the drag item aligned with curser
+    if (this.#swapLastClosestIndex !== closestItem.initialIndex) {
+      const newBounds = this.#element.getBoundingClientRect();
+      this.#swapOffsetY += dragBounds.y - newBounds.y;
+      this.#swapOffsetX += dragBounds.x - newBounds.x;
+      this.#swapLastClosestIndex = closestItem.initialIndex;
+      this.#element.style.transform = `translate(${distanceX + this.#swapOffsetX}px,${distanceY + this.#swapOffsetY}px) translate(-${this.#dragOffsetPosition}px, -${this.#dragOffsetPosition}px)`;
+    }
+  } 
+
+  // animate offset when dragging
+  #animateReorderOffset() {
+    if (!this.#reorderAnimateTimestamp) this.#reorderAnimateTimestamp = Date.now();
+    requestAnimationFrame(() => {
+      const timestamp = Date.now();
+      const delta = timestamp - this.#reorderAnimateTimestamp;
+      this.#reorderAnimateTimestamp = timestamp;
+      this.#dragOffsetPosition += delta / 12; // position change based on time delta for smooth animation
+      if (this.#dragOffsetPosition >= 4) this.#dragOffsetPosition = 4;
+      this.#element.style.transform = `translate(${this.#trackingDetails.distanceX + this.#swapOffsetX}px,${this.#trackingDetails.distanceY + this.#swapOffsetY}px) translate(-${this.#dragOffsetPosition}px, -${this.#dragOffsetPosition}px)`;
+      if (this.#dragOffsetPosition !== 4)  this.#animateReorderOffset();
+    });
+  }
+
+
+
+
+  // --- Overscroll ---
+
+  #startOverscroll(event) {
+    const overscrollX = this.#trackingDetails.velocityDeltaX > 10 || this.#trackingDetails.velocityDeltaX < -10;
+    const overscrollY = this.#trackingDetails.velocityDeltaY > 10 || this.#trackingDetails.velocityDeltaY < -10;
+    if (!overscrollX || !overscrollY) {
+      this.#endFinal(event);
+      return;
+    }
+
+    const amplitudeX = 0.8 * this.#trackingDetails.velocityDeltaX;
+    const amplitudeY = 0.8 * this.#trackingDetails.velocityDeltaY;
     this.#overscrollTrackingDetails = {
-      overscrollX: this.#trackingDetails.velocityX > 10 || this.#trackingDetails.velocityX < -10,
-      overscrollY: this.#trackingDetails.velocityY > 10 || this.#trackingDetails.velocityY < -10,
+      overscrollX,
+      overscrollY,
       amplitudeX,
       amplitudeY,
       scrollTargetX: Math.round(this.#trackingDetails.clientX + amplitudeX),
       scrollTargetY: Math.round(this.#trackingDetails.clientY + amplitudeY),
-      overscrollTimestamp: Date.now()
+      overscrollTimeStamp: Date.now()
     };
-  }
 
-  #preventSwipeNavigationHandler(event) {
-    // if (event.pageX < 20 || event.pageX > window.visualViewport.width - 20) {
-    if (event.pageX < 20 || event.pageX > window.innerWidth - 20) {
-      event.preventDefault();
-    }
-  }
-
-  #snap(event) {
-    this.#isSnapping = true;
-    const nextScrollLeft = this.element.scrollLeft;
-    const nextScrollTop = this.element.scrollTop;
-    const directionPercent = event.directionX === 1 ? 0.76 : 0.24; // preference towards the next element
-    const hasX = this.#scrollSnapPositions[0].x !== undefined;
-    const hasY = this.#scrollSnapPositions[0].y !== undefined;
-    let target;
-    if (hasX && hasY) target = this.#nearestCoord(nextScrollLeft, nextScrollTop, directionPercent);
-    else {
-      const value = this.#nearestSingle(hasX ? nextScrollLeft : nextScrollTop, directionPercent);
-      target = {
-        [hasX ? 'x' : 'y']: value,
-        [hasX ? 'y' : 'x']: 0
-      };
-    }
-    requestAnimationFrame(() => this.#snapMove(target, event, event.directionX, event.directionY));
-  }
-
-  #nearestSingle(target, directionPercent) {
-    return this.#scrollSnapPositions.map(v => v.x !== undefined ? v.x : v.y).reduce((a, b) => {
-      if (target > b) return b;
-      const percent = (target - a) / (b - a);
-      return percent > directionPercent ? b : a;
-    });
-  }
-
-  #nearestCoord(x, y, directionPercent) {
-    return this.#scrollSnapPositions.reduce((a, b) => {
-      if (x > b.x || y > b.y) return b;
-      const percentX = (x - a.x) / (b.x - a.y);
-      const percentY = (y - a.y) / (b.y - a.y);
-      return percentX > directionPercent && percentY > directionPercent ? b : a;
-    });
-  }
-
-  #snapMove(target, lastEvent, previousDirectionX, previousDirectionY) {
-    if (!this.#isSnapping) return;
-
-    const diffX = target.x - this.element.scrollLeft;
-    const diffY = target.y - this.element.scrollTop;
-    const isBounceBackX = (previousDirectionX < 0 && diffX < 0) || (previousDirectionX > 0 && diffX > 0);
-    const isBounceBackY = (previousDirectionY < 0 && diffX < 0) || (previousDirectionY > 0 && diffX > 0);
-    let percent = Math.exp(-(Date.now() - this.#trackingDetails.timeStamp) / this.#timeConstant) * 0.2;
-    // speed change for reverse
-    if (isBounceBackX || isBounceBackY) percent *= 0.5;
-
-    const movementX = -diffX * percent;
-    const movementY = -diffY * percent;
-    const isMaxScrollX = (this.#element.scrollWidth === this.#element.offsetWidth) || this.#element.scrollWidth - this.#element.offsetWidth === this.#element.scrollLeft;
-    const isMaxScrollY = (this.#element.scrollHeight === this.#element.offsetHeight) || this.#element.scrollHeight - this.#element.offsetHeight === this.#element.scrollTop;
-    const keepScrollingX = (movementX > 1 || movementX < -1) && !isMaxScrollX;
-    const keepScrollingY = (movementY > 1 || movementY < -1) && !isMaxScrollY;
-    if (!keepScrollingX && !keepScrollingY) {
-      this.#isSnapped = true;
-      this.#endPost(lastEvent);
-      return;
-    }
-
-    const clientX = lastEvent.changedTouches ? lastEvent.changedTouches[0].clientX : lastEvent.clientX;
-    const clientY = lastEvent.changedTouches ? lastEvent.changedTouches[0].clientY : lastEvent.clientY;
-    const dragEvent = this.#drag({
-      clientX: clientX + movementX,
-      clientY: clientY + movementY
-    });
-    requestAnimationFrame(() => this.#snapMove(target, dragEvent, previousDirectionX, previousDirectionY));
+    this.#stopOverscroll = false;
+    this.#overscroll(event);
   }
 
   #overscroll(event) {
-    if (this.#isOverflowDragging === false) return;
+    if (this.#stopOverscroll) return;
 
-    const elapsed = Date.now() - this.#overscrollTrackingDetails.overscrollTimestamp;
-    const deltaX = -this.#overscrollTrackingDetails.amplitudeX * Math.exp(-elapsed / this.#timeConstant);
-    const deltaY = -this.#overscrollTrackingDetails.amplitudeY * Math.exp(-elapsed / this.#timeConstant);
+    const elapsed = Date.now() - this.#overscrollTrackingDetails.overscrollTimeStamp;
+    const deltaX = -this.#overscrollTrackingDetails.amplitudeX * Math.exp(-elapsed / this.#overflowTimeConstant);
+    const deltaY = -this.#overscrollTrackingDetails.amplitudeY * Math.exp(-elapsed / this.#overflowTimeConstant);
+
     const keepScrollingX = deltaX > 1 || deltaX < -1;
     const keepScrollingY = deltaY > 1 || deltaY < -1;
-    if ((!keepScrollingX && !keepScrollingY) || (this.#hasScrollSnapPositions && Math.abs(deltaX) < 140)) {
-      this.#endPost(this.#track(event, 'mdwdragend'));
+    if ((!keepScrollingX && !keepScrollingY) || (!this.#scrollSnapPositions && this.#scrollSnapPositions.length === 0 && Math.abs(deltaX) < 140)) {
+      this.#endFinal(this.#track(event, 'mdwdragend'));
       return;
     }
 
@@ -502,127 +739,68 @@ export default class Drag {
       clientX: event.clientX + movementX,
       clientY: event.clientY + movementY
     });
+
     requestAnimationFrame(() => this.#overscroll(dragEvent));
   }
 
 
-  #setupReorder() {
-    this.#reorderParentElementBounds = this.#reorderParentElement.getBoundingClientRect();
-    const elements = [...this.#reorderParentElement.children];
-    this.#reorderElementsAndBounds = [...this.#reorderParentElement.children].map(element => ({
-      element,
-      bounds: element.getBoundingClientRect()
-    }));
-    this.#reorderElementIndex = elements.indexOf(this.#element);
-    this.#reorderClosestIndex = this.#reorderElementIndex;
-    this.#reorderDragClone = this.#element.cloneNode(true);
-    const computedStyles = getComputedStyle(this.#element);
-    const bounds = this.#element.getBoundingClientRect();
-    this.#reorderDragClone.setAttribute('id', '');
-    this.#reorderDragClone.style.position = 'fixed';
-    this.#reorderDragClone.style.top = `${bounds.top}px`;
-    this.#reorderDragClone.style.left = `${bounds.left}px`;
-    this.#reorderDragClone.style.width = `${bounds.width}px`;
-    this.#reorderDragClone.style.height = `${bounds.height}px`;
-    this.#reorderDragClone.style.transition = 'none';
-    this.#reorderDragClone.style.animation = 'none';
-    this.#reorderDragClone.style.display = computedStyles.display;
-    this.#reorderDragClone.style.flexDirection = computedStyles.flexDirection;
-    this.#reorderDragClone.style.overflow = computedStyles.overflow;
-    this.#reorderDragClone.classList.remove('mdw-animation');
-    const hasUncachedImg = [...this.#reorderDragClone.querySelectorAll('img')].find(img => !img.complete)
-    if (hasUncachedImg) {
-      console.warn('It appears that the images in the drag element is not cached, this will cause some flashing when starting to drag. This could be caused by the browser cache being disabled or the image not having proper cache headers');
-    }
-    document.body.append(this.#reorderDragClone);
-    this.#element.style.opacity = 0;
+  // --- snap ---
+
+  #snap(event) {
+    this.#stopSnapping = false;
+    const nextScrollLeft = this.#element.scrollLeft;
+    const nextScrollTop = this.#element.scrollTop;
+    const snapPosition = this.#getSnapPosition(nextScrollLeft, nextScrollTop, event.directionX, event.directionY);
+    this.#snapMove(snapPosition, event, event.directionX, event.directionY)
   }
 
-  #endReorder() {
-    this.#element.style.transform = '';
-    this.#element.style.opacity = '';
-    this.#reorderDragClone.style.display = 'none';
-    this.#reorderDragClone.parentElement.removeChild(this.#reorderDragClone);
-    this.#reorderDragClone = undefined;
-    if (this.#reorderClosestIndex !== this.#reorderElementIndex) {
-      const elements = this.#reorderElementsAndBounds.map(v => v.element);
-      elements[this.#reorderClosestIndex].style.opacity = '';
-      setTimeout(() => {
-        const closestNextElement = elements[this.#reorderClosestIndex].nextElementSibling;
-
-        if (this.#reorderSwap) {
-          const elementNextElement = elements[this.#reorderElementIndex].nextElementSibling;
-          if (!elementNextElement) {
-            this.#reorderParentElement.append(elements[this.#reorderClosestIndex]);
-          } else {
-            this.#reorderParentElement.insertBefore(elements[this.#reorderClosestIndex], elementNextElement);
-          }
-          if (!closestNextElement) {
-            this.#reorderParentElement.append(elements[this.#reorderElementIndex]);
-          } else {
-            this.#reorderParentElement.insertBefore(elements[this.#reorderElementIndex], closestNextElement);
-          }
-        } else {
-          if (this.#reorderElementIndex < this.#reorderClosestIndex) {
-            if (!closestNextElement) this.#reorderParentElement.append(elements[this.#reorderElementIndex]);
-            else this.#reorderParentElement.insertBefore(elements[this.#reorderElementIndex], closestNextElement);
-          } else {
-            this.#reorderParentElement.insertBefore(elements[this.#reorderElementIndex], elements[this.#reorderClosestIndex]);
-          }
-        }
-        elements.forEach((e, i) => e.style.order = '');
-      }, 0);
-    }
-  }
-
-  #reorderDrag(dragEvent) {
-    const distanceX = this.#reorderVerticalOnly ? 0 : dragEvent.distanceX;
-    const distanceY = this.#reorderHorizontalOnly ? 0 : dragEvent.distanceY;
-    this.#reorderDragClone.style.transform = `translate(${distanceX}px,${distanceY}px)`;
-    const originalBounds = this.#reorderElementsAndBounds[this.#reorderElementIndex].bounds;
-    const bounds = {
-      x: originalBounds.x + distanceX,
-      left: originalBounds.left + distanceX,
-      right: originalBounds.right + distanceX,
-
-      y: originalBounds.y + distanceY,
-      top: originalBounds.top + distanceY,
-      bottom: originalBounds.bottom + distanceY
+  #getSnapPosition(x, y, directionX, directionY) {
+    const nearest = this.#scrollSnapPositions
+      .reduce((a, b) => {
+        if (!a) return b;
+        const distanceAX = Math.abs(x - (a.x || 0)) * (directionX === 1 ? 0.76 : 0.24);
+        const distanceAY = Math.abs(y - (a.y || 0)) * (directionY === 1 ? 0.76 : 0.24);
+        const distanceBX = Math.abs(x - (b.x || 0)) * (directionX === 1 ? 0.76 : 0.24);
+        const distanceBY = Math.abs(y - (b.y || 0)) * (directionY === 1 ? 0.76 : 0.24);
+        const distanceA = Math.sqrt((distanceAX * distanceAX) + (distanceAY * distanceAY));
+        const distanceB = Math.sqrt((distanceBX * distanceBX) + (distanceBY * distanceBY));
+        return distanceA < distanceB ? a : b;
+      }, undefined);
+    return {
+      x: nearest.x || 0,
+      y: nearest.y || 0
     };
-    const elements = this.#reorderElementsAndBounds.map(v => v.element);
+  }
 
-    // is outside of all elements
-    if (bounds.left > this.#reorderParentElementBounds.right
-      || bounds.right < this.#reorderParentElementBounds.left
-      || bounds.top > this.#reorderParentElementBounds.bottom
-      || bounds.bottom < this.#reorderParentElementBounds.top) {
-      if (this.#reorderClosestIndex !== this.#reorderElementIndex) {
-        elements[this.#reorderClosestIndex].style.opacity = '';
-        this.#reorderElementsAndBounds.forEach((v, i) => v.element.style.order = i);
-      }
-      this.#reorderClosestIndex = this.#reorderElementIndex;
+
+  #snapMove(target, lastEvent, previousDirectionX, previousDirectionY) {
+    if (this.#stopSnapping) return;
+
+    const diffX = target.x - this.#element.scrollLeft;
+    const diffY = target.y - this.#element.scrollTop;
+    const isBounceBackX = (previousDirectionX < 0 && diffX < 0) || (previousDirectionX > 0 && diffX > 0);
+    const isBounceBackY = (previousDirectionY < 0 && diffX < 0) || (previousDirectionY > 0 && diffX > 0);
+    let percent = Math.exp(-(Date.now() - this.#trackingDetails.timeStampDelta) / this.#overflowTimeConstant) * 0.2;
+    // speed change for reverse
+    if (isBounceBackX || isBounceBackY) percent *= 0.5;
+
+    const movementX = -diffX * percent;
+    const movementY = -diffY * percent;
+    const isMaxScrollX = (this.#element.scrollWidth === this.#element.offsetWidth) || this.#element.scrollWidth - this.#element.offsetWidth === this.#element.scrollLeft;
+    const isMaxScrollY = (this.#element.scrollHeight === this.#element.offsetHeight) || this.#element.scrollHeight - this.#element.offsetHeight === this.#element.scrollTop;
+    const keepScrollingX = (movementX > 1 || movementX < -1) && !isMaxScrollX;
+    const keepScrollingY = (movementY > 1 || movementY < -1) && !isMaxScrollY;
+    if (!keepScrollingX && !keepScrollingY) {
+      this.#isSnapped = true;
+      this.#endFinal(lastEvent);
       return;
     }
 
-    const closestElementAndBounds = this.#reorderElementsAndBounds.reduce((previous, item) => {
-      const previousBounds = previous.bounds;
-      return this.#getDistance(previousBounds, bounds) < this.#getDistance(item.bounds, bounds) ? previous : item;
+    const client = this.#getClientPosition(lastEvent);
+    const dragEvent = this.#drag({
+      clientX: client.clientX + movementX,
+      clientY: client.clientY + movementY
     });
-
-    const closestIndex = this.#reorderElementsAndBounds.indexOf(closestElementAndBounds);
-    if (closestIndex !== this.#reorderClosestIndex) {
-      if (this.#reorderPreviewOnDrag) {
-        if (this.#reorderSwap) {
-          if (this.#reorderClosestIndex !== this.#reorderElementIndex) elements[this.#reorderClosestIndex].style.opacity = '';
-          if (closestIndex !== this.#reorderElementIndex) elements[closestIndex].style.opacity = '0.6';
-          [elements[closestIndex], elements[this.#reorderElementIndex]] = [elements[this.#reorderElementIndex], elements[closestIndex]];
-        } else {
-          const toMove = elements.splice(this.#reorderElementIndex, 1);
-          elements.splice(closestIndex, 0, toMove[0]);
-        }
-        elements.forEach((e, i) => e.style.order = i);
-      }
-    }
-    this.#reorderClosestIndex = closestIndex;
+    requestAnimationFrame(() => this.#snapMove(target, dragEvent, previousDirectionX, previousDirectionY));
   }
 }

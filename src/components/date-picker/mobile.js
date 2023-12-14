@@ -40,7 +40,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
 
     this.addClickOutsideCloseIgnore(this.parentElement.control);
     this.#drag.on('mdwdragmove', this.#onDrag_bound);
-    this.#drag.noMouseEvents = true;
+    this.#drag.disableMouseEvents = true;
     this.#drag.on('mdwdragstart', this.#onDragStart_bound);
     this.#drag.on('mdwdragend', this.#onDragEnd_bound);
   }

@@ -1,8 +1,8 @@
 import util from '../core/util.js';
 import styles from '../styles.css';
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
-import { generate } from '../core/theme.js';
-generate();
+import { generateBrowser } from '../core/theme.js';
+generateBrowser();
 
 const templateElements = {};
 
@@ -56,6 +56,8 @@ export default class HTMLElementExtended extends HTMLElement {
 
   // If template is set then initial rendering will happen automatically
   render() {
+    if (!this.isConnected) return;
+
     if (this.#rendered) this.beforeRender();
     if (!this.constructor.useTemplate) this.#templateElement.innerHTML = this.template(); // always re-render
     this.#root.replaceChildren(this.#templateElement.content.cloneNode(true));

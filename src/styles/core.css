@@ -83,3 +83,15 @@ body.mdw-motion-standard {
   --mdw-motion-easing-accelerate: var(--mdw-motion-easing-standard-accelerate);
   --mdw-motion-easing-decelerate: var(--mdw-motion-easing-standard-decelerate);
 }
+
+
+.mdw-drag-active {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* .mdw-drag-reorder-active {
+  transform: translate(-6px, -6px);
+  transition: translate;
+  transition-duration: 220ms;
+} */

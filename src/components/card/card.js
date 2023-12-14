@@ -41,7 +41,7 @@ export default class MDWCardElement extends HTMLElementExtended {
   #drag;
   #ripple;
   #expandDrag;
-  #expandDragStart_bound = this.#expandDragStart.bind(this);
+  #expandDragEnd_bound = this.#expandDragEnd.bind(this);
 
 
   constructor() {
@@ -65,10 +65,11 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.classList.add('mdw-expanding');
       this.addEventListener('click', this.#expandClick_bound, { signal: this.#abort.signal });
       if (device.state === 'compact') {
-        this.#expandDrag = new Drag(this);
-        this.#expandDrag.noMouseEvents = true;
-        this.#expandDrag.addIgnoreElement(this.querySelector('.mdw-expanded'));
-        this.#expandDrag.on('mdwdragstart', this.#expandDragStart_bound);
+        this.#expandDrag = new Drag(this, {
+          disableMouseEvents: true,
+          ignoreElements: [this.querySelector('.mdw-expanded')]
+        });
+        this.#expandDrag.on('mdwdragend', this.#expandDragEnd_bound);
         this.#expandDrag.enable();
       }
     }
@@ -81,20 +82,21 @@ export default class MDWCardElement extends HTMLElementExtended {
 
     this.#hasReorder = this.parentElement.classList.contains('mdw-reorder') || this.parentElement.classList.contains('mdw-reorder-swap');
     if (this.#swipeActionElement) {
-      this.#dragSwipeAction = new Drag(this);
-      this.#dragSwipeAction.noMouseEvents = true;
-      this.#dragSwipeAction.lockScrollY = true;
+      this.#dragSwipeAction = new Drag(this, {
+        disableMouseEvents: true,
+        lockScrollY: true
+      });
       this.#dragSwipeAction.on('mdwdragmove', this.#ondragSwipeAction_bound);
       this.#dragSwipeAction.on('mdwdragstart', this.#ondragSwipeActionStart_bound);
       this.#dragSwipeAction.on('mdwdragend', this.#ondragSwipeActionEnd_bound);
       this.#dragSwipeAction.enable();
       this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
     } else if (this.#hasReorder) {
-      this.#drag = new Drag(this);
-      // this.#drag.noMouseEvents = true;
-      this.#drag.lockScrollY = true;
-      this.#drag.reorderParentElement = this.parentElement;
-      this.#drag.reorderSwap = this.parentElement.classList.contains('mdw-reorder-swap');
+      this.#drag = new Drag(this, {
+        reorder: true,
+        reorderSwap: this.parentElement.classList.contains('mdw-reorder-swap'),
+        reorderAnimation: !this.parentElement.classList.contains('mdw-reorder-no-animation')
+      });
       this.#drag.enable();
     }
     
@@ -183,6 +185,7 @@ export default class MDWCardElement extends HTMLElementExtended {
     if (event.target === expanded || expanded.contains(event.target)) return;
 
     const isCompact = device.state === 'compact';
+    const { clientHeight } = document.documentElement;
     
     if (this.classList.contains('mdw-show')) {
       expanded.style.height = '';
@@ -199,7 +202,6 @@ export default class MDWCardElement extends HTMLElementExtended {
         if (expandedHeight > 300) expandedHeight = 300;
 
         // do not expand off screen
-        const { clientHeight } = document.documentElement;
         if (expandedBounds.top + expandedHeight > clientHeight - 12) expandedHeight = clientHeight - expandedBounds.top - 12;
 
         // prevent offscreen expand from being too small
@@ -211,14 +213,14 @@ export default class MDWCardElement extends HTMLElementExtended {
       expanded.style.height = `${expandedHeight}px`;
       if (!isCompact) this.style.marginBottom = `-${expandedHeight}px`;
       this.style.zIndex = '1';
-      this.classList.add('mdw-show')
+      this.classList.add('mdw-show');
     }
   }
 
   // expand cards with scroll
-  #expandDragStart({ directionY }) {
-    if (directionY === -1 && !this.classList.contains('mdw-show')) this.#expandClick({ target: this });
-    if (directionY === 1 && this.classList.contains('mdw-show')) this.#expandClick({ target: this });
+  #expandDragEnd({ direction, swipe }) {
+    if (swipe && direction === 'up' && !this.classList.contains('mdw-show')) this.#expandClick({ target: this });
+    else if (swipe && direction === 'down' && this.classList.contains('mdw-show')) this.#expandClick({ target: this });
   }
 
   #fullscreenClick() {
@@ -262,10 +264,14 @@ export default class MDWCardElement extends HTMLElementExtended {
     this.style.setProperty('--mdw-card-swipe-action-position', `${position}px`);
   }
 
-  async #ondragSwipeActionEnd() {
+  async #ondragSwipeActionEnd({ swipeX, direction }) {
     this.classList.remove('mdw-dragging');
     const position = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
-    if (position < 30) this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
+
+    if (swipeX) {
+      if (direction === 'right') this.style.setProperty('--mdw-card-swipe-action-position', `60px`);
+      else this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
+    } else if (position < 30) this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
     else this.style.setProperty('--mdw-card-swipe-action-position', `60px`);
   }
 

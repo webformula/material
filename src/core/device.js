@@ -44,8 +44,7 @@ const mdwDevice = new class MDWDevice {
   }
 
   get hasTouchScreen() {
-    if ('maxTouchPoints' in navigator) return navigator.maxTouchPoints > 0;
-    return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }
 
   get isMobile() {
