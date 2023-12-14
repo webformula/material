@@ -1,11 +1,8 @@
-@import url('./styles/color.css');
-@import url('./styles/tokens.css');
+@import url('./styles/variables.css');
 @import url('./styles/core.css');
 @import url('./styles/typography.css');
-@import url('./styles/elevations.css');
 @import url('./styles/page-content.css');
 @import url('./styles/anchor.css');
-@import url('./styles/color-roles.css');
 
 @import url('./components/anchor/global.css');
 @import url('./components/badge/global.css');
