@@ -210,6 +210,7 @@
     0px 8px 12px 6px var(--mdw-shadow-alpha-16);
 }
 
+.mdw-theme-dark,
 :root.mdw-theme-dark {
   --mdw-primary: var(--mdw-primary-80);
   --mdw-primary-container: var(--mdw-primary-30);

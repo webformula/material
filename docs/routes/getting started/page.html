@@ -8,7 +8,7 @@
     <ul class="links">
       <li><a href="#install" role="listitem">Installation</a></li>
       <li><a href="#import" role="listitem">Importing components</a></li>
-      <li><a href="#importstyles" role="listitem">Import styles</a></li>
+      <li><a href="#fonts" role="listitem">Import styles</a></li>
     </ul>
   </nav>
 
@@ -96,56 +96,41 @@
       </pre>
     </mdw-card>
 
-    <mdw-card id="importstyles">
+    <mdw-card id="fonts">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Import styles</div>
-        <div class="mdw-supporting-text">Styles include <strong>theme.css</strong>, fonts and icons</div>
-        <div class="mdw-supporting-text"><strong>theme.css</strong> should be the first file imported or loaded</div>
-        <div class="mdw-supporting-text"><strong>theme.css</strong> can be generated at build time or runtime <a href="/styles">read more</a></div>
-        <div class="mdw-supporting-text">
-          <strong>theme.css</strong> can be customized to update light and dark color schemes. If you use the one in the repo it will be the default schemes.
-        </div>
+        <div class="mdw-headline">Loading fonts and icons</div>
+        <div class="mdw-supporting-text">For icons this uses Googles Material icon font. All component required icons are
+        packed in with library. Only needed if using the mdw-icon component</div>
+        <a href="https://fonts.google.com">Google fonts</a>
       </div>
-    
+
       <pre>
         <code class="language-css">
-  ${`/* theme.css should be loaded first */
-  
-  /* import in app css */
-  @import('@webformula/materia.theme.css');`}
+  ${`/* hide page while loading */
+  html:not(.mdw-initiated) {
+    opacity: 0;
+    pointer-events: none;
+  }`}
         </code>
       </pre>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- import in index.html -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/theme.css">`)}
-      </code>
-    </pre>
-  
-    <div class="mdw-card-content" style="margin-top: 12px">
-      <div class="mdw-subheader">Fonts and icons</div>
-      <div class="mdw-supporting-text">For icons this uses Googles Material icon font. All component required icons are
-        packed in with library. Only needed if using the mdw-icon component</div>
-      <a href="https://fonts.google.com">Google fonts</a>
-    </div>
-    <pre>
-        <code class="language-html">
-    ${page.escape(`<!-- Load from google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap"
-      rel="stylesheet">
-      
-    <!--
-      Load material icons via google fonts.
-      All component required icons are packed in with library.
-      Only needed if using the mdw-icon component
-    -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-      media="print" onload="this.media='all'" />`)}
+  ${page.escape(`<!-- Load from google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap"
+    rel="stylesheet">
+    
+  <!--
+    Load material icons via google fonts.
+    All component required icons are packed in with library.
+    Only needed if using the mdw-icon component
+  -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    media="print" onload="this.media='all'" />`)}
         </code>
       </pre>
     </mdw-card>

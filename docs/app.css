@@ -1,6 +1,10 @@
-@import url(./theme.css);
 @import url(./colorTokens.css);
 @import url(./dracula.css);
+
+html:not(.mdw-initiated) {
+  opacity: 0;
+  pointer-events: none;
+}
 
 :root {
   color-scheme: light;

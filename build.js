@@ -43,13 +43,27 @@ const context = await esbuild.context({
   minify: true
 });
 
-generate('./src/theme.css', './docs/colorTokens.css');
+if (process.env.NODE_ENV === 'production') generate({
+  coreColors: {
+    primary: '#6750A4',
+    // secondary: '#625B71',
+    // tertiary: '#7D5260',
+    // neutral: '#67616f',
+    // neutralVariant: '#605666',
+    // error: '#B3261E'
+  },
+  // customColors: [
+  //   {
+  //     name: 'customColor',
+  //     color: '#5b7166'
+  //   }
+  // ]
+}, './docs/colorTokens.css');
 build({
   chunks: false,
   basedir: 'docs/',
   outdir: 'dist/',
   copyFiles: [
-    { from: 'docs/theme.css', to: 'dist/theme.css', gzip: true },
     { from: 'docs/favicon.ico', to: 'dist/' },
     { from: 'docs/woman.jpg', to: 'dist/', gzip: true },
     { from: 'docs/icons.woff2', to: 'dist/', gzip: true },
