@@ -25,7 +25,7 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
   #nextMonthClick_bound = this.#nextMonthClick.bind(this);
   #yearDropDownClick_bound = this.#yearDropDownClick.bind(this);
   #yearClickHandler_bound = this.#yearClickHandler.bind(this);
-  #drag = new Drag(this);
+  #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
@@ -37,18 +37,18 @@ customElements.define('mdw-date-picker-mobile', class MDWDatePickerMobileElement
 
     this.scrim = true;
     this.clickOutsideClose = false;
-
-    this.addClickOutsideCloseIgnore(this.parentElement.control);
-    this.#drag.on('mdwdragmove', this.#onDrag_bound);
-    this.#drag.disableMouseEvents = true;
-    this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-    this.#drag.on('mdwdragend', this.#onDragEnd_bound);
   }
 
   connectedCallback() {
     super.connectedCallback();
 
+    this.addClickOutsideCloseIgnore(this.parentElement.control);
     this.#abort = new AbortController();
+    this.#drag = new Drag(this);
+    this.#drag.on('mdwdragmove', this.#onDrag_bound);
+    this.#drag.disableMouseEvents = true;
+    this.#drag.on('mdwdragstart', this.#onDragStart_bound);
+    this.#drag.on('mdwdragend', this.#onDragEnd_bound);
   }
 
   afterRender() {
