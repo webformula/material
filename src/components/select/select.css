@@ -1,97 +1,84 @@
-@import url("../bottom-sheet/global.css");
 :host {
+  min-width: 210px;
   display: inline-flex;
-  box-sizing: border-box;
-  height: 56px;
-  margin-bottom: 36px;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border-radius: var(--mdw-shape-extra-small);
 }
 
-:host ::slotted(mdw-progress-linear) {
+.surface-content {
+  background-color: var(--mdw-surface-container);
+  box-shadow: var(--mdw-elevation-2);
+}
+
+:host([filter]) .surface.above .surface-content {
+  box-shadow: var(--mdw-elevation-2-reverse);
+}
+
+.item-padding {
+  padding-block: 8px;
+}
+
+mdw-textfield,
+.select,
+.surface {
+  min-width: inherit;
+  width: inherit;
+  max-width: inherit;
+}
+
+mdw-textfield,
+.select {
+  width: 100%;
+}
+
+.select {
+  position: relative;
+  border-radius: inherit;
+}
+
+
+.surface {
+  min-width: inherit;
+  max-width: inherit;
+}
+
+slot[name="leading-icon"],
+slot[name="trailing-icon"] {
+  display: contents;
+}
+
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.no-results {
   display: none;
+  pointer-events: none;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  height: 48px;
+  line-height: 48px;
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
+  color: var(--mdw-on-surface-variant-alpha-76);
+}
+
+.surface.filter-no-results .no-results {
+  display: flex;
+}
+
+
+mdw-progress-linear {
+  display: none;
+  pointer-events: none;
   position: absolute;
   top: 0;
 }
 
-:host(.mdw-filter-async-active) ::slotted(mdw-progress-linear) {
+:host(.filter-async-active) mdw-progress-linear {
   display: block;
-}
-
-:host ::slotted(.mdw-no-items) {
-  display: flex;
-  align-items: center;
-  height: 48px;
-  padding: 0 12px;
-  user-select: none;
-  pointer-events: none;
-  outline: none;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  line-height: var(--mdw-font-large-label-line-height);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  color: var(--mdw-on-surface);
-}
-
-:host ::slotted(mdw-option + .mdw-no-items) {
-  display: none;
-}
-
-mdw-textfield {
-  width: 100%;
-}
-
-mdw-textfield .mdw-select-arrow {
-  position: absolute;
-  top: 24px;
-  right: 18px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid var(--mdw-on-secondary-container-alpha-60);
-  transform-origin: center;
-  transform: rotate(0);
-  transition: transform var(--mdw-motion-duration-medium2);
-  z-index: 1;
-  pointer-events: none;
-}
-
-mdw-textfield .mdw-select-arrow.mdw-open {
-  transform: rotate(180deg);
-}
-
-mdw-textfield.mdw-invalid .mdw-select-arrow {
-  opacity: 0;
-}
-
-
-mdw-textfield.mdw-select-no-filter input {
-  cursor: pointer;
-}
-
-mdw-panel.mdw-option-group {
-  min-width: 112px;
-  max-width: 229px;
-  /* TODO look into if this should not have have height outside of panel default (100% - padding) */
-  max-height: 320px;
-  padding: 8px 0;
-  overflow-y: auto;
-  border-radius: var(--mdw-shape-extra-small);
-  background-color: var(--mdw-surface);
-  box-shadow: var(--mdw-elevation-1);
-  box-sizing: border-box;
-}
-
-:host mdw-panel ::slotted(mdw-option) {
-  pointer-events: none;
-}
-
-:host mdw-panel[open] ::slotted(mdw-option) {
-  pointer-events: all;
-}
-
-
-:host mdw-bottom-sheet > .mdw-content {
-  display: flex;
-  flex-direction: column;
 }

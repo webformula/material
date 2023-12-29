@@ -1,71 +1,62 @@
-mdw-icon {
+:host {
   width: var(--mdw-font-medium-icon-size);
   height: var(--mdw-font-medium-icon-size);
   font-family: 'Material Symbols Outlined', 'Material Symbols Sharp', 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
   font-size: var(--mdw-font-medium-icon-size);
-  line-height: var(--mdw-font-medium-icon-size);
-  letter-spacing: normal;
   text-transform: none;
-  display: inline-block;
+  display: inline-flex;
   white-space: nowrap;
   word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
+  color: inherit;
+  user-select: none;
+  line-height: 1;
+  /* overflow: hidden; */
+  outline: none;
 
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-mdw-icon[onclick] {
-  cursor: pointer;
-}
-
-/* handles in src/components/icon/component.js */
-html:not(.mdw-material-icon-font-loaded) mdw-icon {
-  opacity: 0;
-}
-
-mdw-icon.mdw-small {
+:host(.small) {
   width: var(--mdw-font-small-icon-size);
   height: var(--mdw-font-small-icon-size);
   font-size: var(--mdw-font-small-icon-size);
-  line-height: var(--mdw-font-small-icon-size);
 }
 
-mdw-icon.mdw-large {
+:host(.large) {
   width: var(--mdw-font-large-icon-size);
   height: var(--mdw-font-large-icon-size);
   font-size: var(--mdw-font-large-icon-size);
-  line-height: var(--mdw-font-large-icon-size);
 }
 
-mdw-icon.mdw-extra-large {
+:host(.extra-large) {
   width: var(--mdw-font-large-icon-size-extra);
   height: var(--mdw-font-large-icon-size-extra);
   font-size: var(--mdw-font-large-icon-size-extra);
-  line-height: var(--mdw-font-large-icon-size-extra);
 }
 
-mdw-icon.mdw-rounded {
+:host(.rounded) {
   font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Symbols Sharp';
 }
 
-mdw-icon.mdw-filled {
+:host(.filled) {
   font-variation-settings:
-      'FILL' 1,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 48;
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
 }
 
-
-mdw-icon.mdw-light {
+:host(.light) {
   font-variation-settings:
     'FILL' 0,
     'wght' 100,
@@ -73,7 +64,7 @@ mdw-icon.mdw-light {
     'opsz' 48;
 }
 
-mdw-icon.mdw-light.mdw-filled {
+:host(.light.filled) {
   font-variation-settings:
     'FILL' 1,
     'wght' 100,
@@ -81,7 +72,7 @@ mdw-icon.mdw-light.mdw-filled {
     'opsz' 48;
 }
 
-mdw-icon.mdw-bold {
+:host(.bold) {
   font-variation-settings:
     'FILL' 0,
     'wght' 700,
@@ -89,7 +80,7 @@ mdw-icon.mdw-bold {
     'opsz' 48;
 }
 
-mdw-icon.mdw-bold.mdw-filled {
+:host(.bold.filled) {
   font-variation-settings:
     'FILL' 1,
     'wght' 700,

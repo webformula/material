@@ -1,275 +1,518 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
-import util from '../../core/util.js';
+import styles from './component.css' assert { type: 'css' };
 import { error_FILL1_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 import Formatter from './Formatter.js';
+import util from '../../core/util.js';
 
-const handleReportValidityScrollIntoView = util.debounce(input => {
-  // check if already on screen
-  const bounds = input.getBoundingClientRect();
-  if (bounds.y >= 0 && (bounds.y + bounds.height) <= window.innerHeight) return;
-  input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}, 100);
+const dashCaseRegex = /-([a-z])/g;
 
+// TODO character count
+// TODO on enter suggestion fill
 
 export default class MDWTextfieldElement extends HTMLElementExtended {
+  static useShadowRoot = true;
+  static useTemplate = false;
+  static shadowRootDelegateFocus = true;
+  static styleSheets = styles;
+  static formAssociated = true;
+
+  #internals;
   #input;
-  #setNotchWidth_bound = this.#setNotchWidth.bind(this);
-  #unsetNotchWidth_bound = this.#unsetNotchWidth.bind(this);
-  #onInvalid_bound = this.#onInvalid.bind(this);
-  #onInput_bound = this.#onInput.bind(this);
-  #clear_bound = this.clear.bind(this);
-  #originalSupportingText;
-  #autocomplete;
-  #formatter;
+  #focusValue;
+  #dirty = false;
+  #touched = false;
+  #value = '';
+  #label = '';
+  #supportingText = '';
+  #errorText = '';
+  #invalidIcon;
+  #customValidityMessage;
   #abort;
+  #formatter;
+  #suggestion;
+  #slotChange_bound = this.#slotChange.bind(this);
+  #onInput_bound = this.#onInput.bind(this);
+  #onBlur_bound = this.#onBlur.bind(this);
+  #onFocus_bound = this.#onFocus.bind(this);
+  #onSelect_bound = this.#onSelect.bind(this);
 
 
   constructor() {
     super();
-
-    this.classList.add('mdw-no-animation');
-    this.#input = this.querySelector('input');
-    this.#formatter = new Formatter(this);
-    const inputPattern = this.#input.pattern;
-    if (inputPattern) this.pattern = inputPattern;
+    this.#internals = this.attachInternals();
   }
 
-  connectedCallback() {
-    this.#input.setAttribute('placeholder', this.#input.getAttribute('placeholder') || ' ');
-    if (this.pattern) this.#formatter.enable();
-
-    this.#abort = new AbortController();
-    this.#input.addEventListener('invalid', this.#onInvalid_bound, { signal: this.#abort.signal });
-    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-    
-    const inputClearIcon = this.querySelector('mdw-icon.mdw-input-clear');
-    if (inputClearIcon) inputClearIcon.addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
-
-    const label = this.querySelector('label');
-    if (label && !label.hasAttribute('for')) {
-      const id = this.#input.id;
-      if (!id) this.#input.id = `mdw-textfield-${util.uid()}`;
-      label.setAttribute('for', this.#input.id);
-    }
-
-    this.#handleDisabledInput();
-    this.#overrideInputSetCustomValidity();
-    if (this.querySelector('.mdw-outlined-border-container + mdw-icon')) this.classList.add('mdw-has-leading-icon');
-
-    const isOutlined = this.classList.contains('mdw-outlined');
-    if (isOutlined) {
-      this.insertAdjacentHTML('afterbegin', `
-        <div class="mdw-outlined-border-container">
-          <div class="mdw-outlined-leading"></div>
-          <div class="mdw-outlined-notch"></div>
-          <div class="mdw-outlined-trailing"></div>
-        </div>
-      `);
-
-      this.#input.addEventListener('focus', this.#setNotchWidth_bound, { signal: this.#abort.signal });
-      this.#input.addEventListener('blur', this.#unsetNotchWidth_bound, { signal: this.#abort.signal });
-    }
-
-    requestAnimationFrame(() => {
-      if (isOutlined && (this.#input.value || this.#input.type === 'date' || this.#input.type === 'month' || this.#input.type === 'time' || this.#input.placeholder !== ' ')) this.#setNotchWidth();
-
-      this.#originalSupportingText = this.querySelector('.mdw-supporting-text')?.innerText;
-
-      if (!this.#input.hasAttribute('aria-label')) {
-        const text = this.querySelector('label')?.innerText;
-        if (text) this.#input.setAttribute('aria-label', text);
-      }
-    });
-
-    setTimeout(() => {
-      this.classList.remove('mdw-no-animation');
-    }, 100);
-  }
-
-  disconnectedCallback() {
-    this.#abort.abort();
-    this.#formatter.disable();
-  }
-
+  // TODO update
   static get observedAttributes() {
-    return ['disabled', 'pattern',  'mask', 'format'];
+    return [
+      'aria-label',
+      'autocomplete',
+      'disabled',
+      'format',
+      'label',
+      'mask',
+      'max',
+      'min',
+      'step',
+      'maxlength',
+      'minlength',
+      'pattern',
+      'pattern-restrict',
+      'prefix-text',
+      'readonly',
+      'suffix-text',
+      'supporting-text',
+      'suggestion',
+      'error-text',
+      'type',
+      'value'];
   }
 
   attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'disabled') this.disabled = newValue !== null;
-    if (name === 'pattern') this.pattern = newValue;
-    if (name === 'mask') this.mask = newValue;
-    if (name === 'format') this.format = newValue;
+    if (name === 'value' && this.#dirty) return;
+    name = name.replace(dashCaseRegex, (_, s) => s.toUpperCase());
+    this[name] = newValue;
   }
 
-  get autocomplete() {
-    return this.#autocomplete;
+  connectedCallback() {
+    this.#abort = new AbortController();
   }
+
+  disconnectedCallback() {
+    if (this.#abort) this.#abort.abort();
+    if (this.#formatter) this.#formatter.disable();
+  }
+
+  afterRender() {
+    this.#input = this.shadowRoot.querySelector('.text-field input');
+    this.#input.value = this.value;
+    // if (this.#customValidityMessage) this.#input.setCustomValidity(this.#customValidityMessage);
+    this.#internals.setValidity(this.#input.validity, this.#input.validationMessage, this.#input);
+    // if (this.#customValidityMessage) this.#updateValidityDisplay();
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label || 'input');
+
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
+    this.#input.addEventListener('select', this.#onSelect_bound, { signal: this.#abort.signal });
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
+    this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+
+    this.classList.toggle('has-value', !!this.value);
+
+    setTimeout(() => {
+      this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
+    }, 100);
+  }
+
+  template() {
+    return /*html*/`
+      <div class="text-field${!this.#label ? '' : ' label'}">
+        <slot name="leading-icon"></slot>
+        ${this.prefixText ? `<div class="prefix-text">${this.prefixText}</div>` : ''}
+        <input
+          ${this.hasAttribute('value') ? `value="${this.getAttribute('value')}"` : ''}
+          ${this.hasAttribute('type') ? `type="${this.getAttribute('type')}"` : ''}
+          ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
+          ${this.multiple ? 'multiple' : ''}
+          ${this.disabled ? 'disabled' : ''}
+          ${this.min ? `min="${this.min}"` : ''}
+          ${this.max ? `max="${this.max}"` : ''}
+          ${this.step ? `step="${this.step}"` : ''}
+          ${this.minlength ? `minlength="${this.minlength}"` : ''}
+          ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
+          ${this.pattern ? `pattern=${this.pattern}` : ''}
+          placeholder="${this.placeholder || ' '}"
+          ${this.readonly ? 'readonly' : ''}
+          ${this.required ? 'required' : ''}
+        />
+        <label class="no-animation">${this.label}</label>
+        ${!this.classList.contains('outlined') ? '' : `
+        <div class="outlined-border-container">
+          <div class="outlined-leading"></div>
+          <div class="outlined-notch">${this.label}</div>
+          <div class="outlined-trailing"></div>
+        </div>
+        `}
+        <div class="suggestion"></div>
+        ${this.suffixText ? `<span class="suffix-text">${this.suffixText}</span>` : ''}
+        <slot name="trailing-icon"></slot>
+        <div class="supporting-text" title="${this.#supportingText}">${this.#supportingText}</div>
+      </div>
+    `.replace(/^\s*\n/gm, '').replace(/^\s{6}/gm, '');
+  }
+
+
+
+
+  get ariaLabel() { return this.getAttribute('aria-label'); }
+  set ariaLabel(value) {
+    if (`${value}` === this.getAttribute('aria-label') || `${value}` === 'label') return;
+
+    if (value) this.setAttribute('aria-label', value);
+    else this.removeAttribute('aria-label');
+  }
+
+  get autocomplete() { return this.getAttribute('autocomplete'); }
   set autocomplete(value) {
-    this.#autocomplete = value;
-    this.#setAutocomplete();
+    if (value) this.setAttribute('autocomplete', value);
+    else this.removeAttribute('autocomplete');
   }
 
-  get disabled() {
-    return this.hasAttribute('disabled');
+  get label() { return this.#label; }
+  set label(value) {
+    if (!this.rendered) {
+      this.#label = `${value || ''}`;
+      return;
+    }
+    const labelEl = this.shadowRoot.querySelector('.text-field label');
+    if (labelEl.innerText === value) return;
+    this.#label = `${value || ''}`;
+    this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
   }
+
+  get disabled() { return this.hasAttribute('disabled'); }
   set disabled(value) {
-    this.toggleAttribute('disabled', !!value);
-    this.#input.blur();
-    this.#input.toggleAttribute('disabled', !!value);
+    value = value !== null && value !== false;
+    this.toggleAttribute('disabled', value);
+    if (value) this.blur();
+    if (this.rendered) this.#input.toggleAttribute('disabled', value);
   }
 
-  get pattern() {
-    return this.#formatter.pattern;
-  }
-  set pattern(value) {
-    this.#formatter.pattern = value;
-  }
+  get form() { return this.#internals.form; }
 
-  get mask() {
-    return this.#formatter.mask;
-  }
-  set mask(value) {
-    this.#formatter.mask = value;
-  }
-
-  get format() {
-    return this.#formatter.format;
-  }
+  get format() { return this.getAttribute('format'); }
   set format(value) {
+    this.#addFormatter();
     this.#formatter.format = value;
+    if (this.format === value) return;
+    this.setAttribute('format', value);
+  }
+
+  get formattedValue() { return this.#formatter ? this.#formatter.formattedValue : this.value; }
+
+  get mask() { return this.getAttribute('mask'); }
+  set mask(value) {
+    this.#addFormatter();
+    this.#formatter.mask = value;
+    if (this.mask === value) return;
+    this.setAttribute('mask', value);
+  }
+
+  get maskedValue() { return this.#formatter ? this.#formatter.maskedValue : this.value; }
+
+  get max() { return this.getAttribute('max'); }
+  set max(value) {
+    if (`${value}` === this.getAttribute('max')) return;
+    this.setAttribute('max', value);
+    if (this.rendered) this.#input.setAttribute('max', value);
+  }
+
+  get min() { return this.getAttribute('min'); }
+  set min(value) {
+    if (`${value}` === this.getAttribute('min')) return;
+    this.setAttribute('min', value);
+    if (this.rendered) this.#input.setAttribute('min', value);
+  }
+
+  get step() { return this.getAttribute('step'); }
+  set step(value) {
+    if (`${value}` === this.getAttribute('step')) return;
+    this.setAttribute('step', value);
+    if (this.rendered) this.#input.setAttribute('step', value);
+  }
+
+  get maxlength() { return this.getAttribute('maxlength'); }
+  set maxlength(value) {
+    if (`${value}` === this.getAttribute('maxlength')) return;
+    this.setAttribute('maxlength', value);
+    if (this.rendered) this.#input.setAttribute('maxlength', value);
+  }
+
+  get minlength() { return this.getAttribute('minlength'); }
+  set minlength(value) {
+    if (`${value}` === this.getAttribute('minlength')) return;
+    this.setAttribute('minlength', value);
+    if (this.rendered) this.#input.setAttribute('minlength', value);
+  }
+
+  get multiple() { return this.hasAttribute('multiple'); }
+  set multiple(value) {
+    value = value !== null && value !== false;
+    this.toggleAttribute('multiple', value);
+    if (this.rendered) this.#input.toggleAttribute('multiple', value);
+  }
+
+  get pattern() { return this.getAttribute('pattern'); }
+  set pattern(value) {
+    this.#addFormatter();
+    this.#formatter.pattern = value;
+    if (value) this.#formatter.enable();
+    else this.#formatter.disable();
+
+    if (this.pattern === value) return;
+    this.setAttribute('pattern', value);
+    if (this.rendered) this.#input.setAttribute('pattern', value);
+  }
+
+  get patternRestrict() { return this.getAttribute('pattern-restrict'); }
+  set patternRestrict(value) {
+    value = value !== null && value !== false;
+    if (this.#formatter) this.#formatter.patternRestrict = value;
+    this.toggleAttribute('pattern', value);
+  }
+
+  get placeholder() { return this.getAttribute('placeholder'); }
+  set placeholder(value) {
+    if (value) this.setAttribute('placeholder', value);
+    else this.removeAttribute('placeholder');
+    if (this.rendered) this.#input.setAttribute('placeholder', value || ' ');
+  }
+
+  get prefixText() { return this.getAttribute('prefix-text'); }
+  set prefixText(value) {
+    if (`${value}` === this.getAttribute('prefix-text')) return;
+    this.setAttribute('prefix-text', value);
+    if (this.rendered) this.shadowRoot.querySelector('.text-field .prefix-text').innerText = value || '';
+  }
+  get suffixText() { return this.getAttribute('suffix-text'); }
+  set suffixText(value) {
+    if (`${value}` === this.getAttribute('suffix-text')) return;
+    this.setAttribute('suffix-text', value);
+    if (this.rendered) this.shadowRoot.querySelector('.text-field .suffix-text').innerText = value || '';
+  }
+
+  get readonly() { return this.hasAttribute('readonly'); }
+  set readonly(value) {
+    value = value !== null && value !== false;
+    this.toggleAttribute('readonly', value);
+    if (value) this.blur();
+    if (this.rendered) this.#input.toggleAttribute('readonly', value);
+  }
+
+  get required() { return this.hasAttribute('required'); }
+  set required(value) {
+    value = value !== null && value !== false;
+    this.toggleAttribute('required', value);
+    if (this.rendered) this.#input.toggleAttribute('required', value);
+  }
+
+  get selectionDirection() { return this.#input?.selectionDirection || 0; }
+  set selectionDirection(value = 0) {
+    if (this.rendered) this.#input.selectionDirection = value;
+  }
+
+  get selectionEnd() { return this.#input?.selectionEnd || 0; }
+  set selectionEnd(value = 0) {
+    if (this.rendered) this.#input.selectionEnd = value;
+  }
+
+  get selectionStart() { return this.#input?.selectionStart || 0; }
+  set selectionStart(value = 0) {
+    if (this.rendered) this.#input.selectionStart = value;
+  }
+
+  get supportingText() { return this.#supportingText; }
+  set supportingText(value) {
+    this.#supportingText = value || '';
+    if (this.rendered && (!this.#errorText || this.checkValidity())) {
+      const el = this.shadowRoot.querySelector('.text-field .supporting-text');
+      el.innerText = this.#supportingText;
+      el.setAttribute('title', this.#supportingText)
+    }
+  }
+
+  get errorText() { return this.#errorText; }
+  set errorText(value) {
+    this.#errorText = value || '';
+    if (this.rendered && !this.checkValidity()) {
+      const el = this.shadowRoot.querySelector('.text-field .supporting-text');
+      el.innerText = this.#errorText;
+      el.setAttribute('title', this.#errorText)
+    }
+  }
+
+  get type() { return this.getAttribute('type') || 'text'; }
+  set type(value) {
+    if (`${value}` === this.getAttribute('type')) return;
+    this.setAttribute('type', value);
   }
 
   get value() {
-    return this.#input.value;
+    if (this.#formatter) return this.#formatter.value;
+    return this.#value;
   }
-
-  get formattedValue() {
-    return this.#formatter.formattedValue;
-  }
-
-  get maskedValue() {
-    return this.#formatter.maskedValue;
-  }
-
-  setCustomValidity(value = '') {
-    this.#input.setCustomValidity(value);
-  }
-
-  reportValidity() {
-    return this.#input.reportValidity();
-  }
-
-  clear(event) {
-    this.#input.value = '';
-
-    // prevent label from moving and focus
-    if (event && event.target.classList.contains('mdw-input-clear')) {
-      this.classList.add('mdw-raise-label');
-      this.#input.focus();
-      setTimeout(() => {
-        this.classList.remove('mdw-raise-label');
-      });
+  set value(value) {
+    if (this.#formatter) {
+      this.#formatter.value = value;
+      this.#value = this.#formatter.value;
+    } else {
+      this.#value = value;
+      if (this.rendered) this.#input.value = this.#value;
     }
+
+    this.#internals.setFormValue(this.#value);
+    this.classList.toggle('has-value', !!this.#value);
   }
 
-  #handleDisabledInput() {
-    if (this.#input.hasAttribute('disabled')) this.setAttribute('disabled', '');
-    else this.removeAttribute('disabled');
-
-    const descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'disabled');
-    const originalSet = descriptor.set;
-    const that = this;
-    descriptor.set = function (value) {
-      that.toggleAttribute('disabled', !!value);
-      originalSet.apply(this, arguments);
-    };
-    Object.defineProperty(this.#input, 'disabled', descriptor);
+  get suggestion() {
+    return this.#suggestion;
+  }
+  set suggestion(value) {
+    this.#suggestion = value;
+    if (this.rendered) this.#setSuggestion();
   }
 
-  // change supporting text for invalid input when user called setCustomValidity()
-  #overrideInputSetCustomValidity() {
-    const originalSetCustomValidity = this.#input.setCustomValidity;
-    this.#input.setCustomValidity = str => {
-      originalSetCustomValidity.call(this.#input, str);
-      this.#onInput();
-    };
+  get validationMessage() { return this.#internals.validationMessage; }
+  get validity() { return this.#internals.validity; }
+  get willValidate() { return this.#internals.willValidate; }
 
 
-    const originalReportValidity = this.#input.reportValidity;
-    this.#input.reportValidity = () => {
-      handleReportValidityScrollIntoView(this.#input);
-      const valid = originalReportValidity.call(this.#input);
-      this.#updateInputValidity(!valid);
-      return valid;
-    };
+
+  clear() {
+    this.#dirty = false;
+    this.value = '';
+  }
+
+  reset() {
+    this.#dirty = false;
+    this.#touched = false;
+    this.value = this.getAttribute('value') ?? '';
+    this.#updateValidity();
+    this.#updateValidityDisplay(true);
+  }
+  formResetCallback() { this.reset(); }
+  
+  checkValidity() { return this.#internals.checkValidity(); }
+  reportValidity() {
+    this.#updateValidityDisplay();
+    // calling this will show browser native popover
+    // return this.#internals.reportValidity();
+  }
+  updateValidity() {
+    this.#updateValidity();
+  }
+  setCustomValidity(value = '') {
+    this.#customValidityMessage = value;
+    if (this.rendered) {
+      this.#input.setCustomValidity(value);
+      this.#updateValidityDisplay();
+    }
   }
   
-  #onInput() {
-    this.#updateInputValidity(!this.#input.checkValidity());
-    this.#setAutocomplete();
+  select() { if (this.rendered) this.#input.select(); }
+  setRangeText(replacement, start, end, selectMode) {
+    if (this.rendered) this.#input.setRangeText(replacement, start, end, selectMode);
+  }
+  setSelectionRange(selectionStart, selectionEnd, selectionDirection) {
+    if (this.rendered) this.#input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
 
-  #updateInputValidity(invalid = false) {
-    const supportingTextElement = this.querySelector('.mdw-supporting-text:not(.mdw-disable-default)');
-    const invalidIcon = this.querySelector('.mdw-invalid-icon');
-    
-    if (invalid) {
-      this.classList.add('mdw-invalid');
-      if (supportingTextElement) supportingTextElement.innerText = this.#input.validationMessage;
-      if (!invalidIcon) this.insertAdjacentHTML('beforeend', `<div class="mdw-invalid-icon">${error_FILL1_wght400_GRAD0_opsz24}</div>`);
-    } else {
-      this.classList.remove('mdw-invalid');
-      if (supportingTextElement) supportingTextElement.innerText = this.#originalSupportingText;
-      if (invalidIcon) invalidIcon.remove();
+
+
+  #setSupportingText() {
+    const valid = this.checkValidity();
+    const supportingTextElement = this.shadowRoot.querySelector('.text-field .supporting-text');
+    const value = valid ? this.#supportingText : this.#errorText || this.#input.validationMessage;
+    supportingTextElement.innerText = value;
+    supportingTextElement.setAttribute('title', value)
+  }
+
+  #addFormatter() {
+    if (!this.#formatter) {
+      this.#formatter = new Formatter(this);
+      this.#formatter.onInput = this.#onFormatterInput.bind(this);
+      this.#formatter.patternRestrict = this.hasAttribute('pattern-restrict');
     }
   }
 
-  #onInvalid(event) {
-    event.preventDefault();
+  #slotChange(event) {
+    if (event.target.name === 'leading-icon') {
+      const hasLeadingIcon = event.target.assignedElements({ flatten: true }).length > 0;
+      this.shadowRoot.querySelector('.text-field').classList.toggle('leading-icon', hasLeadingIcon);
+    }
+
+    if (event.target.name === 'trailing-icon') {
+      const hasTrailingIcon = event.target.assignedElements({ flatten: true }).length > 0;
+      this.shadowRoot.querySelector('.text-field').classList.toggle('trailing-icon', hasTrailingIcon);
+    }
   }
 
-  updateNotch() {
-    if (this.#input.value) this.#setNotchWidth();
-    else this.#unsetNotchWidth();
+  #onInput() {
+    this.#value = this.#input.value;
+    this.#dirty = true;
+    this.#setSuggestion();
+    this.#updateValidity();
+    // only update display if invalid while in focus
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
   }
 
-  #setNotchWidth() {
-    const label = this.querySelector('label');
-    if (!label) return;
-
-    const notch = this.querySelector('.mdw-outlined-notch');
-    const computedStyle = getComputedStyle(notch);
-    // already open
-    if (computedStyle.width !== '0px') return;
-
-    this.querySelector('.mdw-outlined-notch').style.width = `${label.offsetWidth * 0.9}px`;
-    // font size changes and we need to recalculate width because of animation
-    setTimeout(() => {
-      this.querySelector('.mdw-outlined-notch').style.width = `${label.offsetWidth + 4}px`;
-    }, 165)
+  #onFormatterInput() {
+    const changed = this.#value !== this.#formatter.value;
+    this.#value = this.#formatter.value;
+    this.#dirty = true;
+    this.#updateValidity();
+    // only update display if invalid while in focus
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+    if (changed) this.dispatchEvent(new Event('input'));
   }
 
-  #unsetNotchWidth() {
-    if ((this.#input.value) || this.#input.type === 'date' || this.#input.type === 'time' || this.#input.type === 'month' || this.#input.placeholder !== ' ') return;
-    const label = this.querySelector('label');
-    if (!label) return;
-    this.querySelector('.mdw-outlined-notch').style.width = '0';
+  #updateValidity() {
+    this.#touched = true;
+    this.#internals.setFormValue(this.#input.value);
+    this.#internals.setValidity(this.#input.validity, this.#input.validationMessage, this.#input);
   }
 
-  #setAutocomplete() {
-    if (typeof this.#autocomplete !== 'string') return;
-    if (!this.querySelector('.mdw-autocomplete')) this.insertAdjacentHTML('beforeend', `<div class="mdw-autocomplete"></div>`);
-    const autoCompleteElement = this.querySelector('.mdw-autocomplete');
+  #updateValidityDisplay(valid = this.#input.checkValidity()) {
+    this.classList.toggle('invalid', !valid);
 
-    const match = this.#autocomplete.match(new RegExp(`^${this.#input.value}(.*)`, 'i'));
+    if (!valid) {
+      if (!this.#invalidIcon) {
+        this.#invalidIcon = document.createElement('div');
+        this.#invalidIcon.classList.add('invalid-icon');
+        this.#invalidIcon.innerHTML = error_FILL1_wght400_GRAD0_opsz24;
+      }
+
+      this.shadowRoot.querySelector('.text-field').appendChild(this.#invalidIcon);
+    } else if (this.#invalidIcon) {
+      this.#invalidIcon.remove();
+    }
+
+    this.#setSupportingText();
+  }
+
+  #onFocus() {
+    if (this.readonly) return;
+    this.#focusValue = this.value;
+  }
+
+  #onBlur() {
+    if (this.readonly) return;
+    // do not update if no text was changed
+    if (this.#touched) {
+      this.#updateValidity();
+      this.#updateValidityDisplay();
+    }
+    this.#dirty = false;
+    if (this.value !== this.#focusValue) this.dispatchEvent(new Event('change'));
+    this.classList.toggle('has-value', !!this.value);
+  }
+
+  #onSelect() {
+    this.dispatchEvent(new Event('select'));
+  }
+
+  #setSuggestion() {
+    if (typeof this.#suggestion !== 'string') return;
+    const suggestionElement = this.shadowRoot.querySelector('.text-field .suggestion');
+
+    const match = this.#suggestion.match(new RegExp(`^${this.#input.value}(.*)`, 'i'));
     const value = !match || match[0] === match[1] ? '' : match[1];
 
-    autoCompleteElement.innerText = value;
+    suggestionElement.innerText = value;
     const offset = util.getTextWidthFromInput(this.#input);
-    autoCompleteElement.style.left = `${offset + 16}px`;
+    suggestionElement.style.left = `${offset + 16}px`;
   }
 }
-
 
 customElements.define('mdw-textfield', MDWTextfieldElement);

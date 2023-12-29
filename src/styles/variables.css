@@ -69,6 +69,7 @@
   --mdw-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
   --mdw-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
   --mdw-transition-bounce: cubic-bezier(.47, 1.64, .41, .8);
+  --mdw-transition-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   --mdw-motion-duration-short1: 50ms;
   --mdw-motion-duration-short2: 100ms;
@@ -195,19 +196,24 @@
 
   --mdw-elevation-2:
     0px 1px 2px 0px var(--mdw-shadow-alpha-26),
-    0px 2px 6px 2px var(--mdw-shadow-alpha-16);
+    0px 2px 6px 2px var(--mdw-shadow-alpha-12);
+
+  /* shift shadow vertically. Used for filter selects when surface is above textfield to reduce shadow covering */
+  --mdw-elevation-2-reverse:
+      0px -1px 2px 0px var(--mdw-shadow-alpha-26),
+      0px -2px 6px 2px var(--mdw-shadow-alpha-12);
 
   --mdw-elevation-3:
     0px 1px 3px 0px var(--mdw-shadow-alpha-26),
-    0px 4px 8px 3px var(--mdw-shadow-alpha-16);
+    0px 4px 8px 3px var(--mdw-shadow-alpha-12);
 
   --mdw-elevation-4:
     0px 2px 3px 0px var(--mdw-shadow-alpha-26),
-    0px 6px 10px 4px var(--mdw-shadow-alpha-16);
+    0px 6px 10px 4px var(--mdw-shadow-alpha-12);
 
   --mdw-elevation-5:
     0px 4px 4px 0px var(--mdw-shadow-alpha-26),
-    0px 8px 12px 6px var(--mdw-shadow-alpha-16);
+    0px 8px 12px 6px var(--mdw-shadow-alpha-12);
 }
 
 .mdw-theme-dark,

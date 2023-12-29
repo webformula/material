@@ -23,16 +23,16 @@
         
         <div class="example">
           <mdw-button id="control">Control</mdw-button>
-          <mdw-menu control="#control">
-            <mdw-button>
-              <mdw-icon>content_copy</mdw-icon>
+          <mdw-menu anchor="#control">
+            <mdw-menu-item>
+              <mdw-icon slot="start">content_copy</mdw-icon>
               copy
-            </mdw-button>
-            <mdw-button>
-              <mdw-icon>content_paste</mdw-icon>
+            </mdw-menu-item>
+            <mdw-menu-item>
+              <mdw-icon slot="start">content_paste</mdw-icon>
               paste
-            </mdw-button>
-            <mdw-button>plain</mdw-button>
+            </mdw-menu-item>
+            <mdw-menu-item>plain</mdw-menu-item>
           </mdw-menu>
         </div>
       </div>
@@ -40,65 +40,16 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<mdw-button id="control">Control</mdw-button>
-  <mdw-menu control="#control">
-    <mdw-button>
-      <mdw-icon>content_copy</mdw-icon>
+  <mdw-menu anchor="#control">
+    <mdw-menu-item>
+      <mdw-icon slot="start">content_copy</mdw-icon>
       copy
-    </mdw-button>
-    <mdw-button>
-      <mdw-icon>content_paste</mdw-icon>
+    </mdw-menu-item>
+    <mdw-menu-item>
+      <mdw-icon slot="start">content_paste</mdw-icon>
       paste
-    </mdw-button>
-    <mdw-button>plain</mdw-button>
-  </mdw-menu>
-  
-  <mdw-button>
-    Nested
-    <mdw-menu>
-      <mdw-button>
-        <mdw-icon>content_copy</mdw-icon>
-        copy
-      </mdw-button>
-      ...
-    </mdw-menu>
-  </mdw-button>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-    <mdw-card id="positon-overlap">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Position overlap</div>
-    
-        <div class="example">
-          <mdw-button id="control2">menu</mdw-button>
-          <mdw-menu control="#control2" class="mdw-position-overlap">
-            <mdw-button>
-              <mdw-icon>content_copy</mdw-icon>
-              copy
-            </mdw-button>
-            <mdw-button>
-              <mdw-icon>content_paste</mdw-icon>
-              paste
-            </mdw-button>
-            <mdw-button>plain</mdw-button>
-          </mdw-menu>
-        </div>
-      </div>
-    
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button id="control2">menu</mdw-button>
-  <mdw-menu control="#control2" class="mdw-position-overlap">
-    <mdw-button>
-      <mdw-icon>content_copy</mdw-icon>
-      copy
-    </mdw-button>
-    <mdw-button>
-      <mdw-icon>content_paste</mdw-icon>
-      paste
-    </mdw-button>
-    <mdw-button>plain</mdw-button>
+    </mdw-menu-item>
+    <mdw-menu-item>plain</mdw-menu-item>
   </mdw-menu>`)}
         </code>
       </pre>
@@ -110,91 +61,133 @@
     
         <div class="example">
           <div context-menu="cm1">Right click me</div>
-          
-          <mdw-menu id="cm1" context-menu>
-            <mdw-button onclick="console.log(cm1.contentMenuTarget)">
-              <mdw-icon>content_copy</mdw-icon>
+          <mdw-menu context-menu="cm1">
+            <mdw-menu-item onclick="console.log(this.contextTarget)">
+              <mdw-icon slot="start">content_copy</mdw-icon>
               copy
-            </mdw-button>
-            <mdw-button>
-              <mdw-icon>content_paste</mdw-icon>
+            </mdw-menu-item>
+            <mdw-menu-item>
+              <mdw-icon slot="start">content_paste</mdw-icon>
               paste
-            </mdw-button>
-            <mdw-button>plain</mdw-button>
-            <mdw-button>plain</mdw-button>
+            </mdw-menu-item>
+            <mdw-menu-item>plain</mdw-menu-item>
+            <mdw-menu-item>plain</mdw-menu-item>
           </mdw-menu>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- add [context-menu="id of mdw-menu[context-menu]"] -->
+  ${page.escape(`<!--
+    Assign context menu to specific elements
+    add [context-menu"value of mdw-menu[context-menu]"]
+  -->
   <div context-menu="cm1">Right click me</div>
-
-  <!-- place anywhere in body -->
-  <mdw-menu id="cm1" context-menu>
-
-    <!-- reference the context-menu target element using mdw-menu[id].contentMenuTarget -->
-    <mdw-button onclick="console.log(cm1.contentMenuTarget)">
-      <mdw-icon>content_copy</mdw-icon>
-      copy
-    </mdw-button>
-    <mdw-button>
-      <mdw-icon>content_paste</mdw-icon>
-      paste
-    </mdw-button>
-    <mdw-button>plain</mdw-button>
-    <mdw-button>plain</mdw-button>
-  </mdw-menu>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-    <mdw-card id="nested">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Nested menu</div>
   
-        <div class="example">
-          <mdw-button id="control3">Control</mdw-button>
-          <mdw-menu control="#control3">
-            <mdw-button>
-              <mdw-icon>content_copy</mdw-icon>
-              copy
-            </mdw-button>
-            <mdw-button>
-              <mdw-icon>content_paste</mdw-icon>
-              paste
-            </mdw-button>
-            <mdw-button id="subcontrol">Nested</mdw-button>
-          </mdw-menu>
-          <mdw-menu control="#subcontrol">
-            <mdw-button>one</mdw-button>
-            <mdw-button>two</mdw-button>
-            <mdw-button>three</mdw-button>
-          </mdw-menu>
-        </div>
-      </div>
-  
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button id="control3">Control</mdw-button>
-  <mdw-menu control="#control3">
-    <mdw-button>
-      <mdw-icon>content_copy</mdw-icon>
+  <mdw-menu context-menu="cm1">
+
+    <!-- access click target "this.contextTarget" -->
+    <mdw-menu-item onclick="console.log(this.contextTarget)">
+      <mdw-icon slot="start">content_copy</mdw-icon>
       copy
-    </mdw-button>
-    <mdw-button>
-      <mdw-icon>content_paste</mdw-icon>
+    </mdw-menu-item>
+    <mdw-menu-item>
+      <mdw-icon slot="start">content_paste</mdw-icon>
       paste
-    </mdw-button>
-    <mdw-button id="subcontrol">Nested</mdw-button>
+    </mdw-menu-item>
+    <mdw-menu-item>plain</mdw-menu-item>
+    <mdw-menu-item>plain</mdw-menu-item>
   </mdw-menu>
-  <mdw-menu control="#subcontrol">
-    <mdw-button>one</mdw-button>
-    <mdw-button>two</mdw-button>
-    <mdw-button>three</mdw-button>
+  
+  
+  <!--
+      Create a global context menu
+      Do not give [context-menu] a value
+      Now any right click will show the context menu
+  -->
+  <mdw-menu context-menu>
+    <mdw-menu-item>
+      <mdw-icon slot="start">content_copy</mdw-icon>
+      copy
+    </mdw-menu-item>
+    <mdw-menu-item>
+      <mdw-icon slot="start">content_paste</mdw-icon>
+      paste
+    </mdw-menu-item>
+    <mdw-menu-item>plain</mdw-menu-item>
+    <mdw-menu-item>plain</mdw-menu-item>
   </mdw-menu>`)}
-        </code>
-      </pre>
-    </mdw-card>
+      </code>
+    </pre>
+  </mdw-card>
+
+  <mdw-card id="nested">
+    <div class="mdw-card-content">
+      <div class="mdw-headline">Nested menu</div>
+
+      <div class="example">
+        <mdw-button id="c2">Control</mdw-button>
+        <mdw-menu anchor="#c2">
+          <mdw-menu-item>
+            <mdw-icon slot="start">content_copy</mdw-icon>
+            copy
+          </mdw-menu-item>
+          <mdw-menu-item>
+            <mdw-icon slot="start">content_paste</mdw-icon>
+            paste
+          </mdw-menu-item>
+          <mdw-menu-item>
+            plain
+            <mdw-menu slot="sub-menu">
+              <mdw-menu-item>
+                <mdw-icon slot="start">content_copy</mdw-icon>
+                copy
+              </mdw-menu-item>
+              <mdw-menu-item>
+                <mdw-icon slot="start">content_paste</mdw-icon>
+                paste
+              </mdw-menu-item>
+              <mdw-menu-item>
+                plain
+                <mdw-menu slot="sub-menu">
+                  <mdw-menu-item>
+                    <mdw-icon slot="start">content_copy</mdw-icon>
+                    copy
+                  </mdw-menu-item>
+                  <mdw-menu-item>
+                    <mdw-icon slot="start">content_paste</mdw-icon>
+                    paste
+                  </mdw-menu-item>
+                  <mdw-menu-item>
+                    plain
+                  </mdw-menu-item>
+                </mdw-menu>
+              </mdw-menu-item>
+            </mdw-menu>
+          </mdw-menu-item>
+        </mdw-menu>
+      </div>
+    </div>
+
+    <pre>
+      <code class="language-html">
+${page.escape(`mdw-button id="c2">Control</mdw-button>
+<mdw-menu anchor="#c2">
+  <mdw-menu-item>...</mdw-menu-item>
+  <mdw-menu-item>
+    ...
+    <mdw-menu slot="sub-menu">
+      <mdw-menu-item>...</mdw-menu-item>
+      <mdw-menu-item>
+        ...
+        <mdw-menu slot="sub-menu">
+          <mdw-menu-item>...</mdw-menu-item>
+        </mdw-menu>
+      </mdw-menu-item>
+    </mdw-menu>
+  </mdw-menu-item>
+</mdw-menu>`)}
+      </code>
+    </pre>
+  </mdw-card>
 </section>

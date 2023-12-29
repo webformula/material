@@ -16,175 +16,130 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Example</div>
-      </div>
-      <div class="mdw-card-content">
-        <mdw-select label="Standard">
-          <mdw-option value="1">one</mdw-option>
-          <mdw-option value="2">two</mdw-option>
-          <mdw-option value="3">three</mdw-option>
-          <mdw-option value="4">four</mdw-option>
-          <mdw-option value="5">five</mdw-option>
-          <mdw-option value="6">six</mdw-option>
-          <mdw-option value="7">seven</mdw-option>
-          <mdw-option value="8">eight</mdw-option>
-          <mdw-option value="9">nine</mdw-option>
-          <mdw-option value="10">ten</mdw-option>
-        </mdw-select>
-    
-        <mdw-select class="mdw-filter" label="filter">
-          <mdw-option value="1">one</mdw-option>
-          <mdw-option value="2">two</mdw-option>
-          <mdw-option value="3">three</mdw-option>
-          <mdw-option value="4">four</mdw-option>
-          <mdw-option value="5">five</mdw-option>
-          <mdw-option value="6">six</mdw-option>
-          <mdw-option value="7">seven</mdw-option>
-          <mdw-option value="8">eight</mdw-option>
-          <mdw-option value="9">nine</mdw-option>
-          <mdw-option value="10">ten</mdw-option>
-        </mdw-select>
-      </div>
-    </mdw-card>
-    
     <mdw-card id="basic">
       <div class="mdw-card-content">
         <div class="mdw-headline">Basic</div>
         
-        <div class="example">
-          <mdw-select label="Label">
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
-
-          <mdw-select label="Label" disabled>
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
+        <div class="example" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+          <div style="display: flex; flex-direction: column;">
+            <mdw-select label="Label" placeholder="Placeholder...">
+              <mdw-option2 value="1">one</mdw-option2>
+              <mdw-option2 value="2">two</mdw-option2>
+              <mdw-option2 value="3">three</mdw-option2>
+              <mdw-option2 value="4">four</mdw-option2>
+              <mdw-option2 value="5">five</mdw-option2>
+              <mdw-option2 value="6">six</mdw-option2>
+            </mdw-select>
+        
+            <mdw-select label="Filter" filter>
+              <mdw-icon slot="leading-icon">search</mdw-icon>
+              <mdw-option2 value="1">one</mdw-option2>
+              <mdw-option2 value="2">two</mdw-option2>
+              <mdw-option2 value="3">three</mdw-option2>
+              <mdw-option2 value="4">four</mdw-option2>
+              <mdw-option2 value="5">five</mdw-option2>
+              <mdw-option2 value="6">six</mdw-option2>
+            </mdw-select>
+          </div>
+        
+          <div style="display: flex; flex-direction: column;">
+            <mdw-select label="Value attr" value="1">
+              <mdw-option2 value="1">one</mdw-option2>
+              <mdw-option2 value="2">two</mdw-option2>
+              <mdw-option2 value="3">three</mdw-option2>
+              <mdw-option2 value="4">four</mdw-option2>
+              <mdw-option2 value="5">five</mdw-option2>
+              <mdw-option2 value="6">six</mdw-option2>
+            </mdw-select>
+        
+            <mdw-select label="Selected attr (outlined)" class="outlined">
+              <mdw-option2 value="1" selected>one</mdw-option2>
+              <mdw-option2 value="2">two</mdw-option2>
+              <mdw-option2 value="3">three</mdw-option2>
+              <mdw-option2 value="4">four</mdw-option2>
+              <mdw-option2 value="5">five</mdw-option2>
+              <mdw-option2 value="6">six</mdw-option2>
+            </mdw-select>
+          </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select label="Label">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
+  ${page.escape(`<mdw-select
+    label="Label"
+    placeholder="Placeholder..."
+  >
+    <mdw-option2 value="1">one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
   </mdw-select>
+
   
-  <mdw-select label="Label" disabled>
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
+  <mdw-select
+    label="Filter"
+    filter
+  >
+    <mdw-icon slot="leading-icon">search</mdw-icon>
+    <mdw-option2 value="1">one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
+  </mdw-select>
+
+  
+  <mdw-select
+    label="Value attr"
+    value="1"
+  >
+    <mdw-option2 value="1">one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
+  </mdw-select>
+
+  
+  <mdw-select
+    label="Selected attr (outlined)"
+    class="outlined"
+  >
+    <mdw-option2 value="1" selected>one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
   </mdw-select>`)}
         </code>
       </pre>
     </mdw-card>
 
-
-    <mdw-card id="outlined">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Outlined</div>
-    
-        <div class="example">
-          <mdw-select label="Label" class="mdw-outlined">
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
-        </div>
-      </div>
-    
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-select label="Label" class="mdw-outlined">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
-  </mdw-select>`)}
-        </code>
-      </pre>
-    </mdw-card>
 
     <mdw-card id="filter">
       <div class="mdw-card-content">
         <div class="mdw-headline">Filter</div>
+        <div class="mdw-supporting-text">Filtering hides items that do not fuzzy match the input. The most likely match will also add a textfield suggestion and hitting the enter key will select it.</div>
     
         <div class="example">
-          <mdw-select class="mdw-filter" label="Label">
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
+          <mdw-select label="Label" filter>
+            <mdw-option2 value="1">one</mdw-option2>
+            <mdw-option2 value="2">two</mdw-option2>
+            <mdw-option2 value="3">three</mdw-option2>
+            <mdw-option2 value="4">four</mdw-option2>
+            <mdw-option2 value="5">five</mdw-option2>
+            <mdw-option2 value="6">six</mdw-option2>
+            <mdw-option2 value="7">seven</mdw-option2>
+            <mdw-option2 value="8">eight</mdw-option2>
+            <mdw-option2 value="9">nine</mdw-option2>
+            <mdw-option2 value="10">ten</mdw-option2>
           </mdw-select>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select class="mdw-filter" label="Label">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
+  ${page.escape(`<mdw-select filter label="Label">
+    <mdw-option2 value="1">one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
+    <mdw-option2 value="3">three</mdw-option2>
+    <mdw-option2 value="4">four</mdw-option2>
+    <mdw-option2 value="5">five</mdw-option2>
+    <mdw-option2 value="6">six</mdw-option2>
+    <mdw-option2 value="7">seven</mdw-option2>
+    <mdw-option2 value="8">eight</mdw-option2>
+    <mdw-option2 value="9">nine</mdw-option2>
+    <mdw-option2 value="10">ten</mdw-option2>
   </mdw-select>`)}
         </code>
       </pre>
@@ -194,36 +149,37 @@
     <mdw-card id="async-filter">
       <div class="mdw-card-content">
         <div class="mdw-headline">Async filter</div>
+        <div class="mdw-supporting-text">Async filter will trigger a <b>filter</b> event that is debounced. There will be a progress bar shown at the top. You can resolve the select two ways. You can update the options or reset the options (both shown below).</div>
         
         <div class="example">
-          <mdw-select id="async-filter-select" class="mdw-filter-async" label="Label">
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
+          <mdw-select id="async-filter-select" label="Label" filter async>
+            <mdw-option2 value="1">one</mdw-option2>
+            <mdw-option2 value="2">two</mdw-option2>
+            <mdw-option2 value="3">three</mdw-option2>
+            <mdw-option2 value="4">four</mdw-option2>
+            <mdw-option2 value="5">five</mdw-option2>
+            <mdw-option2 value="6">six</mdw-option2>
+            <mdw-option2 value="7">seven</mdw-option2>
+            <mdw-option2 value="8">eight</mdw-option2>
+            <mdw-option2 value="9">nine</mdw-option2>
+            <mdw-option2 value="10">ten</mdw-option2>
           </mdw-select>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select id="async-filter-select" class="mdw-filter-async" label="Label">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
+  ${page.escape(`<mdw-select filter async label="Label" id="async-filter-select">
+    <mdw-option2 value="1">one</mdw-option2>
+    <mdw-option2 value="2">two</mdw-option2>
+    <mdw-option2 value="3">three</mdw-option2>
+    <mdw-option2 value="4">four</mdw-option2>
+    <mdw-option2 value="5">five</mdw-option2>
+    <mdw-option2 value="6">six</mdw-option2>
+    <mdw-option2 value="7">seven</mdw-option2>
+    <mdw-option2 value="8">eight</mdw-option2>
+    <mdw-option2 value="9">nine</mdw-option2>
+    <mdw-option2 value="10">ten</mdw-option2>
   </mdw-select>`)}
         </code>
       </pre>
@@ -231,16 +187,26 @@
       <pre>
         <code class="language-javascript">
   ${`// do some async stuff
-  document.querySelector('#async-filter-select').addEventListener('filter', e => {
-    console.log(e.target.display); // what is being typed
-    e.target.optionValues = [{ label: 'One', value: 1 }, { label: 'Two', value: 2}];
+  const select = document.querySelector('#async-filter-select');
+  select.addEventListener('filter', e => {
+    console.log(select.displayValue); // what is being typed
+
+    // You can reset the select to the initial options
+    select.initialOptions();
+
+    // You can either append new mdw-option elements to the DOM
+    // Or you can use this helper method
+    select.setOptions([
+      { label: 'One', value: 1 },
+      { label: 'Two', value: 2}
+    ]);
   });`}
         </code>
       </pre>
     </mdw-card>
 
 
-    <mdw-card id="bottomsheet">
+    <!-- <mdw-card id="bottomsheet">
       <div class="mdw-card-content">
         <div class="mdw-headline">Bottom sheets on window compact</div>
         <div class="mdw-subheader">To enable bottom sheets on compact layout add <b>class="mdw-use-bottom-sheet"</b></div>
@@ -277,6 +243,6 @@
   </mdw-select>`)}
         </code>
       </pre>
-    </mdw-card>
+    </mdw-card> -->
   </div>
 </section>

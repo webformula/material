@@ -90,10 +90,10 @@ mdw-card .mdw-subhead {
 mdw-card > .mdw-supporting-text,
 mdw-card .mdw-card-content > .mdw-supporting-text {
   margin-top: 12px;
-  font-size: var(--mdw-font-small-body-size);
-  font-weight: var(--mdw-font-small-body-weight);
-  line-height: var(--mdw-font-small-body-line-height);
-  letter-spacing: var(--mdw-font-small-body-tracking);
+  font-size: var(--mdw-font-medium-body-size);
+  font-weight: var(--mdw-font-medium-body-weight);
+  line-height: var(--mdw-font-medium-body-line-height);
+  letter-spacing: var(--mdw-font-medium-body-tracking);
   color: var(--mdw-on-surface-variant);
 }
 

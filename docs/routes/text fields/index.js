@@ -8,9 +8,4 @@ export default class extends Component {
   constructor() {
     super();
   }
-
-  afterRender() {
-    document.querySelector('#autocomplete-textfield').autocomplete = 'autocomplete';
-    document.querySelector('#require-custom').setCustomValidity('Custom error message');
-  }
 }

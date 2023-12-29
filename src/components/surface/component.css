@@ -1,0 +1,278 @@
+:host {
+  position: relative;
+  min-width: 112px;
+  display: contents;
+}
+
+.surface {
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: 0px;
+  --mdw-surface-close-delay: 0ms;
+  
+  position: absolute;
+  border-radius: inherit;
+  display: none;
+  inset: auto;
+  border: none;
+  padding: 0px;
+  overflow: visible;
+  background-color: transparent;
+  color: inherit;
+  opacity: 0;
+  z-index: 20;
+  user-select: none;
+  max-height: inherit;
+  height: inherit;
+  min-width: inherit;
+  max-width: inherit;
+  visibility: hidden;
+}
+
+.surface.viewport-bound {
+  max-height: var(--mdw-surface-height, inherit);
+}
+
+:host(.open) .surface,
+.animating.surface {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.surface::backdrop {
+  display: none;
+}
+
+:host(.fixed) .surface {
+  position: fixed;
+}
+
+.surface-content {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  outline: none;
+  box-sizing: border-box;
+  background-color: inherit;
+  border-radius: inherit;
+  overflow: auto;
+  height: inherit;
+  max-height: inherit;
+  min-width: inherit;
+  max-width: inherit;
+  overscroll-behavior: contain;
+}
+
+.animating .surface-content {
+  overflow: hidden;
+}
+
+/* TODO offsets for non anchor */
+:host(:not(.anchor).position-center) .surface,
+:host(:not(.anchor).position-center-center) .surface {
+  /* --mdw-surface-horizontal-position: calc(-50% + var(--mdw-surface-offset-x));
+  --mdw-surface-vertical-position: calc(-50% + var(--mdw-surface-offset-y));
+  top: calc(50% + var(--mdw-surface-offset-y));
+  left: calc(50% + var(--mdw-surface-offset-x)); */
+
+  --mdw-surface-horizontal-position: -50%;
+  --mdw-surface-vertical-position: -50%;
+  top: 50%;
+  left: 50%;
+}
+
+:host(:not(.anchor).position-center-left) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: calc(-50% + var(--mdw-surface-offset-y));
+  top: calc(50% + var(--mdw-surface-offset-y));
+  left: 0; */
+
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: -50%;
+  top: 50%;
+  left: 0;
+}
+
+:host(:not(.anchor).position-center-right) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: calc(-50% + var(--mdw-surface-offset-y));
+  top: calc(50% + var(--mdw-surface-offset-y));
+  right: 0; */
+
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: -50%;
+  top: 50%;
+  right: 0;
+}
+
+:host(:not(.anchor).position-top-center) .surface {
+  /* --mdw-surface-horizontal-position: calc(-50% + var(--mdw-surface-offset-x));
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y);
+  top: 0;
+  left: calc(50% + var(--mdw-surface-offset-x)); */
+
+  --mdw-surface-horizontal-position: -50%;
+  --mdw-surface-vertical-position: 0px;
+  top: 0;
+  left: 50%;
+}
+
+:host(:not(.anchor).position-top-left) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y); */
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: 0px;
+  top: 0;
+  left: 0;
+}
+
+:host(:not(.anchor).position-top-right) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y); */
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: 0px;
+  top: 0;
+  right: 0;
+}
+
+:host(:not(.anchor).position-bottom-center) .surface {
+  /* --mdw-surface-horizontal-position: calc(-50% + var(--mdw-surface-offset-x));
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y);
+  bottom: 0;
+  left: calc(50% + var(--mdw-surface-offset-x)); */
+
+  --mdw-surface-horizontal-position: -50%;
+  --mdw-surface-vertical-position: 0px;
+  bottom: 0;
+  left: 50%;
+}
+
+:host(:not(.anchor).position-bottom-left) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y); */
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: 0px;
+  bottom: 0;
+  left: 0;
+}
+
+:host(:not(.anchor).position-bottom-right) .surface {
+  /* --mdw-surface-horizontal-position: var(--mdw-surface-offset-x);
+  --mdw-surface-vertical-position: var(--mdw-surface-offset-y); */
+  --mdw-surface-horizontal-position: 0px;
+  --mdw-surface-vertical-position: 0px;
+  bottom: 0;
+  right: 0;
+}
+
+:host(:not(.anchor)) .surface {
+  transform: translate(
+    var(--mdw-surface-horizontal-position),
+    var(--mdw-surface-vertical-position)
+  );
+}
+
+slot {
+  display: block;
+  height: inherit;
+  max-height: inherit;
+}
+
+/* ::slotted(:is(.mdw-divider, [role='separator'])) {
+  margin: 8px 0;
+} */
+
+
+:host(:not(.open)) .surface.animating {
+  animation: hide-translate;
+  animation-duration: var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+}
+
+:host(.open) .surface.animating {
+  animation: show-translate;
+  animation-duration: var(--mdw-motion-duration-medium2);
+  animation-timing-function: var(--mdw-motion-easing-emphasized);
+}
+
+:host(:not(.open).animation-height) .surface.animating {
+  animation: hide-max-height;
+  animation-duration: var(--mdw-motion-duration-short3);
+  animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+  animation-delay: var(--mdw-surface-close-delay, 0ms);
+}
+
+:host(.open.animation-height) .surface.animating {
+  animation: show-max-height;
+  animation-duration: var(--mdw-motion-duration-medium3);
+  animation-timing-function: var(--mdw-motion-easing-emphasized);
+}
+
+
+@keyframes show-max-height {
+  0% {
+    opacity: 0;
+    max-height: 54px;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    max-height: var(--mdw-surface-height);
+  }
+}
+
+@keyframes hide-max-height {
+  0% {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    max-height: var(--mdw-surface-height);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: block;
+    visibility: visible;
+    max-height: calc(var(--mdw-surface-height) * 0.35);
+  }
+}
+
+@keyframes show-translate {
+  0% {
+    opacity: 0;
+    transform: translate(var(--mdw-surface-horizontal-position), calc(var(--mdw-surface-vertical-position) + (var(--mdw-surface-height) * 0.35 * -1)));
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+  }
+}
+
+@keyframes hide-translate {
+  0% {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: block;
+    visibility: visible;
+    transform: translate(var(--mdw-surface-horizontal-position), calc(var(--mdw-surface-vertical-position) + (var(--mdw-surface-height) * 0.35 * -1)));
+  }
+}

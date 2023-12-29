@@ -1,5 +1,5 @@
 import util from '../core/util.js';
-import styles from '../styles.css';
+import styles from '../styles.css' assert { type: 'css' };
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
 import { generateBrowser } from '../core/theme.js';
 generateBrowser();
@@ -9,6 +9,7 @@ const templateElements = {};
 export default class HTMLElementExtended extends HTMLElement {
   /** if not using shadowRoot templates and rendering still work */
   static useShadowRoot = false;
+  static shadowRootDelegateFocus = false;
 
   /** Use template element to clone from
    *   If your template uses dynamic variables you do not want to use this */
@@ -81,7 +82,7 @@ export default class HTMLElementExtended extends HTMLElement {
     }
 
     if (this.constructor.useShadowRoot) {
-      this.attachShadow({ mode: 'open' });
+      this.attachShadow({ mode: 'open', delegatesFocus: this.constructor.shadowRootDelegateFocus });
       this.#root = this.shadowRoot;
 
       if ((Array.isArray(this.constructor.styleSheets) && this.constructor.styleSheets.length > 0) || this.constructor.styleSheets instanceof CSSStyleSheet) {

@@ -1,46 +1,31 @@
-import HTMLElementExtended from "../HTMLElementExtended.js";
-import styles from './option.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
+import MDWMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-
-customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElementExtended {
-  static useShadowRoot = true;
-  static styleSheets = styles;
-
+customElements.define('mdw-option2', class MDWOptionElement2 extends MDWMenuItemElement {
   #value;
-  #ripple;
+  #displayValue;
+  #selected = false;
 
   constructor() {
     super();
-    this.#handleTrailingIcon();
+
+    this.role = 'option';
   }
 
-  template() {
-    return /*html*/`
-      <span class="text">
-        <slot></slot>
-      </span>
-      <div class="ripple"></div>
-    `;
+  static get observedAttributes() {
+    return [
+      'selected'
+    ];
+  }
+
+  attributeChangedCallback(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   connectedCallback() {
-    this.tabIndex = -1;
-    this.setAttribute('role', 'option');
-
-    this.#value = this.getAttribute('value') || util.getTextFromNode(this);
-  }
-
-  afterRender() {
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this
-    });
-  }
-
-  disconnectedCallback() {
-    if (this.#ripple) this.#ripple.destroy();
+    super.connectedCallback();
+    this.#displayValue = util.getTextFromNode(this);
+    this.#value = this.getAttribute('value') || this.#displayValue;
   }
 
   get value() {
@@ -50,17 +35,13 @@ customElements.define('mdw-option', class MDWOptionGroupElement extends HTMLElem
     this.#value = value;
   }
 
-  // auto add class .mdw-trailing to icon so t will space correctly
-  #handleTrailingIcon() {
-    const icon = this.querySelector('mdw-icon');
-    if (!icon) return;
+  get displayValue() {
+    return this.#displayValue;
+  }
 
-    let previous = icon.previousSibling;
-    while (previous) {
-      if (previous.nodeType === 3 && previous.textContent.trim() !== '') break;
-      previous = previous.previousSibling;
-    }
-
-    if (previous) icon.classList.add('mdw-trailing');
+  get selected() { return this.#selected; }
+  set selected(value) {
+    this.#selected = value !== null && value !== false;
+    this.classList.toggle('selected', this.#selected);
   }
 });

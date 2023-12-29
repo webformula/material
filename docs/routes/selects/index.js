@@ -10,14 +10,14 @@ export default class extends Component {
   }
 
   afterRender() {
-    document.querySelector('#async-filter-select').addEventListener('filter', e => page.filter(e.target.display));
+    document.querySelector('#async-filter-select').addEventListener('filter', e => {
+      this.filter(e.target);
+    });
   }
 
-  async filter(value) {
-    const select = document.querySelector('#async-filter-select');
-
+  async filter(select) {
     await this.wait(500);
-    select.optionValues = [
+    const options = [
       {
         label: 'One',
         value: '1'
@@ -58,7 +58,9 @@ export default class extends Component {
         label: 'Ten',
         value: '10'
       }
-    ].filter(v => v.label.toLowerCase().includes(value.toLowerCase().trim()));;
+    ].filter(v => v.label.toLowerCase().includes(select.displayValue.toLowerCase().trim()));
+
+    select.setOptions(options);
   }
 
   async filterOnEnter(value) {
