@@ -33,19 +33,27 @@ const mdwUtil = new class MDWUtil {
 
   async animationendAsync(element) {
     return new Promise(resolve => {
-      element.addEventListener('animationend', function onAnimationend() {
+      function onAnimationend(e) {
         element.removeEventListener('animationend', onAnimationend);
+        element.removeEventListener('animationcancel', onAnimationend);
         resolve();
-      });
+      }
+
+      element.addEventListener('animationend', onAnimationend);
+      element.addEventListener('animationcancel', onAnimationend);
     });
   }
 
   async transitionendAsync(element) {
     return new Promise(resolve => {
-      element.addEventListener('transitionend', function onTransitionend() {
+      function onTransitionend() {
         element.removeEventListener('transitionend', onTransitionend);
+        element.removeEventListener('transitioncancel', onTransitionend);
         resolve();
-      });
+      }
+
+      element.addEventListener('transitionend', onTransitionend);
+      element.addEventListener('transitioncancel', onTransitionend);
     });
   }
   
@@ -66,12 +74,12 @@ const mdwUtil = new class MDWUtil {
       .trim();
   }
 
-  getTextWidth(element) {
+  getTextWidth(element, fontStyle = { fontWeight: '', fontSize: '', fontFamily: '', letterSpacing: '' }) {
     if (!this.#textWidthCanvas) this.#textWidthCanvas = document.createElement('canvas');
     const styles = window.getComputedStyle(element);
     const context = this.#textWidthCanvas.getContext('2d');
-    context.font = `${styles.getPropertyValue('font-weight')} ${styles.getPropertyValue('font-size')} ${styles.getPropertyValue('font-family') }`;
-    context.letterSpacing = styles.getPropertyValue('letter-spacing');
+    context.font = `${fontStyle.fontWeight || styles.getPropertyValue('font-weight')} ${fontStyle.fontSize || styles.getPropertyValue('font-size')} ${fontStyle.fontFamily || styles.getPropertyValue('font-family')}`;
+    context.letterSpacing = fontStyle.letterSpacing || styles.getPropertyValue('letter-spacing');
     const metrics = context.measureText(this.getTextFromNode(element));
     return Math.ceil(metrics.width);
   }

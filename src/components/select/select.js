@@ -22,14 +22,12 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   #options = [];
   #isFilter = false;
   #isAsync = false;
-  #isAsyncActive = false;
   #lastOptionsOnSelect = '';
   #initialOptions = '';
   #onInputFocus_bound = this.#onInputFocus.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
   #optionClick_bound = this.#optionClick.bind(this);
   #filterInput_bound = this.#filterInput.bind(this);
-  #filterAsyncEvent_debounced = util.debounce(this.#filterAsyncEvent, 300).bind(this);
 
   constructor() {
     super();
@@ -99,6 +97,10 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     this.#textfield.label = this.label;
     this.#textfield.placeholder = this.placeholder;
     this.#textfield.required = this.required;
+    if (this.#isFilter && this.#isAsync) {
+      this.#textfield.type = 'search';
+      this.#textfield.incremental = true;
+    }
     this.#textfield.classList.toggle('outlined', this.classList.contains('outlined'));
     this.#options = [...this.querySelectorAll('mdw-option2')];
     this.anchorElement = this.#textfield;
@@ -274,7 +276,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   }
 
   #slotChange() {
-    if (this.#isAsync && !this.#isAsyncActive) this.classList.remove('filter-async-active');
+    if (this.#isAsync) this.classList.remove('filter-async-active');
     this.#options = [...this.querySelectorAll('mdw-option2')];
     this.#options.filter(o => o.value === this.value).forEach(o => o.selected = true);
     if (!this.#initialOptions) this.#initialOptions = this.#options.map(o => o.outerHTML).join('');
@@ -333,14 +335,6 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   }
 
   #filterInputAsync() {
-    // const terms = this.#textfield.value.trim();
     this.classList.add('filter-async-active');
-    this.#isAsyncActive = true;
-    this.#filterAsyncEvent_debounced();
-  }
-
-  #filterAsyncEvent() {
-    this.#isAsyncActive = false;
-    this.dispatchEvent(new Event('filter', this));
   }
 });

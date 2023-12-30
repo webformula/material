@@ -5,6 +5,7 @@ import Formatter from './Formatter.js';
 import util from '../../core/util.js';
 
 const dashCaseRegex = /-([a-z])/g;
+const isIncrementalSupported = 'incremental' in document.createElement('input');
 
 // TODO character count
 // TODO on enter suggestion fill
@@ -18,6 +19,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   #internals;
   #input;
+  #type = 'text';
   #focusValue;
   #dirty = false;
   #touched = false;
@@ -30,11 +32,14 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   #abort;
   #formatter;
   #suggestion;
+  #incremental = false;
   #slotChange_bound = this.#slotChange.bind(this);
   #onInput_bound = this.#onInput.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onSelect_bound = this.#onSelect.bind(this);
+  #dispatchSearch_bound = this.#dispatchSearch.bind(this);
+  #incrementalPolyfill_debounced = util.debounce(this.#dispatchSearch, 300).bind(this);
 
 
   constructor() {
@@ -42,7 +47,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.#internals = this.attachInternals();
   }
 
-  // TODO update
+  // TODO update. enterKeyHint
   static get observedAttributes() {
     return [
       'aria-label',
@@ -65,7 +70,9 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
       'suggestion',
       'error-text',
       'type',
-      'value'];
+      'value',
+      'incremental'
+    ];
   }
 
   attributeChangedCallback(name, _oldValue, newValue) {
@@ -96,6 +103,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.#input.addEventListener('select', this.#onSelect_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+    if (this.type === 'search') this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
 
     this.classList.toggle('has-value', !!this.value);
 
@@ -124,6 +132,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
           placeholder="${this.placeholder || ' '}"
           ${this.readonly ? 'readonly' : ''}
           ${this.required ? 'required' : ''}
+          ${this.incremental ? 'incremental' : ''}
         />
         <label class="no-animation">${this.label}</label>
         ${!this.classList.contains('outlined') ? '' : `
@@ -332,10 +341,17 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     }
   }
 
-  get type() { return this.getAttribute('type') || 'text'; }
+  get type() { return this.#type; }
   set type(value) {
-    if (`${value}` === this.getAttribute('type')) return;
+    if (`${value}` === this.#type) return;
+    this.#type = value;
     this.setAttribute('type', value);
+  }
+
+  get incremental() { return this.#incremental; }
+  set incremental(value) {
+    this.#incremental = value !== null && value !== false;
+    if (this.rendered) this.#input.incremental = this.#incremental;
   }
 
   get value() {
@@ -445,6 +461,9 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.#updateValidity();
     // only update display if invalid while in focus
     if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+
+    // polyfill incremental search events
+    if (this.#type === 'search' && this.#incremental && !isIncrementalSupported) this.#incrementalPolyfill_debounced();
   }
 
   #onFormatterInput() {
@@ -512,6 +531,12 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     suggestionElement.innerText = value;
     const offset = util.getTextWidthFromInput(this.#input);
     suggestionElement.style.left = `${offset + 16}px`;
+  }
+
+  #dispatchSearch() {
+    this.dispatchEvent(new Event('search', {
+      composed: true
+    }));
   }
 }
 
