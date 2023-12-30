@@ -229,6 +229,7 @@
   align-self: center;
 }
 
+.text-field.leading-icon .suggestion,
 .text-field.leading-icon label {
   margin-left: 36px
 }

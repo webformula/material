@@ -188,7 +188,10 @@
         <code class="language-javascript">
   ${`// do some async stuff
   const select = document.querySelector('#async-filter-select');
-  select.addEventListener('filter', e => {
+  
+  // Incremental search is enabled
+  // You will receive debounced events as you type
+  select.addEventListener('search', e => {
     console.log(select.displayValue); // what is being typed
 
     // You can reset the select to the initial options

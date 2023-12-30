@@ -1,172 +1,215 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import styles from './component.css' assert { type: 'css' };
-import util from '../../core/util.js';
 import Ripple from '../../core/Ripple.js';
 
-export default class MDWCheckboxElement extends HTMLElementExtended {
-  static useShadowRoot = true;
-  static styleSheets = styles;
 
+customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLElementExtended {
+  static useShadowRoot = true;
+  static useTemplate = true;
+  static shadowRootDelegateFocus = true;
+  static styleSheets = styles;
+  static formAssociated = true;
+
+  #internals;
+  #input;
+  #abort;
+  #ripple;
+  #label;
+  #value = 'on';
   #checked = false;
   #indeterminate = false;
-  #value = 'on';
-  #disabled = false;
+  #selected = false;
+  #touched = false;
   #click_bound = this.#click.bind(this);
-  #onInvalid_bound = this.#onInvalid.bind(this);
-  #ripple;
-  #input;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #focusMousedown_bound = this.#focusMousedown.bind(this);
-
+  #slotChange_bound = this.#slotChange.bind(this);
 
   constructor() {
     super();
 
-    this.classList.add('mdw-no-animation');
+    this.#internals = this.attachInternals();
+    this.role = 'checkbox';
+  }
+
+  static get observedAttributes() {
+    return [
+      'aria-label',
+      'checked',
+      'indeterminate',
+      'disabled',
+      'readonly',
+      'value'
+    ];
+  }
+
+  attributeChangedCallback(name, _oldValue, newValue) {
+    if (name === 'aria-label') this.ariaLabel = newValue;
+    this[name] = newValue;
+  }
+
+  template() {
+    return /*html*/`
+      <div class="container">
+        <input type="checkbox">
+        <div class="outline"></div>
+        <div class="background"></div>
+        <div class="state-layer"></div>
+        <svg class="icon" viewBox="0 0 18 18" aria-hidden="true">
+          <rect class="mark short" />
+          <rect class="mark long" />
+        </svg>
+        <div class="ripple"></div>
+      </div>
+      <slot class="label"></slot>
+    `; 
   }
 
   connectedCallback() {
-    this.setAttribute('role', 'checkbox');
-    if (this.parentElement?.nodeName !== 'MDW-LIST-ITEM') this.tabIndex = 0;
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this) || 'checkbox');
-    this.addEventListener('focus', this.#focus_bound);
-    this.addEventListener('mousedown', this.#focusMousedown_bound);
-
-
-    if (!this.hasAttribute('aria-label')) {
-      const text = util.getTextFromNode(this);
-      if (text) this.setAttribute('aria-label', text);
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEventListener('click', this.#click_bound);
-    this.removeEventListener('focus', this.#focus_bound);
-    this.removeEventListener('blur', this.#blur_bound);
-    this.removeEventListener('keydown', this.#focusKeydown_bound);
-    this.removeEventListener('mousedown', this.#focusMousedown_bound);
-    this.#input.removeEventListener('invalid', this.#onInvalid_bound);
-    this.#ripple.destroy();
+    this.#abort = new AbortController();
   }
 
   afterRender() {
     this.#input = this.shadowRoot.querySelector('input');
-    this.#input.checked = this.#checked;
-    this.#input.indeterminate = this.#indeterminate;
-    this.#input.value = this.#value;
-    if (this.hasAttribute('required')) {
-      this.#input.required = true;
-      this.#input.addEventListener('invalid', this.#onInvalid_bound);
-    }
+    this.#input.value = this.value;
+    this.#input.checked = this.checked;
+    this.#input.disabled = this.disabled;
+    this.#input.indeterminate = this.indeterminate;
+    this.#input.required = this.required;
+    this.setAttribute('aria-checked', this.#checked.toString());
+    if (!this.hasAttribute('aria-label')) this.ariaLabel = 'switch';
 
-    this.addEventListener('click', this.#click_bound);
+    this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    this.#updateValidity();
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this,
       centered: true
     });
-
-    setTimeout(() => {
-      this.classList.remove('mdw-no-animation');
-    }, 200);
-
-    if (this.indeterminate) this.setAttribute('aria-checked', 'mixed');
-    else this.setAttribute('aria-checked', this.#checked.toString() || 'false');
   }
 
-  template() {
-    return /*html*/`
-      <input type="checkbox">
-      <div class="background">
-        <svg version="1.1" focusable="false" viewBox="0 0 24 24">
-          <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3" ></path>
-        </svg>
-        <div class="indeterminate-check"></div>
-        <div class="ripple"></div>
-      </div>
-
-      <slot></slot>
-    `;
+  disconnectedCallback() {
+    if (this.#abort) this.#abort.abort();
+    if (this.#ripple) this.#ripple.destroy();
   }
 
 
-  static get observedAttributes() {
-    return ['checked', 'indeterminate', 'disabled', 'value'];
-  }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'checked') this.checked = newValue !== null;
-    else if (name === 'indeterminate') this.indeterminate = newValue !== null;
-    else if (name === 'disabled') this.disabled = newValue !== null;
-    else this[name] = newValue;
-  }
-
-  get checked() {
-    return this.#checked;
-  }
-  set checked(value) {
-    this.#checked = !!value;
-    if (this.#input) this.#input.checked = this.#checked;
-    this.classList.toggle('mdw-checked', this.#checked);
-    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
-    this.#onInvalid();
-  }
-
-  get indeterminate() {
-    return this.#indeterminate;
-  }
-  set indeterminate(value) {
-    this.#indeterminate = !!value;
-    if (this.#input) this.#input.indeterminate = this.#indeterminate
-    this.classList.toggle('mdw-indeterminate', this.#indeterminate);
-    if (value === true) this.setAttribute('aria-checked', 'mixed');
-    else this.setAttribute('aria-checked', this.#checked.toString() || 'false');
-  }
-
-  get disabled() {
-    return this.#disabled;
-  }
-  set disabled(value) {
-    this.#disabled = !!value;
-    this.toggleAttribute('disabled', this.#disabled);
-  }
-
-  get value() {
-    return this.#value;
-  }
+  get value() { return this.#value; }
   set value(value) {
     this.#value = value;
-    if (this.#input) this.#input.value = value;
+    if (this.rendered) this.#input.value = this.#value;
+    this.#internals.setFormValue(this.#checked ? this.#value : null, this.#checked ? 'checked' : undefined);
   }
 
-  get validity() {
-    return this.#input.validity;
+  get checked() { return this.#checked; }
+  set checked(value) {
+    value = value !== null && value !== false;
+    this.#checked = value;
+    if (this.rendered) this.#input.checked = this.#checked;
+    this.#internals.setFormValue(this.#checked ? this.value : null, this.#checked ? 'checked' : undefined);
+    this.classList.toggle('checked', this.#checked);
+
+    if (this.indeterminate) {
+      this.#indeterminate = false;
+      this.classList.remove('indeterminate');
+      if (this.rendered) this.#input.indeterminate = this.#indeterminate;
+    }
+
+    this.#selected = this.#checked || this.#indeterminate;
+    this.classList.toggle('selected', this.#selected);
+    this.setAttribute('aria-checked', this.#checked.toString());
   }
 
+  get indeterminate() { return this.#indeterminate; }
+  set indeterminate(value) {
+    value = value !== null && value !== false;
+    this.#indeterminate = value;
+    if (this.rendered) this.#input.indeterminate = this.#indeterminate
+    this.classList.toggle('indeterminate', this.#indeterminate);
+
+    if (this.checked) {
+      this.#checked = false;
+      this.classList.remove('checked');
+      if (this.rendered) this.#input.checked = this.#checked;
+    }
+    this.#internals.setFormValue(this.#checked ? this.value : null, this.#checked ? 'checked' : undefined);
+    this.#selected = this.#checked || this.#indeterminate;
+    this.classList.toggle('selected', this.#selected);
+  }
+
+  get disabled() { return this.hasAttribute('disabled'); }
+  set disabled(value) {
+    value = value !== null && value !== false;
+    this.toggleAttribute('disabled', value);
+    if (this.rendered) this.#input.toggleAttribute('disabled', value);
+  }
+
+  get required() { return this.hasAttribute('required'); }
+  set required(value) {
+    value = value !== null && value !== false;
+    this.toggleAttribute('required', value);
+    if (this.rendered) this.#input.toggleAttribute('required', value);
+  }
+
+  get ariaLabel() { return this.hasAttribute('aria-label'); }
+  set ariaLabel(value) {
+    if (`${value}` === this.getAttribute('aria-label')) return;
+    this.setAttribute('aria-label', value);
+  }
+
+  get validationMessage() { return this.#internals.validationMessage; }
+  get validity() { return this.#internals.validity; }
+  get willValidate() { return this.#internals.willValidate; }
+
+
+
+  reset() {
+    this.#touched = false;
+    this.value = this.getAttribute('value') ?? '';
+    this.checked = this.getAttribute('checked');
+    this.indeterminate = this.getAttribute('indeterminate');
+  }
+  formResetCallback() { this.reset(); }
+
+  checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
-    return this.#input.reportValidity();
+    this.#updateValidityDisplay();
+  }
+  setCustomValidity(value = '') {
+    if (this.rendered) {
+      this.#input.setCustomValidity(value);
+      this.#updateValidityDisplay();
+    }
   }
 
-  checkValidity() {
-    return this.#input.checkValidity();
-  }
+
 
   #click() {
     this.checked = !this.#checked;
-    this.#onInvalid();
     this.dispatchEvent(new Event('change'));
+    this.#updateValidity();
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
   }
 
-  #onInvalid() {
-    if (!this.#input) return;
-    this.classList.toggle('mdw-invalid', !this.#input.validity.valid);
+  #updateValidity() {
+    this.#touched = true;
+    this.#internals.setValidity(this.#input.validity, this.#input.validationMessage || '');
+  }
+
+  #updateValidityDisplay() {
+    if (!this.rendered) return;
+    this.classList.toggle('invalid', !this.#input.validity.valid);
   }
 
   #focus() {
-    this.addEventListener('blur', this.#blur_bound);
-    this.addEventListener('keydown', this.#focusKeydown_bound);
+    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
   }
 
   // prevent focus on click
@@ -175,6 +218,10 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   }
 
   #blur() {
+    if (this.#touched) {
+      this.#updateValidity();
+      this.#updateValidityDisplay();
+    }
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
   }
@@ -182,12 +229,15 @@ export default class MDWCheckboxElement extends HTMLElementExtended {
   #focusKeydown(e) {
     if (e.code === 'Space') {
       this.checked = !this.checked;
-      this.#onInvalid();
+      if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change'));
       e.preventDefault();
     }
   }
-}
 
-
-customElements.define('mdw-checkbox', MDWCheckboxElement);
+  #slotChange() {
+    this.#label = this.innerText;
+    if (!this.hasAttribute('aria-label')) this.ariaLabel = this.#label;
+    this.shadowRoot.querySelector('.label').classList.toggle('has-label', !!this.#label);
+  }
+});

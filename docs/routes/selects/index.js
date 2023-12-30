@@ -10,7 +10,7 @@ export default class extends Component {
   }
 
   afterRender() {
-    document.querySelector('#async-filter-select').addEventListener('filter', e => {
+    document.querySelector('#async-filter-select').addEventListener('search', e => {
       this.filter(e.target);
     });
   }
@@ -62,41 +62,6 @@ export default class extends Component {
 
     select.setOptions(options);
   }
-
-  async filterOnEnter(value) {
-    const select = document.querySelector('#select-filter-on-enter');
-
-    if (!value) {
-      select.options = [
-        'One',
-        'Two',
-        'Three',
-        'Four',
-        'Five',
-        'Six',
-        'Seven',
-        'Eight',
-        'Nine',
-        'Ten'
-      ];
-      return;
-    }
-
-    await this.wait(500);
-    select.options = [
-      'One',
-      'Two',
-      'Three',
-      'Four',
-      'Five',
-      'Six',
-      'Seven',
-      'Eight',
-      'Nine',
-      'Ten'
-    ].filter(v => v.toLowerCase().includes(value.toLowerCase().trim()));
-  }
-
 
   async wait(time = 1000) {
     return new Promise(resolve => {
