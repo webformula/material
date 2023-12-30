@@ -8,18 +8,18 @@
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#standard" role="listitem">Standard</a>
-      <a href="#icon" role="listitem">Icon</a>
-      <a href="#labelright" role="listitem">Label right</a>
+      <a href="#basic" role="listitem">Basic</a>
+      <a href="#labels" role="listitem">Labels</a>
+      <a href="#icon" role="listitem">Icons</a>
     </ul>
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="standard">
+    <mdw-card id="basic">
       <div class="mdw-card-content">
         <div class="mdw-headline">Switch</div>
         
-        <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
+        <div class="example" style="flex-direction: column; display: flex; max-width: 360px; margin: 0 auto;">
           <mdw-switch>Label</mdw-switch>
           <mdw-switch checked>Label</mdw-switch>
         </div>
@@ -33,39 +33,49 @@
       </pre>
     </mdw-card>
 
-
-    <mdw-card id="icon">
+    <mdw-card id="labels">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Switch with icon (check mark)</div>
+        <div class="mdw-headline">Switch labels</div>
         
-        <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
-          <mdw-switch class="mdw-icon">Label</mdw-switch>
-          <mdw-switch class="mdw-icon" checked>Label</mdw-switch>
+        <div class="example" style="flex-direction: column; display: flex; max-width: 360px; margin: 0 auto;">
+          <mdw-switch>Label</mdw-switch>
+          <mdw-switch class="label-right" checked>Label right</mdw-switch>
+          <mdw-divider style="margin: 24px 0;"></mdw-divider>
+          <mdw-switch class="min-width">Label min width</mdw-switch>
+          <mdw-switch class="label-right min-width" checked>Label right min width</mdw-switch>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-switch class="mdw-icon">Label</mdw-switch>
-  <mdw-switch class="mdw-icon" checked>Label</mdw-switch>`)}
+  ${page.escape(`<mdw-switch>Label</mdw-switch>
+  <mdw-switch class="label-right" checked>Label right</mdw-switch>
+  <mdw-switch class="min-width">Label min width</mdw-switch>
+  <mdw-switch class="label-right min-width" checked>Label right min width</mdw-switch>`)}
         </code>
       </pre>
     </mdw-card>
 
-    <mdw-card id="labelright">
+    <mdw-card id="icon">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Switch label right</div>
-        
-        <div class="example" style="flex-direction: column; display: flex; padding-right: 16px">
-          <mdw-switch class="mdw-label-right">Label</mdw-switch>
-          <mdw-switch class="mdw-label-right" checked>Label</mdw-switch>
+        <div class="mdw-headline">Switch with icons</div>
+    
+        <div class="example" style="flex-direction: column; display: flex; max-width: 360px; margin: 0 auto;">
+          <mdw-switch>No icons unchecked</mdw-switch>
+          <mdw-switch checked>No icons checked</mdw-switch>
+          <mdw-switch checked class="checked-icon">Checked icon</mdw-switch>
+          <mdw-switch class="unchecked-icon">Unchecked icon</mdw-switch>
+          <mdw-switch class="checked-icon unchecked-icon">Both icons</mdw-switch>
         </div>
       </div>
-
+    
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-switch class="mdw-label-right">Label</mdw-switch>
-  <mdw-switch class="mdw-label-right" checked>Label</mdw-switch>`)}
+  ${page.escape(`<mdw-switch>No icons unchecked</mdw-switch>
+  <mdw-switch checked>No icons checked</mdw-switch>
+  <mdw-switch checked class="checked-icon">Checked icon</mdw-switch>
+  <mdw-switch class="unchecked-icon">Unchecked icon</mdw-switch>
+  <mdw-switch class="checked-icon unchecked-icon">Both icons</mdw-switch>`)}
         </code>
       </pre>
     </mdw-card>
