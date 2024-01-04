@@ -24,22 +24,26 @@ body.mdw-window-compact {
   overflow-y: auto;
 }
 
+body.mdw-has-navigation-bar:not(.mdw-navigation-bar-auto-hide) {
+  padding-bottom: 80px;
+}
+
 body page-content,
 body #page-content {
-  --mdw-page-content-padding-left: 12px;
-  --mdw-page-content-padding-right: 12px;
-  --mdw-page-content-padding-top: 12px;
-  --mdw-page-content-padding-bottom: 12px;
-
   display: flex;
   flex-direction: column;
   flex: 1;
   box-sizing: border-box;
-  padding-left: var(--mdw-page-content-padding-left);
-  padding-right: var(--mdw-page-content-padding-right);
-  padding-top: var(--mdw-page-content-padding-top);
-  padding-bottom: var(--mdw-page-content-padding-bottom);
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
+
+/* html page-content,
+html #page-content {
+  width: 100%;
+} */
 
 .mdw-text-length {
   position: fixed;

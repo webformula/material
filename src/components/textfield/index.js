@@ -19,7 +19,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   #internals;
   #input;
-  #type = 'text';
+  #type;
   #focusValue;
   #dirty = false;
   #touched = false;
@@ -75,9 +75,8 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     ];
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallbackRendered(name, _oldValue, newValue) {
     if (name === 'value' && this.#dirty) return;
-    name = name.replace(dashCaseRegex, (_, s) => s.toUpperCase());
     this[name] = newValue;
   }
 
@@ -96,7 +95,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     // if (this.#customValidityMessage) this.#input.setCustomValidity(this.#customValidityMessage);
     this.#internals.setValidity(this.#input.validity, this.#input.validationMessage, this.#input);
     // if (this.#customValidityMessage) this.#updateValidityDisplay();
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label || 'input');
+    // if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label || 'input');
 
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
@@ -104,8 +103,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
     if (this.type === 'search') this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
-
-    this.classList.toggle('has-value', !!this.value);
 
     setTimeout(() => {
       this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
@@ -118,8 +115,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
         <slot name="leading-icon"></slot>
         ${this.prefixText ? `<div class="prefix-text">${this.prefixText}</div>` : ''}
         <input
-          ${this.hasAttribute('value') ? `value="${this.getAttribute('value')}"` : ''}
-          ${this.hasAttribute('type') ? `type="${this.getAttribute('type')}"` : ''}
+          ${this.type ? `type="${this.type}"` : ''}
           ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
           ${this.multiple ? 'multiple' : ''}
           ${this.disabled ? 'disabled' : ''}
@@ -155,8 +151,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get ariaLabel() { return this.getAttribute('aria-label'); }
   set ariaLabel(value) {
-    if (`${value}` === this.getAttribute('aria-label') || `${value}` === 'label') return;
-
     if (value) this.setAttribute('aria-label', value);
     else this.removeAttribute('aria-label');
   }
@@ -167,14 +161,8 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     else this.removeAttribute('autocomplete');
   }
 
-  get label() { return this.#label; }
+  get label() { return this.#label || this.getAttribute('label'); }
   set label(value) {
-    if (!this.rendered) {
-      this.#label = `${value || ''}`;
-      return;
-    }
-    const labelEl = this.shadowRoot.querySelector('.text-field label');
-    if (labelEl.innerText === value) return;
     this.#label = `${value || ''}`;
     this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
@@ -185,7 +173,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     value = value !== null && value !== false;
     this.toggleAttribute('disabled', value);
     if (value) this.blur();
-    if (this.rendered) this.#input.toggleAttribute('disabled', value);
+    this.#input.toggleAttribute('disabled', value);
   }
 
   get form() { return this.#internals.form; }
@@ -194,6 +182,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   set format(value) {
     this.#addFormatter();
     this.#formatter.format = value;
+    this.#formatter.value = this.#value;
     if (this.format === value) return;
     this.setAttribute('format', value);
   }
@@ -204,6 +193,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   set mask(value) {
     this.#addFormatter();
     this.#formatter.mask = value;
+    this.#formatter.value = this.#value;
     if (this.mask === value) return;
     this.setAttribute('mask', value);
   }
@@ -212,56 +202,51 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get max() { return this.getAttribute('max'); }
   set max(value) {
-    if (`${value}` === this.getAttribute('max')) return;
     this.setAttribute('max', value);
-    if (this.rendered) this.#input.setAttribute('max', value);
+    this.#input.setAttribute('max', value);
   }
 
   get min() { return this.getAttribute('min'); }
   set min(value) {
-    if (`${value}` === this.getAttribute('min')) return;
     this.setAttribute('min', value);
-    if (this.rendered) this.#input.setAttribute('min', value);
+    this.#input.setAttribute('min', value);
   }
 
   get step() { return this.getAttribute('step'); }
   set step(value) {
-    if (`${value}` === this.getAttribute('step')) return;
     this.setAttribute('step', value);
-    if (this.rendered) this.#input.setAttribute('step', value);
+    this.#input.setAttribute('step', value);
   }
 
   get maxlength() { return this.getAttribute('maxlength'); }
   set maxlength(value) {
-    if (`${value}` === this.getAttribute('maxlength')) return;
     this.setAttribute('maxlength', value);
-    if (this.rendered) this.#input.setAttribute('maxlength', value);
+    this.#input.setAttribute('maxlength', value);
   }
 
   get minlength() { return this.getAttribute('minlength'); }
   set minlength(value) {
-    if (`${value}` === this.getAttribute('minlength')) return;
     this.setAttribute('minlength', value);
-    if (this.rendered) this.#input.setAttribute('minlength', value);
+    this.#input.setAttribute('minlength', value);
   }
 
   get multiple() { return this.hasAttribute('multiple'); }
   set multiple(value) {
     value = value !== null && value !== false;
     this.toggleAttribute('multiple', value);
-    if (this.rendered) this.#input.toggleAttribute('multiple', value);
+    this.#input.toggleAttribute('multiple', value);
   }
 
   get pattern() { return this.getAttribute('pattern'); }
   set pattern(value) {
     this.#addFormatter();
     this.#formatter.pattern = value;
-    if (value) this.#formatter.enable();
-    else this.#formatter.disable();
-
-    if (this.pattern === value) return;
+    if (value) {
+      this.#formatter.enable();
+      this.#formatter.value = this.#value;
+    } else this.#formatter.disable();
     this.setAttribute('pattern', value);
-    if (this.rendered) this.#input.setAttribute('pattern', value);
+    this.#input.setAttribute('pattern', value);
   }
 
   get patternRestrict() { return this.getAttribute('pattern-restrict'); }
@@ -275,20 +260,18 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   set placeholder(value) {
     if (value) this.setAttribute('placeholder', value);
     else this.removeAttribute('placeholder');
-    if (this.rendered) this.#input.setAttribute('placeholder', value || ' ');
+    this.#input.setAttribute('placeholder', value || ' ');
   }
 
   get prefixText() { return this.getAttribute('prefix-text'); }
   set prefixText(value) {
-    if (`${value}` === this.getAttribute('prefix-text')) return;
     this.setAttribute('prefix-text', value);
-    if (this.rendered) this.shadowRoot.querySelector('.text-field .prefix-text').innerText = value || '';
+    this.shadowRoot.querySelector('.text-field .prefix-text').innerText = value || '';
   }
   get suffixText() { return this.getAttribute('suffix-text'); }
   set suffixText(value) {
-    if (`${value}` === this.getAttribute('suffix-text')) return;
     this.setAttribute('suffix-text', value);
-    if (this.rendered) this.shadowRoot.querySelector('.text-field .suffix-text').innerText = value || '';
+    this.shadowRoot.querySelector('.text-field .suffix-text').innerText = value || '';
   }
 
   get readonly() { return this.hasAttribute('readonly'); }
@@ -296,35 +279,35 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     value = value !== null && value !== false;
     this.toggleAttribute('readonly', value);
     if (value) this.blur();
-    if (this.rendered) this.#input.toggleAttribute('readonly', value);
+    this.#input.toggleAttribute('readonly', value);
   }
 
   get required() { return this.hasAttribute('required'); }
   set required(value) {
     value = value !== null && value !== false;
     this.toggleAttribute('required', value);
-    if (this.rendered) this.#input.toggleAttribute('required', value);
+    this.#input.toggleAttribute('required', value);
   }
 
   get selectionDirection() { return this.#input?.selectionDirection || 0; }
   set selectionDirection(value = 0) {
-    if (this.rendered) this.#input.selectionDirection = value;
+    this.#input.selectionDirection = value;
   }
 
   get selectionEnd() { return this.#input?.selectionEnd || 0; }
   set selectionEnd(value = 0) {
-    if (this.rendered) this.#input.selectionEnd = value;
+    this.#input.selectionEnd = value;
   }
 
   get selectionStart() { return this.#input?.selectionStart || 0; }
   set selectionStart(value = 0) {
-    if (this.rendered) this.#input.selectionStart = value;
+    this.#input.selectionStart = value;
   }
 
   get supportingText() { return this.#supportingText; }
   set supportingText(value) {
     this.#supportingText = value || '';
-    if (this.rendered && (!this.#errorText || this.checkValidity())) {
+    if (!this.#errorText || this.checkValidity()) {
       const el = this.shadowRoot.querySelector('.text-field .supporting-text');
       el.innerText = this.#supportingText;
       el.setAttribute('title', this.#supportingText)
@@ -334,16 +317,15 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   get errorText() { return this.#errorText; }
   set errorText(value) {
     this.#errorText = value || '';
-    if (this.rendered && !this.checkValidity()) {
+    if (!this.checkValidity()) {
       const el = this.shadowRoot.querySelector('.text-field .supporting-text');
       el.innerText = this.#errorText;
       el.setAttribute('title', this.#errorText)
     }
   }
 
-  get type() { return this.#type; }
+  get type() { return this.#type || this.getAttribute('type'); }
   set type(value) {
-    if (`${value}` === this.#type) return;
     this.#type = value;
     this.setAttribute('type', value);
   }
@@ -351,7 +333,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   get incremental() { return this.#incremental; }
   set incremental(value) {
     this.#incremental = value !== null && value !== false;
-    if (this.rendered) this.#input.incremental = this.#incremental;
+    this.#input.incremental = this.#incremental;
   }
 
   get value() {
@@ -364,7 +346,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
       this.#value = this.#formatter.value;
     } else {
       this.#value = value;
-      if (this.rendered) this.#input.value = this.#value;
+      this.#input.value = this.#value;
     }
 
     this.#internals.setFormValue(this.#value);
@@ -376,7 +358,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   }
   set suggestion(value) {
     this.#suggestion = value;
-    if (this.rendered) this.#setSuggestion();
+    this.#setSuggestion();
   }
 
   get validationMessage() { return this.#internals.validationMessage; }

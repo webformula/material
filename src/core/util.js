@@ -4,8 +4,6 @@ import { generateBrowser } from './theme.js';
 const mdwUtil = new class MDWUtil {
   #uidCounter = 0;
   #textWidthCanvas;
-  #scrollTarget;
-  #scrollTargetListener;
   #lastScrollTop;
   #scrollCallbacks = [];
   #scrollCurrentDirection;
@@ -15,8 +13,18 @@ const mdwUtil = new class MDWUtil {
   #pageScrollLockHTMLScrollMargin;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
   #nextTickCallback_bound = this.#nextTickCallback.bind(this);
+  #initialWindowState_bound = this.#initialWindowState.bind(this);
   #nextTickRaf;
   #nextTickQueue = [];
+
+  constructor() {
+    window.addEventListener('mdwwindowstate', this.#initialWindowState_bound);
+  }
+
+  #initialWindowState() {
+    this.#lastScrollTop = document.documentElement.scrollTop;
+    window.removeEventListener('mdwwindowstate', this.#initialWindowState_bound);
+  }
   
   uid() {
     this.#uidCounter += 1;
@@ -159,22 +167,17 @@ const mdwUtil = new class MDWUtil {
   // helps prevent a layout calculation when using a bottom app bar
   #initialScroll = true;
   trackPageScroll(callback = () => { }) {
-    if (!this.#scrollTarget) {
-      this.#scrollTarget = document.documentElement;
-      this.#lastScrollTop = this.#scrollTarget.scrollTop;
-      this.#scrollTargetListener = window;
-    }
     if (this.#scrollCallbacks.length === 0) {
-      if (!this.#initialScroll) this.#lastScrollTop = this.#scrollTarget.scrollTop;
+      if (!this.#initialScroll) this.#lastScrollTop = document.documentElement.scrollTop;
       else this.#initialScroll = false;
-      this.#scrollTargetListener.addEventListener('scroll', this.#scrollHandler_bound);
+      window.addEventListener('scroll', this.#scrollHandler_bound);
     }
     this.#scrollCallbacks.push(callback);
   }
 
   untrackPageScroll(callback = () => { }) {
     this.#scrollCallbacks = this.#scrollCallbacks.filter(c => c !== callback);
-    if (this.#scrollCallbacks.length === 0) this.#scrollTargetListener.removeEventListener('scroll', this.#scrollHandler_bound);
+    if (this.#scrollCallbacks.length === 0) window.removeEventListener('scroll', this.#scrollHandler_bound);
   }
 
   // Track when scroll direction changes with buffer. Used for bottom app bar, fab, top app bar, page-content
@@ -418,21 +421,21 @@ const mdwUtil = new class MDWUtil {
   }
 
   #scrollHandler(event) {
-    const distance = this.#scrollTarget.scrollTop - this.#lastScrollTop;
+    const distance = document.documentElement.scrollTop - this.#lastScrollTop;
     
     if (distance === 0) return;
 
-    const direction = this.#scrollTarget.scrollTop >= this.#lastScrollTop ? -1 : 1;
+    const direction = document.documentElement.scrollTop >= this.#lastScrollTop ? -1 : 1;
     if (direction !== this.#scrollCurrentDirection) this.#scrollDistanceFromDirectionChange = 0;
     this.#scrollCurrentDirection = direction;
 
     this.#scrollDistanceFromDirectionChange += distance;
-    this.#lastScrollTop = this.#scrollTarget.scrollTop;
+    this.#lastScrollTop = document.documentElement.scrollTop;
 
     this.#scrollCallbacks.forEach(callback => callback({
       event,
-      isScrolled: this.#scrollTarget.scrollTop > 0,
-      scrollTop: this.#scrollTarget.scrollTop,
+      isScrolled: document.documentElement.scrollTop > 0,
+      scrollTop: document.documentElement.scrollTop,
       direction,
       distance,
       distanceFromDirectionChange: this.#scrollDistanceFromDirectionChange || 0

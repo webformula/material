@@ -1,0 +1,36 @@
+:host {
+  position: relative;
+  display: contents;
+  height: 100%;
+  width: 0px;
+}
+
+:host-context(body.mdw-window-expanded:not(body.mdw-has-navigation-drawer)),
+:host-context(body.mdw-navigation-drawer-state-hide:not(.mdw-window-compact)),
+:host-context(body.mdw-window-medium) {
+  width: var(--mdw-navigation-rail-width);
+}
+
+.placeholder {
+  display: flex;
+  flex-shrink: 0;
+  width: inherit;
+}
+
+.surface {
+  display: block;
+  background-color: var(--mdw-surface);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--mdw-navigation-rail-width);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px 0px;
+}
+
+:host-context(body.mdw-window-compact.mdw-has-bottom-app-bar),
+:host-context(body.mdw-window-compact.mdw-has-navigation-bar) {
+  display: none;
+}

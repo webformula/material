@@ -1,15 +1,15 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const animations = ['translate', 'height'];
+const animations = ['translate-y', 'translate-left', 'translate-right', 'height'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
 
-// TODO sheets
+// TODO scrim
 
 
-export default class MDWSurfaceElement extends HTMLElementExtended {
+export default class MDWSurfaceElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = true;
 
@@ -25,11 +25,13 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
   #overlap = true;
   #animation = 'height';
   #viewportBound = true;
+  #alwaysVisible = false;
   #offsetTop = 0;
   #offsetBottom = 0;
   #closeDelay = 0;
   #scrim = false;
   #open = false;
+  #initialOpen = false;
   #allowClose = false;
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #onEsc_bound = this.#onEsc.bind(this);
@@ -41,8 +43,14 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
 
     // add stylesheet here so it will not be overridden by extending class
     this.constructor.styleSheets = [].concat(...[styles, this.constructor.styleSheets]);
+
+    this.render();
+    this.#surfaceElement = this.shadowRoot.querySelector('.surface');
   }
 
+  /* Default template can be overridden
+   * as long as you have .surface and .surface-content
+   */
   template() {
     return /*html*/`
       <div class="surface">
@@ -55,25 +63,22 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
 
   connectedCallback() {
     this.#abort = new AbortController();
+    const positionClass = [...this.classList].find(v => v.startsWith('position-'));
+    if (positionClass) this.position = positionClass;
+    if (this.#closeDelay) this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
+    this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
+    this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
   }
 
-  afterRender() {
-    this.#surfaceElement = this.shadowRoot.querySelector('.surface');
-    const positionClass = [...this.classList].find(v => v.startsWith('position-'));
-    if (positionClass) this.position = positionClass;
-    if (this.#closeDelay) this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
-    this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
+  static get observedAttributesExtended() {
+    return [['anchor', 'string']];
   }
 
-  static get observedAttributes() {
-    return ['anchor'];
-  }
-
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     this[name] = newValue;
   }
 
@@ -88,7 +93,6 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
       this.classList.remove('anchor');
       this.#anchor = undefined;
       this.#anchorElement = undefined;
-      this.#surfaceElement = undefined;
     }
   }
 
@@ -97,11 +101,9 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
     if (!value || !value.nodeName) {
       this.classList.remove('anchor');
       this.#anchorElement = undefined;
-      this.#surfaceElement = undefined;
     } else {
       this.classList.add('anchor');
       this.#anchorElement = value;
-      this.#surfaceElement = this.shadowRoot.querySelector('.surface');
     }
   }
 
@@ -110,12 +112,13 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
     if (!animations.includes(value)) throw Error(`Invalid value. values = (${animations.join(', ')})`);
     this.#animation = value;
     this.classList.toggle('animation-height', value === 'height');
+    this.classList.toggle('animation-translate-left', value === 'translate-left');
   }
 
   get viewportBound() { return this.#viewportBound; }
   set viewportBound(value) {
     this.#viewportBound = !!value;
-    if (this.rendered) this.#surfaceElement.classList.toggle('viewportBound-bound', this.#viewportBound);
+    this.#surfaceElement.classList.toggle('viewportBound-bound', this.#viewportBound);
   }
 
   get scrim() { return this.#scrim; }
@@ -134,11 +137,23 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
   get allowClose() { return this.#allowClose; }
   set allowClose(value) { this.#allowClose = !!value; }
 
+  get alwaysVisible() { return this.#alwaysVisible; }
+  set alwaysVisible(value) {
+    this.#alwaysVisible = !!value
+    this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
+  }
+
   get open() { return this.#open; }
   set open(value) {
-    this.#open = !!value
-    if (this.#open) this.show();
+    if (!!value) this.show();
     else this.close();
+  }
+
+  get initialOpen() { return this.#initialOpen; }
+  set initialOpen(value) {
+    this.#initialOpen = !!value;
+    this.#open = true;
+    this.classList.add('open');
   }
 
   get fixed() { return this.#fixed }
@@ -173,7 +188,7 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
   get closeDelay() { return this.#closeDelay }
   set closeDelay(value) {
     this.#closeDelay = parseInt(value || 0);
-    if (this.rendered) this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
+    this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
   }
 
 
@@ -182,6 +197,7 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
     if (this.open) return;
     this.#open = true;
     this.classList.add('open');
+    
     this.#setPosition();
     this.onShow();
     this.#surfaceElement.classList.add('animating');
@@ -209,12 +225,17 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
     await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
     this.#surfaceElement.style.removeProperty('--mdw-surface-height');
+    this.#surfaceElement.style.removeProperty('--mdw-surface-width');
     this.#surfaceElement.style.left = '';
     this.#surfaceElement.style.bottom = '';
     this.#surfaceElement.style.top = '';
     this.dispatchEvent(new Event('close'));
 
     this.onHideEnd();
+  }
+
+  toggle() {
+    this.open = !this.open;
   }
 
   onShow() {}
@@ -342,6 +363,7 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
 
     this.#surfaceElement.classList.toggle('overlap', this.#overlap);
     this.#surfaceElement.style.setProperty('--mdw-surface-height', `${height}px`);
+    this.#surfaceElement.style.setProperty('--mdw-surface-width', `${width}px`);
     this.#surfaceElement.style.left = `${left}px`;
     this.#surfaceElement.style.bottom = bottom !== undefined ? `${bottom}px` : '';
     this.#surfaceElement.style.top = top !== undefined ? `${top}px` : '';
@@ -352,6 +374,7 @@ export default class MDWSurfaceElement extends HTMLElementExtended {
     // this.#surfaceElement.style.setProperty('--mdw-surface-offset-y', `${this.#offsetBottom || 0}px`);
     // this.#surfaceElement.style.setProperty('--mdw-surface-offset-X', `${this.#offsetX || 0}px`);
     this.#surfaceElement.style.setProperty('--mdw-surface-height', `${this.#surfaceElement.offsetHeight}px`);
+    this.#surfaceElement.style.setProperty('--mdw-surface-width', `${this.#surfaceElement.offsetWidth}px`);
   }
 
   #setMousePosition(event) {

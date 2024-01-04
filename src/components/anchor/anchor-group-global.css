@@ -1,4 +1,4 @@
-mdw-navigation-drawer-group {
+mdw-anchor-group {
   --mdw-navigation-drawer-group-height: 56px;
   position: relative;
   display: flex;
@@ -7,16 +7,17 @@ mdw-navigation-drawer-group {
   overflow-y: hidden;
   height: var(--mdw-navigation-drawer-group-height);
   width: 100%;
-  margin: 0 -16px;
-  padding: 0 16px;
+  margin-left: -16px;
+  padding-left: 16px;
+  padding-right: 26px;
   transition: height 0ms;
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
 }
 
-body.mdw-animation mdw-navigation-drawer-group {
+body.mdw-animation mdw-anchor-group {
   transition-duration: var(--mdw-motion-duration-short4);
 }
 
-mdw-navigation-drawer-group > a:not([group]) {
+mdw-anchor-group mdw-anchor:not([control]) {
   margin-left: 16px;
 }

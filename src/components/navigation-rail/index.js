@@ -1,35 +1,60 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
-import AnchorController from '../anchor/controller.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
+import styles from './component.css' assert { type: 'css' };
+import device from '../../core/device.js';
 
-customElements.define('mdw-navigation-rail', class MDWNavigationElement extends HTMLElementExtended {
+customElements.define('mdw-navigation-rail', class MDWNavigationRailElement extends HTMLComponentElement {
+  static useShadowRoot = true;
+  static useTemplate = true;
+  static styleSheets = styles;
+
   #locationchange_bound = this.#locationchange.bind(this);
+
 
   constructor() {
     super();
+
+    this.role = 'navigation';
+    this.render();
     document.body.classList.add('mdw-has-navigation-rail');
-  }
-
-  async connectedCallback() {
-    this.setAttribute('role', 'navigation');
-    [...this.querySelectorAll('a')].forEach(element => new AnchorController(element));
     this.#locationchange();
-    window.addEventListener('locationchange', this.#locationchange_bound);
-
-    // prevent layout calculation during script evaluation
-    requestAnimationFrame(() => {
-      const active = this.querySelector('.mdw-active');
-      if (active) {
-        const bounds = active.getBoundingClientRect();
-        if (bounds.bottom < this.scrollTop || bounds.top > this.offsetHeight - this.scrollTop) active.scrollIntoView({ behavior: 'instant' });
-      }
-    });
   }
+
+  template() {
+    return /*html*/`
+      <div class="placeholder"></div>
+      <div class="surface">
+        <slot></slot>
+      </div>
+    `;
+  }
+
+  connectedCallback() {
+    window.addEventListener('locationchange', this.#locationchange_bound);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('locationchange', this.#locationchange_bound);
+  }
+
 
   #locationchange() {
     const path = `${location.pathname}${location.hash}${location.search}`;
-    const active = this.querySelector(`.mdw-active`);
-    if (active) active.classList.remove('mdw-active');
+    const current = this.querySelector('.current');
+    if (current) current.classList.remove('current');
     const match = this.querySelector(`[href="${path}"]`);
-    if (match) match.classList.add('mdw-active');
+    
+    if (match) {
+      match.classList.add('current');
+      // if (match.parentElement.nodeName === 'MDW-ANCHOR-GROUP') {
+      //   match.parentElement.classList.add('has-current');
+      // }
+
+      if (device.animationReady) {
+        match.classList.add('animate');
+        requestAnimationFrame(() => {
+          match.classList.remove('animate');
+        });
+      }
+    }
   }
 });

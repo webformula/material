@@ -1,0 +1,293 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 56px;
+  line-height: 56px;
+  padding-right: 8px;
+  margin-bottom: 2px;
+
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
+  border-radius: var(--mdw-shape-extra-large);
+  color: var(--mdw-on-surface-variant);
+  text-decoration: none;
+}
+
+:host::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0;
+  right: -16px;
+  height: 56px;
+  z-index: 0;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host(.current)::before {
+  pointer-events: none;
+  background-color: var(--mdw-secondary-container);
+}
+
+:host-context(mdw-navigation-drawer) {
+  width: 100%;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  border-radius: inherit;
+  line-height: inherit;
+  height: inherit;
+  color: inherit;
+  text-decoration: inherit;
+  border: none;
+  outline: none;
+  z-index: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.default-slot {
+  display: block;
+  flex: 1;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  border-radius: inherit;
+  line-height: inherit;
+  height: inherit;
+  color: inherit;
+}
+
+:host(:-webkit-any-link:active) {
+  color: unset;
+}
+
+:host::after {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0;
+  right: -16px;
+  height: 56px;
+  pointer-events: none;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host-context(mdw-anchor-group):host(:not([control]))::before,
+:host-context(mdw-anchor-group):host(:not([control]))::after {
+  right: 0px;
+}
+
+:host(.animate)::after,
+:host(.animate)::before {
+  left: 40%;
+  right: 40%;
+  transition-duration: 0s;
+}
+
+:host::after,
+:host::before {
+  transition: left, right;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing-standard);
+}
+
+:host-context(body:not(.mdw-animation))::after,
+:host-context(body:not(.mdw-animation))::before {
+  transition-duration: 0s;
+}
+
+:host(:focus)::after {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-surface);
+}
+
+:host(.current:focus)::after {
+  background-color: var(--mdw-on-secondary-container);
+}
+
+
+slot[name="leading-icon"]::slotted(mdw-icon) {
+  pointer-events: none;
+  margin-right: 12px;
+}
+
+::slotted(mdw-icon) {
+  z-index: 1;
+  color: var(--mdw-on-surface-variant);
+}
+
+:host(.current) ::slotted(mdw-icon) {
+  color: var(--mdw-on-secondary-container);
+}
+
+:host(:not(.current):focus) ::slotted(mdw-icon) {
+  color: var(--mdw-on-surface);
+}
+
+slot[name="badge"] {
+  display: none;
+}
+
+.badge-display {
+  z-index: 0;
+  color: var(--mdw-on-surface-variant);
+  font-size: var(--mdw-font-large-label-size);
+  font-size: var(--mdw-font-large-label-weight);
+  letter-spacing: var(--mdw-font-large-label-tracking);
+}
+
+@media (hover: hover) {
+  :host(:hover)::after {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-surface);
+  }
+  :host(.current:hover)::after {
+    background-color: var(--mdw-on-secondary-container);
+  }
+
+  :host(:not(.current):hover) ::slotted(mdw-icon) {
+    color: var(--mdw-on-surface);
+  }
+}
+
+
+.arrow {
+  position: absolute;
+  display: none;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  transition: transform 0ms;
+}
+:host([control]) .arrow {
+  display: flex;
+}
+
+:host-context(body.mdw-animation) .arrow {
+  transition-duration: var(--mdw-motion-duration-short3);
+}
+
+:host(.open) .arrow {
+  transform: rotate(180deg);
+}
+
+
+:host-context(.has-current):host([control])::after {
+  opacity: var(--mdw-state-layer-opacity-hover);
+  background-color: var(--mdw-on-surface);
+}
+
+
+:host-context(mdw-navigation-bar),
+:host-context(mdw-navigation-rail) {
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  height: 56px;
+  margin-bottom: 2px;
+
+  font-size: var(--mdw-font-medium-label-size);
+  font-weight: var(--mdw-font-medium-label-weight);
+  letter-spacing: var(--mdw-font-medium-label-tracking);
+  border-radius: var(--mdw-shape-extra-medium);
+}
+
+:host-context(mdw-navigation-bar) .default-slot,
+:host-context(mdw-navigation-rail) .default-slot {
+  line-height: 20px;
+  height: 20px;
+}
+
+:host-context(mdw-navigation-bar) a,
+:host-context(mdw-navigation-rail) a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host-context(mdw-navigation-bar)::before,
+:host-context(mdw-navigation-rail)::before {
+  left: unset;
+  right: unset;
+  top: 3px;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host-context(mdw-navigation-bar)::after,
+:host-context(mdw-navigation-rail)::after {
+  left: unset;
+  right: unset;
+  top: 3px;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--mdw-shape-extra-large);
+}
+
+:host-context(mdw-navigation-bar):host(.current.animate)::after,
+:host-context(mdw-navigation-bar):host(.current.animate)::before,
+:host-context(mdw-navigation-rail):host(.current.animate)::after,
+:host-context(mdw-navigation-rail):host(.current.animate)::before {
+  transform: scale(0);
+  transition-duration: 0s;
+}
+
+:host-context(mdw-navigation-bar):host::after,
+:host-context(mdw-navigation-bar):host::before,
+:host-context(mdw-navigation-rail):host::after,
+:host-context(mdw-navigation-rail):host::before {
+  transition: transform;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing-standard);
+}
+
+:host-context(mdw-navigation-bar):host(.current)::before,
+:host-context(mdw-navigation-rail):host(.current)::before {
+  transform: scale(1);
+}
+
+:host-context(mdw-navigation-bar) slot[name="leading-icon"]::slotted(mdw-icon),
+:host-context(mdw-navigation-rail) slot[name="leading-icon"]::slotted(mdw-icon) {
+  margin-right: 0px;
+  margin-top: 3px;
+  height: 32px;
+  line-height: 32px;
+  /* margin-bottom: -2px; */
+}
+
+:host-context(mdw-navigation-bar):host(.no-text) slot[name="leading-icon"]::slotted(mdw-icon),
+:host-context(mdw-navigation-rail):host(.no-text) slot[name="leading-icon"]::slotted(mdw-icon) {
+  margin-top: 12px;
+}
+
+:host-context(mdw-navigation-bar):host(.no-text)::before,
+:host-context(mdw-navigation-rail):host(.no-text)::before {
+  top: 0px;
+  height: 56px;
+  width: 56px;
+  border-radius: var(--mdw-shape-full);
+}
+
+:host-context(mdw-navigation-bar):host(.no-text)::after,
+:host-context(mdw-navigation-rail):host(.no-text)::after {
+  top: 0px;
+  height: 56px;
+  width: 56px;
+  border-radius: var(--mdw-shape-full);
+}

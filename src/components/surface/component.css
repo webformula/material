@@ -8,6 +8,7 @@
   --mdw-surface-horizontal-position: 0px;
   --mdw-surface-vertical-position: 0px;
   --mdw-surface-close-delay: 0ms;
+  --mdw-surface-translate-x: calc(var(--mdw-surface-width, inherit) * 0.35 * -1);
   
   position: absolute;
   border-radius: inherit;
@@ -23,9 +24,16 @@
   user-select: none;
   max-height: inherit;
   height: inherit;
+  width: inherit;
   min-width: inherit;
   max-width: inherit;
   visibility: hidden;
+}
+
+.surface.always-visible {
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .surface.viewport-bound {
@@ -184,13 +192,13 @@ slot {
 
 
 :host(:not(.open)) .surface.animating {
-  animation: hide-translate;
+  animation: hide-translate-y;
   animation-duration: var(--mdw-motion-duration-short3);
   animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
 }
 
 :host(.open) .surface.animating {
-  animation: show-translate;
+  animation: show-translate-y;
   animation-duration: var(--mdw-motion-duration-medium2);
   animation-timing-function: var(--mdw-motion-easing-emphasized);
 }
@@ -206,6 +214,27 @@ slot {
   animation: show-max-height;
   animation-duration: var(--mdw-motion-duration-medium3);
   animation-timing-function: var(--mdw-motion-easing-emphasized);
+}
+
+
+:host(:not(.open).animation-translate-left) .surface {
+  transform: translate(calc(var(--mdw-surface-horizontal-position) + (var(--mdw-surface-translate-x) * -1)), var(--mdw-surface-vertical-position));
+}
+
+:host(:not(.open).animation-translate-left) .surface.animating {
+  animation: hide-translate-left;
+  animation-duration: var(--mdw-motion-duration-medium2);
+  animation-timing-function: var(--mdw-motion-easing-standard);
+}
+
+:host(.open.animation-translate-left) .surface.animating {
+  animation: show-translate-left;
+  animation-duration: var(--mdw-motion-duration-medium3);
+  animation-timing-function: var(--mdw-motion-easing-standard-decelerate);
+}
+
+:host-context(body:not(.mdw-animation)) .surface {
+  animation-duration: 0ms !important;
 }
 
 
@@ -244,7 +273,7 @@ slot {
   }
 }
 
-@keyframes show-translate {
+@keyframes show-translate-y {
   0% {
     opacity: 0;
     transform: translate(var(--mdw-surface-horizontal-position), calc(var(--mdw-surface-vertical-position) + (var(--mdw-surface-height) * 0.35 * -1)));
@@ -258,14 +287,15 @@ slot {
   }
 }
 
-@keyframes hide-translate {
+@keyframes hide-translate-y {
   0% {
     display: block;
     opacity: 1;
     visibility: visible;
+    transform: translateX(0px);
   }
 
-  70% {
+  60% {
     opacity: 1;
   }
 
@@ -274,5 +304,41 @@ slot {
     display: block;
     visibility: visible;
     transform: translate(var(--mdw-surface-horizontal-position), calc(var(--mdw-surface-vertical-position) + (var(--mdw-surface-height) * 0.35 * -1)));
+  }
+}
+
+
+@keyframes show-translate-left {
+  0% {
+    opacity: 0;
+    transform: translate(calc(var(--mdw-surface-horizontal-position) + (var(--mdw-surface-translate-x) * -1)), var(--mdw-surface-vertical-position));
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--mdw-surface-horizontal-position), var(--mdw-surface-vertical-position));
+  }
+}
+
+@keyframes hide-translate-left {
+  0% {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(var(--mdw-surface-horizontal-position), var(--mdw-surface-vertical-position));
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: block;
+    visibility: visible;
+    transform: translate(calc(var(--mdw-surface-horizontal-position) + (var(--mdw-surface-translate-x) * -1)), var(--mdw-surface-vertical-position));
   }
 }

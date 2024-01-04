@@ -6,6 +6,8 @@
   <meta http-equiv="Cache-Control" content="no-store" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Webformaula material components">
+  <meta name="color-scheme" content="light dark">
+  <meta name="mdw-theme-color-scheme-preference-disable">
 
   <title></title>
   <!-- <link rel="stylesheet"
@@ -17,14 +19,14 @@
   <link rel="prefetch" href="./rounded-icons.woff2" as="font" type="font/woff2" crossorigin>
   <link href="/app.css" rel="stylesheet">
   <script src="app.js"></script>
-  <script id="hljsscript" src="highlight-11.8.0.js" async></script>
+  <!-- <script id="hljsscript" src="highlight-11.8.0.js" defer></script> -->
 
   <style>
     @font-face {
       font-family: 'Material Symbols Outlined';
       font-style: normal;
       font-weight: 100 700;
-      font-display: auto;
+      font-display: block;
       src: url(./icons.woff2) format('woff2');
     }
   
@@ -32,7 +34,7 @@
       font-family: 'Material Symbols Outlined alt';
       font-style: normal;
       font-weight: 100 700;
-      font-display: auto;
+      font-display: block;
       src: url(./outlined-icons-variable.woff2) format('woff2');
     }
   
@@ -40,7 +42,7 @@
       font-family: 'Material Symbols Rounded';
       font-style: normal;
       font-weight: 100 700;
-      font-display: auto;
+      font-display: block;
       src: url(./rounded-icons.woff2) format('woff2');
     }
   </style>
@@ -48,108 +50,117 @@
 
 <body>
   <mdw-navigation-drawer>
-    <div class="mdw-header">
-      <div class="mdw-headline">Webformula material</div>
-      <mdw-button class="theme-toggle mdw-icon-toggle-button" onClick="window.toggleColorScheme()">
-        <mdw-icon value="on">dark_mode</mdw-icon>
-        <mdw-icon value="off">light_mode</mdw-icon>
-      </mdw-button>
-    </div>
+    <div slot="header" class="mdw-headline">Webformula material</div>
+    <!-- <mdw-button slot="header" class="theme-toggle mdw-icon-toggle-button" onClick="window.toggleColorScheme()">
+      <mdw-icon value="on">dark_mode</mdw-icon>
+      <mdw-icon value="off">light_mode</mdw-icon>
+    </mdw-button> -->
 
-    <a href="/">Welcome</a>
-    <a href="/getting-started">Getting started</a>
-    <a href="/styles">Styles</a>
-    
-    <a href="https://github.com/webformula/material" target="_blank" style="margin-bottom: 32px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-        <title>github-circle-black-transparent</title>
-        <path
-          d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V19c0 .27.16.59.67.5C17.14 18.16 20 14.42 20 10A10 10 0 0 0 10 0z"
-          fill="#444444" fill-rule="evenodd"></path>
-      </svg>
-      <span style="margin-left: 8px;">GitHub</span>
-    </a>
-    
-    
+
+    <mdw-anchor href="/">Welcome</mdw-anchor>
+    <mdw-anchor href="/getting-started">Getting started</mdw-anchor>
+    <mdw-anchor href="/styles">Styles</mdw-anchor>
+
+    <mdw-anchor href="https://github.com/webformula/material" target="_blank" style="margin-bottom: 32px;">
+      <mdw-icon slot="leading-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 2px">
+          <title>github-circle-black-transparent</title>
+          <path
+            d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V19c0 .27.16.59.67.5C17.14 18.16 20 14.42 20 10A10 10 0 0 0 10 0z"
+            fill="#444444" fill-rule="evenodd"></path>
+        </svg>
+      </mdw-icon>
+      GitHub
+    </mdw-anchor>
+
     <div class="mdw-headline">Components</div>
-    
-    <mdw-navigation-drawer-group>
-      <a group>App bars</a>
-    
-      <a href="/bottom-app-bars">Bottom app bars</a>
-      <a href="/top-app-bars">Top app bars</a>
-    </mdw-navigation-drawer-group>
 
-    <a href="/badges">Badges</a>
+    <mdw-anchor-group>
+      <mdw-anchor control>App bars</mdw-anchor>
+    
+      <mdw-anchor href="/bottom-app-bars">Bottom app bars</mdw-anchor>
+      <mdw-anchor href="/top-app-bars">Top app bars</mdw-anchor>
+    </mdw-anchor-group>
 
-    <mdw-navigation-drawer-group>
-      <a group>Buttons</a>
+    <mdw-anchor href="/badges">Badges</mdw-anchor>
     
-      <a href="/buttons">Common buttons</a>
-      <a href="/fabs">FAB</a>
-      <a href="/icon-buttons">Icon buttons</a>
-      <a href="/segmented-buttons">Segmented buttons</a>
-    </mdw-navigation-drawer-group>
+    <mdw-anchor-group>
+      <mdw-anchor control>Buttons</mdw-anchor>
     
-    <a href="/cards">Cards</a>
-    <a href="/carousel">Carousel</a>
-    <a href="/checkboxes">Checkboxes</a>
-    <a href="/chips">Chips</a>
-    <a href="/date-pickers">Date pickers</a>
-    <a href="/dialogs">Dialogs</a>
-    <a href="/forms">Forms</a>
-    <a href="/icons">Icons</a>
-    <a href="/lists">Lists</a>
-    <a href="/menus">Menus</a>
-    <a href="/navigations">Navigations</a>
-    <a href="/progress-indicators">Progress</a>
-    <a href="/radios">Radio buttons</a>
-    <a href="/search">Search</a>
-    <a href="/selects">Selects</a>
-    <mdw-navigation-drawer-group>
-      <a group>Sheets</a>
+      <mdw-anchor href="/buttons">Common buttons</mdw-anchor>
+      <mdw-anchor href="/fabs">FAB</mdw-anchor>
+      <mdw-anchor href="/icon-buttons">Icon buttons</mdw-anchor>
+      <mdw-anchor href="/segmented-buttons">Segmented buttons</mdw-anchor>
+    </mdw-anchor-group>
+
+    <mdw-anchor href="/cards">Cards</mdw-anchor>
+    <mdw-anchor href="/carousel">Carousel</mdw-anchor>
+    <mdw-anchor href="/checkboxes">Checkboxes</mdw-anchor>
+    <mdw-anchor href="/chips">Chips</mdw-anchor>
+    <mdw-anchor href="/date-pickers">Date pickers</mdw-anchor>
+    <mdw-anchor href="/dialogs">Dialogs</mdw-anchor>
+    <mdw-anchor href="/forms">Forms</mdw-anchor>
+    <mdw-anchor href="/icons">Icons</mdw-anchor>
+    <mdw-anchor href="/lists">Lists</mdw-anchor>
+    <mdw-anchor href="/menus">Menus</mdw-anchor>
+    <mdw-anchor href="/navigations">Navigations</mdw-anchor>
+    <mdw-anchor href="/progress-indicators">Progress</mdw-anchor>
+    <mdw-anchor href="/radios">Radio buttons</mdw-anchor>
+    <mdw-anchor href="/search">Search</mdw-anchor>
+    <mdw-anchor href="/selects">Selects</mdw-anchor>
+
+    <mdw-anchor-group>
+      <mdw-anchor control>Sheets</mdw-anchor>
     
-      <a href="/bottom-sheets">Bottom sheet</a>
-      <a href="/side-sheets">Side sheet</a>
-    </mdw-navigation-drawer-group>
-    <a href="/sliders">Sliders</a>
-    <a href="/snackbars">Snackbars</a>
-    <a href="/switches">Switches</a>
-    <a href="/tabs">Tabs</a>
-    <a href="/text-fields">Text fields</a>
-    <a href="/time-pickers">Time pickers</a>
-    <a href="/tooltips">Tooltips</a>
-    <a href="/utilities">Utilities</a>
+      <mdw-anchor href="/bottom-sheets">Bottom sheet</mdw-anchor>
+      <mdw-anchor href="/side-sheets">Side sheet</mdw-anchor>
+    </mdw-anchor-group>
+    <mdw-anchor href="/sliders">Sliders</mdw-anchor>
+    <mdw-anchor href="/snackbars">Snackbars</mdw-anchor>
+    <mdw-anchor href="/switches">Switches</mdw-anchor>
+    <mdw-anchor href="/tabs">Tabs</mdw-anchor>
+    <mdw-anchor href="/text-fields">Text fields</mdw-anchor>
+    <mdw-anchor href="/time-pickers">Time pickers</mdw-anchor>
+    <mdw-anchor href="/tooltips">Tooltips</mdw-anchor>
+    <mdw-anchor href="/utilities">Utilities</mdw-anchor>
   </mdw-navigation-drawer>
 
+  <!-- TODO re enbale -->
   <mdw-navigation-rail>
-    <mdw-navigation-button></mdw-navigation-button>
+    <!-- <mdw-navigation-button></mdw-navigation-button> -->
     
 
-    <a href="/">
-      <mdw-icon>home</mdw-icon>
-    </a>
+    <mdw-anchor href="/">
+      <mdw-icon slot="leading-icon">home</mdw-icon>
+    </mdw-anchor>
 
-    <a href="/getting-started">
-      <mdw-icon>apps</mdw-icon>
+    <mdw-anchor href="/getting-started">
+      <mdw-icon slot="leading-icon">apps</mdw-icon>
       Get started
-    </a>
+    </mdw-anchor>
 
-    <a href="/styles">
-      <mdw-icon>palette</mdw-icon>
+    <mdw-anchor href="/styles">
+      <mdw-icon slot="leading-icon">palette</mdw-icon>
       Styles
-    </a>
+    </mdw-anchor>
 
-    <a onclick="document.querySelector('mdw-navigation').toggle()">
-      <mdw-icon>add_circle</mdw-icon>
+    <mdw-anchor onclick="document.querySelector('mdw-navigation-drawer').toggle()">
+      <mdw-icon slot="leading-icon">add_circle</mdw-icon>
       Components
-    </a>
+    </mdw-anchor>
   </mdw-navigation-rail>
 
   <mdw-pane id="page-content"></mdw-pane>
 
   <mdw-navigation-bar class="mdw-auto-hide">
-    <mdw-navigation-button></mdw-navigation-button>
+    <mdw-anchor href="/">
+      <mdw-icon slot="leading-icon">home</mdw-icon>
+    </mdw-anchor>
+    
+    <mdw-anchor href="/getting-started">
+      <mdw-icon slot="leading-icon">apps</mdw-icon>
+      Get started
+    </mdw-anchor>
   </mdw-navigation-bar>
 </body>
 </html>

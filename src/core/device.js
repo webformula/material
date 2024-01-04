@@ -1,17 +1,16 @@
-import util from './util.js';
-
-
 const mdwDevice = new class MDWDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
   #lastState;
   #windowWidth;
   #windowHeight;
-  #setWindow_raf = util.rafThrottle(this.#setWindow.bind(this));
+  #animationReady = false;
 
   constructor() {
-    this.#setWindow();
-    window.addEventListener('resize', this.#setWindow_raf);
+    const resizeObserver = new ResizeObserver(() => {
+      this.#setWindow();
+    });
+    resizeObserver.observe(document.documentElement);
   }
 
   get orientation() {
@@ -54,9 +53,13 @@ const mdwDevice = new class MDWDevice {
     return this.windowHeight < this.#compactBreakpoint;
   }
 
+  get animationReady() {
+    return this.#animationReady;
+  }
+
   async #setWindow() {
     if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
-
+    // TODO figure this out without style recalculation
     this.#windowWidth = window.visualViewport.width;
     this.#windowHeight = window.visualViewport.height;
     const isMobile = this.isMobile;
@@ -78,12 +81,20 @@ const mdwDevice = new class MDWDevice {
         break;
     }
 
-    if (this.#lastState && (isMobile !== this.#lastState.isMobile || state !== this.#lastState.state)) {
+    if (!this.#lastState) {
+      document.documentElement.classList.add('mdw-initiated');
+      requestAnimationFrame(() => {
+        document.querySelector('body').classList.add('mdw-animation');
+        this.#animationReady = true;
+      });
+    }
+    
+    if (!this.#lastState || isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
       window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: {
         isMobile,
         state,
-        lastIsMobile: this.#lastState.isMobile,
-        lastState: this.#lastState.state
+        lastIsMobile: this.#lastState?.isMobile,
+        lastState: this.#lastState?.state
       }}));
     }
 
