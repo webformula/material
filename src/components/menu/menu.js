@@ -44,17 +44,13 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   connectedCallback() {
     super.connectedCallback();
     this.#abort = new AbortController();
-  }
-  
-  afterRender() {
-    super.afterRender();
-    
+
     this.#isSubMenu = this.getAttribute('slot') === 'sub-menu';
     if (this.#isSubMenu) {
       this.anchorElement = this.parentElement;
       this.fixed = true;
       this.position = 'top right';
-      
+
       // set parent delay adding in self delay
       this.anchorElement.parentElement.closeDelay = 60;
       setTimeout(() => {
@@ -78,7 +74,6 @@ export default class MDWMenuElement extends MDWSurfaceElement {
 
 
   get contextTarget() { return this.#contextTarget; }
-
   get disableLetterFocus() { return this.#disableLetterFocus; }
   set disableLetterFocus(value) { this.#disableLetterFocus = !!value; }
 
@@ -126,7 +121,7 @@ export default class MDWMenuElement extends MDWSurfaceElement {
 
     // picks first filtered item based on style.order if focus is on input
     } else if (e.code === 'Enter' && this.nodeName === 'MDW-SELECT' && this.#disableLetterFocus) {
-      const available = [...this.querySelectorAll('mdw-option2:not(.filtered)')].find(v => v.style.order === '0');
+      const available = [...this.querySelectorAll('mdw-option:not(.filtered)')].find(v => v.style.order === '0');
       if (available) available.click();
 
     // focus on item based on character presses

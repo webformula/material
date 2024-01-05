@@ -2,14 +2,11 @@ import MDWMenuElement from '../menu/menu.js';
 import styles from './select.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const dashCaseRegex = /-([a-z])/g;
-
 // TODO bottom sheet
 
 customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElement {
   static styleSheets = styles;
   static formAssociated = true;
-  static shadowRootDelegateFocus = true;
 
   #abort;
   #internals;
@@ -28,6 +25,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   #slotChange_bound = this.#slotChange.bind(this);
   #optionClick_bound = this.#optionClick.bind(this);
   #filterInput_bound = this.#filterInput.bind(this);
+  #rightClick_bound = this.#rightClick.bind(this);
 
   constructor() {
     super();
@@ -44,34 +42,47 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
       this.overlap = false;
       this.disableLetterFocus = true;
     }
+
+    // TODO rework textfield 
+    //  this needs to be added like this because the getters are not available with the nested component till after render
+    this.shadowRoot.querySelector('.select').insertAdjacentHTML('afterbegin', `
+      <mdw-textfield
+        class="${this.classList.contains('outlined') ? 'outlined' : ''}"
+        label="${this.label}"
+        ${this.hasAttribute('placeholder') ? ` placeholder="${this.getAttribute('placeholder')}"` : ''}
+        ${this.hasAttribute('required') ? 'required' : ''}
+        ${this.#isFilter ? `
+          incremental
+          type="search"
+        ` : ''}
+      >
+        <slot slot="leading-icon" name="leading-icon"></slot>
+        <slot slot="trailing-icon" name="trailing-icon"></slot>
+      </mdw-textfield>
+    `);
+    this.#textfield = this.shadowRoot.querySelector('mdw-textfield');
   }
 
   // TODO update
-  static get observedAttributes() {
+  static get observedAttributesExtended() {
     return [
-      // 'aria-label',
-      'disabled',
-      'label',
-      'placeholder',
-      'readonly',
-      'supporting-text',
-      'value'
+      ['disabled', 'boolean'],
+      ['label', 'string'],
+      ['placeholder', 'string'],
+      ['readonly', 'boolean'],
+      ['supporting-text', 'string'],
+      ['value', 'string']
     ];
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     if (name === 'value' && this.#dirty) return;
-    name = name.replace(dashCaseRegex, (_, s) => s.toUpperCase());
     this[name] = newValue;
   }
 
   template() {
     return /*html*/`
       <div class="select">
-        <mdw-textfield>
-          <slot slot="leading-icon" name="leading-icon"></slot>
-          <slot slot="trailing-icon" name="trailing-icon"></slot>
-        </mdw-textfield>
         <span class="focus-holder" tabIndex="0"></span>
         <div class="surface">
           <div class="surface-content">
@@ -88,27 +99,19 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
 
   connectedCallback() {
     super.connectedCallback();
+    
     this.#abort = new AbortController();
-  }
-
-  afterRender() {
-    super.afterRender();
-    this.#textfield = this.shadowRoot.querySelector('mdw-textfield');
-    this.#textfield.label = this.label;
-    this.#textfield.placeholder = this.placeholder;
-    this.#textfield.required = this.required;
-    if (this.#isFilter && this.#isAsync) {
-      this.#textfield.type = 'search';
-      this.#textfield.incremental = true;
-    }
-    this.#textfield.classList.toggle('outlined', this.classList.contains('outlined'));
-    this.#options = [...this.querySelectorAll('mdw-option2')];
+    this.#options = [...this.querySelectorAll('mdw-option')];
     this.anchorElement = this.#textfield;
-    this.#setInitialValue();
-    this.#internals.setValidity(this.#textfield.validity, this.#textfield.validationMessage, this.#textfield);
     this.#textfield.addEventListener('click', this.#onInputFocus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#rightClick_bound, { signal: this.#abort.signal });
     this.#textfield.addEventListener('focus', this.#onInputFocus_bound, { signal: this.#abort.signal });
     this.shadowRoot.querySelector('.options-container').addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+
+    requestAnimationFrame(() => {
+      this.#setInitialValue();
+      this.#internals.setValidity(this.#textfield.validity, this.#textfield.validationMessage, this.#textfield);
+    });
   }
 
   disconnectedCallback() {
@@ -119,39 +122,31 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   get value() { return this.#value; }
   set value(value) {
     this.#value = value;
-
-    if (this.rendered) {
-      const selected = this.#options.filter(el => el.selected = el.value === value);
-      if (selected.length > 0) this.#textfield.value = selected[0].displayValue;
-    }
-
+    const selected = this.#options.filter(el => el.selected = el.value === value);
+    if (selected.length > 0) this.#textfield.value = selected[0].displayValue;
     this.#internals.setFormValue(this.value);
   }
 
-  get displayValue() { return this.rendered ? this.#textfield.value : ''; }
+  get displayValue() { return this.#textfield.value || ''; }
 
-  get label() { return this.#label; }
+  get label() { return this.#label || (this.getAttribute('label') || ''); }
   set label(value) {
-    this.#label = `${value || ''}`;
+    this.#label = value;
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
-    if (this.rendered) this.#textfield.label = this.#label;
+    this.#textfield.label = this.#label;
   }
 
   get placeholder() { return this.#placeholder }
   set placeholder(value) {
-    if (this.#placeholder === value) return;
     this.#placeholder = value;
-    if (!this.rendered) return;
-
     if (value) this.#textfield.setAttribute('placeholder', value);
     else this.#textfield.removeAttribute('placeholder');
   }
 
   get required() { return this.hasAttribute('required'); }
   set required(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('required', value);
-    if (this.rendered) this.#textfield.toggleAttribute('required', value);
+    this.#textfield.toggleAttribute('required', value);
   }
 
   get validationMessage() { return this.#textfield.validationMessage; }
@@ -213,6 +208,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     this.removeEventListener('click', this.#optionClick_bound);
     this.#textfield.removeEventListener('input', this.#filterInput_bound);
     if (this.#isFilter) this.value = this.value;
+    console.log(this.value);
     this.#textfield.classList.toggle('raise-label', !!this.value);
   }
 
@@ -222,7 +218,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
       this.shadowRoot.querySelector('.surface').classList.remove('filter-no-results');
 
       if (this.#isAsync) {
-        [...this.querySelectorAll('mdw-option2')].forEach(o => this.removeChild(o));
+        [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
         // TODO should i track lastOptionsOnSelect
         this.insertAdjacentHTML('beforeend', this.#lastOptionsOnSelect || this.#initialOptions);
       } else {
@@ -238,12 +234,12 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   setOptions(options = [{ label: 'label_text', value: 'label_value' }]) {
     if (arguments.length === 0 || !Array.isArray(options)) options = [];
 
-    [...this.querySelectorAll('mdw-option2')].forEach(o => this.removeChild(o));
-    this.insertAdjacentHTML('beforeend', options.map(option => `<mdw-option2 value="${option.value}">${option.label}</mdw-option2>`).join(''));
+    [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
+    this.insertAdjacentHTML('beforeend', options.map(option => `<mdw-option value="${option.value}">${option.label}</mdw-option>`).join(''));
   }
 
   initialOptions() {
-    [...this.querySelectorAll('mdw-option2')].forEach(o => this.removeChild(o));
+    [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
     this.insertAdjacentHTML('beforeend', this.#initialOptions);
   }
   
@@ -267,6 +263,12 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     this.#textfield.reportValidity();
   }
 
+  // prevent focus on right click
+  #rightClick(event) {
+    if (event.which !== 3) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
 
   #onInputFocus() {
     // divert focus from input if not filtering is enabled
@@ -277,13 +279,13 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
 
   #slotChange() {
     if (this.#isAsync) this.classList.remove('filter-async-active');
-    this.#options = [...this.querySelectorAll('mdw-option2')];
+    this.#options = [...this.querySelectorAll('mdw-option')];
     this.#options.filter(o => o.value === this.value).forEach(o => o.selected = true);
     if (!this.#initialOptions) this.#initialOptions = this.#options.map(o => o.outerHTML).join('');
   }
 
   #optionClick(event) {
-    if (event.target.nodeName === 'MDW-OPTION2') {
+    if (event.target.nodeName === 'MDW-OPTION') {
       this.#lastOptionsOnSelect = this.#options.map(o => o.outerHTML).join('');
       this.#dirty = true;
       this.value = event.target.value;

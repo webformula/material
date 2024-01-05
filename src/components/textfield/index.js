@@ -8,6 +8,7 @@ const isIncrementalSupported = 'incremental' in document.createElement('input');
 
 // TODO character count
 // TODO suggestion fill keyboard
+// TODO rework so we do not render initial state with template
 
 export default class MDWTextfieldElement extends HTMLComponentElement {
   static useShadowRoot = true;
@@ -95,7 +96,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
     setTimeout(() => {
       this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
-    }, 100);
+    }, 150);
   }
 
   disconnectedCallback() {
@@ -105,7 +106,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   template() {
     return /*html*/`
-      <div class="text-field${!this.#label ? '' : ' label'}">
+      <div class="text-field${!this.label ? '' : ' label'}">
         <slot name="leading-icon"></slot>
         ${this.prefixText ? `<div class="prefix-text">${this.prefixText}</div>` : ''}
         <input
@@ -155,7 +156,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     else this.removeAttribute('autocomplete');
   }
 
-  get label() { return this.#label || this.getAttribute('label'); }
+  get label() { return this.#label || (this.getAttribute('label') || ''); }
   set label(value) {
     this.#label = value;
     this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);

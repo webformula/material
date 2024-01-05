@@ -1,8 +1,8 @@
-import HTMLElementExtended from "../HTMLElementExtended.js";
+import HTMLComponentElement from "../HTMLComponentElement.js";
 import styles from './menu-item.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
-export default class MDWMenuItemElement extends HTMLElementExtended {
+export default class MDWMenuItemElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -18,6 +18,7 @@ export default class MDWMenuItemElement extends HTMLElementExtended {
 
     this.role = 'menuitem';
     this.tabIndex = 0;
+    this.render();
   }
 
   template() {
@@ -31,27 +32,23 @@ export default class MDWMenuItemElement extends HTMLElementExtended {
     `;
   }
 
-  afterRender() {
-    super.afterRender();
-
+  connectedCallback() {
     this.addEventListener('focus', this.#focus_bound);
+    this.hasSubMenu = !!this.querySelector('[slot="sub-menu"]');
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this
     });
-
-    this.hasSubMenu = !!this.querySelector('[slot="sub-menu"]');
   }
 
-  get contextTarget() { return this.parentElement.contextTarget; }
-
   disconnectedCallback() {
-    super.disconnectedCallback();
     if (this.#ripple) this.#ripple.destroy();
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
   }
+
+  get contextTarget() { return this.parentElement.contextTarget; }
 
 
   #focus() {

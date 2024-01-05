@@ -1,7 +1,7 @@
 import MDWMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-customElements.define('mdw-option2', class MDWOptionElement2 extends MDWMenuItemElement {
+customElements.define('mdw-option', class MDWOptionElement extends MDWMenuItemElement {
   #value;
   #displayValue;
   #selected = false;
@@ -12,13 +12,13 @@ customElements.define('mdw-option2', class MDWOptionElement2 extends MDWMenuItem
     this.role = 'option';
   }
 
-  static get observedAttributes() {
+  static get observedAttributesExtended() {
     return [
-      'selected'
+      ['selected', 'boolean']
     ];
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     this[name] = newValue;
   }
 
