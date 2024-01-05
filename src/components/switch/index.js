@@ -1,9 +1,9 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
 
-customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementExtended {
+customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -31,20 +31,21 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
 
     this.#internals = this.attachInternals();
     this.role = 'switch';
+    this.render();
+    this.#input = this.shadowRoot.querySelector('input');
   }
 
-  static get observedAttributes() {
+  static get observedAttributesExtended() {
     return [
-      'aria-label',
-      'checked',
-      'disabled',
-      'readonly',
-      'value'
+      ['aria-label', 'string'],
+      ['checked', 'boolean'],
+      ['disabled', 'boolean'],
+      ['readonly', 'boolean'],
+      ['value', 'string']
     ];
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'aria-label') this.ariaLabel = newValue;
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     this[name] = newValue;
   }
 
@@ -77,10 +78,7 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
 
   connectedCallback() {
     this.#abort = new AbortController();
-  }
 
-  afterRender() {
-    this.#input = this.shadowRoot.querySelector('input');
     this.#input.value = this.value;
     this.#input.checked = this.checked;
     this.#input.disabled = this.disabled;
@@ -110,15 +108,14 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
   get value() { return this.#value; }
   set value(value) {
     this.#value = value;
-    if (this.rendered) this.#input.value = this.#value;
+    this.#input.value = this.#value;
     this.#internals.setFormValue(this.#checked ? this.#value : null, this.#checked ? 'checked' : undefined);
   }
 
   get checked() { return this.#checked; }
   set checked(value) {
-    value = value !== null && value !== false;
     this.#checked = value;
-    if (this.rendered) this.#input.checked = this.#checked;
+    this.#input.checked = this.#checked;
     this.#internals.setFormValue(this.#checked ? this.value : null, this.#checked ? 'checked' : undefined);
     this.classList.toggle('checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString());
@@ -126,21 +123,18 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
 
   get disabled() { return this.hasAttribute('disabled'); }
   set disabled(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('disabled', value);
-    if (this.rendered) this.#input.toggleAttribute('disabled', value);
+    this.#input.toggleAttribute('disabled', value);
   }
 
   get required() { return this.hasAttribute('required'); }
   set required(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('required', value);
-    if (this.rendered) this.#input.toggleAttribute('required', value);
+    this.#input.toggleAttribute('required', value);
   }
 
   get ariaLabel() { return this.hasAttribute('aria-label'); }
   set ariaLabel(value) {
-    if (`${value}` === this.getAttribute('aria-label')) return;
     this.setAttribute('aria-label', value);
   }
 
@@ -160,10 +154,8 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
     this.#updateValidityDisplay();
   }
   setCustomValidity(value = '') {
-    if (this.rendered) {
-      this.#input.setCustomValidity(value);
-      this.#updateValidityDisplay();
-    }
+    this.#input.setCustomValidity(value);
+    this.#updateValidityDisplay();
   }
 
 
@@ -180,7 +172,6 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLElementEx
   }
 
   #updateValidityDisplay() {
-    if (!this.rendered) return;
     this.classList.toggle('invalid', !this.#input.validity.valid);
   }
 

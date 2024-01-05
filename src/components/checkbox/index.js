@@ -26,7 +26,7 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #focusMousedown_bound = this.#focusMousedown.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
-  test = 'test';
+
 
   constructor() {
     super();
@@ -176,10 +176,8 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
     this.#updateValidityDisplay();
   }
   setCustomValidity(value = '') {
-    if (this.rendered) {
-      this.#input.setCustomValidity(value);
-      this.#updateValidityDisplay();
-    }
+    this.#input.setCustomValidity(value);
+    this.#updateValidityDisplay();
   }
 
 
@@ -197,7 +195,6 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
   }
 
   #updateValidityDisplay() {
-    if (!this.rendered) return;
     this.classList.toggle('invalid', !this.#input.validity.valid);
   }
 
