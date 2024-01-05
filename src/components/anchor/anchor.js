@@ -2,6 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './anchor.css' assert { type: 'css' };
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 
+const targetValues = ['_blank', '_parent', '_self', '_top'];
+
 
 customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponentElement {
   static useShadowRoot = true;
@@ -13,6 +15,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
   #ariaLabel;
   #ariaLabelOriginal;
   #badge;
+  #target;
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #focus_bound = this.#focus.bind(this);
@@ -33,7 +36,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     return [
       ['aria-label', 'string'],
       ['href', 'string'],
-      ['badge', 'number']
+      ['badge', 'number'],
+      ['target', 'string']
     ];
   }
 
@@ -93,6 +97,13 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     this.shadowRoot.querySelector('.badge-display').innerText = value;
     if (!value) this.ariaLabel = this.#ariaLabelOriginal;
     else this.ariaLabel = `[${this.#ariaLabelOriginal}] ${value} New ${value === 1 ? 'notification' : 'notifications'}`;
+  }
+
+  get target() { return this.#target; }
+  set target(value) {
+    if (value && !targetValues.includes(value)) throw Error(`Invalid target value. Valid values ${targetValues.join(', ')}`);
+    this.#target = value;
+    this.#link.setAttribute('target', value);
   }
 
   #focus() {

@@ -1,16 +1,15 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import { error_FILL1_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 import Formatter from './Formatter.js';
 import util from '../../core/util.js';
 
-const dashCaseRegex = /-([a-z])/g;
 const isIncrementalSupported = 'incremental' in document.createElement('input');
 
 // TODO character count
 // TODO on enter suggestion fill
 
-export default class MDWTextfieldElement extends HTMLElementExtended {
+export default class MDWTextfieldElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = false;
   static shadowRootDelegateFocus = true;
@@ -45,52 +44,47 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
   constructor() {
     super();
     this.#internals = this.attachInternals();
+    this.render();
+    this.#input = this.shadowRoot.querySelector('.text-field input');
   }
 
   // TODO update. enterKeyHint
-  static get observedAttributes() {
+  static get observedAttributesExtended() {
     return [
-      'aria-label',
-      'autocomplete',
-      'disabled',
-      'format',
-      'label',
-      'mask',
-      'max',
-      'min',
-      'step',
-      'maxlength',
-      'minlength',
-      'pattern',
-      'pattern-restrict',
-      'prefix-text',
-      'readonly',
-      'suffix-text',
-      'supporting-text',
-      'suggestion',
-      'error-text',
-      'type',
-      'value',
-      'incremental'
+      ['aria-label', 'string'],
+      ['autocomplete', 'string'],
+      ['disabled', 'boolean'],
+      ['format', 'string'],
+      ['label', 'string'],
+      ['mask', 'string'],
+      ['max', 'number'],
+      ['min', 'number'],
+      ['step', 'number'],
+      ['maxlength', 'number'],
+      ['minlength', 'number'],
+      ['pattern', 'string'],
+      ['pattern-restrict', 'boolean'],
+      ['prefix-text', 'string'],
+      ['readonly', 'boolean'],
+      ['suffix-text', 'string'],
+      ['supporting-text', 'string'],
+      ['suggestion', 'string'],
+      ['error-text', 'string'],
+      ['type', 'string'],
+      ['value', 'string'],
+      ['incremental', 'boolean'],
+      ['multiple', 'boolean']
     ];
   }
 
-  attributeChangedCallbackRendered(name, _oldValue, newValue) {
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     if (name === 'value' && this.#dirty) return;
     this[name] = newValue;
   }
 
   connectedCallback() {
     this.#abort = new AbortController();
-  }
 
-  disconnectedCallback() {
-    if (this.#abort) this.#abort.abort();
-    if (this.#formatter) this.#formatter.disable();
-  }
-
-  afterRender() {
-    this.#input = this.shadowRoot.querySelector('.text-field input');
     this.#input.value = this.value;
     // if (this.#customValidityMessage) this.#input.setCustomValidity(this.#customValidityMessage);
     this.#internals.setValidity(this.#input.validity, this.#input.validationMessage, this.#input);
@@ -107,6 +101,11 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     setTimeout(() => {
       this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
     }, 100);
+  }
+
+  disconnectedCallback() {
+    if (this.#abort) this.#abort.abort();
+    if (this.#formatter) this.#formatter.disable();
   }
 
   template() {
@@ -163,14 +162,13 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get label() { return this.#label || this.getAttribute('label'); }
   set label(value) {
-    this.#label = `${value || ''}`;
+    this.#label = value;
     this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
     if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
   }
 
   get disabled() { return this.hasAttribute('disabled'); }
   set disabled(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('disabled', value);
     if (value) this.blur();
     this.#input.toggleAttribute('disabled', value);
@@ -183,7 +181,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.#addFormatter();
     this.#formatter.format = value;
     this.#formatter.value = this.#value;
-    if (this.format === value) return;
     this.setAttribute('format', value);
   }
 
@@ -194,7 +191,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
     this.#addFormatter();
     this.#formatter.mask = value;
     this.#formatter.value = this.#value;
-    if (this.mask === value) return;
     this.setAttribute('mask', value);
   }
 
@@ -232,7 +228,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get multiple() { return this.hasAttribute('multiple'); }
   set multiple(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('multiple', value);
     this.#input.toggleAttribute('multiple', value);
   }
@@ -251,7 +246,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get patternRestrict() { return this.getAttribute('pattern-restrict'); }
   set patternRestrict(value) {
-    value = value !== null && value !== false;
     if (this.#formatter) this.#formatter.patternRestrict = value;
     this.toggleAttribute('pattern', value);
   }
@@ -276,7 +270,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get readonly() { return this.hasAttribute('readonly'); }
   set readonly(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('readonly', value);
     if (value) this.blur();
     this.#input.toggleAttribute('readonly', value);
@@ -284,7 +277,6 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get required() { return this.hasAttribute('required'); }
   set required(value) {
-    value = value !== null && value !== false;
     this.toggleAttribute('required', value);
     this.#input.toggleAttribute('required', value);
   }
@@ -332,7 +324,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
   get incremental() { return this.#incremental; }
   set incremental(value) {
-    this.#incremental = value !== null && value !== false;
+    this.#incremental = value;
     this.#input.incremental = this.#incremental;
   }
 
@@ -408,8 +400,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
 
 
 
-  #setSupportingText() {
-    const valid = this.checkValidity();
+  #setSupportingText(valid = this.checkValidity()) {
     const supportingTextElement = this.shadowRoot.querySelector('.text-field .supporting-text');
     const value = valid ? this.#supportingText : this.#errorText || this.#input.validationMessage;
     supportingTextElement.innerText = value;
@@ -479,7 +470,7 @@ export default class MDWTextfieldElement extends HTMLElementExtended {
       this.#invalidIcon.remove();
     }
 
-    this.#setSupportingText();
+    this.#setSupportingText(valid);
   }
 
   #onFocus() {

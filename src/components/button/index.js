@@ -1,292 +1,165 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import Ripple from '../../core/Ripple.js';
-import util from '../../core/util.js';
-import dialog from '../dialog/service.js';
 import styles from './component.css' assert { type: 'css' };
 
-export default class MDWButtonElement extends HTMLElementExtended {
+const targetValues = ['_blank', '_parent', '_self', '_top'];
+
+// TODO anchor
+
+export default class MDWButtonElement extends HTMLComponentElement {
   static useShadowRoot = true;
+  static useTemplate = true;
+  static shadowRootDelegateFocus = true;
   static styleSheets = styles;
 
-  #form = null;
-  #name = '';
-  #type = 'submit';
-  #value = '';
-  #toggled = false;
-  useRipple = !this.classList.contains('mdw-no-ripple');
-  #isToggle = this.classList.contains('mdw-icon-toggle-button');
-  #isAsync = this.classList.contains('mdw-async');
+  #abort;
   #ripple;
-  #asyncMouseup_bound = this.#asyncMouseup.bind(this);
-  #handleToggle_bound = this.#handleToggle.bind(this);
-  #formSubmit_bound = this.#formSubmit.bind(this);
-  #formFocusIn_bound = this.#formFocusIn.bind(this);
-  #formSubmitted_bound = this.#formSubmitted.bind(this);
-  #formCloseClickInterceptor_bound = this.#formCloseClickInterceptor.bind(this);
-  #formReset_bound = this.#formReset.bind(this);
+  #ariaLabel;
+  #target;
+  #href;
+  #type;
+  #button;
+  #value;
+  #form;
+  #formState;
+  #async = false;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
-  #focusKeydown_bound = this.#focusKeydown.bind(this);
   #focusMousedown_bound = this.#focusMousedown.bind(this);
-  #formState;
-  #onclickAttribute;
-  #abort;
-  
+  #asyncMouseup_bound = this.pending.bind(this);
+  #formClick_bound = this.#formClick.bind(this);
+  #formFocusIn_bound = this.#formFocusIn.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
+
 
   constructor() {
     super();
+
+    this.role = 'button';
+    this.render();
+    this.#button = this.shadowRoot.querySelector('button');
   }
 
-  connectedCallback() {
-    this.#abort = new AbortController();
-    this.#handleTrailingIcon();
-    if (this.parentElement.nodeName === 'MDW-MENU') this.classList.add('mdw-menu');
-    this.tabIndex = 0;
-    if (this.parentElement.nodeName === 'MDW-MENU') this.setAttribute('role', 'menuitem');
-    else this.setAttribute('role', 'button');
 
-    // this needs to be added asap so it blocks all outside events
-    if (this.#form && this.#type === 'cancel') {
-      this.addEventListener('click', this.#formCloseClickInterceptor_bound, { signal: this.#abort.signal });
-    }
-
-    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
+  static get observedAttributesExtended() {
+    return [
+      ['aria-label', 'string'],
+      ['href', 'string'],
+      ['target', 'string'],
+      ['type', 'string'],
+      ['value', 'string'],
+      ['form', 'string'],
+      ['async', 'boolean']
+    ];
   }
 
-  afterRender() {
-    if (!this.hasAttribute('aria-label')) {
-      if (this.classList.contains('mdw-icon-button') || this.classList.contains('mdw-icon-toggle-button')) {
-        const text = this.querySelector('mdw-icon')?.innerText;
-        if (text) this.setAttribute('aria-label', text);
-      } else {
-        const text = util.getTextFromNode(this);
-        if (text) this.setAttribute('aria-label', text);
-      }
-    }
-    if (this.#isAsync) this.addEventListener('mouseup', this.#asyncMouseup_bound, { signal: this.#abort.signal });
-    if (this.classList.contains('mdw-icon-toggle-button')) {
-      this.addEventListener('click', this.#handleToggle_bound, { signal: this.#abort.signal });
-    }
-    if (this.#form && this.#type === 'submit') {
-      this.addEventListener('click', this.#formSubmit_bound, { signal: this.#abort.signal });
-    }
-    if (this.#form && this.#type === 'reset') {
-      this.addEventListener('click', this.#formReset_bound, { signal: this.#abort.signal });
-    }
-    if (this.#form && this.#type === 'cancel') {
-      this.#form.addEventListener('focusin', this.#formFocusIn_bound, { signal: this.#abort.signal });
-      this.#form.addEventListener('submit', this.#formSubmitted_bound, { signal: this.#abort.signal });
-    }
-    if (this.useRipple) {
-      this.#ripple = new Ripple({
-        element: this.shadowRoot.querySelector('.ripple'),
-        triggerElement: this,
-        ignoreElements: [this.querySelector('mdw-menu')]
-      });
-    }
-
-    this.classList.add('mdw-animation');
-  }
-
-  disconnectedCallback() {
-    if (this.#ripple)  this.#ripple.destroy();
-    this.#abort.abort();
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   template() {
     return /*html*/`
-      <span class="text">
-        <slot></slot>
-      </span>
-      <span class="spinner"></span>
+      <button>
+        <slot name="leading-icon"></slot>
+        <slot class="default-slot"></slot>
+      </button>
+      <div class="state-layer"></div>
+      <div class="spinner"></div>
       <div class="ripple"></div>
     `;
   }
 
-  static get observedAttributes() {
-    return ['form', 'type', 'toggled'];
+  connectedCallback() {
+    this.#abort = new AbortController();
+    this.#ripple = new Ripple({
+      element: this.shadowRoot.querySelector('.ripple'),
+      triggerElement: this
+    });
+
+    if (this.#async) this.addEventListener('mouseup', this.#asyncMouseup_bound, { signal: this.#abort.signal });
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
+    if (this.#form) {
+      this.addEventListener('click', this.#formClick_bound, { signal: this.#abort.signal });
+      this.#form.addEventListener('focusin', this.#formFocusIn_bound, { signal: this.#abort.signal });
+    }
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'toggled') this.toggled = newValue !== null;
-    else this[name] = newValue;
+  disconnectedCallback() {
+    if (this.#abort) this.#abort.abort();
+    if (this.#ripple) this.#ripple.destroy();
   }
 
-  get form() {
-    return this.#form
-  }
-  set form(value) {
-    this.#form = document.querySelector(`form#${value}`) || document.querySelector(`mdw-form#${value}`);
+  get disabled() { return this.hasAttribute('disabled'); }
+  set disabled(value) { this.toggleAttribute('disabled', !!value); }
+
+  get href() { return this.#href; }
+  set href(value) {
+    this.#href = value;
+    if (!value) {
+      this.removeAttribute('href');
+      // this.#link.removeAttribute('href');
+    } else {
+      this.setAttribute('href', value);
+      // this.#link.setAttribute('href', value);
+      if (!this.#ariaLabel) this.ariaLabel = value.replace(/\//g, ' ').trim();
+    }
   }
 
-  get name() {
-    return this.#name;
-  }
-  set name(value) {
-    this.#name = value;
+  get ariaLabel() { return this.#ariaLabel; }
+  set ariaLabel(value) {
+    this.#ariaLabel = value;
+    this.setAttribute('aria-label', value);
   }
 
-  get type() {
-    return this.#type;
+  get target() { return this.#target; }
+  set target(value) {
+    if (value && !targetValues.includes(value)) throw Error(`Invalid target value. Valid values ${targetValues.join(', ')}`);
+    this.#target = value;
   }
+
+  get type() { return this.#type; }
   set type(value) {
     this.#type = value;
+    this.#button.setAttribute('type', value);
+    if (['reset', 'cancel', 'submit'].includes(value) && !this.#form && this.parentElement.nodeName === 'FORM') {
+      this.#form = this.parentElement;
+    }
   }
 
-  get value() {
-    return this.#value;
-  }
+  get value() { return this.#value; }
   set value(value) {
     this.#value = value;
-  }
-  
-  get disabled() {
-    return this.hasAttribute('disabled');
-  }
-  set disabled(value) {
-    this.toggleAttribute('disabled', !!value);
+    this.#button.setAttribute('value', value);
   }
 
-  get toggled() {
-    if (!this.#isToggle) throw Error('Cannot toggle. To enable add class "mdw-icon-toggle-button"');
-    return this.#toggled;
+  get form() { return this.#form }
+  set form(value) {
+    this.#form = document.querySelector(`form#${value}`);
   }
-  set toggled(value) {
-    if (!this.#isToggle) throw Error('Cannot toggle. To enable add class "mdw-icon-toggle-button"');
-    this.#toggled = !!value;
-    this.classList.toggle('mdw-toggled', this.#toggled);
+
+  get async() { return this.#async }
+  set async(value) {
+    this.#async = !!value;
   }
+
 
   pending() {
-    this.classList.add('mdw-async-pending');
+    this.classList.add('async-pending');
     this.shadowRoot.querySelector('.spinner').innerHTML = `
-      <mdw-progress-circular diameter="28" class="mdw-indeterminate${this.classList.contains('mdw-filled') ? ' mdw-on-filled' : ''}${this.classList.contains('mdw-filled-tonal') ? ' mdw-on-filled-tonal' : ''}"></mdw-progress-circular>
+      <mdw-progress-circular diameter="28" class="mdw-indeterminate${this.classList.contains('filled') ? ' mdw-on-filled' : ''}${this.classList.contains('filled-tonal') ? ' mdw-on-filled-tonal' : ''}"></mdw-progress-circular>
     `;
   }
 
   resolve() {
-    this.classList.remove('mdw-async-pending');
+    this.classList.remove('async-pending');
     this.shadowRoot.querySelector('.spinner').innerHTML = '';
   }
+
 
   // prevent focus on click
   #focusMousedown(event) {
     event.preventDefault();
-  }
-
-  #asyncMouseup() {
-    this.pending();
-  }
-
-  // auto add class .mdw-trailing to icon so it will space correctly
-  #handleTrailingIcon() {
-    const icon = this.querySelector('mdw-icon');
-    if (!icon) return;
-
-    let previous = icon.previousSibling;
-    while (previous) {
-      if (previous.nodeType === 3 && previous.textContent.trim() !== '') break;
-      previous = previous.previousSibling;
-    }
-    
-    if (previous) icon.classList.add('mdw-trailing');
-  }
-
-  #handleToggle() {
-    this.toggled = !this.toggled;
-  }
-
-  #formSubmit(event) {
-    if (!this.#form.hasAttribute('novalidate')) {
-      const invalids = this.#getFormValidityElements().filter(element => !element.reportValidity());
-      if (invalids.length > 0) return event.preventDefault();
-    }
-    this.#form.submit();
-    this.#form.dispatchEvent(new SubmitEvent('submit', { submitter: event.target }));
-  }
-
-  #formFocusIn() {
-    if (this.#formState === undefined) this.#formState = this.#getFormState();
-
-    // temporarily remove onclick to prevent firing while form has changes
-    setTimeout(() => {
-      const current = this.#getFormState();
-      if (current !== this.#formState) {
-        if (this.hasAttribute('onclick')) {
-          this.#onclickAttribute = this.getAttribute('onclick');
-          this.removeAttribute('onclick');
-        }
-      } else if (this.#onclickAttribute) {
-        this.setAttribute('onclick', this.#onclickAttribute);
-        this.#onclickAttribute = undefined;
-      }
-    }, 100);
-  }
-
-  // prevent cancel from firing
-  async #formCloseClickInterceptor(event) {
-    if (this.#formState !== undefined && this.#getFormState() !== this.#formState) {
-      event.stopImmediatePropagation();
-      
-      const action = await dialog.simple({
-        message: 'Discard changes?',
-        actionConfirm: true,
-        actionConfirmLabel: 'Cancel',
-        actionCancel: true,
-        actionCancelLabel: 'Discard'
-      });
-
-      // actions reversed for button position
-      if (action === 'cancel') {
-        // reset state and retrigger click
-        this.#formState = undefined;
-        if (this.#onclickAttribute) {
-          this.setAttribute('onclick', this.#onclickAttribute);
-          this.#onclickAttribute = undefined;
-        }
-        this.click();
-      }
-    }
-  }
-
-  #formSubmitted() {
-    this.#formState = undefined;
-    this.disabled = false;
-  }
-
-  #formReset() {
-    this.#form.reset();
-  }
-
-  #getFormState() {
-    return this.#getFormElements().map(e => (
-      ['MDW-CHECKBOX', 'MDW-SWITCH'].includes(e.nodeName) ? e.checked : e.value
-    )).toString();
-  }
-
-  #getFormValidityElements() {
-    return [
-      ...this.#form.querySelectorAll('input'),
-      ...this.#form.querySelectorAll('mdw-checkbox'),
-      ...this.#form.querySelectorAll('mdw-select'),
-      // ...this.#form.querySelectorAll('mdw-switch'),
-      // ...this.#form.querySelectorAll('mdw-slider'),
-      // ...this.#form.querySelectorAll('mdw-slider-range'),
-      // ...this.#form.querySelectorAll('mdw-radio-group')
-    ];
-  }
-
-  #getFormElements() {
-    return [
-      ...this.#form.querySelectorAll('input'),
-      ...this.#form.querySelectorAll('mdw-checkbox'),
-      ...this.#form.querySelectorAll('mdw-switch'),
-      ...this.#form.querySelectorAll('mdw-slider'),
-      ...this.#form.querySelectorAll('mdw-slider-range'),
-      ...this.#form.querySelectorAll('mdw-select'),
-      ...this.#form.querySelectorAll('mdw-radio-group')
-    ];
   }
 
   #focus() {
@@ -302,7 +175,77 @@ export default class MDWButtonElement extends HTMLElementExtended {
   #focusKeydown(e) {
     if (e.key === 'Enter') this.click();
   }
-}
 
+  #formClick(event) {
+    switch (this.#type) {
+      case 'reset':
+        this.#form.reset();
+        break;
+
+      case 'submit':
+        if (!this.#form.hasAttribute('novalidate') && !this.#form.checkValidity()) {
+          const formElements = [...this.#form.elements];
+          formElements.forEach(element => element.reportValidity());
+          const firstInvalid = formElements.find(e => !e.checkValidity());
+          const bounds = firstInvalid.getBoundingClientRect();
+          if (!(bounds.y >= 0 && (bounds.y + bounds.height) <= window.innerHeight)) {
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          firstInvalid.focus({ preventScroll: true });
+        } else {
+          this.#form.requestSubmit();
+        }
+        break;
+
+      case 'cancel':
+        // TODO cancel
+        if (this.#formState !== undefined && this.#getFormState() !== this.#formState) {
+          // const action = await dialog.simple({
+          //   message: 'Discard changes?',
+          //   actionConfirm: true,
+          //   actionConfirmLabel: 'Cancel',
+          //   actionCancel: true,
+          //   actionCancelLabel: 'Discard'
+          // });
+          const action = 'cancel';
+
+          // actions reversed for button position
+          if (action === 'cancel') {
+            // reset state and retrigger click
+            this.#formState = undefined;
+            // if (this.#onclickAttribute) {
+            //   this.setAttribute('onclick', this.#onclickAttribute);
+            //   this.#onclickAttribute = undefined;
+            // }
+            this.click();
+          }
+        }
+        break;
+    }
+  }
+
+  // used to track changes based on values
+  #getFormState() {
+    return [...this.#form.elements].map(e => e.type === 'checkbox' ? e.checked : e.value).toString();
+  }
+
+  #formFocusIn() {
+    if (this.#formState === undefined) this.#formState = this.#getFormState();
+
+    // temporarily remove onclick to prevent firing while form has changes
+    // setTimeout(() => {
+    //   const current = this.#getFormState();
+    //   if (current !== this.#formState) {
+    //     if (this.hasAttribute('onclick')) {
+    //       this.#onclickAttribute = this.getAttribute('onclick');
+    //       this.removeAttribute('onclick');
+    //     }
+    //   } else if (this.#onclickAttribute) {
+    //     this.setAttribute('onclick', this.#onclickAttribute);
+    //     this.#onclickAttribute = undefined;
+    //   }
+    // }, 100);
+  }
+};
 
 customElements.define('mdw-button', MDWButtonElement);

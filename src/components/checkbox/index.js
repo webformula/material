@@ -106,23 +106,6 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
     this.#internals.setFormValue(this.#checked ? this.#value : null, this.#checked ? 'checked' : undefined);
   }
 
-  // #c = this.attributeDescriptor('checked', value => {
-  //   // this.#checked = value;
-  //   this.#input.checked = value;
-  //   this.#internals.setFormValue(value ? this.value : null, value ? 'checked' : undefined);
-  //   this.classList.toggle('checked', value);
-
-  //   if (this.indeterminate) {
-  //     this.#indeterminate = false;
-  //     this.classList.remove('indeterminate');
-  //     this.#input.indeterminate = this.#indeterminate;
-  //   }
-
-  //   this.#selected = value || this.#indeterminate;
-  //   this.classList.toggle('selected', this.#selected);
-  //   this.setAttribute('aria-checked', value.toString());
-  // }, { type: 'boolean', setAttr: true });
-
   get checked() { return this.#checked }
   set checked(value) {
     this.#checked = value;
@@ -183,8 +166,8 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
   reset() {
     this.#touched = false;
     this.value = this.getAttribute('value') ?? '';
-    this.checked = this.getAttribute('checked');
-    this.indeterminate = this.getAttribute('indeterminate');
+    this.indeterminate = this.hasAttribute('indeterminate');
+    this.checked = this.hasAttribute('checked');
   }
   formResetCallback() { this.reset(); }
 

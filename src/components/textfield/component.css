@@ -211,7 +211,7 @@
 
 :host .text-field slot[name="trailing-icon"]::slotted(mdw-icon) {
   margin-left: 16px;
-  margin-right: -4px;
+  /* margin-right: -4px; */
 }
 
 ::slotted(mdw-icon) {
@@ -483,7 +483,7 @@
 }
 
 :host(.invalid) .text-field slot[name="trailing-icon"] {
-  display: none;
+  visibility: hidden;
 }
 
 

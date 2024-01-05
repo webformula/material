@@ -8,115 +8,43 @@ liking a post</div>
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#text_button" role="listitem">Text button</a>
-      <a href="#elevated_button" role="listitem">Elevated button</a>
-      <a href="#filled_button" role="listitem">Filled button</a>
-      <a href="#filled_tonal_button" role="listitem">Filled tonal button</a>
-      <a href="#outlined_button" role="listitem">Outlined button</a>
+      <a href="#types" role="listitem">Button types</a>
       <a href="#icon_button" role="listitem">Button with icon</a>
       <a href="#async_button" role="listitem">Async button</a>
     </ul>
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <mdw-card id="types">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Example</div>
+        <div class="mdw-headline">Button types</div>
         <div class="mdw-supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined,
           and
           text</div>
       </div>
       <div class="mdw-card-content">
         <mdw-button>Text</mdw-button>
-        <mdw-button class="mdw-elevated">Elevated</mdw-button>
-        <mdw-button class="mdw-filled">Filled</mdw-button>
-        <mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>
-        <mdw-button class="mdw-outlined">Outlined</mdw-button>
+        <mdw-button class="elevated">Elevated</mdw-button>
+        <mdw-button class="filled">Filled</mdw-button>
+        <mdw-button class="filled-tonal">Filled tonal</mdw-button>
+        <mdw-button class="outlined">Outlined</mdw-button>
         <mdw-button>
-          <mdw-icon>home</mdw-icon>
+          <mdw-icon slot="leading-icon">home</mdw-icon>
           Icon
         </mdw-button>
       </div>
-    </mdw-card>
-
-    <mdw-card id="text_button">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Text button</div>
-        
-        <div class="example">
-          <mdw-button>Example</mdw-button>
-        </div>
-      </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button>Text</mdw-button>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-
-    <mdw-card id="elevated_button">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Elevated button</div>
-        
-        <div class="example">
-          <mdw-button class="mdw-elevated">Example</mdw-button>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button class="mdw-elevated">Elevated</mdw-button>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-    <mdw-card id="filled_button">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Filled button</div>
-        
-        <div class="example">
-          <mdw-button class="mdw-filled">Example</mdw-button>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button class="mdw-filled">Filled</mdw-button>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-    <mdw-card id="filled_tonal_button">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Filled tonal button</div>
-        
-        <div class="example">
-          <mdw-button class="mdw-filled-tonal">Example</mdw-button>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-
-    <mdw-card id="outlined_button">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Outlined button</div>
-        
-        <div class="example">
-          <mdw-button class="mdw-outlined">Example</mdw-button>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button class="mdw-outlined">Outlined</mdw-button>`)}
+  ${page.escape(`<mdw-button>Text</mdw-button>
+  <mdw-button class="elevated">Elevated</mdw-button>
+  <mdw-button class="filled">Filled</mdw-button>
+  <mdw-button class="filled-tonal">Filled tonal</mdw-button>
+  <mdw-button class="outlined">Outlined</mdw-button>
+  <mdw-button>
+    <mdw-icon slot="leading-icon">home</mdw-icon>
+    Icon
+  </mdw-button>`)}
         </code>
       </pre>
     </mdw-card>
@@ -127,7 +55,7 @@ liking a post</div>
         
         <div class="example">
           <mdw-button>
-            <mdw-icon>home</mdw-icon>
+            <mdw-icon slot="leading-icon">home</mdw-icon>
             Icon
           </mdw-button>
         </div>
@@ -136,7 +64,7 @@ liking a post</div>
       <pre>
         <code class="language-html">
   ${page.escape(`<mdw-button>
-    <mdw-icon>add</mdw-icon>
+    <mdw-icon slot="leading-icon">home</mdw-icon>
     Icon
   </mdw-button>`)}
         </code>
@@ -148,169 +76,17 @@ liking a post</div>
         <div class="mdw-headline">Async button</div>
         
         <div class="example">
-          <mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
+          <mdw-button id="async-button" async class="filled">Example</mdw-button>
           <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
+  ${page.escape(`<mdw-button id="async-button" async class="filled">Example</mdw-button>
   <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>`)}
         </code>
       </pre>
-    </mdw-card>
-
-
-    <mdw-card id="roles">
-      <div class="mdw-card-content">
-        <div class="mdw-headline">Theme roles</div>
-    
-        <div class="example">
-          <mdw-select label="Select role..." onchange="page.colorRole = this.value">
-            <mdw-option>none</mdw-option>
-            <mdw-option>mdw-on-primary</mdw-option>
-            <mdw-option>mdw-primary-container</mdw-option>
-            <mdw-option>mdw-on-primary-container</mdw-option>
-            <mdw-option>mdw-secondary</mdw-option>
-            <mdw-option>mdw-on-secondary</mdw-option>
-            <mdw-option>mdw-secondary-container</mdw-option>
-            <mdw-option>mdw-on-secondary-container</mdw-option>
-            <mdw-option>mdw-tertiary</mdw-option>
-            <mdw-option>mdw-on-tertiary</mdw-option>
-            <mdw-option>mdw-tertiary-container</mdw-option>
-            <mdw-option>mdw-on-tertiary-container</mdw-option>
-            <mdw-option>mdw-error</mdw-option>
-            <mdw-option>mdw-on-error</mdw-option>
-            <mdw-option>mdw-error-container</mdw-option>
-            <mdw-option>mdw-on-error-container</mdw-option>
-          </mdw-select>
-
-          <div>
-            ${!page.colorRole || page.colorRole === 'none' ? `<div style="padding: 18px;">
-              <mdw-button>Text</mdw-button>
-              <mdw-button class="mdw-elevated">Elevated</mdw-button>
-              <mdw-button class="mdw-filled">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-primary' ? `<div style="padding: 18px; background-color: var(--mdw-primary);">
-              <mdw-button class="mdw-on-primary">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-primary">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-primary">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-primary">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-primary">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-primary-container' ? `<div style="padding: 18px;">
-              <mdw-button class="mdw-primary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-primary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-primary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-primary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-primary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-primary-container' ? `<div style="padding: 18px; background-color: var(--mdw-primary-container);">
-              <mdw-button class="mdw-on-primary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-primary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-primary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-primary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-primary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-secondary' ? `<div style="padding: 18px;">
-              <mdw-button class="mdw-secondary">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-secondary">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-secondary">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-secondary">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-secondary">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-secondary' ? `<div style="padding: 18px; background-color: var(--mdw-secondary);">
-              <mdw-button class="mdw-on-secondary">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-secondary">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-secondary">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-secondary">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-secondary">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-secondary-container' ? `<div style="padding: 18px; background-color: var(--mdw-secondary);">
-              <mdw-button class="mdw-secondary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-secondary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-secondary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-secondary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-secondary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-secondary-container' ? `<div style="padding: 18px; background-color: var(--mdw-secondary-container);">
-              <mdw-button class="mdw-on-secondary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-secondary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-secondary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-secondary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-secondary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-tertiary' ? `<div style="padding: 18px;">
-              <mdw-button class="mdw-tertiary">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-tertiary">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-tertiary">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-tertiary">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-tertiary">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-tertiary' ? `<div style="padding: 18px; background-color: var(--mdw-tertiary);">
-              <mdw-button class="mdw-on-tertiary">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-tertiary">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-tertiary">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-tertiary">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-tertiary">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-tertiary-container' ? `<div style="padding: 18px; background-color: var(--mdw-tertiary);">
-              <mdw-button class="mdw-tertiary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-tertiary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-tertiary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-tertiary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-tertiary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-tertiary-container' ? `<div
-              style="padding: 18px; background-color: var(--mdw-tertiary-container);">
-              <mdw-button class="mdw-on-tertiary-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-tertiary-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-tertiary-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-tertiary-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-tertiary-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-error' ? `<div style="padding: 18px;">
-              <mdw-button class="mdw-error">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-error">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-error">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-error">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-error">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-error' ? `<div style="padding: 18px; background-color: var(--mdw-error);">
-              <mdw-button class="mdw-on-error">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-error">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-error">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-error">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-error">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-error-container' ? `<div style="padding: 18px; background-color: var(--mdw-error);">
-              <mdw-button class="mdw-error-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-error-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-error-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-error-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-error-container">Outlined</mdw-button>
-            </div>` : ''}
-            ${page.colorRole === 'mdw-on-error-container' ? `<div
-              style="padding: 18px; background-color: var(--mdw-error-container);">
-              <mdw-button class="mdw-on-error-container">Text</mdw-button>
-              <mdw-button class="mdw-elevated mdw-on-error-container">Elevated</mdw-button>
-              <mdw-button class="mdw-filled mdw-on-error-container">Filled</mdw-button>
-              <mdw-button class="mdw-filled-tonal mdw-on-error-container">Filled tonal</mdw-button>
-              <mdw-button class="mdw-outlined mdw-on-error-container">Outlined</mdw-button>
-            </div>` : ''}
-          </div>
-        </div>
-      </div>
-    
-      <pre>
-            <code class="language-html">
-      ${page.escape(`<mdw-button id="async-button" class="mdw-async mdw-filled">Example</mdw-button>
-      <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>`)}
-            </code>
-          </pre>
     </mdw-card>
   </div>
 </section>

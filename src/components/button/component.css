@@ -1,632 +1,230 @@
-:host {
-  --mdw-button-text-text-color: var(--mdw-primary);
-  --mdw-button-text-state-layer-color: var(--mdw-primary);
-  --mdw-button-elevated-text-color: var(--mdw-primary);
-  --mdw-button-elevated-container-color: var(--mdw-surface-container-low);
-  --mdw-button-elevated-state-layer-color: var(--mdw-primary);
-  --mdw-button-filled-text-color: var(--mdw-on-primary);
-  --mdw-button-filled-container-color: var(--mdw-primary);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-primary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-outlined-text-color: var(--mdw-primary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-primary);
-
-
+:host {  
   position: relative;
   display: inline-flex;
-  justify-content: center;
-  user-select: none;
-  border: none;
+  border-radius: var(--mdw-shape-extra-large);
+  box-sizing: border-box;
   cursor: pointer;
-  white-space: nowrap;
   outline: none;
+  user-select: none;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
   -webkit-tap-highlight-color: transparent;
-
+  place-content: center;
+  place-items: center;
+  gap: 8px;
+  height: 40px;
+  line-height: 40px;
   font-size: var(--mdw-font-large-label-size);
   font-weight: var(--mdw-font-large-label-weight);
   letter-spacing: var(--mdw-font-large-label-tracking);
-
-  padding: 0 16px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: var(--mdw-shape-extra-large);
-
-  color: var(--mdw-button-text-text-color);
-}
-
-:host(.mdw-on-primary) {
-  --mdw-button-text-text-color: var(--mdw-on-primary);
-  --mdw-button-text-state-layer-color: var(--mdw-on-primary);
-  --mdw-button-elevated-text-color: var(--mdw-primary);
-  --mdw-button-elevated-container-color: var(--mdw-on-primary);
-  --mdw-button-elevated-state-layer-color: var(--mdw-primary);
-  --mdw-button-filled-text-color: var(--mdw-primary);
-  --mdw-button-filled-container-color: var(--mdw-on-primary);
-  --mdw-button-filled-state-layer-color: var(--mdw-primary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-primary);
-  --mdw-button-outlined-text-color: var(--mdw-on-primary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary);
-}
-
-:host(.mdw-primary-container) {
-  --mdw-button-text-text-color: var(--mdw-on-primary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-on-primary-container);
-  --mdw-button-elevated-text-color: var(--mdw-on-primary-container);
-  --mdw-button-elevated-container-color: var(--mdw-primary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-primary-container);
-  --mdw-button-filled-text-color: var(--mdw-on-primary-container);
-  --mdw-button-filled-container-color: var(--mdw-primary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-primary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-outlined-text-color: var(--mdw-on-primary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary-container);
-}
-
-:host(.mdw-on-primary-container) {
-  --mdw-button-text-text-color: var(--mdw-on-primary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-on-primary-container);
-  --mdw-button-elevated-text-color: var(--mdw-primary-container);
-  --mdw-button-elevated-container-color: var(--mdw-on-primary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-primary-container);
-  --mdw-button-filled-text-color: var(--mdw-primary-container);
-  --mdw-button-filled-container-color: var(--mdw-on-primary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-primary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary-container);
-  --mdw-button-outlined-text-color: var(--mdw-on-primary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-primary-container);
-}
-
-:host(.mdw-secondary) {
-  --mdw-button-text-text-color: var(--mdw-secondary);
-  --mdw-button-text-state-layer-color: var(--mdw-secondary);
-  --mdw-button-elevated-text-color: var(--mdw-on-secondary);
-  --mdw-button-elevated-container-color: var(--mdw-secondary);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-secondary);
-  --mdw-button-filled-text-color: var(--mdw-on-secondary);
-  --mdw-button-filled-container-color: var(--mdw-secondary);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-secondary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary);
-  --mdw-button-filled-tonal-container-color: var(--mdw-secondary);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary);
-  --mdw-button-outlined-text-color: var(--mdw-secondary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-secondary);
-}
-
-:host(.mdw-on-secondary) {
-  --mdw-button-text-text-color: var(--mdw-on-secondary);
-  --mdw-button-text-state-layer-color: var(--mdw-on-secondary);
-  --mdw-button-elevated-text-color: var(--mdw-secondary);
-  --mdw-button-elevated-container-color: var(--mdw-on-secondary);
-  --mdw-button-elevated-state-layer-color: var(--mdw-secondary);
-  --mdw-button-filled-text-color: var(--mdw-secondary);
-  --mdw-button-filled-container-color: var(--mdw-on-secondary);
-  --mdw-button-filled-state-layer-color: var(--mdw-secondary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-secondary);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary);
-  --mdw-button-outlined-text-color: var(--mdw-on-secondary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-secondary);
-}
-
-:host(.mdw-secondary-container) {
-  --mdw-button-text-text-color: var(--mdw-secondary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-secondary-container);
-  --mdw-button-elevated-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-elevated-container-color: var(--mdw-secondary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-container-color: var(--mdw-secondary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-outlined-text-color: var(--mdw-secondary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-secondary-container);
-}
-
-:host(.mdw-on-secondary-container) {
-  --mdw-button-text-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-on-secondary-container);
-  --mdw-button-elevated-text-color: var(--mdw-secondary-container);
-  --mdw-button-elevated-container-color: var(--mdw-on-secondary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-secondary-container);
-  --mdw-button-filled-text-color: var(--mdw-secondary-container);
-  --mdw-button-filled-container-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-secondary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-secondary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-secondary-container);
-  --mdw-button-outlined-text-color: var(--mdw-on-secondary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-secondary-container);
-}
-
-:host(.mdw-tertiary) {
-  --mdw-button-text-text-color: var(--mdw-tertiary);
-  --mdw-button-text-state-layer-color: var(--mdw-tertiary);
-  --mdw-button-elevated-text-color: var(--mdw-on-tertiary);
-  --mdw-button-elevated-container-color: var(--mdw-tertiary);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-text-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-container-color: var(--mdw-tertiary);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-tonal-container-color: var(--mdw-tertiary);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-tertiary);
-  --mdw-button-outlined-text-color: var(--mdw-tertiary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-tertiary);
-}
-
-:host(.mdw-on-tertiary) {
-  --mdw-button-text-text-color: var(--mdw-on-tertiary);
-  --mdw-button-text-state-layer-color: var(--mdw-on-tertiary);
-  --mdw-button-elevated-text-color: var(--mdw-tertiary);
-  --mdw-button-elevated-container-color: var(--mdw-on-tertiary);
-  --mdw-button-elevated-state-layer-color: var(--mdw-tertiary);
-  --mdw-button-filled-text-color: var(--mdw-tertiary);
-  --mdw-button-filled-container-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-state-layer-color: var(--mdw-tertiary);
-  --mdw-button-filled-tonal-text-color: var(--mdw-tertiary);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-tertiary);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-tertiary);
-  --mdw-button-outlined-text-color: var(--mdw-on-tertiary);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-tertiary);
-}
-
-:host(.mdw-tertiary-container) {
-  --mdw-button-text-text-color: var(--mdw-tertiary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-tertiary-container);
-  --mdw-button-elevated-text-color: var(--mdw-on-tertiary-container);
-  --mdw-button-elevated-container-color: var(--mdw-tertiary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-text-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-container-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-tertiary-container);
-  --mdw-button-outlined-text-color: var(--mdw-tertiary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-tertiary-container);
-}
-
-:host(.mdw-on-tertiary-container) {
-  --mdw-button-text-text-color: var(--mdw-on-tertiary-container);
-  --mdw-button-text-state-layer-color: var(--mdw-on-tertiary-container);
-  --mdw-button-elevated-text-color: var(--mdw-tertiary-container);
-  --mdw-button-elevated-container-color: var(--mdw-on-tertiary-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-text-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-container-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-tertiary-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-tertiary-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-tertiary-container);
-  --mdw-button-outlined-text-color: var(--mdw-on-tertiary-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-tertiary-container);
-}
-
-:host(.mdw-error) {
-  --mdw-button-text-text-color: var(--mdw-error);
-  --mdw-button-text-state-layer-color: var(--mdw-error);
-  --mdw-button-elevated-text-color: var(--mdw-on-error);
-  --mdw-button-elevated-container-color: var(--mdw-error);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-error);
-  --mdw-button-filled-text-color: var(--mdw-on-error);
-  --mdw-button-filled-container-color: var(--mdw-error);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-error);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-error);
-  --mdw-button-filled-tonal-container-color: var(--mdw-error);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-error);
-  --mdw-button-outlined-text-color: var(--mdw-error);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-error);
-}
-
-:host(.mdw-on-error) {
-  --mdw-button-text-text-color: var(--mdw-on-error);
-  --mdw-button-text-state-layer-color: var(--mdw-on-error);
-  --mdw-button-elevated-text-color: var(--mdw-error);
-  --mdw-button-elevated-container-color: var(--mdw-on-error);
-  --mdw-button-elevated-state-layer-color: var(--mdw-error);
-  --mdw-button-filled-text-color: var(--mdw-error);
-  --mdw-button-filled-container-color: var(--mdw-on-error);
-  --mdw-button-filled-state-layer-color: var(--mdw-error);
-  --mdw-button-filled-tonal-text-color: var(--mdw-error);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-error);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-error);
-  --mdw-button-outlined-text-color: var(--mdw-on-error);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-error);
-}
-
-:host(.mdw-error-container) {
-  --mdw-button-text-text-color: var(--mdw-error-container);
-  --mdw-button-text-state-layer-color: var(--mdw-error-container);
-  --mdw-button-elevated-text-color: var(--mdw-on-error-container);
-  --mdw-button-elevated-container-color: var(--mdw-error-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-on-error-container);
-  --mdw-button-filled-text-color: var(--mdw-on-error-container);
-  --mdw-button-filled-container-color: var(--mdw-error-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-on-error-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-on-error-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-error-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-on-error-container);
-  --mdw-button-outlined-text-color: var(--mdw-error-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline-variant);
-  --mdw-button-outlined-state-layer-color: var(--mdw-error-container);
-}
-
-:host(.mdw-on-error-container) {
-  --mdw-button-text-text-color: var(--mdw-on-error-container);
-  --mdw-button-text-state-layer-color: var(--mdw-on-error-container);
-  --mdw-button-elevated-text-color: var(--mdw-error-container);
-  --mdw-button-elevated-container-color: var(--mdw-on-error-container);
-  --mdw-button-elevated-state-layer-color: var(--mdw-error-container);
-  --mdw-button-filled-text-color: var(--mdw-error-container);
-  --mdw-button-filled-container-color: var(--mdw-on-error-container);
-  --mdw-button-filled-state-layer-color: var(--mdw-error-container);
-  --mdw-button-filled-tonal-text-color: var(--mdw-error-container);
-  --mdw-button-filled-tonal-container-color: var(--mdw-on-error-container);
-  --mdw-button-filled-tonal-state-layer-color: var(--mdw-error-container);
-  --mdw-button-outlined-text-color: var(--mdw-on-error-container);
-  --mdw-button-outlined-outline-color: var(--mdw-outline);
-  --mdw-button-outlined-state-layer-color: var(--mdw-on-error-container);
-}
-
-:host ::slotted(mdw-icon) {
-  margin-right: 2px;
-  margin-left: -2px;
-  vertical-align: sub;
-  width: var(--mdw-font-small-icon-size) !important;
-  height: var(--mdw-font-small-icon-size) !important;
-  font-size: var(--mdw-font-small-icon-size) !important;
-  line-height: var(--mdw-font-small-icon-size) !important;
-}
-
-:host ::slotted(.mdw-icon-svg) {
-  margin-top: 7px;
-  margin-left: -2px;
-  width: 20px !important;
-  height: 20px !important;
-}
-
-:host ::slotted(mdw-icon.mdw-trailing) {
-  margin-right: -2px;
-  margin-left: 2px;
+  color: var(--mdw-primary);
+  vertical-align: top;
+  pointer-events: none;
 }
 
 :host([disabled]) {
-  pointer-events: none;
-  cursor: unset;
+  /* pointer-events: none; */
+  cursor: default;
   color: var(--mdw-on-surface);
   opacity: 0.38;
-
-
 }
 
-:host([disabled][tooltip]) {
+button {
+  border-radius: inherit;
+  cursor: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  vertical-align: middle;
+  background: transparent;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  gap: inherit;
+  padding: 0 16px;
   pointer-events: all;
 }
 
-:host([disabled][tooltip]:active) {
+:host([disabled]) button{
   pointer-events: none;
 }
 
-/* state layer */
-:host::after {
-  position: absolute;
-  content: "";
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  opacity: 0;
-  border-radius: var(--mdw-shape-extra-large);
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing);
-  transition-property: opacity, background-color;
+
+:host(.filled) {
+  color: var(--mdw-on-primary);
+  background-color: var(--mdw-primary);
 }
 
-:host(:focus)::after {
+:host([disabled].filled) {
+  background-color: var(--mdw-on-surface-alpha-12);
+  color: var(--mdw-on-surface-alpha-38);
+  box-shadow: none;
+}
+
+:host(.elevated) {
+  color: var(--mdw-primary);
+  background-color: var(--mdw-surface-container-low);
+  box-shadow: var(--mdw-elevation-1);
+}
+
+:host([disabled].elevated) {
+  background-color: var(--mdw-on-surface-alpha-12);
+  color: var(--mdw-on-surface-alpha-38);
+  box-shadow: none;
+}
+
+:host(.filled-tonal) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+
+:host([disabled].filled-tonal) {
+  background-color: var(--mdw-on-surface-alpha-12);
+  color: var(--mdw-on-surface-alpha-38);
+  box-shadow: none;
+}
+
+:host(.outlined) {
+  color: var(--mdw-primary);
+  background-color: var(--mdw-button-outlined-container-color);
+  border: 1px solid var(--mdw-outline);
+}
+
+:host([disabled].outlined) {
+  color: var(--mdw-on-surface-alpha-38);
+  border: 1px solid var(--mdw-on-surface-alpha-12);
+}
+
+
+slot[name="leading-icon"]::slotted(mdw-icon) {
+  margin-right: -2px;
+  margin-left: -2px;
+  width: var(--mdw-font-small-icon-size);
+  height: var(--mdw-font-small-icon-size);
+  font-size: var(--mdw-font-small-icon-size);
+  line-height: var(--mdw-font-small-icon-size);
+}
+
+
+
+
+/* --- states --- */
+
+.state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-property: opacity;
+}
+
+:host(:focus) .state-layer {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
 }
 
+:host(:focus.filled) .state-layer {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-primary);
+}
 
-:host(.mdw-async-pending) {
-  pointer-events: none;
+:host(:focus.filled) {
+  box-shadow: var(--mdw-elevation-1);
 }
-:host(.mdw-async-pending) .text {
-  opacity: 0;
+
+:host(:focus.filled-tonal) .state-layer {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-on-secondary-container);
 }
-:host(.mdw-async) > .spinner {
+
+:host(:focus.elevated) .state-layer {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-button-elevate-state-layer-color);
+}
+
+:host(:focus.outlined) .state-layer {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  background-color: var(--mdw-primary);
+}
+
+:host(:focus.elevated),
+:host(:focus.filled),
+:host(:focus.filled-tonal) {
+  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-property: box-shadow;
+}
+
+@media (hover: hover) {
+  :host(:hover.elevated),
+  :host(:hover.filled),
+  :host(:hover.filled-tonal) {
+    transition-duration: var(--mdw-motion-duration-medium1);
+    transition-timing-function: var(--mdw-motion-easing-standard);
+    transition-property: box-shadow;
+  }
+
+  :host(:hover) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-primary);
+  }
+
+  :host(:hover.filled) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-primary);
+  }
+
+  :host(:hover.filled-tonal) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-on-secondary-container);
+  }
+
+  :host(:hover.filled),
+  :host(:hover.filled-tonal) {
+    box-shadow: var(--mdw-elevation-1);
+  }
+
+  :host(:hover.elevated) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-primary);
+  }
+
+  :host(:hover.elevated) {
+    box-shadow: var(--mdw-elevation-2);
+  }
+
+  :host(:hover.outlined) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    background-color: var(--mdw-primary);
+  }
+}
+
+.spinner {
   position: absolute;
   left: calc(50% - 18px);
   top: 1px;
 }
 
-
-/* --- icon buttons / icon toggle --- */
-
-:host(.mdw-icon-toggle-button),
-:host(.mdw-icon-button) {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  padding: 0;
-  margin: 8px;
-  border-radius: var(--mdw-shape-full);
-  justify-content: center;
-  color: var(--mdw-on-surface-variant);
+:host(.async-pending) {
+  pointer-events: none;
 }
 
-:host(.mdw-icon-toggle-button)::after,
-:host(.mdw-icon-button)::after {
-  border-radius: var(--mdw-shape-full);
+:host(.async-pending) button .default-slot {
+  color: transparent;
 }
 
-:host(.mdw-icon-button) ::slotted(mdw-icon),
-:host(.mdw-icon-toggle-button) ::slotted(mdw-icon) {
-  width: var(--mdw-font-medium-icon-size) !important;
-  height: var(--mdw-font-medium-icon-size) !important;
-  font-size: var(--mdw-font-medium-icon-size) !important;
-  line-height: var(--mdw-font-medium-icon-size) !important;
-  vertical-align: middle;
-  margin: 0 auto;
-  transition: font-variation-settings;
-  transition-duration: 0ms;
-}
-:host(.mdw-animation.mdw-icon-button) ::slotted(mdw-icon),
-:host(.mdw-animation.mdw-icon-toggle-button) ::slotted(mdw-icon) {
-  transition-duration: var(--mdw-motion-duration-short1);
-}
-
-:host(:not(.mdw-icon-toggle-button):not(.mdw-icon-button)) ::slotted([value]) {
-  margin-right: 4px;
-  font-size: 20px !important;
-}
-
-:host(.mdw-icon-toggle-button) ::slotted([value="on"]),
-:host(.mdw-icon-toggle-button) ::slotted([value="off"]) {
-  opacity: 1;
-  transition: opacity !important;
-  transition-duration: 0ms;
-}
-:host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="on"]),
-:host(.mdw-animation.mdw-icon-toggle-button) ::slotted([value="off"]) {
-  transition-duration: var(--mdw-motion-duration-short4);
-}
-
-:host(.mdw-icon-toggle-button) ::slotted([value="on"]) {
-  position: absolute;
-  top: 50%;
-  margin-top: calc(-25% - 3px);
-}
-
-:host(.mdw-icon-toggle-button:not(.mdw-toggled)) ::slotted([value="on"]) {
-  opacity: 0;
-}
-
-:host(.mdw-icon-toggle-button.mdw-toggled) ::slotted([value="off"]) {
-  opacity: 0;
-}
-
-:host(.mdw-icon-toggle-button.mdw-toggled) ::slotted(mdw-icon:not([value])) {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48 !important
-}
-
-:host(.mdw-icon-toggle-button:not(.mdw-toggled)) ::slotted(mdw-icon:not([value])) {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48 !important
-}
-
-/* --- state layer --- */
-:host(.mdw-icon-toggle-button) {
-  color: var(--mdw-on-surface-variant);
-}
-:host(.mdw-icon-toggle-button.mdw-toggled) {
-  color: var(--mdw-primary);
-}
-:host(.mdw-icon-toggle-button)::after,
-:host(.mdw-icon-button)::after {
-  margin-left: 0;
-}
-
-:host(.mdw-icon-toggle-button.mdw-filled) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-surface-container-highest);
-}
-
-:host(.mdw-icon-toggle-button.mdw-filled.mdw-toggled) {
-  color: var(--mdw-on-primary);
-  background-color: var(--mdw-primary);
-}
-
-:host(.mdw-icon-toggle-button.mdw-filled-tonal) {
-  color: var(--mdw-on-surface-variant);
-  background-color: var(--mdw-surface-variant);
-}
-
-:host(.mdw-icon-toggle-button.mdw-filled-tonal.mdw-toggled) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
-}
-
-:host(.mdw-icon-toggle-button.mdw-outlined) {
-  color: var(--mdw-on-surface-variant);
-}
-
-:host(.mdw-icon-toggle-button.mdw-outlined.mdw-toggled) {
-  color: var(--mdw-on-surface-inverse);
-  background-color: var(--mdw-surface-inverse);
-}
-
-
-/* --- Types --- */
-
-:host(.mdw-filled) {
-  color: var(--mdw-button-filled-text-color);
-  background-color: var(--mdw-button-filled-container-color);
-}
-:host([disabled].mdw-filled) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
-  box-shadow: none;
-}
-/* state layer */
-:host(:focus.mdw-filled)::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-filled-state-layer-color);
-}
-:host(:focus.mdw-filled) {
-  box-shadow: var(--mdw-elevation-1);
-}
-
-:host(.mdw-elevated) {
-  color: var(--mdw-button-elevated-text-color);
-  background-color: var(--mdw-button-elevated-container-color);
-  box-shadow: var(--mdw-elevation-1);
-}
-:host([disabled].mdw-elevated) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
-  box-shadow: none;
-}
-/* state layer */
-:host(:focus.mdw-elevated)::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-elevate-state-layer-color);
-}
-
-:host(.mdw-filled-tonal) {
-  color: var(--mdw-button-filled-tonal-text-color);
-  background-color: var(--mdw-button-filled-tonal-container-color);
-}
-:host([disabled].mdw-filled-tonal) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
-  box-shadow: none;
-}
-/* state layer */
-:host(:focus.mdw-filled-tonal)::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-filled-tonal-state-layer-color);
-}
-
-:host(.mdw-outlined) {
-  color: var(--mdw-button-outlined-text-color);
-  background-color: var(--mdw-button-outlined-container-color);
-  border: 1px solid var(--mdw-button-outlined-outline-color);
-}
-:host([disabled].mdw-outlined) {
-  color: var(--mdw-on-surface-alpha-38);
-  border: 1px solid var(--mdw-on-surface-alpha-12);
-}
-/* state layer */
-:host(:focus.mdw-outlined)::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-outlined-state-layer-color);
-}
-
-/* hover state layers. Media needed to prevent hover on mobile */
-@media (hover: hover) {
-  :host(.mdw-elevated),
-  :host(.mdw-filled),
-  :host(.mdw-filled-tonal) {
-    transition-duration: var(--mdw-motion-duration-medium1);
-    transition-timing-function: var(--mdw-motion-easing);
-    transition-property: box-shadow;
-  }
-
-  :host(:hover)::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-button-text-state-layer-color);
-  }
-
-  :host(:hover.mdw-elevated) {
-    box-shadow: var(--mdw-elevation-2);
-  }
-  :host(:hover.mdw-elevated)::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-button-elevated-state-layer-color);
-  }
-
-  :host(:hover.mdw-outlined)::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-button-outlined-state-layer-color);
-  }
-
-  :host(:hover.mdw-filled)::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-button-filled-state-layer-color);
-  }
-  
-  :host(:hover.mdw-filled-tonal)::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-button-filled-tonal-state-layer-color);
-  }
-
-  :host(:hover.mdw-filled),
-  :host(:hover.mdw-filled-tonal) {
-    box-shadow: var(--mdw-elevation-1);
-  }
-}
-
-
-/* --- mdw-menu --- */
-
-:host(.mdw-menu) {
-  border-radius: 0;
-  height: 48px;
-  line-height: 48px;
-  padding: 0 12px;
-  color: var(--mdw-on-surface);
-}
-
-:host(.mdw-menu)::after {
-  border-radius: 0;
-  height: 48px;
-}
-
-:host(.mdw-menu) ::slotted(mdw-icon) {
-  margin-right: 8px;
-  width: var(--mdw-font-medium-icon-size) !important;
-  height: var(--mdw-font-medium-icon-size) !important;
-  font-size: var(--mdw-font-medium-icon-size) !important;
-  line-height: var(--mdw-font-medium-icon-size) !important;
-  vertical-align: middle;
-}
-
-:host(.mdw-menu) ::slotted(mdw-icon.mdw-trailing) {
-  margin-right: -2px;
-  margin-left: 8px;
-}
 
 
 /* --- Ripple --- */
@@ -634,8 +232,6 @@
 .ripple {
   overflow: hidden;
   border-radius: inherit;
-  /* transform: translateZ(0); */
-  /* fixes bug on ios safari */
   position: absolute;
   top: 0;
   left: 0;
@@ -645,19 +241,19 @@
 }
 
 .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-button-text-state-layer-color);
+  background-color: var(--mdw-primary);
   opacity: var(--mdw-state-layer-opacity-pressed);
   border-radius: var(--mdw-shape-full);
 }
 
-:host(.mdw-filled) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-button-filled-state-layer-color);
+:host(.filled) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-primary);
 }
 
-:host(.mdw-elevated) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-button-elevated-state-layer-color);
+:host(.elevated) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-primary);
 }
 
-:host(.mdw-filled-tonal) .ripple > .mdw-ripple-element {
-  background-color: var(--mdw-button-filled-tonal-state-layer-color);
+:host(.filled-tonal) .ripple > .mdw-ripple-element {
+  background-color: var(--mdw-on-secondary-container);
 }
