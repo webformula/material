@@ -7,7 +7,7 @@ import util from '../../core/util.js';
 const isIncrementalSupported = 'incremental' in document.createElement('input');
 
 // TODO character count
-// TODO on enter suggestion fill
+// TODO suggestion fill keyboard
 
 export default class MDWTextfieldElement extends HTMLComponentElement {
   static useShadowRoot = true;
@@ -27,7 +27,6 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   #supportingText = '';
   #errorText = '';
   #invalidIcon;
-  #customValidityMessage;
   #abort;
   #formatter;
   #suggestion;
@@ -86,11 +85,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#abort = new AbortController();
 
     this.#input.value = this.value;
-    // if (this.#customValidityMessage) this.#input.setCustomValidity(this.#customValidityMessage);
     this.#internals.setValidity(this.#input.validity, this.#input.validationMessage, this.#input);
-    // if (this.#customValidityMessage) this.#updateValidityDisplay();
-    // if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label || 'input');
-
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
     this.#input.addEventListener('select', this.#onSelect_bound, { signal: this.#abort.signal });
@@ -383,19 +378,16 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#updateValidity();
   }
   setCustomValidity(value = '') {
-    this.#customValidityMessage = value;
-    if (this.rendered) {
-      this.#input.setCustomValidity(value);
-      this.#updateValidityDisplay();
-    }
+    this.#input.setCustomValidity(value);
+    this.#updateValidityDisplay();
   }
   
-  select() { if (this.rendered) this.#input.select(); }
+  select() { this.#input.select(); }
   setRangeText(replacement, start, end, selectMode) {
-    if (this.rendered) this.#input.setRangeText(replacement, start, end, selectMode);
+    this.#input.setRangeText(replacement, start, end, selectMode);
   }
   setSelectionRange(selectionStart, selectionEnd, selectionDirection) {
-    if (this.rendered) this.#input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
+    this.#input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
 
 

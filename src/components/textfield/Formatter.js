@@ -28,6 +28,7 @@ export default class Formatter {
   #mask;
   #maskParts;
   #initialized = false;
+  #disabled = true;
   #keyDown_bound = this.#keyDown.bind(this);
   #paste_bound = this.#paste.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
@@ -37,6 +38,7 @@ export default class Formatter {
 
   constructor(textfield) {
     this.#textfield = textfield;
+    this.#initialize();
   }
 
 
@@ -45,10 +47,9 @@ export default class Formatter {
   }
   set value(value) {
     this.#rawValue = value;
-    if (this.#initialize) {
-      this.#input.value = value;
-      this.#updateValidity();
-    }
+    if (this.#disabled) return;
+    this.#input.value = value;
+    this.#updateValidity();
   }
 
   get formattedValue() {
@@ -68,7 +69,7 @@ export default class Formatter {
   }
   set pattern(value) {
     this.#patternString = value;
-    if (this.#initialize) this.#setPattern();
+    this.#setPattern();
   }
 
   get patternRestrict() {
@@ -103,7 +104,7 @@ simplifyGroupRegexString(regexString) {
   }
   set format(value) {
     this.#format = value;
-    if (this.#initialize) this.#buildFormat();
+    this.#buildFormat();
   }
 
   get mask() {
@@ -111,7 +112,7 @@ simplifyGroupRegexString(regexString) {
   }
   set mask(value) {
     this.#mask = value;
-    if (this.#initialize) this.#buildMask();
+    this.#buildMask();
   }
 
   set onInput(callback = () => {}) {
@@ -124,10 +125,10 @@ simplifyGroupRegexString(regexString) {
   }
 
   async enable() {
+    if (!this.#disabled) return;
+    this.#disabled = false;
     if (!this.#format) return;
     if (!this.#pattern) throw Error('Must set pattern before enabling');
-
-    await this.#initialize();
 
     this.#input.addEventListener('keydown', this.#keyDown_bound);
     this.#input.addEventListener('paste', this.#paste_bound);
@@ -135,8 +136,8 @@ simplifyGroupRegexString(regexString) {
   }
 
   disable() {
-    if (!this.#initialized) return;
-
+    if (this.#disabled) return;
+    this.#disabled = true;
     this.#input.removeEventListener('keydown', this.#keyDown_bound);
     this.#input.removeEventListener('paste', this.#paste_bound);
     this.#textfield.removeEventListener('blur', this.#onBlur_bound);
@@ -146,7 +147,6 @@ simplifyGroupRegexString(regexString) {
     if (this.#initialized) return;
     this.#initialized = true;
     
-    await this.#waitForRendered();
     this.#input = this.#textfield.shadowRoot.querySelector('input');
 
     this.#buildFormat();
@@ -166,23 +166,6 @@ simplifyGroupRegexString(regexString) {
       }
     });
   }
-
-  async #waitForRendered(count = 0) {
-    if (this.#textfield.rendered) return;
-    if (count > 6) throw Error('Could not connect formatter to textfield', this.#textfield);
-    
-    return new Promise((resolve, reject) => {
-      requestAnimationFrame(async () => {
-        try {
-          await this.#waitForRendered(count + 1);
-          resolve();
-        } catch (e) {
-          reject(e);
-        }
-      });
-    });
-  }
-
 
   #buildFormat() {
     if (!this.#format) {
@@ -224,11 +207,9 @@ simplifyGroupRegexString(regexString) {
       return;
     }
 
-    if (this.#initialized) {
-      // do not use pattern for masking because it will not be valid.
-      if (!this.#mask) this.#input.pattern = this.#patternString;
-      else this.#input.removeAttribute('pattern');
-    }
+    // do not use pattern for masking because it will not be valid.
+    if (!this.#mask) this.#input.pattern = this.#patternString;
+    else this.#input.removeAttribute('pattern');
 
     this.#pattern = new RegExp(this.#patternString);
     let i = 0;
