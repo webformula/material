@@ -11,6 +11,8 @@ const mdwDevice = new class MDWDevice {
       this.#setWindow();
     });
     resizeObserver.observe(document.documentElement);
+    this.#setWindow();
+    document.documentElement.classList.add('mdw-initiated');
   }
 
   get orientation() {
@@ -58,7 +60,7 @@ const mdwDevice = new class MDWDevice {
   }
 
   async #setWindow() {
-    if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
+    // if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
     // TODO figure this out without style recalculation
     this.#windowWidth = window.visualViewport.width;
     this.#windowHeight = window.visualViewport.height;
@@ -82,7 +84,6 @@ const mdwDevice = new class MDWDevice {
     }
 
     if (!this.#lastState) {
-      document.documentElement.classList.add('mdw-initiated');
       requestAnimationFrame(() => {
         document.querySelector('body').classList.add('mdw-animation');
         this.#animationReady = true;

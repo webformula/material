@@ -15,10 +15,22 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&text=home" /> -->
     
+  <style>
+    html {
+      /* visibility: hidden; */
+      display: none;
+    }
+
+    html.mdw-initiated {
+      /* visibility: visible; */
+      display: block;
+    }
+  </style>
   <link rel="prefetch" href="./outlined-icons-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="prefetch" href="./rounded-icons.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/app.css" rel="stylesheet">
   <script src="app.js"></script>
+  <link href="/app.css" rel="stylesheet">
+
   <!-- <script id="hljsscript" src="highlight-11.8.0.js" defer></script> -->
 
   <style>
@@ -26,7 +38,7 @@
       font-family: 'Material Symbols Outlined';
       font-style: normal;
       font-weight: 100 700;
-      font-display: block;
+      font-display: swap;
       src: url(./icons.woff2) format('woff2');
     }
   
@@ -34,7 +46,7 @@
       font-family: 'Material Symbols Outlined alt';
       font-style: normal;
       font-weight: 100 700;
-      font-display: block;
+      font-display: swap;
       src: url(./outlined-icons-variable.woff2) format('woff2');
     }
   
@@ -42,7 +54,7 @@
       font-family: 'Material Symbols Rounded';
       font-style: normal;
       font-weight: 100 700;
-      font-display: block;
+      font-display: swap;
       src: url(./rounded-icons.woff2) format('woff2');
     }
   </style>

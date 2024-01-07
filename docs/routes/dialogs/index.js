@@ -6,19 +6,20 @@ export default class extends Component {
   static title = 'Dialogs';
   static html = html;
 
-  clickOutsideClose = false;
+  allowClose = false;
   preventNavigation = true;
 
   constructor() {
     super();
   }
 
-  async openSimple(clickOutsideClose = false, preventNavigation = true) {
+  async openSimple(allowClose = false, preventNavigation = true, icon) {
     const answer = await mdwDialog.simple({
+      icon,
       headline: 'Question',
       message: 'Are you sure?',
       actionCancel: true,
-      clickOutsideClose,
+      allowClose,
       preventNavigation
     });
 
@@ -29,11 +30,9 @@ export default class extends Component {
   async openTemplate() {
     const value = await mdwDialog.template({
       template: `
-      <div class="mdw-headline">Headline</div>
-      <div class="mdw-content">Here is some content for the dialog.</div>
-      <div class="mdw-actions">
-        <mdw-button onclick="mdwDialog.close('response value')">Close</mdw-button>
-      </div>
+      <div slot="headline">Headline</div>
+      <div slot="content">Here is some content for the dialog.</div>
+      <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>
       `
     });
     console.log(value);

@@ -292,7 +292,6 @@ slot {
     display: block;
     opacity: 1;
     visibility: visible;
-    transform: translateX(0px);
   }
 
   60% {
@@ -341,4 +340,30 @@ slot {
     visibility: visible;
     transform: translate(calc(var(--mdw-surface-horizontal-position) + (var(--mdw-surface-translate-x) * -1)), var(--mdw-surface-vertical-position));
   }
+}
+
+
+
+.scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 19;
+  opacity: 0;
+  background-color: var(--mdw-scrim);
+  transition: opacity var(--mdw-motion-duration-short4);
+  transition-timing-function: var(--mdw-motion-easing);
+}
+
+.surface.viewport-bound + .scrim {
+  position: fixed;
+}
+
+:host(.open) .scrim {
+  overscroll-behavior: contain;
+  opacity: 0.16;
+  pointer-events: all;
 }

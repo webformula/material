@@ -386,7 +386,7 @@ const mdwUtil = new class MDWUtil {
   }
 
   getFocusableElements(parent) {
-    const elements = [...parent.querySelectorAll('mdw-select, mdw-textfield, a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])')]
+    const elements = [...parent.querySelectorAll('mdw-button, mdw-checkbox, mdw-switch, mdw-select, mdw-textfield, a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])')]
       .filter(el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
     return elements;
   }

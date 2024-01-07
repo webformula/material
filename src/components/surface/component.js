@@ -58,6 +58,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
           <slot></slot>
         </div>
       </div>
+      <div class="scrim"></div>
     `;
   }
 

@@ -1,13 +1,7 @@
 @import url(./colorTokens.css);
 @import url(./dracula.css);
 
-html:not(.mdw-initiated) {
-  opacity: 0;
-  pointer-events: none;
-}
-
 :root {
-  color-scheme: light;
   font-family: system-ui, Arial;
 }
 
@@ -15,10 +9,6 @@ html {
   overflow-x: hidden;
   overflow-y: auto;
 }
-
-/* #page-content {
-  overflow-x: hidden;
-} */
 
 .page-title {
   margin-bottom: 0;

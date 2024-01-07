@@ -143,6 +143,12 @@ export default class MDWButtonElement extends HTMLComponentElement {
     this.#async = !!value;
   }
 
+  get formNoValidate() { return this.hasAttribute('formnovalidate'); }
+  set formNoValidate(value) {
+    if (!!value) this.setAttribute('formnovalidate', '');
+    else this.removeAttribute('formnovalidate');
+  }
+
 
   pending() {
     this.classList.add('async-pending');
@@ -183,7 +189,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
         break;
 
       case 'submit':
-        if (!this.#form.hasAttribute('novalidate') && !this.#form.checkValidity()) {
+        if (!this.formNoValidate && !this.#form.hasAttribute('novalidate') && !this.#form.checkValidity()) {
           const formElements = [...this.#form.elements];
           formElements.forEach(element => element.reportValidity());
           const firstInvalid = formElements.find(e => !e.checkValidity());
@@ -193,7 +199,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
           }
           firstInvalid.focus({ preventScroll: true });
         } else {
-          this.#form.requestSubmit();
+          this.#formRequestSubmit();
         }
         break;
 
@@ -221,7 +227,27 @@ export default class MDWButtonElement extends HTMLComponentElement {
           }
         }
         break;
+
+      default:
+        if (this.#form.method === 'dialog') {
+          this.#formRequestSubmit();
+        }
     }
+  }
+
+  #formRequestSubmit() {
+    const previousNoValidate = this.#form.noValidate;
+    if (this.formNoValidate) this.#form.noValidate = true;
+    // intercept submit so we can inject submitter
+    this.#form.addEventListener('submit', (submitEvent) => {
+      Object.defineProperty(submitEvent, 'submitter', {
+        configurable: true,
+        enumerable: true,
+        get: () => this,
+      });
+    }, { capture: true, once: true });
+    this.#form.requestSubmit();
+    if (this.formNoValidate) this.#form.noValidate = previousNoValidate;
   }
 
   // used to track changes based on values

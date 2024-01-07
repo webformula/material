@@ -7,7 +7,6 @@
   Dialog</a>
 
 
-
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
@@ -29,7 +28,7 @@
         <div class="mdw-headline">Simple dialog</div>
         
         <div class="example">
-          <mdw-button onclick="page.openSimple()">Open</mdw-button>
+          <mdw-button onclick="page.openSimple(false, true, 'settings')">Open</mdw-button>
         </div>
       </div>
 
@@ -39,13 +38,14 @@
   import { mdwDialog } from '@webformula/material/services';
 
   const answer = await mdwDialog.simple({
+    icon: 'settings',
     headline: 'Question',
     message: 'Are you sure?',
-    scrim: true, // default true
-    clickOutsideClose: false, // default false
+    noScrim: false,
+    allowClose: false, // clicking outside of dialog will close it
 
-    // If prevent navigation is not set then it will be the opposite of clickOutsideClose
-    preventNavigation: true, // default true
+    // If prevent navigation is not set then it will be the opposite of allowClose
+    preventNavigation: true, // default false
     
     actionConfirm: true, // default true
     actionConfirm: 'OK', // default OK
@@ -72,20 +72,16 @@
       <pre>
         <code class="language-html">
   ${page.escape(`// templateString
-  <div class="mdw-headline">Headline</div>
-  <div class="mdw-content">Here is some content for the dialog.</div>
-  <div class="mdw-actions">
-    <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
-  </div>`)}
+  <div slot="headline">Headline</div>
+  <div slot="content">Here is some content for the dialog.</div>
+  <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>`)}
       </code>
     </pre>
     <pre>
       <code class="language-javascript">
   mdwDialog.template({
     template: templateString,
-    scrim: true,
-    clickOutsideClose: false
-    preventNavigation: true
+    allowClose: false
   });
         </code>
       </pre>
@@ -105,11 +101,9 @@
         <code class="language-html">
   ${page.escape(`// templateString
   <mdw-dialog>
-    <div class="mdw-headline">Headline</div>
-    <div class="mdw-content">Here is some content for the dialog.</div>
-    <div class="mdw-actions">
-      <mdw-button onclick="mdwDialog.close('response value')">Close</mdw-button>
-    </div>
+    <div slot="headline">Headline</div>
+    <div slot="content">Here is some content for the dialog.</div>
+    <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>
   </mdw-dialog>`)}
         </code>
       </pre>
@@ -120,8 +114,7 @@
 
   const value = await mdwDialog.template({
     template: templateString,
-    scrim: true,
-    clickOutsideClose: false
+    allowClose: false
   });
 
   // value is passed in when closing the dialog: mdwDialog.close('response value')
@@ -134,44 +127,66 @@
     <mdw-card id="html">
       <div class="mdw-card-content">
         <div class="mdw-headline">HTML Only</div>
-        <div class="mdw-subhead">You can interact directly with the component by adding it directly to the dom</div>
+        <div class="mdw-subhead">You can interact directly with dialogs added to the DOM</div>
     
         <div class="example">
           <mdw-dialog id="html-only-dialog">
-            <div class="mdw-headline">Headline</div>
-            <div class="mdw-content">Here is some content for the dialog.</div>
-            <div class="mdw-actions">
-              <mdw-button onclick="mdwDialog.close('returnValue')">Close</mdw-button>
+            <div slot="headline">Headline</div>
+            <div slot="content">
+              <form id="one" method="dialog">
+                <mdw-textfield required label="Required input"></mdw-textfield>
+              </form>
             </div>
+            <mdw-button slot="actions" form="one" value="submit" type="submit">Submit</mdw-button>
+            <mdw-button slot="actions" form="one" type="reset">Reset</mdw-button>
+            <mdw-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</mdw-button>
           </mdw-dialog>
-
+          
           <mdw-button onclick="document.querySelector('#html-only-dialog').show()">Open</mdw-button>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`// Added directly to document
-  // Adding the 'open' attribute will automatically show the dialog
+  ${page.escape(`<!-- Added directly to document
+  Adding the 'open' attribute will automatically show the dialog -->
   <mdw-dialog id="html-only-dialog">
-    <div class="mdw-headline">Headline</div>
-    <div class="mdw-content">Here is some content for the dialog.</div>
-    <div class="mdw-actions">
-      <mdw-button onclick="mdwDialog.close('returnValue')">Close</mdw-button>
+    <div slot="headline">Headline</div>
+    <div slot="content">
+      <form id="one" method="dialog">
+        <mdw-textfield required label="Required input"></mdw-textfield>
+      </form>
     </div>
-  </mdw-dialog>`)}
+    <mdw-button slot="actions" form="one" value="submit" type="submit">Submit</mdw-button>
+    <mdw-button slot="actions" form="one" type="reset">Reset</mdw-button>
+    <mdw-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</mdw-button>
+  </mdw-dialog>
+  
+
+  <!-- attributes to control allowClose and noScrim -->
+  <mdw-dialog allow-close no-scrim></mdw-dialog>`)}
         </code>
       </pre>
       <pre>
         <code class="language-javascript">
   const dialog = document.querySelector('#html-only-dialog');
-  dialog.show(true); // show with scrim DEFAULT
-  dialog.show(false); // show with NO scrim
-  dialog.clickOutsideClose = true; // allow clicking scrim to close dialog. Default false
+  dialog.scrim = true;
+  dialog.allowClose = true; // allow clicking scrim to close dialog. Default false
+  dialog.show();
   console.log(dialog.open);
+
   dialog.addEventListener('close', event => {
-    console.log(event.target.returnValue);
+    console.log('close', event.target.returnValue);
   });
+
+  dialog.addEventListener('cancel', event => {
+   console.log('cancel', event.target.returnValue);
+  });
+
+  dialog.addEventListener('submit', event => {
+    console.log('submit', event.target.returnValue);
+  });
+
   dialog.close('returnValue string');
   console.log(dialog.returnValue);
         </code>
@@ -185,11 +200,8 @@
     
         <div class="example">
           <mdw-dialog id="scrollable-dialog">
-            <!-- mdw-header required for fixed header -->
-            <div class="mdw-header">
-              <div class="mdw-headline">Headline</div>
-            </div>
-            <div class="mdw-content">
+            <div slot="headline">Headline</div>
+            <div slot="content">
               <div class="mdw-supporting-text">
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
                 Latin
@@ -204,13 +216,13 @@
                 written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The
                 first
                 line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-    
+          
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
                 1.10.32
                 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
-    
+          
               <div class="mdw-supporting-text">
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
                 Latin
@@ -225,13 +237,13 @@
                 written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The
                 first
                 line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-    
+          
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
                 1.10.32
                 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
-    
+          
               <div class="mdw-supporting-text">
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
                 Latin
@@ -246,13 +258,13 @@
                 written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The
                 first
                 line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-    
+          
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
                 1.10.32
                 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
-    
+          
               <div class="mdw-supporting-text">
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
                 Latin
@@ -267,18 +279,16 @@
                 written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The
                 first
                 line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-    
+          
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
                 1.10.32
                 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
             </div>
-            <div class="mdw-actions">
-              <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
-            </div>
+            <mdw-button slot="actions" onclick="mdwDialog.close()">Close</mdw-button>
           </mdw-dialog>
-    
+          
           <mdw-button onclick="document.querySelector('#scrollable-dialog').show()">Open</mdw-button>
         </div>
       </div>
@@ -286,16 +296,11 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<mdw-dialog id="scrollable-dialog">
-    <!-- mdw-header required for fixed header -->
-    <div class="mdw-header">
-      <div class="mdw-headline">Headline</div>
-    </div>
-    <div class="mdw-content">
+    <div slot="headline">Headline</div>
+    <div slot="content">
       ...large content
     </div>
-    <div class="mdw-actions">
-      <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
-    </div>
+    <mdw-button slot="actions" onclick="mdwDialog.close()">Close</mdw-button>
   </mdw-dialog>`)}
         </code>
       </pre>
@@ -307,13 +312,9 @@
         <div class="mdw-subhead">Fullscreen dialogs are for compact window sizes only</div>
     
         <div class="example">
-          <mdw-dialog id="fullscreen-dialog" class="mdw-fullscreen">
-            <div class="mdw-header">
-              <mdw-button class="mdw-fullscreen mdw-icon-button" onclick="mdwDialog.close()"><mdw-icon>close</mdw-icon></mdw-button>
-              <div class="mdw-headline">Headline</div>
-              <mdw-button class="mdw-fullscreen-button" onclick="mdwDialog.close()">Close</mdw-button>
-            </div>
-            <div class="mdw-content">
+          <mdw-dialog id="fullscreen-dialog" fullscreen>
+            <div slot="headline">Headline</div>
+            <div slot="content">
               <div class="mdw-supporting-text">
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
                 literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
@@ -369,9 +370,6 @@
                 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
-            </div>
-            <div class="mdw-actions">
-              <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
             </div>
           </mdw-dialog>
     
@@ -381,18 +379,10 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-dialog id="fullscreen-dialog" class="mdw-fullscreen">
-    <div class="mdw-header">
-      <mdw-button class="mdw-fullscreen mdw-icon-button"
-        onclick="mdwDialog.close()"><mdw-icon>close</mdw-icon></mdw-button>
-      <div class="mdw-headline">Headline</div>
-      <mdw-button class="mdw-fullscreen-button" onclick="mdwDialog.close()">Close</mdw-button>
-    </div>
-    <div class="mdw-content">
+  ${page.escape(`<mdw-dialog id="fullscreen-dialog" fullscreen>
+    <div slot="headline">Headline</div>
+    <div slot="content">
       ...content
-    </div>
-    <div class="mdw-actions">
-      <mdw-button onclick="mdwDialog.close()">Close</mdw-button>
     </div>
   </mdw-dialog>`)}
         </code>
@@ -402,16 +392,16 @@
 
     <mdw-card id="prevent-navigation">
       <div class="mdw-card-content">
-        <div class="mdw-headline">Click outside close and prevent navigation</div>
-        <div class="mdw-subheader"><b>Click outside to close</b> will prevent the dialog from being closed outside of its actions</div>
-        <div class="mdw-subheader"><b>Prevent navigation</b> will show a confirm dialog, asking the user if they want to navigate away</div>
+        <div class="mdw-headline">Allow close and prevent navigation</div>
+        <div class="mdw-supporting-text"><b>Allow close</b> will prevent the dialog from being closed when scrim (backdrop) is clicked</div>
+        <div class="mdw-supporting-text"><b>Prevent navigation</b> will show a confirm dialog, asking the user if they want to navigate away</div>
     
         <div class="example">
           <div style="display: flex; flex-direction: column;">
-            <mdw-switch onchange="page.clickOutsideClose = this.checked">clickOutsideClose</mdw-switch>
+            <mdw-switch onchange="page.allowClose = this.checked">allowClose</mdw-switch>
             <mdw-switch checked onchange="page.preventNavigation = this.checked">preventNavigation</mdw-switch>
           </div>
-          <mdw-button onclick="page.openSimple(page.clickOutsideClose, page.preventNavigation)">Open</mdw-button>
+          <mdw-button onclick="page.openSimple(page.allowClose, page.preventNavigation)">Open</mdw-button>
         </div>
       </div>
     
@@ -423,11 +413,8 @@
   const answer = await mdwDialog.simple({
     headline: 'Question',
     message: 'Are you sure?',
-    scrim: true, // default true
-    clickOutsideClose: false, // default false
-
-    // If prevent navigation is not set then it will be the opposite of clickOutsideClose
-    preventNavigation: true // default true
+    allowClose: false, // default false
+    preventNavigation: true // default false
   });
         </code>
       </pre>
