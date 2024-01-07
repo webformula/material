@@ -14,6 +14,7 @@ import './components/dialog/index.js';
 import './components/fab/index.js';
 import './components/form/index.js';
 import './components/icon/index.js';
+import './components/icon-button/component.js';
 import './components/list/index.js';
 import './components/menu/index.js';
 import './components/navigation-bar/index.js';

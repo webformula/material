@@ -179,7 +179,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   }
 
   #focusKeydown(e) {
-    if (e.key === 'Enter') this.click();
+    if (e.key === 'Enter') this.#ripple.trigger();
   }
 
   #formClick(event) {

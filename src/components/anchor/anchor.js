@@ -1,6 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './anchor.css' assert { type: 'css' };
 import { expand_more_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
+import util from '../../core/util.js';
 
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
@@ -120,7 +121,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     // TODO should we skip to first sub navigation in nav or jump to first element on page
     if (e.code === 'Tab') {
       const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
-      const firstFocusablePageContent = [...pageContent.querySelectorAll('*')].find(e => e.tabindex > -1 || parseInt(e.getAttribute('tabindex') || -1) > -1);
+      const firstFocusablePageContent = util.getFocusableElements(pageContent)[0];
       if (firstFocusablePageContent) firstFocusablePageContent.focus();
       e.preventDefault();
     } if (e.code === 'Enter' || e.code === 'Space') {

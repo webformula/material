@@ -17,12 +17,10 @@
     
   <style>
     html {
-      /* visibility: hidden; */
       display: none;
     }
 
     html.mdw-initiated {
-      /* visibility: visible; */
       display: block;
     }
   </style>
@@ -63,11 +61,10 @@
 <body>
   <mdw-navigation-drawer>
     <div slot="header" class="mdw-headline">Webformula material</div>
-    <!-- <mdw-button slot="header" class="theme-toggle mdw-icon-toggle-button" onClick="window.toggleColorScheme()">
-      <mdw-icon value="on">dark_mode</mdw-icon>
-      <mdw-icon value="off">light_mode</mdw-icon>
-    </mdw-button> -->
-
+    <mdw-icon-button toggle slot="header" onClick="window.toggleColorScheme()">
+      <mdw-icon>dark_mode</mdw-icon>
+      <mdw-icon slot="selected">light_mode</mdw-icon>
+    </mdw-icon-button>
 
     <mdw-anchor href="/">Welcome</mdw-anchor>
     <mdw-anchor href="/getting-started">Getting started</mdw-anchor>
@@ -165,6 +162,8 @@
   <mdw-pane id="page-content"></mdw-pane>
 
   <mdw-navigation-bar class="mdw-auto-hide">
+    <mdw-navigation-button></mdw-navigation-button>
+    
     <mdw-anchor href="/">
       <mdw-icon slot="leading-icon">home</mdw-icon>
     </mdw-anchor>

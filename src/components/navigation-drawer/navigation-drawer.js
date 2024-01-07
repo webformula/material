@@ -10,7 +10,6 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
 
   constructor() {
     super();
-
     this.role = 'navigation';
     this.fixed = true;
     this.alwaysVisible = true;
@@ -21,6 +20,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     document.body.classList.add('mdw-has-navigation-drawer');
     document.body.classList.add('mdw-navigation-drawer-state-show');
     this.#locationchange();
+    this.#windowStateChange({ detail: device });
   }
 
   template() {
@@ -34,6 +34,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
           </div>
         </div>
       </div>
+      <div class="scrim"></div>
     `;
   }
 
@@ -74,6 +75,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     if (match) {
       match.classList.add('current');
       if (match.parentElement.nodeName === 'MDW-ANCHOR-GROUP') {
+        match.parentElement.open = true;
         match.parentElement.classList.add('has-current');
       }
 
@@ -91,6 +93,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     this.open = isExpanded;
     this.classList.toggle('modal', !isExpanded);
     this.scrim = !isExpanded;
+    this.allowClose = !isExpanded;
     this.alwaysVisible = isExpanded;
 
     if (!detail.lastState) this.#initialScrollTo();

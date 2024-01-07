@@ -345,6 +345,7 @@ slot {
 
 
 .scrim {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -362,7 +363,8 @@ slot {
   position: fixed;
 }
 
-:host(.open) .scrim {
+:host(.open.scrim) .scrim {
+  display: block;
   overscroll-behavior: contain;
   opacity: 0.16;
   pointer-events: all;

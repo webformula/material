@@ -222,6 +222,7 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
       this.checked = !this.checked;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change'));
+      this.#ripple.trigger();
       e.preventDefault();
     }
   }

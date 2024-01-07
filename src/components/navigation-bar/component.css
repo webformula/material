@@ -37,3 +37,7 @@
 :host(.hide) {
   margin-bottom: -80px;
 }
+
+::slotted(mdw-navigation-button) {
+  margin-left: 12px;
+}

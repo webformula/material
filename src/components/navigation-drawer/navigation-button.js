@@ -1,21 +1,15 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import MDWIconButtonElement from '../icon-button/component.js';
 import {
   menu_FILL1_wght400_GRAD0_opsz24,
   menu_open_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends HTMLElementExtended {
+customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends MDWIconButtonElement {
   #onclick_bound = this.#onclick.bind(this);
   #onNavigationState_bound = this.#onNavigationState.bind(this);
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    this.tabIndex = 0;
-    // this.setAttribute('role', 'button')
-    // this.setAttribute('aria-label', 'toggle navigation');
   }
 
   get navigation() {
@@ -29,19 +23,24 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
     document.body.querySelector('mdw-navigation-drawer').open = !!value;
   }
 
-  toggle() {
-    document.body.querySelector('mdw-navigation-drawer').toggle();
-  }
-
-  afterRender() {
-    this.#onNavigationState();
-    this.navigation?.addEventListener('change', this.#onNavigationState_bound);
+  connectedCallback() {
+    super.connectedCallback();
+    this.insertAdjacentHTML('afterbegin', `
+      <mdw-icon>${menu_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
+      <mdw-icon slot="selected">${menu_open_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
+    `);
     this.addEventListener('click', this.#onclick_bound);
+    this.navigation?.addEventListener('change', this.#onNavigationState_bound);
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.removeEventListener('click', this.#onclick_bound);
     this.navigation?.removeEventListener('change', this.#onNavigationState_bound);
+  }
+
+  toggle() {
+    document.body.querySelector('mdw-navigation-drawer').toggle();
   }
 
   #onclick() {
@@ -49,16 +48,6 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
   }
 
   #onNavigationState() {
-    const button = this.querySelector('mdw-button');
-    if (button) button.toggled = !this.navigation?.open;
-  }
-
-  template() {
-    return /* html */`
-      <mdw-button class="mdw-icon-toggle-button" aria-label="toggle navigation" ${this.navigation?.open ? '' : 'toggled'}>
-        <div class="mdw-icon-svg" value="on">${menu_FILL1_wght400_GRAD0_opsz24}</div>
-        <div class="mdw-icon-svg" value="off">${menu_open_FILL1_wght400_GRAD0_opsz24}</div>
-      </mdw-button>
-    `;
+    this.checked = !this.navigation?.open;
   }
 });

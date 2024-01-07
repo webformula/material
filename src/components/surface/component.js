@@ -123,7 +123,10 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 
   get scrim() { return this.#scrim; }
-  set scrim(value) { this.#scrim = !!value; }
+  set scrim(value) {
+    this.#scrim = !!value;
+    this.classList.toggle('scrim', this.#scrim);
+  }
 
   get offsetBottom() { return this.#offsetBottom; }
   set offsetBottom(value) {
@@ -202,6 +205,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.#setPosition();
     this.onShow();
     this.#surfaceElement.classList.add('animating');
+    this.dispatchEvent(new Event('change'));
     await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
 
@@ -223,6 +227,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     }
     this.#surfaceElement.classList.add('animating');
     this.classList.remove('open');
+    this.dispatchEvent(new Event('change'));
     await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
     this.#surfaceElement.style.removeProperty('--mdw-surface-height');
@@ -384,8 +389,8 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 
   #onClickOutside(event) {
-    if (event.target === this) return;
-    if (this.contains(event.target)) return;
+    // if (event.target === this) return;
+    // if (this.contains(event.target)) return;
     // const isIgnoreElement = this.#allowCloseIgnoreElements.find(v => v.contains(event.target));
     // if (isIgnoreElement) return;
     this.close();

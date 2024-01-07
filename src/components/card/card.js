@@ -1,4 +1,4 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import Drag from '../../core/Drag.js';
 import {
   expand_more_FILL0_wght400_GRAD0_opsz24,
@@ -9,7 +9,7 @@ import device from '../../core/device.js';
 import Ripple from '../../core/Ripple.js';
 
 
-export default class MDWCardElement extends HTMLElementExtended {
+export default class MDWCardElement extends HTMLComponentElement {
   #isFullscreen = this.classList.contains('mdw-fullscreen');
   #isExpanding = !!this.querySelector(':Scope > .mdw-card-content > .mdw-expanded');
 
@@ -100,7 +100,8 @@ export default class MDWCardElement extends HTMLElementExtended {
       this.classList.add('mdw-animation');
     }, 150);
 
-    this.#handleAria();
+    // TODO re enable this
+    // this.#handleAria();
 
     window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.#handleWindowState();
@@ -132,11 +133,13 @@ export default class MDWCardElement extends HTMLElementExtended {
     }
   }
 
-  static get observedAttributes() {
-    return ['value'];
+  static get observedAttributesExtended() {
+    return [
+      ['value', 'string']
+    ];
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
     this[name] = newValue;
   }
 

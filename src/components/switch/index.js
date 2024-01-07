@@ -194,6 +194,7 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponent
       this.checked = !this.checked;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change'));
+      this.#ripple.trigger();
       e.preventDefault();
     }
   }
