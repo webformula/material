@@ -66,20 +66,20 @@ const mdwDevice = new class MDWDevice {
     this.#windowHeight = window.visualViewport.height;
     const isMobile = this.isMobile;
     const state = this.state;
-    document.body.classList.remove('mdw-window-compact');
-    document.body.classList.remove('mdw-window-medium');
-    document.body.classList.remove('mdw-window-expanded');
+    document.body.classList.remove('window-compact');
+    document.body.classList.remove('window-medium');
+    document.body.classList.remove('window-expanded');
 
     document.body.classList.toggle('mdw-mobile', isMobile);
     switch(state) {
       case 'compact':
-        document.body.classList.add('mdw-window-compact');
+        document.body.classList.add('window-compact');
         break;
       case 'medium':
-        document.body.classList.add('mdw-window-medium');
+        document.body.classList.add('window-medium');
         break;
       case 'expanded':
-        document.body.classList.add('mdw-window-expanded');
+        document.body.classList.add('window-expanded');
         break;
     }
 

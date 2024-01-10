@@ -5,9 +5,9 @@
   width: 0px;
 }
 
-:host-context(body.mdw-window-expanded:not(body.mdw-has-navigation-drawer)),
-:host-context(body.mdw-navigation-drawer-state-hide:not(.mdw-window-compact)),
-:host-context(body.mdw-window-medium) {
+:host-context(body.window-expanded:not(body.mdw-has-navigation-drawer)),
+:host-context(body.mdw-navigation-drawer-state-hide:not(.window-compact)),
+:host-context(body.window-medium) {
   width: var(--mdw-navigation-rail-width);
 }
 
@@ -30,7 +30,7 @@
   padding: 18px 0px;
 }
 
-:host-context(body.mdw-window-compact.mdw-has-bottom-app-bar),
-:host-context(body.mdw-window-compact.mdw-has-navigation-bar) {
+:host-context(body.window-compact.has-bottom-app-bar),
+:host-context(body.window-compact.has-navigation-bar) {
   display: none;
 }

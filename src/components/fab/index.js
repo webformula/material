@@ -1,41 +1,69 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
-customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended {
+customElements.define('mdw-fab', class MDWFabElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static styleSheets = styles;
+  static useTemplate = true;
+  static shadowRootDelegateFocus = true;
 
   #ripple;
   #autoHide;
   #autoHideLabel;
+  #maxWidth;
   #scrollDirectionChange_bound = this.#scrollDirectionChange.bind(this);
 
 
   constructor() {
     super();
+
+    this.role = 'button';
+    this.render();
+  }
+
+  static get observedAttributesExtended() {
+    return [
+      ['auto-hide', 'boolean'],
+      ['auto-hide-label', 'boolean']
+    ];
+  }
+
+  get autoHide() { return this.#autoHide; }
+  set autoHide(value) {
+    this.#autoHide = !!value;
+    this.classList.toggle('auto-hide', this.#autoHide);
+
+    this.style.maxWidth = '';
+    this.classList.remove('hide-label');
+    if (!this.#autoHide) util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+    if (this.#autoHide || this.#autoHideLabel) this.#enableAutoHide();
+  }
+
+  get autoHideLabel() { return this.#autoHideLabel; }
+  set autoHideLabel(value) {
+    this.#autoHideLabel = !!value;
+    this.classList.toggle('auto-hide-label', this.#autoHideLabel);
+
+    if (!this.#autoHideLabel) {
+      util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+      this.style.maxWidth = '';
+      this.classList.remove('hide-label');
+    }
+    if (this.#autoHide || this.#autoHideLabel) this.#enableAutoHide();
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   connectedCallback() {
-    this.tabIndex = 0;
-    this.#autoHide = this.classList.contains('mdw-auto-hide');
-    this.#autoHideLabel = !this.#autoHide && this.classList.contains('mdw-auto-hide-label');
-    this.setAttribute('role', 'button');
-    if (!!util.getTextFromNode(this)) this.classList.add('mdw-has-label');
-    this.#handleTrailingIcon();
-  }
-
-  afterRender() {
-    if (this.#autoHideLabel || this.#autoHide) util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this,
-      ignoreElements: [this.querySelector('mdw-menu')]
+      // ignoreElements: [this.querySelector('mdw-menu')]
     });
-    setTimeout(() => {
-      this.classList.add('mdw-animation');
-    }, 50);
   }
 
   disconnectedCallback() {
@@ -45,40 +73,51 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLElementExtended
 
   template() {
     return /* html */`
-      <slot></slot>
+      <button>
+        <slot class="icon"></slot>
+        <slot name="label"></slot>
+      </button>
+      <div class="state-layer"></div>
       <div class="ripple"></div>
     `;
   }
 
-  // auto add class .mdw-trailing to icon so t will space correctly
-  #handleTrailingIcon() {
-    const icon = this.querySelector('mdw-icon');
-    if (!icon) return;
-
-    let previous = icon.previousSibling;
-    while (previous) {
-      if (previous.nodeType === 3 && previous.textContent.trim() !== '') break;
-      previous = previous.previousSibling;
-    }
-
-    if (previous) icon.classList.add('mdw-trailing');
-  }
-
-  #scrollDirectionChange(direction) { 
+  #scrollDirectionChange(direction) {
     if (direction === 1) {
-      this.style.maxWidth = `${this.offsetWidth + this.scrollWidth}px`;
-      if (this.#autoHideLabel) {
-        this.classList.remove('mdw-hide-label');
+      this.style.maxWidth = `${this.#maxWidth}px`;
+      if (this.#autoHide) {
+        this.classList.remove('hide');
       } else {
-        this.classList.remove('mdw-hide');
+        this.classList.remove('hide-label');
       }
     } else {
-      this.style.maxWidth = '';
-      if (this.#autoHideLabel) {
-        this.classList.add('mdw-hide-label');
+      this.style.maxWidth = '0px';
+      if (this.#autoHide) {
+        this.classList.add('hide');
       } else {
-        this.classList.add('mdw-hide');
+        this.classList.add('hide-label');
       }
+    }
+  }
+
+  #initialAutoHideLabel = false;
+  #enableAutoHide() {
+    if (this.#autoHideLabel && !this.#initialAutoHideLabel) {
+      this.#initialAutoHideLabel = true;
+      const observer = new IntersectionObserver(entries => {
+        this.#maxWidth = entries[0].boundingClientRect.width;
+        this.style.maxWidth = `${this.#maxWidth}px`;
+        observer.disconnect();
+
+        if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
+        util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
+        setTimeout(() => this.classList.add('mdw-animation'));
+      });
+      observer.observe(this);
+    } else {
+      if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
+      util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
+      setTimeout(() => this.classList.add('mdw-animation'));
     }
   }
 });

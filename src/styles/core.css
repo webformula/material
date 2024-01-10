@@ -20,11 +20,11 @@ body {
   color: var(--mdw-on-background);
 }
 /* prevents bottom bars from flickering on scroll. When location changes the scroll is reset to 0 and the bottom bars flicker */
-body.mdw-window-compact {
+body.window-compact {
   overflow-y: auto;
 }
 
-body.mdw-has-navigation-bar:not(.mdw-navigation-bar-auto-hide) {
+body.has-navigation-bar:not(.navigation-bar-auto-hide) {
   padding-bottom: 80px;
 }
 
@@ -93,9 +93,3 @@ body.mdw-motion-standard {
   user-select: none;
   -webkit-user-select: none;
 }
-
-/* .mdw-drag-reorder-active {
-  transform: translate(-6px, -6px);
-  transition: translate;
-  transition-duration: 220ms;
-} */

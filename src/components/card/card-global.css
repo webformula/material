@@ -230,7 +230,7 @@ mdw-card.mdw-expanding {
   transition-duration: 0ms;
 }
 
-body:not(.mdw-window-compact) mdw-card.mdw-expanding.mdw-show {
+body:not(.window-compact) mdw-card.mdw-expanding.mdw-show {
   transform: translateY(-6px);
 }
 

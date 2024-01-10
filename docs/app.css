@@ -142,7 +142,7 @@ mdw-card > .mdw-card-content > .mdw-headline + .mdw-subheader {
   justify-content: center;
 }
 
-body.mdw-window-compact .page-content-section {
+body.window-compact .page-content-section {
   flex-direction: column;
 }
 

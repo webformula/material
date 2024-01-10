@@ -71,13 +71,13 @@ mdw-list-item .mdw-action {
   cursor: pointer;
 }
 
-mdw-list-item .mdw-action.mdw-auto-hide-action {
+mdw-list-item .mdw-action.auto-hide-action {
   cursor: none;
   opacity: 0;
   transition: opacity 0ms;
 }
 
-mdw-list.mdw-animation mdw-list-item .mdw-action.mdw-auto-hide-action {
+mdw-list.mdw-animation mdw-list-item .mdw-action.auto-hide-action {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
@@ -141,7 +141,7 @@ mdw-list:not(.mdw-no-states) > mdw-list-item:focus::after {
 }
 
 @media (hover: hover) {
-  mdw-list-item:hover .mdw-action.mdw-auto-hide-action {
+  mdw-list-item:hover .mdw-action.auto-hide-action {
     cursor: pointer;
     opacity: 1;
   }

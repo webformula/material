@@ -15,7 +15,7 @@ customElements.define('mdw-navigation-rail', class MDWNavigationRailElement exte
 
     this.role = 'navigation';
     this.render();
-    document.body.classList.add('mdw-has-navigation-rail');
+    document.body.classList.add('has-navigation-rail');
     this.#locationchange();
   }
 

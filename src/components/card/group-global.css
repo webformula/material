@@ -8,7 +8,7 @@ mdw-card-group.mdw-grid {
   grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
 }
 
-body.mdw-window-compact mdw-card-group:not(.mdw-grid),
+body.window-compact mdw-card-group:not(.mdw-grid),
 mdw-card-group.mdw-list {
   display: flex;
   flex-direction: column;

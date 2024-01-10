@@ -18,9 +18,9 @@ customElements.define('mdw-navigation-bar', class MDWNavigationBarElement extend
 
     this.role = 'navigation';
     this.render();
-    this.#autoHide = this.classList.contains('mdw-auto-hide');
-    document.body.classList.add('mdw-has-navigation-bar');
-    if (this.#autoHide) document.body.classList.add('mdw-navigation-bar-auto-hide');
+    this.#autoHide = this.classList.contains('auto-hide');
+    document.body.classList.add('has-navigation-bar');
+    if (this.#autoHide) document.body.classList.add('navigation-bar-auto-hide');
     this.#locationchange();
   }
 
@@ -42,7 +42,7 @@ customElements.define('mdw-navigation-bar', class MDWNavigationBarElement extend
 
   #scrollDirectionChange(direction) {
     this.classList.toggle('hide', direction === -1);
-    document.body.classList.toggle('mdw-bottom-app-bar-hide', direction === -1);
+    document.body.classList.toggle('navigation-bar-hide', direction === -1);
   }
 
   #locationchange() {

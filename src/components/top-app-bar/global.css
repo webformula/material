@@ -150,24 +150,24 @@ body.mdw-has-navigation mdw-top-app-bar {
   transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
-body.mdw-has-navigation-rail:not(.mdw-has-navigation) mdw-top-app-bar,
-body.mdw-has-navigation-rail.mdw-navigation-drawer-state-hide mdw-top-app-bar {
+body.has-navigation-rail:not(.mdw-has-navigation) mdw-top-app-bar,
+body.has-navigation-rail.mdw-navigation-drawer-state-hide mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
   transition: margin-left 0ms;
   transition-timing-function: var(--mdw-motion-easing-decelerate);
 }
 
-body.mdw-navigation-drawer-state-hide:not(.mdw-has-navigation-rail) mdw-top-app-bar,
-body.mdw-window-compact mdw-top-app-bar,
-body.mdw-window-medium mdw-top-app-bar,
-body.mdw-has-navigation-rail.mdw-navigation-drawer-state-hide.mdw-window-compact.mdw-has-bottom-app-bar mdw-top-app-bar,
-body.mdw-has-navigation-rail.mdw-navigation-drawer-state-hide.mdw-window-compact.mdw-has-navigation-bar mdw-top-app-bar {
+body.mdw-navigation-drawer-state-hide:not(.has-navigation-rail) mdw-top-app-bar,
+body.window-compact mdw-top-app-bar,
+body.window-medium mdw-top-app-bar,
+body.has-navigation-rail.mdw-navigation-drawer-state-hide.window-compact.has-bottom-app-bar mdw-top-app-bar,
+body.has-navigation-rail.mdw-navigation-drawer-state-hide.window-compact.has-navigation-bar mdw-top-app-bar {
   margin-left: 0;
   transition-timing-function: var(--mdw-motion-easing-accelerate);
   transition: margin-left 0ms;
 }
 
-body.mdw-has-navigation-rail.mdw-window-medium mdw-top-app-bar {
+body.has-navigation-rail.window-medium mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
   transition-timing-function: var(--mdw-motion-easing-decelerate);
 }

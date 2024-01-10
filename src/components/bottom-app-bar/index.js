@@ -11,12 +11,12 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
   constructor() {
     super();
 
-    document.body.classList.add('mdw-has-bottom-app-bar');
-    if (this.classList.contains('mdw-always-show')) document.body.classList.add('mdw-bottom-app-bar-always-show');
+    document.body.classList.add('has-bottom-app-bar');
+    if (this.classList.contains('always-show')) document.body.classList.add('bottom-app-bar-always-show');
   }
 
   connectedCallback() {
-    this.#autoHide = this.classList.contains('mdw-auto-hide');
+    this.#autoHide = this.classList.contains('auto-hide');
 
     // prevent layout calculation during script evaluation with requestAnimationFrame
     if (this.#autoHide) requestAnimationFrame(() => {
@@ -68,7 +68,7 @@ export default class MDWBottomAppBarElement extends HTMLElementExtended {
 
   #scrollDirectionChange(direction) {
     this.classList.toggle('mdw-hide', direction === -1);
-    document.body.classList.toggle('mdw-bottom-app-bar-hide', direction === -1);
+    document.body.classList.toggle('bottom-app-bar-hide', direction === -1);
   }
 
   #hashchange() {

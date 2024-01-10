@@ -29,8 +29,8 @@
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-:host-context(body.mdw-has-navigation-rail.mdw-window-medium):host(:not(.mdw-always-show)),
-:host-context(body.mdw-window-expanded):host(:not(.mdw-always-show)) {
+:host-context(body.has-navigation-rail.window-medium):host(:not(.always-show)),
+:host-context(body.window-expanded):host(:not(.always-show)) {
   display: none;
 }
 
