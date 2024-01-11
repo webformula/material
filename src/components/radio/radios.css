@@ -1,0 +1,143 @@
+:host {
+  display: inline-flex;
+  height: 20px;
+  width: 20px;
+  outline: none;
+  position: relative;
+  vertical-align: top;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  outline: none;
+
+  margin: 9px 0;
+}
+
+:host([disabled]) {
+  cursor: default;
+}
+
+
+.container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+}
+
+input {
+  appearance: none;
+  height: 48px;
+  width: 48px;
+  margin: 0;
+  position: absolute;
+  cursor: inherit;
+  outline: none;
+}
+
+
+.background {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--mdw-shape-full);
+  box-sizing: border-box;
+  border: 2px solid var(--mdw-primary);
+}
+
+.background::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--mdw-shape-full);
+  background-color: var(--mdw-primary);
+  opacity: 0;
+  transition: opacity var(--mdw-motion-duration-short2);
+}
+
+:host(.checked) .background::after {
+  opacity: 1;
+  transition: opacity var(--mdw-motion-duration-short2);
+}
+
+
+.label.has-label {
+  display: inline-flex;
+  flex: 1;
+  flex-grow: inherit;
+  justify-content: flex-end;
+  user-select: none;
+  cursor: inherit;
+  white-space: nowrap;
+  margin-left: 16px;
+
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
+}
+
+:host(.label-left) .label.has-label {
+  order: -1;
+  justify-content: flex-start;
+  margin-left: unset;
+  margin-right: 16px;
+}
+
+:host([disabled]) .label.has-label {
+  color: var(--mdw-on-surface);
+  opacity: 0.38;
+}
+
+.state-layer {
+  inset: 0;
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 50%;
+  background-color: var(--mdw-on-surface);
+  width: 40px;
+  height: 40px;
+  left: -10px;
+  top: -10px;
+  transition: opacity;
+  transition-duration: 150ms;
+}
+
+
+
+:host(.checked) .state-layer {
+  background-color: var(--mdw-primary);
+}
+
+:host(:focus) .state-layer {
+  opacity: var(--mdw-state-layer-opacity-focus);
+}
+
+@media (hover: hover) {
+  :host(:hover) .state-layer {
+    opacity: var(--mdw-state-layer-opacity-hover);
+  }
+}
+
+
+/* --- Ripple --- */
+
+.ripple {
+  border-radius: inherit;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.ripple .mdw-ripple-element {
+  background-color: var(--mdw-on-surface);
+  opacity: var(--mdw-state-layer-opacity-pressed);
+}

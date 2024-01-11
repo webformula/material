@@ -19,26 +19,19 @@
         <div class="mdw-headline">Standard</div>
         
         <div class="example">
-          <mdw-radio-group>
-            <mdw-radio checked value="one">One</mdw-radio>
-            <mdw-radio value="two">Two</mdw-radio>
-          </mdw-radio-group>
+          <div style="display: flex; flex-direction: column;">
+            <mdw-radio name="one" checked value="one">One</mdw-radio>
+            <mdw-radio name="one" value="two">Two</mdw-radio>
+          </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-radio-group>
-    <mdw-radio checked value="one">One</mdw-radio>
-    <mdw-radio value="two">Two</mdw-radio>
-  </mdw-radio-group>`)}
-        </code>
-      </pre>
-
-      <pre>
-        <code class="language-javascript">
-  ${`// get value
-  document.querySelector('mdw-radio-group').value`}
+  ${page.escape(`<div>
+    <mdw-radio name="one" checked value="one">One</mdw-radio>
+    <mdw-radio name="one" value="two">Two</mdw-radio>
+  </div>`)}
         </code>
       </pre>
     </mdw-card>
@@ -48,19 +41,19 @@
         <div class="mdw-headline">Label left</div>
         
         <div class="example">
-          <mdw-radio-group class="mdw-label-left">
-            <mdw-radio checked value="one">One</mdw-radio>
-            <mdw-radio value="two">Two</mdw-radio>
-          </mdw-radio-group>
+          <div style="display: flex; flex-direction: column;">
+            <mdw-radio name="two" checked value="one" class="label-left">One</mdw-radio>
+            <mdw-radio name="two" value="two" class="label-left">Two</mdw-radio>
+          </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-radio-group class="mdw-label-left">
-    <mdw-radio checked value="one">One</mdw-radio>
-    <mdw-radio value="two">Two</mdw-radio>
-  </mdw-radio-group>`)}
+  ${page.escape(`<div>
+    <mdw-radio name="two" checked value="one" class="label-left">One</mdw-radio>
+    <mdw-radio name="two" value="two" class="label-left">Two</mdw-radio>
+  </div>`)}
         </code>
       </pre>
     </mdw-card>

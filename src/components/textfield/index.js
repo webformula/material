@@ -439,7 +439,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#updateValidity();
     // only update display if invalid while in focus
     if (this.classList.contains('invalid')) this.#updateValidityDisplay();
-    if (changed) this.dispatchEvent(new Event('input'));
+    if (changed) this.dispatchEvent(new Event('input', { bubbles: true }));
   }
 
   #updateValidity() {
@@ -479,12 +479,12 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
       this.#updateValidityDisplay();
     }
     this.#dirty = false;
-    if (this.value !== this.#focusValue) this.dispatchEvent(new Event('change'));
+    if (this.value !== this.#focusValue) this.dispatchEvent(new Event('change', { bubbles: true }));
     this.classList.toggle('has-value', !!this.value);
   }
 
   #onSelect() {
-    this.dispatchEvent(new Event('select'));
+    this.dispatchEvent(new Event('select', { bubbles: true }));
   }
 
   #setSuggestion() {
@@ -501,6 +501,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   #dispatchSearch() {
     this.dispatchEvent(new Event('search', {
+      bubbles: true,
       composed: true
     }));
   }

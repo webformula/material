@@ -161,7 +161,7 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponent
 
   #click() {
     this.checked = !this.#checked;
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('change', { bubbles: true }));
     this.#updateValidity();
     if (this.classList.contains('invalid')) this.#updateValidityDisplay();
   }
@@ -193,7 +193,7 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponent
     if (e.code === 'Space') {
       this.checked = !this.checked;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
-      this.dispatchEvent(new Event('change'));
+      this.dispatchEvent(new Event('change', { bubbles: true }));
       this.#ripple.trigger();
       e.preventDefault();
     }

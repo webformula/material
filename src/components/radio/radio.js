@@ -1,117 +1,198 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
-import styles from './radio.css' assert { type: 'css' };
-import util from '../../core/util.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
+import Ripple from '../../core/Ripple.js';
+import styles from './radios.css' assert { type: 'css' };
 
 
-customElements.define('mdw-radio', class MDWRadio extends HTMLElementExtended {
+export default class MDWRadioElement extends HTMLComponentElement {
   static useShadowRoot = true;
+  static useTemplate = true;
+  static shadowRootDelegateFocus = true;
   static styleSheets = styles;
+  static formAssociated = true;
 
+  #abort;
+  #internals;
+  #ripple;
+  #input;
   #value = 'on';
+  #name;
   #checked = false;
-  #disabled = false;
+  #click_bound = this.#click.bind(this);
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #focusMousedown_bound = this.#focusMousedown.bind(this);
+  #slotChange_bound = this.#slotChange.bind(this);
 
 
   constructor() {
     super();
 
-    if (this.parentElement.classList.contains('mdw-label-left')) this.classList.add('mdw-label-left');
+    this.#internals = this.attachInternals();
+    this.role = 'radio';
+    this.render();
+    this.#input = this.shadowRoot.querySelector('.container input');
   }
+
+
+  static get observedAttributesExtended() {
+    return [
+      ['checked', 'boolean'],
+      ['value', 'string'],
+      ['disabled', 'boolean'],
+      ['name', 'string']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
 
   template() {
     return /*html*/`
-      <div class="background">
+      <div class="container">
+        <div class="background"></div>
+        <input type="radio" />
+        <div class="state-layer"></div>
         <div class="ripple"></div>
       </div>
-
-      <slot></slot>
+      <slot class="label"></slot>
     `;
   }
 
-  static get observedAttributes() {
-    return ['checked', 'value', 'disabled'];
-  }
-
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'checked') this.checked = newValue !== null;
-    else if (name === 'disabled') this.disabled = newValue !== null;
-    else this[name] = newValue;
-  }
-
   connectedCallback() {
-    this.tabIndex = 0;
-    this.setAttribute('role', 'radio');
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', util.getTextFromNode(this));
-    this.addEventListener('focus', this.#focus_bound);
-    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    this.#input.value = this.value;
+    this.#input.checked = this.checked;
+    this.#input.disabled = this.disabled;
+
+    this.#abort = new AbortController();
+    this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
+    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    this.#updateValidity();
+
+    this.#ripple = new Ripple({
+      element: this.shadowRoot.querySelector('.ripple'),
+      triggerElement: this,
+      centered: true
+    });
   }
 
   disconnectedCallback() {
-    this.removeEventListener('focus', this.#focus_bound);
-    this.removeEventListener('blur', this.#blur_bound);
-    this.removeEventListener('keydown', this.#focusKeydown_bound);
+    if (this.#abort) this.#abort.abort();
+    if (this.#ripple) this.#ripple.destroy();
   }
 
-  get value() {
-    return this.#value;
-  }
+
+  get value() { return this.#value }
   set value(value) {
     this.#value = value;
+    this.#input.value = this.#value;
+    this.#internals.setFormValue(this.checked ? this.#value : null, this.checked ? 'checked' : undefined);
   }
 
-  get checked() {
-    return this.#checked;
-  }
+  get checked() { return this.#checked }
   set checked(value) {
-    this.#checked = !!value;
-    this.classList.toggle('mdw-checked', this.#checked);
-    this.setAttribute('aria-checked', this.#checked.toString() || 'false');
+    this.#checked = value;
+    this.#input.checked = this.#checked;
+    this.#internals.setFormValue(this.#checked ? this.value : null, this.checked ? 'checked' : undefined);
+
+    const current = this.#checked === true && document.querySelector(`mdw-radio[name="${this.name}"].checked`);
+    if (current) current.checked = false;
+
+    this.classList.toggle('checked', this.#checked);
+    this.#internals.ariaChecked = this.#checked;
   }
 
-  get disabled() {
-    return this.#disabled;
+  get name() { return this.#name }
+  set name(value) {
+    this.#name = value;
+    this.#input.name = this.#name;
+    this.#internals.setFormValue(this.checked ? this.value : null, this.checked ? 'checked' : undefined);
   }
-  set disabled(value) {
-    this.#disabled = !!value;
-    this.toggleAttribute('disabled', this.#disabled);
+
+
+  checkValidity() { return this.#internals.checkValidity(); }
+  reportValidity() {
+    this.#updateValidityDisplay();
+  }
+  setCustomValidity(value = '') {
+    this.#input.setCustomValidity(value);
+    this.#updateValidityDisplay();
+  }
+
+
+  #click() {
+    if (this.checked) return;
+
+    this.checked = true;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.#updateValidity();
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+  }
+
+  #updateValidity() {
+    // this.#touched = true;
+    this.#internals.setValidity(this.#input.validity, this.#input.validationMessage || '');
+  }
+
+  #updateValidityDisplay() {
+    this.classList.toggle('invalid', !this.#input.validity.valid);
   }
 
   #focus() {
-    this.addEventListener('blur', this.#blur_bound);
-    this.addEventListener('keydown', this.#focusKeydown_bound);
+    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  // prevent focus on click
+  #focusMousedown(event) {
+    event.preventDefault();
   }
 
   #blur() {
+    // if (this.#touched) {
+      this.#updateValidity();
+      this.#updateValidityDisplay();
+    // }
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
   }
 
   #focusKeydown(e) {
-    if (e.shiftKey && e.code === 'Tab') {
-      if (this.previousElementSibling?.nodeName === 'MDW-RADIO') this.previousElementSibling.focus();
-    }
     if (e.code === 'Space') {
-      this.click();
+      if (this.checked) return;
+
+      this.checked = true;
+      if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+      this.dispatchEvent(new Event('change', { bubbles: true }));
+      this.#ripple.trigger();
       e.preventDefault();
     }
 
-    if (e.code === 'ArrowUp') {
-      if (this.previousElementSibling?.nodeName === 'MDW-RADIO') {
-        this.previousElementSibling.focus();
-        this.previousElementSibling.click();
+    if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+      const radios = [...document.querySelectorAll(`mdw-radio[name="${this.name}"]`)];
+      const index = radios.indexOf(this);
+      if (e.code === 'ArrowUp' && index > 0) {
+        radios[index - 1].focus();
+        radios[index - 1].click();
         e.preventDefault();
       }
-    }
 
-    if (e.code === 'ArrowDown') {
-      if (this.nextElementSibling?.nodeName === 'MDW-RADIO') {
-        this.nextElementSibling.focus();
-        this.nextElementSibling.click();
+      if (e.code === 'ArrowDown' && index < radios.length - 1) {
+        radios[index + 1].focus();
+        radios[index + 1].click();
         e.preventDefault();
       }
     }
   }
-});
+
+  #slotChange() {
+    // if (!this.hasAttribute('aria-label')) this.ariaLabel = this.#label;
+    this.shadowRoot.querySelector('.label').classList.toggle('has-label', !!this.innerText);
+  }
+};
+
+customElements.define('mdw-radio', MDWRadioElement);
