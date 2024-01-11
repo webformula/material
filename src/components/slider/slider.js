@@ -1,260 +1,299 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './slider.css' assert { type: 'css' };
-import Drag from '../../core/Drag.js';
-import util from '../../core/util.js';
 
 
-customElements.define('mdw-slider', class MDWSlider extends HTMLElementExtended {
+customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponentElement {
   static useShadowRoot = true;
-  static useTemplate = false;
+  static useTemplate = true;
+  static shadowRootDelegateFocus = true;
   static styleSheets = styles;
+  static formAssociated = true;
 
-  #disabled = false;
-  #min = 0;
-  #max = 100;
-  #value = 50;
-  #step = 1;
-  #isDiscrete = this.classList.contains('mdw-discrete');
-  #control;
-  #activeTrack;
-  #inactiveTrack;
-  #thumb;
-  #label;
-  #dragStartLeftPosition;
-  #drag;
-  #onDrag_bound = this.#onDrag.bind(this);
-  #onDragStart_bound = this.#onDragStart.bind(this);
-  #onclick_bound = this.#onclick.bind(this);
-  #onKeydown_bound = this.#onKeydown.bind(this);
-  #onFocus_bound = this.#onFocus.bind(this);
-  #onBlur_bound = this.#onBlur.bind(this);
+  #internals;
+  #inputStart;
+  #inputEnd;
+  #valueLabelStart;
+  #valueLabelEnd;
+  #value;
+  #valueStart;
+  #valueEnd;
+  #range = false;
   #abort;
+  #onInputStart_bound = this.#onInputStart.bind(this);
+  #onInputEnd_bound = this.#onInputEnd.bind(this);
+  #slotChange_bound = this.#slotChange.bind(this);
+  #focusMouseUp_bound = this.#focusMouseUp.bind(this);
 
 
   constructor() {
     super();
 
-    if (this.querySelector('mdw-icon')) this.classList.add('mdw-has-icon');
+    this.#internals = this.attachInternals();
+    this.role = 'range';
+
+    this.render();
+    this.#inputStart = this.shadowRoot.querySelector('input.start');
+    this.#inputStart.min = 0;
+    this.#inputStart.max = 100;
+    this.#inputEnd = this.shadowRoot.querySelector('input.end');
+    this.#inputEnd.min = 0;
+    this.#inputEnd.max = 100;
+    this.#valueLabelStart = this.shadowRoot.querySelector('.handle.start .value');
+    this.#valueLabelEnd = this.shadowRoot.querySelector('.handle.end .value');
+  }
+
+  static get observedAttributesExtended() {
+    return [
+      ['name', 'string'],
+      ['name-start', 'string'],
+      ['name-end', 'string'],
+      ['value', 'number'],
+      ['value-start', 'number'],
+      ['value-end', 'number'],
+      ['range', 'boolean'],
+      ['max', 'number'],
+      ['min', 'number'],
+      ['step', 'number']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   template() {
-    return /* html */`
-      <slot></slot>
+    return /*html*/`
+      <slot name="leading-icon"></slot>
+      <div class="container">
+        <slot class="label"></slot>
+        <input class="start" type="range">
+        <input class="end" type="range">
 
-      <div class="control">
-        <div class="track-inactive"></div>
-        <div class="track-active"></div>
+        <div class="track"></div>
+        <div class="tick-marks"></div>
 
-        <div class="marks">
-          ${this.#isDiscrete ? [...new Array(this.#stepCount)].map(i => `<div class="mark"></div>`).join('\n') : ''}
-        </div>
+        <div class="handle-padding">
+          <div class="handle start">
+            <div class="value-container">
+              <div class="value"></div>
+            </div>
+          </div>
 
-        <div class="thumb">
-          <div class="label">
-            <div class="label-text"></div>
+          <div class="handle end">
+            <div class="value-container">
+              <div class="value"></div>
+            </div>
           </div>
         </div>
+        
       </div>
     `;
   }
 
   connectedCallback() {
+    if (this.#range) {
+      const rangeValueQuarter = (this.max - this.min) * 0.25;
+      if (this.#valueStart === undefined) this.#valueStart = rangeValueQuarter;
+      if (this.#valueEnd === undefined) this.#valueEnd = rangeValueQuarter * 3;
+      this.valueStart = this.valueStart;
+      this.valueEnd = this.valueEnd;
+    }
     this.#abort = new AbortController();
-    this.tabIndex = 0;
-    this.setAttribute('role', 'slider');
-    this.setAttribute('aria-valuenow', this.#value);
+    this.#inputStart.addEventListener('input', this.#onInputStart_bound, { signal: this.#abort.signal });
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    this.addEventListener('mouseup', this.#focusMouseUp_bound, { signal: this.#abort.signal });
+    if (this.#range) {
+      this.#inputEnd.addEventListener('input', this.#onInputEnd_bound, { signal: this.#abort.signal });
+    } else {
+      this.#onInputStart();
+    }
+    this.#updateValidity();
   }
 
   disconnectedCallback() {
-    this.#drag.destroy();
-    this.#abort.abort();
+    if (this.#abort) this.#abort.abort();
   }
 
-  afterRender() {
-    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
-    this.#control = this.shadowRoot.querySelector('.control');
-    this.#activeTrack = this.shadowRoot.querySelector('.track-active');
-    this.#inactiveTrack = this.shadowRoot.querySelector('.track-inactive');
-    this.#thumb = this.shadowRoot.querySelector('.thumb');
-    this.#label = this.shadowRoot.querySelector('.label-text');
-    this.#setPosition({ percent: this.percent });
-
-    const label = util.getTextFromNode(this);
-    if (label) this.setAttribute('aria-label', label);
-
-    this.#drag = new Drag(this.#thumb);
-    this.#drag.lockScrollY = true;
-    this.#drag.on('mdwdragmove', this.#onDrag_bound);
-    this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-    this.#drag.enable();
-
-    this.#inactiveTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
-    this.#activeTrack.addEventListener('click', this.#onclick_bound, { signal: this.#abort.signal });
-  }
-
-  static get observedAttributes() {
-    return ['disabled', 'min', 'max', 'value', 'step'];
-  }
-
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'disabled') this.disabled = newValue !== null;
-    if (name === 'min') this.min = newValue;
-    if (name === 'max') this.max = newValue;
-    if (name === 'value') this.value = newValue;
-    if (name === 'step') this.step = newValue;
-  }
-
-  get disabled() {
-    return this.#disabled;
-  }
-  set disabled(value) {
-    this.#disabled = !!value;
-    this.toggleAttribute('disabled', this.#disabled);
-  }
-
-  get value() {
-    return `${this.#value}`;
-  }
+  get value() { return this.#value; }
   set value(value) {
-    this.#value = parseFloat(value);
-    this.#adjustValueOnParams();
+    if (this.#range) return;
+
+    this.#value = value;
+    this.#inputStart.value = value;
+    this.#internals.setFormValue(this.#inputStart.value);
+    this.#valueLabelStart.innerHTML = this.#value;
+    let percent = parseInt(((this.#value - this.min) / (this.max - this.min)) * 100);
+    if (percent <= 0) percent = 0;
+    else if (percent >= 100) percent = 100;
+    else this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-end', `${percent}%`);
   }
 
-  get min() {
-    return `${this.#min}`;
-  }
-  set min(value) {
-    this.#min = parseInt(value);
-    this.setAttribute('aria-valuemin', value);
-    this.#adjustValueOnParams();
+  get valueStart() { return this.#valueStart; }
+  set valueStart(value) {
+    value = parseFloat(value);
+
+    if (value >= this.valueEnd) value = this.#valueEnd;
+    this.#valueStart = value;
+    this.#inputStart.value = value;
+    const data = new FormData();
+    data.append(this.nameStart, String(this.valueStart));
+    data.append(this.nameEnd, String(this.valueEnd));
+    this.#internals.setFormValue(data);
+    this.#valueLabelStart.innerHTML = this.#valueStart;
+
+    let percent = ((this.#valueStart - this.min) / (this.max - this.min)) * 100;
+    if (percent <= 0) percent = 0;
+    else if (percent >= 100) percent = 100;
+    else this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-start', `${percent}%`);
+
+    this.#updateDisplay();
   }
 
-  get max() {
-    return `${this.#max}`;
+  get valueEnd() { return this.#valueEnd; }
+  set valueEnd(value) {
+    value = parseFloat(value);
+    
+    if (value <= this.valueStart) value = this.#valueStart;
+    this.#valueEnd = value;
+    this.#inputEnd.value = value;
+    const data = new FormData();
+    data.append(this.nameStart, String(this.valueStart));
+    data.append(this.nameEnd, String(this.valueEnd));
+    this.#internals.setFormValue(data);
+    this.#valueLabelEnd.innerHTML = this.#valueEnd;
+
+    let percent = parseInt(((this.#valueEnd - this.min) / (this.max - this.min)) * 100);
+    if (percent <= 0) percent = 0;
+    else if (percent >= 100) percent = 100;
+    else this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-end', `${percent}%`);
+
+    this.#updateDisplay(true);
   }
+
+  get range() { return this.#range; }
+  set range(value) {
+    this.#range = value;
+  }
+
+  get disabled() { return this.hasAttribute('disabled'); }
+  set disabled(value) {
+    this.setAttribute('disabled', !!value);
+  }
+
+  get max() { return this.range ? this.#inputEnd.max : this.#inputStart.max; }
   set max(value) {
-    this.#max = parseInt(value);
-    this.setAttribute('aria-valuemax', value);
-    this.#adjustValueOnParams();
+    this.#inputStart.max = value;
+    if (this.#range) this.#inputEnd.max = value;
   }
 
-  get step() {
-    return `${this.#step}`;
+  get min() { return this.#inputStart.min; }
+  set min(value) {
+    this.#inputStart.min = value;
+    if (this.#range) this.#inputEnd.min = value;
   }
+
+  get step() { return this.#inputStart.step; }
   set step(value) {
-    this.#step = parseFloat(value);
-    this.#adjustValueOnParams();
+    this.#inputStart.step = value;
+    if (this.#range) this.#inputEnd.step = value;
+    const stepCount = (this.max - this.min) / value;
+    this.shadowRoot.querySelector('.container').classList.toggle('step', !!value);
+    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-tick-mark-count', stepCount);
   }
 
-  get percent() {
-    return (this.#value - this.#min) / (this.#max - this.#min);
+  get name() {
+    return this.getAttribute('name');
+  }
+  set name(value) {
+    this.setAttribute('name', value);
   }
 
-  get #stepCount() {
-    return Math.floor((this.#max - this.#min) / this.#step) + 1;
+  get nameStart() {
+    return this.getAttribute('name-start') ?? this.getAttribute('name');
+  }
+  set nameStart(value) {
+    this.setAttribute('name-start', value);
   }
 
-  get #controlWidth() {
-    return this.#control.offsetWidth;
+  get nameEnd() {
+    return this.getAttribute('name-end') ?? this.nameStart;
   }
-  get #controlOffset() {
-    return this.#control.getBoundingClientRect().x - this.getBoundingClientRect().x;
-  }
-  get #controlX() {
-    return this.#control.getBoundingClientRect().x;
+  set nameEnd(value) {
+    this.setAttribute('name-end', value);
   }
 
-  #adjustValueOnParams() {
-    if (this.#value < this.#min) this.#value = this.#min;
-    if (this.#value > this.#max) this.#value = this.#max;
-    this.#value = this.#roundByStep(this.#value);
-    this.setAttribute('aria-valuenow', this.#value);
-    if (this.rendered) this.#setPosition({ percent: this.percent });
+  get validationMessage() { return this.#internals.validationMessage; }
+  get validity() { return this.#internals.validity; }
+  get willValidate() { return this.#internals.willValidate; }
+
+
+  reset() {
+    if (this.#range) {
+      this.value = this.getAttribute('value') ?? '';
+    } else {
+      this.valueStart = this.getAttribute('value-start') ?? '';
+      this.valueEnd = this.getAttribute('value-end') ?? '';
+    }
   }
+  formResetCallback() { this.reset(); }
 
-  #roundByStep(value) {
-    const inverse = 1 / this.#step;
-    return Math.round(value * inverse) / inverse;
+  checkValidity() { return this.#internals.checkValidity(); }
+  reportValidity() {
+    return this.checkValidity();
   }
+  
 
-  #setPosition({ percent, pixels }) {
-    if (!isNaN(percent) && percent > 1) throw Error('percent must be from 0 - 1');
-    const controlWidth = this.#controlWidth;
-    if (!isNaN(percent)) pixels = controlWidth * percent;
-    if (pixels < 0) pixels = 0;
-    if (pixels > controlWidth) pixels = controlWidth;
-
-    this.#thumb.style.left = `${pixels}px`;
-    this.#activeTrack.style.width = `${pixels}px`;
-    this.#inactiveTrack.style.left = `${pixels}px`;
-
-    if (this.#isDiscrete) {
-      const marks = [...this.shadowRoot.querySelectorAll('.mark')];
-      const thumbX = this.#thumb.getBoundingClientRect().x;
-      marks.forEach(mark => {
-        if (mark.getBoundingClientRect().x <= thumbX) {
-          mark.classList.remove('inactive');
-          mark.classList.add('active');
-        } else {
-          mark.classList.remove('active');
-          mark.classList.add('inactive');
-        }
-      });
+  #onInputStart() {
+    if (!this.#range) {
+      this.value = this.#inputStart.value;
+    } else {
+      this.valueStart = this.#inputStart.value;
     }
 
-    this.#label.innerHTML = this.#value;
+    this.#updateValidity();
   }
 
-  #setValueFromPixels(pixels) {
-    const controlWidth = this.#controlWidth;
-    let percent = pixels / controlWidth;
-    if (percent <= 0) percent = 0;
-    if (percent >= 1) percent = 1;
-
-    const lastValue = this.#value;
-    this.#value = this.#roundByStep(this.#min + (this.#max - this.#min) * percent);
-    this.setAttribute('aria-valuenow', this.#value);
-
-    if (lastValue !== this.#value) this.dispatchEvent(new Event('change'));
-
-    // this will snap to marks
-    if (this.#isDiscrete) pixels = (controlWidth * this.percent) + this.#controlOffset;
-    this.#setPosition({ pixels });
+  #onInputEnd() {
+    this.valueEnd = this.#inputEnd.value;
+    this.#updateValidity();
   }
 
-  #onclick(event) {
-    this.#setValueFromPixels(event.clientX - this.#controlX);
+  #updateValidity() {
+    if (this.#range) {
+      this.#internals.setValidity(this.#inputStart.validity, this.#inputStart.validationMessage || '');
+    } else {
+      if (this.#inputStart.validity.valid === false) this.#internals.setValidity(this.#inputStart.validity, this.#inputStart.validationMessage || '');
+      else if (this.#inputEnd.validity.valid === false) this.#internals.setValidity(this.#inputEnd.validity, this.#inputEnd.validationMessage || '');
+      else this.#internals.setValidity(this.#inputStart.validity, this.#inputStart.validationMessage || '');
+    }
   }
 
-  #onDragStart() {
-    // there is a margin offset of -10px on the thumb.
-    this.#dragStartLeftPosition = this.#thumb.getBoundingClientRect().x - this.#controlX + 10;
+  #slotChange(event) {
+    if (event.target.classList.contains('label')) {
+      const hasText = !![...event.target.assignedNodes()].map(e => e.data).join('').trim();
+      this.shadowRoot.querySelector('slot[name="leading-icon"]').classList.toggle('has-label', hasText);
+    }
   }
 
-  #onDrag({ distanceX }) {
-    this.#setValueFromPixels(this.#dragStartLeftPosition + distanceX);
+  // prevent focus hold
+  #focusMouseUp() {
+    this.blur();
   }
 
-  #onFocus() {
-    this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
-    document.body.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
-  }
+  #updateDisplay(isEnd = false) {
+    const diff = ((this.#valueEnd - this.#valueStart) / (this.max - this.min)) / 2 * 100;
+    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-range-active-diff', `${diff}%`);
 
-  #onBlur() {
-    this.removeEventListener('blur', this.#onBlur_bound);
-    document.body.removeEventListener('keydown', this.#onKeydown_bound);
-  }
-
-  #onKeydown(event) {
-    const leftArrow = event.key === 'ArrowLeft';
-    const rightArrow = event.key === 'ArrowRight';
-    const downArrow = event.key === 'ArrowDown';
-    const upArrow = event.key === 'ArrowUp';
-
-    if (leftArrow || downArrow) {
-      this.value = parseFloat(this.value) - this.#step;
-    } else if (rightArrow || upArrow) {
-      this.value = parseFloat(this.value) + this.#step;
+    const handleStart = this.shadowRoot.querySelector('.handle.start');
+    const handleEnd = this.shadowRoot.querySelector('.handle.end');
+    handleStart.classList.remove('overlap');
+    handleEnd.classList.remove('overlap');
+    if (handleStart.getBoundingClientRect().right > handleEnd.getBoundingClientRect().left) {
+      if (isEnd) handleEnd.classList.add('overlap');
+      else handleStart.classList.add('overlap');
     }
   }
 });

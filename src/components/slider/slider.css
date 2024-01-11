@@ -1,98 +1,155 @@
 :host {
-  position: relative;
-  display: block;
-  outline: none;
-  width: 200px;
-  height: 80px;
+  display: inline-flex;
+  vertical-align: middle;
+  min-inline-size: 200px;
 }
 
-:host > slot {
-  display: block;
-  font-size: var(--mdw-font-large-title-size);
-  font-weight: var(--mdw-font-large-title-weight);
-  letter-spacing: var(--mdw-font-large-title-tracking);
-  line-height: var(--mdw-font-title-line-height);
-  height: 46px;
-}
-
-:host(.mdw-has-icon) > slot {
-  margin-left: 42px;
-}
-
-::slotted(mdw-icon) {
-  position: absolute;
-  top: 16px;
-  left: 0;
-}
-
-:host > .control {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-:host(.mdw-has-icon) > .control {
-  margin-left: 42px;
-}
-
-:host([disabled]) > .control {
+:host([disabled]) {
+  opacity: 0.38;
   pointer-events: none;
-  opacity: .38;
 }
 
-:host > .control > .track-active {
-  position: absolute;
+.container {
+  flex: 1;
   display: flex;
   align-items: center;
-  width: 50%;
-  height: 4px;
-  border-radius: 2px;
+  position: relative;
+  block-size: 72px;
+  pointer-events: none;
+  touch-action: none;
+}
 
+
+.track,
+.tick-marks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+.track::before,
+.tick-marks::before,
+.track::after,
+.tick-marks::after {
+  position: absolute;
+  content: '';
+  inset-inline-start:18px;
+  inset-inline-end: 18px;
+  background-size: calc((100% - 4px) / 10) 100%;
+}
+
+.track::before,
+.tick-marks::before {
+  block-size: 4px;
+  border-radius: 2px;
+}
+
+.track::before {
+  background-color: var(--mdw-primary-container);
+}
+
+:host([disabled]) .track::before {
+  background-color: var(--mdw-surface-variant);
+}
+
+.container.step .tick-marks::before {
+  background-image: radial-gradient(circle at 2px center,
+        var(--mdw-on-surface-variant-alpha-38) 0,
+        var(--mdw-on-surface-variant-alpha-38) 1px,
+        transparent 1px);
+}
+
+:host([disabled]) .container.step .tick-marks::before {
+  background-image: radial-gradient(circle at 2px center,
+      var(--mdw-on-surface-alpha-38) 0,
+      var(--mdw-on-surface-alpha-38) 1px,
+      transparent 1px);
+}
+
+.track::after,
+.tick-marks::after {
+  --mdw-slider-active-end-clip: calc(100% - var(--mdw-slider-active-end, 0));
+  block-size: 4px;
+  border-radius: 2px;
+  clip-path: inset(0 var(--mdw-slider-active-end-clip) 0 var(--mdw-slider-active-start, 0));
+}
+
+.track::after {
   background-color: var(--mdw-primary);
 }
 
-:host([disabled]) > .control > .track-active {
+:host([disabled]) .track::after {
   background-color: var(--mdw-on-surface);
 }
 
-:host > .control > .track-inactive {
-  position: absolute;
-  left: 50%;
-  right: 0;
-  height: 4px;
-  border-radius: 2px;
-
-  background-color: var(--mdw-surface-container-highest);
+.container.step .tick-marks::after {
+  background-image: radial-gradient(circle at 2px center,
+        var(--mdw-on-primary-alpha-38) 0,
+        var(--mdw-on-primary-alpha-38) 1px,
+        transparent 1px);
 }
 
-:host([disabled]) > .control > .track-inactive {
-  background-color: var(--mdw-on-surface-alpha-50);
+:host([disabled]) .container.step .tick-marks::after {
+  background-image: radial-gradient(circle at 2px center,
+      var(--mdw-on-surface-alpha-38) 0,
+      var(--mdw-on-surface-alpha-38) 1px,
+      transparent 1px);
 }
 
-:host > .control > .thumb {
+
+.handle-padding {
+  position: relative;
+  width: 100%;
+  margin: 0 20px;
+}
+
+.handle {
   position: absolute;
-  left: 50%;
   margin-left: -10px;
+  margin-top: -10px;
   width: 20px;
   height: 20px;
   border-radius: var(--mdw-shape-full);
   cursor: pointer;
+  box-sizing: border-box;
 
   background-color: var(--mdw-primary);
   box-shadow: var(--mdw-elevation-1);
+  border: 1px solid transparent;
 }
 
-:host > slot {
-  display: block;
-  line-height: 36px;
-}
+:
 
-:host([disabled]) > .control > .thumb {
+:host([disabled]) .handle {
   background-color: var(--mdw-on-surface);
   box-shadow: none;
 }
 
-:host > .control > .thumb::before {
+.handle.start {
+  left: var(--mdw-slider-active-end, 50%);
+}
+
+:host([range]) .handle.start {
+  left: var(--mdw-slider-active-start, 25%);
+}
+
+:host([range]) .handle.overlap {
+  border: 1px solid var(--mdw-on-surface-inverse);
+  z-index: 1;
+}
+
+.handle.end {
+  display: none;
+}
+
+:host([range]) .handle.end {
+  display: block;
+  right: calc(100% - var(--mdw-slider-active-end, 25%) - 10px);
+}
+
+.handle::before {
   content: '';
   position: absolute;
   top: -10px;
@@ -105,18 +162,32 @@
   transition: opacity var(--mdw-motion-duration-short2);
 }
 
-:host > .control > .thumb:active::before {
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  transition: opacity var(--mdw-motion-duration-short4);
+
+.label {
+  position: absolute;
+  display: block;
+  color: var(--mdw-on-surface-variant);
+  font-size: var(--mdw-font-large-label-size);
+  font-weight: var(--mdw-font-large-label-weight);
+  line-height: var(--mdw-font-large-label-line-height);
+  letter-spacing: var(--mdw-font-large-label-tracking);
+  left: 18px;
+  top: 0;
 }
 
-:host(:focus) > .control > .thumb::before,
-:host > .control > .thumb:focus::before {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  transition: opacity var(--mdw-motion-duration-short4);
+::slotted(mdw-icon) {
+  z-index: 1;
+  color: var(--mdw-on-surface-variant);
+  align-self: center;
+  margin-right: -4px;
 }
 
-:host > .control > .thumb > .label {
+slot[name="leading-icon"].has-label::slotted(mdw-icon) {
+  margin-top: -26px;
+}
+
+
+.handle .value-container {
   position: absolute;
   top: -36px;
   left: -4px;
@@ -132,7 +203,7 @@
   transition: opacity var(--mdw-motion-duration-short2);
 }
 
-:host > .control > .thumb > .label > .label-text {
+.handle .value-container .value {
   width: 28px;
   height: 28px;
   line-height: 28px;
@@ -146,46 +217,95 @@
   color: var(--mdw-on-primary);
 }
 
-:host(:focus) > .control > .thumb > .label,
-:host > .thumb:focus > .label,
-:host > .thumb:active > .label {
+:host(:focus) .handle::before {
+  opacity: var(--mdw-state-layer-opacity-focus);
+  transition: opacity var(--mdw-motion-duration-short4);
+}
+
+:host(:focus) .value-container {
   opacity: 1;
   transition: opacity var(--mdw-motion-duration-short4);
 }
 
+
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  :host > .control > .thumb:hover::before {
+  input.start:hover ~ .handle-padding .handle.start::before {
     opacity: var(--mdw-state-layer-opacity-hover);
     transition: opacity var(--mdw-motion-duration-short4);
   }
 
-  :host > .control > .thumb:hover > .label {
+    input.start:hover ~ .handle-padding .handle.start .value-container {
+    opacity: 1;
+    transition: opacity var(--mdw-motion-duration-short4);
+  }
+
+  input.end:hover ~ .handle-padding .handle.end::before {
+    opacity: var(--mdw-state-layer-opacity-hover);
+    transition: opacity var(--mdw-motion-duration-short4);
+  }
+
+  input.end:hover ~ .handle-padding .handle.end .value-container {
     opacity: 1;
     transition: opacity var(--mdw-motion-duration-short4);
   }
 }
 
-:host > .control > .marks {
+
+input {
+  opacity: 0;
+  -webkit-tap-highlight-color: transparent;
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  box-sizing: border-box;
+  height: 100%;
   width: 100%;
-  height: 4px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  appearance: none;
+}
+
+:host([disabled]) input {
   pointer-events: none;
 }
 
-:host > .control > .marks > .mark {
-  width: 4px;
-  height: 4px;
-  border-radius: var(--mdw-shape-full);
+::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
 }
 
-:host > .control > .marks > .mark.active {
-  background-color: var(--mdw-on-primary-alpha-38);
+::-moz-range-track {
+  appearance: none;
 }
 
-:host > .control > .marks > .mark.inactive {
-  background-color: var(--mdw-on-surface-variant);
+::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  block-size: 20px;
+  inline-size: 20px;
+  opacity: 0;
+  z-index: 2;
+}
+
+::-moz-range-thumb {
+  appearance: none;
+  block-size: 40px;
+  inline-size: 40px;
+  transform: scaleX(0);
+  opacity: 0;
+  z-index: 2;
+}
+
+
+:host([range]) input.start {
+  --mdw-slider-active-end-clip: calc(100% - var(--mdw-slider-active-end, 0) + var(--mdw-slider-range-active-diff));
+  clip-path: inset(0 var(--mdw-slider-active-end-clip) 0 0);
+}
+
+:host(:not([range])) input.end {
+  display: none;
+}
+
+:host([range]) input.end {
+  clip-path: inset(0 0 0 calc(var(--mdw-slider-active-start, 0) + var(--mdw-slider-range-active-diff)));
 }

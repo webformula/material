@@ -174,6 +174,7 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
     this.#updateValidityDisplay();
+    return this.checkValidity();
   }
   setCustomValidity(value = '') {
     this.#input.setCustomValidity(value);

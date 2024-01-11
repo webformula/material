@@ -152,6 +152,7 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponent
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
     this.#updateValidityDisplay();
+    return this.checkValidity();
   }
   setCustomValidity(value = '') {
     this.#input.setCustomValidity(value);

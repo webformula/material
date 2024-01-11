@@ -117,6 +117,7 @@ export default class MDWRadioElement extends HTMLComponentElement {
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
     this.#updateValidityDisplay();
+    return this.checkValidity();
   }
   setCustomValidity(value = '') {
     this.#input.setCustomValidity(value);

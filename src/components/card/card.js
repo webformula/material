@@ -9,6 +9,8 @@ import device from '../../core/device.js';
 import Ripple from '../../core/Ripple.js';
 
 
+// TODO refactor
+
 export default class MDWCardElement extends HTMLComponentElement {
   #isFullscreen = this.classList.contains('mdw-fullscreen');
   #isExpanding = !!this.querySelector(':Scope > .mdw-card-content > .mdw-expanded');

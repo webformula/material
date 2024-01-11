@@ -372,6 +372,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
     this.#updateValidityDisplay();
+    return this.checkValidity();
     // calling this will show browser native popover
     // return this.#internals.reportValidity();
   }
