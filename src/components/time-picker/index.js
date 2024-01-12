@@ -134,7 +134,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     const parts = this.#convert24ToMeridiemParts(this.#displayValue);
 
     return /*html*/`
-      <div class="mdw-headline">Select time</div>
+      <div class="headline">Select time</div>
 
       <div class="mdw-time-container">
         <input class="mdw-time-hour" aria-label="time hour" readonly type="number" step="${this.#hourStep}" min="${this.#hour24 ? '0' : '1'}" max="${this.#hour24 ? '23' : '12'}" value="${parts.paddedHour}" selected>

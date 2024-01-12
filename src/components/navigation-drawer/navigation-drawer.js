@@ -17,8 +17,8 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
     this.viewportBound = false;
     this.animation = 'translate-left';
     this.initialOpen = true;
-    document.body.classList.add('mdw-has-navigation-drawer');
-    document.body.classList.add('mdw-navigation-drawer-state-show');
+    document.body.classList.add('has-navigation-drawer');
+    document.body.classList.add('navigation-drawer-state-show');
     this.#locationchange();
     this.#windowStateChange({ detail: device });
   }
@@ -51,13 +51,13 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
   }
 
   onShow() {
-    document.body.classList.remove('mdw-navigation-drawer-state-hide');
-    document.body.classList.add('mdw-navigation-drawer-state-show');
+    document.body.classList.remove('navigation-drawer-state-hide');
+    document.body.classList.add('navigation-drawer-state-show');
   }
 
   onHide() {
-    document.body.classList.add('mdw-navigation-drawer-state-hide');
-    document.body.classList.remove('mdw-navigation-drawer-state-show');
+    document.body.classList.add('navigation-drawer-state-hide');
+    document.body.classList.remove('navigation-drawer-state-show');
   }
 
 

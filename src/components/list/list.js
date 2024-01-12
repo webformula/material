@@ -83,7 +83,7 @@ customElements.define('mdw-list', class MDWListElement extends HTMLElementExtend
   }
 
   #scroll() {
-    this.classList.toggle('mdw-scrolled', this.#scrollParent.scrollTop !== 0);
+    this.classList.toggle('scrolled', this.#scrollParent.scrollTop !== 0);
     const top = this.#scrollParent.getBoundingClientRect().y;
     this.#subHeaders.forEach(element => {
       if (top >= element.getBoundingClientRect().y - 42) element.classList.add('mdw-stuck');

@@ -86,7 +86,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
 
   get #minimizedPosition() {
     this.#positionState = 'minimized';
-    const offset = document.body.classList.contains('mdw-has-bottom-app-bar') || document.body.classList.contains('mdw-has-navigation-bar')  ? 80 : 0;
+    const offset = document.body.classList.contains('has-bottom-app-bar') || document.body.classList.contains('has-navigation-bar')  ? 80 : 0;
     return -(this.offsetHeight - 80 - offset);
   }
 

@@ -5,8 +5,8 @@
   width: 0px;
 }
 
-:host-context(body.window-expanded:not(body.mdw-has-navigation-drawer)),
-:host-context(body.mdw-navigation-drawer-state-hide:not(.window-compact)),
+:host-context(body.window-expanded:not(body.has-navigation-drawer)),
+:host-context(body.navigation-drawer-state-hide:not(.window-compact)),
 :host-context(body.window-medium) {
   width: var(--mdw-navigation-rail-width);
 }

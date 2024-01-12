@@ -39,7 +39,7 @@ export default class extends Component {
       <mdw-list-item value="${data.value}" class="mdw-line-two">
         <mdw-icon>inbox</mdw-icon>
         <div class="mdw-text">
-          <div class="mdw-headline">${data.primary}</div>
+          <div class="headline">${data.primary}</div>
           <div class="mdw-supporting-text">${data.secondary}</div>
         </div>
       </mdw-list-item>
@@ -51,7 +51,7 @@ export default class extends Component {
       <mdw-list-item value="${data.value}" class="mdw-line-two">
         <mdw-icon>inbox</mdw-icon>
         <div class="mdw-text">
-          <div class="mdw-headline">${data.primary}</div>
+          <div class="headline">${data.primary}</div>
           <div class="mdw-supporting-text">${data.secondary}</div>
         </div>
       </mdw-list-item>
@@ -128,7 +128,7 @@ export default class extends Component {
       <mdw-list-item value="${data.value}" class="mdw-line-two">
         <mdw-icon>inbox</mdw-icon>
         <div class="mdw-text">
-          <div class="mdw-headline">${data.primary}</div>
+          <div class="headline">${data.primary}</div>
           <div class="mdw-supporting-text">${data.secondary}</div>
         </div>
       </mdw-list-item>
@@ -151,7 +151,7 @@ export default class extends Component {
       <mdw-list-item value="${data.value}" class="mdw-line-two">
         <mdw-icon>inbox</mdw-icon>
         <div class="mdw-text">
-          <div class="mdw-headline">${data.primary}</div>
+          <div class="headline">${data.primary}</div>
           <div class="mdw-supporting-text">${data.secondary}</div>
         </div>
       </mdw-list-item>

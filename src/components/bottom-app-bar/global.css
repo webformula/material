@@ -36,7 +36,7 @@ mdw-bottom-app-bar.mdw-hide {
   margin-bottom: -80px;
 }
 
-body.window-expanded.mdw-navigation-drawer-state-show mdw-bottom-app-bar {
+body.window-expanded.navigation-drawer-state-show mdw-bottom-app-bar {
   left: var(--mdw-navigation-drawer-width);
 }
 

@@ -56,7 +56,7 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
     this.addEventListener('focus', this.#focus_bound);
 
     if (!this.hasAttribute('aria-label')) {
-      const text = this.querySelector('.mdw-headline')?.innerText || util.getTextFromNode(this);
+      const text = this.querySelector('.headline')?.innerText || util.getTextFromNode(this);
       if (text) this.setAttribute('aria-label', text);
     }
   }

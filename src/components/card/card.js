@@ -326,7 +326,7 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   #handleAria() {
-    const headline = this.querySelector(':scope > .mdw-card-content > .mdw-headline') || this.querySelector(':scope > .mdw-headline');
+    const headline = this.querySelector(':scope > .mdw-card-content > .headline') || this.querySelector(':scope > .headline');
     if (headline) {
       if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
       if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);

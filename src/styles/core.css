@@ -28,6 +28,18 @@ body.has-navigation-bar:not(.navigation-bar-auto-hide) {
   padding-bottom: 80px;
 }
 
+body.has-top-app-bar {
+  padding-top: 64px;
+}
+
+body.has-top-app-bar.top-app-bar-medium {
+  padding-top: 112px;
+}
+
+body.has-top-app-bar.top-app-bar-large {
+  padding-top: 152px;
+}
+
 body page-content,
 body #page-content {
   display: flex;
@@ -70,6 +82,7 @@ mdw-divider {
   border-bottom: 1px solid var(--mdw-outline-variant);
 }
 
+/* TODO remove */
 body {
   --mdw-motion-easing: var(--mdw-motion-easing-emphasized);
   --mdw-motion-easing-accelerate: var(--mdw-motion-easing-emphasized-accelerate);

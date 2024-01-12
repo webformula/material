@@ -81,8 +81,8 @@ mdw-list.mdw-animation mdw-list-item .mdw-action.auto-hide-action {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-list-item > .mdw-headline,
-mdw-list-item > .mdw-text > .mdw-headline {
+mdw-list-item > .headline,
+mdw-list-item > .mdw-text > .headline {
   font-size: var(--mdw-font-large-body-size);
   font-weight: var(--mdw-font-large-body-weight);
   line-height: var(--mdw-font-large-body-line-height);
@@ -190,7 +190,7 @@ mdw-list.mdw-animation mdw-list > .mdw-sub-header::before {
   transition-duration: var(--mdw-motion-duration-short2);
 }
 
-mdw-list.mdw-scrolled > .mdw-sub-header.mdw-stuck::before {
+mdw-list.scrolled > .mdw-sub-header.mdw-stuck::before {
   background-color: var(--mdw-surface-tint-alpha-8);
 }
 

@@ -1,10 +1,11 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import util from '../../core/util.js';
 
+/* TODO refactor */
 
-customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLElementExtended {
-  #sticky = this.classList.contains('mdw-sticky');
-  #compress = this.classList.contains('mdw-compress');
+customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLComponentElement {
+  #sticky = this.classList.contains('sticky');
+  #compress = this.classList.contains('compress');
   #height;
   #scrollTrack_bound = this.#scrollTrack.bind(this);
 
@@ -14,7 +15,12 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
   }
 
   connectedCallback() {
-    if (this.#compress && (this.classList.contains('mdw-medium') || this.classList.contains('mdw-large'))) {
+    const isMedium = this.classList.contains('medium');
+    const isLarge = this.classList.contains('large');
+    document.body.classList.add('has-top-app-bar');
+    if (isMedium) document.body.classList.add('top-app-bar-medium');
+    if (isLarge) document.body.classList.add('top-app-bar-large');
+    if (this.#compress && (isMedium || isLarge)) {
       this.#height = this.offsetHeight - 64;
     }
 
@@ -33,8 +39,8 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLE
     const position = -parseInt(this.style.getPropertyValue('--mdw-top-app-bar-scroll-position').replace('px', '') || 0);
 
     // adjust scroll check based on header position for scrolled
-    if (this.#compress) this.classList.toggle('mdw-scrolled', scrollTop - Math.max(0, position + distance) > 0);
-    else if (this.#sticky) this.classList.toggle('mdw-scrolled', isScrolled);
+    if (this.#compress) this.classList.toggle('scrolled', scrollTop - Math.max(0, position + distance) > 0);
+    else if (this.#sticky) this.classList.toggle('scrolled', isScrolled);
 
     if (direction === 1 && position === 0) return;
     if (direction === -1 && position === this.#height) return;

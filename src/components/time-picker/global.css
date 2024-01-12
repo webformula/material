@@ -20,7 +20,7 @@ mdw-time-picker.mdw-panel.mdw-input-view {
   max-height: 248px;
 }
 
-mdw-time-picker .mdw-headline {
+mdw-time-picker .headline {
   font-size: var(--mdw-font-medium-label-size);
   font-weight: var(--mdw-font-medium-label-weight);
   line-height: var(--mdw-font-medium-label-line-height);

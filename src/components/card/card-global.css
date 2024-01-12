@@ -71,7 +71,7 @@ mdw-card > .mdw-card-image.mdw-rounded {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card .mdw-headline{
+mdw-card .headline{
   font-size: var(--mdw-font-small-headline-size);
   font-weight: var(--mdw-font-small-headline-weight);
   line-height: var(--mdw-font-small-headline-line-height);

@@ -120,8 +120,6 @@
   border: 1px solid transparent;
 }
 
-:
-
 :host([disabled]) .handle {
   background-color: var(--mdw-on-surface);
   box-shadow: none;
