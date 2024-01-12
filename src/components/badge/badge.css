@@ -1,0 +1,51 @@
+:host {
+  inset-inline-start: 50%;
+  margin-inline-start: 6px;
+  margin-block-start: 4px;
+  position: absolute;
+  inset-block-start: 0px;
+  border-radius: 6px;
+  min-width: 6px;
+  min-height: 6px;
+  display: none;
+  pointer-events: none;
+  background-color: var(--mdw-error);
+}
+
+:host-context(mdw-button) {
+  position: relative;
+  order: 100;
+  margin-inline-start: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  inset-inline-start: 0;
+}
+
+:host-context(mdw-button):host(.has-value:not(.hide-value)) {
+  margin-block-end: 3px;
+}
+
+:host(.has-value) {
+  display: flex;
+}
+
+:host(.has-value:not(.hide-value)) {
+  border-radius: 8px;
+  margin-inline-start: 2px;
+  margin-block-start: 1px;
+
+  padding: 0px 4px;
+  font-size: var(--mdw-font-small-label-size);
+  font-size: var(--mdw-font-small-label-weight);
+  letter-spacing: var(--mdw-font-small-label-tracking);
+  line-height: var(--mdw-font-small-label-line-height);
+  color: var(--mdw-on-error);
+}
+
+slot {
+  display: none;
+}
+
+:host(.has-value:not(.hide-value)) slot {
+  display: contents;
+}

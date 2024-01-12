@@ -1,58 +1,59 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
+import styles from './badge.css' assert { type: 'css' };
 
-export default class MDWBadgeElement extends HTMLElementExtended {
-  #value = '';
-  #nonCounting = false;
-  #parentLabel;
+
+customElements.define('mdw-badge', class MDWBadgeElement extends HTMLComponentElement {
+  static useShadowRoot = true;
+  static useTemplate = true;
+  static styleSheets = styles;
+
+  #value = '0';
+  #displayValue = '';
 
   constructor() {
     super();
 
-    if (this.classList.contains('mdw-no-label')) this.#nonCounting = true;
+    // this.role = 'range';
+    this.render();
+    this.value = this.innerText;
   }
 
-  connectedCallback() {
-    // make sure this happens after parent
-    requestAnimationFrame(() => {
-      this.#parentLabel = this.parentElement.getAttribute('aria-label') || '';
-      this.value = this.innerText;
-    });
+  static get observedAttributesExtended() {
+    return [
+      ['value', 'number']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
+  template() {
+    return /*html*/`<slot></slot>`;
   }
 
 
-  get value() {
-    return this.#value || '0';
-  }
-
+  get value() { return this.#value; }
   set value(value) {
-    value = parseInt(value);
-    if (isNaN(value) || value <= 0) value = '';
-    if (value > 999) value = '999+';
-
     this.#value = value;
-    this.classList.toggle('mdw-has-value', !!value);
-    if (this.#nonCounting) super.innerText = '';
-    else super.innerText = value;
+
+    const num = parseInt(value);
+    if (isNaN(num) || num <= 0) this.#displayValue = '';
+    else if (num > 999) this.#displayValue = '999+';
+    else this.#displayValue = `${num}`;
+
+    this.classList.toggle('has-value', !!this.#displayValue);
+    super.innerText = this.#displayValue;
 
     // '', '0', 0
-    if (value == 0) this.parentElement.setAttribute('aria-label', this.#parentLabel);
-    else if (this.#nonCounting) this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] New notification`);
-    else this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] ${this.value} New ${this.value === 1 ? 'notification' : 'notifications'}`);
+    // if (value == 0) this.parentElement.setAttribute('aria-label', this.#parentLabel);
+    // else if (this.#nonCounting) this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] New notification`);
+    // else this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] ${this.value} New ${this.value === 1 ? 'notification' : 'notifications'}`);
   }
 
-  get innerHTML() {
-    return super.innerHTML;
-  }
-  set innerHTML(value) {
-    this.value = value;
-  }
+  get innerHTML() { return super.innerHTML; }
+  set innerHTML(value) { this.value = value; }
 
-  get innerText() {
-    return super.innerText;
-  }
-  set innerText(value) {
-    this.value = value;
-  }
-}
-
-customElements.define('mdw-badge', MDWBadgeElement);
+  get innerText() { return super.innerText; }
+  set innerText(value) { this.value = value; }
+});

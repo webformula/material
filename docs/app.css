@@ -74,11 +74,11 @@ mdw-card.header-card {
   box-shadow: none;
 }
 
-mdw-card.header-card > .mdw-headline {
+mdw-card.header-card > .headline {
   font-size: 32px;
 }
 
-mdw-card > .mdw-card-content > .mdw-headline + .mdw-subheader {
+mdw-card > .mdw-card-content > .headline + .mdw-subheader {
   margin-top: 2px;
 }
 

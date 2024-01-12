@@ -1,13 +1,20 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
-customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementExtended {
+customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLComponentElement {
   static useShadowRoot = true;
-  #checked = false;
+  static useTemplate = true;
   static styleSheets = styles;
+
+  #checked = false;
 
   constructor() {
     super();
+
+    this.render();
+    setTimeout(() => {
+      this.classList.add('mdw-animation');
+    }, 50);
   }
 
   get checked() {
@@ -17,12 +24,6 @@ customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLElementEx
     this.#checked = !!value;
     this.classList.toggle('mdw-checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString());
-  }
-
-  afterRender() {
-    setTimeout(() => {
-      this.classList.add('mdw-animation');
-    }, 50);
   }
 
   template() {

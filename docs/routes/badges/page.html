@@ -8,7 +8,6 @@
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <a href="#basic" role="listitem">Basic</a>
-      <a href="#text_button" role="listitem">Text button</a>
     </ul>
   </nav>
 
@@ -17,52 +16,93 @@
       <div class="mdw-card-content">
         <div class="headline">Basic</div>
 
-        <div class="example">
-          <mdw-button class="mdw-icon-button">
-            <mdw-badge>0</mdw-badge>
-            <mdw-icon>inbox</mdw-icon>
-          </mdw-button>
+        <div class="example" style="display: flex; flex-direction: column; gap: 18px;">
+          <div class="example" style="display: flex; gap: 18px;">
+            <mdw-icon-button>
+              <mdw-badge>0</mdw-badge>
+              <mdw-icon>inbox</mdw-icon>
+            </mdw-icon-button>
+            
+            <mdw-icon-button>
+              <mdw-badge class="hide-value">1</mdw-badge>
+              <mdw-icon>inbox</mdw-icon>
+            </mdw-icon-button>
+            
+            <mdw-icon-button>
+              <mdw-badge>99</mdw-badge>
+              <mdw-icon>inbox</mdw-icon>
+            </mdw-icon-button>
+            
+            <mdw-icon-button>
+              <mdw-badge>1000</mdw-badge>
+              <mdw-icon>inbox</mdw-icon>
+            </mdw-icon-button>
+          </div>
 
-
-          <mdw-button class="mdw-icon-button">
-            <mdw-badge class="mdw-no-label">1</mdw-badge>
-            <mdw-icon>inbox</mdw-icon>
-          </mdw-button>
-
+          <div style="display: flex; gap: 4px;">
+            <mdw-button>
+              <mdw-badge>0</mdw-badge>
+              Label
+            </mdw-button>
           
-          <mdw-button class="mdw-icon-button">
-            <mdw-badge>99</mdw-badge>
-            <mdw-icon>inbox</mdw-icon>
-          </mdw-button>
+            <mdw-button>
+              <mdw-badge class="hide-value">1</mdw-badge>
+              Label
+            </mdw-button>
+          
+            <mdw-button>
+              <mdw-badge>99</mdw-badge>
+              Label
+            </mdw-button>
 
-          <mdw-button class="mdw-icon-button">
-            <mdw-badge>1000</mdw-badge>
-            <mdw-icon>inbox</mdw-icon>
-          </mdw-button>
+            <mdw-button>
+              <mdw-badge>1000</mdw-badge>
+              Label
+            </mdw-button>
+          </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button class="mdw-icon-button">
+  ${page.escape(`<mdw-icon-button>
     <mdw-badge>0</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
-  </mdw-button>
-
-  <mdw-button class="mdw-icon-button">
-    <mdw-badge class="mdw-no-label">1</mdw-badge>
+  </mdw-icon-button>
+  
+  <mdw-icon-button>
+    <mdw-badge class="hide-value">1</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
-  </mdw-button>
+  </mdw-icon-button>
   
-  
-  <mdw-button class="mdw-icon-button">
+  <mdw-icon-button>
     <mdw-badge>99</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
-  </mdw-button>
+  </mdw-icon-button>
   
-  <mdw-button class="mdw-icon-button">
+  <mdw-icon-button>
     <mdw-badge>1000</mdw-badge>
     <mdw-icon>inbox</mdw-icon>
+  </mdw-icon-button>
+  
+  <mdw-button>
+    <mdw-badge>0</mdw-badge>
+    Label
+  </mdw-button>
+  
+  <mdw-button>
+    <mdw-badge class="hide-value">1</mdw-badge>
+    Label
+  </mdw-button>
+  
+  <mdw-button>
+    <mdw-badge>99</mdw-badge>
+    Label
+  </mdw-button>
+  
+  <mdw-button>
+    <mdw-badge>1000</mdw-badge>
+    Label
   </mdw-button>`)}
         </code>
       </pre>
@@ -74,39 +114,6 @@
 
   // Update using value. 1000 -> 999+
   document.querySelector('mdw-badge').value = 1000;`}
-        </code>
-      </pre>
-    </mdw-card>
-
-
-    <mdw-card id="text_button">
-      <div class="mdw-card-content">
-        <div class="headline">Text button</div>
-    
-        <div class="example">
-          <mdw-button>
-            Inbox
-            <mdw-badge>0</mdw-badge>
-          </mdw-button>
-
-          <mdw-button>
-            Inbox
-            <mdw-badge>1000</mdw-badge>
-          </mdw-button>
-        </div>
-      </div>
-    
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-button>
-    Inbox
-    <mdw-badge>0</mdw-badge>
-  </mdw-button>
-  
-  <mdw-button>
-    Inbox
-    <mdw-badge>1000</mdw-badge>
-  </mdw-button>`)}
         </code>
       </pre>
     </mdw-card>
