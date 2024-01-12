@@ -1,3 +1,12 @@
+:root {
+  color-scheme: only light;
+}
+
+:root.mdw-theme-dark {
+  color-scheme: only dark;
+}
+
+
 html {
   font-family: 'Roboto Flex', Roboto, sans-serif;
   font-size: 16px;

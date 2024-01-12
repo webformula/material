@@ -1,280 +1,286 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './chip.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
-import util from '../../core/util.js';
 import {
   check_FILL1_wght400_GRAD0_opsz20,
   close_FILL1_wght400_GRAD0_opsz20
 } from '../../core/svgs.js';
 
+const inputValueRegex = /^(.+)<(.+)>$/;
 
-customElements.define('mdw-chip', class MDWChipElement extends HTMLElementExtended {
-  static styleSheets = styles;
+customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElement {
   static useShadowRoot = true;
-  static useTemplate = false;
-  
-  #inputValueRegex = /^(.+)<(.+)>$/;
-  #type;
-  #value = this.getAttribute('value') || '';
-  #menuItemValue = '';
-  #checked = false;
-  #group;
-  #ripple;
-  #input;
-  #inputValueDisplay;
-  #hasMenu = false;
-  #originalText;
-  #abort;
-  #onClick_bound = this.#click.bind(this);
-  #focus_bound = this.#focus.bind(this);
-  #blur_bound = this.#blur.bind(this);
-  #menuOpen_bound = this.#menuOpen.bind(this);
-  #menuClose_bound = this.#menuClose.bind(this);
-  #menuChange_bound = this.#menuChange.bind(this);
-  #focusKeydown_bound = this.#focusKeydown.bind(this);
-  #clearClick_bound = this.#clearClick.bind(this);
-  #onInput_bound = this.#onInput.bind(this);
-  #inputBlur_bound = this.#inputBlur.bind(this);
-  #inputKeydown_bound = this.#inputKeydown.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
+  static useTemplate = true;
+  static styleSheets = styles;
 
+  #abort;
+  #label;
+  #value;
+  #checked;
+  #filter;
+  #input;
+  #edit;
+  #inputElement;
+  #ripple;
+  #menu;
+  #filterClick_bound = this.#filterClick.bind(this);
+  #onFocus_bound = this.#onFocus.bind(this);
+  #onBlur_bound = this.#onBlur.bind(this);
+  #clearMouseDown_bound = this.#clearMouseDown.bind(this);
+  #clearClick_bound = this.#clearClick.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #slotChange_bound = this.#slotChange.bind(this);
 
   constructor() {
     super();
-  }
 
-  connectedCallback() {
-    this.#abort = new AbortController();
+    this.role = 'button';
     this.tabIndex = 0;
-    this.#group = this.parentElement;
-    this.#hasMenu = this.querySelector('mdw-menu');
-    this.#type = this.#getType();
-
-    if (this.#hasMenu) {
-      this.#originalText = util.getTextFromNode(this);
-      const selectedValue = this.getAttribute('selected');
-      if (selectedValue) {
-        const target = this.querySelector(`mdw-menu mdw-button[value="${selectedValue}"]`);
-        if (target) {
-          this.checked = true;
-          this.#menuChange({ target }, false);
-        }
-      }
-      this.insertAdjacentHTML('beforeend', '<div class="mdw-select-arrow"></div>');
-      this.querySelector('mdw-menu').addEventListener('open', this.#menuOpen_bound, { signal: this.#abort.signal });
-    }
-
-    if (this.hasAttribute('checked')) this.checked = true;
-    util.addClickTimeout(this, this.#onClick_bound);
-    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
-    if (!this.hasAttribute('aria-label')) {
-      this.setAttribute('aria-label', this.value);
-    }
+    this.render();
+    this.#inputElement = this.shadowRoot.querySelector('input');
   }
 
-  disconnectedCallback() {
-    this.#abort.abort();
-    util.removeClickTimeout(this, this.#onClick_bound);
-    if (this.#ripple) this.#ripple.destroy();
+  static get observedAttributesExtended() {
+    return [
+      ['label', 'string'],
+      ['value', 'string'],
+      ['checked', 'boolean'],
+      ['filter', 'boolean'],
+      ['input', 'boolean'],
+      ['edit', 'boolean']
+    ];
   }
 
-  afterRender() {
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      ignoreElements: [this.querySelector('mdw-menu')]
-    });
-
-    if (this.#type === 'input') {
-      this.#inputValueDisplay = this.shadowRoot.querySelector('.value-display');
-      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clearClick_bound, { signal: this.#abort.signal });
-      this.#input = this.shadowRoot.querySelector('input');
-    }
-  }
-
-  get value() {
-    if (this.#type === 'filter' && this.#hasMenu) {
-      return `${this.#value}:${this.querySelector('mdw-menu mdw-button[checked]')?.getAttribute('value') || ''}`;
-    }
-    return this.#value;
-  }
-  set value(value) {
-    if (this.#type === 'filter' && this.#hasMenu) {
-      let target = this.querySelector(`mdw-menu mdw-button[value="${value}"]`);
-      if (!target) target = this.querySelector('mdw-menu mdw-button[checked]');
-      if (target) this.#menuChange({ target }, false);
-    }
-  }
-
-  get checked() {
-    return this.#checked;
-  }
-  set checked(value) {
-    this.#checked = !!value;
-    this.classList.toggle('mdw-checked', this.#checked);
-    this.setAttribute('aria-checked', this.#checked.toString());
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   template() {
     return /*html*/`
-      ${this.#type === 'filter' ? `<div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>` : ''}
-      <slot></slot>
-      ${this.#type === 'input' ? /*html*/`
-        <input value="${this.#value}">
-        <span class="value-display">${this.#getInputDisplayValue(this.#value)}</span>
-        <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
-      ` : ''}
+      <div class="check">${check_FILL1_wght400_GRAD0_opsz20}</div>
+      <slot name="avatar"></slot>
+      <slot name="leading-icon"></slot>
+      <div class="label"></div>
+      <div class="menu-arrow"></div>
+      <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
+      <input tabIndex="-1" />
+      <div class="state-layer"></div>
       <div class="ripple"></div>
+      <slot name="menu"></slot>
     `;
   }
 
-  #getType() {
-    if (this.classList.contains('mdw-input')) return 'input';
-    if (this.classList.contains('mdw-filter')) {
-      if (this.#hasMenu) this.setAttribute('role', 'button');
-      else {
-        this.setAttribute('role', 'checkbox');
-        this.setAttribute('aria-checked', 'false');
-      }
-      return 'filter';
+  connectedCallback() {
+    this.#abort = new AbortController();
+    if (this.#filter) this.addEventListener('click', this.#filterClick_bound, { signal: this.#abort.signal });
+    if (this.#input && this.#edit) {
+      this.shadowRoot.querySelector('.clear').addEventListener('mousedown', this.#clearMouseDown_bound, { signal: this.#abort.signal });
+      this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clearClick_bound, { signal: this.#abort.signal });
     }
-    if (this.classList.contains('mdw-suggestion')) {
-      this.setAttribute('role', 'button');
-      return 'suggestion';
+    this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    
+    this.#ripple = new Ripple({
+      element: this.shadowRoot.querySelector('.ripple'),
+      triggerElement: this
+    });
+  }
+
+  disconnectedCallback() {
+    if (this.#abort) this.#abort.abort();
+    if (this.#ripple) this.#ripple.destroy();
+  }
+
+  get label() { return this.#label; }
+  set label(value) {
+    this.#label = value;
+    this.shadowRoot.querySelector('.label').innerText = value;
+  }
+
+  get value() { return this.#value || this.label; }
+  set value(value) {
+    if (this.#value === value) return;
+
+    this.#value = value;
+    if (!this.label && !this.hasAttribute('label')) {
+      this.label = this.#getLabelFromInput(this.#value);
     }
+    if (this.#menu) this.#updateMenuSelection();
+  }
+
+  get valueObject() {
+    return {
+      ...(this.hasAttribute('id') && { id: this.getAttribute('id') }),
+      ...(this.hasAttribute('name') && { name: this.getAttribute('name') }),
+      type: this.type,
+      value: this.value,
+      label: this.label,
+      ...(this.#filter && { checked: !!this.checked })
+    };
+  }
+  set valueObject(value) {
+    if (!value || (value.label === undefined && value.value === undefined)) return;
+    this.label = value.label !== undefined ? value.label : value.value;
+    this.value = value.value !== undefined ? value.value : value.label;
+    if (this.#filter && value.checked !== undefined) this.checked = !!value.checked;
+  }
+
+  get type() {
+    if (this.#input) return 'input';
+    if (this.#filter) return 'filter';
+    // if (this.#suggestion) return 'suggestion';
     return 'assist';
   }
 
-  #click() {
-    if (this.#type === 'filter' && !this.#hasMenu) {
+  get filter() { return this.#filter; }
+  set filter(value) { this.#filter = value; }
+
+  get input() { return this.#input; }
+  set input(value) { this.#input = value; }
+
+  get edit() { return this.#edit; }
+  set edit(value) { this.#edit = value; }
+
+  get checked() { return this.#checked; }
+  set checked(value) {
+    this.#checked = !!value;
+    this.classList.toggle('checked', this.#checked);
+    // this.setAttribute('aria-checked', this.#checked.toString());
+  }
+
+  get #isEdit() { return this.classList.contains('edit-mode'); }
+
+
+  reset() {
+    if (this.#input) this.#clearClick();
+    else if (this.#filter) {
+      this.value = this.getAttribute('value');
+      this.label = this.getAttribute('label');
+      this.checked = this.hasAttribute('checked');
+    }
+  }
+
+  #filterClick(event) {
+    if (this.#menu) {
+      if (event.target.nodeName === 'MDW-MENU-ITEM') {
+        const current = event.target.parentElement.querySelector('.selected');
+        if (current) current.classList.remove('selected');
+        event.target.classList.add('selected');
+        this.label = event.target.label;
+        this.value = event.target.value;
+        this.checked = true;
+      } else {
+        return;
+      }
+    } else {
       this.checked = !this.checked;
-      this.#group.dispatchEvent(new Event('change'));
     }
-
-    if (this.#type === 'input') {
-      this.classList.add('mdw-edit');
-      this.#onInput();
-      this.#input.focus();
-      this.#input.select();
-      this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-      this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
-      document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
-    }
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  #focus() {
-    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
-    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  #onFocus() {
+    if (this.#input && this.#edit) {
+      this.#inputElement.value = this.value;
+      this.#inputElement.style.width = `${this.#inputElement.scrollWidth}px`;
+      this.style.width = `${this.#inputElement.scrollWidth}px`;
+      this.#inputElement.setSelectionRange(0, this.value.length);
+      this.classList.add('edit-mode');
+      this.#inputElement.focus();
+    }
+    this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+    window.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
   }
 
-  // prevent focus on click
-  #focusMousedown(event) {
-    console.log('focusMousedown')
+  #onBlur() {
+    if (this.#input && this.#edit) {
+      const valueChange = this.value !== this.#inputElement.value;
+      this.value = this.#inputElement.value;
+      if (this.value) {
+        this.label = this.#getLabelFromInput(this.#inputElement.value);
+        this.#inputElement.style.width = '';
+        this.style.width = '';
+        this.classList.remove('edit-mode');
+      }
+      if (!this.value) this.#clearClick();
+      else if (valueChange) this.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    this.removeEventListener('blur', this.#onBlur_bound);
+    window.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  // prevent input focus
+  #clearMouseDown(event) {
     event.preventDefault();
   }
 
-  #blur() {
-    this.removeEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
-    this.removeEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  #clearClick() {
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.remove();
   }
 
-  #focusKeydown(e) {
-    if (e.code === 'Enter' || e.code === 'Space') {
-      if (this.#type === 'input') {
-        if (this.classList.contains('mdw-edit')) return;
-
-        this.classList.add('mdw-edit');
-        this.#onInput();
-        this.#input.focus();
-        this.#input.select();
-        setTimeout(() => {
-          this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
-          this.#input.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
-          document.body.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal });
-        });
-      }
-
-      if (this.#type === 'filter' && !this.#hasMenu && this.checked === false) {
-        this.#click();
-      }
-
-      if (this.#type === 'filter' && this.#hasMenu) {
-        this.click();
-      }
-      e.preventDefault();
-    }
-
-    if (e.code === 'Backspace' || e.code === 'Delete') {
-      if (this.#type === 'input') return;
-      if (this.#type === 'filter' && this.checked === true) {
-        this.checked = false;
-        this.#group.dispatchEvent(new Event('change'));
-      }
-      e.preventDefault();
-    }
-  }
-
-  #menuOpen() {
-    this.classList.add('mdw-open');
-    this.querySelector('mdw-menu').addEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
-    this.querySelector('mdw-menu').addEventListener('selected', this.#menuChange_bound, { signal: this.#abort.signal });
-  }
-
-  #menuClose() {
-    this.classList.remove('mdw-open');
-    this.querySelector('mdw-menu').removeEventListener('close', this.#menuClose_bound, { signal: this.#abort.signal });
-    this.querySelector('mdw-menu').removeEventListener('selected', this.#menuChange_bound, { signal: this.#abort.signal });
-  }
-
-  #menuChange(event, dispatchEvent = true) {
-    const value = event.target.getAttribute('value');
-    const text = util.getTextFromNode(event.target);
-    const currentText = util.getTextFromNode(this);
-    const textNode = [...this.childNodes].find(node => node.nodeType === 3 && node.nodeValue.trim() === currentText);
-    const selected = this.querySelector('mdw-menu mdw-button[checked]');
-    if (selected) selected.removeAttribute('checked');
-    if (this.#menuItemValue !== value) {
-      this.checked = true;
-      this.#menuItemValue = value;
-      textNode.nodeValue = text;
-      event.target.setAttribute('checked', '');
-    } else {
-      this.#menuItemValue = '';
-      this.checked = false;
-      textNode.nodeValue = this.#originalText;
-    }
-    if (dispatchEvent) this.#group.dispatchEvent(new Event('change'));
-  }
-
-  #getInputDisplayValue(str) {
-    const match = str.match(this.#inputValueRegex);
+  #getLabelFromInput(str) {
+    const match = str.match(inputValueRegex);
     if (!match) return str;
     return match[1];
   }
 
-  #clearClick(event) {
-    this.remove();
-    event.stopPropagation();
-    this.#group.dispatchEvent(new Event('change'));
+  #focusKeydown(event) {
+    const space = event.key === 'Space';
+    const enter = event.key === 'Enter';
+    const escape = event.key === 'Escape';
+    const backspace = event.key === 'Backspace' || event.key === 'Delete';
+    if (this.#input && this.#edit && this.#isEdit) {
+      if (enter || escape) this.blur();
+      return;
+    }
+
+    if (enter || space) {
+      this.click();
+      this.#ripple.trigger();
+    } else if (backspace) {
+      if (this.#input) {
+        event.preventDefault();
+        this.#focusNext();
+        this.#clearClick();
+      }
+      if (this.#filter) this.checked = false;
+      this.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   }
 
-  #onInput() {
-    const width = util.getTextWidthFromInput(this.#input);
-    this.#input.style.width = `${width}px`;
+
+  #focusNext() {
+    const next = [...this.parentElement.querySelectorAll('mdw-chip')].reverse().find(e => e !== this);
+    if (next) requestAnimationFrame(() => next.focus());
   }
 
-  #inputBlur() {
-    this.#value = this.#input.value;
-    this.#inputValueDisplay.innerText = this.#getInputDisplayValue(this.#input.value);
-    this.classList.remove('mdw-edit');
-    this.#input.removeEventListener('input', this.#onInput_bound);
-    this.#input.removeEventListener('blur', this.#inputBlur_bound);
-    document.body.removeEventListener('keydown', this.#inputKeydown_bound);
-    this.#group.dispatchEvent(new Event('change'));
+  #slotChange(event) {
+    if (event.target.getAttribute('name') === 'menu') {
+      this.#menu = [...event.target.assignedElements()][0];
+      if (this.#menu) {
+        this.#menu.anchorElement = this;
+        this.#menu.fixed = true;
+        this.#menu.overlap = false;
+        this.classList.add('menu');
+        this.#updateMenuSelection();
+      }
+    }
   }
 
-  #inputKeydown(event) {
-    if (event.key === 'Enter') this.#input.blur();
+  #updateMenuSelection() {
+    const current = this.#menu.querySelector('mdw-menu-item.selected');
+    if (current) {
+      current.classList.remove('selected');
+      this.#checked = false;
+      this.classList.remove('checked');
+    }
+
+    const toSelect = this.value && [...this.#menu.querySelectorAll('mdw-menu-item')].find(e => e.value === this.value);
+    if (toSelect) {
+      toSelect.classList.add('selected');
+      if (!this.label || this.label === this.value) this.label = toSelect.label;
+      this.#checked = true;
+      this.classList.add('checked');
+    }
   }
 });

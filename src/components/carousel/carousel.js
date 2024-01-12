@@ -1,9 +1,9 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
 
-export default class MDWCarouselElement extends HTMLElementExtended {
+export default class MDWCarouselElement extends HTMLComponentElement {
   #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #calculateLayout_debounce = util.debounce(this.#calculateLayout.bind(this), 0);

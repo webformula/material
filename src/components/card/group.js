@@ -1,9 +1,9 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import device from '../../core/device.js';
 
 // TODO keyboard controls
 
-customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLElementExtended {
+customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLComponentElement {
   #autoSpanRow = this.classList.contains('mdw-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
   #handleWindowState_bound = this.#handleWindowState.bind(this);

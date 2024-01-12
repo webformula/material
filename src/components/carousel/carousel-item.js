@@ -1,6 +1,6 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 
-export default class MDWCarouselItemElement extends HTMLElementExtended {
+export default class MDWCarouselItemElement extends HTMLComponentElement {
   #width = null;
 
 

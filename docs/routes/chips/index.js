@@ -9,9 +9,22 @@ export default class extends Component {
     super();
   }
 
-  connectedCallback() {
-    // document.querySelector('.mdw-type-input').addEventListener('change', event => {
-    //   console.log(event.target.value);
-    // });
+  updateValues() {
+    document.querySelector('#update1').values = [
+      {
+        name: "one",
+        label: 'One Updated',
+        value: 'oneupdated',
+        checked: false
+      },
+
+      {
+        type: 'filter',
+        name: "two",
+        label: 'Two',
+        value: 'two',
+        checked: true
+      }
+    ];
   }
 }

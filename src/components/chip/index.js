@@ -1,2 +1,2 @@
-import './chip-group.js';
+import './chip-set.js';
 import './chip.js';

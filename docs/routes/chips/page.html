@@ -11,7 +11,8 @@
       <a href="#filter" role="listitem">Filter</a>
       <a href="#menu" role="listitem">Menu</a>
       <a href="#input" role="listitem">Input</a>
-      <a href="#input" role="listitem">wrap</a>
+      <a href="#input" role="listitem">Set content wrap</a>
+      <a href="#update" role="listitem">Update / Add values</a>
     </ul>
   </nav>
 
@@ -25,42 +26,83 @@
       </div>
       <div class="mdw-card-content">
         <div class="example" title="test">
-          <mdw-chip-group>
-            <mdw-chip class="mdw-suggestion mdw-elevated">One</mdw-chip>
-            <mdw-chip class="mdw-suggestion">two</mdw-chip>
-          </mdw-chip-group>
-    
-          <mdw-chip-group onchange="console.log(this.value)">
-            <mdw-chip class="mdw-filter" value="one" checked>One</mdw-chip>
-            <mdw-chip class="mdw-filter" value="home">
-              <mdw-icon>home</mdw-icon>
-              home
+          <div>Assist</div>
+          <mdw-chip-set onchange="console.log(this.values)">
+            <mdw-chip label="One"></mdw-chip>
+            <mdw-chip label="Two">
+              <mdw-icon slot="leading-icon">settings</mdw-icon>
             </mdw-chip>
-            <mdw-chip class="mdw-filter" value="menu">
-              Menu
-              <mdw-menu>
-                <mdw-button value="a">M One</mdw-button>
-                <mdw-button value="b">M Two</mdw-button>
+          </mdw-chip-set>
+
+          <div style="margin-top: 24px">Filter</div>
+          <mdw-chip-set onchange="console.log(this.values)">
+            <mdw-chip filter class="elevated" checked label="One"></mdw-chip>
+            <mdw-chip filter class="elevated" label="Two">
+              <mdw-icon slot="leading-icon">settings</mdw-icon>
+            </mdw-chip>
+          </mdw-chip-set>
+
+          <div style="margin-top: 24px">Filter menu</div>
+          <mdw-chip-set onchange="console.log(this.values)">
+            <mdw-chip filter name="a" label="One"></mdw-chip>
+            <mdw-chip filter name="b" value="One">
+              <mdw-menu slot="menu">
+                <mdw-menu-item>
+                  <mdw-icon slot="start">home</mdw-icon>
+                  One
+                </mdw-menu-item>
+                <mdw-menu-item>Two</mdw-menu-item>
+                <mdw-menu-item>Three</mdw-menu-item>
               </mdw-menu>
             </mdw-chip>
-          </mdw-chip-group>
-    
-    
-          <mdw-chip-group>
-            <mdw-chip value="one">One</mdw-chip>
-            <mdw-chip value="home">
-              <mdw-icon>home</mdw-icon>
-              home
-            </mdw-chip>
-          </mdw-chip-group>
-    
-          <mdw-chip-group class="mdw-input mdw-wrap" onchange="console.log(this.value)">
-            <label>Label</label>
-            <mdw-chip class="mdw-input" value="One"></mdw-chip>
-            <mdw-chip class="mdw-input" value="Email <one@email.com>"><mdw-icon>email</mdw-icon></mdw-chip>
-          </mdw-chip-group>
+          </mdw-chip-set>
+
+          <div style="margin-top: 24px">Input</div>
+          <mdw-chip-set label="Label" input edit onchange="console.log(this.values)">
+            <mdw-chip input edit value="My Name <myname@gmail.com>" label="My Name"></mdw-chip>
+          </mdw-chip-set>
         </div>
       </div>
+
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<!-- Assist -->
+  <mdw-chip-set onchange="console.log(this.values)">
+    <mdw-chip label="One"></mdw-chip>
+    <mdw-chip label="Two">
+      <mdw-icon slot="leading-icon">settings</mdw-icon>
+    </mdw-chip>
+  </mdw-chip-set>
+  
+  <!-- Filter -->
+  <mdw-chip-set onchange="console.log(this.values)">
+    <mdw-chip filter class="elevated" checked label="One"></mdw-chip>
+    <mdw-chip filter class="elevated" label="Two">
+      <mdw-icon slot="leading-icon">settings</mdw-icon>
+    </mdw-chip>
+  </mdw-chip-set>
+  
+  <!-- Filter menu -->
+  <mdw-chip-set onchange="console.log(this.values)">
+    <mdw-chip filter name="a" label="One"></mdw-chip>
+    <mdw-chip filter name="b" value="One">
+      <mdw-menu slot="menu">
+        <mdw-menu-item>
+          <mdw-icon slot="start">home</mdw-icon>
+          One
+        </mdw-menu-item>
+        <mdw-menu-item>Two</mdw-menu-item>
+        <mdw-menu-item>Three</mdw-menu-item>
+      </mdw-menu>
+    </mdw-chip>
+  </mdw-chip-set>
+  
+  <!-- Input -->
+  <mdw-chip-set label="Label" input edit onchange="console.log(this.values)">
+    <mdw-chip input edit value="My Name <myname@gmail.com>" label="My Name"></mdw-chip>
+  </mdw-chip-set>`)}
+        </code>
+      </pre>
     </mdw-card>
     
     <mdw-card id="assist">
@@ -68,35 +110,25 @@
         <div class="headline">Assist</div>
 
         <div class="example">
-          <mdw-chip-group>
-            <mdw-chip onclick="console.log('do something')">
-              One
+          <mdw-chip-set>
+            <mdw-chip label="One" onclick="console.log('do something')"></mdw-chip>
+            <mdw-chip label="Two" onclick="console.log('do something')">
+              <mdw-icon slot="leading-icon">inbox</mdw-icon>
             </mdw-chip>
-            <mdw-chip onclick="console.log('do something')">
-              <mdw-icon>inbox</mdw-icon>
-              icon
-            </mdw-chip>
-            <mdw-chip onclick="console.log('do something')">
-              Three
-            </mdw-chip>
-          </mdw-chip-group>
+            <mdw-chip label="Three" onclick="console.log('do something')"></mdw-chip>
+          </mdw-chip-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-chip-group>
-    <mdw-chip onclick="console.log('do something')">
-      One
+  ${page.escape(`<mdw-chip-set>
+    <mdw-chip label="One" onclick="console.log('do something')"></mdw-chip>
+    <mdw-chip label="Two" onclick="console.log('do something')">
+      <mdw-icon slot="leading-icon">inbox</mdw-icon>
     </mdw-chip>
-    <mdw-chip onclick="console.log('do something')">
-      <mdw-icon>inbox</mdw-icon>
-      icon
-    </mdw-chip>
-    <mdw-chip onclick="console.log('do something')">
-      Three
-    </mdw-chip>
-  </mdw-chip-group>`)}
+    <mdw-chip label="Three" onclick="console.log('do something')"></mdw-chip>
+  </mdw-chip-set>`)}
         </code>
       </pre>
     </mdw-card>
@@ -106,57 +138,57 @@
         <div class="headline">Filter</div>
     
         <div class="example">
-          <mdw-chip-group>
-            <mdw-chip class="mdw-filter" value="one">One</mdw-chip>
-            <mdw-chip class="mdw-filter" value="two" checked>Two</mdw-chip>
-            <mdw-chip class="mdw-filter" value="three"><mdw-icon>inbox</mdw-icon>Three</mdw-chip>
+          <mdw-chip-set>
+            <mdw-chip filter label="one"></mdw-chip>
+            <mdw-chip filter label="two" checked></mdw-chip>
+            <mdw-chip filter label="three">
+              <mdw-icon slot="leading-icon">inbox</mdw-icon>
+            </mdw-chip>
 
             <!-- No default value -->
-            <mdw-chip class="mdw-filter" value="prefix" selected="one">
-              Number
-              <mdw-menu>
-                <mdw-button value="one">One</mdw-button>
-                <mdw-button value="two">Two</mdw-button>
+            <mdw-chip filter label="number">
+              <mdw-menu slot="menu">
+                <mdw-menu-item>One</mdw-menu-item>
+                <mdw-menu-item>Two</mdw-menu-item>
               </mdw-menu>
             </mdw-chip>
             
             <!-- Default value -->
-            <mdw-chip class="mdw-filter" value="status" value="on">
-              Status
-              <mdw-menu>
-                <mdw-button value="on">On</mdw-button>
-                <mdw-button value="off">Off</mdw-button>
+            <mdw-chip filter value="on">
+              <mdw-menu slot="menu">
+                <mdw-menu-item>On</mdw-menu-item>
+                <mdw-menu-item>Off</mdw-menu-item>
               </mdw-menu>
             </mdw-chip>
-          </mdw-chip-group>
+          </mdw-chip-set>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-chip-group class="mdw-filter">
-    <mdw-chip class="mdw-filter" value="one">One</mdw-chip>
-    <mdw-chip class="mdw-filter" value="two" checked>Two</mdw-chip>
-    <mdw-chip class="mdw-filter" value="three"><mdw-icon>inbox</mdw-icon>Three</mdw-chip>
-    
+  ${page.escape(`<mdw-chip-set>
+    <mdw-chip filter label="one"></mdw-chip>
+    <mdw-chip filter label="two" checked></mdw-chip>
+    <mdw-chip filter label="three">
+      <mdw-icon slot="leading-icon">inbox</mdw-icon>
+    </mdw-chip>
+  
     <!-- No default value -->
-    <mdw-chip class="mdw-filter" value="prefix" selected="one">
-      Number
-      <mdw-menu>
-        <mdw-button value="one">One</mdw-button>
-        <mdw-button value="two">Two</mdw-button>
+    <mdw-chip filter label="number">
+      <mdw-menu slot="menu">
+        <mdw-menu-item>One</mdw-menu-item>
+        <mdw-menu-item>Two</mdw-menu-item>
       </mdw-menu>
     </mdw-chip>
-    
+  
     <!-- Default value -->
-    <mdw-chip class="mdw-filter" value="status" value="on">
-      Status
-      <mdw-menu>
-        <mdw-button value="on">On</mdw-button>
-        <mdw-button value="off">Off</mdw-button>
+    <mdw-chip filter value="on">
+      <mdw-menu slot="menu">
+        <mdw-menu-item>On</mdw-menu-item>
+        <mdw-menu-item>Off</mdw-menu-item>
       </mdw-menu>
     </mdw-chip>
-  </mdw-chip-group>`)}
+  </mdw-chip-set>`)}
         </code>
       </pre>
 
@@ -173,21 +205,33 @@
         <div class="headline">Input</div>
     
         <div class="example">
-          <mdw-chip-group class="mdw-input md-wrap">
-            <label>Label</label>
-            <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
-            <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
-          </mdw-chip-group>
+          <div style="margin-top: 24px; margin-bottom: 6px;">Input</div>
+          <mdw-chip-set input label="Label">
+            <mdw-chip input value="Ben Rubin <ben@email.com>"></mdw-chip>
+            <mdw-chip input value="Other Guy <guy@email.com>"></mdw-chip>
+          </mdw-chip-set>
+
+          <div style="margin-top: 32px; margin-bottom: 6px;">Input with chip editing</div>
+          <mdw-chip-set input edit label="With edit">
+            <mdw-chip input edit value="Ben Rubin <ben@email.com>"></mdw-chip>
+            <mdw-chip input edit value="Other Guy <guy@email.com>"></mdw-chip>
+          </mdw-chip-set>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-chip-group class="mdw-input mdw-wrap">
-    <label>Label</label>
-    <mdw-chip class="mdw-input" value="Ben Rubin <ben@email.com>"></mdw-chip>
-    <mdw-chip class="mdw-input" value="Other Guy <buy@email.com>"></mdw-chip>
-  </mdw-chip-group>`)}
+  ${page.escape(`<!-- Input -->
+  <mdw-chip-set input label="Label">
+    <mdw-chip input value="Ben Rubin <ben@email.com>"></mdw-chip>
+    <mdw-chip input value="Other Guy <guy@email.com>"></mdw-chip>
+  </mdw-chip-set>
+  
+  <!-- Input with chip editing -->
+  <mdw-chip-set input edit label="With edit">
+    <mdw-chip input edit value="Ben Rubin <ben@email.com>"></mdw-chip>
+    <mdw-chip input edit value="Other Guy <guy@email.com>"></mdw-chip>
+  </mdw-chip-set>`)}
         </code>
       </pre>
     </mdw-card>
@@ -195,38 +239,87 @@
 
     <mdw-card id="wrap">
       <div class="mdw-card-content">
-        <div class="headline">Wrap</div>
+        <div class="headline">Set content wrapping</div>
     
         <div class="example">
           <div style="width: 300px; padding: 8px; border: 1px solid;">
-            <mdw-chip-group class="mdw-wrap">
-              <mdw-chip>One</mdw-chip>
-              <mdw-chip>Two</mdw-chip>
-              <mdw-chip>Three</mdw-chip>
-              <mdw-chip>Four</mdw-chip>
-              <mdw-chip>Five</mdw-chip>
-              <mdw-chip>Six</mdw-chip>
-              <mdw-chip>Seven</mdw-chip>
-              <mdw-chip>Eight</mdw-chip>
-              <mdw-chip>Nine</mdw-chip>
-            </mdw-chip-group>
+            <mdw-chip-set>
+              <mdw-chip label="One"></mdw-chip>
+              <mdw-chip label="Two"></mdw-chip>
+              <mdw-chip label="Three"></mdw-chip>
+              <mdw-chip label="Four"></mdw-chip>
+              <mdw-chip label="Five"></mdw-chip>
+              <mdw-chip label="Six"></mdw-chip>
+              <mdw-chip label="Seven"></mdw-chip>
+              <mdw-chip label="Eight"></mdw-chip>
+              <mdw-chip label="Nine"></mdw-chip>
+            </mdw-chip-set>
           </div>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-chip-group class="mdw-wrap">
-    <mdw-chip>One</mdw-chip>
-    <mdw-chip>Two</mdw-chip>
-    <mdw-chip>Three</mdw-chip>
-    <mdw-chip>Four</mdw-chip>
-    <mdw-chip>Five</mdw-chip>
-    <mdw-chip>Six</mdw-chip>
-    <mdw-chip>Seven</mdw-chip>
-    <mdw-chip>Eight</mdw-chip>
-    <mdw-chip>Nine</mdw-chip>
-  </mdw-chip-group>`)}
+  ${page.escape(`<mdw-chip-set>
+    <mdw-chip label="One"></mdw-chip>
+    ...
+  </mdw-chip-set>`)}
+        </code>
+      </pre>
+    </mdw-card>
+
+
+    <mdw-card id="update">
+      <div class="mdw-card-content">
+        <div class="headline">Updating chips and adding chips</div>
+    
+        <div class="example">
+          <div>
+            <mdw-chip-set id="update1">
+              <mdw-chip name="one" filter value="0ne" label="one" checked></mdw-chip>
+            </mdw-chip-set>
+
+            <mdw-button onclick="page.updateValues()">Update</mdw-button>
+          </div>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-chip-set id="update1">
+    <mdw-chip name="one" filter value="0ne" label="one" checked></mdw-chip>
+  </mdw-chip-set>`)}
+        </code>
+      </pre>
+
+      <pre>
+        <code>
+  ${page.escape(`function updateValues() {
+    // get current set values
+    console.log(document.querySelector('#update1').values);
+
+    // update set
+    document.querySelector('#update1').values = [
+      // update chip with name one
+      {
+        type: 'filter',
+        name: "one",
+        label: 'One Updated',
+        value: 'oneupdated',
+        checked: false
+      },
+      
+
+      // adds new chip is because name 2 is not found
+      {
+        type: 'filter',
+        name: "two",
+        label: 'Two',
+        value: 'two',
+        checked: true
+      }
+    ];
+  }`)}
         </code>
       </pre>
     </mdw-card>

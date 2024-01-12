@@ -24,6 +24,10 @@
   border-radius: var(--mdw-shape-extra-small);
 }
 
+:host-context(mdw-chip) {
+  height: 28px;
+}
+
 :host(.selected) {
   color: var(--mdw-on-secondary-container);
   background-color: var(--mdw-secondary-container);

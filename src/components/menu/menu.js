@@ -64,6 +64,8 @@ export default class MDWMenuElement extends MDWSurfaceElement {
       document.addEventListener('contextmenu', this.#rightClick_bound, { signal: this.#abort.signal });
     } else if (this.anchorElement) {
       this.anchorElement.addEventListener('click', this.#anchorClick_bound, { signal: this.#abort.signal });
+    } else {
+      this.parentElement.addEventListener('click', this.#anchorClick_bound, { signal: this.#abort.signal });
     }
   }
 

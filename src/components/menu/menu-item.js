@@ -49,6 +49,8 @@ export default class MDWMenuItemElement extends HTMLComponentElement {
   }
 
   get contextTarget() { return this.parentElement.contextTarget; }
+  get label() { return [...this.shadowRoot.querySelector('.default-slot').assignedNodes()].map(e => e.data).join('').trim() || this.getAttribute('value'); }
+  get value() { return this.getAttribute('value') || this.label; }
 
 
   #focus() {

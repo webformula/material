@@ -13,7 +13,6 @@ customElements.define('mdw-badge', class MDWBadgeElement extends HTMLComponentEl
   constructor() {
     super();
 
-    // this.role = 'range';
     this.render();
     this.value = this.innerText;
   }
@@ -45,6 +44,7 @@ customElements.define('mdw-badge', class MDWBadgeElement extends HTMLComponentEl
     this.classList.toggle('has-value', !!this.#displayValue);
     super.innerText = this.#displayValue;
 
+    // TODO ARIA
     // '', '0', 0
     // if (value == 0) this.parentElement.setAttribute('aria-label', this.#parentLabel);
     // else if (this.#nonCounting) this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] New notification`);
