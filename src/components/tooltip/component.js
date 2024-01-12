@@ -39,11 +39,11 @@ customElements.define('mdw-tooltip', class MDWTooltipElement extends HTMLElement
     }
 
     if (!this.#isMain) util.trackPageScroll(this.#onScroll_bound);
-    this.classList.add('mdw-show');
+    this.classList.add('show');
   }
 
   hide() {
-    this.classList.remove('mdw-show');
+    this.classList.remove('show');
     if (!this.#isMain) util.untrackPageScroll(this.#onScroll_bound);
   }
 

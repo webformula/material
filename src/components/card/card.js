@@ -178,7 +178,7 @@ export default class MDWCardElement extends HTMLComponentElement {
     this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
     this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
     if (!initialized) this.classList.add('mdw-fullscreen-initialized');
-    this.classList.add('mdw-show');
+    this.classList.add('show');
   }
 
   #expandClick(event) {
@@ -188,10 +188,10 @@ export default class MDWCardElement extends HTMLComponentElement {
     const isCompact = device.state === 'compact';
     const { clientHeight } = document.documentElement;
     
-    if (this.classList.contains('mdw-show')) {
+    if (this.classList.contains('show')) {
       expanded.style.height = '';
       if (!isCompact) this.style.marginBottom = '';
-      this.classList.remove('mdw-show');
+      this.classList.remove('show');
       util.transitionendAsync(this).then(() => {
         this.style.zIndex = '';
       });
@@ -214,14 +214,14 @@ export default class MDWCardElement extends HTMLComponentElement {
       expanded.style.height = `${expandedHeight}px`;
       if (!isCompact) this.style.marginBottom = `-${expandedHeight}px`;
       this.style.zIndex = '1';
-      this.classList.add('mdw-show');
+      this.classList.add('show');
     }
   }
 
   // expand cards with scroll
   #expandDragEnd({ direction, swipe }) {
-    if (swipe && direction === 'up' && !this.classList.contains('mdw-show')) this.#expandClick({ target: this });
-    else if (swipe && direction === 'down' && this.classList.contains('mdw-show')) this.#expandClick({ target: this });
+    if (swipe && direction === 'up' && !this.classList.contains('show')) this.#expandClick({ target: this });
+    else if (swipe && direction === 'down' && this.classList.contains('show')) this.#expandClick({ target: this });
   }
 
   #fullscreenClick() {
@@ -230,7 +230,7 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   async #fullscreenBackClick() {
-    this.classList.remove('mdw-show');
+    this.classList.remove('show');
     await util.animationendAsync(this);
     this.#fullscreenPlaceHolder.remove();
     this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });

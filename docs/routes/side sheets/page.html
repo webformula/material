@@ -45,7 +45,7 @@
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
-            <mdw-side-sheet id="one" class="mdw-click-scrim-close mdw-hide">
+            <mdw-side-sheet id="one" class="mdw-click-scrim-close hide">
               <div class="mdw-header">
                 <div class="mdw-title">Title</div>
                 <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -120,7 +120,7 @@
               onchange="document.querySelector('mdw-side-sheet#two').classList.toggle('mdw-inset', this.checked)">Inset</mdw-switch>
           </div>
           <div style="display: flex">
-            <mdw-side-sheet id="two" class="mdw-global mdw-hide">
+            <mdw-side-sheet id="two" class="mdw-global hide">
               <div class="mdw-header">
                 <div class="mdw-title">Title</div>
                 <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -153,7 +153,7 @@
     <div>
       content...
     </div>
-    <mdw-side-sheet id="two" class="mdw-global mdw-hide mdw-inset">
+    <mdw-side-sheet id="two" class="mdw-global hide mdw-inset">
       <div class="mdw-header">
         <div class="mdw-title">Title</div>
         <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -191,7 +191,7 @@
   ${page.escape(`<body>
     <mdw-navigation-drawer></mdw-navigation-drawer>
     <page-content></page-content>
-    <mdw-side-sheet id="two" class="mdw-global mdw-hide mdw-inset">
+    <mdw-side-sheet id="two" class="mdw-global hide mdw-inset">
       <div class="mdw-header">
         <div class="mdw-title">Title</div>
         <mdw-button class="mdw-icon-button mdw-side-sheet-close"><mdw-icon>close</mdw-icon></mdw-button>
@@ -223,7 +223,7 @@
               onchange="document.querySelector('mdw-side-sheet#three').scrim = this.checked">Scrim (modal)</mdw-switch>
           </div>
           <div style="display: flex">
-            <mdw-side-sheet id="three" class="mdw-global mdw-hide">
+            <mdw-side-sheet id="three" class="mdw-global hide">
               <div class="mdw-header">
                 <div class="mdw-title">Title</div>
               </div>
@@ -264,7 +264,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-side-sheet id="three" class="mdw-global mdw-hide">
+  ${page.escape(`<mdw-side-sheet id="three" class="mdw-global hide">
     <div class="mdw-header">
       <div class="mdw-title">Title</div>
     </div>

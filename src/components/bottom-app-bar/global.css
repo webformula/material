@@ -22,6 +22,10 @@ mdw-bottom-app-bar {
   transition-timing-function: var(---mdw-motion-easing);
 }
 
+mdw-bottom-app-bar mdw-fab {
+  margin: 0 16px;
+}
+
 body.mdw-animation mdw-bottom-app-bar {
   transition-duration: var(--mdw-motion-duration-short3);
 }
@@ -32,7 +36,7 @@ body.window-expanded > mdw-bottom-app-bar:not(.always-show) {
   display: none;
 }
 
-mdw-bottom-app-bar.mdw-hide {
+mdw-bottom-app-bar.hide {
   margin-bottom: -80px;
 }
 
@@ -53,7 +57,7 @@ mdw-bottom-app-bar mdw-bottom-app-bar-primary {
   transition: none;
 }
 
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide {
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide {
   pointer-events: none;
   opacity: 0;
   transition: opacity, bottom;
@@ -73,7 +77,7 @@ mdw-bottom-app-bar mdw-bottom-app-bar-secondary {
   transition: opacity var(--mdw-motion-duration-short2);
 }
 
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary.mdw-show {
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary.show {
   opacity: 1;
   pointer-events: all;
   transition: none;
@@ -118,21 +122,21 @@ mdw-bottom-app-bar mdw-button:nth-child(10) {
   transition-delay: 500ms;
 }
 
-mdw-bottom-app-bar.auto-hide.mdw-hide > mdw-button,
-mdw-bottom-app-bar.auto-hide.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+mdw-bottom-app-bar.auto-hide.hide > mdw-button,
+mdw-bottom-app-bar.auto-hide.hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-navigation-button {
   transform: translateY(60px);
 }
 
-mdw-bottom-app-bar.auto-hide.mdw-hide > mdw-button,
-mdw-bottom-app-bar.auto-hide.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.mdw-hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.mdw-show) > mdw-navigation-button {
+mdw-bottom-app-bar.auto-hide.hide > mdw-button,
+mdw-bottom-app-bar.auto-hide.hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-navigation-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-button,
+mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-navigation-button {
   transition-duration: 0ms;
   transition-delay: var(--mdw-motion-duration-short3);
 }

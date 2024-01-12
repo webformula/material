@@ -32,7 +32,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
       this.#drag.on('mdwdragend', this.#onDragEnd_bound);
     }
 
-    if (this.classList.contains('mdw-hide')) this.close();
+    if (this.classList.contains('hide')) this.close();
   }
 
   connectedCallback() {

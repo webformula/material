@@ -8,11 +8,11 @@ customElements.define('mdw-scrim', class MDWScrimElement extends HTMLElementExte
 
   async connectedCallback() {
     await util.nextAnimationFrameAsync();
-    this.classList.add('mdw-show');
+    this.classList.add('show');
   }
 
   async remove() {
-    this.classList.remove('mdw-show');
+    this.classList.remove('show');
     await util.transitionendAsync(this);
     super.remove();
   }

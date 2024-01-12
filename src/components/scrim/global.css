@@ -6,7 +6,7 @@ mdw-scrim {
   transition-timing-function: var(--mdw-motion-easing);
 }
 
-mdw-scrim.mdw-show {
+mdw-scrim.show {
   opacity: 1;
 }
 

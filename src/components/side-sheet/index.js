@@ -23,7 +23,7 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
     super();
     this.classList.add('mdw-side-sheet');
     this.classList.add('mdw-no-animation');
-    this.#open = !this.classList.contains('mdw-hide');
+    this.#open = !this.classList.contains('hide');
     this.#clickOutsideClose = this.classList.contains('mdw-click-scrim-close');
 
     this.#placeHolder = document.createElement('div');
@@ -67,7 +67,7 @@ export default class MDWSideSheetElement extends HTMLElementExtended {
 
     this.#initialState = false;
     this.#open = !!value;
-    this.classList.toggle('mdw-hide', !this.#open);
+    this.classList.toggle('hide', !this.#open);
     if (device.state !== 'expanded') this.classList.toggle('mdw-window-state-hide', !this.#open);
     
     if (this.#modal) {

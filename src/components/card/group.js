@@ -68,7 +68,7 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLEl
     this.style.setProperty('--mdw-card-group-row-height', `${baseHeight}px`);
 
     cards.forEach(({ element, height }) => {
-      if (element.classList.contains('mdw-show')) return;
+      if (element.classList.contains('show')) return;
 
       const span = Math.ceil(height / baseHeight);
       if (baseHeight > 1) element.style.gridRowEnd = `span ${span}`;

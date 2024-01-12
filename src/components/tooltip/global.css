@@ -16,7 +16,7 @@ mdw-tooltip {
   opacity: 0;
 }
 
-mdw-tooltip.mdw-show {
+mdw-tooltip.show {
   opacity: 1;
 }
 

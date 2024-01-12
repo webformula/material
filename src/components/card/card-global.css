@@ -177,14 +177,14 @@ mdw-card.mdw-outlined.mdw-drag-reorder-active::after {
 }
 
 mdw-card[onclick]:focus::after,
-mdw-card.mdw-fullscreen:not(.mdw-show):focus::after,
+mdw-card.mdw-fullscreen:not(.show):focus::after,
 mdw-card.mdw-states:focus::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
 }
 
 mdw-card.mdw-outlined[onclick]:focus,
-mdw-card.mdw-outlined.mdw-fullscreen:not(.mdw-show):focus,
+mdw-card.mdw-outlined.mdw-fullscreen:not(.show):focus,
 mdw-card.mdw-outlined.mdw-states:focus {
   outline: 1px solid var(--mdw-on-surface);
 }
@@ -230,7 +230,7 @@ mdw-card.mdw-expanding {
   transition-duration: 0ms;
 }
 
-body:not(.window-compact) mdw-card.mdw-expanding.mdw-show {
+body:not(.window-compact) mdw-card.mdw-expanding.show {
   transform: translateY(-6px);
 }
 
@@ -238,7 +238,7 @@ mdw-card.mdw-animation.mdw-expanding {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-expanding.mdw-show.mdw-filled {
+mdw-card.mdw-expanding.show.mdw-filled {
   box-shadow: var(--mdw-elevation-1);
 }
 
@@ -253,7 +253,7 @@ mdw-card.mdw-expanding.mdw-animation > .mdw-card-content .mdw-expand-arrow {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-expanding.mdw-show > .mdw-card-content .mdw-expand-arrow {
+mdw-card.mdw-expanding.show > .mdw-card-content .mdw-expand-arrow {
   transform: rotate(180deg);
 }
 
@@ -286,14 +286,14 @@ mdw-card.mdw-expanding > .mdw-card-content > .mdw-expanded > :nth-child(1) {
 }
 
 /* move expanded content down so it lines up with the bottom of the card */
-mdw-card.mdw-expanding.mdw-show > .mdw-card-content > .mdw-expanded {
+mdw-card.mdw-expanding.show > .mdw-card-content > .mdw-expanded {
   transform: translateY(16px);
   pointer-events: all;
   overflow: auto;
   overscroll-behavior: contain;
 }
 
-mdw-card.mdw-expanding.mdw-show > .mdw-card-content > .mdw-expanded {
+mdw-card.mdw-expanding.show > .mdw-card-content > .mdw-expanded {
   height: auto;
 }
 
@@ -316,11 +316,11 @@ mdw-card.mdw-animation.mdw-fullscreen.mdw-fullscreen-initialized {
 }
 
 mdw-card[onclick],
-mdw-card.mdw-fullscreen:not(.mdw-show) {
+mdw-card.mdw-fullscreen:not(.show) {
   cursor: pointer;
 }
 
-mdw-card.mdw-fullscreen.mdw-show {
+mdw-card.mdw-fullscreen.show {
   position: fixed;
   z-index: 11;
   top: 0;
@@ -334,7 +334,7 @@ mdw-card.mdw-fullscreen.mdw-show {
   animation-duration: 0ms;
   animation-timing-function: var(--mdw-motion-easing);
 }
-mdw-card.mdw-animation.mdw-fullscreen.mdw-show {
+mdw-card.mdw-animation.mdw-fullscreen.show {
   animation-duration: var(--mdw-motion-duration-medium1);
 }
 
@@ -348,7 +348,7 @@ mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-content > .mdw-expanded {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-fullscreen.mdw-show > .mdw-card-content > .mdw-expanded {
+mdw-card.mdw-fullscreen.show > .mdw-card-content > .mdw-expanded {
   opacity: 1;
   height: auto;
   position: absolute;
@@ -370,18 +370,18 @@ mdw-card.mdw-fullscreen > .mdw-card-image.mdw-rounded {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card.mdw-fullscreen.mdw-show > .mdw-card-image {
+mdw-card.mdw-fullscreen.show > .mdw-card-image {
   height: var(--mdw-card-fullscreen-img-height, 300px);
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, var(--mdw-motion-duration-short3);
   transition-timing-function: var(--mdw-motion-easing);
 }
-mdw-card.mdw-animation.mdw-duration.mdw-fullscreen.mdw-show > .mdw-card-image {
+mdw-card.mdw-animation.mdw-duration.mdw-fullscreen.show > .mdw-card-image {
   transition-duration: var(--mdw-motion-duration-medium3), var(--mdw-motion-duration-short3);
 
 }
-mdw-card.mdw-fullscreen.mdw-show > .mdw-card-image.mdw-rounded {
+mdw-card.mdw-fullscreen.show > .mdw-card-image.mdw-rounded {
   border-radius: 0 0 var(--mdw-shape-medium) var(--mdw-shape-medium);
 }
 
@@ -492,7 +492,7 @@ mdw-card > .mdw-card-fullscreen-back > svg path {
   stroke: var(--mdw-surface);
 }
 
-mdw-card.mdw-fullscreen.mdw-show > .mdw-card-fullscreen-back {
+mdw-card.mdw-fullscreen.show > .mdw-card-fullscreen-back {
   opacity: 1;
   pointer-events: auto;
 }
