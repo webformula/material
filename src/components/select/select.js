@@ -87,7 +87,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
         <div class="surface">
           <div class="surface-content">
             <div class="item-padding">
-              <mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>
+              <mdw-progress-linear indeterminate disabled></mdw-progress-linear>
               <div class="no-results">No items</div>
               <slot class="options-container"></slot>
             </div>
@@ -278,7 +278,10 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   }
 
   #slotChange() {
-    if (this.#isAsync) this.classList.remove('filter-async-active');
+    if (this.#isAsync) {
+      this.classList.remove('filter-async-active');
+      this.shadowRoot.querySelector('mdw-progress-linear').setAttribute('disabled', '');
+    }
     this.#options = [...this.querySelectorAll('mdw-option')];
     this.#options.filter(o => o.value === this.value).forEach(o => o.selected = true);
     if (!this.#initialOptions) this.#initialOptions = this.#options.map(o => o.outerHTML).join('');
@@ -338,5 +341,6 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
 
   #filterInputAsync() {
     this.classList.add('filter-async-active');
+    this.shadowRoot.querySelector('mdw-progress-linear').removeAttribute('disabled');
   }
 });

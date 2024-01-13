@@ -213,8 +213,8 @@ slot[name="leading-icon"]::slotted(mdw-icon) {
 
 .spinner {
   position: absolute;
-  left: calc(50% - 18px);
-  top: 1px;
+  top: 5px;
+  --mdw-progress-circular-stroke-width: 6;
 }
 
 :host(.async-pending) {

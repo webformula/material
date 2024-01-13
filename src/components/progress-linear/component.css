@@ -39,11 +39,18 @@
   animation-name: primary-indeterminate-scale;
 }
 
+:host([indeterminate][disabled]) .active-bar > .inner-bar {
+  animation: none;
+}
+
 
 :host([indeterminate]) .active-bar {
   inset-inline-start: -100%;
   animation: linear infinite 2s;
   animation-name: primary-indeterminate-translate;
+}
+:host([indeterminate][disabled]) .active-bar {
+  animation: none;
 }
 
 .inactive-bar .stop {

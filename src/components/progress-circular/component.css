@@ -34,6 +34,14 @@ circle {
   stroke: var(--mdw-primary);
 }
 
+:host(.on-filled) .active-track {
+  stroke: var(--mdw-on-primary);
+}
+
+:host(.on-filled-tonal) .active-track {
+  stroke: var(--mdw-on-secondary-container);
+}
+
 .inactive-track {
   stroke: var(--mdw-surface-container-highest);
 }

@@ -77,6 +77,8 @@ mdw-progress-linear {
   pointer-events: none;
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
 }
 
 :host(.filter-async-active) mdw-progress-linear {

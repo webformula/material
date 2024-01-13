@@ -153,7 +153,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   pending() {
     this.classList.add('async-pending');
     this.shadowRoot.querySelector('.spinner').innerHTML = `
-      <mdw-progress-circular diameter="28" class="mdw-indeterminate${this.classList.contains('filled') ? ' mdw-on-filled' : ''}${this.classList.contains('filled-tonal') ? ' mdw-on-filled-tonal' : ''}"></mdw-progress-circular>
+      <mdw-progress-circular style="width: 20px; height: 20px;" indeterminate class="${this.classList.contains('filled') ? ' on-filled' : ''}${this.classList.contains('filled-tonal') ? ' on-filled-tonal' : ''}"></mdw-progress-circular>
     `;
   }
 
