@@ -21,42 +21,34 @@
         <div class="headline">Example</div>
         <div class="mdw-supporting-text">There are two types of progress indicators: Linear and circular</div>
       </div>
-      <div class="mdw-card-content" style="display: flex; flex-direction: column; align-items: center;">
+      <div class="mdw-card-content" style="display: flex; flex-direction: column; gap: 24px">
         <mdw-progress-linear value="0.4"></mdw-progress-linear>
-        <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
+        <mdw-progress-circular value="0.4" style="margin: 0 auto;"></mdw-progress-circular>
       </div>
     </mdw-card>
+
+
     
     <mdw-card class="mdw-no-states" id="linear_determinate">
       <div class="mdw-card-content">
-        <div class="headline">Linear determinate</div>
+        <div class="headline">Linear</div>
         <div class="mdw-subhead">'max' attribute default = 1</div>
         
-        <div class="example">
-          <mdw-progress-linear value="0.4"></mdw-progress-linear>
+        <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="margin-top: 12px;">Determinate</div>
+          <mdw-progress-linear value="0.3"></mdw-progress-linear>
+          <div style="margin-top: 12px;">Indeterminate</div>
+          <mdw-progress-linear indeterminate></mdw-progress-linear>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- 'max' attribute default = 1 -->
-  <mdw-progress-linear value="0.4" max="1"></mdw-progress-linear>`)}
-        </code>
-      </pre>
-    </mdw-card>
-
-    <mdw-card class="mdw-no-states" id="linear_indeterminate">
-      <div class="mdw-card-content">
-        <div class="headline">Linear indeterminate</div>
-        
-        <div class="example">
-          <mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-progress-linear class="mdw-indeterminate"></mdw-progress-linear>`)}
+  ${page.escape(`<!-- Determinate: 'max' attribute default = 1 -->
+  <mdw-progress-linear value="0.3" max="1"></mdw-progress-linear>
+  
+  <!-- Indeterminate -->
+  <mdw-progress-linear indeterminate></mdw-progress-linear>`)}
         </code>
       </pre>
     </mdw-card>
@@ -66,31 +58,21 @@
         <div class="headline">Circular determinate</div>
         <div class="mdw-subhead">'max' attribute default = 1</div>
         
-        <div class="example">
-          <mdw-progress-circular value="0.4"></mdw-progress-circular>
+        <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="margin-top: 12px;">Determinate</div>
+          <mdw-progress-circular value="0.3"></mdw-progress-circular>
+          <div style="margin-top: 12px;">Indeterminate</div>
+          <mdw-progress-circular indeterminate></mdw-progress-circular>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- 'max' attribute default = 1 -->
-  <mdw-progress-circular value="0.4" max="1"></mdw-progress-circular>`)}
-        </code>
-      </pre>
-    </mdw-card>
-    
-    <mdw-card class="mdw-no-states" id="circular_indeterminate">     
-      <div class="mdw-card-content">
-        <div class="headline">Circular indeterminate</div>
-        
-        <div class="example">
-          <mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-progress-circular class="mdw-indeterminate"></mdw-progress-circular>`)}
+  ${page.escape(`<!-- Determinate: 'max' attribute default = 1 -->
+  <mdw-progress-circular value="0.3" max="1"></mdw-progress-circular>
+  
+  <!-- Indeterminate -->
+  <mdw-progress-circular indeterminate></mdw-progress-circular>`)}
         </code>
       </pre>
     </mdw-card>

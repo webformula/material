@@ -82,8 +82,11 @@ export default class HTMLComponentElement extends HTMLElement {
     switch (type) {
       case 'boolean':
         return value !== null && `${value}` !== 'false';
+      case 'int':
+        const int = parseInt(value);
+        return isNaN(int) ? '' : int;
       case 'number':
-        const num = parseInt(value);
+        const num = parseFloat(value);
         return isNaN(num) ? '' : num;
       case 'string':
         return value || '';

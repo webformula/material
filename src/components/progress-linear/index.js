@@ -1,61 +1,84 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
 
-customElements.define('mdw-progress-linear', class MDWProgressLinear extends HTMLElementExtended {
+// TODO animate inactive track so we can add spacing
+
+customElements.define('mdw-progress-linear', class MDWProgressLinearElement extends HTMLComponentElement {
   static useShadowRoot = true;
-  static useTemplate = false;
+  static useTemplate = true;
   static styleSheets = styles;
 
+  #value = 0;
   #max = 1;
-  #value = 1;
+  #indeterminate = false;
+  #activeBar;
+  #inactiveBar;
+
 
   constructor() {
     super();
-  }
 
-  connectedCallback() {
-    // if (!this.hasAttribute('role'))  this.setAttribute('role', 'progressbar');
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'progressbar');
-  }
-
-  static get observedAttributes() {
-    return ['max', 'value'];
-  }
-
-  attributeChangedCallback(name, _oldValue, newValue) {
-    this[name] = newValue;
-  }
-
-  get max() {
-    return this.#max;
-  }
-  set max(value) {
-    if (isNaN(value)) throw Error('Failed to set the \'max\' property on \'mdw-progress-linear\': Must provide a number');
-    this.#max = parseFloat(value);
-    if (this.#max < 1) this.#max = 1;
-    if (this.#value > this.#max) this.#value = this.#max;
-    if (this.rendered) {
-      this.shadowRoot.querySelector('.indicator').style.width = `${(this.#value / this.#max) * 100}%`;
-    }
-  }
-
-  get value() {
-    return this.#value;
-  }
-  set value(value) {
-    if (isNaN(value)) throw Error('Failed to set the \'value\' property on \'mdw-progress-linear\': Must provide a number');
-    this.#value = parseFloat(value);
-    if (this.#value < 0) this.#value = 0;
-    if (this.#value > this.#max) this.#value = this.#max;
-    if (this.rendered) {
-      this.shadowRoot.querySelector('.indicator').style.width = `${(this.#value / this.#max) * 100}%`;
-    }
+    this.role = 'progressbar';
+    this.render();
+    this.#activeBar = this.shadowRoot.querySelector('.active-bar');
+    this.#inactiveBar = this.shadowRoot.querySelector('.inactive-bar');
   }
 
   template() {
-    return /* html*/ `
-      <div class="indicator" style="width: ${(this.#value / this.#max) * 100}%;"></div>
+    return /*html*/`
+      <div class="dots"></div>
+      <div class="inactive-bar">
+        <div class="stop"></div>
+      </div>
+      <div class="active-bar">
+        <div class="inner-bar"></div>
+      </div>
     `;
+  }
+
+
+  static get observedAttributesExtended() {
+    return [
+      ['value', 'number'],
+      ['max', 'number'],
+      ['indeterminate', 'boolean']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
+  get max() { return this.#max; }
+  set max(value) {
+    this.#max = parseFloat(value);
+    if (this.#value > this.#max) this.#value = this.#max;
+    this.#updateProgress();
+  }
+
+  get value() { return this.#value; }
+  set value(value) {
+    this.#value = parseFloat(value);
+    if (this.#value < 0) this.#value = 0;
+    if (this.#value > this.#max) this.#value = this.#max;
+    this.#updateProgress();
+  }
+
+  get indeterminate() { return this.#indeterminate; }
+  set indeterminate(value) {
+    this.#indeterminate = !!value;
+    this.toggleAttribute('indeterminate', !!value);
+  }
+
+  #updateProgress() {
+    if (this.indeterminate) {
+      this.#activeBar.style.transform = '';
+      this.#inactiveBar.style.left = '';
+    } else {
+      const percent = this.value / this.max;
+      this.#activeBar.style.transform = `scaleX(${percent})`;
+      this.#inactiveBar.style.left = `${percent * 100}%`;
+    }
   }
 });
