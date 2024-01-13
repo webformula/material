@@ -1,32 +1,9 @@
 :host {
-  position: relative;
-  display: flex;
-  user-select: none;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  box-sizing: border-box;
-
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-
-  padding: 0 16px;
-  height: 40px;
-
+  border-radius: 0;
   color: var(--mdw-on-surface);
   border-left: 1px solid var(--mdw-outline);
   border-top: 1px solid var(--mdw-outline);
   border-bottom: 1px solid var(--mdw-outline);
-
-  align-items: center;
-  vertical-align: middle;
-}
-
-:host(.mdw-checked) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
 }
 
 :host(:last-of-type) {
@@ -38,92 +15,84 @@
   border-radius: var(--mdw-shape-extra-large) 0 0 var(--mdw-shape-extra-large);
 }
 
-:host(:hover)::after {
+:host(.checked) {
+  color: var(--mdw-on-secondary-container);
+  background-color: var(--mdw-secondary-container);
+}
+
+.check {
   opacity: 0;
+  width: 0;
+  pointer-events: none;
+  position: relative;
+  margin-top: -4px;
+  margin-left: -8px;
+  margin-right: -2px;
+  animation: uncheck;
+  animation-duration: var(--mdw-motion-duration-medium1);
 }
 
-:host::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  margin-left: -16px;
-  opacity: 0;
-  border-radius: inherit;
-}
-:host(:focus)::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-surface);
+:host(.checked:not(.no-checkmark)) .check {
+  opacity: 1;
+  width: 18px;
+  animation: check;
+  animation-duration: var(--mdw-motion-duration-medium1);
 }
 
-:host .slot-container {
-  display: flex;
+.check svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  stroke: var(--mdw-primary);
+  stroke-width: 4;
 }
 
-:host(.mdw-selected-icon) .slot-container {
-  transform: translateX(-10px);
-  transition: transform var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing);
+.check svg path {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  transition: stroke-dashoffset;
+  transition-duration: var(--mdw-motion-duration-medium1);
 }
 
-:host(.mdw-selected-icon.mdw-checked) .slot-container {
-  transform: translateX(0);
-  transition: transform var(--mdw-motion-duration-short4);
+:host(.checked:not(.no-checkmark)) .check svg path {
+  stroke-dashoffset: 0;
 }
 
-:host svg {
-  margin-left: -32px;
-  width: 32px;
-  transition: opacity var(--mdw-motion-duration-short2);
-  transition-timing-function: var(--mdw-motion-easing);
+:host(:not(.animation)) .check,
+:host(:not(.animation)) .check svg path {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
 }
 
-:host(.mdw-checked) svg {
-  margin-left: -12px;
-}
-
-:host svg path {
-  stroke-dashoffset: 22.910259;
-  stroke-dasharray: 22.910259;
-
-  stroke: var(--mdw-on-secondary-container);
-  animation: mdw-segmented-button-uncheck var(--mdw-motion-duration-short3);
-}
-
-:host svg path {
-  animation-duration: 0ms !important;
-}
-
-:host(.mdw-checked) svg path {
-  stroke-dashoffset: 12;
-  animation: mdw-segmented-button-check var(--mdw-motion-duration-short4);
-}
-
-@keyframes mdw-segmented-button-check {
-
-  0%,
-  50% {
-    stroke-dashoffset: 22.910259;
+@keyframes check {
+  0% {
+    width: 0px;
+    opacity: 0;
   }
 
   50% {
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1);
+    width: 18px;
+    opacity: 1;
   }
 
   100% {
-    stroke-dashoffset: 12;
+    width: 18px;
+    opacity: 1;
   }
 }
 
-@keyframes mdw-segmented-button-uncheck {
-  from {
-    animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    stroke-dasharray: 22.910259;
-    stroke-dashoffset: 12
+@keyframes uncheck {
+  0% {
+    width: 18px;
+    opacity: 1;
   }
 
-  to {
-    stroke-dasharray: 10;
-    stroke-dashoffset: 12
+  70% {
+    width: 18px;
+    opacity: 1;
+  }
+  100% { 
+    width: 0px;
+    opacity: 0;
   }
 }

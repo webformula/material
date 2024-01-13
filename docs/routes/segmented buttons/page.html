@@ -9,8 +9,8 @@
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <a href="#standard" role="listitem">Standard</a>
-      <a href="#select-icon" role="listitem">Select icon</a>
-      <a href="#multi-select" role="listitem">Multi select</a>
+      <a href="#select-icon" role="listitem">No checkmarks</a>
+      <a href="#multi-select" role="listitem">Multiple select</a>
     </ul>
   </nav>
 
@@ -20,23 +20,23 @@
         <div class="headline">Standard</div>
         
         <div class="example">
-          <mdw-segmented-button-group>
+          <mdw-segmented-button-set>
             <mdw-segmented-button checked value="1">
-              <mdw-icon>format_align_right</mdw-icon>
+              <mdw-icon slot="leading-icon">format_align_right</mdw-icon>
             </mdw-segmented-button>
             <mdw-segmented-button value="2">
-              <mdw-icon>format_align_center</mdw-icon>
+              <mdw-icon slot="leading-icon">format_align_center</mdw-icon>
             </mdw-segmented-button>
             <mdw-segmented-button value="3">
-              <mdw-icon>format_align_left</mdw-icon>
+              <mdw-icon slot="leading-icon">format_align_left</mdw-icon>
             </mdw-segmented-button>
-          </mdw-segmented-button-group>
+          </mdw-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-group>
+  ${page.escape(`<mdw-segmented-button-set>
     <mdw-segmented-button checked value="1">
       <mdw-icon>format_align_right</mdw-icon>
     </mdw-segmented-button>
@@ -46,37 +46,31 @@
     <mdw-segmented-button value="3">
       <mdw-icon>format_align_left</mdw-icon>
     </mdw-segmented-button>
-  </mdw-segmented-button-group>`)}
+  </mdw-segmented-button-set>`)}
         </code>
       </pre>
     </mdw-card>
 
     <mdw-card id="select-icons">
       <div class="mdw-card-content">
-        <div class="headline">Select icons</div>
+        <div class="headline">No checkmarks</div>
         
         <div class="example">
-          <mdw-segmented-button-group class="mdw-checked-icon">
-            <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-            <mdw-segmented-button value="two">Two</mdw-segmented-button>
-            <mdw-segmented-button value="three">Three</mdw-segmented-button>
-          </mdw-segmented-button-group>
+          <mdw-segmented-button-set>
+            <mdw-segmented-button no-checkmark checked value="one">One</mdw-segmented-button>
+            <mdw-segmented-button no-checkmark value="two">Two</mdw-segmented-button>
+            <mdw-segmented-button no-checkmark value="three">Three</mdw-segmented-button>
+          </mdw-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-group class="mdw-checked-icon">
-    <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-    <mdw-segmented-button value="two">Two</mdw-segmented-button>
-    <mdw-segmented-button value="three">Three</mdw-segmented-button>
-  </mdw-segmented-button-group>`)}
-        </code>
-      </pre>
-      
-      <pre>
-        <code class="language-javascript">
-  ${`console.log(document.querySelector('#multi-select').value); // "one"`}
+  ${page.escape(`<mdw-segmented-button-set>
+    <mdw-segmented-button no-checkmark checked value="one">One</mdw-segmented-button>
+    <mdw-segmented-button no-checkmark value="two">Two</mdw-segmented-button>
+    <mdw-segmented-button no-checkmark value="three">Three</mdw-segmented-button>
+  </mdw-segmented-button-set>`)}
         </code>
       </pre>
     </mdw-card>
@@ -84,31 +78,30 @@
 
     <mdw-card id="multi-select">
       <div class="mdw-card-content">
-        <div class="headline">Multi select</div>
+        <div class="headline">Multiple select</div>
         
         <div class="example">
-          <mdw-segmented-button-group id="multi-select" class="mdw-multi-select">
+          <mdw-segmented-button-set id="multi-select" multiple>
             <mdw-segmented-button checked value="one">One</mdw-segmented-button>
             <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
             <mdw-segmented-button value="three">Three</mdw-segmented-button>
-          </mdw-segmented-button-group>
+          </mdw-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-group id="multi-select" class="mdw-multi-select">
+  ${page.escape(`<mdw-segmented-button-set id="multi-select" multiple>
     <mdw-segmented-button checked value="one">One</mdw-segmented-button>
     <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
     <mdw-segmented-button value="three">Three</mdw-segmented-button>
-  </mdw-segmented-button-group>`)}
+  </mdw-segmented-button-set>`)}
         </code>
       </pre>
       
       <pre>
         <code class="language-javascript">
-  ${`console.log(document.querySelector('#multi-select').value); // "one,two"
-  console.log(document.querySelector('#multi-select').multiValue); // ["one","two"]`}
+  ${`console.log(document.querySelector('#multi-select').value); // "one,two"`}
         </code>
       </pre>
     </mdw-card>

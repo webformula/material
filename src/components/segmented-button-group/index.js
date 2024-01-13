@@ -1,2 +1,2 @@
-import './segmented-button-group.js';
+import './segmented-button-set.js';
 import './segmented-button.js';
