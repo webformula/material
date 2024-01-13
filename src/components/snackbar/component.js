@@ -1,19 +1,17 @@
-import MDWPanelElement from '../panel/component.js';
+import MDWSurfaceElement from '../surface/component.js';
+import styles from './component.css' assert { type: 'css' };
 
 
-customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWPanelElement {
+customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWSurfaceElement {
+  static styleSheets = styles;
+  
   constructor() {
     super();
 
-    this.animation = 'transitionYReverse';
-    this.clickOutsideClose = false;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    
-    this.setAttribute('role', 'alertdialog');
-    const textDiv = this.querySelector('.mdw-text');
-    if (textDiv) this.setAttribute('aria-label', textDiv.innerHTML);
+    this.role = 'alertdialog';
+    this.allowClose = false;
+    this.animation = 'translate-y';
+    this.position = 'bottom left';
+    this.fixed = true;
   }
 });

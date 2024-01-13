@@ -17,18 +17,18 @@ const mdwSnackbar = new class mdwSnackbar {
     if (!params.message) throw Error('Message required');
     if (params.closeButton === undefined) params.closeButton = true;
 
-    const snackbar = document.createElement('mdw-snackbar');
-    if (params.twoLine) snackbar.classList.add('mdw-line-two');
-    snackbar.innerHTML = /*html*/`
-      <div class="mdw-text">${params.message}</div>
-      ${!params.actionLabel ? '' : `<mdw-button onclick="mdwSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
-      ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
-    `;
-    document.body.insertAdjacentElement('beforeend', snackbar);
+    const id = `mdw-snackbar-${util.uid()}`;
+    document.body.insertAdjacentHTML('beforeend', /*html*/`
+      <mdw-snackbar id="${id}" ${params.twoLine ? 'class="two-line"' : ''}>
+        <div class="mdw-text">${params.message}</div>
+        ${!params.actionLabel ? '' : `<mdw-button onclick="mdwSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
+        ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
+      </mdw-snackbar>
+    `);
 
     return new Promise(resolve => {
       this.#snackbarQueue.push({
-        snackbar,
+        snackbar: document.querySelector(`#${id}`),
         resolve,
         time: params.time || this.defaultTime
       });
