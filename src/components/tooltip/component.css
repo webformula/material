@@ -1,6 +1,14 @@
-mdw-tooltip {
+:host {
+  min-width: 20px;
   pointer-events: none;
-  position: fixed;
+  border-radius: var(--mdw-shape-extra-small);
+}
+
+.surface {
+  pointer-events: none;
+}
+
+.surface-content {
   height: 24px;
   padding: 0 8px;
   font-size: var(--mdw-font-small-label-size);
@@ -11,16 +19,11 @@ mdw-tooltip {
   border-radius: var(--mdw-shape-extra-small);
   background-color: var(--mdw-surface-inverse);
   color: var(--mdw-on-surface-inverse);
-
-  z-index: 11;
-  opacity: 0;
 }
 
-mdw-tooltip.show {
-  opacity: 1;
-}
 
-mdw-tooltip.mdw-rich {
+
+/* mdw-tooltip.mdw-rich {
   height: auto;
   min-height: 24px;
   max-width: 300px;
@@ -59,4 +62,4 @@ mdw-tooltip.mdw-rich .mdw-supporting-text {
 mdw-tooltip.mdw-rich .mdw-actions {
   padding-top: 12px;
   margin-left: -12px;
-}
+} */

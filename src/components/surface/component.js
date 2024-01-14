@@ -186,6 +186,13 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     else window.removeEventListener('mousedown', this.#setMousePosition_bound);
   }
 
+  set mouseX(value) {
+    this.#mouseX = value;
+  }
+  set mouseY(value) {
+    this.#mouseY = value;
+  }
+
   get overlap() { return this.#overlap; }
   set overlap(value) { this.#overlap = !!value; }
 
@@ -285,7 +292,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   #getMousePosition() {
     const { clientWidth, clientHeight } = document.documentElement;
     const offsetParent = this.#surfaceElement.offsetParent;
-    const offsetParentBounds = offsetParent.getBoundingClientRect();
+    const offsetParentBounds = (offsetParent || document.body).getBoundingClientRect();
 
     return {
       clientHeight,
