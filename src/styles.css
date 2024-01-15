@@ -13,14 +13,14 @@
 @import url('./components/date-picker/desktop-range-global.css');
 @import url('./components/date-picker/mobile-global.css');
 @import url('./components/date-picker/mobile-range-global.css');
-@import url('./components/list/global.css');
+@import url('./components/divider/global.css');
 @import url('./components/panel/global.css');
 @import url('./components/search/search-global.css');
 @import url('./components/search/suggestions-global.css');
 @import url('./components/side-sheet/global.css');
-@import url('./components/tab/tab-bar-global.css');
-@import url('./components/tab/tab-content-global.css');
-@import url('./components/tab/tab-global.css');
-@import url('./components/tab/tab-panel-global.css');
+/* @import url('./components/tab/tab-bar-global.css'); */
+/* @import url('./components/tab/tab-content-global.css'); */
+/* @import url('./components/tab/tab-global.css'); */
+/* @import url('./components/tab/tab-panel-global.css'); */
 @import url('./components/time-picker/global.css');
 @import url('./components/top-app-bar/global.css');

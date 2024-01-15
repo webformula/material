@@ -8,13 +8,11 @@
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <a href="#standard" role="listitem">Standard</a>
-      <a href="#icons-avatars" role="listitem">Icons and avatars</a>
-      <a href="#post-icons-actions" role="listitem">Post icons and actions</a>
+      <a href="#icons-avatars" role="listitem">Start, end, trailing, overline</a>
+      <a href="#selection" role="listitem">Selection</a>
       <a href="#header" role="listitem">Header</a>
-      <a href="#divider" role="listitem">Divider</a>
+      <a href="#states" role="listitem">States and ripple</a>
       <a href="#swipe-actions" role="listitem">Swipe actions</a>
-      <a href="#select" role="listitem">Select</a>
-      <a href="#select-multi" role="listitem">Select multiple</a>
     </ul>
   </nav>
 
@@ -24,98 +22,135 @@
         <div class="headline">Example</div>
       </div>
       <div class="mdw-card-content">
-        <mdw-list class="mdw-line-two">
-          <mdw-list-item value="1">
-            <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-              <mdw-icon>delete</mdw-icon>
-            </mdw-list-item-action-start>
-            <mdw-avatar><img alt="avatar"
-                src="./woman.jpg">
+        <mdw-list>
+          <mdw-list-item>
+            <mdw-avatar slot="start">
+              <img alt="avatar" src="./woman.jpg">
             </mdw-avatar>
-            <div class="mdw-text">
-              <div class="headline">Primary text</div>
-              <div class="mdw-supporting-text">Secondary</div>
-            </div>
-            <mdw-icon class="mdw-action" action="delete" remove>delete</mdw-icon>
-            <mdw-icon class="mdw-action" action="archive">edit</mdw-icon>
-            <mdw-list-item-action-end action="archive">
-              <div class="mdw-text">Archive</div>
-            </mdw-list-item-action-end>
+
+            <div slot="headline">Headline</div>
+            <div slot="supporting-text">Supporting text</div>
+
+            <div slot="trailing-supporting-text">trailing</div>
           </mdw-list-item>
-    
-          <mdw-list-item value="2">
-            <mdw-avatar class="mdw-tertiary">AS</mdw-avatar>
-            <div class="mdw-text">
-              <div class="headline">Primary text</div>
-              <div class="mdw-supporting-text">Secondary</div>
-            </div>
-            <mdw-button class="mdw-icon-button">
-              <mdw-icon>delete</mdw-icon>
-            </mdw-button>
-            <mdw-button class="mdw-icon-button">
-              <mdw-icon>edit</mdw-icon>
-            </mdw-button>
-          </mdw-list-item>
-    
-          <mdw-list-item value="3">
-            <mdw-avatar class="mdw-tertiary">
-              <mdw-icon>person</mdw-icon>
+
+          <mdw-list-item>
+            <mdw-avatar slot="start">
+              <img alt="avatar" src="./woman.jpg">
             </mdw-avatar>
-            <div class="mdw-text">
-              <div class="headline">Primary text</div>
-              <div class="mdw-supporting-text">Secondary</div>
-            </div>
-            <mdw-icon>delete</mdw-icon>
-            <mdw-icon>edit</mdw-icon>
+            
+            <div slot="overline">overline</div>
+            <div slot="headline">Headline</div>
+            <div slot="supporting-text">Supporting text</div>
+          
+            <mdw-icon slot="end">edit</mdw-icon>
+            <mdw-icon slot="end">delete</mdw-icon>
           </mdw-list-item>
-    
-          <div class="mdw-divider mdw-inset">
-            Divider header
-          </div>
-    
-          <mdw-list-item value="4">
-            <mdw-icon>inbox</mdw-icon>
-            <div class="mdw-text">
-              <div class="headline">Primary text</div>
-              <div class="mdw-supporting-text">Secondary</div>
+
+          <mdw-list-item multiline>
+            <div slot="headline">Multiline</div>
+            <div slot="supporting-text">
+              <div>Line one</div>
+              <div>Line two</div>
             </div>
-            <mdw-icon>delete</mdw-icon>
-            <mdw-icon>edit</mdw-icon>
+          
+            <mdw-checkbox slot="end"></mdw-checkbox>
           </mdw-list-item>
-    
+
+          <mdw-list-item states>
+            <div slot="headline">States</div>
+            <mdw-checkbox slot="end"></mdw-checkbox>
+          </mdw-list-item>
+
+          <mdw-divider></mdw-divider>
+
+          <mdw-list-item>
+            <mdw-icon slot="start">home</mdw-icon>
+            <div slot="headline">Headline</div>
+            <div slot="trailing-supporting-text">trailing</div>
+            <mdw-icon slot="end">settings</mdw-icon>
+          </mdw-list-item>
         </mdw-list>
       </div>
+
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-list>
+    <mdw-list-item>
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+  
+      <div slot="headline">Headline</div>
+      <div slot="supporting-text">Supporting text</div>
+  
+      <div slot="trailing-supporting-text">trailing</div>
+    </mdw-list-item>
+  
+    <mdw-list-item>
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+  
+      <div slot="overline">overline</div>
+      <div slot="headline">Headline</div>
+      <div slot="supporting-text">Supporting text</div>
+  
+      <mdw-icon slot="end">edit</mdw-icon>
+      <mdw-icon slot="end">delete</mdw-icon>
+    </mdw-list-item>
+  
+    <mdw-list-item multiline>
+      <div slot="headline">Multiline</div>
+      <div slot="supporting-text">
+        <div>Line one</div>
+        <div>Line two</div>
+      </div>
+  
+      <mdw-checkbox slot="end"></mdw-checkbox>
+    </mdw-list-item>
+  
+    <mdw-list-item states>
+      <div slot="headline">States</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
+    </mdw-list-item>
+  
+    <mdw-divider></mdw-divider>
+  
+    <mdw-list-item>
+      <mdw-icon slot="start">home</mdw-icon>
+      <div slot="headline">Headline</div>
+      <div slot="trailing-supporting-text">trailing</div>
+      <mdw-icon slot="end">settings</mdw-icon>
+    </mdw-list-item>
+  </mdw-list>`)}
+        </code>
+      </pre>
     </mdw-card>
     
     <mdw-card class="" id="standard">
       <div class="mdw-card-content">
-        <div class="headline">Single line, Two line, Three line</div>
+        <div class="headline">Multiline</div>
         
         <div class="example">
           <mdw-list>
             <mdw-list-item>
-              <mdw-icon>inbox</mdw-icon>
-              One
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="headline">Single line</div>
             </mdw-list-item>
-          </mdw-list>
-        
-          <mdw-list class="mdw-line-two">
-            <mdw-list-item>
-              <mdw-icon>inbox</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Two line: Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-          </mdw-list>
 
-          <mdw-list class="mdw-line-three">
-            <mdw-list-item>
-              <mdw-icon>inbox</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Three line: Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-                <div class="mdw-supporting-text">Secondary</div>
+            <mdw-list-item multiline>
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="headline">Line one</div>
+              <div slot="supporting-text">Line two</div>
+            </mdw-list-item>
+          
+            <mdw-list-item multiline>
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="headline">Line one</div>
+              <div slot="supporting-text">
+                <div>Line two</div>
+                <div>Line three</div>
               </div>
             </mdw-list-item>
           </mdw-list>
@@ -126,28 +161,22 @@
         <code class="language-html">
   ${page.escape(`<mdw-list>
     <mdw-list-item>
-      <mdw-icon>inbox</mdw-icon>
-      One
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="headline">Single line</div>
     </mdw-list-item>
-  </mdw-list>
   
-  <mdw-list class="mdw-line-two">
-    <mdw-list-item>
-      <mdw-icon>inbox</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Two line: Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+    <mdw-list-item multiline>
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="headline">Line one</div>
+      <div slot="supporting-text">Line two</div>
     </mdw-list-item>
-  </mdw-list>
   
-  <mdw-list class="mdw-line-three">
-    <mdw-list-item>
-      <mdw-icon>inbox</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Three line: Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-        <div class="mdw-supporting-text">Secondary</div>
+    <mdw-list-item multiline>
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="headline">Line one</div>
+      <div slot="supporting-text">
+        <div>Line two</div>
+        <div>Line three</div>
       </div>
     </mdw-list-item>
   </mdw-list>`)}
@@ -158,34 +187,40 @@
 
     <mdw-card class="" id="icons-avatars">
       <div class="mdw-card-content">
-        <div class="headline">Icon, Avatar img, Avatar text</div>
+        <div class="headline">Start, end, trailing, overline</div>
         
         <div class="example">
-          <mdw-list class="mdw-line-two">
+          <mdw-list>
             <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-avatar><img alt="avatar"
-                  src="./woman.jpg">
+              <mdw-avatar slot="start">
+                <img alt="avatar" src="./woman.jpg">
               </mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
+              <div slot="headline">Avatar</div>
             </mdw-list-item>
-        
+          
             <mdw-list-item>
-              <mdw-avatar class="mdw-tertiary">AS</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="headline">Icons</div>
+              <mdw-icon slot="end">edit</mdw-icon>
+            </mdw-list-item>
+
+            <mdw-list-item>
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="headline">Icon buttons</div>
+              <div slot="supporting-text">Hover to show more buttons</div>
+              <mdw-icon-button slot="end" hover-only>
+                <mdw-icon>delete</mdw-icon>
+              </mdw-icon-button>
+              <mdw-icon-button slot="end">
+                <mdw-icon>edit</mdw-icon>
+              </mdw-icon-button>
+            </mdw-list-item>
+
+            <mdw-list-item>
+              <mdw-icon slot="start">inbox</mdw-icon>
+              <div slot="overline">Overline</div>
+              <div slot="headline">Headline</div>
+              <div slot="trailing-supporting-text">trailing</div>
             </mdw-list-item>
           </mdw-list>
         </div>
@@ -193,31 +228,37 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-line-two">
+  ${page.escape(`<mdw-list>
     <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
-  
-    <mdw-list-item>
-      <mdw-avatar><img alt="avatar"
-          src="./woman.jpg">
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
       </mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+      <div slot="headline">Avatar</div>
     </mdw-list-item>
   
     <mdw-list-item>
-      <mdw-avatar class="mdw-tertiary">AS</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="headline">Icons</div>
+      <mdw-icon slot="end">edit</mdw-icon>
+    </mdw-list-item>
+  
+    <mdw-list-item>
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="headline">Icon buttons</div>
+      <div slot="supporting-text">Hover to show more buttons</div>
+      <mdw-icon-button slot="end" hover-only>
+        <mdw-icon>delete</mdw-icon>
+      </mdw-icon-button>
+      <mdw-icon-button slot="end">
+        <mdw-icon>edit</mdw-icon>
+      </mdw-icon-button>
+    </mdw-list-item>
+  
+    <mdw-list-item>
+      <mdw-icon slot="start">inbox</mdw-icon>
+      <div slot="overline">Overline</div>
+      <div slot="headline">Headline</div>
+      <div slot="trailing-supporting-text">trailing</div>
     </mdw-list-item>
   </mdw-list>`)}
         </code>
@@ -225,44 +266,42 @@
     </mdw-card>
 
 
-    <mdw-card class="" id="post-icons-actions">
+    <mdw-card class="" id="selection">
       <div class="mdw-card-content">
-        <div class="headline">Post icon action</div>
+        <div class="headline">Selection</div>
         
         <div class="example">
-          <mdw-list class="mdw-line-two" id="post-icon-actions-list">
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Icon buttons</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-button class="mdw-icon-button mdw-action" action="delete" action-remove>
-                <mdw-icon>delete</mdw-icon>
-              </mdw-button>
-              <mdw-button class="mdw-icon-button mdw-action" action="edit">
-                <mdw-icon>edit</mdw-icon>
-              </mdw-button>
+          <mdw-list onchange="console.log(this.value)">
+            <mdw-list-item selected value="1">
+              <mdw-avatar slot="start">
+                <img alt="avatar" src="./woman.jpg">
+              </mdw-avatar>
+              <div slot="headline">Headline</div>
+              <mdw-checkbox slot="end"></mdw-checkbox>
             </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Hide action until hover</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-icon class="mdw-action auto-hide-action" action="delete" action-remove>delete</mdw-icon>
-              <mdw-icon class="mdw-action auto-hide-action" action="edit">edit</mdw-icon>
+          
+            <mdw-list-item value="2">
+              <mdw-avatar slot="start">
+                <img alt="avatar" src="./woman.jpg">
+              </mdw-avatar>
+              <div slot="headline">Headline</div>
+              <mdw-checkbox slot="end"></mdw-checkbox>
             </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">No actions</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-icon>delete</mdw-icon>
-              <mdw-icon>edit</mdw-icon>
+
+            <mdw-list-item value="3">
+              <mdw-avatar slot="start">
+                <img alt="avatar" src="./woman.jpg">
+              </mdw-avatar>
+              <div slot="headline">Headline</div>
+              <mdw-switch slot="end"></mdw-switch>
+            </mdw-list-item>
+            
+            <mdw-list-item value="4">
+              <mdw-avatar slot="start">
+                <img alt="avatar" src="./woman.jpg">
+              </mdw-avatar>
+              <div slot="headline">Headline</div>
+              <mdw-switch slot="end"></mdw-switch>
             </mdw-list-item>
           </mdw-list>
         </div>
@@ -270,39 +309,37 @@
       
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-line-two" id="post-icon-actions-list">
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Icon buttons</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-button class="mdw-icon-button mdw-action" action="delete" action-remove>
-        <mdw-icon>delete</mdw-icon>
-      </mdw-button>
-      <mdw-button class="mdw-icon-button mdw-action" action="edit">
-        <mdw-icon>edit</mdw-icon>
-      </mdw-button>
+  ${page.escape(`<mdw-list id="selection-list">
+    <mdw-list-item selected value="1">
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+      <div slot="headline">Headline</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
     </mdw-list-item>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Hide action until hover</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-icon class="mdw-action auto-hide-action" action="delete" action-remove>delete</mdw-icon>
-      <mdw-icon class="mdw-action auto-hide-action" action="edit">edit</mdw-icon>
+    <mdw-list-item value="2">
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+      <div slot="headline">Headline</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
     </mdw-list-item>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">No actions</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-icon>delete</mdw-icon>
-      <mdw-icon>edit</mdw-icon>
+    <mdw-list-item value="3">
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+      <div slot="headline">Headline</div>
+      <mdw-switch slot="end"></mdw-switch>
+    </mdw-list-item>
+  
+    <mdw-list-item value="4">
+      <mdw-avatar slot="start">
+        <img alt="avatar" src="./woman.jpg">
+      </mdw-avatar>
+      <div slot="headline">Headline</div>
+      <mdw-switch slot="end"></mdw-switch>
     </mdw-list-item>
   </mdw-list>`)}
         </code>
@@ -310,14 +347,9 @@
       
       <pre>
         <code class="language-javascript">
-  ${`document.querySelector('#post-icon-actions-list').addEventListener('change', (event) => {
-    if (event.detail?.action === 'delete') {
-      console.log('delete action on list-item', event.detail)
-    }
-    
-    if (event.detail?.action === 'edit') {
-      console.log('delete action on list-item', event.detail)
-    }
+  ${`document.querySelector('#selection-list').addEventListener('change', event => {
+    console.log(event.target.value); // "1,2"
+    console.log(event.target.values); // ['1', '2']
   });`}
         </code>
       </pre>
@@ -329,112 +361,182 @@
         <div class="headline">Header</div>
         
         <div class="example">
-          <mdw-list class="mdw-line-two" style="overflow: scroll; height: 200px;">
-            <div class="mdw-sub-header mdw-inset">Section one</div>
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <div class="mdw-sub-header mdw-inset">Section two</div>
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
+          <mdw-list style="overflow: scroll; height: 260px;">
+            <section>
+              <mdw-list-subheader>Section one</mdw-list-subheader>
+
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            </section>
+
+
+            <section>
+              <mdw-list-subheader>Section two</mdw-list-subheader>
+
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+              
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+              
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            </section>
+
+            <section>
+              <mdw-list-subheader>Section three</mdw-list-subheader>
+            
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            
+              <mdw-list-item multiline>
+                <mdw-icon slot="start">person</mdw-icon>
+                <div slot="headline">Headline</div>
+                <div slot="supporting-text">Supporting text</div>
+              </mdw-list-item>
+            </section>
           </mdw-list>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-line-two">
-    <div class="mdw-sub-header mdw-inset">Section one</div>
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+  ${page.escape(`<mdw-list style="overflow: scroll; height: 260px;">
+    <section>
+      <mdw-list-subheader>Section one</mdw-list-subheader>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
   
-    <div class="mdw-sub-header mdw-inset">Section two</div>
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+    </section>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
+  
+    <section>
+      <mdw-list-subheader>Section two</mdw-list-subheader>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+    </section>
+  
+    <section>
+      <mdw-list-subheader>Section three</mdw-list-subheader>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+  
+      <mdw-list-item multiline>
+        <mdw-icon slot="start">person</mdw-icon>
+        <div slot="headline">Headline</div>
+        <div slot="supporting-text">Supporting text</div>
+      </mdw-list-item>
+    </section>
   </mdw-list>`)}
         </code>
       </pre>
@@ -442,40 +544,28 @@
 
 
 
-    <mdw-card class="" id="divider">
+    <mdw-card class="" id="states">
       <div class="mdw-card-content">
-        <div class="headline">Divider, Divider inset, Divider header</div>
+        <div class="headline">States</div>
         
         <div class="example">
-          <mdw-list class="mdw-line-two">
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
+          <mdw-list>
+            <mdw-list-item states>
+              <mdw-icon slot="start">person</mdw-icon>
+              <div slot="headline">States</div>
+              <mdw-checkbox slot="end"></mdw-checkbox>
             </mdw-list-item>
-        
-            <div class="mdw-divider mdw-inset">
-              Divider header
-            </div>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
+
+            <mdw-list-item ripple>
+              <mdw-icon slot="start">person</mdw-icon>
+              <div slot="headline">Ripple</div>
+              <mdw-checkbox slot="end"></mdw-checkbox>
             </mdw-list-item>
-        
-            <div class="mdw-divider"></div>
-        
-            <mdw-list-item>
-              <mdw-icon>person</mdw-icon>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
+
+            <mdw-list-item states ripple>
+              <mdw-icon slot="start">person</mdw-icon>
+              <div slot="headline">States and ripple</div>
+              <mdw-checkbox slot="end"></mdw-checkbox>
             </mdw-list-item>
           </mdw-list>
         </div>
@@ -483,35 +573,23 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-line-two">
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+  ${page.escape(`<mdw-list>
+    <mdw-list-item states>
+      <mdw-icon slot="start">person</mdw-icon>
+      <div slot="headline">States</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
     </mdw-list-item>
-
-    <div class="mdw-divider mdw-inset">
-      Divider header
-    </div>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+    <mdw-list-item ripple>
+      <mdw-icon slot="start">person</mdw-icon>
+      <div slot="headline">Ripple</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
     </mdw-list-item>
-
-    <div class="mdw-divider"></div>
   
-    <mdw-list-item>
-      <mdw-icon>person</mdw-icon>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
+    <mdw-list-item states ripple>
+      <mdw-icon slot="start">person</mdw-icon>
+      <div slot="headline">States and ripple</div>
+      <mdw-checkbox slot="end"></mdw-checkbox>
     </mdw-list-item>
   </mdw-list>`)}
         </code>
@@ -525,53 +603,26 @@
         <div class="headline">Swipe actions (mobile only)</div>
         
         <div class="example">
-          <mdw-list class="mdw-line-two" id="swipe-actions-list">
-            <mdw-list-item value="1">
-              <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-                <mdw-icon>delete</mdw-icon>
-              </mdw-list-item-action-start>
-              <mdw-avatar>BR</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-              <mdw-list-item-action-end action="archive">
-                <div class="mdw-text">Archive</div>
-              </mdw-list-item-action-end>
+          <mdw-list id="swipe-list">
+            <mdw-list-item>
+              <mdw-icon slot="swipe-start">delete</mdw-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+              <mdw-icon slot="swipe-end">delete</mdw-icon>
             </mdw-list-item>
-        
-            <mdw-list-item value="2">
-              <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-                <mdw-icon>delete</mdw-icon>
-              </mdw-list-item-action-start>
-              <mdw-avatar>BR</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-              <mdw-list-item-action-end action="archive">
-                <div class="mdw-text">Archive</div>
-              </mdw-list-item-action-end>
+
+            <mdw-list-item>
+              <mdw-icon slot="swipe-start">delete</mdw-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+              <mdw-icon slot="swipe-end">delete</mdw-icon>
             </mdw-list-item>
-        
-            <mdw-list-item value="3">
-              <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-                <mdw-icon>delete</mdw-icon>
-              </mdw-list-item-action-start>
-              <mdw-avatar>BR</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Primary text</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-              <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-              <mdw-list-item-action-end action="archive">
-                <div class="mdw-text">Archive</div>
-              </mdw-list-item-action-end>
+
+            <mdw-list-item>
+              <mdw-icon slot="swipe-start">delete</mdw-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+              <mdw-icon slot="swipe-end">delete</mdw-icon>
             </mdw-list-item>
           </mdw-list>
         </div>
@@ -579,53 +630,26 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-line-two" id="swipe-actions-list">
-    <mdw-list-item value="1">
-      <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-        <mdw-icon>delete</mdw-icon>
-      </mdw-list-item-action-start>
-      <mdw-avatar>BR</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-      <mdw-list-item-action-end action="archive">
-        <div class="mdw-text">Archive</div>
-      </mdw-list-item-action-end>
+  ${page.escape(`<mdw-list id="swipe-list">
+    <mdw-list-item>
+      <mdw-icon slot="swipe-start">delete</mdw-icon>
+      <div slot="headline">Headline</div>
+      <div slot="supporting-text">Supporting text</div>
+      <mdw-icon slot="swipe-end">delete</mdw-icon>
     </mdw-list-item>
   
-    <mdw-list-item value="2">
-      <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-        <mdw-icon>delete</mdw-icon>
-      </mdw-list-item-action-start>
-      <mdw-avatar>BR</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-      <mdw-list-item-action-end action="archive">
-        <div class="mdw-text">Archive</div>
-      </mdw-list-item-action-end>
+    <mdw-list-item>
+      <mdw-icon slot="swipe-start">delete</mdw-icon>
+      <div slot="headline">Headline</div>
+      <div slot="supporting-text">Supporting text</div>
+      <mdw-icon slot="swipe-end">delete</mdw-icon>
     </mdw-list-item>
   
-    <mdw-list-item value="3">
-      <mdw-list-item-action-start action="delete" action-remove class="mdw-error">
-        <mdw-icon>delete</mdw-icon>
-      </mdw-list-item-action-start>
-      <mdw-avatar>BR</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Primary text</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="delete" action-remove>delete</mdw-icon>
-      <mdw-icon class="mdw-action mdw-mobile-hide" action="archive">edit</mdw-icon>
-      <mdw-list-item-action-end action="archive">
-        <div class="mdw-text">Archive</div>
-      </mdw-list-item-action-end>
+    <mdw-list-item>
+      <mdw-icon slot="swipe-start">delete</mdw-icon>
+      <div slot="headline">Headline</div>
+      <div slot="supporting-text">Supporting text</div>
+      <mdw-icon slot="swipe-end">delete</mdw-icon>
     </mdw-list-item>
   </mdw-list>`)}
         </code>
@@ -633,155 +657,13 @@
       
       <pre>
         <code class="language-javascript">
-  ${`document.querySelector('#swipe-actions-list').addEventListener('change', (event) => {
-    if (event.detail?.action === 'delete') {
-      console.log('delete action on list-item', event.detail)
-    }
-    
-    if (event.detail?.action === 'edit') {
-      console.log('delete action on list-item', event.detail)
-    }
+  ${`document.querySelector('#swipe-actions').addEventListener('swipeactionstart', event => {
+    event.target.remove();
+  });
+  
+  document.querySelector('#swipe-actions').addEventListener('swipeactionend', event => {
+    console.log('end', event.target);
   });`}
-        </code>
-      </pre>
-    </mdw-card>
-
-
-    <mdw-card class="" id="select">
-      <div class="mdw-card-content">
-        <div class="headline">Select</div>
-        
-        <div class="example">
-          <mdw-list class="mdw-select" value="1" onchange="page.selectChange(this.value)">
-            <mdw-list-item value="1">
-              <div class="mdw-text">
-                <div class="headline">One</div>
-              </div>
-              <mdw-checkbox></mdw-checkbox>
-            </mdw-list-item>
-        
-            <mdw-list-item value="2">
-              <div class="mdw-text">
-                <div class="headline">Two</div>
-              </div>
-              <mdw-checkbox></mdw-checkbox>
-            </mdw-list-item>
-        
-            <mdw-list-item value="3">
-              <div class="mdw-text">
-                <div class="headline">Three</div>
-              </div>
-              <mdw-checkbox></mdw-checkbox>
-            </mdw-list-item>
-          </mdw-list>
-        </div>
-      </div>
-      
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-select" value="1" onchange="window.selectChange(this.value)">
-    <mdw-list-item value="1">
-      <div class="mdw-text">
-        <div class="headline">One</div>
-      </div>
-      <mdw-checkbox></mdw-checkbox>
-    </mdw-list-item>
-  
-    <mdw-list-item value="2">
-      <div class="mdw-text">
-        <div class="headline">Two</div>
-      </div>
-      <mdw-checkbox></mdw-checkbox>
-    </mdw-list-item>
-
-    <mdw-list-item value="3">
-      <div class="mdw-text">
-        <div class="headline">Three</div>
-      </div>
-      <mdw-checkbox></mdw-checkbox>
-    </mdw-list-item>
-  </mdw-list>`)}
-        </code>
-      </pre>
-      
-      <pre>
-        <code class="language-javascript">
-  ${`window.selectChange = value => {
-    console.log('select value', value);
-  };`}
-        </code>
-      </pre>
-    </mdw-card>
-
-
-    <mdw-card class="" id="select-multi">
-      <div class="mdw-card-content">
-        <div class="headline">Select multiple using avatars</div>
-        
-        <div class="example">
-          <mdw-list class="mdw-select-multiple mdw-line-two" value="1,2" onchange="page.selectMultipleChange(this.value)">
-            <mdw-list-item value="1">
-              <mdw-avatar class="mdw-tertiary">BR</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">One</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item value="2">
-              <mdw-avatar class="mdw-tertiary">AS</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Two</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-        
-            <mdw-list-item value="3">
-              <mdw-avatar class="mdw-tertiary">FR</mdw-avatar>
-              <div class="mdw-text">
-                <div class="headline">Three</div>
-                <div class="mdw-supporting-text">Secondary</div>
-              </div>
-            </mdw-list-item>
-          </mdw-list>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<mdw-list class="mdw-select-multiple mdw-line-two" value="1,2" onchange="window.selectMultipleChange(this.value)">
-    <mdw-list-item value="1">
-      <mdw-avatar class="mdw-tertiary">BR</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">One</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
-  
-    <mdw-list-item value="2">
-      <mdw-avatar class="mdw-tertiary">AS</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Two</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
-  
-    <mdw-list-item value="3">
-      <mdw-avatar class="mdw-tertiary">FR</mdw-avatar>
-      <div class="mdw-text">
-        <div class="headline">Three</div>
-        <div class="mdw-supporting-text">Secondary</div>
-      </div>
-    </mdw-list-item>
-  </mdw-list>`)}
-        </code>
-      </pre>
-      
-      <pre>
-        <code class="language-javascript">
-  ${`window.selectMultipleChange = value => {
-    console.log('select value', value);
-  };`}
         </code>
       </pre>
     </mdw-card>

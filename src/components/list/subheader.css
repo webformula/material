@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-inline: 16px;
+  height: 56px;
+  line-height: 54px;
+  font-size: var(--mdw-font-small-body-size);
+  font-weight: var(--mdw-font-small-body-weight);
+  letter-spacing: var(--mdw-font-small-body-tracking);
+  color: var(--mdw-on-surface-variant-alpha-76);
+
+  background-color: var(--mdw-surface);
+  transition: background-color 0ms linear;
+  
+  transition-duration: var(--mdw-motion-duration-short1);
+}
+
+:host(.stuck) {
+  background-color: var(--mdw-surface-container);
+}
+
+:host([shadow].stuck) {
+  box-shadow: var(--mdw-elevation-2);
+  clip-path: inset(0px -30px -30px -30px);
+}
+
+:host([inset]) {
+  padding-inline-start: 70px;
+}

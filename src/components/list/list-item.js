@@ -1,49 +1,73 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import HTMLComponentElement from '../HTMLComponentElement.js';
+import styles from './list-item.css' assert { type: 'css' };
+import Ripple from '../../core/Ripple.js';
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
+// TODO Figure out is we should have more configuration fro start and end swipe actions (currently events only)
+customElements.define('mdw-list-item', class MDWListItemElement2 extends HTMLComponentElement {
+  static useShadowRoot = true;
+  static useTemplate = true;
+  static styleSheets = styles;
 
-customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElementExtended {
   #drag;
-  #checked = false;
-  #value = this.getAttribute('value') || '';
-  #selectCheckbox;
-  #avatar;
-  #onclickSelect_bound = this.#onclickSelect.bind(this);
-  #onclickAction_bound = this.#onclickAction.bind(this);
-  #hasActions = this.querySelector('[action]');
-  #hasSwipeActions = this.querySelector('mdw-list-item-action-start') || this.querySelector('mdw-list-item-action-end');
+  #value;
+  #ripple;
+  #states;
+  #selected;
+  #selectionControl;
+  #container;
+  #lastDirection;
+  #actionActiveThreshold = 64;
+  #onChange_bound = this.#onChange.bind(this);
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
-  #dragStartPosition;
-  #actionActiveThreshold = 64;
-  #focus_bound = this.#focus.bind(this);
-  #blur_bound = this.#blur.bind(this);
-  #focusKeydown_bound = this.#focusKeydown.bind(this);
 
   constructor() {
     super();
+
+    this.role = 'listitem';
+    this.render();
+    this.#selectionControl = this.querySelector('mdw-checkbox') || this.querySelector('mdw-switch');
+  }
+
+  template() {
+    return /*html*/`
+      <slot name="swipe-start"></slot>
+      <div class="container">
+        <slot name="start"></slot>
+        <div class="text">
+          <slot name="overline"></slot>
+          <slot class="default-slot"></slot>
+          <slot name="headline"></slot>
+          <slot name="supporting-text"></slot>
+        </div>
+        <slot name="trailing-supporting-text"></slot>
+        <slot name="end"></slot>
+        <div class="state-layer"></div>
+      </div>
+      <slot name="swipe-end"></slot>
+    `;
+  }
+
+
+  static get observedAttributesExtended() {
+    return [
+      ['value', 'string'],
+      ['selected', 'boolean'],
+      ['states', 'boolean'],
+      ['ripple', 'boolean']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
 
   connectedCallback() {
-    this.tabIndex = 0;
-    this.setAttribute('role', 'listitem');
-
-    if (this.#selectable) {
-      this.#avatar = this.querySelector('mdw-avatar');
-      if (this.#avatar) {
-        this.#avatar.classList.add('mdw-checkbox');
-        this.#avatar.setAttribute('role', 'checkbox');
-      }
-
-      this.#selectCheckbox = this.querySelector('mdw-checkbox');
-      this.addEventListener('click', this.#onclickSelect_bound);
-    }
-
-    if (this.#hasActions) this.addEventListener('click', this.#onclickAction_bound);
-
-    if (this.#hasSwipeActions) {
+    if (this.querySelector('[slot="swipe-start"]') || this.querySelector('[slot="swipe-start"]')) {
+      this.#container = this.shadowRoot.querySelector('.container');
       this.#drag = new Drag(this);
       this.#drag.lockScrollY = true;
       this.#drag.disableMouseEvents = true;
@@ -52,197 +76,95 @@ customElements.define('mdw-list-item', class MDWListItemElement extends HTMLElem
       this.#drag.on('mdwdragend', this.#onDragEnd_bound);
       this.#drag.enable();
     }
-
-    this.addEventListener('focus', this.#focus_bound);
-
-    if (!this.hasAttribute('aria-label')) {
-      const text = this.querySelector('.headline')?.innerText || util.getTextFromNode(this);
-      if (text) this.setAttribute('aria-label', text);
-    }
   }
 
   disconnectedCallback() {
-    this.removeEventListener('click', this.#onclickSelect_bound);
-    this.removeEventListener('click', this.#onclickAction_bound);
-    this.removeEventListener('focus', this.#focus_bound);
-    this.removeEventListener('blur', this.#blur_bound);
-    this.removeEventListener('keydown', this.#focusKeydown_bound);
-
-    if (this.#drag) {
-      this.#drag.destroy();
-      this.#drag = undefined;
-    }
+    if (this.#ripple) this.#ripple.destroy();
+    if (this.#drag) this.#drag.destroy();
+    this.removeEventListener('change', this.#onChange_bound);
   }
 
-  static get observedAttributes() {
-    return ['value', 'checked'];
-  }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === 'checked') this.checked = newValue !== null;
-    else this[name] = newValue;
-  }
-
-  get value() {
-    return this.#value;
-  }
-
+  get value() { return this.#value; }
   set value(value) {
     this.#value = value;
   }
 
-  get checked() {
-    return this.#checked;
-  }
-  set checked(value) {
-    this.#checked = !!value;
-    this.classList.toggle('mdw-checked', this.#checked);
-    // this.setAttribute('aria-checked', this.#checked.toString() || 'false');
-    if (this.#selectCheckbox) this.#selectCheckbox.checked = this.checked;
-    if (this.#avatar) this.#avatar.checked = this.checked;
-
-    this.parentElement.updateSelection(this.value, this.checked);
+  get selected() { return !this.#selectionControl ? false : this.#selectionControl.checked; }
+  set selected(value) {
+    this.#selected = !this.#selectionControl ? false : !!value;
+    if (this.#selectionControl) this.#selectionControl.checked = this.#selected;
   }
 
-  setCheckedWithoutUpdate(value) {
-    this.#checked = !!value;
-    this.classList.toggle('mdw-checked', this.#checked);
-    // this.setAttribute('aria-checked', this.#checked.toString() || 'false');
-    if (this.#selectCheckbox) this.#selectCheckbox.checked = this.checked;
-    if (this.#avatar) this.#avatar.checked = this.checked;
+  get states() { return this.#states; }
+  set states(value) {
+    this.#states = !!value;
+    const stateLayer = this.shadowRoot.querySelector('.state-layer');
+    stateLayer.classList.toggle('enabled', this.#states);
+    if (this.#states) {
+      if (this.querySelector('mdw-checkbox')) this.addEventListener('change', this.#onChange_bound);
+    } else if (!this.#states) {
+      if (this.querySelector('mdw-checkbox')) this.removeEventListener('change', this.#onChange_bound);
+    }
   }
 
-  get #selectable() {
-    return this.parentElement.selectable;
+  get ripple() { return this.#ripple; }
+  set ripple(value) {
+    const stateLayer = this.shadowRoot.querySelector('.state-layer');
+    if (value && !this.#ripple) {
+      this.#ripple = new Ripple({
+        element: stateLayer,
+        triggerElement: this
+      });
+    } else if (!value && this.#ripple) {
+      this.#ripple.destroy();
+      this.#ripple = undefined;
+    }
   }
+
 
   async remove() {
-    this.style.overflowY = 'hidden';
-    this.style.transition = 'height 320ms';
-    this.style.height = '0';
+    this.style.height = `${this.offsetHeight}px`;
+    this.classList.add('remove');
     await util.nextAnimationFrameAsync();
+    this.style.height = '';
     await util.transitionendAsync(this);
     super.remove();
   }
 
-  #onclickSelect(event) {
-    if (!this.#isSelectControl(event.target)) return;
-    this.checked = !this.checked;
+  #onChange(event) {
+    this.classList.toggle('selected', event.target.checked);
   }
 
-  #isSelectControl(node) {
-    if (node.nodeName === 'MDW-AVATAR') return true;
-    if (node.nodeName === 'MDW-CHECKBOX') return true;
-    if (node.classList.contains('mdw-select-control')) return true;
-    return false;
-  }
-
-  async #onclickAction(event) {
-    const action = event.target.getAttribute('action');
-    const remove = event.target.hasAttribute('action-remove');
-    if (remove) {
-      const leftSwipeControl = this.querySelector('mdw-list-item-action-end');
-      if (leftSwipeControl) leftSwipeControl.style.opacity = 0;
-      const rightSwipeControl = this.querySelector('mdw-list-item-action-start');
-      if (rightSwipeControl) rightSwipeControl.style.opacity = 0;
-      this.style.setProperty('--mdw-list-item-swipe-position', `100%`);
-      await util.transitionendAsync(this);
-      this.remove(this);
-    }
-
-    this.parentElement.dispatchEvent(new CustomEvent('change', {
-      detail: {
-        action,
-        value: this.value,
-        listItem: this,
-        ...(remove && { remove: true })
-      }
-    }));
-  }
 
   #onDragStart() {
-    this.classList.add('mdw-dragging');
-    this.#dragStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-list-item-swipe-position').replace('px', ''));
+    this.classList.add('dragging');
   }
 
-  #onDrag({ distanceX }) {
-    const position = this.#dragStartPosition + distanceX;
-    this.style.setProperty('--mdw-list-item-swipe-position', `${position}px`);
-    this.classList.toggle('mdw-action-active', position < -this.#actionActiveThreshold || position > this.#actionActiveThreshold);
+  #onDrag({ distanceX, directionX }) {
+    this.#container.style.transform = `translateX(${distanceX}px)`;
+    if (this.#lastDirection !== directionX) {
+      this.#lastDirection = directionX;
+      this.shadowRoot.querySelector('slot[name="swipe-start"]').classList.toggle('hide', directionX === -1);
+      this.shadowRoot.querySelector('slot[name="swipe-end"]').classList.toggle('hide', directionX === 1);
+    }
+    if (Math.abs(distanceX) > this.#actionActiveThreshold) {
+      this.shadowRoot.querySelector(directionX === 1 ? 'slot[name="swipe-start"]' : 'slot[name="swipe-end"]').classList.add('activate');
+    }
   }
 
-  async #onDragEnd() {
-    this.classList.remove('mdw-dragging');
-    const position = parseInt(getComputedStyle(this).getPropertyValue('--mdw-list-item-swipe-position').replace('px', ''));
-
-    if (position > -this.#actionActiveThreshold && position < this.#actionActiveThreshold) {
-      this.style.setProperty('--mdw-list-item-swipe-position', `0px`);
-    } else {
-      const actionElement = position < -this.#actionActiveThreshold ? this.querySelector('mdw-list-item-action-end') : this.querySelector('mdw-list-item-action-start');
-      const remove = actionElement.hasAttribute('action-remove');
-
-      if (remove) {
-        actionElement.style.opacity = 0;
-        this.style.setProperty('--mdw-list-item-swipe-position', position > 0 ? `100%` : '-100%');
-        await util.transitionendAsync(this);
-        this.remove();
+  async #onDragEnd({ distanceX, directionX }) {
+    this.classList.remove('dragging');
+    this.shadowRoot.querySelector('slot[name="swipe-start"]').classList.remove('activate');
+    this.shadowRoot.querySelector('slot[name="swipe-end"]').classList.remove('activate');
+    this.#container.style.transform = '';
+    
+    if (Math.abs(distanceX) > this.#actionActiveThreshold) {
+      if (directionX === 1) {
+        this.dispatchEvent(new Event('swipeactionstart', { bubbles: true }));
       } else {
-        this.style.setProperty('--mdw-list-item-swipe-position', `0px`);
+        this.dispatchEvent(new Event('swipeactionend', { bubbles: true }));
       }
-
-      this.parentElement.dispatchEvent(new CustomEvent('change', {
-        detail: {
-          action: actionElement.getAttribute('action'),
-          value: this.value,
-          listItem: this,
-          ...(remove && { remove: true })
-        }
-      }));
     }
-  }
-
-  #focus() {
-    this.addEventListener('blur', this.#blur_bound);
-    this.addEventListener('keydown', this.#focusKeydown_bound);
-  }
-
-  #blur() {
-    this.removeEventListener('blur', this.#blur_bound);
-    this.removeEventListener('keydown', this.#focusKeydown_bound);
-  }
-
-  #focusKeydown(e) {
-    const { key, shiftKey } = e;
-    const tab = key === 'Tab';
-
-    if (e.code === 'Enter' || e.code === 'Space') {
-      if (!this.parentElement.classList.contains('mdw-select')) return;
-      this.checked = !this.checked;
-      e.preventDefault();
-    } else if ((tab && !shiftKey) || e.code === 'ArrowDown') {
-      this.#focusNext();
-      e.preventDefault();
-    } else if ((tab && shiftKey) || e.code === 'ArrowUp') {
-      this.#focusPrevious();
-      e.preventDefault();
-    }
-  }
-
-  #focusNext() {
-    let nextFocus = document.activeElement?.nextElementSibling;
-    if (!nextFocus) return;
-
-    // try next sibling
-    if (nextFocus.nodeName !== 'MDW-LIST-ITEM') nextFocus = nextFocus.nextElementSibling;
-    if (nextFocus?.nodeName === 'MDW-LIST-ITEM') nextFocus.focus();
-  }
-
-  #focusPrevious() {
-    let nextFocus = document.activeElement?.previousElementSibling;
-    if (!nextFocus) return;
-
-    // try next sibling
-    if (nextFocus.nodeName !== 'MDW-LIST-ITEM') nextFocus = nextFocus.previousElementSibling;
-    if (nextFocus?.nodeName === 'MDW-LIST-ITEM') nextFocus.focus();
   }
 });

@@ -44,7 +44,9 @@ customElements.define('mdw-anchor-group', class MDWAnchorGroupElement extends HT
     return this.offsetHeight + this.scrollHeight - 56;
   }
 
-  #controlClick() {
+  #controlClick(event) {
     this.open = !this.open;
+    event.preventDefault();
+    event.stopPropagation();
   }
 });

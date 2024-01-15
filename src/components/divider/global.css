@@ -1,0 +1,24 @@
+mdw-divider {
+  box-sizing: border-box;
+  color: var(--mdw-outline-variant);
+  display: flex;
+  height: 1px;
+  width: 100%;
+}
+
+mdw-divider[inset],
+mdw-divider[inset-start] {
+  padding-inline-start: 16px;
+}
+
+mdw-divider[inset],
+mdw-divider[inset-end] {
+  padding-inline-end: 16px;
+}
+
+mdw-divider::before {
+  background: currentColor;
+  content: '';
+  height: 100%;
+  width: 100%;
+}

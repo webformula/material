@@ -4,7 +4,7 @@ mdw-anchor-group {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   height: var(--mdw-navigation-drawer-group-height);
   width: 100%;
   margin-left: -16px;

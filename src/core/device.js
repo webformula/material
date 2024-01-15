@@ -84,10 +84,10 @@ const mdwDevice = new class MDWDevice {
     }
 
     if (!this.#lastState) {
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         document.querySelector('body').classList.add('mdw-animation');
         this.#animationReady = true;
-      });
+      }, 150);
     }
     
     if (!this.#lastState || isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
