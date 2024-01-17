@@ -2,7 +2,6 @@ import MDWSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
-// TODO scrim close
 
 customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement extends MDWSurfaceElement {
   static styleSheets = styles;
@@ -88,6 +87,8 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
         });
       }
     }
+
+    if (this.open && device.state !== 'expanded') this.close();
   }
 
   #windowStateChange({ detail }) {

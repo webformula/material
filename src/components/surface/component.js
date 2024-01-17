@@ -6,9 +6,6 @@ const animations = ['translate-y', 'translate-left', 'translate-right', 'height'
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
 
-// TODO scrim
-
-
 export default class MDWSurfaceElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = true;
@@ -223,7 +220,8 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
 
     // TODO if no animation then these can trigger immediately
     if (this.#allowClose) {
-      window.addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
+      if (this.#scrim) this.shadowRoot.querySelector('.scrim').addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
+      else window.addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
       window.addEventListener('keydown', this.#onEsc_bound, { signal: this.#abort.signal });
     }
   }
@@ -234,7 +232,8 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
 
     this.onHide();
     if (this.#allowClose) {
-      window.removeEventListener('click', this.#onClickOutside_bound);
+      if (this.#scrim) this.shadowRoot.querySelector('.scrim').removeEventListener('click', this.#onClickOutside_bound);
+      else window.removeEventListener('click', this.#onClickOutside_bound);
       window.removeEventListener('keydown', this.#onEsc_bound);
     }
     this.#surfaceElement.classList.add('animating');
