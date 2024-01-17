@@ -12,7 +12,7 @@
       <a href="#basic" role="listitem">Time</a>
       <a href="#hour24" role="listitem">24 Format</a>
       <a href="#step" role="listitem">Time step</a>
-      <a href="#native" role="listitem">Time native component</a>
+      <a href="#native" role="listitem">Native component</a>
     </ul>
   </nav>
 
@@ -22,20 +22,18 @@
         <div class="headline">Time</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="time">
-            <label>Time</label>
-            <mdw-time-picker></mdw-time-picker>
+          <mdw-textfield label="Time" type="time">
+            <mdw-icon slot="leading-icon">schedule</mdw-icon>
+            <mdw-time-picker slot="picker"></mdw-time-picker>
           </mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="time">
-    <label>Time</label>
-    <mdw-time-picker></mdw-time-picker>
+  ${page.escape(`<mdw-textfield label="Time" type="time">
+    <mdw-icon slot="leading-icon">schedule</mdw-icon>
+    <mdw-time-picker slot="picker"></mdw-time-picker>
   </mdw-textfield>`)}
         </code>
       </pre>
@@ -44,23 +42,21 @@
     <mdw-card id="hour24">
       <div class="mdw-card-content">
         <div class="headline">Time formatted in 24 hours</div>
-        <div class="mdw-subheader">The browser controls the format of the input it self</div>
+        <div class="mdw-supporting-text">The browser controls the input formate based on locale. You can force the time picker to be 24 hour format.</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="time">
-            <label>Time 24 hour</label>
-            <mdw-time-picker hour-24></mdw-time-picker>
+          <mdw-textfield label="Time" type="time">
+            <mdw-icon slot="leading-icon">schedule</mdw-icon>
+            <mdw-time-picker hour24 slot="picker"></mdw-time-picker>
           </mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="time">
-    <label>Time 24 hour</label>
-    <mdw-time-picker hour-24></mdw-time-picker>
+  ${page.escape(`<mdw-textfield label="Time" type="time">
+    <mdw-icon slot="leading-icon">schedule</mdw-icon>
+    <mdw-time-picker hour24 slot="picker"></mdw-time-picker>
   </mdw-textfield>`)}
         </code>
       </pre>
@@ -69,35 +65,31 @@
     <mdw-card id="step">
       <div class="mdw-card-content">
         <div class="headline">Step</div>
-        <div class="mdw-subheader">The step attribute is in seconds</div>
+        <div class="mdw-supporting-text">The step attribute is in seconds</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="time" step="600">
-            <label>10 min step</label>
-            <mdw-time-picker></mdw-time-picker>
+          <mdw-textfield label="10 min step" type="time" step="600">
+            <mdw-icon slot="leading-icon">schedule</mdw-icon>
+            <mdw-time-picker slot="picker"></mdw-time-picker>
           </mdw-textfield>
 
-          <mdw-textfield>
-            <input type="time" step="7200">
-            <label>2 hour step</label>
-            <mdw-time-picker></mdw-time-picker>
+          <mdw-textfield label="2 hour step" type="time" step="7200">
+            <mdw-icon slot="leading-icon">schedule</mdw-icon>
+            <mdw-time-picker slot="picker"></mdw-time-picker>
           </mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="time" step="600">
-    <label>10 min step</label>
-    <mdw-time-picker></mdw-time-picker>
+  ${page.escape(`<mdw-textfield label="10 min step" type="time" step="600">
+    <mdw-icon slot="leading-icon">schedule</mdw-icon>
+    <mdw-time-picker slot="picker"></mdw-time-picker>
   </mdw-textfield>
   
-  <mdw-textfield>
-    <input type="time" step="7200">
-    <label>2 hour step</label>
-    <mdw-time-picker></mdw-time-picker>
+  <mdw-textfield label="2 hour step" type="time" step="7200">
+    <mdw-icon slot="leading-icon">schedule</mdw-icon>
+    <mdw-time-picker slot="picker"></mdw-time-picker>
   </mdw-textfield>`)}
         </code>
       </pre>
@@ -108,19 +100,13 @@
         <div class="headline">Native component</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="time">
-            <label>Time native</label>
-          </mdw-textfield>
+          <mdw-textfield label="Browser picker" type="time" style="width: 155px"></mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="time">
-    <label>Time native</label>
-  </mdw-textfield>`)}
+  ${page.escape(`<mdw-textfield label="Browser picker" type="time"></mdw-textfield>`)}
         </code>
       </pre>
     </mdw-card>

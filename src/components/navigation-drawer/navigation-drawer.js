@@ -2,6 +2,8 @@ import MDWSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
+// TODO scrim close
+
 customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement extends MDWSurfaceElement {
   static styleSheets = styles;
 
@@ -25,6 +27,7 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
 
   template() {
     return /*html*/`
+      <div class="scrim"></div>
       <div class="placeholder"></div>
       <div class="surface">
         <div class="surface-content">
@@ -34,7 +37,6 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
           </div>
         </div>
       </div>
-      <div class="scrim"></div>
     `;
   }
 

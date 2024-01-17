@@ -41,9 +41,10 @@ export default class MDWMenuElement extends MDWSurfaceElement {
     `;
   }
 
-  connectedCallback() {
+  connectedCallback(override  = false) {
     super.connectedCallback();
     this.#abort = new AbortController();
+    if (override) return;
 
     this.#isSubMenu = this.getAttribute('slot') === 'sub-menu';
     if (this.#isSubMenu) {

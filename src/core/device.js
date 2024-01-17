@@ -5,6 +5,8 @@ const mdwDevice = new class MDWDevice {
   #windowWidth;
   #windowHeight;
   #animationReady = false;
+  #locale = navigator.language;
+  #languageChange_bound = this.#languageChange.bind(this);
 
   constructor() {
     const resizeObserver = new ResizeObserver(() => {
@@ -13,6 +15,8 @@ const mdwDevice = new class MDWDevice {
     resizeObserver.observe(document.documentElement);
     this.#setWindow();
     document.documentElement.classList.add('mdw-initiated');
+    window.addEventListener('languagechange', this.#languageChange_bound);
+    window.addEventListener('wfclanguagechange', this.#languageChange_bound);
   }
 
   get orientation() {
@@ -59,6 +63,10 @@ const mdwDevice = new class MDWDevice {
     return this.#animationReady;
   }
 
+  get hourCycle() {
+    return Intl.DateTimeFormat(this.#locale, { hour: 'numeric' }).resolvedOptions().hourCycle;
+  }
+
   async #setWindow() {
     // if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
     // TODO figure this out without style recalculation
@@ -103,6 +111,10 @@ const mdwDevice = new class MDWDevice {
       isMobile: this.isMobile,
       state: this.state
     };
+  }
+
+  #languageChange() {
+    this.#locale = window.wfcLanguage || navigator.language;
   }
 }
 

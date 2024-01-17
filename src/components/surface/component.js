@@ -2,7 +2,7 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const animations = ['translate-y', 'translate-left', 'translate-right', 'height'];
+const animations = ['translate-y', 'translate-left', 'translate-right', 'height', 'height-center-to-opacity'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
 
@@ -38,14 +38,17 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   #setMousePosition_bound = this.#setMousePosition.bind(this);
 
 
-  constructor() {
+  constructor(callRender = true) {
     super();
 
     // add stylesheet here so it will not be overridden by extending class
-    this.constructor.styleSheets = [].concat(...[styles, this.constructor.styleSheets]);
+    if (this.constructor.styleSheets) this.constructor.styleSheets = [].concat(...[styles, this.constructor.styleSheets]);
+    else this.constructor.styleSheets = [styles];
 
-    this.render();
-    this.#surfaceElement = this.shadowRoot.querySelector('.surface');
+    if (callRender) {
+      this.render();
+      this.#surfaceElement = this.shadowRoot.querySelector('.surface');
+    }
   }
 
   /* Default template can be overridden
@@ -53,16 +56,17 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
    */
   template() {
     return /*html*/`
+      <div class="scrim"></div>
       <div class="surface">
         <div class="surface-content">
           <slot></slot>
         </div>
       </div>
-      <div class="scrim"></div>
     `;
   }
 
   connectedCallback() {
+    if (!this.#surfaceElement) this.#surfaceElement = this.shadowRoot.querySelector('.surface');
     this.#abort = new AbortController();
     const positionClass = [...this.classList].find(v => v.startsWith('position-'));
     if (positionClass) this.position = positionClass;
@@ -114,6 +118,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.#animation = value;
     this.classList.toggle('animation-height', value === 'height');
     this.classList.toggle('animation-translate-left', value === 'translate-left');
+    this.classList.toggle('animation-height-center-to-opacity', value === 'height-center-to-opacity');
   }
 
   get viewportBound() { return this.#viewportBound; }
@@ -396,8 +401,8 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 
   #onClickOutside(event) {
-    // if (event.target === this) return;
-    // if (this.contains(event.target)) return;
+    if (event.target === this) return;
+    if (!event.target.classList.contains('scrim') && this.contains(event.target)) return;
     // const isIgnoreElement = this.#allowCloseIgnoreElements.find(v => v.contains(event.target));
     // if (isIgnoreElement) return;
     this.close();

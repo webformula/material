@@ -1,109 +1,182 @@
-import MDWPanelElement from '../panel/component.js';
-import device from '../../core/device.js';
+import MDWSurfaceElement from '../surface/component.js';
+import styles from './component.css' assert { type: 'css' };
 import {
   keyboard_FILL0_wght400_GRAD0_opsz24,
   schedule_FILL0_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
+import device from '../../core/device.js';
 
 // TODO accessability
 // TODO min max
 
-customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWPanelElement {
-  static useTemplate = false;
+customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWSurfaceElement {
+  static styleSheets = styles;
 
-  #control;
-  #input;
+  #abort;
+  #textfield;
+  #selector;
+  #hasDisplayChange = true;
   #displayValue = '';
-  #initialValue = '';
-  #selectedHour;
-  #lastSelectedHour;
-  #selectedMinute;
-  #lastSelectedMinute;
-  #selectedMeridiem;
-  #lastSelectedMeridiem;
+  #hour;
+  #paddedHour;
+  #paddedHour24;
+  #minute;
+  #paddedMinute;
+  #meridiem;
+  #hour24 = false;
+  #hour24Touched = false;
+  #view = 'hour';
   #hourData = [];
   #minuteData = [];
-  #onControlFocus_bound = this.#onControlFocus.bind(this);
-  #onControlClick_bound = this.#onControlClick.bind(this);
-  #onShow_bound = this.#onShow.bind(this);
-  #onClose_bound = this.#onClose.bind(this);
-  #ok_bound = this.#ok.bind(this);
-  #cancel_bound = this.#cancel.bind(this);
+  #textfieldClick_bound = this.#textfieldClick.bind(this);
+  #close_bound = this.#close.bind(this);
   #selectMouseDown_bound = this.#selectMouseDown.bind(this);
   #selectMouseUp_bound = this.#selectMouseUp.bind(this);
   #selectMouseMove_bound = this.#selectMouseMove.bind(this);
   #amClick_bound = this.#amClick.bind(this);
   #pmClick_bound = this.#pmClick.bind(this);
-  #dialHourClick_bound = this.#dialHourClick.bind(this);
-  #dialMinuteClick_bound = this.#dialMinuteClick.bind(this);
-  #onInput_bound = this.#onInput.bind(this);
   #hourClick_bound = this.#hourClick.bind(this);
   #minuteClick_bound = this.#minuteClick.bind(this);
   #keyboardClick_bound = this.#keyboardClick.bind(this);
-  #hourInput_bound = this.#hourInput.bind(this);
-  #minuteInput_bound = this.#minuteInput.bind(this);
-  #abort;
-  #openAbort;
+  #inputFocus_bound = this.#inputFocus.bind(this);
+  #inputBlur_bound = this.#inputBlur.bind(this);
+  #inputKeydown_bound = this.#inputKeydown.bind(this);
+  #onInput_bound = this.#onInput.bind(this);
+  #ok_bound = this.#ok.bind(this);
 
 
   constructor() {
     super();
 
-    this.#control = this.parentNode;
-    if (this.#control.nodeName !== 'MDW-TEXTFIELD') throw Error('mdw-date-picker must be a child of mdw-textfield');
-    this.#input = this.#control.querySelector('input');
-    this.#control.classList.add('mdw-has-time-picker');
-
-    if (device.isMobile) {
-      this.scrim = true;
-      this.clickOutsideClose = false;
-    } else {
-      this.animation = 'scale';
-      this.scrim = false;
-      this.clickOutsideClose = true;
-      this.target = this.#control;
-    }
-
-    this.addClickOutsideCloseIgnore(this.#control);
-    this.#setInitialTime();
-    this.#buildThetaData();
+    // this.role = 'menu';
+    // this.allowClose = true;
+    this.animation = 'height-center-to-opacity';
+    this.fixed = true;
+    this.scrim = true;
+    this.position = 'center';
+    this.#textfield = this.parentElement;
+    this.#selector = this.shadowRoot.querySelector('.selector-container');
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.#abort = new AbortController();
+  template() {
+    return /*html*/`
+      <div class="scrim"></div>
+      <div class="surface">
+        <div class="surface-content">
+          <div class="item-padding">
+            <div class="headline">Select time</div>
+
+            <div class="time-container">
+              <input class="time-hour selected" aria-label="time hour" type="number">
+              <div class="time-separator">:</div>
+              <input class="time-minute" aria-label="time minute" type="number" min="0" max="59">
+
+              <div class="meridiem-container">
+                <div class="am" aria-label="am" tabindex="0">AM</div>
+                <div class="pm" aria-label="pm" tabindex="0">PM</div>
+              </div>
+            </div>
+
+            <div class="dial-container">
+              <div class="dial-container-background"></div>
+              <div class="dial-hour"></div>
+              <div class="dial-hour-secondary"></div>
+              <div class="dial-minute"></div>
+              <div class="selector-container">
+                <div class="selector-center"></div>
+                <div class="selector-line"></div>
+                <div class="selector"></div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <mdw-icon-button class="keyboard">
+                <mdw-icon>${keyboard_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+                <mdw-icon slot="selected">${schedule_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+              </mdw-icon-button>
+              <span style="flex: 1"></span>
+              <mdw-button class="cancel">cancel</mdw-button>
+              <mdw-button class="ok">ok</mdw-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
-  afterRender() {
-    this.#input.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
-    // on mobile to prevent the default browser control we disable click events on the input, so no focus
-    if (device.isMobile) this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
-
-    this.addEventListener('open', this.#onShow_bound, { signal: this.#abort.signal });
+  static get observedAttributesExtended() {
+    return [
+      ['hour24', 'boolean']
+    ];
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.#abort.abort();
-    if (this.#openAbort) this.#openAbort.abort();
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
+  get hour24() { return this.#hour24; }
+  set hour24(value) {
+    this.#hour24Touched = true;
+    this.#hour24 = !!value;
   }
 
   get value() {
-    return this.#input.value;
+    return this.#textfield.value;
   }
   set value(value) {
-    this.#input.value = value;
+    this.#textfield.value = value;
   }
 
   get min() {
-    return this.#input.min;
+    return this.#textfield.min;
   }
   get max() {
-    return this.#input.max;
+    return this.#textfield.max;
   }
 
   get step() {
-    return this.#input.step;
+    return this.#textfield.step;
+  }
+
+  get minute() { return this.#minute; }
+  set minute(value) {
+    if (this.#minute !== value) this.#hasDisplayChange = true;
+    this.#minute = value;
+    this.#paddedMinute = value < 10 ? `0${value}` : `${value}`;
+  }
+  get paddedMinute() { return this.#paddedMinute; }
+
+  get hour() { return this.#hour; }
+  set hour(value) {
+    this.#paddedHour24 = value < 10 ? `0${value}` : `${value}`;
+    if (!this.hour24) {
+      const meridiem = value > 12 ? 'PM' : 'AM';
+      if (value === 0) value = 12;
+      if (meridiem === 'PM') value = value - 12;
+
+      this.meridiem = meridiem;
+    }
+
+    if (this.#hour !== value) this.#hasDisplayChange = true;
+    this.#hour = value;
+    this.#paddedHour = value < 10 ? `0${value}` : `${value}`;
+  }
+  get paddedHour() { return this.#paddedHour; }
+  get paddedHour24() { return this.#paddedHour24; }
+
+  get meridiem() { return this.#meridiem; }
+  set meridiem(value) {
+    // if (this.#meridiem !== value) this.#hasDisplayChange = true;
+    this.#meridiem = value;
+  }
+
+  get view() { return this.#view; }
+  set view(value) {
+    if (value === 'minute' && this.#minuteData.length === 0) return;
+
+    if (this.#view !== value) this.#hasDisplayChange = true;
+    this.#view = value;
+    this.#setView(value);
   }
 
   get #hourStep() {
@@ -116,84 +189,306 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     return step;
   }
 
-  get #view() {
-    if (this.classList.contains('mdw-input-view')) return 'input';
-    if (this.classList.contains('mdw-minute-view')) return 'minute';
-    return 'hour';
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.#textfield.addEventListener('focus', this.#textfieldClick_bound);
+
+    const timeHour = this.shadowRoot.querySelector('input.time-hour');
+    timeHour.step = this.#hourStep;
+    timeHour.min = this.#hour24 ? 0 : 1;
+    timeHour.max = this.#hour24 ? 23 : 12;
+    const timeMinute = this.shadowRoot.querySelector('input.time-minute');
+    timeMinute.step = this.#minuteStep;
+
+    requestAnimationFrame(() => {
+      if (!this.#hour24Touched) this.#hour24 = device.hourCycle === 'h24';
+      this.#buildThetaData();
+    });
   }
 
-  get #selector() {
-    return this.querySelector('.mdw-selector');
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this.#abort) {
+      this.#abort.abort();
+      this.#abort = undefined;
+    }
+    this.#textfield.removeEventListener('focus', this.#textfieldClick_bound);
   }
 
-  get #hour24() {
-    return this.hasAttribute('hour-24');
-  }
 
-  template() {
-    const parts = this.#convert24ToMeridiemParts(this.#displayValue);
-
-    return /*html*/`
-      <div class="headline">Select time</div>
-
-      <div class="mdw-time-container">
-        <input class="mdw-time-hour" aria-label="time hour" readonly type="number" step="${this.#hourStep}" min="${this.#hour24 ? '0' : '1'}" max="${this.#hour24 ? '23' : '12'}" value="${parts.paddedHour}" selected>
-        <div class="mdw-time-separator">:</div>
-        <input class="mdw-time-minute" aria-label="time minute" readonly type="number" step="${this.#minuteStep}" min="0" max="59" value="${parts.paddedMinute}" selected>
-
-        ${!this.#hour24 ? /*html*/ `
-          <div class="mdw-meridiem-container">
-            <div class="mdw-am" ${parts.meridiem === 'AM' ? 'selected' : ''}>AM</div>
-            <div class="mdw-pm" ${parts.meridiem === 'PM' ? 'selected' : ''}>PM</div>
-          </div>
-        ` : ''}
-      </div>
+  onShow() {
+    this.#setInitialTime();
+    this.#parseTime();
+    this.view = 'hour';
+    this.#updateDisplay();
     
-      <div class="mdw-dial-container">
-        <div class="mdw-dial-hour">${this.#hourTemplate()}</div>
-        <div class="mdw-dial-minute">${this.#minuteTemplate()}</div>
+    this.#abort = new AbortController();
+    this.shadowRoot.querySelector('.ok').addEventListener('click', this.#ok_bound, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.cancel').addEventListener('click', this.#close_bound, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.keyboard').addEventListener('click', this.#keyboardClick_bound, { signal: this.#abort.signal });
+    const dialContainer = this.shadowRoot.querySelector('.dial-container');
+    dialContainer.addEventListener('mousedown', this.#selectMouseDown_bound, { signal: this.#abort.signal });
+    dialContainer.addEventListener('touchstart', this.#selectMouseDown_bound, { signal: this.#abort.signal });
+    dialContainer.addEventListener('click', this.#selectMouseMove_bound, { signal: this.#abort.signal });
+    const timeHour = this.shadowRoot.querySelector('.time-hour');
+    timeHour.addEventListener('click', this.#hourClick_bound, { signal: this.#abort.signal });
+    timeHour.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
+    const timeMinute = this.shadowRoot.querySelector('.time-minute');
+    timeMinute.addEventListener('click', this.#minuteClick_bound, { signal: this.#abort.signal });
+    timeMinute.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
+    if (!this.hour24) {
+      const am = this.shadowRoot.querySelector('.am');
+      am.addEventListener('click', this.#amClick_bound, { signal: this.#abort.signal });
+      am.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
+      const pm = this.shadowRoot.querySelector('.pm');
+      pm.addEventListener('click', this.#pmClick_bound, { signal: this.#abort.signal });
+      pm.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
+    }
 
-        <div class="mdw-selector-container">
-          <div class="mdw-selector-center"></div>
-          <div class="mdw-selector-line"></div>
-          <div class="mdw-selector"></div>
-        </div>
-      </div>
-
-      <div class="mdw-actions">
-        ${device.isMobile ? /*html*/`
-          <mdw-button class="mdw-keyboard mdw-icon-toggle-button">
-            <div class="mdw-svg-icon" value="off">${keyboard_FILL0_wght400_GRAD0_opsz24}</div>
-            <div class="mdw-svg-icon" value="on">${schedule_FILL0_wght400_GRAD0_opsz24}</div>
-          </mdw-button>
-        ` : ''}
-        <span style="flex: 1"></span>
-        <mdw-button class="mdw-cancel">cancel</mdw-button>
-        <mdw-button class="mdw-ok">ok</mdw-button>
-      </div>
-    `;
+    if (device.state !== 'compact') timeHour.focus();
   }
 
-  #hourTemplate() {
-    const parts = this.#convert24ToMeridiemParts(this.#displayValue);
-    return /* html */`
-      <div class="mdw-dial-hour-meridiem">
-        ${this.#hourData.filter(v => !v.is24).map(v => `<div class="mdw-dial-label" hour="${v.hour}" degree="${v.theta}" ${parts.hour === v.hour ? 'selected' : ''}>${v.paddedHour}</div>`).join('\n')}
-      </div>
+  onHide() {
+    this.#textfield.blur();
+    if (this.#abort) {
+      this.#abort.abort();
+      this.#abort = undefined;
+    }
+  }
+
+  #ok(event){
+    if (event) event.stopPropagation();
+    this.#textfield.value = `${this.paddedHour24}:${this.paddedMinute}`;
+    this.close();
+  }
+
+  #close(event) {
+    if (event) event.stopPropagation();
+    this.close();
+  }
+
+  #textfieldClick() {
+    this.show();
+  }
+
+  #hourClick() {
+    if (this.view === 'input') return;
+    this.view = 'hour';
+    this.#updateDisplay();
+  }
+
+  #minuteClick() {
+    if (this.view === 'input') return;
+    this.view = 'minute';
+    this.#updateDisplay();
+  }
+
+  #inputFocus(event) {
+    event.target.addEventListener('blur', this.#inputBlur_bound, { signal: this.#abort.signal });
+    event.target.addEventListener('keydown', this.#inputKeydown_bound, { signal: this.#abort.signal })
+    if (event.target.nodeName === 'INPUT') {
+      event.target.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
+    }
+  }
+
+  #inputBlur(event) {
+    event.target.removeEventListener('blur', this.#inputBlur_bound);
+    event.target.removeEventListener('keydown', this.#inputKeydown_bound)
+    if (event.target.nodeName === 'INPUT') {
+      event.target.removeEventListener('input', this.#onInput_bound);
+    }
+  }
+
+  #inputKeydown(event) {
+    if (event.key === 'ArrowRight') {
+      if (event.target.classList.contains('time-hour')) {
+        this.shadowRoot.querySelector('input.time-minute').focus();
+        if (this.view === 'hour') {
+          this.view = 'minute';
+          this.#updateDisplay();
+        }
+      } else if (event.target.classList.contains('time-minute')) {
+        this.shadowRoot.querySelector('.am').focus();
+      } else if (event.target.classList.contains('am')) {
+        this.shadowRoot.querySelector('.pm').focus();
+      }
+    } else if (event.key === 'ArrowLeft') {
+      if (event.target.classList.contains('time-minute')) {
+        this.shadowRoot.querySelector('input.time-hour').focus();
+        if (this.view === 'minute') {
+          this.view = 'hour';
+          this.#updateDisplay();
+        }
+      } else if (event.target.classList.contains('am')) {
+        this.shadowRoot.querySelector('input.time-minute').focus();
+        if (this.view === 'hour') {
+          this.view = 'minute';
+          this.#updateDisplay();
+        }
+      } else if (event.target.classList.contains('pm')) {
+        this.shadowRoot.querySelector('.am').focus();
+      }
+    } else if (event.key === 'ArrowUp') {
+      if (event.target.classList.contains('am')) {
+        this.shadowRoot.querySelector('input.time-minute').focus();
+        if (this.view === 'hour') {
+          this.view = 'minute';
+          this.#updateDisplay();
+        }
+      } else if (event.target.classList.contains('pm')) {
+        this.shadowRoot.querySelector('.am').focus();
+      }
+      if (event.target.nodeName !== 'INPUT') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    } else if (event.key === 'ArrowDown') {
+      if (event.target.classList.contains('am')) {
+        this.shadowRoot.querySelector('.pm').focus();
+      }
+      if (event.target.nodeName !== 'INPUT') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    } else if (event.key === 'Enter') {
+      if (event.target.classList.contains('am')) {
+        event.target.click();
+      } else if (event.target.classList.contains('pm')) {
+        event.target.click();
+      } else {
+        this.#ok();
+      }
+    } else if (event.key === 'Escape') {
+      this.#close();
+    }
+  }
+
+  #onInput(event) {
+    if (event.target.classList.contains('time-hour')) {
+      const value = parseInt(event.target.value);
+      if (value !== this.hour) {
+        this.hour = value;
+        if (this.view === 'hour') this.#updateDisplay();
+      }
+    }
+
+    if (event.target.classList.contains('time-minute')) {
+      const value = parseInt(event.target.value);
+      if (value !== this.minute) {
+        this.minute = value;
+        if (this.view === 'minute') this.#updateDisplay();
+      }
+    }
+  }
+
+  #keyboardClick() {
+    if (this.view !== 'input') this.view = 'input';
+    else {
+      if (document.activeElement.nodeName === 'INPUT') document.activeElement.blur();
+      this.view = 'hour';
+    }
+    this.#updateDisplay();
+    this.shadowRoot.querySelector('input.time-hour').focus();
+  }
+
+  #amClick() {
+    this.shadowRoot.querySelector('.am').classList.add('selected');
+    this.shadowRoot.querySelector('.pm').classList.remove('selected');
+    this.meridiem = 'AM';
+  }
+
+  #pmClick() {
+    this.shadowRoot.querySelector('.pm').classList.add('selected');
+    this.shadowRoot.querySelector('.am').classList.remove('selected');
+    this.meridiem = 'PM';
+  }
+
+  #setView(view = 'hour') {
+    this.classList.remove('hour-view');
+    this.classList.remove('minute-view');
+    this.classList.remove('input-view');
+    this.shadowRoot.querySelector('.selector').classList.remove('secondary');
+
+    if (view === 'hour') {
+      this.classList.add('hour-view');
+      this.shadowRoot.querySelector('.time-hour').classList.add('selected');
+      this.shadowRoot.querySelector('.time-minute').classList.remove('selected');
+
+    } else if (view === 'minute') {
+      this.classList.add('minute-view');
+      this.shadowRoot.querySelector('.time-minute').classList.add('selected');
+      this.shadowRoot.querySelector('.time-hour').classList.remove('selected');
       
-      ${this.#hour24 ? /*html*/ `
-        <div class="mdw-dial-hour-24">
-          ${this.#hourData.filter(v => v.is24).map(v => `<div class="mdw-dial-label" hour="${v.hour}" degree="${v.theta}" ${parts.hour === v.hour ? 'selected' : ''}>${v.paddedHour}</div>`).join('\n')}
-        </div>
-      ` : ''}
-    `;
+    } else if (view === 'input') {
+      this.classList.add('input-view');
+    }
   }
 
-  #minuteTemplate() {
-    const parts = this.#convertTo24Parts(this.#displayValue);
-    return this.#minuteData.map(v => `<div class="mdw-dial-label ${!v.display ? 'mdw-minute-hidden' : ''}" minute="${v.minute}" degree="${v.theta}" ${parts.minute === v.minute ? 'selected' : ''}>${v.display ? v.paddedMinute : ''}</div>`).join('\n');
+  #updateDisplay() {
+    if (!this.#hasDisplayChange) return;
+    this.#hasDisplayChange = false;
+
+    const readonly = this.view !== 'input' && device.state === 'compact';
+    const inputHour = this.shadowRoot.querySelector('input.time-hour');
+    inputHour.value = this.paddedHour;
+    inputHour.toggleAttribute('readonly', readonly);
+    const inputMinute = this.shadowRoot.querySelector('input.time-minute');
+    inputMinute.value = this.paddedMinute;
+    inputMinute.toggleAttribute('readonly', readonly);
+
+    if (this.#view === 'hour') {
+      const current = this.shadowRoot.querySelector(`.dial-label[hour].selected`);
+      if (current) current.classList.remove('selected');
+      const next = this.shadowRoot.querySelector(`.dial-label[hour="${this.hour}"]`);
+      if (next) next.classList.add('selected');
+      const hourData = this.#hourData.find(v => v.hour === this.hour);
+      this.#selector.style.transform = `rotate(${hourData.theta}deg)`;
+      this.#selector.classList.toggle('hour-secondary', !!hourData.is24)
+
+    } else if (this.#view === 'minute') {
+      const current = this.shadowRoot.querySelector(`.dial-label[minute].selected`);
+      if (current) current.classList.remove('selected');
+      const next = this.shadowRoot.querySelector(`.dial-label[minute="${this.minute}"]`);
+      if (next) next.classList.add('selected');
+      // make selector smaller when between labels
+      this.#selector.classList.toggle('minute-secondary', this.minute % 5 !== 0);
+      this.#selector.style.transform = `rotate(${this.#minuteData.find(v => v.minute === this.minute).theta}deg)`;
+    }
+
+    if (!this.hour24) {
+      this.shadowRoot.querySelector('.am').classList.toggle('selected', this.meridiem === 'AM');
+      this.shadowRoot.querySelector('.pm').classList.toggle('selected', this.meridiem === 'PM');
+    }
   }
 
+  #setInitialTime() {
+    if (this.#textfield.value) {
+      this.#displayValue = this.#textfield.value;
+    } else {
+      const date = new Date();
+      const hourStep = this.#hourStep;
+      let hour = Math.round(date.getHours() / hourStep) * hourStep;
+      if (hour < 10) hour = `0${hour}`;
+      const minuteStep = this.#minuteStep;
+      let minute = minuteStep === -1 ? 0 : Math.round(date.getMinutes() / minuteStep) * minuteStep;
+      if (minute < 10) minute = `0${minute}`;
+      this.#displayValue = `${hour}:${minute}`;
+    }
+  }
+
+  #parseTime() {
+    const split = this.#displayValue.split(':');
+    let hour = parseInt(split[0]);
+
+    if (!this.hour24) {
+      if (hour > 12) hour = hour - 12;
+      if (hour === 0) hour = 12;
+    }
+
+    this.hour = hour;
+    this.minute = parseInt(split[1]);
+  }
 
   #buildThetaData() {
     const hourStep = this.#hourStep;
@@ -205,186 +500,62 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       const theta = 30 * (i * hourStep);
       return {
         theta: `${theta}`,
-        hour: `${hour}`,
+        hour: hour,
         paddedHour: `${paddedHour}`
       };
     });
 
     if (this.#hour24) {
+      this.#hourData[0].hour = 0;
+      this.#hourData[0].paddedHour = '00';
       this.#hourData = this.#hourData.concat([...new Array(hourCount)].map((_, i) => {
-        const hour = i === 0 ? '0' : (i * hourStep) + 12;
+        const hour = i === 0 ? 12 : (i * hourStep) + 12;
         const paddedHour = hour < 10 ? `0${hour}` : hour;
         const theta = 30 * (i * hourStep);
         return {
           theta: `${theta}`,
-          hour: `${hour}`,
+          hour: hour,
           paddedHour: `${paddedHour}`,
           is24: true
         };
-      }))
+      }));
     }
-
 
     const minuteStep = this.#minuteStep;
-    if (minuteStep === -1) return;
+    if (minuteStep !== -1) { 
+      const minuteCount = 60 / minuteStep;
+      this.#minuteData = [...new Array(minuteCount)].map((_, i) => {
+        const minute = i * minuteStep;
+        const paddedMinute = minute < 10 ? `0${minute}` : minute;
+        const theta = 6 * (i * minuteStep);
+        return {
+          theta: `${theta}`,
+          minute: minute,
+          paddedMinute: `${paddedMinute}`,
+          display: minute % 5 === 0
+        };
+      });
 
-    const minuteCount = 60 / minuteStep;
-    this.#minuteData = [...new Array(minuteCount)].map((_, i) => {
-      const minute = i * minuteStep;
-      const paddedMinute = minute < 10 ? `0${minute}` : minute;
-      const theta = 6 * (i * minuteStep);
-      return {
-        theta: `${theta}`,
-        minute: `${minute}`,
-        paddedMinute: `${paddedMinute}`,
-        display: minute % 5 === 0
-      };
-    });
-  }
+      const inputMinute = this.shadowRoot.querySelector('input.time-minute');
 
-  #setInitialTime() {
-    if (this.#input.value) {
-      this.#displayValue = this.#input.value;
-      this.#initialValue = this.#input.value;
+      inputMinute.disabled = false;
+      inputMinute.step = minuteStep;
+      inputMinute.min = this.#minuteData[0].minute;
+      inputMinute.max = this.#minuteData[this.#minuteData.length - 1].minute;
     } else {
-      const date = new Date();
-      const hourStep = this.#hourStep;
-      let hour = Math.round(date.getHours() / hourStep) * hourStep;
-      if (hour < 10) hour = `0${hour}`;
-      const minuteStep = this.#minuteStep;
-      let minute = minuteStep === -1 ? 0 : Math.round(date.getMinutes() / minuteStep) * minuteStep;
-      if (minute < 10) minute = `0${minute}`;
-      this.#displayValue = `${hour}:${minute}`;
-      this.#initialValue = '';
+      this.shadowRoot.querySelector('input.time-minute').disabled = true;
     }
+
+    const inputHour = this.shadowRoot.querySelector('input.time-hour');
+    inputHour.step = hourStep;
+    inputHour.min = this.#hour24 ? this.#hourData[0].hour : this.#hourData[1].hour;
+    inputHour.max = this.#hour24 ? this.#hourData[this.#hourData.length - 1].hour : this.#hourData[0].hour;
+
+    this.shadowRoot.querySelector('.dial-hour').innerHTML = this.#hourData.filter(v => !v.is24).map(v => `<div class="dial-label${this.hour === v.hour ? ' selected' : ''}" hour="${v.hour}" degree="${v.theta}">${v.paddedHour}</div>`).join('\n');
+    this.shadowRoot.querySelector('.dial-hour-secondary').innerHTML = this.#hourData.filter(v => v.is24).map(v => `<div class="dial-label${this.hour === v.hour ? ' selected' : ''}" hour="${v.hour}" degree="${v.theta}">${v.paddedHour}</div>`).join('\n');
+    this.shadowRoot.querySelector('.dial-minute').innerHTML = this.#minuteData.map(v => `<div class="dial-label${!v.display ? ' minute-hidden' : ''}${this.minute === v.minute ? ' selected' : ''}" minute="${v.minute}" degree="${v.theta}">${v.display ? v.paddedMinute : ''}</div>`).join('\n');
   }
 
-  #updateDisplayValueMeridiem({ hour, minute, meridiem }) {
-    const split = this.#displayValue.split(':');
-    const currentMeridiem = meridiem ? meridiem : parseInt(split[0]) > 12 ? 'PM' : 'AM';
-    if (hour) {
-      hour = parseInt(hour);
-      if (currentMeridiem === 'PM') {
-        if (hour !== 12) hour += 12;
-      } else if (hour === 12) hour = 0;
-      split[0] = `${hour}`;
-    }
-    if (parseInt(split[0]) < 10) split[0] = `0${split[0]}`
-    if (minute) split[1] = minute;
-
-    this.#displayValue = `${split[0]}:${split[1]}`;
-  }
-
-  #updateDisplayValue24({ hour, minute }) {
-    const split = this.#displayValue.split(':');
-    hour = hour || parseInt(split[0]);
-    if (hour < 10) hour = `0${hour}`;
-    minute = minute || parseInt(split[1]);
-    if (minute < 10) minute = `0${minute}`;
-    this.#displayValue = `${hour}:${minute}`;
-  }
-
-  #convert24ToMeridiemParts(time) {
-    const split = time.split(':');
-    let hour = parseInt(split[0]);
-    let meridiem = 'AM';
-    if (hour > 12) {
-      meridiem = 'PM';
-      hour = hour - 12;
-    }
-    if (hour === 0) hour = 12;
-    const paddedHour = hour < 10 ? `0${hour}` : `${hour}`;
-    const minute = parseInt(split[1]);
-    const paddedMinute = minute < 10 ? `0${minute}` : `${minute}`;
-
-    return {
-      hour: `${hour}`,
-      paddedHour,
-      minute,
-      paddedMinute,
-      meridiem,
-      formatted: `${paddedHour}:${paddedMinute} ${meridiem}`
-    };
-  }
-
-  #convertTo24Parts(time) {
-    const split = time.split(':');
-    let hour = parseInt(split[0]);
-    const paddedHour = hour < 10 ? `0${hour}` : `${hour}`;
-    const minute = parseInt(split[1]);
-    const paddedMinute = minute < 10 ? `0${minute}` : `${minute}`;
-
-    return {
-      hour: `${hour}`,
-      paddedHour,
-      minute: `${minute}`,
-      paddedMinute,
-      formatted: `${paddedHour}:${paddedMinute}`
-    };
-  }
-
-  #onControlFocus() {
-    this.show();
-  }
-
-  #onControlClick() {
-    this.show();
-  }
-
-  #onShow() {
-    this.#openAbort = new AbortController();
-    this.#setInitialTime();
-
-    const parts = this.#convert24ToMeridiemParts(this.#displayValue);
-    this.#selectedHour = parts.hour;
-    this.#selectedMinute = parts.minute;
-    this.#selectedMeridiem = parts.meridiem;
-    this.#updateSelection(true);
-    this.#switchView('hour');
-
-    this.addEventListener('close', this.#onClose_bound, { signal: this.#openAbort.signal });
-    if (device.isMobile) {
-      this.#control.removeEventListener('click', this.#onControlClick_bound);
-      this.querySelector('.mdw-keyboard').addEventListener('click', this.#keyboardClick_bound, { signal: this.#openAbort.signal });
-    }
-    this.#input.removeEventListener('focus', this.#onControlFocus_bound);
-    this.querySelector('.mdw-dial-container').addEventListener('mousedown', this.#selectMouseDown_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-dial-container').addEventListener('touchstart', this.#selectMouseDown_bound, { signal: this.#openAbort.signal });
-    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-dial-hour').addEventListener('click', this.#dialHourClick_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-dial-container').addEventListener('click', this.#dialMinuteClick_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-ok').addEventListener('click', this.#ok_bound, { signal: this.#openAbort.signal });
-    this.querySelector('.mdw-cancel').addEventListener('click', this.#cancel_bound, { signal: this.#openAbort.signal });
-    if (!this.#hour24) {
-      this.querySelector('.mdw-am').addEventListener('click', this.#amClick_bound, { signal: this.#openAbort.signal });
-      this.querySelector('.mdw-pm').addEventListener('click', this.#pmClick_bound, { signal: this.#openAbort.signal });
-    }
-  }
-
-  #onClose() {
-    this.#openAbort.abort();
-
-    setTimeout(() => {
-      if (device.isMobile) {
-        this.#control.addEventListener('click', this.#onControlClick_bound, { signal: this.#abort.signal });
-      }
-      this.#input.addEventListener('focus', this.#onControlFocus_bound, { signal: this.#abort.signal });
-    });
-
-    this.#input.reportValidity();
-  }
-
-  #ok() {
-    this.value = this.#displayValue;
-    this.close();
-  }
-
-  #cancel() {
-    this.value = this.#initialValue;
-    this.close();
-  }
 
   #selectMouseDown(event) {
     const selectorBounds = this.#selector.getBoundingClientRect();
@@ -409,70 +580,22 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
     window.removeEventListener('touchend', this.#selectMouseUp_bound);
     window.removeEventListener('touchmove', this.#selectMouseMove_bound);
     event.preventDefault();
-    setTimeout(() => this.#switchView('minute'));
-  }
 
-  #hourClick() {
-    this.#switchView('hour');
-  }
-
-  #minuteClick() {
-    this.#switchView('minute');
-  }
-
-  #switchView(view = 'hour') {
-    if (view === 'hour') {
-      this.classList.remove('mdw-minute-view');
-      this.classList.remove('mdw-input-view');
-      this.querySelector('.mdw-time-hour').setAttribute('selected', '');
-      this.querySelector('.mdw-time-minute').removeAttribute('selected');
-      this.querySelector('.mdw-time-hour').setAttribute('readonly', '');
-      this.querySelector('.mdw-time-minute').setAttribute('readonly', '');
-      this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
-      this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#abort.signal });
-      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#abort.signal });
-    } else if (view === 'minute') {
-      if (this.#minuteStep === -1) return;
-
-      this.#selector.classList.remove('mdw-hour-24');
-      this.classList.add('mdw-minute-view');
-      this.classList.remove('mdw-input-view');
-      this.querySelector('.mdw-time-minute').setAttribute('selected', '');
-      this.querySelector('.mdw-time-hour').removeAttribute('selected');
-      this.querySelector('.mdw-time-hour').setAttribute('readonly', '');
-      this.querySelector('.mdw-time-minute').setAttribute('readonly', '');
-      this.querySelector('.mdw-time-hour').removeEventListener('input', this.#hourInput_bound);
-      this.querySelector('.mdw-time-minute').removeEventListener('input', this.#minuteInput_bound);
-      this.querySelector('.mdw-time-hour').addEventListener('click', this.#hourClick_bound, { signal: this.#abort.signal });
-      this.querySelector('.mdw-time-minute').addEventListener('click', this.#minuteClick_bound, { signal: this.#abort.signal });
-    } else if (view === 'input') {
-      this.#selector.classList.remove('mdw-hour-24');
-      this.classList.add('mdw-input-view');
-      this.classList.remove('mdw-minute-view');
-      this.querySelector('.mdw-time-hour').setAttribute('selected', '');
-      this.querySelector('.mdw-time-minute').removeAttribute('selected');
-      this.querySelector('.mdw-time-hour').removeAttribute('readonly');
-      this.querySelector('.mdw-time-minute').removeAttribute('readonly');
-      this.querySelector('.mdw-time-hour').addEventListener('input', this.#hourInput_bound, { signal: this.#abort.signal });
-      this.querySelector('.mdw-time-minute').addEventListener('input', this.#minuteInput_bound, { signal: this.#abort.signal });
-      this.querySelector('.mdw-time-hour').removeEventListener('click', this.#hourClick_bound);
-      this.querySelector('.mdw-time-minute').removeEventListener('click', this.#minuteClick_bound);
-    }
-
-    this.#updateSelection(true);
+    // setTimeout for display only. Not for events
+    setTimeout(() => {
+      this.view = 'minute';
+      this.#updateDisplay();
+    }, 60);
   }
 
   #selectMouseMove(event) {
-    const center = this.querySelector('.mdw-selector-center');
-    const centerBounds = center.getBoundingClientRect();
+    const centerBounds = this.#selector.getBoundingClientRect();
     const mousePosition = this.#getMousePosition(event);
     const x = centerBounds.x - mousePosition.x;
     const y = centerBounds.y - mousePosition.y;
     const theta = Math.atan2(y, x) * (180 / Math.PI);
 
-    const view = this.#view;
-    if (view === 'hour') {
+    if (this.#view === 'hour') {
       const step = this.#hourStep * 30;
       let positionTheta = theta - 90;
       if (positionTheta < 0) positionTheta = 360 + positionTheta; // normalize to all positive
@@ -480,11 +603,11 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       if (positionTheta === 360) positionTheta = 0;
 
       // in inner radius
-      const isHour24 = this.#hour24 && x > -80 && x < 80 && y > -80 && y < 80;
-      this.#selectedHour = this.#hourData.find(v => v.theta === `${positionTheta}` && (isHour24 ? v.is24 === true : v.is24 !== true)).hour;
-      this.style.setProperty('--mdw-time-selector-selector-degrees', `${positionTheta}deg`);
+      const isHour24 = this.hour24 && x > -80 && x < 80 && y > -80 && y < 80;
+      const hourData = this.#hourData.find(v => v.theta === `${positionTheta}` && (isHour24 ? v.is24 === true : v.is24 !== true));
+      this.hour = hourData.hour;
 
-    } else if (view === 'minute') {
+    } else if (this.#view === 'minute') {
       const step = this.#minuteStep * 6;
       let positionTheta = theta - 90;
       if (positionTheta < 0) positionTheta = 360 + positionTheta; // normalize to all positive
@@ -492,125 +615,12 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWP
       if (Math.abs(distanceFromMain) < 6) positionTheta += distanceFromMain; // favor main minutes
       positionTheta = Math.round(positionTheta / step) * step;
       if (positionTheta === 360) positionTheta = 0;
-
-      this.#selectedMinute = this.#minuteData.find(v => v.theta === `${positionTheta}`).minute;
-      this.style.setProperty('--mdw-time-selector-selector-degrees', `${positionTheta}deg`);
+      this.minute = this.#minuteData.find(v => v.theta === `${positionTheta}`).minute;
     }
 
-    this.#updateSelection();
+    this.#updateDisplay();
     event.stopPropagation();
-    // event.preventDefault();
-  }
-
-  #updateSelection(change = false) {
-    const selector = this.#selector;
-    if (this.#selectedHour !== undefined && this.#lastSelectedHour !== this.#selectedHour) {
-      const isHourAnd24 = this.#hour24 && !!this.#hourData.find(v => v.hour === this.#selectedHour).is24; // TODO hour view
-      selector.classList.toggle('mdw-hour-24', isHourAnd24);
-      const currentHour = this.querySelector(`.mdw-dial-label[hour][selected]`);
-      if (currentHour) currentHour.removeAttribute('selected');
-      const nextHour = this.querySelector(`.mdw-dial-label[hour="${this.#selectedHour}"]`);
-      if (nextHour) nextHour.setAttribute('selected', '');
-      this.#lastSelectedHour = this.#selectedHour;
-      change = true;
-    }
-
-    if (this.#selectedMinute !== undefined && this.#lastSelectedMinute !== this.#selectedMinute) {
-      selector.classList.remove('mdw-hour-24');
-      const currentMinute = this.querySelector(`.mdw-dial-label[minute][selected]`);
-      if (currentMinute) currentMinute.removeAttribute('selected');
-      const nextMinute = this.querySelector(`.mdw-dial-label[minute="${this.#selectedMinute}"]`);
-      if (nextMinute) nextMinute.setAttribute('selected', '');
-      this.#lastSelectedMinute = this.#selectedMinute;
-      change = true;
-    }
-
-    if (!this.#hour24 && this.#selectedMeridiem !== undefined && this.#lastSelectedMeridiem !== this.#selectedMeridiem) {
-      this.querySelector('.mdw-am').toggleAttribute('selected', this.#selectedMeridiem === 'AM');
-      this.querySelector('.mdw-pm').toggleAttribute('selected', this.#selectedMeridiem === 'PM');
-      this.#lastSelectedMeridiem = this.#selectedMeridiem;
-      change = true;
-    }
-
-    if (change) {
-      const view = this.#view;
-
-      if (this.#hour24) {
-        this.#updateDisplayValue24({ hour: this.#selectedHour });
-        this.querySelector('.mdw-time-hour').value = this.#displayValue.split(':')[0];
-        if (view === 'hour') selector.classList.toggle('mdw-hour-24', this.#selectedHour === '0' || this.#selectedHour > 12);
-      } else {
-        this.#updateDisplayValueMeridiem({ hour: this.#selectedHour, meridiem: this.#selectedMeridiem });
-        const meridiemParts = this.#convert24ToMeridiemParts(this.#displayValue);
-        this.querySelector('.mdw-time-hour').value = meridiemParts.paddedHour;
-      }
-
-      this.#updateDisplayValue24({ minute: this.#selectedMinute });
-      this.querySelector('.mdw-time-minute').value = this.#displayValue.split(':')[1];
-
-      selector.classList.remove('mdw-minute-secondary');
-      let selectedTheta;
-      if (view === 'hour') selectedTheta = this.#hourData.find(v => v.hour === `${this.#selectedHour}`).theta;
-      else if (view === 'minute') {
-        const selectedData = this.#minuteData.find(v => v.minute === `${this.#selectedMinute}`);
-        selectedTheta = selectedData.theta;
-        if (selectedData.display !== true) selector.classList.add('mdw-minute-secondary');
-      }
-      this.style.setProperty('--mdw-time-selector-selector-degrees', `${selectedTheta}deg`);
-    }
-  }
-
-  #amClick() {
-    this.querySelector('.mdw-am').setAttribute('selected', '');
-    this.querySelector('.mdw-pm').removeAttribute('selected');
-    this.#selectedMeridiem = 'AM';
-    this.#updateDisplayValueMeridiem({ hour: this.#selectedHour, meridiem: 'AM' });
-    this.value = this.#displayValue;
-  }
-
-  #pmClick() {
-    this.querySelector('.mdw-pm').setAttribute('selected', '');
-    this.querySelector('.mdw-am').removeAttribute('selected');
-    this.#selectedMeridiem = 'PM';
-    this.#updateDisplayValueMeridiem({ hour: this.#selectedHour, meridiem: 'PM' });
-    this.value = this.#displayValue;
-  }
-
-  #onInput(event) {
-    const parts = this.#hour24 ? this.#convertTo24Parts(event.target.value) : this.#convert24ToMeridiemParts(event.target.value);
-    this.#selectedHour = parts.hour;
-    this.#selectedMinute = parts.minute;
-    if (!this.#hour24) this.#selectedMeridiem = parts.meridiem;
-    this.#updateSelection();
-  }
-
-  #dialHourClick(event) {
-    this.#selectedHour = event.target.getAttribute('hour');
-    setTimeout(() => this.#switchView('minute'));
-  }
-
-  #dialMinuteClick(event) {
-    if (this.#view !== 'minute') return;
-    this.#selectMouseMove(event);
-  }
-
-  #keyboardClick() {
-    if (this.#view !== 'input') this.#switchView('input');
-    else this.#switchView('hour');
-  }
-
-  #hourInput(event) {
-    this.#selectedHour = event.target.value;
-    if (this.#hour24) {
-      this.#updateDisplayValue24({ hour: this.#selectedHour });
-    } else {
-      this.#updateDisplayValueMeridiem({ hour: this.#selectedHour, meridiem: this.#selectedMeridiem });
-    }
-  }
-
-  #minuteInput(event) {
-    this.#selectedMinute = event.target.value;
-    this.#updateDisplayValue24({ minute: this.#selectedMinute });
+    event.preventDefault();
   }
 
   #getMousePosition(event) {

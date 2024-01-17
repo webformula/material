@@ -137,6 +137,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
         ${this.suffixText ? `<span class="suffix-text">${this.suffixText}</span>` : ''}
         <slot name="trailing-icon"></slot>
         <div class="supporting-text" title="${this.#supportingText}">${this.#supportingText}</div>
+        <slot name="picker"></slot>
       </div>
     `.replace(/^\s*\n/gm, '').replace(/^\s{6}/gm, '');
   }
@@ -418,6 +419,12 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     if (event.target.name === 'trailing-icon') {
       const hasTrailingIcon = event.target.assignedElements({ flatten: true }).length > 0;
       this.shadowRoot.querySelector('.text-field').classList.toggle('trailing-icon', hasTrailingIcon);
+    }
+
+    if (event.target.name === 'picker') {
+      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER')) {
+        this.shadowRoot.querySelector('.text-field').classList.add('has-picker')
+      }
     }
   }
 

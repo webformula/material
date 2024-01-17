@@ -98,7 +98,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   }
 
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback(true);
     
     this.#abort = new AbortController();
     this.#options = [...this.querySelectorAll('mdw-option')];

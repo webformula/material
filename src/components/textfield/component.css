@@ -114,9 +114,9 @@
   -webkit-appearance: none;
 }
 
-.text-field input::-webkit-date-and-time-value {
+/* .text-field input::-webkit-date-and-time-value {
   text-align: left;
-}
+} */
 
 :host(:not(.outlined)) .text-field input:-webkit-autofill,
 :host(:not(.outlined)) .text-field input:-webkit-autofill:hover,
@@ -133,6 +133,36 @@
 :host(.outlined) .text-field input:-webkit-autofill:focus,
 :host(.outlined) .text-field input:-webkit-autofill:active {
   transition: background-color 9999s ease-in-out 0s;
+}
+
+
+input[type="time"] {
+  resize: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  transform: translate(4px, -5px);
+  opacity: 0;
+}
+
+.text-field:not(.has-picker) input[type="time"]::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 17px;
+  width: 24px;
+  height: 24px;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20width%3D%2224%22%3E%3Cpath%20d%3D%22m15.3%2016.7%201.4-1.4-3.7-3.7V7h-2v5.4ZM12%2022q-2.075%200-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2%2014.075%202%2012t.788-3.9q.787-1.825%202.137-3.175%201.35-1.35%203.175-2.138Q9.925%202%2012%202t3.9.787q1.825.788%203.175%202.138%201.35%201.35%202.137%203.175Q22%209.925%2022%2012t-.788%203.9q-.787%201.825-2.137%203.175-1.35%201.35-3.175%202.137Q14.075%2022%2012%2022Zm0-10Zm0%208q3.325%200%205.663-2.337Q20%2015.325%2020%2012t-2.337-5.663Q15.325%204%2012%204T6.338%206.337Q4%208.675%204%2012t2.338%205.663Q8.675%2020%2012%2020Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-size: cover;
+  background-color: var(--mdw-on-surface-variant);
+}
+
+.has-picker input[type="time"]::-webkit-clear-button,
+.has-picker input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
 }
 
 
@@ -290,7 +320,7 @@
 }
 
 
-:host(.has-date-picker) .text-field  input::-webkit-inner-spin-button,
+/* :host(.has-date-picker) .text-field  input::-webkit-inner-spin-button,
 :host(.has-date-picker) .text-field  input::-webkit-calendar-picker-indicator,
 :host(.has-time-picker) .text-field  input::-webkit-inner-spin-button,
 :host(.has-time-picker) .text-field  input::-webkit-calendar-picker-indicator,
@@ -303,7 +333,7 @@
 :host(.has-time-picker):host-context(body.mdw-mobile) .text-field  input[type="time"],
 :host(.has-time-picker):host-context(body.mdw-mobile) .text-field  input[type="month"] {
   pointer-events: none;
-}
+} */
 
 
 /* --- outline --- */
