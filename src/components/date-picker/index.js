@@ -1,2 +1,2 @@
 import './date-picker.js';
-import './date-picker-range.js';
+import './date-range-picker.js';

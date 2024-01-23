@@ -9,10 +9,6 @@
 @import url('./components/card/card-global.css');
 @import url('./components/card/group-global.css');
 @import url('./components/carousel/global.css');
-@import url('./components/date-picker/desktop-global.css');
-@import url('./components/date-picker/desktop-range-global.css');
-@import url('./components/date-picker/mobile-global.css');
-@import url('./components/date-picker/mobile-range-global.css');
 @import url('./components/divider/global.css');
 @import url('./components/panel/global.css');
 @import url('./components/search/search-global.css');

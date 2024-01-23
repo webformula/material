@@ -243,7 +243,7 @@ slot {
 
 :host(.open.animation-height-center-to-opacity) .surface.animating {
   animation: show-height-center-to-opacity;
-  animation-duration: var(--mdw-motion-duration-medium3);
+  animation-duration: var(--mdw-motion-duration-medium1);
   animation-timing-function: var(--mdw-motion-easing-emphasized);
 }
 
@@ -378,7 +378,6 @@ slot {
     display: block;
     opacity: 1;
     visibility: visible;
-    /* max-height: var(--mdw-surface-height); */
   }
 
   50% {
@@ -389,8 +388,6 @@ slot {
     opacity: 0;
     display: block;
     visibility: visible;
-    /* max-height: calc(var(--mdw-surface-height) * 0.75); */
-    /* transform: translate(var(--mdw-surface-horizontal-position), calc(var(--mdw-surface-vertical-position) + (var(--mdw-surface-height) * 0.031))); */
   }
 }
 

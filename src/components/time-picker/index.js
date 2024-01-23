@@ -28,7 +28,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWS
   #view = 'hour';
   #hourData = [];
   #minuteData = [];
-  #textfieldClick_bound = this.#textfieldClick.bind(this);
+  #textfieldFocus_bound = this.#textfieldFocus.bind(this);
   #close_bound = this.#close.bind(this);
   #selectMouseDown_bound = this.#selectMouseDown.bind(this);
   #selectMouseUp_bound = this.#selectMouseUp.bind(this);
@@ -192,7 +192,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWS
 
   connectedCallback() {
     super.connectedCallback();
-    this.#textfield.addEventListener('focus', this.#textfieldClick_bound);
+    this.#textfield.addEventListener('focus', this.#textfieldFocus_bound);
 
     const timeHour = this.shadowRoot.querySelector('input.time-hour');
     timeHour.step = this.#hourStep;
@@ -213,7 +213,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWS
       this.#abort.abort();
       this.#abort = undefined;
     }
-    this.#textfield.removeEventListener('focus', this.#textfieldClick_bound);
+    this.#textfield.removeEventListener('focus', this.#textfieldFocus_bound);
   }
 
 
@@ -268,7 +268,7 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWS
     this.close();
   }
 
-  #textfieldClick() {
+  #textfieldFocus() {
     this.show();
   }
 

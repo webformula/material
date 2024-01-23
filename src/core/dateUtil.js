@@ -257,18 +257,6 @@ const mdwDate = new class MDWDate {
     return weeks;
   }
 
-  getMonthRange(startDate, endDate) {
-    startDate = this.setDateByParts(startDate, { day: 1 });
-    endDate = this.setDateByParts(endDate, { day: 1 });
-    const arr = [];
-    while (startDate.getTime() !== endDate.getTime()) {
-      arr.push(startDate);
-      startDate = this.addToDateByParts(startDate, { month: 1 });
-    }
-    arr.push(endDate);
-    return arr;
-  }
-
   #setFormatters() {
     this.#intlFormatter = Intl.DateTimeFormat(this.locale, {
       weekday: 'long', // dddd

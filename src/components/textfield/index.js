@@ -43,8 +43,10 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   constructor() {
     super();
+
     this.#internals = this.attachInternals();
     this.render();
+    this.#value = this.getAttribute('value');
     this.#input = this.shadowRoot.querySelector('.text-field input');
   }
 
@@ -57,8 +59,8 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
       ['format', 'string'],
       ['label', 'string'],
       ['mask', 'string'],
-      ['max', 'number'],
-      ['min', 'number'],
+      ['max', 'string'],
+      ['min', 'string'],
       ['step', 'number'],
       ['maxlength', 'number'],
       ['minlength', 'number'],
@@ -422,7 +424,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     }
 
     if (event.target.name === 'picker') {
-      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER')) {
+      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER' || e.nodeName === 'MDW-DATE-PICKER' || e.nodeName === 'MDW-DATE-RANGE-PICKER')) {
         this.shadowRoot.querySelector('.text-field').classList.add('has-picker')
       }
     }

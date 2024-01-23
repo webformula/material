@@ -18,6 +18,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   #positionMouse;
   #mouseX;
   #mouseY;
+  #shrink = true;
   #fixed = false;
   #overlap = true;
   #animation = 'height';
@@ -143,6 +144,9 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   get allowClose() { return this.#allowClose; }
   set allowClose(value) { this.#allowClose = !!value; }
 
+  get shrink() { return this.#shrink; }
+  set shrink(value) { this.#shrink = !!value; }
+
   get alwaysVisible() { return this.#alwaysVisible; }
   set alwaysVisible(value) {
     this.#alwaysVisible = !!value
@@ -217,6 +221,10 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.dispatchEvent(new Event('change'));
     await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
+    if (this.animation !== 'height') {
+      this.#surfaceElement.style.removeProperty('--mdw-surface-height');
+      this.#surfaceElement.style.removeProperty('--mdw-surface-width');
+    }
 
     // TODO if no animation then these can trigger immediately
     if (this.#allowClose) {
@@ -241,8 +249,6 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.dispatchEvent(new Event('change'));
     await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
-    this.#surfaceElement.style.removeProperty('--mdw-surface-height');
-    this.#surfaceElement.style.removeProperty('--mdw-surface-width');
     this.#surfaceElement.style.left = '';
     this.#surfaceElement.style.bottom = '';
     this.#surfaceElement.style.top = '';
@@ -356,7 +362,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
           this.#surfaceElement.classList.add('above');
 
           // shrink with overlap
-        } else if (this.#overlap) {
+        } else if (this.#overlap && this.#shrink) {
           const newHeight = Math.min(height, clientHeight - (overlapPadding * 2));
           top += overlapBottom + (height - newHeight);
           height = newHeight;
@@ -365,9 +371,9 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
         } else {
           // choose above or below based on how much room there is
           if (overlapBottom > overlapTop) {
-            height += overlapBottom;
+            if (this.#shrink) height += overlapBottom;
           } else {
-            height += overlapTop;
+            if (this.#shrink) height += overlapTop;
             bottom = (offsetBottom - verticalStart) + this.#offsetTop;
             top = undefined;
           }

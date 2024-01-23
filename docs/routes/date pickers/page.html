@@ -8,36 +8,60 @@
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#basic" role="listitem">Date</a>
-      <a href="#dateminmax" role="listitem">Date min max</a>
+      <a href="#basic" role="listitem">Date picker</a>
+      <a href="#modal" role="listitem">Modal</a>
+      <a href="#dateminmax" role="listitem">Min max</a>
       <a href="#daterange" role="listitem">Date range</a>
-      <a href="#native" role="listitem">Date native component</a>
+      <a href="#native" role="listitem">Native component</a>
+      <a href="#no" role="listitem">No component</a>
     </ul>
   </nav>
 
   <div class="page-content-container">
     <mdw-card id="basic">
       <div class="mdw-card-content">
-        <div class="headline">Basic</div>
+        <div class="headline">Date picker</div>
 
         <div class="example">
-          <mdw-textfield id="temp">
-            <input type="date">
-            <label>Date</label>
-            <mdw-date-picker></mdw-date-picker>
+          <mdw-textfield type="date" label="date">
+            <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+            <mdw-date-picker slot="picker"></mdw-date-picker>
           </mdw-textfield>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="date">
-    <label>Date</label>
-    <mdw-date-picker></mdw-date-picker>
+  ${page.escape(`<mdw-textfield type="date" label="date">
+    <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+    <mdw-date-picker slot="picker"></mdw-date-picker>
   </mdw-textfield>`)}
         </code>
       </pre>
+    </mdw-card>
+
+
+    <mdw-card id="modal">
+      <div class="mdw-card-content">
+        <div class="headline">Modal</div>
+        <div class="supporting-text">Modals can be forced by adding a [modal] attribute. They will automatically be used on compact windows</div>
+    
+        <div class="example">
+          <mdw-textfield type="date" label="date" modal>
+            <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+            <mdw-date-picker slot="picker"></mdw-date-picker>
+          </mdw-textfield>
+        </div>
+      </div>
+    
+      <pre>
+            <code class="language-html">
+      ${page.escape(`<mdw-textfield type="date" label="date" modal>
+        <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+        <mdw-date-picker slot="picker"></mdw-date-picker>
+      </mdw-textfield>`)}
+            </code>
+          </pre>
     </mdw-card>
 
 
@@ -46,20 +70,18 @@
         <div class="headline">Min max</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="date" min="${page.min}" max="${page.max}">
-            <label>Date min max</label>
-            <mdw-date-picker></mdw-date-picker>
+          <mdw-textfield type="date" label="date" min="${page.min}" max="${page.max}">
+            <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+            <mdw-date-picker slot="picker"></mdw-date-picker>
           </mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="date" min="${page.min}" max="${page.max}">
-    <label>Date min max</label>
-    <mdw-date-picker></mdw-date-picker>
+  ${page.escape(`<mdw-textfield type="date" label="date" min="${page.min}" max="${page.max}">
+    <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+    <mdw-date-picker slot="picker"></mdw-date-picker>
   </mdw-textfield>`)}
         </code>
       </pre>
@@ -70,35 +92,29 @@
         <div class="headline">Date range</div>
     
         <div class="example">
-          <div style="display: flex;">
-            <mdw-textfield id="start">
-              <input type="date" value="${page.min}">
-              <label>Start</label>
-              <mdw-date-picker-range end-input="#end" label="Departures"></mdw-date-picker-range>
+            <mdw-textfield id="start" class="hide-date-icon" value="2024-01-01" type="date" label="Start">
+              <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
             </mdw-textfield>
-          
-            <mdw-textfield id="end">
-              <input type="date" value="${page.max}">
-              <label>End</label>
+
+            <mdw-textfield id="end" class="hide-date-icon" value="2024-02-01" type="date" label="End">
+              <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
             </mdw-textfield>
-          </div>
+
+            <mdw-date-range-picker start-textfield="#start" end-textfield="#end"></mdw-date-range-picker>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<div style="display: flex;">
-    <mdw-textfield id="start">
-      <input type="date">
-      <label>Start</label>
-      <mdw-date-picker-range end-input="#end" label="Departures"></mdw-date-picker-range>
-    </mdw-textfield>
+  ${page.escape(`<mdw-textfield id="start" class="hide-date-icon" value="2024-01-01" type="date" label="Start">
+    <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+  </mdw-textfield>
   
-    <mdw-textfield id="end">
-      <input type="date">
-      <label>End</label>
-    </mdw-textfield>
-  </div>`)}
+  <mdw-textfield id="end" class="hide-date-icon" value="2024-02-01" type="date" label="End">
+    <mdw-icon slot="leading-icon">calendar_today</mdw-icon>
+  </mdw-textfield>
+  
+  <mdw-date-range-picker start-textfield="#start" end-textfield="#end"></mdw-date-range-picker>`)}
         </code>
       </pre>
     </mdw-card>
@@ -108,21 +124,31 @@
         <div class="headline">Date native component</div>
     
         <div class="example">
-          <mdw-textfield>
-            <input type="date">
-            <label>Date</label>
-          </mdw-textfield>
+          <mdw-textfield type="date" label="Modal"></mdw-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield>
-    <input type="date">
-    <label>Date</label>
-  </mdw-textfield>`)}
+  ${page.escape(`<mdw-textfield type="date" label="date"></mdw-textfield>`)}
         </code>
       </pre>
+    </mdw-card>
+
+    <mdw-card id="no">
+      <div class="mdw-card-content">
+        <div class="headline">Date no component</div>
+    
+        <div class="example">
+          <mdw-textfield class="hide-date-icon" type="date" label="No modal"></mdw-textfield>
+        </div>
+      </div>
+    
+      <pre>
+            <code class="language-html">
+      ${page.escape(`<mdw-textfield class="hide-date-icon" type="date" label="date"></mdw-textfield>`)}
+            </code>
+          </pre>
     </mdw-card>
   </div>
 </section>
