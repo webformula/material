@@ -78,7 +78,7 @@ export default class HTMLComponentElement extends HTMLElement {
   }
 
 
-  #attributeDescriptorTypeConverter(value, type = 'string') {
+  #attributeDescriptorTypeConverter(value, type) {
     switch (type) {
       case 'boolean':
         return value !== null && `${value}` !== 'false';

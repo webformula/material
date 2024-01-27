@@ -204,7 +204,7 @@ input[type="time"] {
   transform-origin: left top;
   animation: mdw-textfield-label-reverse;
   animation-duration: var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing);
+  animation-timing-function: var(--mdw-motion-easing-standard);
 }
 
 .text-field.trailing-icon label,
@@ -240,7 +240,7 @@ input[type="time"] {
   top: 4px;
   animation: mdw-textfield-label;
   animation-duration: var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing);
+  animation-timing-function: var(--mdw-motion-easing-standard);
 }
 
 .text-field label.no-animation {
@@ -364,7 +364,7 @@ input[type="time"] {
 :host(.outlined) .text-field label {
   transform-origin: left top;
   animation: mdw-textfield-label-outlined-reverse var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing);
+  animation-timing-function: var(--mdw-motion-easing-standard);
 }
 
 :host(.outlined.raise-label) .text-field label,
@@ -375,7 +375,7 @@ input[type="time"] {
   top: -12px;
   left: 14px;
   animation: mdw-textfield-label-outlined var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing);
+  animation-timing-function: var(--mdw-motion-easing-standard);
 }
 
 .text-field .outlined-border-container {

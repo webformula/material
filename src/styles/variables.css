@@ -53,6 +53,7 @@
   --mdw-shape-large-top: 16px 16px 0 0;
   --mdw-shape-extra-large: 28px;
   --mdw-shape-extra-large-top: 28px 28px 0 0;
+  --mdw-shape-extra-large-bottom: 0 0 28px 28px;
   --mdw-shape-full: 50%;
   --mdw-navigation-rail-width: 88px;
   --mdw-navigation-drawer-width: 360px;

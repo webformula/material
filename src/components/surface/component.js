@@ -2,9 +2,10 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const animations = ['translate-y', 'translate-left', 'translate-right', 'height', 'height-center-to-opacity'];
+const animations = ['translate-y', 'translate-left', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
+// TODO fullscreenplaceholder and progress bar
 
 export default class MDWSurfaceElement extends HTMLComponentElement {
   static useShadowRoot = true;
@@ -117,6 +118,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.classList.toggle('animation-height', value === 'height');
     this.classList.toggle('animation-translate-left', value === 'translate-left');
     this.classList.toggle('animation-height-center-to-opacity', value === 'height-center-to-opacity');
+    this.classList.toggle('animation-fullscreen', value === 'fullscreen');
   }
 
   get viewportBound() { return this.#viewportBound; }
@@ -213,13 +215,17 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   async show() {
     if (this.open) return;
     this.#open = true;
+    if (this.animation === 'fullscreen') {
+      this.#preShowFullscreen();
+      util.lockPageScroll();
+    }
     this.classList.add('open');
     
     this.#setPosition();
     this.onShow();
     this.#surfaceElement.classList.add('animating');
-    this.dispatchEvent(new Event('change'));
-    await util.animationendAsync(this.#surfaceElement);
+    if (this.animation === 'fullscreen') await util.transitionendAsync(this);
+    else await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
     if (this.animation !== 'height') {
       this.#surfaceElement.style.removeProperty('--mdw-surface-height');
@@ -232,6 +238,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
       else window.addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
       window.addEventListener('keydown', this.#onEsc_bound, { signal: this.#abort.signal });
     }
+    this.onShowEnd();
   }
 
   async close() {
@@ -245,13 +252,21 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
       window.removeEventListener('keydown', this.#onEsc_bound);
     }
     this.#surfaceElement.classList.add('animating');
+    this.classList.add('closing');
     this.classList.remove('open');
-    this.dispatchEvent(new Event('change'));
-    await util.animationendAsync(this.#surfaceElement);
+    if (this.animation === 'fullscreen') this.#postHideFullscreen();
+    if (this.animation === 'fullscreen') await util.transitionendAsync(this);
+    else await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
     this.#surfaceElement.style.left = '';
     this.#surfaceElement.style.bottom = '';
     this.#surfaceElement.style.top = '';
+    this.classList.remove('closing');
+    if (this.animation === 'fullscreen') {
+      this.#clearFullScreen();
+      this.#fullscreenPlaceholder.remove();
+      util.unlockPageScroll();
+    }
     this.dispatchEvent(new Event('close'));
 
     this.onHideEnd();
@@ -261,9 +276,11 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.open = !this.open;
   }
 
+  onShowBefore() {}
   onShow() {}
+  onShowEnd() {}
   onHide() {}
-  onHideEnd() { }
+  onHideEnd() {}
 
 
   #setPosition() {
@@ -393,11 +410,41 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 
   #setNonAnchorPosition() {
-    // TODO offsets for non anchor
-    // this.#surfaceElement.style.setProperty('--mdw-surface-offset-y', `${this.#offsetBottom || 0}px`);
-    // this.#surfaceElement.style.setProperty('--mdw-surface-offset-X', `${this.#offsetX || 0}px`);
     this.#surfaceElement.style.setProperty('--mdw-surface-height', `${this.#surfaceElement.offsetHeight}px`);
     this.#surfaceElement.style.setProperty('--mdw-surface-width', `${this.#surfaceElement.offsetWidth}px`);
+
+    if (this.animation === 'fullscreen') this.#clearFullScreen();
+  }
+
+  #preFullscreenBounds;
+  #fullscreenPlaceholder;
+  #preShowFullscreen() {
+    if (!this.#fullscreenPlaceholder) {
+      this.#fullscreenPlaceholder = document.createElement('div');
+      this.#fullscreenPlaceholder.classList.add('mdw-surface-placeholder');
+    }
+    this.#preFullscreenBounds = this.getBoundingClientRect();
+    this.#postHideFullscreen();
+
+    this.#fullscreenPlaceholder.style.top = `${this.#preFullscreenBounds.top}px`;
+    this.#fullscreenPlaceholder.style.left = `${this.#preFullscreenBounds.left}px`;
+    this.#fullscreenPlaceholder.style.width = `${this.#preFullscreenBounds.width}px`;
+    this.#fullscreenPlaceholder.style.height = `${this.#preFullscreenBounds.height}px`;
+    this.insertAdjacentElement('afterend', this.#fullscreenPlaceholder);
+  }
+
+  #postHideFullscreen() {
+    this.style.top = `${this.#preFullscreenBounds.top}px`;
+    this.style.left = `${this.#preFullscreenBounds.left}px`;
+    this.style.width = `${this.#preFullscreenBounds.width}px`;
+    this.style.height = `${this.#preFullscreenBounds.height}px`;
+  }
+
+  #clearFullScreen() {
+    this.style.top = '';
+    this.style.left = '';
+    this.style.width = '';
+    this.style.height = '';
   }
 
   #setMousePosition(event) {

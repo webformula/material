@@ -1,2 +1,3 @@
 import './search.js';
-import './suggestions.js';
+import './search-item.js'
+import './search-container.js';

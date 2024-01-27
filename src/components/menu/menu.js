@@ -117,10 +117,10 @@ export default class MDWMenuElement extends MDWSurfaceElement {
     } else if (e.code === 'ArrowUp') {
       this.#focusPrevious();
       e.preventDefault();
-    } else if (e.code === 'Escape') {
+    } else if (e.code === 'Escape' && this.allowClose) {
       this.close();
       // TODO work out what to do here
-      if (this.nodeName !== 'MDW-SELECT') this.anchorElement.focus();
+      if (this.nodeName !== 'MDW-SELECT' && this.anchorElement) this.anchorElement.focus();
 
     // picks first filtered item based on style.order if focus is on input
     } else if (e.code === 'Enter' && this.nodeName === 'MDW-SELECT' && this.#disableLetterFocus) {
@@ -132,18 +132,14 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   }
 
   #focusNext() {
-    const sorted = [...this.children]
-      .filter(c => this.#isElementFocusable(c))
-      .sort(c => c.style.order === '0' ? -1 : 0);
+    const sorted = this.#getFocusableElement().sort(c => c.style.order === '0' ? -1 : 0);
     const focusedIndex = sorted.findIndex(c => c === document.activeElement);
     const item = sorted[focusedIndex + 1];
     if (item) item.focus();
   }
 
   #focusPrevious() {
-    const sorted = [...this.children]
-      .filter(c => this.#isElementFocusable(c))
-      .sort(c => c.style.order === '0' ? -1 : 0);
+    const sorted = this.#getFocusableElement().sort(c => c.style.order === '0' ? -1 : 0);
     let focusedIndex = sorted.findIndex(c => c === document.activeElement);
     if (focusedIndex === -1) focusedIndex = sorted.length;
 
@@ -151,6 +147,7 @@ export default class MDWMenuElement extends MDWSurfaceElement {
     if (focusedIndex === 0) {
       // if mdw-select[filter] then focus on textfield
       if (this.nodeName === 'MDW-SELECT' && this.hasAttribute('filter')) this.shadowRoot.querySelector('mdw-textfield').focus();
+      if (this.nodeName === 'MDW-SEARCH') this.shadowRoot.querySelector('input').focus();
       return;
     }
     const item = sorted[focusedIndex - 1];
@@ -160,7 +157,7 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   // focus on element that starts with typed characters
   #textSearch(key) {
     this.#searchKeys += key.toLowerCase();
-    if (!this.#searchItems) this.#searchItems = [...this.children].filter(c => this.#isElementFocusable(c)).map(element => ({
+    if (!this.#searchItems) this.#searchItems = this.#getFocusableElement().map(element => ({
       element,
       text: util.getTextFromNode(element).toLowerCase()
     }));
@@ -193,6 +190,16 @@ export default class MDWMenuElement extends MDWSurfaceElement {
       if (parentElement.getAttribute('context-menu') === this.#contextMenuId) return parentElement;
       parentElement = parentElement.parentElement;
     }
+  }
+
+  #getFocusableElement() {
+    const walker = document.createTreeWalker(this, NodeFilter.SHOW_ELEMENT);
+    let node;
+    let elements = [];
+    while (node = walker.nextNode()) {
+      if (this.#isElementFocusable(node)) elements.push(node);
+    }
+    return elements;
   }
 
   #isElementFocusable(element) {

@@ -205,20 +205,20 @@ const mdwUtil = new class MDWUtil {
   }
 
   // can use array of strings ['one', 'two']
-  // can also use array of objects with label property [{ label: 'one' }, { label: 'two' }]
+  // can also use array of objects with label property [{ label: 'one' }, { label: 'two' }] || [{ value: 'one' }, { value: 'two' }]
   fuzzySearch(searchTerm, items = [], distanceCap = 2) {
     items = items.filter(v => !!v);
     if (items.length === 0) return [];
     const type = typeof items[0];
     if (!['string', 'object'].includes(type)) throw Error('Incorrect items array');
     if (type === 'object') {
-      if (typeof items[0].label !== 'string') throw Error('Items array with objects must contain a label property that is a string');
+      if (typeof items[0].label !== 'string' && typeof items[0].value !== 'string') throw Error('Items array with objects must contain a label or value property that is a string');
     }
 
     searchTerm = searchTerm.toLowerCase().trim();
     const filterArr = items.map(item => {
       let label;
-      if (type == 'object') label = item.label;
+      if (type == 'object') label = item.label || item.value;
       else label = item;
 
       return {

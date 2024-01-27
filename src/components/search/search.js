@@ -1,4 +1,6 @@
-import HTMLElementExtended from '../HTMLElementExtended.js';
+import MDWMenuElement from '../menu/menu.js';
+import styles from './search.css' assert { type: 'css' };
+import dividerStyles from '../divider/global.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import device from '../../core/device.js';
 import {
@@ -8,539 +10,391 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24,
   mic_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
-import styles from './search.css' assert { type: 'css' };
 
-// TODO search header (fixed at top of page, hides on scroll)
-
+const isIncrementalSupported = 'incremental' in document.createElement('input');
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
-customElements.define('mdw-search', class MDWSearchElement extends HTMLElementExtended {
-  static useShadowRoot = true;
-  static useTemplate = false;
-  static styleSheets = styles;
+// TODO chips
 
-  #value = '';
-  #placeholder = 'Search';
-  #debounce;
-  #open = false;
-  #suggestions = [];
-  #quickResults = [];
-  #input;
-  #templateElement = document.createElement('template');
-  #sections = [{
-    id: 'default'
-  }];
-  #templates = {
-    default: data => /*html*/`<mdw-list-item value="${data.value}">${data.primary || data.value}</mdw-list-item>`,
-    quick: data => /*html*/`<mdw-list-item value="${data.value}">${data.primary || data.value}</mdw-list-item>`
-  };
-  #historyMax = 100;
-  #historyId;
-  #history = [];
+customElements.define('mdw-search', class MDWSearchElement extends MDWMenuElement {
+  static styleSheets = [dividerStyles, styles];
 
-  #open_bound = this.open.bind(this);
-  #onInput_bound = this.#onInput.bind(this);
-  #onKeydown_bound = this.#onKeydown.bind(this);
-  #onClearClick_bound = this.#onClearClick.bind(this);
-  #close_bound = this.close.bind(this);
-  #itemClick_bound = this.#itemClick.bind(this);
-  #filterChange_bound = this.#filterChange.bind(this);
-  #clickOutsideCloseFix_bound = this.#clickOutsideCloseFix.bind(this);
-  #backClick_bound = this.#backClick.bind(this);
-  #inputSearch_debounced;
-  #fullscreenPlaceHolder;
-  #speechRecognition;
-  #hasSpeech = this.hasAttribute('speech');
-  #micClick_bound = this.#micClick.bind(this);
-  #noSpinner = this.classList.contains('mdw-no-spinner');
   #abort;
-  #openAbort;
-
+  #input;
+  #selected;
+  #selectedObject;
+  #surfaceContent;
+  #inputContainer;
+  #results = [];
+  #suggestions = [];
+  #incremental;
+  #speech;
+  #speechRecognition;
+  #speechListening;
+  #history = null;
+  #historyMax = 100;
+  #historyItems = [];
+  #searchTimeout;
+  #searchTimeoutSeconds = 3;
+  #onInput_bound = this.#onInput.bind(this);
+  #renderSuggestions_debounced = util.debounce(this.#renderSuggestions, 50).bind(this);
+  #onSearch_bound = this.#onSearch.bind(this);
+  #incrementalPolyfill_debounced = util.debounce(this.#onSearch, 300).bind(this);
+  #clear_bound = this.#clear.bind(this);
+  #micClick_bound = this.#micClick.bind(this);
+  #close_bound = this.#close.bind(this);
+  #itemClick_bound = this.#itemClick.bind(this);
 
 
   constructor() {
     super();
-    this.classList.add('mdw-no-animation');
 
-    if (this.#hasSpeech) {
-      if (!speechRecognitionSupported) {
-        console.warn('Browser does not support speech recognition');
-        this.#hasSpeech = false;
-      } else this.#enableSpeechRecognition();
-    }
+    this.role = 'search';
 
-    if (this.hasAttribute('debounce')) {
-      this.#debounce = parseInt(this.getAttribute('debounce') || 300);
-      this.#inputSearch_debounced = util.debounce(this.#inputSearch.bind(this), this.#debounce);
-    }
-  }
-
-  connectedCallback() {
-    this.#abort = new AbortController();
-    const filters = this.querySelector('[slot=filters]');
-    if (filters) this.classList.add('mdw-has-filters');
-
-    if (device.isMobile) {
-      this.classList.add('mdw-fullscreen');
-      this.insertAdjacentHTML('beforeend', /*html*/`
-        <div class="mdw-suggestions" slot="suggestions">
-          <mdw-list class="mdw-line-compact">
-          </mdw-list>
-        </div>
-      `);
+    this.disableLetterFocus = true;
+    if (device.state !== 'compact') {
+      this.allowClose = true;
+      this.overlap = false;
     } else {
-      this.insertAdjacentHTML('beforeend', /*html*/`
-        <mdw-suggestions slot="suggestions">
-          <mdw-list class="mdw-line-compact">
-          </mdw-list>
-        </mdw-suggestions>
-      `);
+      this.modal = true;
+      this.fixed = true;
+      this.allowClose = false;
+      this.animation = 'fullscreen';
     }
 
-    if (this.querySelector('[slot=leading]')) this.classList.add('mdw-has-leading');
-    if (this.querySelector('[slot=trailing]')) this.classList.add('mdw-has-trailing');
-
-    this.#historyId = this.getAttribute('history');
-    if (this.#historyId) this.#history = JSON.parse(localStorage.getItem(`${this.#historyId}_history`) || '[]');
-
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.getAttribute('placeholder' || 'search'));
-  }
-
-  afterRender() {
     this.#input = this.shadowRoot.querySelector('input');
-    this.#input.addEventListener('focus', this.#open_bound, { signal: this.#abort.signal });
-    this.shadowRoot.querySelector('.clear').addEventListener('click', this.#onClearClick_bound, { signal: this.#abort.signal });
-
-    setTimeout(() => {
-      this.classList.remove('mdw-no-animation');
-    }, 200);
-  }
-
-  disconnectedCallback() {
-    this.#abort.abort();
-    if (this.#openAbort) this.#openAbort.abort();
+    this.#surfaceContent = this.shadowRoot.querySelector('.surface-content');
+    this.#inputContainer = this.shadowRoot.querySelector('.input');
   }
 
   template() {
     return /*html*/`
-      <div class="textfield">
-        <slot name="leading"></slot>
-        <div class="mdw-svg-icon fullscreen-back">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</div>
-        <div class="mdw-svg-icon search">${search_FILL0_wght400_GRAD0_opsz24}</div>
-        <input placeholder="${this.#placeholder}">
-        ${this.#hasSpeech ? `<div class="mdw-svg-icon mic">${mic_FILL1_wght400_GRAD0_opsz24}</div>` : ``}
-        <span class="spinner"></span>
-        <div class="mdw-svg-icon clear">${close_FILL0_wght400_GRAD0_opsz24}</div>
-        <slot name="trailing"></slot>
+      <div class="search">
+        <div class="input">
+          <slot name="leading"></slot>
+          <mdw-icon class="search-icon">${search_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+          <mdw-icon-button class="back">
+            <mdw-icon>${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</mdw-icon>
+          </mdw-icon-button>
+          <input type="search" />
+          <mdw-icon-button class="mic">
+            <mdw-icon>${mic_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
+          </mdw-icon-button>
+          <mdw-icon-button class="clear">
+            <mdw-icon>${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+          </mdw-icon-button>
+          <slot name="trailing"></slot>
+          <mdw-divider></mdw-divider>
+        </div>
+
+        <div class="surface">
+          <div class="surface-content">
+            <div class="item-padding">
+              <mdw-progress-linear indeterminate disabled></mdw-progress-linear>
+              <div class="no-results">No items</div>
+              <slot name="suggestions"></slot>
+              <slot class="options-container"></slot>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <slot name="filters"></slot>
-      <slot name="suggestions"></slot> <!-- filled in programmatically, used for global css access -->
     `;
   }
 
-  get placeholder() {
-    return this.#placeholder;
-  }
-  set placeholder(value) {
-    this.#placeholder = value;
-    this.setAttribute('aria-label', value);
-    if (this.rendered) this.shadowRoot.querySelector('input').placeholder = value;
+
+  static get observedAttributesExtended() {
+    return [
+      ['placeholder', 'string'],
+      ['incremental', 'boolean'],
+      ['history', 'default'],
+      ['history-max', 'int'],
+      ['speech', 'boolean'],
+      ['search-timeout-seconds', 'int']
+    ];
   }
 
-  get value() {
-    return this.#value;
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
   }
+
+
+  get value() { return this.#input.value; }
   set value(value) {
-    if (this.rendered) this.shadowRoot.querySelector('input').value = value;
+    this.#input.value = value;
   }
 
-  get searchValue() {
-    return this.shadowRoot.querySelector('input').value;
-  }
-  set searchValue(value) {
-    if (this.rendered) this.shadowRoot.querySelector('input').value = value;
+  get selected() { return this.#selected; }
+  get selectedObject() { return this.#selectedObject; }
+
+  get placeholder() { return this.#input.placeholder }
+  set placeholder(value) {
+    this.#input.placeholder = value;
   }
 
-  get filterValue() {
-    return this.#chipGroup.value;
+  get incremental() { return this.#incremental; }
+  set incremental(value) {
+    this.#incremental = value;
+    this.#input.incremental = this.#incremental;
   }
 
-  get #suggestionsContainer() {
-    return this.querySelector('mdw-suggestions') || this.querySelector('.mdw-suggestions');
+  get searchTimeoutSeconds() { return this.#searchTimeoutSeconds; }
+  set searchTimeoutSeconds(value = 3) {
+    this.#searchTimeoutSeconds = value;
   }
 
-  get #list() {
-    return this.#suggestionsContainer.querySelector(':scope > mdw-list');
-  }
-  get #chipGroup() {
-    return this.querySelector(':scope > mdw-chip-group');
-  }
-
-  get sections() {
-    return this.#sections;
+  get history() { return this.#history; }
+  set history(value) {
+    this.#history = typeof value === 'string' ? (value || this.getAttribute('id') || '_global') : null;
+    if (this.#history) this.#historyItems = JSON.parse(localStorage.getItem(`mdw_search_history_${this.#history}`) || '[]');
   }
 
-  get suggestions() {
-    return this.#suggestions;
+  get historyMax() { return this.#historyMax; }
+  set historyMax(value) {
+    this.#historyMax = value;
   }
 
-  get quickResults() {
-    return this.#quickResults;
+  get speech() { return this.#speech; }
+  set speech(value) {
+    this.#speech = value;
+    if (this.#speech) this.#enableSpeechRecognition();
+    else this.#disableSpeechRecognition();
+    this.shadowRoot.querySelector('.mic').classList.toggle('show', this.#speech);
   }
 
-  get #hasSearchValue() {
-    return this.classList.contains('mdw-has-search-value');
-  }
-  set #hasSearchValue(value) {
-    this.classList.toggle('mdw-has-search-value', !!value);
-  }
-
-  get #hasSuggestions() {
-    return this.#suggestions.length > 0;
-  }
-
-  open() {
-    if (this.#open) return;
-    this.#openAbort = new AbortController();
-
-    this.#input.selectionStart = 10000;
-    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#openAbort.signal });
-    window.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#openAbort.signal });
-    
-    if (device.isMobile) this.#fullscreenOpen();
-    else {
-      this.#suggestionsContainer.show();
-      this.#suggestionsContainer.addEventListener('close', this.#close_bound, { signal: this.#openAbort.signal });
+  get results() { return this.#results; }
+  set results(value = []) {
+    if (value && (!Array.isArray(value) || value.find(v => v.value === undefined))) {
+      throw Error('results must be an Array of Objects with at least a value property: [{ value: ""}]');
     }
 
-    this.#list.addEventListener('click', this.#itemClick_bound, { signal: this.#openAbort.signal });
-    if (this.#chipGroup) this.#chipGroup.addEventListener('change', this.#filterChange_bound, { signal: this.#openAbort.signal });
-    this.addEventListener('click', this.#clickOutsideCloseFix_bound, { signal: this.#openAbort.signal });
-    if (this.#hasSpeech) this.shadowRoot.querySelector('.mic').addEventListener('click', this.#micClick_bound, { signal: this.#openAbort.signal });
-
-    this.classList.add('mdw-open');
-    this.#open = true;
-    this.#render();
+    this.#results = value || [];
+    this.resolve();
+    this.#renderResults();
   }
 
-  #fullscreenOpen() {
-    if (!this.#fullscreenPlaceHolder) this.#fullscreenPlaceHolder = document.createElement('div');
-    const bounds = this.getBoundingClientRect();
-
-    this.#fullscreenPlaceHolder.style.height = `${bounds.height}px`;
-    this.#fullscreenPlaceHolder.style.width = `${bounds.width}px`;
-    this.#fullscreenPlaceHolder.style.margin = getComputedStyle(this).margin;
-    this.insertAdjacentElement('beforebegin', this.#fullscreenPlaceHolder);
-    this.style.setProperty('--mdw-search-fullscreen-top', `${bounds.top}px`);
-    this.style.setProperty('--mdw-search-fullscreen-left', `${bounds.left}px`);
-    this.style.setProperty('--mdw-search-fullscreen-width', `${bounds.width}px`);
-    this.style.setProperty('--mdw-search-fullscreen-height', `${bounds.height}px`);
-    this.shadowRoot.querySelector('.fullscreen-back').addEventListener('click', this.#backClick_bound, { signal: this.#openAbort.signal });
-  }
-
-  close() {
-    if (!this.#open) return;
-    this.#openAbort.abort();
-
-    if (device.isMobile) {
-      this.#fullscreenClose();
-    } else {
-      this.#suggestionsContainer.close();
-      this.#clearAll();
-      this.classList.remove('mdw-open');
-      this.#open = false;
-    }
-  }
-
-  async #fullscreenClose() {
-    this.shadowRoot.querySelector('.fullscreen-back').removeEventListener('click', this.#backClick_bound);
-    this.classList.remove('mdw-open');
-    this.#open = false;
-    await util.animationendAsync(this);
-    this.#fullscreenPlaceHolder.remove();
-    this.#clearAll();
-  }
-
-
-  pending() {
-    if (this.#noSpinner) return;
-    this.shadowRoot.querySelector('.spinner').innerHTML = `
-      <mdw-progress-circular thickness="2" diameter="28" class="mdw-indeterminate"></mdw-progress-circular>
-    `;
-    this.classList.add('mdw-pending');
-  }
-
-  resolve() {
-    if (this.#noSpinner) return;
-    this.shadowRoot.querySelector('.spinner').innerHTML = '';
-    this.classList.remove('mdw-pending');
-  }
-
-  registerSection(id, title = '') {
-    this.#sections.push({
-      id,
-      title
-    });
-  }
-
-  registerTemplate(template, section = 'default') {
-    this.#templates[section] = template;
-  }
-
-  updateSuggestions(suggestions) {
-    if (!Array.isArray(suggestions) || suggestions.find(v => v.value === undefined)) {
+  get suggestions() { return this.#suggestions; }
+  set suggestions(value = []) {
+    if (value && (!Array.isArray(value) || value.find(v => v.value === undefined))) {
       throw Error('suggestions must be an Array of Objects with at least a value property: [{ value: ""}]');
     }
 
-    this.#suggestions = suggestions || [];
-    this.resolve();
-    if (this.rendered) this.#render();
+    this.#suggestions = value || [];
+    if (this.#history && Array.isArray(this.#suggestions) && this.#suggestions.length > 0) this.#storHistory(this.#suggestions);
+    this.#renderSuggestions();
   }
 
-  updateQuickResults(quickResults) {
-    if (!Array.isArray(quickResults) || quickResults.find(v => v.value === undefined)) {
-      throw Error('quickResults must be an Array of Objects with at least a value property: [{ value: ""}]');
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.#abort = new AbortController();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this.#abort) this.#abort.abort();
+    this.#disableSpeechRecognition();
+  }
+
+  onShow() {
+    super.onShow();
+
+    this.#input.selectionStart = 10000;
+    this.#input.addEventListener('input', this.#onInput_bound, { signal: this.#abort.signal });
+    this.#input.addEventListener('search', this.#onSearch_bound, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.surface').addEventListener('click', this.#itemClick_bound, { signal: this.#abort.signal });
+    if (device.state === 'compact') this.shadowRoot.querySelector('.back').addEventListener('click', this.#close_bound, { capture: true, signal: this.#abort.signal });
+  }
+
+  pending() {
+    this.classList.add('loading');
+    this.shadowRoot.querySelector('mdw-progress-linear').removeAttribute('disabled');
+    this.#searchTimeout = setTimeout(() => {
+      this.resolve();
+    }, this.#searchTimeoutSeconds * 1000);
+  }
+
+  async resolve() {
+    if (this.#searchTimeout) clearTimeout(this.#searchTimeout);
+    this.classList.remove('loading');
+    const progress = this.shadowRoot.querySelector('mdw-progress-linear');
+    await util.transitionendAsync(progress);
+    progress.setAttribute('disabled', '');
+  }
+
+  clearHistory() {
+    if (this.#history) {
+      localStorage.removeItem(`mdw_search_history_${this.#history}`);
+      this.#historyItems = [];
     }
-
-    this.#quickResults = quickResults || [];
-    if (this.rendered) this.#render();
   }
 
-  #render() {
-    if (!this.rendered) return;
-
-    if (this.#hasSuggestions) {
-      const sectionSplit = this.#sections.map(({ id, title }) => ({
-        id,
-        title,
-        suggestions: this.#suggestions.filter(v => (v.section || 'default') === id)
-      })).filter(v => v.suggestions.length > 0);
-
-      this.#templateElement.innerHTML = sectionSplit.map(section => /*html*/`
-        ${section.title ? /*html*/`<div class="mdw-sub-header">${section.title}</div>` : ''}
-        ${section.suggestions.map(sug => /*html*/`
-          ${(this.#templates[section.id] || this.#templates.default)(sug)}
-        `).join('\n')}
-      `).join('\n');
-      this.#highlight();
-      this.#list.replaceChildren(this.#templateElement.content.cloneNode(true));
-      
-    // history and quick results
-    } else if (this.#open && this.#hasSearchValue && (this.#history.length > 0 || this.#quickResults.length > 0)) {
-      this.#templateElement.innerHTML = /*html*/`
-        ${util.fuzzySearch(this.searchValue, this.#history).slice(0, 10).map(this.#historyTemplate).join('\n')}
-        ${this.quickResults.length > 0 ? /*html*/`
-          <div class="mdw-sub-header">Quick results</div>
-          ${this.#quickResults.map(v => /*html*/`
-            ${this.#templates.quick(v)}
-          `).join('\n')}
-        ` : ''}
-      `;
-      this.#highlight();
-      this.#list.replaceChildren(this.#templateElement.content.cloneNode(true));
-    // clear
-    } else {
-      this.#list.innerHTML = '';
-    }
-
-    [...this.#list.querySelectorAll('mdw-list-item')].forEach(element => {
-      let label = element.getAttribute('aria-label');
-      if (label?.includes('[search result]')) return;
-      if (!label) label = element.getAttribute('value');
-      element.setAttribute('aria-label', `[search result] ${label}`);
-    })
-  }
-
-  #highlight() {
-    const searchValue = this.searchValue;
-    const highlightRegex = new RegExp(searchValue, 'gi');
-    this.#getTextNodes(this.#templateElement.content).forEach(node => {
-      if (!node.textContent.trim()) return;
-
-      const replaceElement = document.createElement('span');
-      replaceElement.innerHTML = node.textContent.replaceAll(highlightRegex, `<mark>${searchValue}</mark>`);
-      node.parentNode.insertBefore(replaceElement, node);
-      node.remove();
-    });
-  }
-
-  #getTextNodes(node) {
-    let nodes = [];
-    if (!node) return nodes;
-
-    node = node.firstChild;
-    while (node) {
-      if (node.nodeType == 3) nodes.push(node);
-      else if (
-        node.nodeName !== 'MDW-ICON'
-        && node.nodeName !== 'MDW-AVATAR'
-        && !node.hasAttribute('history')
-        && !node.classList.contains('mdw-sub-header')
-      ) nodes = nodes.concat(this.#getTextNodes(node));
-      node = node.nextSibling;
-    }
-    return nodes;
-  }
-
-  #onInput() {
-    this.#clearAll();
-    if (this.searchValue !== '') {
-      if (this.#hasSearchValue === false) this.#hasSearchValue = true;
-
-      if (this.#debounce) this.#inputSearch_debounced();
-      else this.#inputSearch();
-    } else if (this.#hasSearchValue === true) {
-      this.#hasSearchValue = false;
-      this.#clearAll();
-    }
-
-    this.dispatchEvent(new Event('input'));
-  }
-
-  #inputSearch() {
-    this.#storeHistory(this.searchValue);
-    this.pending();
-    this.dispatchEvent(new Event('search'));
-  }
-
-  #onClearClick() {
-    this.searchValue = '';
-    this.#hasSearchValue = false;
-    this.classList.remove('mdw-has-search-value');
-    this.#clearAll();
+  #clear() {
+    this.value = '';
+    this.#inputContainer.classList.remove('has-value');
+    this.#surfaceContent.classList.remove('has-value');
+    this.#clearResults();
+    this.#clearSuggestions();
     this.#input.focus();
   }
 
-  #itemClick(event) {
-    if (event.target.nodeName !== 'MDW-LIST-ITEM') return;
-
-    if (event.target.hasAttribute('history')) {
-      this.value = event.target.value;
-      this.pending();
-      this.dispatchEvent(new Event('search'));
-      return;
-    }
-
-    this.value = event.target.getAttribute('value');
-    this.close();
-    this.dispatchEvent(new Event('change'));
+  #clearResults() {
+    this.results = [];
   }
 
-  #filterChange() {
-    this.dispatchEvent(new Event('filter'));
-    this.dispatchEvent(new Event('change'));
+  #clearSuggestions() {
+    this.suggestions = [];
   }
 
-  #clearAll() {
-    this.#suggestions = [];
-    this.#quickResults = [];
-    this.#render();
-  }
+  #onInput() {
+    const hasValue = !!this.#input.value;
+    this.#inputContainer.classList.toggle('has-value', hasValue);
+    this.#surfaceContent.classList.toggle('has-value', hasValue);
 
-  #historyTemplate(value) {
-    return /*html*/`
-      <mdw-list-item value="${value}" history>
-        <div class="mdw-svg-icon">${history_FILL0_wght400_GRAD0_opsz24}</div>
-        ${value}
-      </mdw-list-item>
-    `;
-  }
-
-  #storeHistory(value) {
-    if (!this.#historyId) return;
-    if (!value || value.length < 2) return;
-    if (this.#history.includes(value)) return
-    this.#history.unshift(value);
-    if (this.#history.length > this.#historyMax) this.#history = this.#history.slice(0, this.#historyMax);
-    localStorage.setItem(`${this.#historyId}_history`, JSON.stringify(this.#history));
-  }
-
-  #onKeydown(event) {
-    const { key, shiftKey } = event;
-    const escape = key === 'Escape';
-    const tab = key === 'Tab';
-    const enter = key === 'Enter';
-    const downArrow = key === 'ArrowDown';
-    const upArrow = key === 'ArrowUp';
-
-    if (escape && !device.isMobile) this.close();
-
-    const focusedElement = document.activeElement;
-
-    if ((tab && !shiftKey) || downArrow) {
-      // list focus next handled y list component
-      if (focusedElement.nodeName !== 'MDW-LIST-ITEM') {
-        const nextFocus = this.#list.querySelector('mdw-list-item');
-        if (nextFocus) nextFocus.focus();
-      }
-      event.preventDefault();
-    } else if ((tab && shiftKey) || upArrow) {
-      // list focus previous handled y list component
-      if (focusedElement.nodeName !== 'MDW-LIST-ITEM') {
-        const nextFocus = [...this.#list.querySelectorAll('mdw-list-item')].pop();
-        if (nextFocus) nextFocus.focus();
-      }
-      event.preventDefault();
-    }
-
-    if (enter && !this.#debounce) {
-      if (focusedElement.nodeName === 'MDW-SEARCH' && !!this.searchValue) {
-        this.#storeHistory(this.searchValue);
-        this.pending();
-        this.dispatchEvent(new Event('search'));
-      } else if (focusedElement.nodeName === 'MDW-LIST-ITEM') {
-        if (focusedElement.hasAttribute('history')) {
-          this.value = focusedElement.value;
-          this.pending();
-          this.dispatchEvent(new Event('search'));
-        } else {
-          this.value = focusedElement.getAttribute('value');
-          this.close();
-          this.dispatchEvent(new Event('change'));
-        }
-      }
+    if (hasValue) {
+      this.#renderSuggestions_debounced();
+      if (!isIncrementalSupported) this.#incrementalPolyfill_debounced();
+    } else {
+      this.#renderSuggestions(true);
+      this.#renderResults(true);
     }
   }
 
-  // close when leading or trailing icons are clicked
-  #clickOutsideCloseFix(event) {
-    const leading = this.querySelector('[slot=leading]');
-    if (leading && leading.contains(event.target)) this.close();
-    else {
-      const trailing = this.querySelector('[slot=trailing]');
-      if (trailing && trailing.contains(event.target)) this.close();
+  #onSearch() {
+    if (this.#input.value) this.pending();
+
+    this.dispatchEvent(new Event('search', {
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  #renderResults(clear = false) {
+    const containers = Object.fromEntries([...this.querySelectorAll('mdw-search-container[id]')].map(element => ([element.id, { element, template: '' }])));
+    containers._default = { default: true, element: this, template: '' };
+    this.results.reduce((obj, result) => {
+      const container = obj[result.container] ? result.container : '_default';
+      if (clear) obj[container].template = '';
+      else obj[container].template += `<mdw-search-item value="${result.value}">
+        ${result.icon ? `<mdw-icon slot="start">${result.icon}</mdw-icon>` : ''}
+        ${result.display || result.value}
+      </mdw-search-item>`;
+      return obj;
+    }, containers);
+    
+    [...this.querySelectorAll('mdw-search-item:not([slot])')].forEach(e => e.remove());
+    Object.values(containers).forEach(item => {
+      if (!item.default) item.element.innerHTML = item.template;
+    });
+
+    // insert any non containerd items before containerd items
+    const searchContainer = this.querySelector('mdw-search-container');
+    if (searchContainer) searchContainer.insertAdjacentHTML('beforebegin', containers._default.template);
+    else this.insertAdjacentHTML('beforeend', containers._default.template)
+  }
+
+  #renderSuggestions(clear = false) {
+    [...this.querySelectorAll('mdw-search-item[slot="suggestions"]')].forEach(e => e.remove());
+    if (clear) return;
+
+    const inputValue = this.value;
+    this.insertAdjacentHTML('afterbegin', this.suggestions.filter(v => v.value !== inputValue).map(item => `
+      <mdw-search-item slot="suggestions" value="${item.value}">
+        <mdw-icon slot="start">${search_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+        ${item.display || item.value}
+      </mdw-search-item>
+    `).join(''));
+    
+    
+    if (this.value) {
+      const historyMinusSuggestions = this.#historyItems.filter(h => !this.#suggestions.find(s => s.value === h.value) && h.value !== inputValue);
+      const filtered = util.fuzzySearch(this.value, historyMinusSuggestions);
+      this.insertAdjacentHTML('afterbegin', filtered.map(item => `
+        <mdw-search-item slot="suggestions" value="${item.value}">
+          <mdw-icon slot="start">${history_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+          ${item.display || item.value}
+        </mdw-search-item>
+      `).join(''));
     }
   }
 
-  #backClick() {
-    this.close();
+  #storHistory(suggestions) {
+    suggestions.forEach(item => {
+      if (this.#historyItems.find(h => h.value === item.value)) return;
+      this.#historyItems.unshift(item);
+    });
+
+    if (this.#historyItems.length > this.#historyMax) this.#historyItems = this.#historyItems.slice(0, this.#historyMax);
+    localStorage.setItem(`mdw_search_history_${this.#history}`, JSON.stringify(this.#historyItems));
   }
 
   #enableSpeechRecognition() {
+    if (!speechRecognitionSupported) return console.warn('SpeechRecognition not supported')
     this.#speechRecognition = webkitSpeechRecognition ? new webkitSpeechRecognition() : new SpeechRecognition();
+    this.#speechRecognition.lang = device.locale;
+    this.#speechRecognition.interimResults = true;
     // this.#speechRecognition.continuous = false;
-    // this.#speechRecognition.lang = 'en-US';
-    // this.#speechRecognition.interimResults = true;
     // this.#speechRecognition.maxAlternatives = 1;
-    // recognition.onstart = () => {
-    //   console.log('start');
-    // };
-    // recognition.onend = () => {
-    //   console.log('end');
-    // };
+
+    this.shadowRoot.querySelector('.mic').addEventListener('click', this.#micClick_bound);
 
     this.#speechRecognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;;
-
+      this.#speechListening = true;
+      const text = event.results[0][0].transcript;
       if (text) {
-        this.#hasSearchValue = true;
         this.#input.value = text;
+        this.#incrementalPolyfill_debounced();
       }
+    };
+
+    this.#speechRecognition.onspeechend = (event) => {
+      this.#speechListening = false;
+      this.#speechRecognition.stop();
     };
   }
 
+  #disableSpeechRecognition() {
+    if (this.#speechRecognition) {
+      this.#speechListening = false;
+      this.#speechRecognition.abort();
+      this.#speechRecognition = undefined;
+    }
+  }
 
   #micClick() {
-    if (this.#speechRecognition) this.#speechRecognition.start();
+    if (this.#speechRecognition) {
+      this.shadowRoot.querySelector('.mic').removeEventListener('click', this.#micClick_bound);
+      if (this.#speechListening) this.#speechRecognition.stop();
+      else this.#speechRecognition.start();
+    }
+  }
+
+  #close(event) {
+    const target = event.composedPath()[0];
+    if (target.classList.contains('back')) {
+      event.stopPropagation()
+      this.close();
+    }
+  }
+
+  #itemClick(event) {
+    if (event.target.nodeName === 'MDW-SEARCH-ITEM') {
+      if (event.target.getAttribute('slot') === 'suggestions') {
+        this.value = event.target.value;
+        this.#incrementalPolyfill_debounced();
+      } else {
+        const value = event.target.value;
+        this.value = event.target.displayValue || value;
+        this.#selected = value;
+        this.#selectedObject = this.#results.find(v => v.value === value);
+        this.dispatchEvent(new Event('change'));
+
+        requestAnimationFrame(() => {
+          this.close();
+        });
+      }
+    }
   }
 });
