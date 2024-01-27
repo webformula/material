@@ -18,7 +18,6 @@ import './components/menu/index.js';
 import './components/navigation-bar/index.js';
 import './components/navigation-drawer/index.js';
 import './components/navigation-rail/index.js';
-import './components/panel/index.js';
 import './components/progress-circular/index.js';
 import './components/progress-linear/index.js';
 import './components/radio/index.js';
@@ -39,7 +38,6 @@ export {
   mdwDate,
   mdwDevice,
   mdwDialog,
-  MDWPanel,
   mdwUtil,
   mdwSnackbar
 } from './services.js';
