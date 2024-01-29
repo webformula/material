@@ -33,7 +33,6 @@ const mdwDialog = new class mdwDialog {
     element.allowClose = params.allowClose;
     element.noScrim = params.noScrim === undefined ? false : params.noScrim;
     element.preventNavigation = !!params.preventNavigation;
-    console.log(element.preventNavigation, element.allowClose)
     await util.nextAnimationFrameAsync();
     return element.show();
   }

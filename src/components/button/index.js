@@ -1,6 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import Ripple from '../../core/Ripple.js';
 import styles from './component.css' assert { type: 'css' };
+import dialog from '../dialog/service.js';
 
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
@@ -22,6 +23,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   #value;
   #form;
   #formState;
+  #onclickValue;
   #async = false;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
@@ -30,6 +32,8 @@ export default class MDWButtonElement extends HTMLComponentElement {
   #formClick_bound = this.#formClick.bind(this);
   #formFocusIn_bound = this.#formFocusIn.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #formMouseDown_bound = this.#formMouseDown.bind(this);
+  #formMouseUp_bound = this.#formMouseUp.bind(this);
 
 
   constructor() {
@@ -81,6 +85,8 @@ export default class MDWButtonElement extends HTMLComponentElement {
     this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     if (this.#form) {
       this.addEventListener('click', this.#formClick_bound, { signal: this.#abort.signal });
+      this.addEventListener('mousedown', this.#formMouseDown_bound, { signal: this.#abort.signal });
+      this.addEventListener('mouseup', this.#formMouseUp_bound, { signal: this.#abort.signal });
       this.#form.addEventListener('focusin', this.#formFocusIn_bound, { signal: this.#abort.signal });
     }
   }
@@ -88,6 +94,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
     if (this.#ripple) this.#ripple.destroy();
+    this.#onclickValue = undefined;
   }
 
   get disabled() { return this.hasAttribute('disabled'); }
@@ -182,7 +189,24 @@ export default class MDWButtonElement extends HTMLComponentElement {
     if (e.key === 'Enter') this.#ripple.trigger();
   }
 
-  #formClick(event) {
+  // prevent onclick attribute from firing when form invalid
+  #formMouseDown() {
+    if (this.#type === 'cancel' && this.onclick && this.#formState !== undefined && this.#getFormState() !== this.#formState) {
+      this.#onclickValue = this.onclick;
+      this.onclick = undefined;
+    }
+  }
+
+  #formMouseUp() {
+    if (this.#type === 'cancel' && this.#onclickValue) {
+      setTimeout(() => {
+        this.onclick = this.#onclickValue;
+        this.#onclickValue = undefined;
+      });
+    }
+  }
+
+  async #formClick(event) {
     switch (this.#type) {
       case 'reset':
         this.#form.reset();
@@ -204,27 +228,22 @@ export default class MDWButtonElement extends HTMLComponentElement {
         break;
 
       case 'cancel':
-        // TODO cancel
         if (this.#formState !== undefined && this.#getFormState() !== this.#formState) {
-          // const action = await dialog.simple({
-          //   message: 'Discard changes?',
-          //   actionConfirm: true,
-          //   actionConfirmLabel: 'Cancel',
-          //   actionCancel: true,
-          //   actionCancelLabel: 'Discard'
-          // });
-          const action = 'cancel';
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
 
-          // actions reversed for button position
-          if (action === 'cancel') {
-            // reset state and retrigger click
+          dialog.simple({
+            message: 'Discard changes?',
+            actionConfirm: true,
+            actionConfirmLabel: 'Cancel',
+            actionCancel: true,
+            actionCancelLabel: 'Discard'
+          }).then(action => {
+            if (action !== 'cancel') return;
             this.#formState = undefined;
-            // if (this.#onclickAttribute) {
-            //   this.setAttribute('onclick', this.#onclickAttribute);
-            //   this.#onclickAttribute = undefined;
-            // }
             this.click();
-          }
+          });
         }
         break;
 

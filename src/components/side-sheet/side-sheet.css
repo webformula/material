@@ -1,0 +1,187 @@
+:host {
+  min-width: 0px;
+  height: 100%;
+  width: 0px;
+
+  transition: width;
+  transition-duration: var(--mdw-motion-duration-medium2);
+  transition-timing-function: var(--mdw-motion-easing-standard);
+}
+
+:host([inset]) {
+  height: calc(100% - 32px);
+}
+
+:host(.open:not([modal])) {
+  width: var(--mdw-side-sheet-width);
+  transition: width;
+  transition-duration: var(--mdw-motion-duration-medium3);
+  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
+}
+
+:host-context(body:not(.mdw-animation)) {
+  transition-duration: 0ms !important;
+}
+
+.placeholder {
+  display: flex;
+  flex-shrink: 0;
+  width: inherit;
+}
+
+.surface {
+  --mdw-surface-translate-x: var(--mdw-side-sheet-width);
+  width: var(--mdw-side-sheet-width);
+}
+
+:host([global]) .surface {
+  top: 0;
+  position: fixed;
+}
+
+:host(.scrim[global]) .scrim {
+  position: fixed;
+}
+
+:host(:not([left])) .surface {
+  right: 0;
+}
+
+:host([inset]) .surface{
+  right: 16px;
+  top: 16px;
+}
+
+.surface-content {
+  height: 100%;
+  overflow: visible;
+  border-radius: var(--mdw-shape-large) 0 0 var(--mdw-shape-large);
+  background-color: var(--mdw-surface);
+}
+
+:host([left]) .surface-content {
+  border-radius: 0 var(--mdw-shape-large) var(--mdw-shape-large) 0;
+}
+
+:host([inset]) .surface-content {
+  border-radius: var(--mdw-shape-large);
+}
+
+:host([modal]) .surface-content {
+  animation: box-shadow-animation;
+  animation-duration: var(--mdw-motion-duration-medium2);
+  animation-timing-function: var(--mdw-motion-easing-standard);
+}
+
+:host([modal].open) .surface-content {
+  box-shadow: var(--mdw-elevation-2);
+  animation: box-shadow-animation;
+  animation-duration: var(--mdw-motion-duration-medium3);
+  animation-timing-function: var(--mdw-motion-easing-standard-decelerate);
+}
+
+.item-padding {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.item-padding.has-actions {
+  padding-bottom: 72px;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 12px;
+  padding-bottom: 12px;
+}
+slot[name="headline"] {
+  display: inline-flex;
+  flex: 1;
+  font-size: var(--mdw-font-large-title-size);
+  font-weight: var(--mdw-font-large-title-weight);
+  letter-spacing: var(--mdw-font-large-title-tracking);
+  line-height: 40px;
+  color: var(--mdw-on-surface-variant);
+  margin-left: 12px;
+}
+
+.back,
+.close {
+  display: none;
+  position: relative;
+}
+
+/* used for composedPath on click event */
+.back::after,
+.close::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+:host(.open[back]) .back {
+  display: inline-flex;
+}
+
+:host(.open:not([hide-close])) .close {
+  display: inline-flex;
+}
+
+slot.default-slot {
+  display: block;
+  flex: 1;
+  overflow-y: scroll;
+  padding: 24px;
+  padding-top: 8px;
+}
+
+.actions {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  padding-left: 16px;
+  background-color: var(--mdw-surface);
+  border-radius: 0 0 var(--mdw-shape-large) var(--mdw-shape-large);
+}
+
+slot[name="action"] {
+  height: unset;
+}
+
+mdw-divider {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.item-padding.has-actions mdw-divider {
+  display: inline-flex;
+}
+
+/* make sure box shadow is visible until off screen */
+@keyframes box-shadow-animation {
+  0% {
+    box-shadow: var(--mdw-elevation-2);
+  }
+
+  100% {
+    box-shadow: var(--mdw-elevation-2);
+  }
+}

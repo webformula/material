@@ -15,6 +15,7 @@ export default class HTMLComponentElement extends HTMLElement {
 
   #root = this;
   #prepared = false;
+  #attributeEvents = {};
   #attributesLookup;
   #classId;
   #templateElement;
@@ -32,11 +33,22 @@ export default class HTMLComponentElement extends HTMLElement {
     if (oldValue === newValue) return;
     const type = this.#attributesLookup[name];
     name = name.replace(dashCaseRegex, (_, s) => s.toUpperCase());
-    this.attributeChangedCallbackExtended(
-      name,
-      this.#attributeDescriptorTypeConverter(oldValue, type),
-      this.#attributeDescriptorTypeConverter(newValue, type)
-    );
+    if (type === 'event') {
+      if (this.#attributeEvents[name]) {
+        this.removeEventListener(name.replace(/^on/, ''), this.#attributeEvents[name]);
+        this.#attributeEvents[name] = undefined;
+      }
+      if (newValue) {
+        this.#attributeEvents[name] = this.#attributeDescriptorTypeConverter(newValue, type);
+        this.addEventListener(name.replace(/^on/, ''), this.#attributeEvents[name]);
+      }
+    } else {
+      this.attributeChangedCallbackExtended(
+        name,
+        this.#attributeDescriptorTypeConverter(oldValue, type),
+        this.#attributeDescriptorTypeConverter(newValue, type)
+      );
+    }
   }
 
   attributeChangedCallbackExtended() { }
@@ -90,6 +102,9 @@ export default class HTMLComponentElement extends HTMLElement {
         return isNaN(num) ? '' : num;
       case 'string':
         return value || '';
+      case 'event':
+        return !value ? null : () => new Function('page', value).call(this, window.$page);
+        break;
       default:
         return value;
     }

@@ -2,10 +2,9 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const animations = ['translate-y', 'translate-left', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen'];
+const animations = ['translate-y', 'translate-left', 'transition-right', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
-// TODO fullscreenplaceholder and progress bar
 
 export default class MDWSurfaceElement extends HTMLComponentElement {
   static useShadowRoot = true;
@@ -117,6 +116,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.#animation = value;
     this.classList.toggle('animation-height', value === 'height');
     this.classList.toggle('animation-translate-left', value === 'translate-left');
+    this.classList.toggle('animation-translate-right', value === 'translate-right');
     this.classList.toggle('animation-height-center-to-opacity', value === 'height-center-to-opacity');
     this.classList.toggle('animation-fullscreen', value === 'fullscreen');
   }
@@ -159,6 +159,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   set open(value) {
     if (!!value) this.show();
     else this.close();
+    this.toggleAttribute('open', !!value);
   }
 
   get initialOpen() { return this.#initialOpen; }
