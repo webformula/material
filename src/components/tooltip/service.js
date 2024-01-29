@@ -41,7 +41,7 @@ function startTooltipTimer() {
     const text = currentElement.getAttribute('tooltip');
     currentTooltipElement = globalTooltipElement;
     currentTooltipElement.innerHTML = text;
-    // currentTooltipElement.setAttribute('aria-label', text);
+    currentTooltipElement.ariaLabel = text;
     currentTooltipElement.mouseX = lastMouseX;
     currentTooltipElement.mouseY = currentElement.getBoundingClientRect().bottom - document.documentElement.scrollTop;
     currentTooltipElement.show();
@@ -53,6 +53,7 @@ function removeTooltip() {
   currentTooltipElement.close();
   clearTimeout(tooltipTimer);
   tooltipTimer = undefined;
+  currentTooltipElement.ariaLabel = '';
   currentElement.removeEventListener('mouseout', mouseout);
   currentElement.removeEventListener('mousemove', mousemoveThrottled);
   document.body.removeEventListener('click', onClickOutside);

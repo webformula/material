@@ -15,7 +15,6 @@ export default class MDWButtonElement extends HTMLComponentElement {
 
   #abort;
   #ripple;
-  #ariaLabel;
   #target;
   #href;
   #type;
@@ -47,7 +46,6 @@ export default class MDWButtonElement extends HTMLComponentElement {
 
   static get observedAttributesExtended() {
     return [
-      ['aria-label', 'string'],
       ['href', 'string'],
       ['target', 'string'],
       ['type', 'string'],
@@ -105,18 +103,9 @@ export default class MDWButtonElement extends HTMLComponentElement {
     this.#href = value;
     if (!value) {
       this.removeAttribute('href');
-      // this.#link.removeAttribute('href');
     } else {
       this.setAttribute('href', value);
-      // this.#link.setAttribute('href', value);
-      if (!this.#ariaLabel) this.ariaLabel = value.replace(/\//g, ' ').trim();
     }
-  }
-
-  get ariaLabel() { return this.#ariaLabel; }
-  set ariaLabel(value) {
-    this.#ariaLabel = value;
-    this.setAttribute('aria-label', value);
   }
 
   get target() { return this.#target; }
@@ -276,20 +265,6 @@ export default class MDWButtonElement extends HTMLComponentElement {
 
   #formFocusIn() {
     if (this.#formState === undefined) this.#formState = this.#getFormState();
-
-    // temporarily remove onclick to prevent firing while form has changes
-    // setTimeout(() => {
-    //   const current = this.#getFormState();
-    //   if (current !== this.#formState) {
-    //     if (this.hasAttribute('onclick')) {
-    //       this.#onclickAttribute = this.getAttribute('onclick');
-    //       this.removeAttribute('onclick');
-    //     }
-    //   } else if (this.#onclickAttribute) {
-    //     this.setAttribute('onclick', this.#onclickAttribute);
-    //     this.#onclickAttribute = undefined;
-    //   }
-    // }, 100);
   }
 };
 

@@ -12,6 +12,7 @@ customElements.define('mdw-tooltip', class MDWTooltipElement extends MDWSurfaceE
     this.role = 'tooltip';
     this.allowClose = true;
     this.fixed = true;
+    this.ariaLabel = 'none';
   }
 
   connectedCallback() {

@@ -43,6 +43,7 @@
 
 a {
   display: flex;
+  flex: 1;
   align-items: center;
   font-size: inherit;
   font-weight: inherit;
@@ -135,10 +136,6 @@ slot[name="leading-icon"]::slotted(mdw-icon) {
 
 :host(:not(.current):focus) ::slotted(mdw-icon) {
   color: var(--mdw-on-surface);
-}
-
-slot[name="badge"] {
-  display: none;
 }
 
 .badge-display {

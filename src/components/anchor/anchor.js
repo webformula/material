@@ -13,7 +13,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
   static styleSheets = styles;
 
   #link;
-  #ariaLabel;
   #ariaLabelOriginal;
   #badge;
   #target;
@@ -29,13 +28,10 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     this.role = 'link';
     this.render();
     this.#link = this.shadowRoot.querySelector('a');
-    // make sure aria label is set. Badge will alter the value
-    this.ariaLabel = this.getAttribute('aria-label');
   }
 
   static get observedAttributesExtended() {
     return [
-      ['aria-label', 'string'],
       ['href', 'string'],
       ['badge', 'number'],
       ['target', 'string']
@@ -78,16 +74,7 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     } else {
       this.setAttribute('href', value);
       this.#link.setAttribute('href', value);
-      if (!this.#ariaLabel) this.ariaLabel = value.replace(/\//g, ' ').trim();
     }
-  }
-
-  get ariaLabel() { return this.#ariaLabel; }
-  set ariaLabel(value) {
-    value = value || (this.getAttribute('href') || '').replace(/\//g, ' ').trim();
-    this.#ariaLabel = value;
-    if (!this.#ariaLabelOriginal) this.#ariaLabelOriginal = value;
-    this.setAttribute('aria-label', value);
   }
 
   get badge() { return this.#badge; }
@@ -96,6 +83,8 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
     if (value > 999) value = '999+';
     this.#badge = value;
     this.shadowRoot.querySelector('.badge-display').innerText = value;
+
+    if (!this.#ariaLabelOriginal) this.#ariaLabelOriginal = this.ariaLabel || util.getTextFromNode(this);
     if (!value) this.ariaLabel = this.#ariaLabelOriginal;
     else this.ariaLabel = `[${this.#ariaLabelOriginal}] ${value} New ${value === 1 ? 'notification' : 'notifications'}`;
   }
