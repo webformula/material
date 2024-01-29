@@ -1,3 +1,8 @@
+import styles from '../styles.css' assert { type: 'css' };
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, styles];
+import { generateBrowser } from '../core/theme.js';
+generateBrowser();
+
 const templateElements = {};
 const dashCaseRegex = /-([a-z])/g;
 

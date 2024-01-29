@@ -1,115 +1,128 @@
+import MDWSurfaceElement from '../surface/component.js';
+import styles from './bottom-sheet.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
-import HTMLElementExtended from '../HTMLElementExtended.js';
 
 
-customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HTMLElementExtended {
+// TODO right
+// TODO do i want modal on compact?
+
+customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends MDWSurfaceElement {
+  static styleSheets = styles;
+
   #drag;
+  #surface;
+  #surfaceContent;
   #initialDragPosition;
   #lastScrollPosition;
   #isScrolling = false;
-  #onDrag_bound = this.#onDrag.bind(this);
+  #positionState = 'initial';
+  #fixedHeight = false;
+  #fixedHeightBottom;
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
+  #onDrag_bound = this.#onDrag.bind(this);
   #onScroll_bound = util.rafThrottle(this.#onScroll.bind(this));
   #onPageScroll_bound = util.rafThrottle(this.#onPageScroll.bind(this));
-  #setInitialPositionOnCompact_bound = this.#setInitialPositionOnCompact.bind(this);
-  #positionState = 'initial';
-  #fixedHeight = this.classList.contains('mdw-fixed-height');
-  #fixedHeightBottom;
-  #open = true;
 
   constructor() {
     super();
 
+    this.fixed = true;
+    this.alwaysVisible = true;
+    this.allowClose = false;
+    this.viewportBound = false;
+    this.#surface = this.shadowRoot.querySelector('.surface');
+    this.#surfaceContent = this.shadowRoot.querySelector('.surface-content');
     this.#position = this.#initialPosition;
-    this.style.overflowY = 'visible'; // used in drag events
+    this.#surfaceContent.style.overflowY = 'visible';
+  }
 
-    if (!this.#fixedHeight) {
-      this.#drag = new Drag(this);
-      this.#drag.on('mdwdragmove', this.#onDrag_bound);
-      this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-      this.#drag.on('mdwdragend', this.#onDragEnd_bound);
-    }
+  template() {
+    return /*html*/`
+      <div class="surface">
+        <div class="surface-content">
+          <div class="item-padding">
+            <div class="handle"></div>
+            <slot class="default-slot"></slot>
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
-    if (this.classList.contains('hide')) this.close();
+
+  static get observedAttributesExtended() {
+    return [
+      ['open', 'boolean'],
+      ['fixed-height', 'boolean']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
+  get fixedHeight() { return this.#fixedHeight; }
+  set fixedHeight(value) {
+    this.#fixedHeight = value;
+    if (this.#fixedHeight) this.#setFixedHeight();
+    else this.#position = this.#initialPosition;
   }
 
   connectedCallback() {
-    if (this.#fixedHeight) return requestAnimationFrame(() => this.#setFixedHeight());
+    super.connectedCallback();
 
-    this.#drag.enable();
+    if (!this.#fixedHeight) {
+      if (!this.#drag) {
+        this.#drag = new Drag(this.#surface);
+        this.#drag.on('mdwdragstart', this.#onDragStart_bound);
+        this.#drag.on('mdwdragend', this.#onDragEnd_bound);
+        this.#drag.on('mdwdragmove', this.#onDrag_bound);
+      }
+      this.#drag.enable();
+    }
+
     util.trackPageScroll(this.#onPageScroll_bound);
-    window.addEventListener('mdwwindowstate', this.#setInitialPositionOnCompact_bound);
   }
 
   disconnectedCallback() {
-    if (this.#fixedHeight) return;
+    super.disconnectedCallback();
 
-    this.#drag.disable();
+    if (this.#drag) this.#drag.destroy();
     util.untrackPageScroll(this.#onPageScroll_bound);
-    window.removeEventListener('mdwwindowstate', this.#setInitialPositionOnCompact_bound);
   }
 
-  async close() {
-    this.#open = false;
-    this.#positionState = 'hide';
-    this.#position = -(this.offsetHeight);
-    this.dispatchEvent(new Event('close', this));
-    if (this.classList.contains('mdw-animate-position')) {
-      util.unlockPageScroll();
-      await util.animationendAsync(this);
-      this.classList.remove('mdw-animate-position');
-    }
-  }
-  async show() {
-    this.#open = true;
-    this.classList.add('mdw-animate-position');
-    this.#position = this.#initialPosition;
-    this.dispatchEvent(new Event('open', this));
-  }
-  get open() {
-    return this.#open;
-  }
 
   get #initialPosition() {
     if (this.#fixedHeight) return this.#fixedHeightBottom;
     this.#positionState = 'initial';
-    const initialPositionVar = parseInt(this.style.getPropertyValue('--mdw-bottom-sheet-initial-position') || 40) / 100;
-    return -(this.offsetHeight - (window.innerHeight * initialPositionVar));
+    const initialPositionVar = parseInt(this.#surface.style.getPropertyValue('--mdw-bottom-sheet-initial-position') || 40) / 100;
+    return -(this.#surface.offsetHeight - (window.innerHeight * initialPositionVar));
   }
 
   get #topPosition() {
     this.#positionState = 'top';
-    return -(this.offsetHeight - window.innerHeight);
+    return -(this.#surface.offsetHeight - window.innerHeight);
   }
 
   get #minimizedPosition() {
     this.#positionState = 'minimized';
-    const offset = document.body.classList.contains('has-bottom-app-bar') || document.body.classList.contains('has-navigation-bar')  ? 80 : 0;
-    return -(this.offsetHeight - 80 - offset);
+    const offset = document.body.classList.contains('has-bottom-app-bar') || document.body.classList.contains('has-navigation-bar') ? 80 : 0;
+    return -(this.#surface.offsetHeight - 80 - offset);
   }
 
   get #position() {
-    return parseInt(this.style.getPropertyValue('--mdw-bottom-sheet-bottom').replace('px', ''));
+    return parseInt(this.#surface.style.getPropertyValue('--mdw-bottom-sheet-bottom').replace('px', ''));
   }
   set #position(value) {
-    this.style.setProperty('--mdw-bottom-sheet-bottom', `${value}px`);
+    this.#surface.style.setProperty('--mdw-bottom-sheet-bottom', `${value}px`);
   }
 
-  #onPageScroll() {
-    switch (this.#positionState) {
-      case 'initial':
-        this.#position = this.#initialPosition;
-        break;
-      case 'minimized':
-        this.#position = this.#minimizedPosition;
-        break;
-    }
-  }
 
-  #setInitialPositionOnCompact({ detail }) {
-    if (detail.state === 'compact') this.#position = this.#initialPosition
+  #toTopPosition() {
+    this.#position = this.#topPosition;
+    this.#switchToScrolling();
   }
 
   #onDragStart(event) {
@@ -123,7 +136,7 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
   async #onDragEnd({ directionY }) {
     if (this.#isScrolling) return;
 
-    this.classList.add('mdw-animate-position');
+    this.#surface.classList.add('animate-position');
 
     if (directionY === -1) {
       if (this.#position > this.#initialPosition) this.#toTopPosition();
@@ -134,12 +147,12 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     }
 
     await util.transitionendAsync(this);
-    this.classList.remove('mdw-animate-position');
+    this.#surface.classList.remove('animate-position');
     if (this.#positionState !== 'top') requestAnimationFrame(() => util.unlockPageScroll());
   }
 
   #onDrag({ distanceY, movementY, directionY }) {
-    if (this.scrollTop <= 0 && directionY === 1 && this.style.overflowY !== 'visible') {
+    if (this.#surfaceContent.scrollTop <= 0 && directionY === 1 && this.#surfaceContent.style.overflowY !== 'visible') {
       this.#switchToDragging();
       return;
     }
@@ -155,44 +168,49 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends HT
     this.#position = this.#initialDragPosition - distanceY;
   }
 
-  #toTopPosition() {
-    this.#position = this.#topPosition;
-    this.#switchToScrolling();
+  // wait for overscroll to settle then switch back to drag
+  #onScroll() {
+    if (this.#surfaceContent.scrollTop <= 0 && this.#surfaceContent.scrollTop === this.#lastScrollPosition) {
+      this.#switchToDragging();
+    }
+    this.#lastScrollPosition = this.#surfaceContent.scrollTop
+  }
+
+  #onPageScroll() {
+    switch (this.#positionState) {
+      case 'initial':
+        this.#position = this.#initialPosition;
+        break;
+      case 'minimized':
+        this.#position = this.#minimizedPosition;
+        break;
+    }
   }
 
   #switchToScrolling(movementY) {
-    this.style.overflowY = 'scroll';
+    this.#surfaceContent.style.overflowY = 'scroll';
     this.#position = 0;
     this.#isScrolling = true;
-    if (movementY) this.scrollTop = -movementY;
-    this.addEventListener('scroll', this.#onScroll_bound);
-    this.classList.add('mdw-fullscreen');
+    if (movementY) this.#surfaceContent.scrollTop = -movementY;
+    this.#surfaceContent.addEventListener('scroll', this.#onScroll_bound);
+    this.classList.add('fullscreen');
   }
 
   #switchToDragging() {
-    this.removeEventListener('scroll', this.#onScroll_bound);
+    this.#surfaceContent.removeEventListener('scroll', this.#onScroll_bound);
     this.#initialDragPosition = 0;
     this.#position = 0;
-    this.classList.remove('mdw-fullscreen');
-    this.style.overflowY = 'visible';
-    this.style.height = '';
+    this.classList.remove('fullscreen');
+    this.#surfaceContent.style.overflowY = 'visible';
+    this.#surfaceContent.style.height = '';
     this.#isScrolling = false;
     this.#drag.resetTracking();
   }
 
-  // wait for overscroll to settle then switch back to drag
-  #onScroll() {
-    if (this.scrollTop <= 0 && this.scrollTop === this.#lastScrollPosition) {
-      this.#switchToDragging();
-    }
-    this.#lastScrollPosition = this.scrollTop
-  }
-
   #setFixedHeight() {
-    const contentBounds = this.querySelector('.mdw-content').getBoundingClientRect();
-    const offset = document.body.classList.contains('mdw-has-bottom-app-bar') || document.body.classList.contains('mdw-has-navigation-bar') ? 80 : 0;
-    const pagePaddingBottom = parseInt(((document.querySelector('#page-content') || document.querySelector('page-content')).style.getPropertyValue('--mdw-page-content-padding-bottom') || '0').replace('px', ''))
-    this.#fixedHeightBottom = -(visualViewport.height - contentBounds.bottom) + offset - pagePaddingBottom;
-    this.style.bottom = `${this.#fixedHeightBottom}px`;
+    const contentBounds = this.#surface.querySelector('.item-padding').getBoundingClientRect();
+    this.#surface.style.height = `${contentBounds.height}px`;
+    this.#position = 0;
+    this.#fixedHeightBottom = 0;
   }
 });
