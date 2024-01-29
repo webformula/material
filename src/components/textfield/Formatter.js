@@ -236,6 +236,7 @@ simplifyGroupRegexString(regexString) {
   }
 
   #valueSetter(value) {
+    value = value || '';
     if (!this.#parser || !this.#input) {
       this.#rawValue = value;
       return value;

@@ -2,6 +2,7 @@ import MDWSurfaceElement from '../surface/component.js';
 import styles from './menu.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
+// TODO nested arrow icon
 
 export default class MDWMenuElement extends MDWSurfaceElement {
   static styleSheets = styles;

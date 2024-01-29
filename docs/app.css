@@ -52,7 +52,6 @@ pre {
 pre > code {
   max-width: 100%;
   overflow-x: auto;
-  margin: 0 12px;
 }
 
 mdw-card > pre:first-of-type > code {
