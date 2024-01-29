@@ -41,7 +41,7 @@ customElements.define('mdw-anchor-group', class MDWAnchorGroupElement extends HT
   }
 
   get #fullHeight() {
-    return this.offsetHeight + this.scrollHeight - 56;
+    return [...this.querySelectorAll('mdw-anchor')].length * 58;
   }
 
   #controlClick(event) {
