@@ -7,7 +7,8 @@ import util from '../../core/util.js';
 // TODO right
 // TODO do i want modal on compact?
 
-customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends MDWSurfaceElement {
+class MDWBottomSheetElement extends MDWSurfaceElement {
+  static tag = 'mdw-bottom-sheet';
   static styleSheets = styles;
 
   #drag;
@@ -213,4 +214,5 @@ customElements.define('mdw-bottom-sheet', class MDWBottomSheetElement extends MD
     this.#position = 0;
     this.#fixedHeightBottom = 0;
   }
-});
+}
+customElements.define(MDWBottomSheetElement.tag, MDWBottomSheetElement);

@@ -7,7 +7,8 @@ import styles from './component.css' assert { type: 'css' };
 //   if (iconFont) document.querySelector('html').classList.add('mdw-material-icon-font-loaded');
 // });
 
-customElements.define('mdw-icon', class MDWIconElement extends HTMLComponentElement {
+class MDWIconElement extends HTMLComponentElement {
+  static tag = 'mdw-icon';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -20,7 +21,7 @@ customElements.define('mdw-icon', class MDWIconElement extends HTMLComponentElem
   template() {
     return /*html*/`<slot></slot>`;
   }
-});
-
+}
+customElements.define(MDWIconElement.tag, MDWIconElement);
 
 // https://fonts.google.com/icons?icon.style=Outlined&icon=

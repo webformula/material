@@ -3,7 +3,8 @@ import util from '../../core/util.js';
 
 /* TODO refactor */
 
-customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLComponentElement {
+class MDWTopAppBarElement extends HTMLComponentElement {
+  static tag = 'mdw-top-app-bar';
   #sticky = this.classList.contains('sticky');
   #compress = this.classList.contains('compress');
   #height;
@@ -51,4 +52,6 @@ customElements.define('mdw-top-app-bar', class MDWTopAppBarElement extends HTMLC
     if (value < 0) value = 0;
     this.style.setProperty('--mdw-top-app-bar-scroll-position', `${-value}px`);
   }
-});
+}
+
+customElements.define(MDWTopAppBarElement.tag, MDWTopAppBarElement);

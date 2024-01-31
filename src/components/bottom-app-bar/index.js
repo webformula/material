@@ -5,6 +5,8 @@ import util from '../../core/util.js';
 // TODO FAB
 
 export default class MDWBottomAppBarElement extends HTMLComponentElement {
+  static tag = 'mdw-bottom-app-bar';
+
   #autoHide;
   #scrollDirectionChange_bound = this.#scrollDirectionChange.bind(this);
   #hashchange_bound = this.#hashchange.bind(this);
@@ -77,4 +79,4 @@ export default class MDWBottomAppBarElement extends HTMLComponentElement {
   }
 }
 
-customElements.define('mdw-bottom-app-bar', MDWBottomAppBarElement);
+customElements.define(MDWBottomAppBarElement.tag, MDWBottomAppBarElement);

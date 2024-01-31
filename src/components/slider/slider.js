@@ -2,7 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './slider.css' assert { type: 'css' };
 
 
-customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponentElement {
+class MDWSliderElement extends HTMLComponentElement {
+  static tag = 'mdw-slider';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -303,4 +304,5 @@ customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponent
       else handleStart.classList.add('overlap');
     }
   }
-});
+}
+customElements.define(MDWSliderElement.tag, MDWSliderElement);

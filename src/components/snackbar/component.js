@@ -2,7 +2,8 @@ import MDWSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 
 
-customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWSurfaceElement {
+class mdwSnackbarElement extends MDWSurfaceElement {
+  static tag = 'mdw-snackbar';
   static styleSheets = styles;
   
   constructor() {
@@ -14,4 +15,5 @@ customElements.define('mdw-snackbar', class mdwSnackbarElement extends MDWSurfac
     this.position = 'bottom left';
     this.fixed = true;
   }
-});
+}
+customElements.define(mdwSnackbarElement.tag, mdwSnackbarElement);

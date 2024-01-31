@@ -2,7 +2,8 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
 // TODO add proper tab panel transitions
-customElements.define('mdw-tab-content', class MDWTabContentElement extends HTMLElementExtended {
+class MDWTabContentElement extends HTMLElementExtended {
+  static tag = 'mdw-tab-content';
   #bar;
   #tabChange_bound = this.#tabChange.bind(this);
 
@@ -37,4 +38,6 @@ customElements.define('mdw-tab-content', class MDWTabContentElement extends HTML
       nextActive.active = true;
     }
   }
-});
+}
+
+customElements.define(MDWTabContentElement.tag, MDWTabContentElement);

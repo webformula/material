@@ -4,6 +4,7 @@ import Drag from '../../core/Drag.js';
 
 
 export default class MDWCarouselElement extends HTMLComponentElement {
+  static tag = 'mdw-carousel';
   #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #calculateLayout_debounce = util.debounce(this.#calculateLayout.bind(this), 0);
@@ -181,4 +182,4 @@ export default class MDWCarouselElement extends HTMLComponentElement {
   }
 }
 
-customElements.define('mdw-carousel', MDWCarouselElement);
+customElements.define(MDWCarouselElement.tag, MDWCarouselElement);

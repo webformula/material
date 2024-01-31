@@ -9,7 +9,8 @@ import device from '../../core/device.js';
 // TODO accessability
 // TODO min max
 
-customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWSurfaceElement {
+class MDWTimePickerElement extends MDWSurfaceElement {
+  static tag = 'mdw-time-picker';
   static styleSheets = styles;
 
   #abort;
@@ -629,4 +630,5 @@ customElements.define('mdw-time-picker', class MDWTimePickerElement extends MDWS
       y: event.changedTouches ? event.changedTouches[0].clientY : event.clientY,
     }
   }
-});
+}
+customElements.define(MDWTimePickerElement.tag, MDWTimePickerElement);

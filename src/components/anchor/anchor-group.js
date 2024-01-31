@@ -1,6 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 
-customElements.define('mdw-anchor-group', class MDWAnchorGroupElement extends HTMLComponentElement {
+class MDWAnchorGroupElement extends HTMLComponentElement {
+  static tag = 'mdw-anchor-group';
   static useShadowRoot = false;
 
   #control;
@@ -49,4 +50,6 @@ customElements.define('mdw-anchor-group', class MDWAnchorGroupElement extends HT
     event.preventDefault();
     event.stopPropagation();
   }
-});
+}
+
+customElements.define(MDWAnchorGroupElement.tag, MDWAnchorGroupElement);

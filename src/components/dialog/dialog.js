@@ -6,6 +6,7 @@ import { close_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 
 
 export default class MDWDialogElement extends HTMLComponentElement {
+  static tag = 'mdw-dialog';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -257,4 +258,4 @@ export default class MDWDialogElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-dialog', MDWDialogElement);
+customElements.define(MDWDialogElement.tag, MDWDialogElement);

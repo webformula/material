@@ -4,7 +4,8 @@ import styles from './component.css' assert { type: 'css' };
 
 // TODO animate inactive track so we can add spacing
 
-customElements.define('mdw-progress-circular', class MDWProgressCircularElement extends HTMLComponentElement {
+class MDWProgressCircularElement extends HTMLComponentElement {
+  static tag = 'mdw-progress-circular';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -87,4 +88,5 @@ customElements.define('mdw-progress-circular', class MDWProgressCircularElement 
       this.#inactiveTrack.style.transform = `rotate(${rotateInactive}deg)`;
     }
   }
-});
+}
+customElements.define(MDWProgressCircularElement.tag, MDWProgressCircularElement);

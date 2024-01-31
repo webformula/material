@@ -6,7 +6,8 @@ import util from '../../core/util.js';
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
 
-customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponentElement {
+class MDWAnchorElement extends HTMLComponentElement {
+  static tag = 'mdw-anchor';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -160,4 +161,6 @@ customElements.define('mdw-anchor', class MDWAnchorElement extends HTMLComponent
       this.classList.add('no-text');
     }
   }
-});
+}
+
+customElements.define(MDWAnchorElement.tag, MDWAnchorElement);

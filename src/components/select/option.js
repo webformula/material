@@ -1,7 +1,8 @@
 import MDWMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-customElements.define('mdw-option', class MDWOptionElement extends MDWMenuItemElement {
+class MDWOptionElement extends MDWMenuItemElement {
+  static tag = 'mdw-option';
   #value;
   #displayValue;
   #selected = false;
@@ -44,4 +45,5 @@ customElements.define('mdw-option', class MDWOptionElement extends MDWMenuItemEl
     this.#selected = value !== null && value !== false;
     this.classList.toggle('selected', this.#selected);
   }
-});
+}
+customElements.define(MDWOptionElement.tag, MDWOptionElement);

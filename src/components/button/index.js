@@ -8,6 +8,7 @@ const targetValues = ['_blank', '_parent', '_self', '_top'];
 // TODO anchor
 
 export default class MDWButtonElement extends HTMLComponentElement {
+  static tag = 'mdw-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -268,4 +269,4 @@ export default class MDWButtonElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-button', MDWButtonElement);
+customElements.define(MDWButtonElement.tag, MDWButtonElement);

@@ -2,7 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
-customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponentElement {
+class MDWSwitchElement extends HTMLComponentElement {
+  static tag = 'mdw-switch';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -205,4 +206,5 @@ customElements.define('mdw-switch', class MDWSwitchElement extends HTMLComponent
   #slotChange() {
     if (!this.ariaLabel) this.ariaLabel = this.innerText;
   }
-});
+}
+customElements.define(MDWSwitchElement.tag, MDWSwitchElement);

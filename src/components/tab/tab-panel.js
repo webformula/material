@@ -1,7 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 
 
-customElements.define('mdw-tab-panel', class MDWTabPanelElement extends HTMLElementExtended {
+class MDWTabPanelElement extends HTMLElementExtended {
+  static tag = 'mdw-tab-panel';
   #active = false;
   #value = '';
 
@@ -39,4 +40,5 @@ customElements.define('mdw-tab-panel', class MDWTabPanelElement extends HTMLElem
       this.classList.add('mdw-animation');
     }, 50);
   }
-});
+}
+customElements.define(MDWTabPanelElement.tag, MDWTabPanelElement);

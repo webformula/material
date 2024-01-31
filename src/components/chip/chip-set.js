@@ -2,7 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './chip-set.css' assert { type: 'css' };
 
 
-customElements.define('mdw-chip-set', class MDWChipSetElement extends HTMLComponentElement {
+class MDWChipSetElement extends HTMLComponentElement {
+  static tag = 'mdw-chip-set';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -127,4 +128,5 @@ customElements.define('mdw-chip-set', class MDWChipSetElement extends HTMLCompon
     this.#inputElement.value = '';
     this.dispatchEvent(new Event('change'));
   }
-});
+}
+customElements.define(MDWChipSetElement.tag, MDWChipSetElement);

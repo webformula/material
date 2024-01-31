@@ -4,7 +4,8 @@ import util from '../../core/util.js';
 
 // TODO bottom sheet
 
-customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElement {
+class MDWSelectElement extends MDWMenuElement {
+  static tag = 'mdw-select';
   static styleSheets = styles;
   static formAssociated = true;
 
@@ -353,4 +354,5 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     this.classList.add('filter-async-active');
     this.shadowRoot.querySelector('mdw-progress-linear').removeAttribute('disabled');
   }
-});
+}
+customElements.define(MDWSelectElement.tag, MDWSelectElement);

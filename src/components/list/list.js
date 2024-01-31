@@ -2,7 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './list.css' assert { type: 'css' };
 
 
-customElements.define('mdw-list', class MDWListElement2 extends HTMLComponentElement {
+class MDWListElement extends HTMLComponentElement {
+  static tag = 'mdw-list';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -53,4 +54,5 @@ customElements.define('mdw-list', class MDWListElement2 extends HTMLComponentEle
     [...this.querySelectorAll('mdw-list-item')]
       .forEach(item => item.selected = value.includes(item.value));
   }
-});
+}
+customElements.define(MDWListElement.tag, MDWListElement);

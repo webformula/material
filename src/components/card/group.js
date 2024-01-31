@@ -3,7 +3,8 @@ import device from '../../core/device.js';
 
 // TODO keyboard controls
 
-customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLComponentElement {
+class MDWCardGroupElement extends HTMLComponentElement {
+  static tag = 'mdw-card-group';
   #autoSpanRow = this.classList.contains('mdw-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
   #handleWindowState_bound = this.#handleWindowState.bind(this);
@@ -100,4 +101,5 @@ customElements.define('mdw-card-group', class MDWCardGroupElement extends HTMLCo
     this.#layout();
     this.#observer.observe(this, { childList: true });
   }
-});
+}
+customElements.define(MDWCardGroupElement.tag, MDWCardGroupElement);

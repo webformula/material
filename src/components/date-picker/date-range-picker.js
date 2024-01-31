@@ -11,7 +11,8 @@ import {
 } from '../../core/svgs.js';
 
 
-customElements.define('mdw-date-range-picker', class MDWDateRangePickerElement extends MDWSurfaceElement {
+class MDWDateRangePickerElement extends MDWSurfaceElement {
+  static tag = 'mdw-date-range-picker';
   static styleSheets = styles;
 
 
@@ -491,4 +492,5 @@ customElements.define('mdw-date-range-picker', class MDWDateRangePickerElement e
       this.#scrollContainer.scrollTop -= this.#monthScrollContainerHeightThird;
     }
   }
-});
+}
+customElements.define(MDWDateRangePickerElement.tag, MDWDateRangePickerElement);

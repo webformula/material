@@ -1,7 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
-customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended {
+class MDWTabElement extends HTMLElementExtended {
+  static tag = 'mdw-tab';
   #active = false;
   #value = '';
   #focus_bound = this.#focus.bind(this);
@@ -72,4 +73,5 @@ customElements.define('mdw-tab', class MDWTabElement extends HTMLElementExtended
       e.preventDefault();
     }
   }
-});
+}
+customElements.define(MDWTabElement.tag, MDWTabElement);

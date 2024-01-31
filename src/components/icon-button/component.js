@@ -6,6 +6,7 @@ const targetValues = ['_blank', '_parent', '_self', '_top'];
 
 
 export default class MDWIconButtonElement extends HTMLComponentElement {
+  static tag = 'mdw-icon-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -138,4 +139,4 @@ export default class MDWIconButtonElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-icon-button', MDWIconButtonElement);
+customElements.define(MDWIconButtonElement.tag, MDWIconButtonElement);

@@ -3,7 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 
 // TODO rich tooltip
 
-customElements.define('mdw-tooltip', class MDWTooltipElement extends MDWSurfaceElement {
+class MDWTooltipElement extends MDWSurfaceElement {
+  static tag = 'mdw-tooltip';
   static styleSheets = styles;
 
   constructor() {
@@ -19,4 +20,5 @@ customElements.define('mdw-tooltip', class MDWTooltipElement extends MDWSurfaceE
     super.connectedCallback();
     this.positionMouse = true;
   }
-});
+}
+customElements.define(MDWTooltipElement.tag, MDWTooltipElement);

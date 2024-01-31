@@ -1,7 +1,8 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
-customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLComponentElement {
+class MDWAvatarElement extends HTMLComponentElement {
+  static tag = 'mdw-avatar';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -34,4 +35,6 @@ customElements.define('mdw-avatar', class MDWAvatarElement extends HTMLComponent
       </svg>
     `;
   }
-});
+};
+
+customElements.define(MDWAvatarElement.tag, MDWAvatarElement);

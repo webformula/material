@@ -1,10 +1,10 @@
 import MDWButtonElement from '../button/index.js';
 import styles from './segmented-button.css' assert { type: 'css' };
 import buttonStyles from '../button/component.css' assert { type: 'css' };
-import { check_FILL1_wght400_GRAD0_opsz20 } from '../../core/svgs.js';
 
 
-customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement extends MDWButtonElement {
+class MDWSegmentedButtonElement extends MDWButtonElement {
+  static tag = 'mdw-segmented-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -74,4 +74,5 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
     this.#noCheckmark = !!value;
     this.classList.toggle('no-checkmark', this.#noCheckmark);
   }
-});
+}
+customElements.define(MDWSegmentedButtonElement.tag, MDWSegmentedButtonElement);

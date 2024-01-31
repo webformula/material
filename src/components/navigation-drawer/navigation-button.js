@@ -4,7 +4,8 @@ import {
   menu_open_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-customElements.define('mdw-navigation-button', class MDWNavigationButtonElement extends MDWIconButtonElement {
+class MDWNavigationButtonElement extends MDWIconButtonElement {
+  static tag = 'mdw-navigation-button';
   #onclick_bound = this.#onclick.bind(this);
   #onNavigationState_bound = this.#onNavigationState.bind(this);
 
@@ -50,4 +51,5 @@ customElements.define('mdw-navigation-button', class MDWNavigationButtonElement 
   #onNavigationState() {
     this.checked = !this.navigation?.open;
   }
-});
+}
+customElements.define(MDWNavigationButtonElement.tag, MDWNavigationButtonElement);

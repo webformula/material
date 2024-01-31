@@ -5,6 +5,7 @@ import util from '../../core/util.js';
 // TODO nested arrow icon
 
 export default class MDWMenuElement extends MDWSurfaceElement {
+  static tag = 'mdw-menu';
   static styleSheets = styles;
 
   #abort;
@@ -200,4 +201,4 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   }
 };
 
-customElements.define('mdw-menu', MDWMenuElement);
+customElements.define(MDWMenuElement.tag, MDWMenuElement);

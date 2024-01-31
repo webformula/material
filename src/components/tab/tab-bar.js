@@ -2,7 +2,8 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
 
-customElements.define('mdw-tab-bar', class MDWTabBarElement extends HTMLElementExtended {
+class MDWTabBarElement extends HTMLElementExtended {
+  static tag = 'mdw-tab-bar';
   #underline = document.createElement('div');
   #onClick_bound = this.#onClick.bind(this);
   #secondary = this.classList.contains('mdw-tab-secondary');
@@ -95,4 +96,5 @@ customElements.define('mdw-tab-bar', class MDWTabBarElement extends HTMLElementE
 
     if (twoLine) this.classList.add('mdw-line-two');
   }
-});
+}
+customElements.define(MDWTabBarElement.tag, MDWTabBarElement);

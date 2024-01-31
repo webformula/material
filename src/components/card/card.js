@@ -12,6 +12,7 @@ import Ripple from '../../core/Ripple.js';
 // TODO refactor
 
 export default class MDWCardElement extends HTMLComponentElement {
+  static tag = 'mdw-card';
   #isFullscreen = this.classList.contains('mdw-fullscreen');
   #isExpanding = !!this.querySelector(':Scope > .mdw-card-content > .mdw-expanded');
 
@@ -350,4 +351,4 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 }
 
-customElements.define('mdw-card', MDWCardElement);
+customElements.define(MDWCardElement.tag, MDWCardElement);

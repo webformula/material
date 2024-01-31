@@ -11,6 +11,7 @@ const isIncrementalSupported = 'incremental' in document.createElement('input');
 // TODO rework so we do not render initial state with template
 
 export default class MDWTextfieldElement extends HTMLComponentElement {
+  static tag = 'mdw-textfield';
   static useShadowRoot = true;
   static useTemplate = false;
   static shadowRootDelegateFocus = true;
@@ -516,4 +517,4 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   }
 }
 
-customElements.define('mdw-textfield', MDWTextfieldElement);
+customElements.define(MDWTextfieldElement.tag, MDWTextfieldElement);

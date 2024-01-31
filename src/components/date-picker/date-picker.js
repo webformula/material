@@ -14,7 +14,8 @@ import {
 } from '../../core/svgs.js';
 
 
-customElements.define('mdw-date-picker', class MDWDatePickerElement extends MDWSurfaceElement {
+class MDWDatePickerElement extends MDWSurfaceElement {
+  static tag = 'mdw-date-picker';
   static styleSheets = styles;
 
   #abort;
@@ -680,4 +681,5 @@ customElements.define('mdw-date-picker', class MDWDatePickerElement extends MDWS
     active.style.left = '';
     alt.style.left = '';
   }
-});
+}
+customElements.define(MDWDatePickerElement.tag, MDWDatePickerElement);

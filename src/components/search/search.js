@@ -17,7 +17,8 @@ const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeec
 // TODO chips
 // TODO fix aria
 
-customElements.define('mdw-search', class MDWSearchElement extends MDWMenuElement {
+class MDWSearchElement extends MDWMenuElement {
+  static tag = 'mdw-search';
   static styleSheets = [dividerStyles, styles];
 
   #abort;
@@ -398,4 +399,5 @@ customElements.define('mdw-search', class MDWSearchElement extends MDWMenuElemen
       }
     }
   }
-});
+}
+customElements.define(MDWSearchElement.tag, MDWSearchElement);

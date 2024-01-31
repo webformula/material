@@ -4,6 +4,7 @@ import styles from './radios.css' assert { type: 'css' };
 
 
 export default class MDWRadioElement extends HTMLComponentElement {
+  static tag = 'mdw-radio';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -205,4 +206,4 @@ export default class MDWRadioElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-radio', MDWRadioElement);
+customElements.define(MDWRadioElement.tag, MDWRadioElement);

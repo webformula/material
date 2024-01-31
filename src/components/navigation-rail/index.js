@@ -2,7 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
-customElements.define('mdw-navigation-rail', class MDWNavigationRailElement extends HTMLComponentElement {
+class MDWNavigationRailElement extends HTMLComponentElement {
+  static tag = 'mdw-navigation-rail';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -57,4 +58,5 @@ customElements.define('mdw-navigation-rail', class MDWNavigationRailElement exte
       }
     }
   }
-});
+}
+customElements.define(MDWNavigationRailElement.tag, MDWNavigationRailElement);

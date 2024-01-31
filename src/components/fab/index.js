@@ -3,7 +3,8 @@ import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
-customElements.define('mdw-fab', class MDWFabElement extends HTMLComponentElement {
+class MDWFabElement extends HTMLComponentElement {
+  static tag = 'mdw-fab';
   static useShadowRoot = true;
   static styleSheets = styles;
   static useTemplate = true;
@@ -120,4 +121,5 @@ customElements.define('mdw-fab', class MDWFabElement extends HTMLComponentElemen
       setTimeout(() => this.classList.add('mdw-animation'));
     }
   }
-});
+}
+customElements.define(MDWFabElement.tag, MDWFabElement);

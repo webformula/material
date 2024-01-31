@@ -3,6 +3,7 @@ import styles from './menu-item.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
 export default class MDWMenuItemElement extends HTMLComponentElement {
+  static tag = 'mdw-menu-item';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -68,4 +69,4 @@ export default class MDWMenuItemElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-menu-item', MDWMenuItemElement);
+customElements.define(MDWMenuItemElement.tag, MDWMenuItemElement);

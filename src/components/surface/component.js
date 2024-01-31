@@ -7,6 +7,7 @@ const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|l
 
 
 export default class MDWSurfaceElement extends HTMLComponentElement {
+  static tag = 'mdw-surface';
   static useShadowRoot = true;
   static useTemplate = true;
 
@@ -468,4 +469,4 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 };
 
-customElements.define('mdw-surface', MDWSurfaceElement);
+customElements.define(MDWSurfaceElement.tag, MDWSurfaceElement);

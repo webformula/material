@@ -3,7 +3,8 @@ import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
 
-customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement extends MDWSurfaceElement {
+class MDWNavigationDrawerElement extends MDWSurfaceElement {
+  static tag = 'mdw-navigation-drawer';
   static styleSheets = styles;
 
   #locationchange_bound = this.#locationchange.bind(this);
@@ -113,4 +114,5 @@ customElements.define('mdw-navigation-drawer', class MDWNavigationDrawerElement 
       surface.querySelector('.surface-content').scrollTop = (height / 2) + (top - height);
     }
   }
-});
+}
+customElements.define(MDWNavigationDrawerElement.tag, MDWNavigationDrawerElement);

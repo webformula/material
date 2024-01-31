@@ -1,7 +1,8 @@
 import MDWMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-customElements.define('mdw-search-item', class MDWSearchItemElement extends MDWMenuItemElement {
+class MDWSearchItemElement extends MDWMenuItemElement {
+  static tag = 'mdw-search-item';
   #value;
   #displayValue;
 
@@ -27,4 +28,5 @@ customElements.define('mdw-search-item', class MDWSearchItemElement extends MDWM
   get displayValue() {
     return this.#displayValue;
   }
-});
+}
+customElements.define(MDWSearchItemElement.tag, MDWSearchItemElement);

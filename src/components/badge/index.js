@@ -3,7 +3,8 @@ import styles from './badge.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 
-customElements.define('mdw-badge', class MDWBadgeElement extends HTMLComponentElement {
+class MDWBadgeElement extends HTMLComponentElement {
+  static tag = 'mdw-badge';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -73,4 +74,6 @@ customElements.define('mdw-badge', class MDWBadgeElement extends HTMLComponentEl
 
   get innerText() { return super.innerText; }
   set innerText(value) { this.value = value; }
-});
+}
+
+customElements.define(MDWBadgeElement.tag, MDWBadgeElement);

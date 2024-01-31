@@ -4,7 +4,8 @@ import styles from './component.css' assert { type: 'css' };
 
 // TODO animate inactive track so we can add spacing
 
-customElements.define('mdw-progress-linear', class MDWProgressLinearElement extends HTMLComponentElement {
+class MDWProgressLinearElement extends HTMLComponentElement {
+  static tag = 'mdw-progress-linear';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -82,4 +83,5 @@ customElements.define('mdw-progress-linear', class MDWProgressLinearElement exte
       this.#inactiveBar.style.left = `${percent * 100}%`;
     }
   }
-});
+}
+customElements.define(MDWProgressLinearElement.tag, MDWProgressLinearElement);

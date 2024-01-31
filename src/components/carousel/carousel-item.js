@@ -1,6 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 
 export default class MDWCarouselItemElement extends HTMLComponentElement {
+  static tag = 'mdw-carousel-item';
   #width = null;
 
 
@@ -44,4 +45,4 @@ export default class MDWCarouselItemElement extends HTMLComponentElement {
   }
 }
 
-customElements.define('mdw-carousel-item', MDWCarouselItemElement);
+customElements.define(MDWCarouselItemElement.tag, MDWCarouselItemElement);

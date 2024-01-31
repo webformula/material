@@ -7,6 +7,7 @@ const templateElements = {};
 const dashCaseRegex = /-([a-z])/g;
 
 export default class HTMLComponentElement extends HTMLElement {
+  static tag = 'none';
   /** if not using shadowRoot templates and rendering still work */
   static useShadowRoot = false;
   static shadowRootDelegateFocus = false;
@@ -22,7 +23,6 @@ export default class HTMLComponentElement extends HTMLElement {
   #prepared = false;
   #attributeEvents = {};
   #attributesLookup;
-  #classId;
   #templateElement;
 
   constructor() {
@@ -73,13 +73,11 @@ export default class HTMLComponentElement extends HTMLElement {
     this.#prepared = true;
 
     if (this.constructor.useTemplate) {
-      this.#classId = btoa(this.constructor.toString().replace(/\s/g, ''));
-      // this.#classId = Array.from(this.constructor.toString()).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
-      if (!templateElements[this.#classId]) {
-        templateElements[this.#classId] = document.createElement('template');
-        templateElements[this.#classId].innerHTML = this.template();
+      if (!templateElements[this.constructor.tag]) {
+        templateElements[this.constructor.tag] = document.createElement('template');
+        templateElements[this.constructor.tag].innerHTML = this.template();
       }
-      this.#templateElement = templateElements[this.#classId];
+      this.#templateElement = templateElements[this.constructor.tag];
     } else {
       this.#templateElement = document.createElement('template');
     }

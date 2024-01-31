@@ -3,7 +3,8 @@ import styles from './segmented-button-set.css' assert { type: 'css' };
 
 
 
-customElements.define('mdw-segmented-button-set', class MDWSegmentedButtonSetElement extends HTMLComponentElement {
+class MDWSegmentedButtonSetElement extends HTMLComponentElement {
+  static tag = 'mdw-segmented-button-set';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -68,4 +69,5 @@ customElements.define('mdw-segmented-button-set', class MDWSegmentedButtonSetEle
     this.deselect();
     event.target.checked = true;
   }
-});
+}
+customElements.define(MDWSegmentedButtonSetElement.tag, MDWSegmentedButtonSetElement);

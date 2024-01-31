@@ -5,7 +5,8 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
 // TODO Figure out is we should have more configuration fro start and end swipe actions (currently events only)
-customElements.define('mdw-list-item', class MDWListItemElement2 extends HTMLComponentElement {
+class MDWListItemElement extends HTMLComponentElement {
+  static tag = 'mdw-list-item';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -30,7 +31,7 @@ customElements.define('mdw-list-item', class MDWListItemElement2 extends HTMLCom
     this.role = 'listitem';
     this.render();
     this.#selectionControl = this.querySelector('mdw-checkbox') || this.querySelector('mdw-switch');
-    if (!this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
+    if (this.#selectionControl && !this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
   }
 
   template() {
@@ -168,4 +169,5 @@ customElements.define('mdw-list-item', class MDWListItemElement2 extends HTMLCom
       }
     }
   }
-});
+}
+customElements.define(MDWListItemElement.tag, MDWListItemElement);

@@ -10,7 +10,8 @@ import {
 // TODO do i want modal on compact?
 // TODO aria for buttons
 
-customElements.define('mdw-side-sheet', class MDWSideSheetElement extends MDWSurfaceElement {
+class MDWSideSheetElement extends MDWSurfaceElement {
+  static tag = 'mdw-side-sheet';
   static styleSheets = [dividerStyles, styles];
   
   #abort;
@@ -152,4 +153,5 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends MDWSur
   #close() {
     this.open = false;
   }
-});
+}
+customElements.define(MDWSideSheetElement.tag, MDWSideSheetElement);

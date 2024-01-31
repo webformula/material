@@ -10,7 +10,8 @@ const inputValueRegex = /^(.+)<(.+)>$/;
 
 // TODO figure out aria label for chip with check mark
 
-customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElement {
+class MDWchipElement extends HTMLComponentElement {
+  static tag = 'mdw-chip';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -292,4 +293,5 @@ customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElem
       this.classList.add('checked');
     }
   }
-});
+}
+customElements.define(MDWchipElement.tag, MDWchipElement);
