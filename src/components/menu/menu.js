@@ -194,23 +194,9 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   }
 
   #getFocusableElement() {
-    const walker = document.createTreeWalker(this, NodeFilter.SHOW_ELEMENT);
-    let node;
-    let elements = [];
-    while (node = walker.nextNode()) {
-      if (this.#isElementFocusable(node)) elements.push(node);
-    }
-    return elements;
-  }
-
-  #isElementFocusable(element) {
-    if (!element) return false;
-    return !element.classList.contains('filtered') && (
-      element.nodeName === 'MDW-TEXTFIELD'
-      || element.role === 'menuitem'
-      || element.role === 'option'
-      || element.tabindex > -1
-    );
+    return util.getFocusableElements(this, element => {
+      return element.classList.contains('filtered');
+    });
   }
 };
 

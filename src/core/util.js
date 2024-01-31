@@ -12,10 +12,7 @@ const mdwUtil = new class MDWUtil {
   #pageScrollLockHTMLScrollTop;
   #pageScrollLockHTMLScrollMargin;
   #scrollHandler_bound = this.rafThrottle(this.#scrollHandler).bind(this);
-  #nextTickCallback_bound = this.#nextTickCallback.bind(this);
   #initialWindowState_bound = this.#initialWindowState.bind(this);
-  #nextTickRaf;
-  #nextTickQueue = [];
 
   constructor() {
     window.addEventListener('mdwwindowstate', this.#initialWindowState_bound);
@@ -101,18 +98,6 @@ const mdwUtil = new class MDWUtil {
     context.letterSpacing = styles.getPropertyValue('letter-spacing');
     const metrics = context.measureText(inputElement.value);
     return Math.ceil(metrics.width);
-  }
-
-  nextTick(callback) {
-    this.#nextTickQueue.push(callback);
-    if (!this.#nextTickRaf) this.#nextTickRaf = requestAnimationFrame(this.#nextTickCallback_bound);
-  }
-
-  #nextTickCallback() {
-    while (this.#nextTickQueue.length) {
-      this.#nextTickQueue.pop()();
-    }
-    this.#nextTickRaf = undefined;
   }
 
   async wait(ms = 100) {
@@ -248,16 +233,6 @@ const mdwUtil = new class MDWUtil {
     return this.#pageScrollLockHTMLScrollTop;
   }
 
-  scrollYLockedPage(movementY) {
-    if (!movementY) return;
-    if (this.#pageScrollIsLocked !== true) return;
-
-    this.#pageScrollLockHTMLScrollMargin += movementY;
-    document.documentElement.style.marginTop = `${this.#pageScrollLockHTMLScrollMargin}px`;
-    // document.documentElement.scrollTop = scrollTop;
-    this.#pageScrollLockHTMLScrollTop -= movementY;
-  }
-
   unlockPageScroll() {
     if (this.#pageScrollIsLocked === false) return;
     this.#pageScrollIsLocked = false;
@@ -268,45 +243,6 @@ const mdwUtil = new class MDWUtil {
     htmlElement.style.position = '';
     htmlElement.style.touchAction = '';
     htmlElement.scrollTop = this.#pageScrollLockHTMLScrollTop;
-  }
-
-  #clickTimeoutReferences = [];
-  addClickTimeout(element, listener, ms = 200) {
-    let timeout; 
-    let target;
-    function down(event) {
-      target = event.target;
-      timeout = setTimeout(() => {
-        element.removeEventListener('mouseup', up);
-      }, ms);
-      element.addEventListener('mouseup', up);
-    }
-
-    function up(event) {
-      element.removeEventListener('mouseup', up);
-      clearTimeout(timeout);
-      if (target === event.target || element.contains(event.target)) listener(event);
-    }
-
-    element.addEventListener('mousedown', down);
-
-    this.#clickTimeoutReferences.push({
-      element,
-      removeClickTimeout() {
-        element.removeEventListener('mousedown', down);
-        element.removeEventListener('mouseup', up);
-      }
-    });
-  }
-
-  removeClickTimeout(element) {
-    this.#clickTimeoutReferences = this.#clickTimeoutReferences.filter(v => {
-      if (v.element === element) {
-        v.removeClickTimeout();
-        return false;
-      }
-      return true;
-    });
   }
 
   #longPressListeners = [];
@@ -385,10 +321,25 @@ const mdwUtil = new class MDWUtil {
     return isDark ? 'dark' : 'light';
   }
 
-  getFocusableElements(parent) {
-    const elements = [...parent.querySelectorAll('mdw-button, mdw-icon-button, mdw-checkbox, mdw-switch, mdw-select, mdw-textfield, a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])')]
-      .filter(el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
+  getFocusableElements(parent, excludeCB = () => {}) {
+    const walker = document.createTreeWalker(parent, NodeFilter.SHOW_ELEMENT);
+    let node;
+    let elements = [];
+    while (node = walker.nextNode()) {
+      console.log(node, this.#isElementFocusable(node));
+      if (!excludeCB(node) && this.#isElementFocusable(node)) elements.push(node);
+    }
     return elements;
+  }
+
+  #isElementFocusable(element) {
+    if (!element) return false;
+    return !element.hasAttribute('disabled') && (
+      element.nodeName === 'MDW-TEXTFIELD'
+      || element.role === 'menuitem'
+      || element.role === 'option'
+      || element.tabindex > -1
+    );
   }
 
   #calculateDistance(searchTerm, target) {

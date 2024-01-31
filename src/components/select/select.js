@@ -35,7 +35,6 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     this.#isFilter = this.hasAttribute('filter');
     this.#isAsync = this.hasAttribute('async');
     this.allowClose = true;
-    this.offsetBottom = -35; // margin at bottom of textfield
     this.ariaExpanded = false;
 
     if (this.#isFilter) {
