@@ -11,14 +11,14 @@
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#simple" role="listitem">Simple</a>
-      <a href="#template" role="listitem">Template</a>
-      <a href="#response" role="listitem">Response</a>
-      <a href="#html" role="listitem">HTML Only</a>
-      <a href="#scrollable" role="listitem">Scrollable</a>
-      <a href="#fullscreen" role="listitem">Fullscreen</a>
-      <a href="#prevent-navigation" role="listitem">Click outside close</a>
-      <a href="#prevent-navigation" role="listitem">Prevent navigation</a>
+      <li><a href="#simple">Simple</a></li>
+      <li><a href="#template">Template</a></li>
+      <li><a href="#response">Response</a></li>
+      <li><a href="#html">HTML Only</a></li>
+      <li><a href="#scrollable">Scrollable</a></li>
+      <li><a href="#fullscreen">Fullscreen</a></li>
+      <li><a href="#prevent-navigation">Click outside close</a></li>
+      <li><a href="#prevent-navigation">Prevent navigation</a></li>
     </ul>
   </nav>
 
@@ -130,7 +130,7 @@
         <div class="mdw-subhead">You can interact directly with dialogs added to the DOM</div>
     
         <div class="example">
-          <mdw-dialog id="html-only-dialog">
+          <mdw-dialog id="html-only-dialog" aria-label="[dialog] html only">
             <div slot="headline">Headline</div>
             <div slot="content">
               <form id="one" method="dialog">
@@ -199,7 +199,7 @@
         <div class="mdw-subhead">Dialog header and actions sections will be fixed when dialog content is too large</div>
     
         <div class="example">
-          <mdw-dialog id="scrollable-dialog">
+          <mdw-dialog id="scrollable-dialog" aria-label="[dialog] scrollable">
             <div slot="headline">Headline</div>
             <div slot="content">
               <div class="mdw-supporting-text">
@@ -312,7 +312,7 @@
         <div class="mdw-subhead">Fullscreen dialogs are for compact window sizes only</div>
     
         <div class="example">
-          <mdw-dialog id="fullscreen-dialog" fullscreen>
+          <mdw-dialog id="fullscreen-dialog" fullscreen aria-label="[dialog] fullscreen">
             <div slot="headline">Headline</div>
             <div slot="content">
               <div class="mdw-supporting-text">

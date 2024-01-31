@@ -13,10 +13,8 @@ export default class MDWIconButtonElement extends HTMLComponentElement {
 
   #abort;
   #ripple;
-  #ariaLabel;
   #target;
   #href;
-  #button;
   #toggle = false;
   #checked = false;
   #focus_bound = this.#focus.bind(this);
@@ -32,13 +30,11 @@ export default class MDWIconButtonElement extends HTMLComponentElement {
 
     this.role = 'button';
     this.render();
-    this.#button = this.shadowRoot.querySelector('button');
   }
 
 
   static get observedAttributesExtended() {
     return [
-      ['aria-label', 'string'],
       ['href', 'string'],
       ['target', 'string'],
       ['toggle', 'boolean'],
@@ -90,14 +86,7 @@ export default class MDWIconButtonElement extends HTMLComponentElement {
       this.removeAttribute('href');
     } else {
       this.setAttribute('href', value);
-      if (!this.#ariaLabel) this.ariaLabel = value.replace(/\//g, ' ').trim();
     }
-  }
-
-  get ariaLabel() { return this.#ariaLabel; }
-  set ariaLabel(value) {
-    this.#ariaLabel = value;
-    this.setAttribute('aria-label', value);
   }
 
   get target() { return this.#target; }

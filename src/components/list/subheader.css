@@ -19,6 +19,7 @@
 
 :host(.stuck) {
   background-color: var(--mdw-surface-container);
+  color: var(--mdw-on-surface-variant);
 }
 
 :host([shadow].stuck) {

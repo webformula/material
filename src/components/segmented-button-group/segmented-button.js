@@ -19,6 +19,7 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
     super();
 
     this.role = 'radio';
+    this.ariaChecked = false;
   }
 
   template() {
@@ -62,6 +63,7 @@ customElements.define('mdw-segmented-button', class MDWSegmentedButtonElement ex
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('checked', this.#checked);
+    this.ariaChecked = this.#checked;
   }
 
   get value() { return this.#value; }

@@ -8,6 +8,7 @@ import {
 
 // TODO right
 // TODO do i want modal on compact?
+// TODO aria for buttons
 
 customElements.define('mdw-side-sheet', class MDWSideSheetElement extends MDWSurfaceElement {
   static styleSheets = [dividerStyles, styles];
@@ -39,11 +40,11 @@ customElements.define('mdw-side-sheet', class MDWSideSheetElement extends MDWSur
         <div class="surface-content">
           <div class="item-padding">
             <div class="header">
-              <mdw-icon-button class="back">
+              <mdw-icon-button class="back" aria-label="back">
                 <mdw-icon>${arrow_back_FILL1_wght300_GRAD0_opsz24}</mdw-icon>
               </mdw-icon-button>
               <slot name="headline"></slot>
-              <mdw-icon-button class="close">
+              <mdw-icon-button class="close" aria-label="close">
                 <mdw-icon>${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
               </mdw-icon-button>
             </div>

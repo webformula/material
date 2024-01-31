@@ -15,6 +15,7 @@ const isIncrementalSupported = 'incremental' in document.createElement('input');
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
 // TODO chips
+// TODO fix aria
 
 customElements.define('mdw-search', class MDWSearchElement extends MDWMenuElement {
   static styleSheets = [dividerStyles, styles];
@@ -73,14 +74,14 @@ customElements.define('mdw-search', class MDWSearchElement extends MDWMenuElemen
         <div class="input">
           <slot name="leading"></slot>
           <mdw-icon class="search-icon">${search_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-          <mdw-icon-button class="back">
+          <mdw-icon-button class="back" aria-label="back">
             <mdw-icon>${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</mdw-icon>
           </mdw-icon-button>
           <input type="search" />
-          <mdw-icon-button class="mic">
+          <mdw-icon-button class="mic" aria-label="speech">
             <mdw-icon>${mic_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
           </mdw-icon-button>
-          <mdw-icon-button class="clear">
+          <mdw-icon-button class="clear" aria-label="clear">
             <mdw-icon>${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
           </mdw-icon-button>
           <slot name="trailing"></slot>

@@ -77,7 +77,7 @@ const mdwUtil = new class MDWUtil {
     });
 
     return textNodes
-      .map(node => node.textContent.trim())
+      .map(node => node.data.replace(/\n/g, '').replace(/\s+/g, ' ').trim())
       .join('')
       .trim();
   }

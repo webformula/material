@@ -30,6 +30,7 @@ customElements.define('mdw-list-item', class MDWListItemElement2 extends HTMLCom
     this.role = 'listitem';
     this.render();
     this.#selectionControl = this.querySelector('mdw-checkbox') || this.querySelector('mdw-switch');
+    if (!this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
   }
 
   template() {

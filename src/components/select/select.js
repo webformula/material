@@ -30,12 +30,13 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   constructor() {
     super();
 
-    this.role = 'select';
+    this.role = 'combobox';
     this.#internals = this.attachInternals();
     this.#isFilter = this.hasAttribute('filter');
     this.#isAsync = this.hasAttribute('async');
     this.allowClose = true;
     this.offsetBottom = -35; // margin at bottom of textfield
+    this.ariaExpanded = false;
 
     if (this.#isFilter) {
       // Prevent surface from covering the textfield for typing
@@ -49,6 +50,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
       <mdw-textfield
         class="${this.classList.contains('outlined') ? 'outlined' : ''}"
         label="${this.label}"
+        aria-controls="listbox"
         ${this.hasAttribute('placeholder') ? ` placeholder="${this.getAttribute('placeholder')}"` : ''}
         ${this.hasAttribute('required') ? 'required' : ''}
         ${this.#isFilter ? `
@@ -66,6 +68,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   // TODO update
   static get observedAttributesExtended() {
     return [
+      ['aria-label', 'string'],
       ['disabled', 'boolean'],
       ['label', 'string'],
       ['placeholder', 'string'],
@@ -84,7 +87,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     return /*html*/`
       <div class="select">
         <span class="focus-holder" tabIndex="0"></span>
-        <div class="surface">
+        <div id="listbox" class="surface" role="listbox">
           <div class="surface-content">
             <div class="item-padding">
               <mdw-progress-linear indeterminate disabled></mdw-progress-linear>
@@ -132,8 +135,13 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
   get label() { return this.#label || (this.getAttribute('label') || ''); }
   set label(value) {
     this.#label = value;
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
+    if (!this.ariaLabel) this.ariaLabel = this.#label;
     this.#textfield.label = this.#label;
+  }
+
+  get ariaLabel() { return this.#textfield.ariaLabel; }
+  set ariaLabel(value) {
+    this.#textfield.ariaLabel = value;
   }
 
   get placeholder() { return this.#placeholder }
@@ -196,6 +204,7 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     } else {
       surfaceElement.scrollTop = 0;
     }
+    this.ariaExpanded = true;
   }
 
   onHide() {
@@ -210,6 +219,8 @@ customElements.define('mdw-select', class MDWSelectElement extends MDWMenuElemen
     if (this.#isFilter) this.value = this.value;
     console.log(this.value);
     this.#textfield.classList.toggle('raise-label', !!this.value);
+
+    this.ariaExpanded = false;
   }
 
   onHideEnd() {

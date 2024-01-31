@@ -325,23 +325,23 @@ export default class MDWCardElement extends HTMLComponentElement {
     }
   }
 
-  #handleAria() {
-    const headline = this.querySelector(':scope > .mdw-card-content > .headline') || this.querySelector(':scope > .headline');
-    if (headline) {
-      if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
-      if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
-      if (!headline.hasAttribute('aria-level')) headline.setAttribute('aria-level', '2');
-    }
+  // #handleAria() {
+  //   const headline = this.querySelector(':scope > .mdw-card-content > .headline') || this.querySelector(':scope > .headline');
+  //   if (headline) {
+  //     if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
+  //     if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
+  //     if (!headline.hasAttribute('aria-level')) headline.setAttribute('aria-level', '2');
+  //   }
 
-    const subhead = this.querySelector(':scope > .mdw-card-content > .mdw-subhead') || this.querySelector(':scope > .mdw-subhead');
-    if (subhead && !subhead.hasAttribute('aria-label')) subhead.setAttribute('aria-label', subhead.innerText);
+  //   const subhead = this.querySelector(':scope > .mdw-card-content > .mdw-subhead') || this.querySelector(':scope > .mdw-subhead');
+  //   if (subhead && !subhead.hasAttribute('aria-label')) subhead.setAttribute('aria-label', subhead.innerText);
 
-    const supportingText = this.querySelector(':scope > .mdw-card-content > .mdw-supporting-text') || this.querySelector(':scope > .mdw-supporting-text');
-    if (supportingText && !supportingText.hasAttribute('aria-label')) supportingText.setAttribute('aria-label', supportingText.innerText);
+  //   const supportingText = this.querySelector(':scope > .mdw-card-content > .mdw-supporting-text') || this.querySelector(':scope > .mdw-supporting-text');
+  //   if (supportingText && !supportingText.hasAttribute('aria-label')) supportingText.setAttribute('aria-label', supportingText.innerText);
 
-    const img = this.querySelector(':scope > .mdw-card-image > img') || this.querySelector(':scope > img');
-    if (img && !img.hasAttribute('alt')) img.setAttribute('alt', supportingText ? supportingText.innerText : subhead ? subhead.innerText : headline ? headline.innerText : 'image');
-  }
+  //   const img = this.querySelector(':scope > .mdw-card-image > img') || this.querySelector(':scope > img');
+  //   if (img && !img.hasAttribute('alt')) img.setAttribute('alt', supportingText ? supportingText.innerText : subhead ? subhead.innerText : headline ? headline.innerText : 'image');
+  // }
 
   #handleWindowState() {
     const compact = device.state === 'compact';

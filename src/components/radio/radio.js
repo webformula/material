@@ -32,11 +32,14 @@ export default class MDWRadioElement extends HTMLComponentElement {
     this.role = 'radio';
     this.render();
     this.#input = this.shadowRoot.querySelector('.container input');
+    this.ariaChecked = false;
+    this.#internals.ariaChecked = false;
   }
 
 
   static get observedAttributesExtended() {
     return [
+      ['aria-label', 'string'],
       ['checked', 'boolean'],
       ['value', 'string'],
       ['disabled', 'boolean'],
@@ -86,11 +89,16 @@ export default class MDWRadioElement extends HTMLComponentElement {
   }
 
 
-  get value() { return this.#value }
+  get value() { return this.#value; }
   set value(value) {
     this.#value = value;
     this.#input.value = this.#value;
     this.#internals.setFormValue(this.checked ? this.#value : null, this.checked ? 'checked' : undefined);
+  }
+
+  get ariaLabel() { return this.#input.ariaLabel; }
+  set ariaLabel(value) {
+    this.#input.ariaLabel = value;
   }
 
   get checked() { return this.#checked }
@@ -104,6 +112,7 @@ export default class MDWRadioElement extends HTMLComponentElement {
 
     this.classList.toggle('checked', this.#checked);
     this.#internals.ariaChecked = this.#checked;
+    this.ariaChecked = this.#checked;
   }
 
   get name() { return this.#name }
@@ -191,7 +200,7 @@ export default class MDWRadioElement extends HTMLComponentElement {
   }
 
   #slotChange() {
-    // if (!this.hasAttribute('aria-label')) this.ariaLabel = this.#label;
+    if (!this.ariaLabel) this.ariaLabel = this.innerText;
     this.shadowRoot.querySelector('.label').classList.toggle('has-label', !!this.innerText);
   }
 };

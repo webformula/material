@@ -16,7 +16,6 @@ customElements.define('mdw-list-subheader', class MDWListSubheaderElement extend
   constructor() {
     super();
 
-    this.role = 'sectionhead';
     this.render();
   }
 

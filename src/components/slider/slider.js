@@ -29,7 +29,6 @@ customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponent
     super();
 
     this.#internals = this.attachInternals();
-    this.role = 'range';
 
     this.render();
     this.#inputStart = this.shadowRoot.querySelector('input.start');
@@ -44,6 +43,7 @@ customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponent
 
   static get observedAttributesExtended() {
     return [
+      ['aria-label', 'string'],
       ['name', 'string'],
       ['name-start', 'string'],
       ['name-end', 'string'],
@@ -173,6 +173,12 @@ customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponent
     this.#updateDisplay(true);
   }
 
+  get ariaLabel() { return this.#inputStart.ariaLabel; }
+  set ariaLabel(value) {
+    this.#inputStart.ariaLabel = value;
+    this.#inputEnd.ariaLabel = `${value} end`;
+  }
+
   get range() { return this.#range; }
   set range(value) {
     this.#range = value;
@@ -273,8 +279,9 @@ customElements.define('mdw-slider', class MDWSliderElement extends HTMLComponent
 
   #slotChange(event) {
     if (event.target.classList.contains('label')) {
-      const hasText = !![...event.target.assignedNodes()].map(e => e.data).join('').trim();
-      this.shadowRoot.querySelector('slot[name="leading-icon"]').classList.toggle('has-label', hasText);
+      const label = [...event.target.assignedNodes()].map(e => e.data).join('').trim();
+      this.shadowRoot.querySelector('slot[name="leading-icon"]').classList.toggle('has-label', !!label);
+      if (!this.ariaLabel) this.ariaLabel = label;
     }
   }
 

@@ -8,12 +8,12 @@
   <nav class="links-nav" aria-label="page-content">
     <div class="mdw-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
-      <a href="#standard" role="listitem">Standard</a>
-      <a href="#positioning" role="listitem">Positioning</a>
-      <a href="#colors" role="listitem">Colors</a>
-      <a href="#sizes" role="listitem">Sizes</a>
-      <a href="#label" role="listitem">Label</a>
-      <a href="#fixed" role="listitem">Fixed</a>
+      <li><a href="#standard">Standard</a></li>
+      <li><a href="#positioning">Positioning</a></li>
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#sizes">Sizes</a></li>
+      <li><a href="#label">Label</a></li>
+      <li><a href="#fixed">Fixed</a></li>
     </ul>
   </nav>
 
@@ -223,8 +223,7 @@
           The FAB in the bottom right corner of the page. If you do not set it to fixed then it would be bound to the bottom
           right of this container.
           <mdw-switch style="width: 200px"
-            onchange="document.querySelector('#fixed-fab').classList.toggle('fixed', !this.checked)">Toggle fixed
-          </mdw-switch>
+            onchange="document.querySelector('#fixed-fab').classList.toggle('fixed', !this.checked)">Toggle fixed</mdw-switch>
           <mdw-switch id="hide-switch" style="width: 200px"
             onchange="page.toggleHideStates({hide: this.checked})">Toggle auto hide
           </mdw-switch>

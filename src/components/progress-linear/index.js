@@ -23,6 +23,7 @@ customElements.define('mdw-progress-linear', class MDWProgressLinearElement exte
     this.render();
     this.#activeBar = this.shadowRoot.querySelector('.active-bar');
     this.#inactiveBar = this.shadowRoot.querySelector('.inactive-bar');
+    if (!this.ariaLabel) this.ariaLabel = 'progress';
   }
 
   template() {

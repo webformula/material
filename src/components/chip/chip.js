@@ -8,6 +8,8 @@ import {
 
 const inputValueRegex = /^(.+)<(.+)>$/;
 
+// TODO figure out aria label for chip with check mark
+
 customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElement {
   static useShadowRoot = true;
   static useTemplate = true;
@@ -42,6 +44,7 @@ customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElem
 
   static get observedAttributesExtended() {
     return [
+      ['aria-label', 'string'],
       ['label', 'string'],
       ['value', 'string'],
       ['checked', 'boolean'],
@@ -95,6 +98,7 @@ customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElem
   set label(value) {
     this.#label = value;
     this.shadowRoot.querySelector('.label').innerText = value;
+    this.ariaLabel = value;
   }
 
   get value() { return this.#value || this.label; }
@@ -106,6 +110,11 @@ customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElem
       this.label = this.#getLabelFromInput(this.#value);
     }
     if (this.#menu) this.#updateMenuSelection();
+  }
+
+  get ariaLabel() { return this.#inputElement.ariaLabel; }
+  set ariaLabel(value) {
+    this.#inputElement.ariaLabel = value;
   }
 
   get valueObject() {
@@ -145,7 +154,7 @@ customElements.define('mdw-chip', class MDWchipElement extends HTMLComponentElem
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('checked', this.#checked);
-    // this.setAttribute('aria-checked', this.#checked.toString());
+    this.setAttribute('aria-checked', this.#checked.toString());
   }
 
   get #isEdit() { return this.classList.contains('edit-mode'); }

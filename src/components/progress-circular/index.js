@@ -23,6 +23,7 @@ customElements.define('mdw-progress-circular', class MDWProgressCircularElement 
     this.render();
     this.#activeTrack = this.shadowRoot.querySelector('.active-track');
     this.#inactiveTrack = this.shadowRoot.querySelector('.inactive-track');
+    if (!this.ariaLabel) this.ariaLabel = 'progress';
   }
 
   template() {

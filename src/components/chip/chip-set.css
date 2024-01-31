@@ -57,7 +57,7 @@ input {
   letter-spacing: var(--mdw-font-large-label-tracking);
   text-decoration: inherit;
   text-transform: inherit;
-  color: var(--mdw-on-surface-variant-alpha-76);
+  color: var(--mdw-on-surface-variant);
 }
 
 

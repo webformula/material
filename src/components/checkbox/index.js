@@ -77,7 +77,6 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
     this.#input.indeterminate = this.indeterminate;
     this.#input.required = this.required;
     this.setAttribute('aria-checked', this.#checked.toString());
-    if (!this.hasAttribute('aria-label')) this.ariaLabel = 'switch';
 
     this.#abort = new AbortController();
     this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
@@ -152,9 +151,9 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
     this.#input.toggleAttribute('required', value);
   }
 
-  get ariaLabel() { return this.hasAttribute('aria-label'); }
+  get ariaLabel() { return this.#input.ariaLabel; }
   set ariaLabel(value) {
-    this.setAttribute('aria-label', value);
+    this.#input.ariaLabel = value;
   }
 
   get validationMessage() { return this.#internals.validationMessage; }
@@ -230,7 +229,7 @@ customElements.define('mdw-checkbox', class MDWCheckboxElement extends HTMLCompo
 
   #slotChange() {
     this.#label = this.innerText;
-    if (!this.hasAttribute('aria-label')) this.ariaLabel = this.#label;
+    if (!this.ariaLabel) this.ariaLabel = this.#label;
     this.shadowRoot.querySelector('.label').classList.toggle('has-label', !!this.#label);
   }
 });

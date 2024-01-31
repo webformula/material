@@ -102,6 +102,7 @@ customElements.define('mdw-chip-set', class MDWChipSetElement extends HTMLCompon
     const label = this.shadowRoot.querySelector('.label');
     label.innerText = value;
     label.classList.toggle('has-label', !!value);
+    if (this.#inputElement) this.#inputElement.ariaLabel = value;
   }
 
   #inputFocus() {

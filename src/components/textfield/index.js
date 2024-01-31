@@ -147,10 +147,9 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
 
 
-  get ariaLabel() { return this.getAttribute('aria-label'); }
+  get ariaLabel() { return this.#input.ariaLabel }
   set ariaLabel(value) {
-    if (value) this.setAttribute('aria-label', value);
-    else this.removeAttribute('aria-label');
+    this.#input.ariaLabel = value;
   }
 
   get autocomplete() { return this.getAttribute('autocomplete'); }
@@ -163,7 +162,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   set label(value) {
     this.#label = value;
     this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
-    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', this.#label);
+    if (!this.ariaLabel) this.ariaLabel = this.#label;
   }
 
   get disabled() { return this.hasAttribute('disabled'); }

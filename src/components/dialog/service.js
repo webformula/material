@@ -20,7 +20,7 @@ const mdwDialog = new class mdwDialog {
     const actionCancel = params.actionCancel || false;
     const id = `mdw-dialog-${this.#idCounter++}`;
     document.body.insertAdjacentHTML('beforeend', `
-      <mdw-dialog id="${id}">
+      <mdw-dialog id="${id}" aria-label="[dialog] ${params.message}">
         ${!params.icon ? '' : `<mdw-icon slot="icon">${params.icon}</mdw-icon>`}
         ${!params.headline ? '' : `<div slot="headline">${params.headline}</div>`}
         <div slot="content">${params.message || ''}</div>
