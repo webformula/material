@@ -60,6 +60,7 @@ if (process.env.NODE_ENV === 'production') generate({
   // ]
 }, './docs/colorTokens.css');
 build({
+  spa: true,
   chunks: false,
   basedir: 'docs/',
   outdir: 'dist/',

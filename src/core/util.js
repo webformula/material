@@ -326,7 +326,6 @@ const mdwUtil = new class MDWUtil {
     let node;
     let elements = [];
     while (node = walker.nextNode()) {
-      console.log(node, this.#isElementFocusable(node));
       if (!excludeCB(node) && this.#isElementFocusable(node)) elements.push(node);
     }
     return elements;
