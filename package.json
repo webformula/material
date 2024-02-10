@@ -68,10 +68,10 @@
   },
   "homepage": "https://github.com/webformula/material#readme",
   "devDependencies": {
-    "@webformula/core": "^0.23.2",
+    "@webformula/core": "^0.23.3",
     "@webformula/material": "file:./",
     "aws-sdk": "^2.1407.0",
-    "esbuild": "^0.19.11"
+    "esbuild": "^0.20.0"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.2.7"

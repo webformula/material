@@ -61,12 +61,6 @@ class MDWBadgeElement extends HTMLComponentElement {
         this.parentElement.ariaLabel = `[${this.#ariaLabelOriginal}] New notification`;
       } else this.parentElement.ariaLabel = `[${this.#ariaLabelOriginal}] ${this.#displayValue} New ${parseInt(value) === 1 ? 'notification' : 'notifications'}`;
     }
-
-    // TODO ARIA
-    // '', '0', 0
-    // if (value == 0) this.parentElement.setAttribute('aria-label', this.#parentLabel);
-    // else if (this.#nonCounting) this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] New notification`);
-    // else this.parentElement.setAttribute('aria-label', `[${this.#parentLabel}] ${this.value} New ${this.value === 1 ? 'notification' : 'notifications'}`);
   }
 
   get innerHTML() { return super.innerHTML; }

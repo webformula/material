@@ -130,6 +130,7 @@ export default class MDWDialogElement extends HTMLComponentElement {
     this.#dialog.showModal();
     this.#dialog.classList.add('open');
     this.#dialog.style.setProperty('--mdw-dialog-height', `${this.#dialog.offsetHeight}px`);
+    this.#dialog.style.setProperty('--mdw-dialog-height-transition-duration', this.#dialog.offsetHeight < 200 ? '200ms' : '');
     const content = this.#dialog.querySelector('slot[name="content"]');
     const dialogBounds = this.#dialog.getBoundingClientRect();
     const isScroll = (content.offsetHeight + content.scrollHeight + this.#dialog.querySelector('slot[name="actions"]').offsetHeight) > dialogBounds.bottom;

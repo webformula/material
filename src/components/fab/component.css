@@ -249,6 +249,3 @@ slot[name="label"]::slotted(*) {
 .ripple > .mdw-ripple-element {
   background-color: var(--mdw-primary-alpha-16);
 }
-
-
-/* TODO colors */

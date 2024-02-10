@@ -104,7 +104,6 @@
   }
 }
 
-/* TODO work out how to fill with any aspect ratio */
 :host ::slotted(img) {
   width: 100%;
 }

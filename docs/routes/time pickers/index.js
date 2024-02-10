@@ -3,7 +3,7 @@ import html from './page.html';
 import { mdwDate } from '@webformula/material/services';
 
 export default class extends Component {
-  static title = 'Time pickers';
+  static pageTitle = 'Time pickers';
   static html = html;
 
   constructor() {

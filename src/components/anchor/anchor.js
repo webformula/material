@@ -108,7 +108,6 @@ class MDWAnchorElement extends HTMLComponentElement {
   }
 
   #focusKeydown(e) {
-    // TODO should we skip to first sub navigation in nav or jump to first element on page
     if (e.code === 'Tab') {
       const pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
       const firstFocusablePageContent = util.getFocusableElements(pageContent)[0];

@@ -2,7 +2,7 @@ import { Component } from '@webformula/core';
 import html from './page.html';
 
 export default class extends Component {
-  static title = 'FABs';
+  static pageTitle = 'FABs';
   static html = html;
 
   constructor() {

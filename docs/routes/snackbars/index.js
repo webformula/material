@@ -3,7 +3,7 @@ import { mdwSnackbar } from '@webformula/material/services';
 import html from './page.html';
 
 export default class extends Component {
-  static title = 'Snackbars';
+  static pageTitle = 'Snackbars';
   static html = html;
 
   constructor() {

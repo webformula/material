@@ -3,7 +3,7 @@ import { mdwDialog } from '@webformula/material/services';
 import html from './page.html';
 
 export default class extends Component {
-  static title = 'Dialogs';
+  static pageTitle = 'Dialogs';
   static html = html;
 
   allowClose = false;

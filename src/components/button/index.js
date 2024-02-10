@@ -5,8 +5,6 @@ import dialog from '../dialog/service.js';
 
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
-// TODO anchor
-
 export default class MDWButtonElement extends HTMLComponentElement {
   static tag = 'mdw-button';
   static useShadowRoot = true;
@@ -34,6 +32,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #formMouseDown_bound = this.#formMouseDown.bind(this);
   #formMouseUp_bound = this.#formMouseUp.bind(this);
+  #hrefClick_bound = this.#hrefClick.bind(this);
 
 
   constructor() {
@@ -94,6 +93,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
     if (this.#abort) this.#abort.abort();
     if (this.#ripple) this.#ripple.destroy();
     this.#onclickValue = undefined;
+    this.removeEventListener('click', this.#hrefClick_bound);
   }
 
   get disabled() { return this.hasAttribute('disabled'); }
@@ -104,8 +104,10 @@ export default class MDWButtonElement extends HTMLComponentElement {
     this.#href = value;
     if (!value) {
       this.removeAttribute('href');
+      this.removeEventListener('click', this.#hrefClick_bound);
     } else {
       this.setAttribute('href', value);
+      this.addEventListener('click', this.#hrefClick_bound);
     }
   }
 
@@ -266,6 +268,14 @@ export default class MDWButtonElement extends HTMLComponentElement {
 
   #formFocusIn() {
     if (this.#formState === undefined) this.#formState = this.#getFormState();
+  }
+
+  #hrefClick() {
+    if (!this.target || this.target === '_self') {
+      location.href = this.href;
+    } else {
+      window.open(this.href, '_blank');
+    }
   }
 };
 

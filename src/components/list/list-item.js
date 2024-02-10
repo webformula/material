@@ -4,7 +4,7 @@ import Ripple from '../../core/Ripple.js';
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
-// TODO Figure out is we should have more configuration fro start and end swipe actions (currently events only)
+// TODO Figure out is we should have more configuration for start and end swipe actions (currently events only)
 class MDWListItemElement extends HTMLComponentElement {
   static tag = 'mdw-list-item';
   static useShadowRoot = true;
