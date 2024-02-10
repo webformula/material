@@ -1,5 +1,5 @@
 import { Component } from '@webformula/core';
-import { mdwDialog } from '@webformula/material/services';
+import { wfcDialog } from '@webformula/material/services';
 import html from './page.html';
 
 export default class extends Component {
@@ -14,7 +14,7 @@ export default class extends Component {
   }
 
   async openSimple(allowClose = false, preventNavigation = true, icon) {
-    const answer = await mdwDialog.simple({
+    const answer = await wfcDialog.simple({
       icon,
       headline: 'Question',
       message: 'Are you sure?',
@@ -28,11 +28,11 @@ export default class extends Component {
   }
 
   async openTemplate() {
-    const value = await mdwDialog.template({
+    const value = await wfcDialog.template({
       template: `
       <div slot="headline">Headline</div>
       <div slot="content">Here is some content for the dialog.</div>
-      <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>
+      <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>
       `
     });
     console.log(value);

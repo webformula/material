@@ -1,10 +1,10 @@
-import MDWButtonElement from '../button/index.js';
+import WFCButtonElement from '../button/index.js';
 import styles from './segmented-button.css' assert { type: 'css' };
 import buttonStyles from '../button/component.css' assert { type: 'css' };
 
 
-class MDWSegmentedButtonElement extends MDWButtonElement {
-  static tag = 'mdw-segmented-button';
+class WFCSegmentedButtonElement extends WFCButtonElement {
+  static tag = 'wfc-segmented-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -75,4 +75,4 @@ class MDWSegmentedButtonElement extends MDWButtonElement {
     this.classList.toggle('no-checkmark', this.#noCheckmark);
   }
 }
-customElements.define(MDWSegmentedButtonElement.tag, MDWSegmentedButtonElement);
+customElements.define(WFCSegmentedButtonElement.tag, WFCSegmentedButtonElement);

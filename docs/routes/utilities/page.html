@@ -1,11 +1,11 @@
 <h3 class="page-title">Utilities</h3>
-<div class="page-subheader mdw-font-title-medium">A set of helper methods that are used to support the components, that can be used</div>
+<div class="page-subheader wfc-font-title-medium">A set of helper methods that are used to support the components, that can be used</div>
 
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#util">Util</a></li>
       <li><a href="#date">Date</a></li>
@@ -14,7 +14,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="util">
+    <wfc-card id="util">
       <div class="card-content">
         <div class="headline">Util</div>
         <div class="subheader">Methods for various use cases</div>
@@ -22,27 +22,27 @@
 
       <pre>
         <code class="language-javascript">
-  ${`import { mdwUtil } from '@webformula/material/services';
+  ${`import { wfcUtil } from '@webformula/material/services';
   
   // --- Below are some of the more useful methods ---
 
   // throttle function calls by milliseconds
-  mdwUtil.throttle(() => {}, 200);
+  wfcUtil.throttle(() => {}, 200);
 
   // debounce function calls by milliseconds
-  mdwUtil.debounce(() => {}, 200);
+  wfcUtil.debounce(() => {}, 200);
 
   // throttle function calls by request animations frames
-  mdwUtil.rafThrottle(() => {});
+  wfcUtil.rafThrottle(() => {});
 
   // toggle between dark and light color schemes. This can also be done via css
-  mdwUtil.toggleColorScheme();`}
+  wfcUtil.toggleColorScheme();`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="date">
+    <wfc-card id="date">
       <div class="card-content">
         <div class="headline">Date</div>
         <div class="subheader">Wrapper class around Date and Intl.DateTimeFormat, used by date pickers</div>
@@ -50,54 +50,54 @@
     
       <pre>
         <code class="language-javascript">
-  ${`import { mdwDate } from '@webformula/material/services';
+  ${`import { wfcDate } from '@webformula/material/services';
   
   // --- Below are some of the more useful methods ---
 
   // Set local for anything using this util, including date pickers
-  mdwDate.locale = 'EN-US';
+  wfcDate.locale = 'EN-US';
 
   // Set timezone for anything using this util, including date pickers
-  mdwDate.timeZone = 'GMT';
+  wfcDate.timeZone = 'GMT';
 
   // Parse accepts strings (yyyy-mm-dd) and Date objects
   // returns Date object
-  mdwDate.parse('2023-01-20');
+  wfcDate.parse('2023-01-20');
 
   // build on top of Intl.DateTimeFormat, using the utils locale and timezone
   // returns String
   // ddd, MMM DD = Thu, Dec 12
   // YYYY-MMMM-dddd = 2019-month-wednesday
   // YY/MMM/ddd = 19/10/22
-  mdwDate.format(new Date(), 'yyyy-mm-dd');
+  wfcDate.format(new Date(), 'yyyy-mm-dd');
 
   // returns Date object
-  mdwDate.buildFromParts({ year: '2023', month: '01', day: '20' });
+  wfcDate.buildFromParts({ year: '2023', month: '01', day: '20' });
 
-  mdwDate.getYear(new Date());
-  mdwDate.getMonth(new Date());
-  mdwDate.getWeekDay(new Date());
-  mdwDate.getMonthDay(new Date());
-  mdwDate.getFirstDateOfMonth(new Date());
-  mdwDate.getParts(new Date()); // { year, month, day }
+  wfcDate.getYear(new Date());
+  wfcDate.getMonth(new Date());
+  wfcDate.getWeekDay(new Date());
+  wfcDate.getMonthDay(new Date());
+  wfcDate.getFirstDateOfMonth(new Date());
+  wfcDate.getParts(new Date()); // { year, month, day }
 
-  mdwDate.getMonthNames();
-  mdwDate.getMonthNamesShort();
-  mdwDate.getDayNames('long | short | narrow'); // mon, tue, wed, thur, fri
+  wfcDate.getMonthNames();
+  wfcDate.getMonthNamesShort();
+  wfcDate.getDayNames('long | short | narrow'); // mon, tue, wed, thur, fri
 
   // Add to individual parts of date, use negative numbers to subtract
   // returns Date object
-  mdwDate.addToDateByParts(new Date(), { year: 1, month: 1, day: 1 });
+  wfcDate.addToDateByParts(new Date(), { year: 1, month: 1, day: 1 });
 
   // Set individual parts of date
   // returns Date object
-  mdwDate.setDateByParts(new Date(), { year: 1, month: 1, day: 1 });`}
+  wfcDate.setDateByParts(new Date(), { year: 1, month: 1, day: 1 });`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="device">
+    <wfc-card id="device">
       <div class="card-content">
         <div class="headline">Device</div>
         <div class="subheader">Used to determine information about current device</div>
@@ -105,14 +105,14 @@
     
       <pre>
         <code class="language-javascript">
-  ${`import { mdwDevice } from '@webformula/material/services';
+  ${`import { wfcDevice } from '@webformula/material/services';
 
-  mdwDevice.isMobile;
-  mdwDevice.isIOS;
-  mdwDevice.isAndroid;
-  mdwDevice.hasTouch;`}
+  wfcDevice.isMobile;
+  wfcDevice.isIOS;
+  wfcDevice.isAndroid;
+  wfcDevice.hasTouch;`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

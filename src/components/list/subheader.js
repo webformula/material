@@ -6,8 +6,8 @@ const overflowScrollRegex = /(auto|scroll)/
 
 const observers = new WeakMap();
 
-class MDWListSubheaderElement extends HTMLComponentElement {
-  static tag = 'mdw-list-subheader';
+class WFCListSubheaderElement extends HTMLComponentElement {
+  static tag = 'wfc-list-subheader';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -51,7 +51,7 @@ class MDWListSubheaderElement extends HTMLComponentElement {
 
   #getScrollParent() {
     let parentElement = this.parentElement;
-    if (this.parentElement.nodeName !== 'MDW-list') parentElement = parentElement.parentElement;
+    if (this.parentElement.nodeName !== 'WFC-list') parentElement = parentElement.parentElement;
     
     while (parentElement !== null) {
       if (parentElement === document.documentElement) return window;
@@ -61,4 +61,4 @@ class MDWListSubheaderElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWListSubheaderElement.tag, MDWListSubheaderElement);
+customElements.define(WFCListSubheaderElement.tag, WFCListSubheaderElement);

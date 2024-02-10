@@ -1,8 +1,8 @@
-import MDWMenuItemElement from "../menu/menu-item.js";
+import WFCMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-class MDWSearchItemElement extends MDWMenuItemElement {
-  static tag = 'mdw-search-item';
+class WFCSearchItemElement extends WFCMenuItemElement {
+  static tag = 'wfc-search-item';
   #value;
   #displayValue;
 
@@ -29,4 +29,4 @@ class MDWSearchItemElement extends MDWMenuItemElement {
     return this.#displayValue;
   }
 }
-customElements.define(MDWSearchItemElement.tag, MDWSearchItemElement);
+customElements.define(WFCSearchItemElement.tag, WFCSearchItemElement);

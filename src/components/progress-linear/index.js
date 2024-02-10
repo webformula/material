@@ -4,8 +4,8 @@ import styles from './component.css' assert { type: 'css' };
 
 // TODO animate inactive track so we can add spacing
 
-class MDWProgressLinearElement extends HTMLComponentElement {
-  static tag = 'mdw-progress-linear';
+class WFCProgressLinearElement extends HTMLComponentElement {
+  static tag = 'wfc-progress-linear';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -84,4 +84,4 @@ class MDWProgressLinearElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWProgressLinearElement.tag, MDWProgressLinearElement);
+customElements.define(WFCProgressLinearElement.tag, WFCProgressLinearElement);

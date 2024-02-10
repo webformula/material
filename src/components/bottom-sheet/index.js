@@ -1,4 +1,4 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './bottom-sheet.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
@@ -7,8 +7,8 @@ import util from '../../core/util.js';
 // TODO right
 // TODO do i want modal on compact?
 
-class MDWBottomSheetElement extends MDWSurfaceElement {
-  static tag = 'mdw-bottom-sheet';
+class WFCBottomSheetElement extends WFCSurfaceElement {
+  static tag = 'wfc-bottom-sheet';
   static styleSheets = styles;
 
   #drag;
@@ -77,9 +77,9 @@ class MDWBottomSheetElement extends MDWSurfaceElement {
     if (!this.#fixedHeight) {
       if (!this.#drag) {
         this.#drag = new Drag(this.#surface);
-        this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-        this.#drag.on('mdwdragend', this.#onDragEnd_bound);
-        this.#drag.on('mdwdragmove', this.#onDrag_bound);
+        this.#drag.on('wfcdragstart', this.#onDragStart_bound);
+        this.#drag.on('wfcdragend', this.#onDragEnd_bound);
+        this.#drag.on('wfcdragmove', this.#onDrag_bound);
       }
       this.#drag.enable();
     }
@@ -98,7 +98,7 @@ class MDWBottomSheetElement extends MDWSurfaceElement {
   get #initialPosition() {
     if (this.#fixedHeight) return this.#fixedHeightBottom;
     this.#positionState = 'initial';
-    const initialPositionVar = parseInt(this.#surface.style.getPropertyValue('--mdw-bottom-sheet-initial-position') || 40) / 100;
+    const initialPositionVar = parseInt(this.#surface.style.getPropertyValue('--wfc-bottom-sheet-initial-position') || 40) / 100;
     return -(this.#surface.offsetHeight - (window.innerHeight * initialPositionVar));
   }
 
@@ -114,10 +114,10 @@ class MDWBottomSheetElement extends MDWSurfaceElement {
   }
 
   get #position() {
-    return parseInt(this.#surface.style.getPropertyValue('--mdw-bottom-sheet-bottom').replace('px', ''));
+    return parseInt(this.#surface.style.getPropertyValue('--wfc-bottom-sheet-bottom').replace('px', ''));
   }
   set #position(value) {
-    this.#surface.style.setProperty('--mdw-bottom-sheet-bottom', `${value}px`);
+    this.#surface.style.setProperty('--wfc-bottom-sheet-bottom', `${value}px`);
   }
 
 
@@ -215,4 +215,4 @@ class MDWBottomSheetElement extends MDWSurfaceElement {
     this.#fixedHeightBottom = 0;
   }
 }
-customElements.define(MDWBottomSheetElement.tag, MDWBottomSheetElement);
+customElements.define(WFCBottomSheetElement.tag, WFCBottomSheetElement);

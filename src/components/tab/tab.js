@@ -1,8 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
-class MDWTabElement extends HTMLElementExtended {
-  static tag = 'mdw-tab';
+class WFCTabElement extends HTMLElementExtended {
+  static tag = 'wfc-tab';
   #active = false;
   #value = '';
   #focus_bound = this.#focus.bind(this);
@@ -22,7 +22,7 @@ class MDWTabElement extends HTMLElementExtended {
       const text = util.getTextFromNode(this);
       this.setAttribute('aria-label', text || 'tab');
     }
-    this.classList.add('mdw-animation');
+    this.classList.add('wfc-animation');
   }
 
   disconnectedCallback() {
@@ -45,7 +45,7 @@ class MDWTabElement extends HTMLElementExtended {
   }
   set active(value) {
     this.#active = !!value;
-    // this.classList.toggle('mdw-active', this.#active);
+    // this.classList.toggle('wfc-active', this.#active);
     this.toggleAttribute('active', this.#active);
     if (this.#active === true) this.parentElement.update();
   }
@@ -74,4 +74,4 @@ class MDWTabElement extends HTMLElementExtended {
     }
   }
 }
-customElements.define(MDWTabElement.tag, MDWTabElement);
+customElements.define(WFCTabElement.tag, WFCTabElement);

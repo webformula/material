@@ -3,8 +3,8 @@ import styles from './badge.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 
-class MDWBadgeElement extends HTMLComponentElement {
-  static tag = 'mdw-badge';
+class WFCBadgeElement extends HTMLComponentElement {
+  static tag = 'wfc-badge';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -51,7 +51,7 @@ class MDWBadgeElement extends HTMLComponentElement {
 
     if (!this.#parentType) this.#parentType = this.parentElement.nodeName.toLowerCase();
     if (!this.#ariaLabelOriginal) {
-      if (this.#parentType === 'mdw-icon-button') this.#ariaLabelOriginal = this.parentElement.querySelector('mdw-icon').innerText;
+      if (this.#parentType === 'wfc-icon-button') this.#ariaLabelOriginal = this.parentElement.querySelector('wfc-icon').innerText;
       else this.#ariaLabelOriginal = this.parentElement.ariaLabel || util.getTextFromNode(this.parentElement);
     }
 
@@ -70,4 +70,4 @@ class MDWBadgeElement extends HTMLComponentElement {
   set innerText(value) { this.value = value; }
 }
 
-customElements.define(MDWBadgeElement.tag, MDWBadgeElement);
+customElements.define(WFCBadgeElement.tag, WFCBadgeElement);

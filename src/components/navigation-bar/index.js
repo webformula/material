@@ -3,8 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 import device from '../../core/device.js';
 import util from '../../core/util.js';
 
-class MDWNavigationBarElement extends HTMLComponentElement {
-  static tag = 'mdw-navigation-bar';
+class WFCNavigationBarElement extends HTMLComponentElement {
+  static tag = 'wfc-navigation-bar';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -64,4 +64,4 @@ class MDWNavigationBarElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWNavigationBarElement.tag, MDWNavigationBarElement);
+customElements.define(WFCNavigationBarElement.tag, WFCNavigationBarElement);

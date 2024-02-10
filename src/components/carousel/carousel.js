@@ -3,8 +3,8 @@ import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 
 
-export default class MDWCarouselElement extends HTMLComponentElement {
-  static tag = 'mdw-carousel';
+export default class WFCCarouselElement extends HTMLComponentElement {
+  static tag = 'wfc-carousel';
   #drag;
   #onDrag_bound = this.#onDrag.bind(this);
   #calculateLayout_debounce = util.debounce(this.#calculateLayout.bind(this), 0);
@@ -24,14 +24,14 @@ export default class MDWCarouselElement extends HTMLComponentElement {
   connectedCallback() {
     this.insertAdjacentHTML('afterbegin', '<div class="carousel-front-padding"></div>');
     this.insertAdjacentHTML('beforeend', '<div class="carousel-back-padding"></div>');
-    this.addEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
+    this.addEventListener('wfc-carousel-item-change', this.#calculateLayout_debounce);
     this.#drag = new Drag(this, {
       disableTouchEvents: true,
       overflowDrag: true,
       lockScrollY: true
     });
-    this.#drag.on('mdwdragstart', () => this.#hasDragged = true);
-    this.#drag.on('mdwdragmove', this.#onDrag_bound);
+    this.#drag.on('wfcdragstart', () => this.#hasDragged = true);
+    this.#drag.on('wfcdragmove', this.#onDrag_bound);
     this.#drag.enable();
     this.addEventListener('scroll', this.#calculateLayout_bound);
     this.#initiated = true;
@@ -39,7 +39,7 @@ export default class MDWCarouselElement extends HTMLComponentElement {
 
   disconnectedCallback() {
     this.removeEventListener('scroll', this.#calculateLayout_bound);
-    this.removeEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
+    this.removeEventListener('wfc-carousel-item-change', this.#calculateLayout_debounce);
     this.#drag.destroy();
   }
 
@@ -94,7 +94,7 @@ export default class MDWCarouselElement extends HTMLComponentElement {
           useOpacity: false,
           snapOffset: 56 + 8
         });
-        if (!this.#hasDragged) this.scrollToItem(Math.floor(this.querySelectorAll('mdw-carousel-item').length / 2), false);
+        if (!this.#hasDragged) this.scrollToItem(Math.floor(this.querySelectorAll('wfc-carousel-item').length / 2), false);
         break;
     }
 
@@ -117,7 +117,7 @@ export default class MDWCarouselElement extends HTMLComponentElement {
     const scrollLeft = this.scrollLeft;
     const scrollSnapPositions = [];
     const bounds = this.getBoundingClientRect();
-    const itemElements = [...this.querySelectorAll('mdw-carousel-item')];
+    const itemElements = [...this.querySelectorAll('wfc-carousel-item')];
 
     let totalWidth = 0;
     let totalAdjustedWidth = 0;
@@ -173,7 +173,7 @@ export default class MDWCarouselElement extends HTMLComponentElement {
       itemElement.style.flexBasis = `${adjustWidth}px`;
       itemElement.style.width = `${adjustWidth}px`;
       if (useOpacity) itemElement.style.opacity = opacity;
-      itemElement.style.setProperty('--mdw-carousel-item-text-opacity', textOpacity);
+      itemElement.style.setProperty('--wfc-carousel-item-text-opacity', textOpacity);
     }
 
     this.querySelector('.carousel-front-padding').style.width = `${scrollLeftPadding}px`;
@@ -182,4 +182,4 @@ export default class MDWCarouselElement extends HTMLComponentElement {
   }
 }
 
-customElements.define(MDWCarouselElement.tag, MDWCarouselElement);
+customElements.define(WFCCarouselElement.tag, WFCCarouselElement);

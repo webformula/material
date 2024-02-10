@@ -1,4 +1,4 @@
-const mdwDate = new class MDWDate {
+const wfcDate = new class WFCDate {
   #intlFormatter;
   #intlFormatterLong;
   #locale;
@@ -282,5 +282,5 @@ const mdwDate = new class MDWDate {
   }
 };
 
-window.mdwDate = mdwDate;
-export default mdwDate;
+window.wfcDate = wfcDate;
+export default wfcDate;

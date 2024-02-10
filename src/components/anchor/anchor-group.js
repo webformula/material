@@ -1,7 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 
-class MDWAnchorGroupElement extends HTMLComponentElement {
-  static tag = 'mdw-anchor-group';
+class WFCAnchorGroupElement extends HTMLComponentElement {
+  static tag = 'wfc-anchor-group';
   static useShadowRoot = false;
 
   #control;
@@ -13,9 +13,9 @@ class MDWAnchorGroupElement extends HTMLComponentElement {
   }
 
   connectedCallback() {
-    this.#control = this.querySelector('mdw-anchor[control]');
+    this.#control = this.querySelector('wfc-anchor[control]');
     this.#control.addEventListener('click', this.#controlClick_bound);
-    if (this.querySelector('mdw-anchor.current')) {
+    if (this.querySelector('wfc-anchor.current')) {
       this.classList.add('has-current');
       this.open = true;
     }
@@ -34,15 +34,15 @@ class MDWAnchorGroupElement extends HTMLComponentElement {
     this.#open = !!value;
     if (this.#open) {
       this.#control.classList.add('open');
-      if (!this.parentElement.classList.contains('mdw-state-rail')) this.style.setProperty('--mdw-navigation-drawer-group-height', `${this.#fullHeight}px`);
+      if (!this.parentElement.classList.contains('wfc-state-rail')) this.style.setProperty('--wfc-navigation-drawer-group-height', `${this.#fullHeight}px`);
     } else {
-      this.style.setProperty('--mdw-navigation-drawer-group-height', '56px');
+      this.style.setProperty('--wfc-navigation-drawer-group-height', '56px');
       this.#control.classList.remove('open');
     }
   }
 
   get #fullHeight() {
-    return [...this.querySelectorAll('mdw-anchor')].length * 58;
+    return [...this.querySelectorAll('wfc-anchor')].length * 58;
   }
 
   #controlClick(event) {
@@ -52,4 +52,4 @@ class MDWAnchorGroupElement extends HTMLComponentElement {
   }
 }
 
-customElements.define(MDWAnchorGroupElement.tag, MDWAnchorGroupElement);
+customElements.define(WFCAnchorGroupElement.tag, WFCAnchorGroupElement);

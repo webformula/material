@@ -1,18 +1,18 @@
 <h3 class="page-title">Icons</h3>
-<div class="page-subheader mdw-font-title-medium">Google material font icons</div>
+<div class="page-subheader wfc-font-title-medium">Google material font icons</div>
 <a href="https://fonts.google.com/icons" target="_new">Material icons</a>
 
 
 <section class="page-content-section">
   <!-- the main fonts loaded are not variable. Need to load variable icons for example. So i put only the needed ones in a alt family -->
   <style>
-    .page-content-container mdw-icon:not(.rounded) {
+    .page-content-container wfc-icon:not(.rounded) {
       font-family: "Material Symbols Outlined alt" !important;
     }
   </style>
   
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#sizes">Sizes</a></li>
       <li><a href="#variations">Variation</a></li>
@@ -22,88 +22,88 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
       </div>
       <div class="card-content">
-        <mdw-icon class="small filled">favorite</mdw-icon>
-        <mdw-icon style="color: var(--mdw-neutral);" class="filled">favorite</mdw-icon>
-        <mdw-icon class="large filled" style="color: var(--mdw-tertiary-variant);">favorite</mdw-icon>
-        <mdw-icon class="extra-large filled" style="color: var(--mdw-primary);">favorite</mdw-icon>
-        <mdw-icon style="color: var(--mdw-neutral-variant);">favorite</mdw-icon>
-        <mdw-icon class="bold" style="color: var(--mdw-error);">favorite</mdw-icon>
+        <wfc-icon class="small filled">favorite</wfc-icon>
+        <wfc-icon style="color: var(--wfc-neutral);" class="filled">favorite</wfc-icon>
+        <wfc-icon class="large filled" style="color: var(--wfc-tertiary-variant);">favorite</wfc-icon>
+        <wfc-icon class="extra-large filled" style="color: var(--wfc-primary);">favorite</wfc-icon>
+        <wfc-icon style="color: var(--wfc-neutral-variant);">favorite</wfc-icon>
+        <wfc-icon class="bold" style="color: var(--wfc-error);">favorite</wfc-icon>
       </div>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="sizes">  
+    <wfc-card id="sizes">  
       <div class="card-content">
         <div class="headline">Sizes</div>
         
         <div class="example">
-          <mdw-icon class="small">mail</mdw-icon>
-          <mdw-icon>mail</mdw-icon>
-          <mdw-icon class="large">mail</mdw-icon>
-          <mdw-icon class="extra-large">mail</mdw-icon>
+          <wfc-icon class="small">mail</wfc-icon>
+          <wfc-icon>mail</wfc-icon>
+          <wfc-icon class="large">mail</wfc-icon>
+          <wfc-icon class="extra-large">mail</wfc-icon>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-icon class="small">mail</mdw-icon>
-  <mdw-icon>mail</mdw-icon>
-  <mdw-icon class="large">mail</mdw-icon>
-  <mdw-icon class="extra-large">mail</mdw-icon>`)}
+  ${page.escape(`<wfc-icon class="small">mail</wfc-icon>
+  <wfc-icon>mail</wfc-icon>
+  <wfc-icon class="large">mail</wfc-icon>
+  <wfc-icon class="extra-large">mail</wfc-icon>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="variations">
+    <wfc-card id="variations">
       <div class="card-content">
         <div class="headline">Variations</div>
         
         <div class="example">
-          <mdw-icon class="extra-large">home</mdw-icon>
-          <mdw-icon class="extra-large rounded">home</mdw-icon>
-          <mdw-icon class="extra-large rounded bold">home</mdw-icon>
-          <mdw-icon class="extra-large filled">home</mdw-icon>
-          <mdw-icon class="extra-large rounded filled">home</mdw-icon>
+          <wfc-icon class="extra-large">home</wfc-icon>
+          <wfc-icon class="extra-large rounded">home</wfc-icon>
+          <wfc-icon class="extra-large rounded bold">home</wfc-icon>
+          <wfc-icon class="extra-large filled">home</wfc-icon>
+          <wfc-icon class="extra-large rounded filled">home</wfc-icon>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-icon class="extra-large">home</mdw-icon>
-  <mdw-icon class="extra-large rounded">home</mdw-icon>
-  <mdw-icon class="extra-large rounded bold">home</mdw-icon>
-  <mdw-icon class="extra-large filled">home</mdw-icon>
-  <mdw-icon class="extra-large rounded filled">home</mdw-icon>`)}
+  ${page.escape(`<wfc-icon class="extra-large">home</wfc-icon>
+  <wfc-icon class="extra-large rounded">home</wfc-icon>
+  <wfc-icon class="extra-large rounded bold">home</wfc-icon>
+  <wfc-icon class="extra-large filled">home</wfc-icon>
+  <wfc-icon class="extra-large rounded filled">home</wfc-icon>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="color">
+    <wfc-card id="color">
       <div class="card-content">
         <div class="headline">Color</div>
         <div class="subheader">Theme color variables automatically adjust for light and dark modes</div>
     
         <div class="example">
-          <mdw-icon class="large filled" style="color: var(--mdw-primary)">favorite</mdw-icon>
+          <wfc-icon class="large filled" style="color: var(--wfc-primary)">favorite</wfc-icon>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-icon class="large filled" style="color: var(--mdw-primary)">favorite</mdw-icon>`)}
+  ${page.escape(`<wfc-icon class="large filled" style="color: var(--wfc-primary)">favorite</wfc-icon>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="loading">
+    <wfc-card id="loading">
       <div class="card-content">
         <div class="headline">Loading</div>
         <div class="subheader">You can use google icons or other font icon libraries for icons</div>
-        <div class="supporting-text">If you are not using a variable font then <strong>mdw-fill</strong> will not work</div>
+        <div class="supporting-text">If you are not using a variable font then <strong>wfc-fill</strong> will not work</div>
       </div>
     
       <pre>
@@ -142,6 +142,6 @@
   }`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

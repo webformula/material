@@ -1,12 +1,12 @@
 <h3 class="page-title">Carousel</h3>
-<div class="page-subheader mdw-font-title-medium">Carousels show a collection of items that can be scrolled on and off the screen</div>
+<div class="page-subheader wfc-font-title-medium">Carousels show a collection of items that can be scrolled on and off the screen</div>
 <a href="https://m3.material.io/components/carousel/overview" target="_new">Material Design Guidelines:
   Carousel</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Basic</a></li>
       <li><a href="#strategies">Strategies</a></li>
@@ -15,330 +15,330 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content" style="padding-left: 0; padding-right: 0;;">
         <div class="headline" style="padding-left: 16px;">Basic</div>
         
-        <mdw-carousel style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
-          <mdw-carousel-item width="170">
+        <wfc-carousel style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-        </mdw-carousel>
+          </wfc-carousel-item>
+        </wfc-carousel>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-carousel>
-    <mdw-carousel-item width="170">
+  ${page.escape(`<wfc-carousel>
+    <wfc-carousel-item width="170">
       <img alt="landscape" loading="lazy"
         src="..." />
-    </mdw-carousel-item>
-    <mdw-carousel-item width="170">
+    </wfc-carousel-item>
+    <wfc-carousel-item width="170">
       <img alt="landscape" loading="lazy"
         src="..." />
-    </mdw-carousel-item>
-  </mdw-carousel>
+    </wfc-carousel-item>
+  </wfc-carousel>
   
   
   <!-- Set width directly on item -->
-  <mdw-carousel-item width="170"></mdw-carousel-item>
+  <wfc-carousel-item width="170"></wfc-carousel-item>
 
   <!-- If no width set and an img is used, then the image width will be used -->
-  <mdw-carousel-item>
+  <wfc-carousel-item>
     <img src="..." />
-  </mdw-carousel-item>
+  </wfc-carousel-item>
   
   <!-- If no width is set, the offsetWidth will be used -->
-  <mdw-carousel-item>
+  <wfc-carousel-item>
     ...
-  </mdw-carousel-item>`)}
+  </wfc-carousel-item>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="strategies">
+    <wfc-card id="strategies">
       <div class="card-content" style="padding-left: 0; padding-right: 0;;">
         <div class="headline" style="padding-left: 16px;">Strategies</div>
         <div class="subheader" style="padding-left: 16px;">There are 3 strategies: multi-browser, hero-start, hero-centered</div>
         
         <div class="supporting-text" style="text-align: center; margin-top: 56px;">multi-browser</div>
-        <mdw-carousel style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
-          <mdw-carousel-item width="170">
+        <wfc-carousel style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-        </mdw-carousel>
+          </wfc-carousel-item>
+        </wfc-carousel>
         
         <div class="supporting-text" style="text-align: center; margin-top: 56px;">hero-start</div>
-        <mdw-carousel strategy="hero-start" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
-          <mdw-carousel-item>
+        <wfc-carousel strategy="hero-start" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-        </mdw-carousel>
+          </wfc-carousel-item>
+        </wfc-carousel>
         
         <div class="supporting-text" style="text-align: center; margin-top: 56px;">hero-center</div>
-        <mdw-carousel strategy="hero-center" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
-          <mdw-carousel-item>
+        <wfc-carousel strategy="hero-center" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item>
+          </wfc-carousel-item>
+          <wfc-carousel-item>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
+          </wfc-carousel-item>
       </div>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- multi-browser -->
-  <mdw-carousel>
-    <mdw-carousel-item width="170">
+  <wfc-carousel>
+    <wfc-carousel-item width="170">
       <img alt="landscape" loading="lazy"
         src="..." />
-    </mdw-carousel-item>
-  </mdw-carousel>
+    </wfc-carousel-item>
+  </wfc-carousel>
   
   <!-- hero-start -->
-  <mdw-carousel strategy="hero-start">
-    <mdw-carousel-item>
+  <wfc-carousel strategy="hero-start">
+    <wfc-carousel-item>
       <img alt="landscape" loading="lazy"
         src="..." />
-    </mdw-carousel-item>
-  </mdw-carousel>
+    </wfc-carousel-item>
+  </wfc-carousel>
   
   <!-- hero-center -->
-  <mdw-carousel strategy="hero-center">
-    <mdw-carousel-item>
+  <wfc-carousel strategy="hero-center">
+    <wfc-carousel-item>
       <img alt="landscape" loading="lazy"
         src="..." />
-    </mdw-carousel-item>`)}
+    </wfc-carousel-item>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="text">
+    <wfc-card id="text">
       <div class="card-content" style="padding-left: 0; padding-right: 0;;">
         <div class="headline" style="padding-left: 16px;">Images and text</div>
     
-        <mdw-carousel mdw-item-width="170" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
-          <mdw-carousel-item width="170">
-            <div class="mdw-text mdw-elevation-1">
-              <div class="mdw-font-title-medium">Title</div>
+        <wfc-carousel wfc-item-width="170" style="height: 180px; max-width: 400px; margin: 0 auto; margin-top: 24px;">
+          <wfc-carousel-item width="170">
+            <div class="wfc-text wfc-elevation-1">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-          <mdw-carousel-item width="170">
-            <div class="mdw-text">
-              <div class="mdw-font-title-medium">Title</div>
+          </wfc-carousel-item>
+          <wfc-carousel-item width="170">
+            <div class="wfc-text">
+              <div class="wfc-font-title-medium">Title</div>
             </div>
             <img alt="landscape" loading="lazy"
               src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-          </mdw-carousel-item>
-        </mdw-carousel>
+          </wfc-carousel-item>
+        </wfc-carousel>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-carousel mdw-item-width="170" style="height: 180px;">
-    <mdw-carousel-item width="170">
-      <div class="mdw-text">
-        <div class="mdw-font-title-medium">Title</div>
+  ${page.escape(`<wfc-carousel wfc-item-width="170" style="height: 180px;">
+    <wfc-carousel-item width="170">
+      <div class="wfc-text">
+        <div class="wfc-font-title-medium">Title</div>
       </div>
       <img alt="landscape" loading="lazy" src="./img.jpg"/>
-    </mdw-carousel-item>
-    <mdw-carousel-item width="170">
-      <div class="mdw-text">
-        <div class="mdw-font-title-medium">Title</div>
+    </wfc-carousel-item>
+    <wfc-carousel-item width="170">
+      <div class="wfc-text">
+        <div class="wfc-font-title-medium">Title</div>
       </div>
       <img alt="landscape" loading="lazy" src="./img.jpg"/>
-    </mdw-carousel-item>
-    <mdw-carousel-item width="170">
-      <div class="mdw-text">
-        <div class="mdw-font-title-medium">Title</div>
+    </wfc-carousel-item>
+    <wfc-carousel-item width="170">
+      <div class="wfc-text">
+        <div class="wfc-font-title-medium">Title</div>
       </div>
       <img alt="landscape" loading="lazy" src="./img.jpg"/>
-    </mdw-carousel-item>
-  </mdw-carousel>`)}
+    </wfc-carousel-item>
+  </wfc-carousel>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

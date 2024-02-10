@@ -1,4 +1,4 @@
-mdw-bottom-app-bar {
+wfc-bottom-app-bar {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -13,41 +13,41 @@ mdw-bottom-app-bar {
   align-items: center;
   z-index: 9;
 
-  background-color: var(--mdw-surface-container);
-  box-shadow: var(--mdw-elevation-2);
+  background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-2);
 
   margin-bottom: 0;
   transition: margin-bottom, left;
   transition-duration: 0;
-  transition-timing-function: var(---mdw-motion-easing-standard);
+  transition-timing-function: var(---wfc-motion-easing-standard);
 }
 
-mdw-bottom-app-bar mdw-fab {
+wfc-bottom-app-bar wfc-fab {
   margin: 0 16px;
 }
 
-body.mdw-animation mdw-bottom-app-bar {
-  transition-duration: var(--mdw-motion-duration-short3);
+body.wfc-animation wfc-bottom-app-bar {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
 /* only show on compact */
-body.window-medium > mdw-bottom-app-bar:not(.always-show),
-body.window-expanded > mdw-bottom-app-bar:not(.always-show) {
+body.window-medium > wfc-bottom-app-bar:not(.always-show),
+body.window-expanded > wfc-bottom-app-bar:not(.always-show) {
   display: none;
 }
 
-mdw-bottom-app-bar.hide {
+wfc-bottom-app-bar.hide {
   margin-bottom: -80px;
 }
 
-body.window-expanded.navigation-drawer-state-show mdw-bottom-app-bar {
-  left: var(--mdw-navigation-drawer-width);
+body.window-expanded.navigation-drawer-state-show wfc-bottom-app-bar {
+  left: var(--wfc-navigation-drawer-width);
 }
 
 
 /* primary / secondary */
 
-mdw-bottom-app-bar mdw-bottom-app-bar-primary {
+wfc-bottom-app-bar wfc-bottom-app-bar-primary {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -57,15 +57,15 @@ mdw-bottom-app-bar mdw-bottom-app-bar-primary {
   transition: none;
 }
 
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide {
+wfc-bottom-app-bar wfc-bottom-app-bar-primary.hide {
   pointer-events: none;
   opacity: 0;
   transition: opacity, bottom;
-  transition-duration: var(--mdw-motion-duration-short2);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-short2);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary {
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -74,10 +74,10 @@ mdw-bottom-app-bar mdw-bottom-app-bar-secondary {
 
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--mdw-motion-duration-short2);
+  transition: opacity var(--wfc-motion-duration-short2);
 }
 
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary.show {
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary.show {
   opacity: 1;
   pointer-events: all;
   transition: none;
@@ -86,63 +86,63 @@ mdw-bottom-app-bar mdw-bottom-app-bar-secondary.show {
 
 /* items animation */
 
-mdw-bottom-app-bar mdw-button,
-mdw-bottom-app-bar mdw-navigation-button {
+wfc-bottom-app-bar wfc-button,
+wfc-bottom-app-bar wfc-navigation-button {
   transform: translateY(0);
   transition: transform;
-  transition-duration: var(--mdw-motion-duration-short3);
+  transition-duration: var(--wfc-motion-duration-short3);
   transition-delay: 50ms;
 }
 
-mdw-bottom-app-bar mdw-button:nth-child(2) {
+wfc-bottom-app-bar wfc-button:nth-child(2) {
   transition-delay: 100ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(3) {
+wfc-bottom-app-bar wfc-button:nth-child(3) {
   transition-delay: 150ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(4) {
+wfc-bottom-app-bar wfc-button:nth-child(4) {
   transition-delay: 200ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(5) {
+wfc-bottom-app-bar wfc-button:nth-child(5) {
   transition-delay: 250ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(6) {
+wfc-bottom-app-bar wfc-button:nth-child(6) {
   transition-delay: 300ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(7) {
+wfc-bottom-app-bar wfc-button:nth-child(7) {
   transition-delay: 350ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(8) {
+wfc-bottom-app-bar wfc-button:nth-child(8) {
   transition-delay: 400ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(9) {
+wfc-bottom-app-bar wfc-button:nth-child(9) {
   transition-delay: 450ms;
 }
-mdw-bottom-app-bar mdw-button:nth-child(10) {
+wfc-bottom-app-bar wfc-button:nth-child(10) {
   transition-delay: 500ms;
 }
 
-mdw-bottom-app-bar.auto-hide.hide > mdw-button,
-mdw-bottom-app-bar.auto-hide.hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-navigation-button {
+wfc-bottom-app-bar.auto-hide.hide > wfc-button,
+wfc-bottom-app-bar.auto-hide.hide > wfc-navigation-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-primary.hide > wfc-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-primary.hide > wfc-navigation-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary:not(.show) > wfc-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary:not(.show) > wfc-navigation-button {
   transform: translateY(60px);
 }
 
-mdw-bottom-app-bar.auto-hide.hide > mdw-button,
-mdw-bottom-app-bar.auto-hide.hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide > mdw-navigation-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-button,
-mdw-bottom-app-bar mdw-bottom-app-bar-secondary:not(.show) > mdw-navigation-button {
+wfc-bottom-app-bar.auto-hide.hide > wfc-button,
+wfc-bottom-app-bar.auto-hide.hide > wfc-navigation-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-primary.hide > wfc-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-primary.hide > wfc-navigation-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary:not(.show) > wfc-button,
+wfc-bottom-app-bar wfc-bottom-app-bar-secondary:not(.show) > wfc-navigation-button {
   transition-duration: 0ms;
-  transition-delay: var(--mdw-motion-duration-short3);
+  transition-delay: var(--wfc-motion-duration-short3);
 }
 
-body:not(.mdw-animation) mdw-bottom-app-bar mdw-button,
-body:not(.mdw-animation) mdw-bottom-app-bar mdw-navigation-button {
+body:not(.wfc-animation) wfc-bottom-app-bar wfc-button,
+body:not(.wfc-animation) wfc-bottom-app-bar wfc-navigation-button {
   transition-duration: 0ms;
   transition-delay: 0ms;
 }

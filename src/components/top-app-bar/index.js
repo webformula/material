@@ -3,8 +3,8 @@ import util from '../../core/util.js';
 
 /* TODO refactor */
 
-class MDWTopAppBarElement extends HTMLComponentElement {
-  static tag = 'mdw-top-app-bar';
+class WFCTopAppBarElement extends HTMLComponentElement {
+  static tag = 'wfc-top-app-bar';
   #sticky = this.classList.contains('sticky');
   #compress = this.classList.contains('compress');
   #height;
@@ -37,7 +37,7 @@ class MDWTopAppBarElement extends HTMLComponentElement {
 
   #scrollTrack({ isScrolled, direction, distance, scrollTop }) {
     // prevent style changes if not moving
-    const position = -parseInt(this.style.getPropertyValue('--mdw-top-app-bar-scroll-position').replace('px', '') || 0);
+    const position = -parseInt(this.style.getPropertyValue('--wfc-top-app-bar-scroll-position').replace('px', '') || 0);
 
     // adjust scroll check based on header position for scrolled
     if (this.#compress) this.classList.toggle('scrolled', scrollTop - Math.max(0, position + distance) > 0);
@@ -50,8 +50,8 @@ class MDWTopAppBarElement extends HTMLComponentElement {
     let value = position + distance;
     if (value > this.#height) value = this.#height;
     if (value < 0) value = 0;
-    this.style.setProperty('--mdw-top-app-bar-scroll-position', `${-value}px`);
+    this.style.setProperty('--wfc-top-app-bar-scroll-position', `${-value}px`);
   }
 }
 
-customElements.define(MDWTopAppBarElement.tag, MDWTopAppBarElement);
+customElements.define(WFCTopAppBarElement.tag, WFCTopAppBarElement);

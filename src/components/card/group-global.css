@@ -1,25 +1,25 @@
-mdw-card-group {
+wfc-card-group {
   gap: 8px;
 }
 
-mdw-card-group,
-mdw-card-group.grid {
+wfc-card-group,
+wfc-card-group.grid {
   display: grid;
-  grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
+  grid-template-columns: repeat(var(--wfc-card-group-columns), 1fr);
 }
 
-body.window-compact mdw-card-group:not(.grid),
-mdw-card-group.list {
+body.window-compact wfc-card-group:not(.grid),
+wfc-card-group.list {
   display: flex;
   flex-direction: column;
 }
 
 
-mdw-card-group > mdw-card.card-grid-cell {
+wfc-card-group > wfc-card.card-grid-cell {
   height: fit-content;
 }
 
 
-mdw-card-group.reorder {
+wfc-card-group.reorder {
   cursor: pointer;
 }

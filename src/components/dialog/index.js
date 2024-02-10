@@ -1,2 +1,2 @@
 import './dialog.js';
-export { default as mdwDialog } from './service.js';
+export { default as wfcDialog } from './service.js';

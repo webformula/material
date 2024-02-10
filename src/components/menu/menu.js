@@ -1,11 +1,11 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './menu.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO nested arrow icon
 
-export default class MDWMenuElement extends MDWSurfaceElement {
-  static tag = 'mdw-menu';
+export default class WFCMenuElement extends WFCSurfaceElement {
+  static tag = 'wfc-menu';
   static styleSheets = styles;
 
   #abort;
@@ -122,11 +122,11 @@ export default class MDWMenuElement extends MDWSurfaceElement {
     } else if (e.code === 'Escape' && this.allowClose) {
       this.close();
       // TODO work out what to do here
-      if (this.nodeName !== 'MDW-SELECT' && this.anchorElement) this.anchorElement.focus();
+      if (this.nodeName !== 'WFC-SELECT' && this.anchorElement) this.anchorElement.focus();
 
     // picks first filtered item based on style.order if focus is on input
-    } else if (e.code === 'Enter' && this.nodeName === 'MDW-SELECT' && this.#disableLetterFocus) {
-      const available = [...this.querySelectorAll('mdw-option:not(.filtered)')].find(v => v.style.order === '0');
+    } else if (e.code === 'Enter' && this.nodeName === 'WFC-SELECT' && this.#disableLetterFocus) {
+      const available = [...this.querySelectorAll('wfc-option:not(.filtered)')].find(v => v.style.order === '0');
       if (available) available.click();
 
     // focus on item based on character presses
@@ -147,9 +147,9 @@ export default class MDWMenuElement extends MDWSurfaceElement {
 
     // at top
     if (focusedIndex === 0) {
-      // if mdw-select[filter] then focus on textfield
-      if (this.nodeName === 'MDW-SELECT' && this.hasAttribute('filter')) this.shadowRoot.querySelector('mdw-textfield').focus();
-      if (this.nodeName === 'MDW-SEARCH') this.shadowRoot.querySelector('input').focus();
+      // if wfc-select[filter] then focus on textfield
+      if (this.nodeName === 'WFC-SELECT' && this.hasAttribute('filter')) this.shadowRoot.querySelector('wfc-textfield').focus();
+      if (this.nodeName === 'WFC-SEARCH') this.shadowRoot.querySelector('input').focus();
       return;
     }
     const item = sorted[focusedIndex - 1];
@@ -201,4 +201,4 @@ export default class MDWMenuElement extends MDWSurfaceElement {
   }
 };
 
-customElements.define(MDWMenuElement.tag, MDWMenuElement);
+customElements.define(WFCMenuElement.tag, WFCMenuElement);

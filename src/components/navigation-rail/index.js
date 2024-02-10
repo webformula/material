@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
-class MDWNavigationRailElement extends HTMLComponentElement {
-  static tag = 'mdw-navigation-rail';
+class WFCNavigationRailElement extends HTMLComponentElement {
+  static tag = 'wfc-navigation-rail';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -46,7 +46,7 @@ class MDWNavigationRailElement extends HTMLComponentElement {
     
     if (match) {
       match.classList.add('current');
-      // if (match.parentElement.nodeName === 'MDW-ANCHOR-GROUP') {
+      // if (match.parentElement.nodeName === 'WFC-ANCHOR-GROUP') {
       //   match.parentElement.classList.add('has-current');
       // }
 
@@ -59,4 +59,4 @@ class MDWNavigationRailElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWNavigationRailElement.tag, MDWNavigationRailElement);
+customElements.define(WFCNavigationRailElement.tag, WFCNavigationRailElement);

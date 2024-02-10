@@ -1,10 +1,10 @@
 <h3 class="page-title">Getting Started</h3>
-<div class="page-subheader mdw-font-title-medium">Install components and styles</div>
+<div class="page-subheader wfc-font-title-medium">Install components and styles</div>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#install">Installation</a></li>
       <li><a href="#import">Importing components</a></li>
@@ -13,7 +13,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="install">
+    <wfc-card id="install">
       <div class="card-content">
         <div class="headline">Installation</div>
       </div>
@@ -22,10 +22,10 @@
   ${`npm install @webformula/material`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="import">
+    <wfc-card id="import">
       <div class="card-content">
         <div class="headline">Import components</div>
       </div>
@@ -71,12 +71,12 @@
   
   // importing services.These are also available on 'window'
   import {
-    mdwDate,
-    mdwDevice,
-    mdwDialog,
-    MDWPanel,
-    mdwUtil,
-    mdwSnackbar
+    wfcDate,
+    wfcDevice,
+    wfcDialog,
+    WFCPanel,
+    wfcUtil,
+    wfcSnackbar
   } from '@webformula/material/services';
   
   // importing individual services
@@ -94,20 +94,20 @@
   <script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/material.js"></script>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="fonts">
+    <wfc-card id="fonts">
       <div class="card-content">
         <div class="headline">Loading fonts and icons</div>
         <div class="supporting-text">For icons this uses Googles Material icon font. All component required icons are
-        packed in with library. Only needed if using the mdw-icon component</div>
+        packed in with library. Only needed if using the wfc-icon component</div>
         <a href="https://fonts.google.com">Google fonts</a>
       </div>
 
       <pre>
         <code class="language-css">
   ${`/* hide page while loading */
-  html:not(.mdw-initiated) {
+  html:not(.wfc-initiated) {
     opacity: 0;
     pointer-events: none;
   }`}
@@ -126,13 +126,13 @@
   <!--
     Load material icons via google fonts.
     All component required icons are packed in with library.
-    Only needed if using the mdw-icon component
+    Only needed if using the wfc-icon component
   -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     media="print" onload="this.media='all'" />`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

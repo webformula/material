@@ -2,7 +2,7 @@ import util from '../../core/util.js';
 import { close_FILL1_wght400_GRAD0_opsz24  } from '../../core/svgs.js';
 
 
-const mdwSnackbar = new class mdwSnackbar {
+const wfcSnackbar = new class wfcSnackbar {
   defaultTime = 4000;
   #currentSnackbar;
   #snackbarQueue = [];
@@ -17,13 +17,13 @@ const mdwSnackbar = new class mdwSnackbar {
     if (!params.message) throw Error('Message required');
     if (params.closeButton === undefined) params.closeButton = true;
 
-    const id = `mdw-snackbar-${util.uid()}`;
+    const id = `wfc-snackbar-${util.uid()}`;
     document.body.insertAdjacentHTML('beforeend', /*html*/`
-      <mdw-snackbar id="${id}" ${params.twoLine ? 'class="two-line"' : ''} aria-label="[alert] ${params.message}">
-        <div class="mdw-text">${params.message}</div>
-        ${!params.actionLabel ? '' : `<mdw-button onclick="mdwSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
-        ${!params.closeButton ? '' : `<mdw-icon onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</mdw-icon>`}
-      </mdw-snackbar>
+      <wfc-snackbar id="${id}" ${params.twoLine ? 'class="two-line"' : ''} aria-label="[alert] ${params.message}">
+        <div class="wfc-text">${params.message}</div>
+        ${!params.actionLabel ? '' : `<wfc-button onclick="wfcSnackbar.dismiss('action')">${params.actionLabel}</wfc-button>`}
+        ${!params.closeButton ? '' : `<wfc-icon onclick="wfcSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</wfc-icon>`}
+      </wfc-snackbar>
     `);
 
     return new Promise(resolve => {
@@ -68,5 +68,5 @@ const mdwSnackbar = new class mdwSnackbar {
   }
 }
 
-window.mdwSnackbar = mdwSnackbar;
-export default mdwSnackbar;
+window.wfcSnackbar = wfcSnackbar;
+export default wfcSnackbar;

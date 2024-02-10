@@ -1,5 +1,5 @@
 :host {
-  border-radius: var(--mdw-shape-extra-small);
+  border-radius: var(--wfc-shape-extra-small);
 }
 
 .surface-content {
@@ -8,13 +8,13 @@
   padding: 0 16px;
   margin: 8px;
 
-  box-shadow: var(--mdw-elevation-1);
-  background-color: var(--mdw-surface-inverse);
-  font-size: var(--mdw-font-medium-body-size);
-  font-weight: var(--mdw-font-medium-body-weight);
+  box-shadow: var(--wfc-elevation-1);
+  background-color: var(--wfc-surface-inverse);
+  font-size: var(--wfc-font-medium-body-size);
+  font-weight: var(--wfc-font-medium-body-weight);
   line-height: 24px;
-  letter-spacing: var(--mdw-font-medium-body-tracking);
-  color: var(--mdw-on-surface-inverse);
+  letter-spacing: var(--wfc-font-medium-body-tracking);
+  color: var(--wfc-on-surface-inverse);
 }
 
 :host(.two-line) .surface-content {
@@ -27,7 +27,7 @@ slot {
   justify-content: space-between;
 }
 
-::slotted(mdw-button),
-::slotted(mdw-icon) {
-  color: var(--mdw-primary-container);
+::slotted(wfc-button),
+::slotted(wfc-icon) {
+  color: var(--wfc-primary-container);
 }

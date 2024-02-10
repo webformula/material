@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './search-container.css' assert { type: 'css' };
 
 
-class MDWSearchContainerElement extends HTMLComponentElement {
-  static tag = 'mdw-search-container';
+class WFCSearchContainerElement extends HTMLComponentElement {
+  static tag = 'wfc-search-container';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -54,4 +54,4 @@ class MDWSearchContainerElement extends HTMLComponentElement {
     this.shadowRoot.querySelector('.label').classList.toggle('has-results', event.target.assignedElements().length > 0);
   }
 }
-customElements.define(MDWSearchContainerElement.tag, MDWSearchContainerElement);
+customElements.define(WFCSearchContainerElement.tag, WFCSearchContainerElement);

@@ -1,5 +1,5 @@
 <h3 class="page-title">Dialogs</h3>
-<div class="page-subheader mdw-font-title-medium">Dialogs provide important prompts in a user flow</div>
+<div class="page-subheader wfc-font-title-medium">Dialogs provide important prompts in a user flow</div>
 <div class="supporting-text">Dialogs can require an action, communicate information, or help users accomplish a
   task. There are two types of dialogs:
   basic and full-screen</div>
@@ -9,7 +9,7 @@
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#simple">Simple</a></li>
       <li><a href="#template">Template</a></li>
@@ -23,21 +23,21 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="simple">
+    <wfc-card id="simple">
       <div class="card-content">
         <div class="headline">Simple dialog</div>
         
         <div class="example">
-          <mdw-button onclick="page.openSimple(false, true, 'settings')">Open</mdw-button>
+          <wfc-button onclick="page.openSimple(false, true, 'settings')">Open</wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-javascript">
   // also available globally on window
-  import { mdwDialog } from '@webformula/material/services';
+  import { wfcDialog } from '@webformula/material/services';
 
-  const answer = await mdwDialog.simple({
+  const answer = await wfcDialog.simple({
     icon: 'settings',
     headline: 'Question',
     message: 'Are you sure?',
@@ -57,15 +57,15 @@
   if (answer === 'cancel') console.log('User pressed cancel');
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="template">
+    <wfc-card id="template">
       <div class="card-content">
         <div class="headline">Template dialog</div>
         
         <div class="example">
-          <mdw-button onclick="page.openTemplate()">Open</mdw-button>
+          <wfc-button onclick="page.openTemplate()">Open</wfc-button>
         </div>
       </div>
 
@@ -74,75 +74,75 @@
   ${page.escape(`// templateString
   <div slot="headline">Headline</div>
   <div slot="content">Here is some content for the dialog.</div>
-  <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>`)}
+  <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>`)}
       </code>
     </pre>
     <pre>
       <code class="language-javascript">
-  mdwDialog.template({
+  wfcDialog.template({
     template: templateString,
     allowClose: false
   });
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="response">
+    <wfc-card id="response">
       <div class="card-content">
         <div class="headline">Dialog response</div>
         
         <div class="example">
-          <mdw-button onclick="page.openTemplate()">Open</mdw-button>
+          <wfc-button onclick="page.openTemplate()">Open</wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
   ${page.escape(`// templateString
-  <mdw-dialog>
+  <wfc-dialog>
     <div slot="headline">Headline</div>
     <div slot="content">Here is some content for the dialog.</div>
-    <mdw-button slot="actions" onclick="mdwDialog.close('response value')">Close</mdw-button>
-  </mdw-dialog>`)}
+    <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>
+  </wfc-dialog>`)}
         </code>
       </pre>
       <pre>
         <code class="language-javascript">
   // also available globally on window
-  import { mdwDialog } from '@webformula/material/services';
+  import { wfcDialog } from '@webformula/material/services';
 
-  const value = await mdwDialog.template({
+  const value = await wfcDialog.template({
     template: templateString,
     allowClose: false
   });
 
-  // value is passed in when closing the dialog: mdwDialog.close('response value')
+  // value is passed in when closing the dialog: wfcDialog.close('response value')
   console.log(value);
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="html">
+    <wfc-card id="html">
       <div class="card-content">
         <div class="headline">HTML Only</div>
         <div class="subhead">You can interact directly with dialogs added to the DOM</div>
     
         <div class="example">
-          <mdw-dialog id="html-only-dialog" aria-label="[dialog] html only">
+          <wfc-dialog id="html-only-dialog" aria-label="[dialog] html only">
             <div slot="headline">Headline</div>
             <div slot="content">
               <form id="one" method="dialog">
-                <mdw-textfield required label="Required input"></mdw-textfield>
+                <wfc-textfield required label="Required input"></wfc-textfield>
               </form>
             </div>
-            <mdw-button slot="actions" form="one" value="submit" type="submit">Submit</mdw-button>
-            <mdw-button slot="actions" form="one" type="reset">Reset</mdw-button>
-            <mdw-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</mdw-button>
-          </mdw-dialog>
+            <wfc-button slot="actions" form="one" value="submit" type="submit">Submit</wfc-button>
+            <wfc-button slot="actions" form="one" type="reset">Reset</wfc-button>
+            <wfc-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</wfc-button>
+          </wfc-dialog>
           
-          <mdw-button onclick="document.querySelector('#html-only-dialog').show()">Open</mdw-button>
+          <wfc-button onclick="document.querySelector('#html-only-dialog').show()">Open</wfc-button>
         </div>
       </div>
     
@@ -150,21 +150,21 @@
         <code class="language-html">
   ${page.escape(`<!-- Added directly to document
   Adding the 'open' attribute will automatically show the dialog -->
-  <mdw-dialog id="html-only-dialog">
+  <wfc-dialog id="html-only-dialog">
     <div slot="headline">Headline</div>
     <div slot="content">
       <form id="one" method="dialog">
-        <mdw-textfield required label="Required input"></mdw-textfield>
+        <wfc-textfield required label="Required input"></wfc-textfield>
       </form>
     </div>
-    <mdw-button slot="actions" form="one" value="submit" type="submit">Submit</mdw-button>
-    <mdw-button slot="actions" form="one" type="reset">Reset</mdw-button>
-    <mdw-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</mdw-button>
-  </mdw-dialog>
+    <wfc-button slot="actions" form="one" value="submit" type="submit">Submit</wfc-button>
+    <wfc-button slot="actions" form="one" type="reset">Reset</wfc-button>
+    <wfc-button slot="actions" form="one" formnovalidate value="cancel">Cancel (with formnovalidate)</wfc-button>
+  </wfc-dialog>
   
 
   <!-- attributes to control allowClose and noScrim -->
-  <mdw-dialog allow-close no-scrim></mdw-dialog>`)}
+  <wfc-dialog allow-close no-scrim></wfc-dialog>`)}
         </code>
       </pre>
       <pre>
@@ -191,15 +191,15 @@
   console.log(dialog.returnValue);
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="scrollable">
+    <wfc-card id="scrollable">
       <div class="card-content">
         <div class="headline">Scrollable</div>
         <div class="subhead">Dialog header and actions sections will be fixed when dialog content is too large</div>
     
         <div class="example">
-          <mdw-dialog id="scrollable-dialog" aria-label="[dialog] scrollable">
+          <wfc-dialog id="scrollable-dialog" aria-label="[dialog] scrollable">
             <div slot="headline">Headline</div>
             <div slot="content">
               <div class="supporting-text">
@@ -286,33 +286,33 @@
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
             </div>
-            <mdw-button slot="actions" onclick="mdwDialog.close()">Close</mdw-button>
-          </mdw-dialog>
+            <wfc-button slot="actions" onclick="wfcDialog.close()">Close</wfc-button>
+          </wfc-dialog>
           
-          <mdw-button onclick="document.querySelector('#scrollable-dialog').show()">Open</mdw-button>
+          <wfc-button onclick="document.querySelector('#scrollable-dialog').show()">Open</wfc-button>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-dialog id="scrollable-dialog">
+  ${page.escape(`<wfc-dialog id="scrollable-dialog">
     <div slot="headline">Headline</div>
     <div slot="content">
       ...large content
     </div>
-    <mdw-button slot="actions" onclick="mdwDialog.close()">Close</mdw-button>
-  </mdw-dialog>`)}
+    <wfc-button slot="actions" onclick="wfcDialog.close()">Close</wfc-button>
+  </wfc-dialog>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="fullscreen">
+    <wfc-card id="fullscreen">
       <div class="card-content">
         <div class="headline">Fullscreen</div>
         <div class="subhead">Fullscreen dialogs are for compact window sizes only</div>
     
         <div class="example">
-          <mdw-dialog id="fullscreen-dialog" fullscreen aria-label="[dialog] fullscreen">
+          <wfc-dialog id="fullscreen-dialog" fullscreen aria-label="[dialog] fullscreen">
             <div slot="headline">Headline</div>
             <div slot="content">
               <div class="supporting-text">
@@ -371,26 +371,26 @@
                 accompanied by English versions from the 1914 translation by H. Rackham.
               </div>
             </div>
-          </mdw-dialog>
+          </wfc-dialog>
     
-          <mdw-button onclick="document.querySelector('#fullscreen-dialog').show()">Open</mdw-button>
+          <wfc-button onclick="document.querySelector('#fullscreen-dialog').show()">Open</wfc-button>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-dialog id="fullscreen-dialog" fullscreen>
+  ${page.escape(`<wfc-dialog id="fullscreen-dialog" fullscreen>
     <div slot="headline">Headline</div>
     <div slot="content">
       ...content
     </div>
-  </mdw-dialog>`)}
+  </wfc-dialog>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="prevent-navigation">
+    <wfc-card id="prevent-navigation">
       <div class="card-content">
         <div class="headline">Allow close and prevent navigation</div>
         <div class="supporting-text"><b>Allow close</b> will prevent the dialog from being closed when scrim (backdrop) is clicked</div>
@@ -398,19 +398,19 @@
     
         <div class="example">
           <div style="display: flex; flex-direction: column;">
-            <mdw-switch onchange="page.allowClose = this.checked">allowClose</mdw-switch>
-            <mdw-switch checked onchange="page.preventNavigation = this.checked">preventNavigation</mdw-switch>
+            <wfc-switch onchange="page.allowClose = this.checked">allowClose</wfc-switch>
+            <wfc-switch checked onchange="page.preventNavigation = this.checked">preventNavigation</wfc-switch>
           </div>
-          <mdw-button onclick="page.openSimple(page.allowClose, page.preventNavigation)">Open</mdw-button>
+          <wfc-button onclick="page.openSimple(page.allowClose, page.preventNavigation)">Open</wfc-button>
         </div>
       </div>
     
       <pre>
         <code class="language-javascript">
   // also available globally on window
-  import { mdwDialog } from '@webformula/material/services';
+  import { wfcDialog } from '@webformula/material/services';
 
-  const answer = await mdwDialog.simple({
+  const answer = await wfcDialog.simple({
     headline: 'Question',
     message: 'Are you sure?',
     allowClose: false, // default false
@@ -418,6 +418,6 @@
   });
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

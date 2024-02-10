@@ -1,5 +1,5 @@
 <h3 class="page-title">Search</h3>
-<div class="page-subheader mdw-font-title-medium">Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
+<div class="page-subheader wfc-font-title-medium">Search allows users to enter a keyword or phrase and get relevant information. It’s an alternative to other forms of
 navigation</div>
 <a href="https://m3.material.io/components/search/overview" target="_new">Material Design Guidelines: Search</a>
 
@@ -7,7 +7,7 @@ navigation</div>
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic</a></li>
       <li><a href="#history">History</a></li>
@@ -17,16 +17,16 @@ navigation</div>
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Standard</div>
         <div class="supporting-text">By default the search event only triggers on enter key. Look at next example for how to change that.</div>
 
         <div class="example">
-          <mdw-search id="one" placeholder="search" incremental>
-            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-            <mdw-search-container id="secondary" label="Secondary"></mdw-search-container>
-          </mdw-search>
+          <wfc-search id="one" placeholder="search" incremental>
+            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+            <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+          </wfc-search>
         </div>
       </div>
 
@@ -34,10 +34,10 @@ navigation</div>
         <code class="language-html">
   ${page.escape(`<!-- incremental debounces the input and fires the search
     If not present then the enter key will fire the search -->
-  <mdw-search id="one" placeholder="search" incremental>
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-    <mdw-search-container id="secondary" label="Secondary"></mdw-search-container>
-  </mdw-search>`)}
+  <wfc-search id="one" placeholder="search" incremental>
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+    <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+  </wfc-search>`)}
         </code>
       </pre>
 
@@ -46,7 +46,7 @@ navigation</div>
   ${`// get selected value and object
   searchOne.addEventListener('change', () => console.log(searchOne.selected, searchOne.selectedObject));
 
-  document.querySelector('mdw-search#one').addEventListener('search', event => {
+  document.querySelector('wfc-search#one').addEventListener('search', event => {
     // set results
     event.target.results = [{
       value: 'one',
@@ -55,7 +55,7 @@ navigation</div>
       value: 'two',
       display: 'Two',
 
-      // specify container to place in mdw-search-container#secondary
+      // specify container to place in wfc-search-container#secondary
       container: 'secondary'
     }].filter(v => v.display.toLocaleLowerCase().includes(event.target.value));
 
@@ -69,91 +69,91 @@ navigation</div>
   });`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="history">
+    <wfc-card id="history">
       <div class="card-content">
         <div class="headline">History</div>
         <div class="supporting-text">Sow historical suggestions. History is stored in localstorage to maintains across refreshes</div>
     
         <div class="example">
-          <mdw-search id="two" placeholder="search" incremental history>
-            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-          </mdw-search>
+          <wfc-search id="two" placeholder="search" incremental history>
+            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+          </wfc-search>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-search placeholder="search" incremental history>
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-  </mdw-search>
+  ${page.escape(`<wfc-search placeholder="search" incremental history>
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+  </wfc-search>
   
   <!-- set history id to use the same history for multiple searches -->
-  <mdw-search placeholder="search" incremental history="id">
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-  </mdw-search>
+  <wfc-search placeholder="search" incremental history="id">
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+  </wfc-search>
   
   <!-- set history max. Default: 100 -->
-  <mdw-search placeholder="search" incremental history history-max="100">
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-  </mdw-search>`)}
+  <wfc-search placeholder="search" incremental history history-max="100">
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+  </wfc-search>`)}
         </code>
       </pre>
 
       <pre>
         <code class="javascript">
   ${page.escape(`// clear search history
-  document.querySelector('mdw-search').clearHistory();`)}
+  document.querySelector('wfc-search').clearHistory();`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="speech">
+    <wfc-card id="speech">
       <div class="card-content">
         <div class="headline">Speech</div>
         <div class="subheader">Speech recognition will only show if browser supports it</div>
     
         <div class="example">
-          <mdw-search id="three" placeholder="search" incremental speech>
-            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-          </mdw-search>
+          <wfc-search id="three" placeholder="search" incremental speech>
+            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+          </wfc-search>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-search placeholder="search" incremental speech>
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-  </mdw-search>`)}
+  ${page.escape(`<wfc-search placeholder="search" incremental speech>
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+  </wfc-search>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="sections">
+    <wfc-card id="sections">
       <div class="card-content">
         <div class="headline">Containers</div>
         <div class="subheader">You can show results in multiple containers with headers</div>
     
         <div class="example">
-          <mdw-search id="four" placeholder="search" incremental>
-            <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-            <mdw-search-container id="primary" label="Primary"></mdw-search-container>
-            <mdw-search-container id="secondary" label="Secondary"></mdw-search-container>
-          </mdw-search>
+          <wfc-search id="four" placeholder="search" incremental>
+            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+            <wfc-search-container id="primary" label="Primary"></wfc-search-container>
+            <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+          </wfc-search>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-search id="four" placeholder="search" incremental>
-    <mdw-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></mdw-avatar>
-    <mdw-search-container id="primary" label="Primary"></mdw-search-container>
-    <mdw-search-container id="secondary" label="Secondary"></mdw-search-container>
-  </mdw-search>`)}
+  ${page.escape(`<wfc-search id="four" placeholder="search" incremental>
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+    <wfc-search-container id="primary" label="Primary"></wfc-search-container>
+    <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+  </wfc-search>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

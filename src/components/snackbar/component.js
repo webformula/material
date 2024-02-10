@@ -1,9 +1,9 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 
 
-class mdwSnackbarElement extends MDWSurfaceElement {
-  static tag = 'mdw-snackbar';
+class wfcSnackbarElement extends WFCSurfaceElement {
+  static tag = 'wfc-snackbar';
   static styleSheets = styles;
   
   constructor() {
@@ -16,4 +16,4 @@ class mdwSnackbarElement extends MDWSurfaceElement {
     this.fixed = true;
   }
 }
-customElements.define(mdwSnackbarElement.tag, mdwSnackbarElement);
+customElements.define(wfcSnackbarElement.tag, wfcSnackbarElement);

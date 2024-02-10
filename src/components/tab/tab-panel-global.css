@@ -1,4 +1,4 @@
-mdw-tab-panel {
+wfc-tab-panel {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,11 +8,11 @@ mdw-tab-panel {
   overflow: hidden;
   transition: opacity 0ms;
 }
-mdw-tab-panel.mdw-animation {
+wfc-tab-panel.wfc-animation {
   transition-duration: 420ms;
 }
 
-mdw-tab-panel[active] {
+wfc-tab-panel[active] {
   opacity: 1;
   height: unset;
   overflow: unset;

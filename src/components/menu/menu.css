@@ -1,16 +1,16 @@
 :host {
-  border-radius: var(--mdw-shape-extra-small);
+  border-radius: var(--wfc-shape-extra-small);
 }
 
 .surface-content {
-  background-color: var(--mdw-surface-container);
-  box-shadow: var(--mdw-elevation-2);
+  background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-2);
 }
 
 .item-padding {
   padding-block: 8px;
 }
 
-::slotted(mdw-button) {
+::slotted(wfc-button) {
   display: flex;
 }

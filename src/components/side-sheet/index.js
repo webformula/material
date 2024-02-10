@@ -1,4 +1,4 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './side-sheet.css' assert { type: 'css' };
 import dividerStyles from '../divider/global.css' assert { type: 'css' };
 import {
@@ -10,8 +10,8 @@ import {
 // TODO do i want modal on compact?
 // TODO aria for buttons
 
-class MDWSideSheetElement extends MDWSurfaceElement {
-  static tag = 'mdw-side-sheet';
+class WFCSideSheetElement extends WFCSurfaceElement {
+  static tag = 'wfc-side-sheet';
   static styleSheets = [dividerStyles, styles];
   
   #abort;
@@ -41,17 +41,17 @@ class MDWSideSheetElement extends MDWSurfaceElement {
         <div class="surface-content">
           <div class="item-padding">
             <div class="header">
-              <mdw-icon-button class="back" aria-label="back">
-                <mdw-icon>${arrow_back_FILL1_wght300_GRAD0_opsz24}</mdw-icon>
-              </mdw-icon-button>
+              <wfc-icon-button class="back" aria-label="back">
+                <wfc-icon>${arrow_back_FILL1_wght300_GRAD0_opsz24}</wfc-icon>
+              </wfc-icon-button>
               <slot name="headline"></slot>
-              <mdw-icon-button class="close" aria-label="close">
-                <mdw-icon>${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-              </mdw-icon-button>
+              <wfc-icon-button class="close" aria-label="close">
+                <wfc-icon>${close_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+              </wfc-icon-button>
             </div>
             <slot class="default-slot"></slot>
             <div class="actions">
-              <mdw-divider></mdw-divider>
+              <wfc-divider></wfc-divider>
               <slot name="action"></div>
             </div>
           </div>
@@ -154,4 +154,4 @@ class MDWSideSheetElement extends MDWSurfaceElement {
     this.open = false;
   }
 }
-customElements.define(MDWSideSheetElement.tag, MDWSideSheetElement);
+customElements.define(WFCSideSheetElement.tag, WFCSideSheetElement);

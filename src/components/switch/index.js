@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
-class MDWSwitchElement extends HTMLComponentElement {
-  static tag = 'mdw-switch';
+class WFCSwitchElement extends HTMLComponentElement {
+  static tag = 'wfc-switch';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -207,4 +207,4 @@ class MDWSwitchElement extends HTMLComponentElement {
     if (!this.ariaLabel) this.ariaLabel = this.innerText;
   }
 }
-customElements.define(MDWSwitchElement.tag, MDWSwitchElement);
+customElements.define(WFCSwitchElement.tag, WFCSwitchElement);

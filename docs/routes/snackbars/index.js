@@ -1,5 +1,5 @@
 import { Component } from '@webformula/core';
-import { mdwSnackbar } from '@webformula/material/services';
+import { wfcSnackbar } from '@webformula/material/services';
 import html from './page.html';
 
 export default class extends Component {
@@ -11,13 +11,13 @@ export default class extends Component {
   }
 
   basic() {
-    mdwSnackbar.show({
+    wfcSnackbar.show({
       message: 'Message goes here'
     });
   }
 
   async action() {
-    await mdwSnackbar.show({
+    await wfcSnackbar.show({
       message: 'Message goes here',
       action: true,
       actionLabel: 'Done'
@@ -26,7 +26,7 @@ export default class extends Component {
   }
 
   async noClose() {
-    await mdwSnackbar.show({
+    await wfcSnackbar.show({
       message: 'Message goes here',
       closeButton: false,
       ms: 6000

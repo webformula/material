@@ -5,14 +5,14 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: var(--mdw-shape-full);
+  border-radius: var(--wfc-shape-full);
   overflow: hidden;
 
-  background-color: var(--mdw-primary-container);
-  font-size: var(--mdw-font-small-body-size);
-  font-weight: var(--mdw-font-small-body-weight);
-  letter-spacing: var(--mdw-font-small-body-tracking);
-  color: var(--mdw-on-primary-container);
+  background-color: var(--wfc-primary-container);
+  font-size: var(--wfc-font-small-body-size);
+  font-weight: var(--wfc-font-small-body-weight);
+  letter-spacing: var(--wfc-font-small-body-tracking);
+  color: var(--wfc-on-primary-container);
 }
 
 :host([onclick]) {
@@ -20,8 +20,8 @@
 }
 
 :host(.tertiary) {
-  background-color: var(--mdw-tertiary-container);
-  color: var(--mdw-on-tertiary-container);
+  background-color: var(--wfc-tertiary-container);
+  color: var(--wfc-on-tertiary-container);
 }
 
 :host::after {
@@ -31,13 +31,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: var(--mdw-shape-full);
-  background-color: var(--mdw-primary-inverse);
+  border-radius: var(--wfc-shape-full);
+  background-color: var(--wfc-primary-inverse);
   opacity: 0;
   transition: opacity 0ms;
 }
 :host(.animation)::after {
-  transition-duration: var(--mdw-motion-duration-short3);
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
 :host(.checkbox)::after {

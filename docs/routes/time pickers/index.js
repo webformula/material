@@ -1,6 +1,6 @@
 import { Component } from '@webformula/core';
 import html from './page.html';
-import { mdwDate } from '@webformula/material/services';
+import { wfcDate } from '@webformula/material/services';
 
 export default class extends Component {
   static pageTitle = 'Time pickers';
@@ -11,9 +11,9 @@ export default class extends Component {
   }
 
   get min() {
-    return mdwDate.format(mdwDate.addToDateByParts(new Date(), { day: -10 }), 'YYYY-MM-dd');
+    return wfcDate.format(wfcDate.addToDateByParts(new Date(), { day: -10 }), 'YYYY-MM-dd');
   }
   get max() {
-    return mdwDate.format(mdwDate.addToDateByParts(new Date(), { day: 10 }), 'YYYY-MM-dd');
+    return wfcDate.format(wfcDate.addToDateByParts(new Date(), { day: 10 }), 'YYYY-MM-dd');
   }
 }

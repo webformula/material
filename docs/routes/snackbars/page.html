@@ -1,11 +1,11 @@
 <h3 class="page-title">Snackbars</h3>
-<div class="page-subheader mdw-font-title-medium">Snackbars provide brief messages about app processes at the bottom of the screen</div>
+<div class="page-subheader wfc-font-title-medium">Snackbars provide brief messages about app processes at the bottom of the screen</div>
 <a href="https://m3.material.io/components/snackbar/overview" target="_new">Material Design Guidelines: Snackbar</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">basic</a></li>
       <li><a href="#action">Action</a></li>
@@ -14,43 +14,43 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic</div>
         
         <div class="example">
-          <mdw-button onclick="page.basic();">Show</mdw-button>
+          <wfc-button onclick="page.basic();">Show</wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-javascript">
   ${`// also available globally on window
-  import { mdwSnackbar } from '@webformula/material/services';
+  import { wfcSnackbar } from '@webformula/material/services';
   
-  mdwSnackbar.show({
+  wfcSnackbar.show({
     message: 'Message goes here'
   });`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="action">
+    <wfc-card id="action">
       <div class="card-content">
         <div class="headline">With action</div>
         
         <div class="example">
-          <mdw-button onclick="page.action();">Show</mdw-button>
+          <wfc-button onclick="page.action();">Show</wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-javascript">
   ${`// also available globally on window
-  import { mdwSnackbar } from '@webformula/material/services';
+  import { wfcSnackbar } from '@webformula/material/services';
   
   // Promise will resolve when the Snackbar is dismissed automatically or when action is pressed
-  await mdwSnackbar.show({
+  await wfcSnackbar.show({
     message: 'Message goes here',
     action: true,
     actionLabel: 'Done' // default 'Dismiss'
@@ -58,29 +58,29 @@
   console.log('Snackbar dismissed');`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="no-close">
+    <wfc-card id="no-close">
       <div class="card-content">
         <div class="headline">No close button and longer time</div>
     
         <div class="example">
-          <mdw-button onclick="page.noClose();">Show</mdw-button>
+          <wfc-button onclick="page.noClose();">Show</wfc-button>
         </div>
       </div>
     
       <pre>
         <code class="language-javascript">
   ${`// also available globally on window
-  import { mdwSnackbar } from '@webformula/material/services';
+  import { wfcSnackbar } from '@webformula/material/services';
   
-  mdwSnackbar.show({
+  wfcSnackbar.show({
     message: 'Message goes here',
     closeButton: false,
     ms: 6000
   });`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

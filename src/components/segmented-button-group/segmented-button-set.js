@@ -3,8 +3,8 @@ import styles from './segmented-button-set.css' assert { type: 'css' };
 
 
 
-class MDWSegmentedButtonSetElement extends HTMLComponentElement {
-  static tag = 'mdw-segmented-button-set';
+class WFCSegmentedButtonSetElement extends HTMLComponentElement {
+  static tag = 'wfc-segmented-button-set';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -43,10 +43,10 @@ class MDWSegmentedButtonSetElement extends HTMLComponentElement {
     this[name] = newValue;
   }
 
-  get value() { return [...this.querySelectorAll('mdw-segmented-button.checked')].map(e => e.value).join(','); }
+  get value() { return [...this.querySelectorAll('wfc-segmented-button.checked')].map(e => e.value).join(','); }
   set value(value) {
     const valueArray = value.split(',');
-    [...this.querySelectorAll('mdw-segmented-button')].forEach(item => {
+    [...this.querySelectorAll('wfc-segmented-button')].forEach(item => {
       item.checked = valueArray.includes(item.value);
     });
   }
@@ -56,7 +56,7 @@ class MDWSegmentedButtonSetElement extends HTMLComponentElement {
   
 
   deselect() {
-    const currentSelected = this.querySelector('mdw-segmented-button.checked');
+    const currentSelected = this.querySelector('wfc-segmented-button.checked');
     if (currentSelected) currentSelected.checked = false;
   }
 
@@ -70,4 +70,4 @@ class MDWSegmentedButtonSetElement extends HTMLComponentElement {
     event.target.checked = true;
   }
 }
-customElements.define(MDWSegmentedButtonSetElement.tag, MDWSegmentedButtonSetElement);
+customElements.define(WFCSegmentedButtonSetElement.tag, WFCSegmentedButtonSetElement);

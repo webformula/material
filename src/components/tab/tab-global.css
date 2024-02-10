@@ -1,4 +1,4 @@
-mdw-tab {
+wfc-tab {
   position: relative;
   flex: 1;
   pointer-events: all;
@@ -14,40 +14,40 @@ mdw-tab {
 
   transition: color 0ms, background-color 0ms;
 }
-mdw-tab.mdw-animation {
+wfc-tab.wfc-animation {
   transition-duration: 120ms, 220ms;
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-tab:hover {
-    background-color: var(--mdw-on-surface-alpha-8);
+  wfc-tab:hover {
+    background-color: var(--wfc-on-surface-alpha-8);
   }
 }
 
-mdw-tab:focus {
-  background-color: var(--mdw-on-surface-alpha-12);
+wfc-tab:focus {
+  background-color: var(--wfc-on-surface-alpha-12);
 }
 
-mdw-tab[active] {
-  color: var(--mdw-primary);
+wfc-tab[active] {
+  color: var(--wfc-primary);
 }
 
-mdw-tab .mdw-label,
-mdw-tab mdw-icon {
+wfc-tab .wfc-label,
+wfc-tab wfc-icon {
   pointer-events: none;
 }
 
-mdw-tabs .mdw-underline {
+wfc-tabs .wfc-underline {
   position: absolute;
   bottom: 0;
   border-radius: 3px 3px 0 0;
-  border-top: 3px solid var(--mdw-primary);
+  border-top: 3px solid var(--wfc-primary);
   pointer-events: none;
 
   transition: left 0ms, width 0ms;
 }
-mdw-tabs.mdw-animation .mdw-underline {
+wfc-tabs.wfc-animation .wfc-underline {
   transition-duration: 220ms, 220ms;
 }
 
@@ -68,6 +68,6 @@ mdw-tabs.mdw-animation .mdw-underline {
 }
 
 .ripple > .ripple-element {
-  background-color: var(--mdw-primary-alpha-16);
-  border-radius: var(--mdw-shape-full);
+  background-color: var(--wfc-primary-alpha-16);
+  border-radius: var(--wfc-shape-full);
 }

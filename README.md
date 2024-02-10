@@ -76,12 +76,12 @@ import '@webformula/material/components/top-app-bar';
 
 // importing services.These are also available on 'window'
 import {
-  mdwDate,
-  mdwDevice,
-  mdwDialog,
-  MDWPanel,
-  mdwUtil,
-  mdwSnackbar
+  wfcDate,
+  wfcDevice,
+  wfcDialog,
+  WFCPanel,
+  wfcUtil,
+  wfcSnackbar
 } from '@webformula/material/services';
 
 // importing individual services
@@ -121,12 +121,12 @@ You may want to copy and serve `theme.css` in your app. This is where you config
 ```
 
 ### **Icon loading** Uses material icon font
-For icons this uses Googles Material icon font. All component required icons are packed in with library. Only needed if using the mdw-icon component
+For icons this uses Googles Material icon font. All component required icons are packed in with library. Only needed if using the wfc-icon component
 ```html
 <!--
   Load material icons via google fonts.
   All component required icons are packed in with library.
-  Only needed if using the mdw-icon component
+  Only needed if using the wfc-icon component
 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 ```

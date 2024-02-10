@@ -8,7 +8,7 @@
   position: fixed;
   height: fit-content;
   width: fit-content;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
 }
 
 dialog {
@@ -53,8 +53,8 @@ dialog.fullscreen {
   right: 0;
   bottom: 0;
   border-radius: inherit;
-  background-color: var(--mdw-surface-container-high);
-  box-shadow: var(--mdw-elevation-3);
+  background-color: var(--wfc-surface-container-high);
+  box-shadow: var(--wfc-elevation-3);
 }
 
 .scrim {
@@ -66,7 +66,7 @@ dialog.fullscreen {
   pointer-events: none;
   opacity: 0;
   z-index: 21;
-  background-color: var(--mdw-scrim);
+  background-color: var(--wfc-scrim);
 }
 
 :host([open]) .scrim:not(.hide) {
@@ -100,7 +100,7 @@ dialog.fullscreen {
   right: 16px;
   top: 6px;
   cursor: pointer;
-  color: var(--mdw-on-surface);
+  color: var(--wfc-on-surface);
 }
 
 dialog.fullscreen .header .close-fullscreen {
@@ -123,19 +123,19 @@ dialog.scroll .header::after {
   height: 1px;
   left: -24px;
   right: -24px;
-  background-color: var(--mdw-outline);
+  background-color: var(--wfc-outline);
 }
 
-::slotted(mdw-icon) {
-  color: var(--mdw-on-surface);
+::slotted(wfc-icon) {
+  color: var(--wfc-on-surface);
 }
 
 slot[name='headline']::slotted(*) {
-  font-size: var(--mdw-font-small-headline-size);
-  font-weight: var(--mdw-font-small-headline-weight);
-  line-height: var(--mdw-font-small-headline-line-height);
-  letter-spacing: var(--mdw-font-small-headline-tracking);
-  color: var(--mdw-on-surface);
+  font-size: var(--wfc-font-small-headline-size);
+  font-weight: var(--wfc-font-small-headline-weight);
+  line-height: var(--wfc-font-small-headline-line-height);
+  letter-spacing: var(--wfc-font-small-headline-tracking);
+  color: var(--wfc-on-surface);
 }
 
 
@@ -154,11 +154,11 @@ dialog.scroll slot[name="content"] {
 
 
 slot[name='content']::slotted(*) {
-  font-size: var(--mdw-font-medium-body-size);
-  font-weight: var(--mdw-font-medium-body-weight);
-  line-height: var(--mdw-font-medium-body-line-height);
-  letter-spacing: var(--mdw-font-medium-body-tracking);
-  color: var(--mdw-on-surface-variant);
+  font-size: var(--wfc-font-medium-body-size);
+  font-weight: var(--wfc-font-medium-body-weight);
+  line-height: var(--wfc-font-medium-body-line-height);
+  letter-spacing: var(--wfc-font-medium-body-tracking);
+  color: var(--wfc-on-surface-variant);
 }
 
 slot[name='actions'] {
@@ -180,10 +180,10 @@ dialog.scroll slot[name='actions']::after {
   height: 1px;
   left: -24px;
   right: -24px;
-  background-color: var(--mdw-outline);
+  background-color: var(--wfc-outline);
 }
 
-::slotted(mdw-divider) {
+::slotted(wfc-divider) {
   display: flex;
   position: absolute;
   max-width: calc(100% - 48px);
@@ -201,39 +201,39 @@ slot[name='actions']::slotted(md-divider) {
 dialog.animating .header {
   opacity: 0;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short2);
+  transition-duration: var(--wfc-motion-duration-short2);
   transition-timing-function: linear;
 }
 
 dialog.animating.open .header {
   opacity: 1;
-  transition-duration: var(--mdw-motion-duration-short4);
+  transition-duration: var(--wfc-motion-duration-short4);
   transition-delay: 0.2s;
 }
 
 dialog.animating .content {
   opacity: 0;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short2);
+  transition-duration: var(--wfc-motion-duration-short2);
   transition-timing-function: linear;
 }
 
 dialog.animating.open .content {
   opacity: 1;
-  transition-duration: var(--mdw-motion-duration-short4);
+  transition-duration: var(--wfc-motion-duration-short4);
   transition-delay: 0.2s;
 }
 
 dialog.animating .actions {
   opacity: 0;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short2);
+  transition-duration: var(--wfc-motion-duration-short2);
   transition-timing-function: linear;
 }
 
 dialog.animating.open .actions {
   opacity: 1;
-  transition-duration: var(--mdw-motion-duration-short4);
+  transition-duration: var(--wfc-motion-duration-short4);
   transition-delay: 0.5s;
 }
 
@@ -241,26 +241,26 @@ dialog.animating.open .actions {
 
 dialog.animating {
   animation: hide-translate-y;
-  animation-duration: var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+  animation-duration: var(--wfc-motion-duration-short3);
+  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
 }
 
 dialog.animating.open {
   animation: show-translate-y;
-  animation-duration: var(--mdw-dialog-height-transition-duration, 300ms);
-  animation-timing-function: var(--mdw-motion-easing-emphasized);
+  animation-duration: var(--wfc-dialog-height-transition-duration, 300ms);
+  animation-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
 dialog.fullscreen.animating {
   animation: hide-fullscreen;
-  animation-duration: var(--mdw-motion-duration-short3);
-  animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+  animation-duration: var(--wfc-motion-duration-short3);
+  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
 }
 
 dialog.fullscreen.animating.open {
   animation: show-fullscreen;
-  animation-duration: var(--mdw-motion-duration-medium2);
-  animation-timing-function: var(--mdw-motion-easing-emphasized);
+  animation-duration: var(--wfc-motion-duration-medium2);
+  animation-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
 .background,
@@ -269,8 +269,8 @@ dialog.fullscreen.animating.open {
 [name="actions"] {
   opacity: 0;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short1);
-  transition-delay: var(--mdw-motion-duration-short2);
+  transition-duration: var(--wfc-motion-duration-short1);
+  transition-delay: var(--wfc-motion-duration-short2);
 }
 
 dialog.open .background,
@@ -283,11 +283,11 @@ dialog.open [name="actions"] {
 
 .scrim {
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short3);
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
 :host([open]) .scrim {
-  transition-duration: var(--mdw-motion-duration-medium2);
+  transition-duration: var(--wfc-motion-duration-medium2);
 }
 
 
@@ -295,14 +295,14 @@ dialog.open [name="actions"] {
   0% {
     min-height: 48px;
     overflow: hidden;
-    height: min(48px, calc(var(--mdw-dialog-height) * 0.35));
+    height: min(48px, calc(var(--wfc-dialog-height) * 0.35));
     transform: translateY(-50px);
   }
 
   100% {
     min-height: 48px;
     overflow: hidden;
-    height: var(--mdw-dialog-height);
+    height: var(--wfc-dialog-height);
   }
 }
 
@@ -310,13 +310,13 @@ dialog.open [name="actions"] {
   0% {
     overflow: hidden;
     min-height: 48px;
-    height: var(--mdw-dialog-height);
+    height: var(--wfc-dialog-height);
   }
 
   100% {
     overflow: hidden;
     min-height: 48px;
-    height: min(48px, calc(var(--mdw-dialog-height) * 0.35));
+    height: min(48px, calc(var(--wfc-dialog-height) * 0.35));
     transform: translateY(-50px);
   }
 }

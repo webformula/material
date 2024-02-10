@@ -85,7 +85,9 @@ build({
         });
         return content;
       }
-    }
+    },
+    { from: 'docs/manifest.json', to: 'dist/', gzip: true },
+    { from: 'docs/icons/*', to: 'dist/icons/', gzip: true }
   ],
   onStart() {
     // build separate file for iframe pages without app code.

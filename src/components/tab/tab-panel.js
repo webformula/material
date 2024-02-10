@@ -1,8 +1,8 @@
 import HTMLElementExtended from '../HTMLElementExtended.js';
 
 
-class MDWTabPanelElement extends HTMLElementExtended {
-  static tag = 'mdw-tab-panel';
+class WFCTabPanelElement extends HTMLElementExtended {
+  static tag = 'wfc-tab-panel';
   #active = false;
   #value = '';
 
@@ -37,8 +37,8 @@ class MDWTabPanelElement extends HTMLElementExtended {
 
   connectedCallback() {
     setTimeout(() => {
-      this.classList.add('mdw-animation');
+      this.classList.add('wfc-animation');
     }, 50);
   }
 }
-customElements.define(MDWTabPanelElement.tag, MDWTabPanelElement);
+customElements.define(WFCTabPanelElement.tag, WFCTabPanelElement);

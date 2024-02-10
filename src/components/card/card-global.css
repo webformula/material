@@ -1,153 +1,153 @@
-mdw-card {
-  --mdw-card-swipe-action-position: 0;
-  --mdw-card-drag-expand-position: 0;
+wfc-card {
+  --wfc-card-swipe-action-position: 0;
+  --wfc-card-drag-expand-position: 0;
 
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--mdw-shape-medium);
+  border-radius: var(--wfc-shape-medium);
   box-sizing: border-box;
-  background-color: var(--mdw-surface);
-  color: var(--mdw-on-surface);
+  background-color: var(--wfc-surface);
+  color: var(--wfc-on-surface);
   outline: none;
   -webkit-tap-highlight-color: transparent;
 
-  left: var(--mdw-card-swipe-action-position);
+  left: var(--wfc-card-swipe-action-position);
   transition: left;
   transition-duration: 0ms;
 }
 
-mdw-card:not(.filled):not(.outlined) {
-  box-shadow: var(--mdw-elevation-1);
+wfc-card:not(.filled):not(.outlined) {
+  box-shadow: var(--wfc-elevation-1);
 }
 
-mdw-card.mdw-animation {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.remove {
-  margin-top: var(--mdw-card-margin-top-remove);
+wfc-card.remove {
+  margin-top: var(--wfc-card-margin-top-remove);
   opacity: 0;
   transition: margin-top, opacity;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, 40ms;
 }
-mdw-card.mdw-animation.remove {
-  transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-short2);
+wfc-card.wfc-animation.remove {
+  transition-duration: var(--wfc-motion-duration-short3), var(--wfc-motion-duration-short2);
 }
 
 /* fixes outline overlap */
-mdw-card.outlined {
-  --mdw-card-swipe-action-position: 0;
+wfc-card.outlined {
+  --wfc-card-swipe-action-position: 0;
 }
 
-mdw-card.dragging {
+wfc-card.dragging {
   transition: none;
 }
 
-/* mdw-card.has-swipe-action {
-  --mdw-card-swipe-action-position: 0px;
-  left: var(--mdw-card-swipe-action-position);
+/* wfc-card.has-swipe-action {
+  --wfc-card-swipe-action-position: 0px;
+  left: var(--wfc-card-swipe-action-position);
   transition: left;
-  transition-duration: var(--mdw-motion-duration-short3);
+  transition-duration: var(--wfc-motion-duration-short3);
 } */
 
 
-mdw-card > .card-image {
+wfc-card > .card-image {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   overflow: hidden;
-  border-radius: var(--mdw-shape-medium) var(--mdw-shape-medium) 0 0;
+  border-radius: var(--wfc-shape-medium) var(--wfc-shape-medium) 0 0;
 }
 
-mdw-card > .card-image > img {
+wfc-card > .card-image > img {
   /* Display issue when using 100% */
   width: 101%;
 }
 
-mdw-card > .card-image.rounded {
-  border-radius: var(--mdw-shape-medium);
+wfc-card > .card-image.rounded {
+  border-radius: var(--wfc-shape-medium);
 }
 
-mdw-card .headline{
-  font-size: var(--mdw-font-small-headline-size);
-  font-weight: var(--mdw-font-small-headline-weight);
-  line-height: var(--mdw-font-small-headline-line-height);
-  letter-spacing: var(--mdw-font-small-headline-tracking);
-  color: var(--mdw-on-surface);
+wfc-card .headline{
+  font-size: var(--wfc-font-small-headline-size);
+  font-weight: var(--wfc-font-small-headline-weight);
+  line-height: var(--wfc-font-small-headline-line-height);
+  letter-spacing: var(--wfc-font-small-headline-tracking);
+  color: var(--wfc-on-surface);
 }
 
-mdw-card .subhead {
-  font-size: var(--mdw-font-small-title-size);
-  font-weight: var(--mdw-font-small-title-weight);
-  line-height: var(--mdw-font-small-title-line-height);
-  letter-spacing: var(--mdw-font-small-title-tracking);
-  color: var(--mdw-on-surface-variant);
+wfc-card .subhead {
+  font-size: var(--wfc-font-small-title-size);
+  font-weight: var(--wfc-font-small-title-weight);
+  line-height: var(--wfc-font-small-title-line-height);
+  letter-spacing: var(--wfc-font-small-title-tracking);
+  color: var(--wfc-on-surface-variant);
 }
 
-mdw-card > .supporting-text,
-mdw-card .card-content > .supporting-text {
+wfc-card > .supporting-text,
+wfc-card .card-content > .supporting-text {
   margin-top: 12px;
-  font-size: var(--mdw-font-medium-body-size);
-  font-weight: var(--mdw-font-medium-body-weight);
-  line-height: var(--mdw-font-medium-body-line-height);
-  letter-spacing: var(--mdw-font-medium-body-tracking);
-  color: var(--mdw-on-surface-variant);
+  font-size: var(--wfc-font-medium-body-size);
+  font-weight: var(--wfc-font-medium-body-weight);
+  line-height: var(--wfc-font-medium-body-line-height);
+  letter-spacing: var(--wfc-font-medium-body-tracking);
+  color: var(--wfc-on-surface-variant);
 }
 
-mdw-card .card-actions {
+wfc-card .card-actions {
   display: flex;
   margin-top: 24px;
 }
 
-mdw-card .card-actions mdw-button + mdw-button {
+wfc-card .card-actions wfc-button + wfc-button {
   margin-left: 6px;
 }
 
-mdw-card > .card-image.size-small {
+wfc-card > .card-image.size-small {
   height: 60px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card > .card-image.size-medium {
+wfc-card > .card-image.size-medium {
   height: 120px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card > .card-image.size-large {
+wfc-card > .card-image.size-large {
   height: 180px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card.mdw-animation > .card-image.size-small,
-mdw-card.mdw-animation > .card-image.size-medium,
-mdw-card.mdw-animation > .card-image.size-large {
-  transition-duration: var(--mdw-motion-duration-medium1);
+wfc-card.wfc-animation > .card-image.size-small,
+wfc-card.wfc-animation > .card-image.size-medium,
+wfc-card.wfc-animation > .card-image.size-large {
+  transition-duration: var(--wfc-motion-duration-medium1);
 }
 
 
 /* --- types --- */
 
-mdw-card.filled {
-  color: var(--mdw-on-surface-variant);
-  background-color: var(--mdw-surface-container-highest);
+wfc-card.filled {
+  color: var(--wfc-on-surface-variant);
+  background-color: var(--wfc-surface-container-highest);
 }
 
-mdw-card.outlined {
-  background-color: var(--mdw-surface);
+wfc-card.outlined {
+  background-color: var(--wfc-surface);
   /* use outline because box-sizing with border-radius does not prevent hight change */
-  outline: 1px solid var(--mdw-outline);
+  outline: 1px solid var(--wfc-outline);
 }
 
 
 /* --- state layer --- */
 
-mdw-card::after {
+wfc-card::after {
   position: absolute;
   content: "";
   left: 0;
@@ -156,66 +156,66 @@ mdw-card::after {
   right: 0;
   opacity: 0;
   pointer-events: none;
-  border-radius: var(--mdw-shape-medium);
+  border-radius: var(--wfc-shape-medium);
 }
 
-mdw-card.drag-reorder-active {
-  box-shadow: var(--mdw-elevation-4);
+wfc-card.drag-reorder-active {
+  box-shadow: var(--wfc-elevation-4);
 }
-mdw-card.drag-reorder-active::after {
-  opacity: var(--mdw-state-layer-opacity-dragged);
-  background-color: var(--mdw-on-surface);
-}
-
-mdw-card.filled.drag-reorder-active,
-mdw-card.outlined.drag-reorder-active {
-  box-shadow: var(--mdw-elevation-3);
+wfc-card.drag-reorder-active::after {
+  opacity: var(--wfc-state-layer-opacity-dragged);
+  background-color: var(--wfc-on-surface);
 }
 
-mdw-card.outlined.drag-reorder-active::after {
-  outline: 1px solid var(--mdw-outline-variant);
+wfc-card.filled.drag-reorder-active,
+wfc-card.outlined.drag-reorder-active {
+  box-shadow: var(--wfc-elevation-3);
 }
 
-mdw-card[onclick]:focus::after,
-mdw-card.fullscreen:not(.show):focus::after,
-mdw-card.states:focus::after {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-surface);
+wfc-card.outlined.drag-reorder-active::after {
+  outline: 1px solid var(--wfc-outline-variant);
 }
 
-mdw-card.outlined[onclick]:focus,
-mdw-card.outlined.fullscreen:not(.show):focus,
-mdw-card.outlined.states:focus {
-  outline: 1px solid var(--mdw-on-surface);
+wfc-card[onclick]:focus::after,
+wfc-card.fullscreen:not(.show):focus::after,
+wfc-card.states:focus::after {
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-surface);
+}
+
+wfc-card.outlined[onclick]:focus,
+wfc-card.outlined.fullscreen:not(.show):focus,
+wfc-card.outlined.states:focus {
+  outline: 1px solid var(--wfc-on-surface);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
-  mdw-card[onclick]:hover,
-  mdw-card.states:hover {
-    box-shadow: var(--mdw-elevation-2);
+  wfc-card[onclick]:hover,
+  wfc-card.states:hover {
+    box-shadow: var(--wfc-elevation-2);
   }
 
-  mdw-card.filled[onclick]:hover,
-  mdw-card.filled.states:hover,
-  mdw-card.outlined[onclick]:hover,
-  mdw-card.outlined.states:hover {
-    box-shadow: var(--mdw-elevation-1);
+  wfc-card.filled[onclick]:hover,
+  wfc-card.filled.states:hover,
+  wfc-card.outlined[onclick]:hover,
+  wfc-card.outlined.states:hover {
+    box-shadow: var(--wfc-elevation-1);
   }
 
-  mdw-card[onclick]:hover::after,
-  mdw-card.states:hover::after {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-surface);
+  wfc-card[onclick]:hover::after,
+  wfc-card.states:hover::after {
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-surface);
   }
 
-  mdw-card.outlined:hover {
-    outline: 1px solid var(--mdw-outline-variant);
+  wfc-card.outlined:hover {
+    outline: 1px solid var(--wfc-outline-variant);
   }
 }
 
 
-mdw-card > .card-content {
+wfc-card > .card-content {
   position: relative;
   padding: 16px;
 }
@@ -223,50 +223,50 @@ mdw-card > .card-content {
 
 /* --- expanding --- */
 
-mdw-card.expanding {
+wfc-card.expanding {
   transform: translateY(0);
   margin-bottom: 0;
   transition: margin-bottom, box-shadow, transform;
   transition-duration: 0ms;
 }
 
-body:not(.window-compact) mdw-card.expanding.show {
+body:not(.window-compact) wfc-card.expanding.show {
   transform: translateY(-6px);
 }
 
-mdw-card.mdw-animation.expanding {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation.expanding {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.expanding.show.filled {
-  box-shadow: var(--mdw-elevation-1);
+wfc-card.expanding.show.filled {
+  box-shadow: var(--wfc-elevation-1);
 }
 
-mdw-card.expanding > .card-content .expand-arrow {
+wfc-card.expanding > .card-content .expand-arrow {
   position: absolute;
   right: 16px;
   transition: transform;
   transition-duration: 0ms;
   cursor: pointer;
 }
-mdw-card.expanding.mdw-animation > .card-content .expand-arrow {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.expanding.wfc-animation > .card-content .expand-arrow {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.expanding.show > .card-content .expand-arrow {
+wfc-card.expanding.show > .card-content .expand-arrow {
   transform: rotate(180deg);
 }
 
-mdw-card.expanding > .card-content > .contracted {
+wfc-card.expanding > .card-content > .contracted {
   opacity: 1;
   transition: opacity;
   transition-duration: 0ms;
 }
-mdw-card.expanding.mdw-animation > .card-content > .contracted {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.expanding.wfc-animation > .card-content > .contracted {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.expanding > .card-content > .expanded {
+wfc-card.expanding > .card-content > .expanded {
   height: 0;
   transform: translateY(0);
   overflow: hidden;
@@ -276,122 +276,122 @@ mdw-card.expanding > .card-content > .expanded {
   transition: height, transform;
   transition-duration: 0ms;
 }
-mdw-card.expanding.mdw-animation > .card-content > .expanded {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.expanding.wfc-animation > .card-content > .expanded {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
 /* add spacing to inner child to pad the bottom */
-mdw-card.expanding > .card-content > .expanded > :nth-child(1) {
+wfc-card.expanding > .card-content > .expanded > :nth-child(1) {
   margin-bottom: 16px;
 }
 
 /* move expanded content down so it lines up with the bottom of the card */
-mdw-card.expanding.show > .card-content > .expanded {
+wfc-card.expanding.show > .card-content > .expanded {
   transform: translateY(16px);
   pointer-events: all;
   overflow: auto;
   overscroll-behavior: contain;
 }
 
-mdw-card.expanding.show > .card-content > .expanded {
+wfc-card.expanding.show > .card-content > .expanded {
   height: auto;
 }
 
 
 /* fullscreen */
 
-mdw-card.fullscreen {
-  --mdw-card-fullscreen-expanded-left: 0px;
-  --mdw-card-fullscreen-top: 0;
-  --mdw-card-fullscreen-left: 0;
-  --mdw-card-fullscreen-width: 0;
-  --mdw-card-fullscreen-height: 0;
+wfc-card.fullscreen {
+  --wfc-card-fullscreen-expanded-left: 0px;
+  --wfc-card-fullscreen-top: 0;
+  --wfc-card-fullscreen-left: 0;
+  --wfc-card-fullscreen-width: 0;
+  --wfc-card-fullscreen-height: 0;
 
-  animation: mdw-card-fullscreen-card-hide;
-  animation-timing-function: var(--mdw-motion-easing-standard-accelerate);
+  animation: wfc-card-fullscreen-card-hide;
+  animation-timing-function: var(--wfc-motion-easing-standard-accelerate);
   animation-duration: 0ms;
 }
-mdw-card.mdw-animation.fullscreen.fullscreen-initialized {
-  animation-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation.fullscreen.fullscreen-initialized {
+  animation-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card[onclick],
-mdw-card.fullscreen:not(.show) {
+wfc-card[onclick],
+wfc-card.fullscreen:not(.show) {
   cursor: pointer;
 }
 
-mdw-card.fullscreen.show {
+wfc-card.fullscreen.show {
   position: fixed;
   z-index: 11;
   top: 0;
-  left: var(--mdw-card-fullscreen-expanded-left);
+  left: var(--wfc-card-fullscreen-expanded-left);
   width: 100%;
   height: 100%;
   border-radius: 0;
   overflow: auto;
 
-  animation: mdw-card-fullscreen-card-show;
+  animation: wfc-card-fullscreen-card-show;
   animation-duration: 0ms;
-  animation-timing-function: var(--mdw-motion-easing-standard);
+  animation-timing-function: var(--wfc-motion-easing-standard);
 }
-mdw-card.mdw-animation.fullscreen.show {
-  animation-duration: var(--mdw-motion-duration-medium1);
+wfc-card.wfc-animation.fullscreen.show {
+  animation-duration: var(--wfc-motion-duration-medium1);
 }
 
-mdw-card.fullscreen > .card-content > .expanded {
+wfc-card.fullscreen > .card-content > .expanded {
   height: 0;
   opacity: 0;
   transition: opacity;
   transition-duration: 0ms;
 }
-mdw-card.mdw-animation.fullscreen > .card-content > .expanded {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation.fullscreen > .card-content > .expanded {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.fullscreen.show > .card-content > .expanded {
+wfc-card.fullscreen.show > .card-content > .expanded {
   opacity: 1;
   height: auto;
   position: absolute;
   top: 0;
-  background-color: var(--mdw-surface);
+  background-color: var(--wfc-surface);
 }
 
-mdw-card.fullscreen > .card-image {
+wfc-card.fullscreen > .card-image {
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
-  transition-delay: 0ms, var(--mdw-motion-duration-short1);
-  transition-timing-function: var(--mdw-motion-easing-standard-accelerate);
+  transition-delay: 0ms, var(--wfc-motion-duration-short1);
+  transition-timing-function: var(--wfc-motion-easing-standard-accelerate);
 }
-mdw-card.mdw-animation.fullscreen > .card-image {
-  transition-duration: var(--mdw-motion-duration-short3), 80ms;
-}
-
-mdw-card.fullscreen > .card-image.rounded {
-  border-radius: var(--mdw-shape-medium);
+wfc-card.wfc-animation.fullscreen > .card-image {
+  transition-duration: var(--wfc-motion-duration-short3), 80ms;
 }
 
-mdw-card.fullscreen.show > .card-image {
-  height: var(--mdw-card-fullscreen-img-height, 300px);
+wfc-card.fullscreen > .card-image.rounded {
+  border-radius: var(--wfc-shape-medium);
+}
+
+wfc-card.fullscreen.show > .card-image {
+  height: var(--wfc-card-fullscreen-img-height, 300px);
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
-  transition-delay: 0ms, var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-delay: 0ms, var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
-mdw-card.mdw-animation.mdw-duration.fullscreen.show > .card-image {
-  transition-duration: var(--mdw-motion-duration-medium3), var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation.wfc-duration.fullscreen.show > .card-image {
+  transition-duration: var(--wfc-motion-duration-medium3), var(--wfc-motion-duration-short3);
 
 }
-mdw-card.fullscreen.show > .card-image.rounded {
-  border-radius: 0 0 var(--mdw-shape-medium) var(--mdw-shape-medium);
+wfc-card.fullscreen.show > .card-image.rounded {
+  border-radius: 0 0 var(--wfc-shape-medium) var(--wfc-shape-medium);
 }
 
-@keyframes mdw-card-fullscreen-card-show {
+@keyframes wfc-card-fullscreen-card-show {
   0% {
-    top: var(--mdw-card-fullscreen-top);
-    left: var(--mdw-card-fullscreen-left);
-    width: var(--mdw-card-fullscreen-width);
-    height: var(--mdw-card-fullscreen-height);
-    border-radius: var(--mdw-shape-medium);
+    top: var(--wfc-card-fullscreen-top);
+    left: var(--wfc-card-fullscreen-left);
+    width: var(--wfc-card-fullscreen-width);
+    height: var(--wfc-card-fullscreen-height);
+    border-radius: var(--wfc-shape-medium);
     overflow: hidden;
   }
 
@@ -401,7 +401,7 @@ mdw-card.fullscreen.show > .card-image.rounded {
 
   100% {
     top: 0;
-    left: var(--mdw-card-fullscreen-expanded-left);
+    left: var(--wfc-card-fullscreen-expanded-left);
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -409,11 +409,11 @@ mdw-card.fullscreen.show > .card-image.rounded {
   }
 }
 
-@keyframes mdw-card-fullscreen-card-hide {
+@keyframes wfc-card-fullscreen-card-hide {
   0% {
     position: fixed;
     top: 0;
-    left: var(--mdw-card-fullscreen-expanded-left);
+    left: var(--wfc-card-fullscreen-expanded-left);
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -430,17 +430,17 @@ mdw-card.fullscreen.show > .card-image.rounded {
     position: fixed;
     z-index: 11;
     overflow: hidden;
-    top: var(--mdw-card-fullscreen-top);
-    left: var(--mdw-card-fullscreen-left);
-    width: var(--mdw-card-fullscreen-width);
-    height: var(--mdw-card-fullscreen-height);
-    border-radius: var(--mdw-shape-medium);
+    top: var(--wfc-card-fullscreen-top);
+    left: var(--wfc-card-fullscreen-left);
+    width: var(--wfc-card-fullscreen-width);
+    height: var(--wfc-card-fullscreen-height);
+    border-radius: var(--wfc-shape-medium);
   }
 }
 
 
 
-mdw-card > .card-fullscreen-back {
+wfc-card > .card-fullscreen-back {
   position: absolute;
   display: flex;
   align-items: center;
@@ -450,7 +450,7 @@ mdw-card > .card-fullscreen-back {
   padding-left: 5px;
   padding-right: 8px;
   height: 36px;
-  border-radius: var(--mdw-shape-full);
+  border-radius: var(--wfc-shape-full);
   cursor: pointer;
   pointer-events: none;
   opacity: 0;
@@ -458,16 +458,16 @@ mdw-card > .card-fullscreen-back {
   transition-duration: 0ms;
 }
 
-mdw-card.mdw-animation > .card-fullscreen-back {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation > .card-fullscreen-back {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card > .card-fullscreen-back .text {
-  font-size: var(--mdw-font-medium-title-size);
-  font-weight: var(--mdw-font-medium-title-weight);
-  line-height: var(--mdw-font-medium-title-line-height);
-  letter-spacing: var(--mdw-font-medium-title-tracking);
-  color: var(--mdw-surface);
+wfc-card > .card-fullscreen-back .text {
+  font-size: var(--wfc-font-medium-title-size);
+  font-weight: var(--wfc-font-medium-title-weight);
+  line-height: var(--wfc-font-medium-title-line-height);
+  letter-spacing: var(--wfc-font-medium-title-tracking);
+  color: var(--wfc-surface);
   margin-left: -6px;
 
   filter:
@@ -477,9 +477,9 @@ mdw-card > .card-fullscreen-back .text {
     drop-shadow(-1px 1px 1px rgba(0, 0, 0, .3));
 }
 
-mdw-card > .card-fullscreen-back > svg {
+wfc-card > .card-fullscreen-back > svg {
   transform: scale(1.1);
-  fill: var(--mdw-surface);
+  fill: var(--wfc-surface);
   filter:
     drop-shadow(-1px -1px 1px rgba(0, 0, 0, .3))
     drop-shadow(1px -1px 1px rgba(0, 0, 0, .3))
@@ -487,12 +487,12 @@ mdw-card > .card-fullscreen-back > svg {
     drop-shadow(-1px 1px 1px rgba(0, 0, 0, .3));
 }
 
-mdw-card > .card-fullscreen-back > svg path {
+wfc-card > .card-fullscreen-back > svg path {
   stroke-width: 0.5px;
-  stroke: var(--mdw-surface);
+  stroke: var(--wfc-surface);
 }
 
-mdw-card.fullscreen.show > .card-fullscreen-back {
+wfc-card.fullscreen.show > .card-fullscreen-back {
   opacity: 1;
   pointer-events: auto;
 }
@@ -501,70 +501,70 @@ mdw-card.fullscreen.show > .card-fullscreen-back {
 
 /* --- group ---- */
 
-mdw-card-group:not(.grid) > mdw-card,
-mdw-card.grid-list-item {
+wfc-card-group:not(.grid) > wfc-card,
+wfc-card.grid-list-item {
   flex-direction: row;
   height: 80px;
   overflow: hidden;
 }
 
-mdw-card-group:not(.grid) > mdw-card > .card-image,
-mdw-card.grid-list-item > .card-image {
+wfc-card-group:not(.grid) > wfc-card > .card-image,
+wfc-card.grid-list-item > .card-image {
   width: 80px;
   height: 80px;
 }
 
-mdw-card-group:not(.grid) > mdw-card > .card-image > img,
-mdw-card.grid-list-item > .card-image > img {
+wfc-card-group:not(.grid) > wfc-card > .card-image > img,
+wfc-card.grid-list-item > .card-image > img {
   width: unset;
   height: 100%;
 }
 
-mdw-card-group:not(.grid) > mdw-card > .supporting-text,
-mdw-card-group:not(.grid) > mdw-card .card-content > .supporting-text,
-mdw-card-group:not(.grid) > mdw-card.card-list-item .card-actions,
-mdw-card.grid-list-item > .supporting-text,
-mdw-card.grid-list-item .card-content > .supporting-text,
-mdw-card.grid-list-item.card-list-item .card-actions {
+wfc-card-group:not(.grid) > wfc-card > .supporting-text,
+wfc-card-group:not(.grid) > wfc-card .card-content > .supporting-text,
+wfc-card-group:not(.grid) > wfc-card.card-list-item .card-actions,
+wfc-card.grid-list-item > .supporting-text,
+wfc-card.grid-list-item .card-content > .supporting-text,
+wfc-card.grid-list-item.card-list-item .card-actions {
   display: none;
 }
 
 
 /* --- swipe action --- */
 
-mdw-card > mdw-card-swipe-action {
+wfc-card > wfc-card-swipe-action {
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 1px;
-  left: calc(var(--mdw-card-swipe-action-position) * -1);
+  left: calc(var(--wfc-card-swipe-action-position) * -1);
   bottom: 0;
   width: 100px;
   padding-top: 18px;
   padding-left: 18px;
   z-index: 0;
-  border-radius: var(--mdw-shape-medium) 0 0 var(--mdw-shape-medium);
+  border-radius: var(--wfc-shape-medium) 0 0 var(--wfc-shape-medium);
   box-sizing: border-box;
 
-  background-color: var(--mdw-surface-tint-alpha-16);
-  color: var(--mdw-on-surface-variant);
+  background-color: var(--wfc-surface-tint-alpha-16);
+  color: var(--wfc-on-surface-variant);
 
   transition: left, background-color;
   transition-duration: 0ms, 0ms;
 }
-mdw-card.mdw-animation > mdw-card-swipe-action {
-  transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation > wfc-card-swipe-action {
+  transition-duration: var(--wfc-motion-duration-short3), var(--wfc-motion-duration-short3);
 }
 
-mdw-card.outlined > mdw-card-swipe-action {
+wfc-card.outlined > wfc-card-swipe-action {
   top: -1px;
   bottom: -1px;
-  border-left: 1px solid var(--mdw-outline);
-  border-top: 1px solid var(--mdw-outline);
-  border-bottom: 1px solid var(--mdw-outline);
+  border-left: 1px solid var(--wfc-outline);
+  border-top: 1px solid var(--wfc-outline);
+  border-bottom: 1px solid var(--wfc-outline);
 }
 
-mdw-card > mdw-card-swipe-action mdw-icon {
+wfc-card > wfc-card-swipe-action wfc-icon {
   pointer-events: none;
   font-variation-settings:
     'FILL' 0,
@@ -573,44 +573,44 @@ mdw-card > mdw-card-swipe-action mdw-icon {
     'opsz' 48
 }
 
-mdw-card.dragging > mdw-card-swipe-action {
+wfc-card.dragging > wfc-card-swipe-action {
   transition: none;
 }
 
-mdw-card > mdw-card-swipe-action::after {
+wfc-card > wfc-card-swipe-action::after {
   position: absolute;
   content: '';
   top: 0;
-  left: var(--mdw-card-swipe-action-position);
+  left: var(--wfc-card-swipe-action-position);
   width: 101px;
   padding-top: 18px;
   padding-left: 18px;
   bottom: 0;
-  border-radius: var(--mdw-shape-medium) 0 0 var(--mdw-shape-medium);
-  background-color: var(--mdw-surface);
+  border-radius: var(--wfc-shape-medium) 0 0 var(--wfc-shape-medium);
+  background-color: var(--wfc-surface);
   z-index: 1;
   box-sizing: border-box;
 
   transition: left;
   transition-duration: 0ms;
 }
-mdw-card.mdw-animation > mdw-card-swipe-action::after {
-  transition-duration: var(--mdw-motion-duration-short3);
+wfc-card.wfc-animation > wfc-card-swipe-action::after {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
-mdw-card.filled > mdw-card-swipe-action::after {
-  background-color: var(--mdw-surface-variant);
+wfc-card.filled > wfc-card-swipe-action::after {
+  background-color: var(--wfc-surface-variant);
 }
 
-mdw-card.dragging > mdw-card-swipe-action::after {
+wfc-card.dragging > wfc-card-swipe-action::after {
   transition: none;
 }
 
-mdw-card > mdw-card-swipe-action[checked] {
-  background-color: var(--mdw-surface-tint-alpha-38);
+wfc-card > wfc-card-swipe-action[checked] {
+  background-color: var(--wfc-surface-tint-alpha-38);
 }
 
-mdw-card > mdw-card-swipe-action[checked] mdw-icon {
+wfc-card > wfc-card-swipe-action[checked] wfc-icon {
   font-variation-settings:
     'FILL' 1,
     'wght' 400,
@@ -621,7 +621,7 @@ mdw-card > mdw-card-swipe-action[checked] mdw-icon {
 
 /* --- Ripple --- */
 
-mdw-card > .ripple {
+wfc-card > .ripple {
   position: absolute;
   overflow: hidden;
   border-radius: inherit;
@@ -632,12 +632,12 @@ mdw-card > .ripple {
   pointer-events: none;
 }
 
-mdw-card > .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  border-radius: var(--mdw-shape-full);
+wfc-card > .ripple > .ripple-element {
+  background-color: var(--wfc-primary);
+  opacity: var(--wfc-state-layer-opacity-pressed);
+  border-radius: var(--wfc-shape-full);
 }
 
-mdw-card.filled > .ripple > .ripple-element {
-  background-color: var(--mdw-on-primary);
+wfc-card.filled > .ripple > .ripple-element {
+  background-color: var(--wfc-on-primary);
 }

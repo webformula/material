@@ -1,12 +1,12 @@
 <h3 class="page-title">Checkboxes</h3>
-<div class="page-subheader mdw-font-title-medium">Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off</div>
+<div class="page-subheader wfc-font-title-medium">Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off</div>
 <a href="https://m3.material.io/components/checkbox/overview" target="_new">Material Design Guidelines:
   Checkboxes</a>
   
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Standard</a></li>
       <li><a href="#left_label">Left label</a></li>
@@ -16,86 +16,86 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content">
         <div class="headline">Checkboxes</div>
         
         <div class="example" style="flex-direction: column; display: flex;">
-          <mdw-checkbox aria-label="checkbox"></mdw-checkbox>
-          <mdw-checkbox checked>Checked</mdw-checkbox>
-          <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>
-          <mdw-checkbox disabled>Disabled</mdw-checkbox>
-          <mdw-checkbox checked disabled>Checked disabled</mdw-checkbox>
+          <wfc-checkbox aria-label="checkbox"></wfc-checkbox>
+          <wfc-checkbox checked>Checked</wfc-checkbox>
+          <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
+          <wfc-checkbox disabled>Disabled</wfc-checkbox>
+          <wfc-checkbox checked disabled>Checked disabled</wfc-checkbox>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-checkbox></mdw-checkbox>
-  <mdw-checkbox checked>Checked</mdw-checkbox>
-  <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>
-  <mdw-checkbox disabled>Disabled</mdw-checkbox>
-  <mdw-checkbox checked disabled>Checked disabled</mdw-checkbox>`)}
+  ${page.escape(`<wfc-checkbox></wfc-checkbox>
+  <wfc-checkbox checked>Checked</wfc-checkbox>
+  <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
+  <wfc-checkbox disabled>Disabled</wfc-checkbox>
+  <wfc-checkbox checked disabled>Checked disabled</wfc-checkbox>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="left_label">    
+    <wfc-card id="left_label">    
       <div class="card-content">
         <div class="headline">Label right</div>
         
         <div class="example" style="flex-direction: column; display: flex; max-width: 250px;">
-          <mdw-checkbox>label</mdw-checkbox>
-          <mdw-checkbox class="label-left">Left label</mdw-checkbox>
-          <mdw-divider style="margin: 24px 0;"></mdw-divider>
-          <mdw-checkbox class="full-width">label full width</mdw-checkbox>
-          <mdw-checkbox class="label-left full-width">Left label full width</mdw-checkbox>
+          <wfc-checkbox>label</wfc-checkbox>
+          <wfc-checkbox class="label-left">Left label</wfc-checkbox>
+          <wfc-divider style="margin: 24px 0;"></wfc-divider>
+          <wfc-checkbox class="full-width">label full width</wfc-checkbox>
+          <wfc-checkbox class="label-left full-width">Left label full width</wfc-checkbox>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-checkbox>label</mdw-checkbox>
-  <mdw-checkbox class="label-left">Left label</mdw-checkbox>
-  <mdw-divider style="margin: 24px 0;"></mdw-divider>
-  <mdw-checkbox class="full-width">label full width</mdw-checkbox>
-  <mdw-checkbox class="label-left full-width">Left label full width</mdw-checkbox>`)}
+  ${page.escape(`<wfc-checkbox>label</wfc-checkbox>
+  <wfc-checkbox class="label-left">Left label</wfc-checkbox>
+  <wfc-divider style="margin: 24px 0;"></wfc-divider>
+  <wfc-checkbox class="full-width">label full width</wfc-checkbox>
+  <wfc-checkbox class="label-left full-width">Left label full width</wfc-checkbox>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="error">
+    <wfc-card id="error">
       <div class="card-content">
         <div class="headline">Checkboxes error style</div>
     
         <div class="example" style="flex-direction: column; display: flex;">
-          <mdw-checkbox required class="invalid" onchange="this.reportValidity()">Required</mdw-checkbox>
+          <wfc-checkbox required class="invalid" onchange="this.reportValidity()">Required</wfc-checkbox>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-checkbox required>Required</mdw-checkbox>`)}
+  ${page.escape(`<wfc-checkbox required>Required</wfc-checkbox>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="indeterminate">
+    <wfc-card id="indeterminate">
       <div class="card-content">
         <div class="headline">Indeterminate</div>
-        <div class="supporting-text">There is no input attribute for Indeterminate, only a property. An attribute has been added to mdw-checkbox for convenience</div>
+        <div class="supporting-text">There is no input attribute for Indeterminate, only a property. An attribute has been added to wfc-checkbox for convenience</div>
         <div class="supporting-text">Indeterminate overrides checked and unchecked states. If checked is changed then indeterminate will be set false.</div>
     
         <div class="example" style="flex-direction: column; display: flex;">
-          <mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>
+          <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-checkbox indeterminate>Indeterminate</mdw-checkbox>`)}
+  ${page.escape(`<wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

@@ -1,12 +1,12 @@
 <h3 class="page-title">Bottom app bar</h3>
-<div class="page-subheader mdw-font-title-medium">A bottom app bar displays navigation and key actions at the bottom of mobile screens</div>
+<div class="page-subheader wfc-font-title-medium">A bottom app bar displays navigation and key actions at the bottom of mobile screens</div>
 <a href="https://m3.material.io/components/bottom-app-bar/overview" target="_new">Material Design Guidelines:
   Bottom app bar</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic</a></li>
       <li><a href="#auto-hide">Auto hide</a></li>
@@ -17,7 +17,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic</div>
         
@@ -28,11 +28,11 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar>
-    <mdw-menu>
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="mdw-bold">more_vert</mdw-icon>
-      </mdw-button>
+  ${page.escape(`<wfc-bottom-app-bar>
+    <wfc-menu>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="wfc-bold">more_vert</wfc-icon>
+      </wfc-button>
       <ul>
         <li>One</li>
         <li>Two</li>
@@ -40,26 +40,26 @@
         <li>Four</li>
         <li>Five</li>
       </ul>
-    </mdw-menu>
+    </wfc-menu>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon>search</mdw-icon>
-    </mdw-button>
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon>search</wfc-icon>
+    </wfc-button>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon class="outlined">delete</mdw-icon>
-    </mdw-button>
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon class="outlined">delete</wfc-icon>
+    </wfc-button>
     
-    <mdw-fab>
-      <mdw-icon>add</mdw-icon>
-    </mdw-fab>
-  </mdw-bottom-app-bar>`)}
+    <wfc-fab>
+      <wfc-icon>add</wfc-icon>
+    </wfc-fab>
+  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="auto-hide">
+    <wfc-card id="auto-hide">
       <div class="card-content">
         <div class="headline">Auto hide</div>
         
@@ -70,28 +70,28 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar class="auto-hide">
-    <mdw-navigation-button></mdw-navigation-button>
+  ${page.escape(`<wfc-bottom-app-bar class="auto-hide">
+    <wfc-navigation-button></wfc-navigation-button>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon>search</mdw-icon>
-    </mdw-button>
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon>search</wfc-icon>
+    </wfc-button>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon class="outlined">delete</mdw-icon>
-    </mdw-button>
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon class="outlined">delete</wfc-icon>
+    </wfc-button>
     
-    <mdw-fab>
-      <mdw-icon>add</mdw-icon>
-    </mdw-fab>
-  </mdw-bottom-app-bar>`)}
+    <wfc-fab>
+      <wfc-icon>add</wfc-icon>
+    </wfc-fab>
+  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
 
-    <mdw-card id="secondary-bar">
+    <wfc-card id="secondary-bar">
       <div class="card-content">
         <div class="headline">Secondary bar using id (multiple bars)</div>
         
@@ -103,56 +103,56 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar>
-    <mdw-bottom-app-bar-primary>
-      <mdw-navigation-button></mdw-navigation-button>
+  ${page.escape(`<wfc-bottom-app-bar>
+    <wfc-bottom-app-bar-primary>
+      <wfc-navigation-button></wfc-navigation-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>search</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>search</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">delete</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-primary>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">delete</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-primary>
   
-    <mdw-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>add</mdw-icon>
-      </mdw-button>
+    <wfc-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>add</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>edit</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">delete</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-secondary>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">delete</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-secondary>
   
-    <mdw-fab>
-      <mdw-icon>add</mdw-icon>
-    </mdw-fab>
-  </mdw-bottom-app-bar>`)}
+    <wfc-fab>
+      <wfc-icon>add</wfc-icon>
+    </wfc-fab>
+  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
       
       <pre>
         <code class="language-javascript">
-  ${`document.querySelector('mdw-bottom-app-bar').showAlt('bottom-ap-bar-secondary-one');
+  ${`document.querySelector('wfc-bottom-app-bar').showAlt('bottom-ap-bar-secondary-one');
   
   // calling showSecondary with no id will revert back to primary
-  document.querySelector('mdw-bottom-app-bar').showPrimary();
-  document.querySelector('mdw-bottom-app-bar').showAlt();`}
+  document.querySelector('wfc-bottom-app-bar').showPrimary();
+  document.querySelector('wfc-bottom-app-bar').showAlt();`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="secondary-bar-hash">
+    <wfc-card id="secondary-bar-hash">
       <div class="card-content">
         <div class="headline">Secondary bar using URL hashes</div>
-        <div class="mdw-body-small" style="margin-left: 16px;">Changing the hash to any non matching secondary hash will revert
+        <div class="wfc-body-small" style="margin-left: 16px;">Changing the hash to any non matching secondary hash will revert
           back to primary</div>
         
         <div class="example">
@@ -163,33 +163,33 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar>
-    <mdw-bottom-app-bar-primary>
-      <mdw-navigation-button></mdw-navigation-button>
+  ${page.escape(`<wfc-bottom-app-bar>
+    <wfc-bottom-app-bar-primary>
+      <wfc-navigation-button></wfc-navigation-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>search</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>search</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">delete</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-primary>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">delete</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-primary>
   
-    <mdw-bottom-app-bar-secondary hash="#one">
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>add</mdw-icon>
-      </mdw-button>
+    <wfc-bottom-app-bar-secondary hash="#one">
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>add</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>edit</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">delete</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-secondary>
-  </mdw-bottom-app-bar>`)}
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">delete</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-secondary>
+  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
       
@@ -199,11 +199,11 @@
   location.hash = '#one';`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
 
-    <mdw-card id="always-show">
+    <wfc-card id="always-show">
       <div class="card-content">
         <div class="headline">Always show</div>
         <div class="supporting-text">By default the bottom app bar will only appear on compact window sizes. Use this class to always show.</div>
@@ -215,20 +215,20 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-bottom-app-bar class="always-show">
-    <mdw-navigation-button></mdw-navigation-button>
+  ${page.escape(`<wfc-bottom-app-bar class="always-show">
+    <wfc-navigation-button></wfc-navigation-button>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon>search</mdw-icon>
-    </mdw-button>
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon>search</wfc-icon>
+    </wfc-button>
     
-    <mdw-button class="mdw-icon-button">
-      <mdw-icon class="outlined">delete</mdw-icon>
-    </mdw-button>
-  </mdw-bottom-app-bar>`)}
+    <wfc-button class="wfc-icon-button">
+      <wfc-icon class="outlined">delete</wfc-icon>
+    </wfc-button>
+  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>
   

@@ -23,7 +23,7 @@
   position: relative;
   min-width: 52px;
   height: 32px;
-  border-radius: var(--mdw-shape-large);
+  border-radius: var(--wfc-shape-large);
 }
 
 input {
@@ -57,19 +57,19 @@ input {
   border-radius: inherit;
   box-sizing: border-box;
   transition-property: opacity, background-color;
-  transition-duration: var(--mdw-motion-duration-short1);
+  transition-duration: var(--wfc-motion-duration-short1);
 
-  background-color: var(--mdw-surface-container-highest);
+  background-color: var(--wfc-surface-container-highest);
   border: 2px solid;
-  border-color: var(--mdw-outline);
+  border-color: var(--wfc-outline);
 }
 
 :host(.checked) .track::before {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host(.invalid) .track::before {
-  border-color: var(--mdw-error);
+  border-color: var(--wfc-error);
 }
 
 .track .thumb-container {
@@ -80,8 +80,8 @@ input {
   margin-inline-end: 20px;
   
   transition: margin;
-  transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-transition-overshoot);
+  transition-duration: var(--wfc-motion-duration-medium2);
+  transition-timing-function: var(--wfc-transition-overshoot);
 }
 
 :host(.checked) .track .thumb-container {
@@ -91,14 +91,14 @@ input {
 
 .track .thumb {
   position: relative;
-  border-radius: var(--mdw-shape-full);
+  border-radius: var(--wfc-shape-full);
   height: 16px;
   width: 16px;
 
   transform-origin: center;
   transition-property: height, width;
-  transition-duration: var(--mdw-motion-duration-medium1), var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard), var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1), var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard), var(--wfc-motion-easing-standard);
   z-index: 0;
 }
 
@@ -116,17 +116,17 @@ input {
   border-radius: inherit;
   box-sizing: border-box;
   transition: background-color;
-  transition-duration: var(--mdw-motion-duration-short1);
+  transition-duration: var(--wfc-motion-duration-short1);
 
-  background-color: var(--mdw-outline);
+  background-color: var(--wfc-outline);
 }
 
 :host(.checked) .track .thumb::before {
-  background-color: var(--mdw-on-primary);
+  background-color: var(--wfc-on-primary);
 }
 
 :host(.invalid) .track .thumb::before {
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
 
@@ -140,9 +140,9 @@ input {
   line-height: 32px;
   margin-right: 16px;
 
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
 }
 
 :host(.label-right) .label {
@@ -153,11 +153,11 @@ input {
 }
 
 :host(.invalid) .label {
-  color: var(--mdw-error);
+  color: var(--wfc-error);
 }
 
 :host([disabled]) .label {
-  color: var(--mdw-on-surface);
+  color: var(--wfc-on-surface);
   opacity: 0.38;
 }
 
@@ -173,7 +173,7 @@ input {
 
   transition:
     fill 67ms linear, opacity 33ms linear,
-    transform 167ms var(--mdw-motion-easing-standard);
+    transform 167ms var(--wfc-motion-easing-standard);
   opacity: 0;
 }
 
@@ -188,13 +188,13 @@ input {
 .icon.icon-on {
   width: 16px;
   height: 16px;
-  color: var(--mdw-primary);
+  color: var(--wfc-primary);
 }
 
 .icon.icon-off {
   width: 16px;
   height: 16px;
-  color: var(--mdw-surface-container-highest);
+  color: var(--wfc-surface-container-highest);
 }
 
 
@@ -203,32 +203,32 @@ input {
   position: absolute;
   pointer-events: none;
   opacity: 0;
-  border-radius: var(--mdw-shape-full);
-  background-color: var(--mdw-on-surface);
+  border-radius: var(--wfc-shape-full);
+  background-color: var(--wfc-on-surface);
   width: 40px;
   height: 40px;
   left: -4px;
   transition: opacity, left;
-  transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-medium2);
-  transition-timing-function: linear, var(--mdw-transition-overshoot);
+  transition-duration: var(--wfc-motion-duration-short3), var(--wfc-motion-duration-medium2);
+  transition-timing-function: linear, var(--wfc-transition-overshoot);
 }
 
 :host(.checked) .state-layer {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
   left: 16px;
 }
 
 :host(.invalid) .state-layer {
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
+  opacity: var(--wfc-state-layer-opacity-focus);
 }
 
 @media (hover: hover) {
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
+    opacity: var(--wfc-state-layer-opacity-hover);
   }
 }
 
@@ -243,8 +243,8 @@ input {
   pointer-events: none;
   left: 4px;
   transition: left;
-  transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-transition-overshoot);
+  transition-duration: var(--wfc-motion-duration-medium2);
+  transition-timing-function: var(--wfc-transition-overshoot);
 }
 
 :host(.checked) .ripple {
@@ -252,10 +252,10 @@ input {
 }
 
 .ripple .ripple-element {
-  background-color: var(--mdw-on-surface-variant);
-  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--wfc-on-surface-variant);
+  opacity: var(--wfc-state-layer-opacity-pressed);
 }
 
 :host(.checked) .ripple .ripple-element {
-  background-color: var(--mdw-primary-container);
+  background-color: var(--wfc-primary-container);
 }

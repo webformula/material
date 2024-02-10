@@ -45,8 +45,8 @@
 <body>
   <page-content style="padding: 32px 32px;">
     <div style="margin-bottom: 12px;">
-      <mdw-button onclick="location.hash = ''; document.querySelector('mdw-bottom-app-bar').showPrimary()">Primary</mdw-button>
-      <mdw-button onclick="location.hash = ''; document.querySelector('mdw-bottom-app-bar').showSecondary('bottom-ap-bar-secondary-one')">Secondary by id</mdw-button>
+      <wfc-button onclick="location.hash = ''; document.querySelector('wfc-bottom-app-bar').showPrimary()">Primary</wfc-button>
+      <wfc-button onclick="location.hash = ''; document.querySelector('wfc-bottom-app-bar').showSecondary('bottom-ap-bar-secondary-one')">Secondary by id</wfc-button>
     </div>
 
     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
@@ -74,33 +74,33 @@
     accompanied by English versions from the 1914 translation by H. Rackham.
   </page-content>
 
-  <mdw-bottom-app-bar class="always-show">
-    <mdw-bottom-app-bar-primary>
-      <mdw-navigation-button></mdw-navigation-button>
+  <wfc-bottom-app-bar class="always-show">
+    <wfc-bottom-app-bar-primary>
+      <wfc-navigation-button></wfc-navigation-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>search</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>search</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">delete</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-primary>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">delete</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-primary>
   
-    <mdw-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>add</mdw-icon>
-      </mdw-button>
+    <wfc-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>add</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon>edit</mdw-icon>
-      </mdw-button>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-button>
   
-      <mdw-button class="mdw-icon-button">
-        <mdw-icon class="outlined">favorite</mdw-icon>
-      </mdw-button>
-    </mdw-bottom-app-bar-secondary>
-  </mdw-bottom-app-bar>
+      <wfc-button class="wfc-icon-button">
+        <wfc-icon class="outlined">favorite</wfc-icon>
+      </wfc-button>
+    </wfc-bottom-app-bar-secondary>
+  </wfc-bottom-app-bar>
 </body>
 
 </html>

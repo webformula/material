@@ -11,8 +11,8 @@ import Ripple from '../../core/Ripple.js';
 
 // TODO refactor
 
-export default class MDWCardElement extends HTMLComponentElement {
-  static tag = 'mdw-card';
+export default class WFCCardElement extends HTMLComponentElement {
+  static tag = 'wfc-card';
   #isFullscreen = this.classList.contains('fullscreen');
   #isExpanding = !!this.querySelector(':Scope > .card-content > .expanded');
 
@@ -27,7 +27,7 @@ export default class MDWCardElement extends HTMLComponentElement {
   #focusMousedown_bound = this.#focusMousedown.bind(this);
   #fullscreenPlaceHolder;
   #fullscreenBackButton;
-  #swipeActionElement = this.querySelector(':scope > mdw-card-swipe-action');
+  #swipeActionElement = this.querySelector(':scope > wfc-card-swipe-action');
   #dragSwipeActionStartPosition;
   #dragSwipeAction;
   #value = '';
@@ -68,7 +68,7 @@ export default class MDWCardElement extends HTMLComponentElement {
           disableMouseEvents: true,
           ignoreElements: [this.querySelector('.expanded')]
         });
-        this.#expandDrag.on('mdwdragend', this.#expandDragEnd_bound);
+        this.#expandDrag.on('wfcdragend', this.#expandDragEnd_bound);
         this.#expandDrag.enable();
       }
     }
@@ -85,9 +85,9 @@ export default class MDWCardElement extends HTMLComponentElement {
         disableMouseEvents: true,
         lockScrollY: true
       });
-      this.#dragSwipeAction.on('mdwdragmove', this.#ondragSwipeAction_bound);
-      this.#dragSwipeAction.on('mdwdragstart', this.#ondragSwipeActionStart_bound);
-      this.#dragSwipeAction.on('mdwdragend', this.#ondragSwipeActionEnd_bound);
+      this.#dragSwipeAction.on('wfcdragmove', this.#ondragSwipeAction_bound);
+      this.#dragSwipeAction.on('wfcdragstart', this.#ondragSwipeActionStart_bound);
+      this.#dragSwipeAction.on('wfcdragend', this.#ondragSwipeActionEnd_bound);
       this.#dragSwipeAction.enable();
       this.#swipeActionElement.addEventListener('click', this.#swipeActionClick_bound, { signal: this.#abort.signal });
     } else if (this.#hasReorder) {
@@ -100,13 +100,13 @@ export default class MDWCardElement extends HTMLComponentElement {
     }
     
     setTimeout(() => {
-      this.classList.add('mdw-animation');
+      this.classList.add('wfc-animation');
     }, 150);
 
     // TODO re enable this
     // this.#handleAria();
 
-    window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
+    window.addEventListener('wfcwindowstate', this.#handleWindowState_bound);
     this.#handleWindowState();
 
     const rippleElement = this.querySelector(':scope > .ripple');
@@ -124,8 +124,8 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener('mdwwindowstate', this.#handleWindowState_bound);
-    this.classList.remove('mdw-animation');
+    window.removeEventListener('wfcwindowstate', this.#handleWindowState_bound);
+    this.classList.remove('wfc-animation');
     this.#abort.abort();
     if (this.#ripple) this.#ripple.destroy();
     if (this.#swipeActionElement) this.#dragSwipeAction.destroy();
@@ -154,7 +154,7 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   async remove() {
-    this.style.setProperty('--mdw-card-margin-top-remove', `-${this.offsetHeight}px`);
+    this.style.setProperty('--wfc-card-margin-top-remove', `-${this.offsetHeight}px`);
     this.classList.add('remove');
     await util.transitionendAsync(this);
     super.remove();
@@ -166,18 +166,18 @@ export default class MDWCardElement extends HTMLComponentElement {
     const bounds = this.getBoundingClientRect();
 
     // TODO change this to a sheet? currently we are just centering with a max-width of 600
-    if (device.state !== 'compact') this.style.setProperty('--mdw-card-fullscreen-expanded-left', `calc(50% - ${bounds.width / 2}px)`);
-    else this.style.setProperty('--mdw-card-fullscreen-expanded-left', `0px`);
+    if (device.state !== 'compact') this.style.setProperty('--wfc-card-fullscreen-expanded-left', `calc(50% - ${bounds.width / 2}px)`);
+    else this.style.setProperty('--wfc-card-fullscreen-expanded-left', `0px`);
 
     this.#fullscreenPlaceHolder.style.height = `${bounds.height}px`;
     this.#fullscreenPlaceHolder.style.width = `${bounds.width}px`;
     this.#fullscreenPlaceHolder.style.margin = getComputedStyle(this).margin;
     this.insertAdjacentElement('beforebegin', this.#fullscreenPlaceHolder);
-    this.style.setProperty('--mdw-card-fullscreen-top', `${bounds.top}px`);
-    this.style.setProperty('--mdw-card-fullscreen-left', `${bounds.left}px`);
-    this.style.setProperty('--mdw-card-fullscreen-width', `${bounds.width}px`);
-    this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
-    this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
+    this.style.setProperty('--wfc-card-fullscreen-top', `${bounds.top}px`);
+    this.style.setProperty('--wfc-card-fullscreen-left', `${bounds.left}px`);
+    this.style.setProperty('--wfc-card-fullscreen-width', `${bounds.width}px`);
+    this.style.setProperty('--wfc-card-fullscreen-height', `${bounds.height}px`);
+    this.style.setProperty('--wfc-card-fullscreen-height', `${bounds.height}px`);
     if (!initialized) this.classList.add('fullscreen-initialized');
     this.classList.add('show');
   }
@@ -245,7 +245,7 @@ export default class MDWCardElement extends HTMLComponentElement {
     if (!img.height) img.addEventListener('load', this.#imgOnload_bound, { signal: this.#abort.signal });
     else {
       const maxHeight = Math.min(img.height, img.height / img.width * window.innerWidth);
-      this.style.setProperty('--mdw-card-fullscreen-img-height', `${maxHeight}px`);
+      this.style.setProperty('--wfc-card-fullscreen-img-height', `${maxHeight}px`);
     }
   }
 
@@ -256,30 +256,30 @@ export default class MDWCardElement extends HTMLComponentElement {
 
   #ondragSwipeActionStart() {
     this.classList.add('dragging');
-    this.#dragSwipeActionStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
+    this.#dragSwipeActionStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--wfc-card-swipe-action-position').replace('px', ''));
   }
 
   #ondragSwipeAction({ distanceX }) {
     let position = this.#dragSwipeActionStartPosition + distanceX;
     if (position > 60) position = 60;
     if (position < 0) position = 0;
-    this.style.setProperty('--mdw-card-swipe-action-position', `${position}px`);
+    this.style.setProperty('--wfc-card-swipe-action-position', `${position}px`);
   }
 
   async #ondragSwipeActionEnd({ swipeX, direction }) {
     this.classList.remove('dragging');
-    const position = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
+    const position = parseInt(getComputedStyle(this).getPropertyValue('--wfc-card-swipe-action-position').replace('px', ''));
 
     if (swipeX) {
-      if (direction === 'right') this.style.setProperty('--mdw-card-swipe-action-position', `60px`);
-      else this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
-    } else if (position < 30) this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
-    else this.style.setProperty('--mdw-card-swipe-action-position', `60px`);
+      if (direction === 'right') this.style.setProperty('--wfc-card-swipe-action-position', `60px`);
+      else this.style.setProperty('--wfc-card-swipe-action-position', `0px`);
+    } else if (position < 30) this.style.setProperty('--wfc-card-swipe-action-position', `0px`);
+    else this.style.setProperty('--wfc-card-swipe-action-position', `60px`);
   }
 
   // TODO make action its own component so it can have .checked ?
   #swipeActionClick() {
-    if (this.#swipeActionElement.classList.contains('mdw-toggle')) {
+    if (this.#swipeActionElement.classList.contains('wfc-toggle')) {
       if (this.#swipeActionElement.hasAttribute('checked')) this.#swipeActionElement.removeAttribute('checked');
       else this.#swipeActionElement.setAttribute('checked', '');
     }
@@ -300,7 +300,7 @@ export default class MDWCardElement extends HTMLComponentElement {
     if (actionRemove) this.remove();
 
     setTimeout(() => {
-      this.style.setProperty('--mdw-card-swipe-action-position', `0px`);
+      this.style.setProperty('--wfc-card-swipe-action-position', `0px`);
     }, 240);
   }
 
@@ -351,4 +351,4 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 }
 
-customElements.define(MDWCardElement.tag, MDWCardElement);
+customElements.define(WFCCardElement.tag, WFCCardElement);

@@ -6,8 +6,8 @@ import util from '../../core/util.js';
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
 
-class MDWAnchorElement extends HTMLComponentElement {
-  static tag = 'mdw-anchor';
+class WFCAnchorElement extends HTMLComponentElement {
+  static tag = 'wfc-anchor';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -29,6 +29,7 @@ class MDWAnchorElement extends HTMLComponentElement {
     this.role = 'link';
     this.render();
     this.#link = this.shadowRoot.querySelector('a');
+    this.#link.href = this.getAttribute('href');
   }
 
   static get observedAttributesExtended() {
@@ -151,8 +152,8 @@ class MDWAnchorElement extends HTMLComponentElement {
 
   #anchorElements() {
     let nav = this.parentElement;
-    if (nav.nodeName === 'MDW-ANCHOR-GROUP') nav = this.parentElement.parentElement;
-    return [...nav.querySelectorAll('mdw-anchor')];
+    if (nav.nodeName === 'WFC-ANCHOR-GROUP') nav = this.parentElement.parentElement;
+    return [...nav.querySelectorAll('wfc-anchor')];
   }
 
   #slotChange(event) {
@@ -162,4 +163,4 @@ class MDWAnchorElement extends HTMLComponentElement {
   }
 }
 
-customElements.define(MDWAnchorElement.tag, MDWAnchorElement);
+customElements.define(WFCAnchorElement.tag, WFCAnchorElement);

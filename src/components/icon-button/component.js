@@ -5,8 +5,8 @@ import styles from './component.css' assert { type: 'css' };
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
 
-export default class MDWIconButtonElement extends HTMLComponentElement {
-  static tag = 'mdw-icon-button';
+export default class WFCIconButtonElement extends HTMLComponentElement {
+  static tag = 'wfc-icon-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -139,4 +139,4 @@ export default class MDWIconButtonElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWIconButtonElement.tag, MDWIconButtonElement);
+customElements.define(WFCIconButtonElement.tag, WFCIconButtonElement);

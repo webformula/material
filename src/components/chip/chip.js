@@ -10,8 +10,8 @@ const inputValueRegex = /^(.+)<(.+)>$/;
 
 // TODO figure out aria label for chip with check mark
 
-class MDWchipElement extends HTMLComponentElement {
-  static tag = 'mdw-chip';
+class WFCchipElement extends HTMLComponentElement {
+  static tag = 'wfc-chip';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -172,7 +172,7 @@ class MDWchipElement extends HTMLComponentElement {
 
   #filterClick(event) {
     if (this.#menu) {
-      if (event.target.nodeName === 'MDW-MENU-ITEM') {
+      if (event.target.nodeName === 'WFC-MENU-ITEM') {
         const current = event.target.parentElement.querySelector('.selected');
         if (current) current.classList.remove('selected');
         event.target.classList.add('selected');
@@ -260,7 +260,7 @@ class MDWchipElement extends HTMLComponentElement {
 
 
   #focusNext() {
-    const next = [...this.parentElement.querySelectorAll('mdw-chip')].reverse().find(e => e !== this);
+    const next = [...this.parentElement.querySelectorAll('wfc-chip')].reverse().find(e => e !== this);
     if (next) requestAnimationFrame(() => next.focus());
   }
 
@@ -278,14 +278,14 @@ class MDWchipElement extends HTMLComponentElement {
   }
 
   #updateMenuSelection() {
-    const current = this.#menu.querySelector('mdw-menu-item.selected');
+    const current = this.#menu.querySelector('wfc-menu-item.selected');
     if (current) {
       current.classList.remove('selected');
       this.#checked = false;
       this.classList.remove('checked');
     }
 
-    const toSelect = this.value && [...this.#menu.querySelectorAll('mdw-menu-item')].find(e => e.value === this.value);
+    const toSelect = this.value && [...this.#menu.querySelectorAll('wfc-menu-item')].find(e => e.value === this.value);
     if (toSelect) {
       toSelect.classList.add('selected');
       if (!this.label || this.label === this.value) this.label = toSelect.label;
@@ -294,4 +294,4 @@ class MDWchipElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWchipElement.tag, MDWchipElement);
+customElements.define(WFCchipElement.tag, WFCchipElement);

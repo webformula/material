@@ -1,8 +1,8 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
-class MDWAvatarElement extends HTMLComponentElement {
-  static tag = 'mdw-avatar';
+class WFCAvatarElement extends HTMLComponentElement {
+  static tag = 'wfc-avatar';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -37,4 +37,4 @@ class MDWAvatarElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWAvatarElement.tag, MDWAvatarElement);
+customElements.define(WFCAvatarElement.tag, WFCAvatarElement);

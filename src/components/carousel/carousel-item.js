@@ -1,7 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 
-export default class MDWCarouselItemElement extends HTMLComponentElement {
-  static tag = 'mdw-carousel-item';
+export default class WFCCarouselItemElement extends HTMLComponentElement {
+  static tag = 'wfc-carousel-item';
   #width = null;
 
 
@@ -41,8 +41,8 @@ export default class MDWCarouselItemElement extends HTMLComponentElement {
     value = parseInt(value);
     const changed = value !== this.#width;
     this.#width = value;
-    if (changed) this.dispatchEvent(new Event('mdw-carousel-item-change', { bubbles: true }));
+    if (changed) this.dispatchEvent(new Event('wfc-carousel-item-change', { bubbles: true }));
   }
 }
 
-customElements.define(MDWCarouselItemElement.tag, MDWCarouselItemElement);
+customElements.define(WFCCarouselItemElement.tag, WFCCarouselItemElement);

@@ -1,4 +1,4 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 import {
   keyboard_FILL0_wght400_GRAD0_opsz24,
@@ -9,8 +9,8 @@ import device from '../../core/device.js';
 // TODO accessability
 // TODO min max
 
-class MDWTimePickerElement extends MDWSurfaceElement {
-  static tag = 'mdw-time-picker';
+class WFCTimePickerElement extends WFCSurfaceElement {
+  static tag = 'wfc-time-picker';
   static styleSheets = styles;
 
   #abort;
@@ -91,13 +91,13 @@ class MDWTimePickerElement extends MDWSurfaceElement {
             </div>
 
             <div class="actions">
-              <mdw-icon-button class="keyboard">
-                <mdw-icon>${keyboard_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-                <mdw-icon slot="selected">${schedule_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-              </mdw-icon-button>
+              <wfc-icon-button class="keyboard">
+                <wfc-icon>${keyboard_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+                <wfc-icon slot="selected">${schedule_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+              </wfc-icon-button>
               <span style="flex: 1"></span>
-              <mdw-button class="cancel">cancel</mdw-button>
-              <mdw-button class="ok">ok</mdw-button>
+              <wfc-button class="cancel">cancel</wfc-button>
+              <wfc-button class="ok">ok</wfc-button>
             </div>
           </div>
         </div>
@@ -631,4 +631,4 @@ class MDWTimePickerElement extends MDWSurfaceElement {
     }
   }
 }
-customElements.define(MDWTimePickerElement.tag, MDWTimePickerElement);
+customElements.define(WFCTimePickerElement.tag, WFCTimePickerElement);

@@ -1,56 +1,56 @@
-mdw-carousel {
+wfc-carousel {
   display: flex;
-  background-color: var(--mdw-surface);
+  background-color: var(--wfc-surface);
   margin: 8px 16px;
   min-height: 80px;
   overflow-x: auto;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
   opacity: 0;
 }
 
-mdw-carousel::-webkit-scrollbar {
+wfc-carousel::-webkit-scrollbar {
   width: 0px;
   height: 0px;
   background-color: transparent;
 }
 
-mdw-carousel.loaded {
+wfc-carousel.loaded {
   opacity: 1;
   transition: opacity 240ms;
 }
 
-mdw-carousel .carousel-front-padding,
-mdw-carousel .carousel-back-padding {
+wfc-carousel .carousel-front-padding,
+wfc-carousel .carousel-back-padding {
   flex-shrink: 0;
 }
 
-mdw-carousel-item {
-  --mdw-carousel-item-text-opacity: 0;
+wfc-carousel-item {
+  --wfc-carousel-item-text-opacity: 0;
   position: relative;
   display: flex;
   flex-shrink: 0;
   justify-content: center;
   min-width: 40px;
   flex-basis: 40px;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
   overflow: hidden;
   padding: 0;
   margin: 0;
-  background-color: var(--mdw-surface);
+  background-color: var(--wfc-surface);
   margin-right: 8px;
   pointer-events: none;
   user-select: none;
 }
 
-mdw-carousel-item:last-of-type {
+wfc-carousel-item:last-of-type {
   margin-right: 0;
 }
 
-mdw-carousel-item img {
+wfc-carousel-item img {
   height: 100%;
 }
 
-mdw-carousel-item .text {
+wfc-carousel-item .text {
   position: absolute;
   width: inherit;
   overflow: hidden;
@@ -58,7 +58,7 @@ mdw-carousel-item .text {
   left: -14px;
   padding-left: 28px;
   box-sizing: border-box;
-  opacity: var(--mdw-carousel-item-text-opacity);
-  color: var(--mdw-on-surface-inverse);
-  text-shadow: 1px 1px 6px var(--mdw-shadow);
+  opacity: var(--wfc-carousel-item-text-opacity);
+  color: var(--wfc-on-surface-inverse);
+  text-shadow: 1px 1px 6px var(--wfc-shadow);
 }

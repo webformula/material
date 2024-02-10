@@ -1,5 +1,5 @@
 <h3 class="page-title">Time pickers</h3>
-<div class="page-subheader mdw-font-title-medium">Time pickers help users select and set a specific time</div>
+<div class="page-subheader wfc-font-title-medium">Time pickers help users select and set a specific time</div>
 <a href="https://m3.material.io/components/time-pickers/overview" target="_new">Material Design Guidelines: Time
       pickers</a>
 
@@ -7,7 +7,7 @@
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Time</a></li>
       <li><a href="#hour24">24 Format</a></li>
@@ -17,98 +17,98 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Time</div>
     
         <div class="example">
-          <mdw-textfield label="Time" type="time">
-            <mdw-icon slot="leading-icon">schedule</mdw-icon>
-            <mdw-time-picker slot="picker"></mdw-time-picker>
-          </mdw-textfield>
+          <wfc-textfield label="Time" type="time">
+            <wfc-icon slot="leading-icon">schedule</wfc-icon>
+            <wfc-time-picker slot="picker"></wfc-time-picker>
+          </wfc-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="Time" type="time">
-    <mdw-icon slot="leading-icon">schedule</mdw-icon>
-    <mdw-time-picker slot="picker"></mdw-time-picker>
-  </mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="Time" type="time">
+    <wfc-icon slot="leading-icon">schedule</wfc-icon>
+    <wfc-time-picker slot="picker"></wfc-time-picker>
+  </wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="hour24">
+    <wfc-card id="hour24">
       <div class="card-content">
         <div class="headline">Time formatted in 24 hours</div>
         <div class="supporting-text">The browser controls the input formate based on locale. You can force the time picker to be 24 hour format.</div>
     
         <div class="example">
-          <mdw-textfield label="Time" type="time">
-            <mdw-icon slot="leading-icon">schedule</mdw-icon>
-            <mdw-time-picker hour24 slot="picker"></mdw-time-picker>
-          </mdw-textfield>
+          <wfc-textfield label="Time" type="time">
+            <wfc-icon slot="leading-icon">schedule</wfc-icon>
+            <wfc-time-picker hour24 slot="picker"></wfc-time-picker>
+          </wfc-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="Time" type="time">
-    <mdw-icon slot="leading-icon">schedule</mdw-icon>
-    <mdw-time-picker hour24 slot="picker"></mdw-time-picker>
-  </mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="Time" type="time">
+    <wfc-icon slot="leading-icon">schedule</wfc-icon>
+    <wfc-time-picker hour24 slot="picker"></wfc-time-picker>
+  </wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="step">
+    <wfc-card id="step">
       <div class="card-content">
         <div class="headline">Step</div>
         <div class="supporting-text">The step attribute is in seconds</div>
     
         <div class="example">
-          <mdw-textfield label="10 min step" type="time" step="600">
-            <mdw-icon slot="leading-icon">schedule</mdw-icon>
-            <mdw-time-picker slot="picker"></mdw-time-picker>
-          </mdw-textfield>
+          <wfc-textfield label="10 min step" type="time" step="600">
+            <wfc-icon slot="leading-icon">schedule</wfc-icon>
+            <wfc-time-picker slot="picker"></wfc-time-picker>
+          </wfc-textfield>
 
-          <mdw-textfield label="2 hour step" type="time" step="7200">
-            <mdw-icon slot="leading-icon">schedule</mdw-icon>
-            <mdw-time-picker slot="picker"></mdw-time-picker>
-          </mdw-textfield>
+          <wfc-textfield label="2 hour step" type="time" step="7200">
+            <wfc-icon slot="leading-icon">schedule</wfc-icon>
+            <wfc-time-picker slot="picker"></wfc-time-picker>
+          </wfc-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="10 min step" type="time" step="600">
-    <mdw-icon slot="leading-icon">schedule</mdw-icon>
-    <mdw-time-picker slot="picker"></mdw-time-picker>
-  </mdw-textfield>
+  ${page.escape(`<wfc-textfield label="10 min step" type="time" step="600">
+    <wfc-icon slot="leading-icon">schedule</wfc-icon>
+    <wfc-time-picker slot="picker"></wfc-time-picker>
+  </wfc-textfield>
   
-  <mdw-textfield label="2 hour step" type="time" step="7200">
-    <mdw-icon slot="leading-icon">schedule</mdw-icon>
-    <mdw-time-picker slot="picker"></mdw-time-picker>
-  </mdw-textfield>`)}
+  <wfc-textfield label="2 hour step" type="time" step="7200">
+    <wfc-icon slot="leading-icon">schedule</wfc-icon>
+    <wfc-time-picker slot="picker"></wfc-time-picker>
+  </wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="native">
+    <wfc-card id="native">
       <div class="card-content">
         <div class="headline">Native component</div>
     
         <div class="example">
-          <mdw-textfield label="Browser picker" type="time" style="width: 155px"></mdw-textfield>
+          <wfc-textfield label="Browser picker" type="time" style="width: 155px"></wfc-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="Browser picker" type="time"></mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="Browser picker" type="time"></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

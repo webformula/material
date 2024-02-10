@@ -5,8 +5,8 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
 // TODO Figure out is we should have more configuration for start and end swipe actions (currently events only)
-class MDWListItemElement extends HTMLComponentElement {
-  static tag = 'mdw-list-item';
+class WFCListItemElement extends HTMLComponentElement {
+  static tag = 'wfc-list-item';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -30,7 +30,7 @@ class MDWListItemElement extends HTMLComponentElement {
 
     this.role = 'listitem';
     this.render();
-    this.#selectionControl = this.querySelector('mdw-checkbox') || this.querySelector('mdw-switch');
+    this.#selectionControl = this.querySelector('wfc-checkbox') || this.querySelector('wfc-switch');
     if (this.#selectionControl && !this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
   }
 
@@ -73,9 +73,9 @@ class MDWListItemElement extends HTMLComponentElement {
       this.#drag = new Drag(this);
       this.#drag.lockScrollY = true;
       this.#drag.disableMouseEvents = true;
-      this.#drag.on('mdwdragmove', this.#onDrag_bound);
-      this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-      this.#drag.on('mdwdragend', this.#onDragEnd_bound);
+      this.#drag.on('wfcdragmove', this.#onDrag_bound);
+      this.#drag.on('wfcdragstart', this.#onDragStart_bound);
+      this.#drag.on('wfcdragend', this.#onDragEnd_bound);
       this.#drag.enable();
     }
   }
@@ -104,9 +104,9 @@ class MDWListItemElement extends HTMLComponentElement {
     const stateLayer = this.shadowRoot.querySelector('.state-layer');
     stateLayer.classList.toggle('enabled', this.#states);
     if (this.#states) {
-      if (this.querySelector('mdw-checkbox')) this.addEventListener('change', this.#onChange_bound);
+      if (this.querySelector('wfc-checkbox')) this.addEventListener('change', this.#onChange_bound);
     } else if (!this.#states) {
-      if (this.querySelector('mdw-checkbox')) this.removeEventListener('change', this.#onChange_bound);
+      if (this.querySelector('wfc-checkbox')) this.removeEventListener('change', this.#onChange_bound);
     }
   }
 
@@ -170,4 +170,4 @@ class MDWListItemElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWListItemElement.tag, MDWListItemElement);
+customElements.define(WFCListItemElement.tag, WFCListItemElement);

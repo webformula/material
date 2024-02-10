@@ -1,4 +1,4 @@
-const mdwDevice = new class MDWDevice {
+const wfcDevice = new class WFCDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
   #lastState;
@@ -14,9 +14,12 @@ const mdwDevice = new class MDWDevice {
     });
     resizeObserver.observe(document.documentElement);
     this.#setWindow();
-    document.documentElement.classList.add('mdw-initiated');
     window.addEventListener('languagechange', this.#languageChange_bound);
     window.addEventListener('wfclanguagechange', this.#languageChange_bound);
+
+    requestAnimationFrame(() => {
+      document.documentElement.classList.add('wfc-initiated');
+    });
   }
 
   get orientation() {
@@ -78,7 +81,7 @@ const mdwDevice = new class MDWDevice {
     document.body.classList.remove('window-medium');
     document.body.classList.remove('window-expanded');
 
-    document.body.classList.toggle('mdw-mobile', isMobile);
+    document.body.classList.toggle('wfc-mobile', isMobile);
     switch(state) {
       case 'compact':
         document.body.classList.add('window-compact');
@@ -93,13 +96,13 @@ const mdwDevice = new class MDWDevice {
 
     if (!this.#lastState) {
       setTimeout(() => {
-        document.querySelector('body').classList.add('mdw-animation');
+        document.querySelector('body').classList.add('wfc-animation');
         this.#animationReady = true;
       }, 150);
     }
     
     if (!this.#lastState || isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
-      window.dispatchEvent(new CustomEvent('mdwwindowstate', { detail: {
+      window.dispatchEvent(new CustomEvent('wfcwindowstate', { detail: {
         isMobile,
         state,
         lastIsMobile: this.#lastState?.isMobile,
@@ -118,5 +121,5 @@ const mdwDevice = new class MDWDevice {
   }
 }
 
-window.mdwDevice = mdwDevice;
-export default mdwDevice;
+window.wfcDevice = wfcDevice;
+export default wfcDevice;

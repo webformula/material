@@ -36,11 +36,11 @@ function handleHashAnchor(hash, animate = true) {
 
 
 window.toggleColorScheme = () => {
-  const scheme = mdwUtil.toggleColorScheme();
+  const scheme = wfcUtil.toggleColorScheme();
   setTimeout(() => {
     document.querySelectorAll('.theme-toggle').forEach(element => {
-      if (scheme === 'dark') element.classList.add('mdw-toggled');
-      else element.classList.remove('mdw-toggled');
+      if (scheme === 'dark') element.classList.add('wfc-toggled');
+      else element.classList.remove('wfc-toggled');
     });
   }, 0);
 };

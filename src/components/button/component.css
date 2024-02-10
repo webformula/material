@@ -1,7 +1,7 @@
 :host {  
   position: relative;
   display: inline-flex;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
   box-sizing: border-box;
   cursor: pointer;
   outline: none;
@@ -14,10 +14,10 @@
   gap: 8px;
   height: 40px;
   line-height: 40px;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  color: var(--mdw-primary);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
+  color: var(--wfc-primary);
   vertical-align: top;
   pointer-events: none;
 }
@@ -25,7 +25,7 @@
 :host([disabled]) {
   /* pointer-events: none; */
   cursor: default;
-  color: var(--mdw-on-surface);
+  color: var(--wfc-on-surface);
   opacity: 0.38;
 }
 
@@ -57,60 +57,60 @@ button {
 
 
 :host(.filled) {
-  color: var(--mdw-on-primary);
-  background-color: var(--mdw-primary);
+  color: var(--wfc-on-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host([disabled].filled) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
+  background-color: var(--wfc-on-surface-alpha-12);
+  color: var(--wfc-on-surface-alpha-38);
   box-shadow: none;
 }
 
 :host(.elevated) {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-surface-container-low);
-  box-shadow: var(--mdw-elevation-1);
+  color: var(--wfc-primary);
+  background-color: var(--wfc-surface-container-low);
+  box-shadow: var(--wfc-elevation-1);
 }
 
 :host([disabled].elevated) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
+  background-color: var(--wfc-on-surface-alpha-12);
+  color: var(--wfc-on-surface-alpha-38);
   box-shadow: none;
 }
 
 :host(.filled-tonal) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--wfc-on-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 :host([disabled].filled-tonal) {
-  background-color: var(--mdw-on-surface-alpha-12);
-  color: var(--mdw-on-surface-alpha-38);
+  background-color: var(--wfc-on-surface-alpha-12);
+  color: var(--wfc-on-surface-alpha-38);
   box-shadow: none;
 }
 
 :host(.outlined) {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-button-outlined-container-color);
-  border: 1px solid var(--mdw-outline);
+  color: var(--wfc-primary);
+  background-color: var(--wfc-button-outlined-container-color);
+  border: 1px solid var(--wfc-outline);
 }
 
 :host([disabled].outlined) {
-  color: var(--mdw-on-surface-alpha-38);
-  border: 1px solid var(--mdw-on-surface-alpha-12);
+  color: var(--wfc-on-surface-alpha-38);
+  border: 1px solid var(--wfc-on-surface-alpha-12);
 }
 
 
-::slotted(mdw-icon),
-slot[name="leading-icon"]::slotted(mdw-icon) {
+::slotted(wfc-icon),
+slot[name="leading-icon"]::slotted(wfc-icon) {
   pointer-events: none;
   margin-right: -2px;
   margin-left: -2px;
-  width: var(--mdw-font-small-icon-size);
-  height: var(--mdw-font-small-icon-size);
-  font-size: var(--mdw-font-small-icon-size);
-  line-height: var(--mdw-font-small-icon-size);
+  width: var(--wfc-font-small-icon-size);
+  height: var(--wfc-font-small-icon-size);
+  font-size: var(--wfc-font-small-icon-size);
+  line-height: var(--wfc-font-small-icon-size);
 }
 
 
@@ -127,45 +127,45 @@ slot[name="leading-icon"]::slotted(mdw-icon) {
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   transition-property: opacity;
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-surface);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-surface);
 }
 
 :host(:focus.filled) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-primary);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-primary);
 }
 
 :host(:focus.filled) {
-  box-shadow: var(--mdw-elevation-1);
+  box-shadow: var(--wfc-elevation-1);
 }
 
 :host(:focus.filled-tonal) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-secondary-container);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-secondary-container);
 }
 
 :host(:focus.elevated) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-elevate-state-layer-color);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-button-elevate-state-layer-color);
 }
 
 :host(:focus.outlined) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-primary);
 }
 
 :host(:focus.elevated),
 :host(:focus.filled),
 :host(:focus.filled-tonal) {
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   transition-property: box-shadow;
 }
 
@@ -173,50 +173,50 @@ slot[name="leading-icon"]::slotted(mdw-icon) {
   :host(:hover.elevated),
   :host(:hover.filled),
   :host(:hover.filled-tonal) {
-    transition-duration: var(--mdw-motion-duration-medium1);
-    transition-timing-function: var(--mdw-motion-easing-standard);
+    transition-duration: var(--wfc-motion-duration-medium1);
+    transition-timing-function: var(--wfc-motion-easing-standard);
     transition-property: box-shadow;
   }
 
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 
   :host(:hover.filled) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-primary);
   }
 
   :host(:hover.filled-tonal) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-secondary-container);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-secondary-container);
   }
 
   :host(:hover.filled),
   :host(:hover.filled-tonal) {
-    box-shadow: var(--mdw-elevation-1);
+    box-shadow: var(--wfc-elevation-1);
   }
 
   :host(:hover.elevated) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 
   :host(:hover.elevated) {
-    box-shadow: var(--mdw-elevation-2);
+    box-shadow: var(--wfc-elevation-2);
   }
 
   :host(:hover.outlined) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 }
 
 .spinner {
   position: absolute;
   top: 5px;
-  --mdw-progress-circular-stroke-width: 6;
+  --wfc-progress-circular-stroke-width: 6;
 }
 
 :host(.async-pending) {
@@ -243,19 +243,19 @@ slot[name="leading-icon"]::slotted(mdw-icon) {
 }
 
 .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  border-radius: var(--mdw-shape-full);
+  background-color: var(--wfc-primary);
+  opacity: var(--wfc-state-layer-opacity-pressed);
+  border-radius: var(--wfc-shape-full);
 }
 
 :host(.filled) .ripple > .ripple-element {
-  background-color: var(--mdw-on-primary);
+  background-color: var(--wfc-on-primary);
 }
 
 :host(.elevated) .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host(.filled-tonal) .ripple > .ripple-element {
-  background-color: var(--mdw-on-secondary-container);
+  background-color: var(--wfc-on-secondary-container);
 }

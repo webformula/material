@@ -3,8 +3,8 @@ import Ripple from '../../core/Ripple.js';
 import styles from './radios.css' assert { type: 'css' };
 
 
-export default class MDWRadioElement extends HTMLComponentElement {
-  static tag = 'mdw-radio';
+export default class WFCRadioElement extends HTMLComponentElement {
+  static tag = 'wfc-radio';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -108,7 +108,7 @@ export default class MDWRadioElement extends HTMLComponentElement {
     this.#input.checked = this.#checked;
     this.#internals.setFormValue(this.#checked ? this.value : null, this.checked ? 'checked' : undefined);
 
-    const current = this.#checked === true && document.querySelector(`mdw-radio[name="${this.name}"].checked`);
+    const current = this.#checked === true && document.querySelector(`wfc-radio[name="${this.name}"].checked`);
     if (current) current.checked = false;
 
     this.classList.toggle('checked', this.#checked);
@@ -184,7 +184,7 @@ export default class MDWRadioElement extends HTMLComponentElement {
     }
 
     if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
-      const radios = [...document.querySelectorAll(`mdw-radio[name="${this.name}"]`)];
+      const radios = [...document.querySelectorAll(`wfc-radio[name="${this.name}"]`)];
       const index = radios.indexOf(this);
       if (e.code === 'ArrowUp' && index > 0) {
         radios[index - 1].focus();
@@ -206,4 +206,4 @@ export default class MDWRadioElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWRadioElement.tag, MDWRadioElement);
+customElements.define(WFCRadioElement.tag, WFCRadioElement);

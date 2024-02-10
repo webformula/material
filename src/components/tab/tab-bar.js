@@ -2,11 +2,11 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
 
-class MDWTabBarElement extends HTMLElementExtended {
-  static tag = 'mdw-tab-bar';
+class WFCTabBarElement extends HTMLElementExtended {
+  static tag = 'wfc-tab-bar';
   #underline = document.createElement('div');
   #onClick_bound = this.#onClick.bind(this);
-  #secondary = this.classList.contains('mdw-tab-secondary');
+  #secondary = this.classList.contains('wfc-tab-secondary');
   #lastValue;
 
 
@@ -15,7 +15,7 @@ class MDWTabBarElement extends HTMLElementExtended {
   }
 
   connectedCallback() {
-    this.#underline.classList.add('mdw-tab-underline');
+    this.#underline.classList.add('wfc-tab-underline');
     this.insertAdjacentElement('beforeend', this.#underline);
     this.#handleTabsWithLabelsAndIcons();
     this.addEventListener('click', this.#onClick_bound);
@@ -34,14 +34,14 @@ class MDWTabBarElement extends HTMLElementExtended {
   }
 
   get value() {
-    const activeTab = this.querySelector('mdw-tab[active]');
+    const activeTab = this.querySelector('wfc-tab[active]');
     return activeTab && activeTab.value;
   }
   set value(value) {
-    const activeTab = this.querySelector('mdw-tab[active]');
+    const activeTab = this.querySelector('wfc-tab[active]');
     if (activeTab) activeTab.active = false;
 
-    const tab = this.querySelector(`mdw-tab[value="${value}"]`);
+    const tab = this.querySelector(`wfc-tab[value="${value}"]`);
     if (tab) tab.active = true;
   }
 
@@ -53,7 +53,7 @@ class MDWTabBarElement extends HTMLElementExtended {
   }
 
   #positionUnderline() {
-    const activeTab = this.querySelector('mdw-tab[active]');
+    const activeTab = this.querySelector('wfc-tab[active]');
     if (!activeTab) {
       return;
     }
@@ -62,7 +62,7 @@ class MDWTabBarElement extends HTMLElementExtended {
     const containerBounds = this.getBoundingClientRect();
     const tabBounds = activeTab.getBoundingClientRect();
     const textWidth = util.getTextWidth(activeTab);
-    const icon = activeTab.querySelector('mdw-icon');
+    const icon = activeTab.querySelector('wfc-icon');
 
     let width = icon ? icon.offsetWidth : textWidth + 3;
     let left = tabBounds.x - containerBounds.x + (tabBounds.width / 2) - (width / 2);
@@ -85,8 +85,8 @@ class MDWTabBarElement extends HTMLElementExtended {
 
   // change tab height when containing both labels and icons
   #handleTabsWithLabelsAndIcons() {
-    const twoLine = [...this.querySelectorAll('mdw-tab')].find(tab => {
-      const icon = tab.querySelector('mdw-icon');
+    const twoLine = [...this.querySelectorAll('wfc-tab')].find(tab => {
+      const icon = tab.querySelector('wfc-icon');
       if (!icon) return false;
 
       const text = util.getTextFromNode(tab);
@@ -94,7 +94,7 @@ class MDWTabBarElement extends HTMLElementExtended {
       return true;
     });
 
-    if (twoLine) this.classList.add('mdw-line-two');
+    if (twoLine) this.classList.add('wfc-line-two');
   }
 }
-customElements.define(MDWTabBarElement.tag, MDWTabBarElement);
+customElements.define(WFCTabBarElement.tag, WFCTabBarElement);

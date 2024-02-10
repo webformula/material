@@ -9,10 +9,10 @@
   min-height: 6px;
   display: none;
   pointer-events: none;
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
-:host-context(mdw-button) {
+:host-context(wfc-button) {
   position: relative;
   order: 100;
   margin-inline-start: 0px;
@@ -21,7 +21,7 @@
   inset-inline-start: 0;
 }
 
-:host-context(mdw-button):host(.has-value:not(.hide-value)) {
+:host-context(wfc-button):host(.has-value:not(.hide-value)) {
   margin-block-end: 3px;
 }
 
@@ -35,11 +35,11 @@
   margin-block-start: 1px;
 
   padding: 0px 4px;
-  font-size: var(--mdw-font-small-label-size);
-  font-size: var(--mdw-font-small-label-weight);
-  letter-spacing: var(--mdw-font-small-label-tracking);
-  line-height: var(--mdw-font-small-label-line-height);
-  color: var(--mdw-on-error);
+  font-size: var(--wfc-font-small-label-size);
+  font-size: var(--wfc-font-small-label-weight);
+  letter-spacing: var(--wfc-font-small-label-tracking);
+  line-height: var(--wfc-font-small-label-line-height);
+  color: var(--wfc-on-error);
 }
 
 slot {

@@ -1,12 +1,12 @@
 <h3 class="page-title">Styles</h3>
-<div class="page-subheader mdw-font-title-medium">Material theme, colors, motion, font</div>
+<div class="page-subheader wfc-font-title-medium">Material theme, colors, motion, font</div>
 <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
   Guidelines: Styles</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#build">Build theme</a></li>
       <li><a href="#scheme">Color scheme</a></li>
@@ -17,7 +17,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="build">
+    <wfc-card id="build">
       <div class="card-content">
         <div class="headline">Build theme</div>
         <div class="supporting-text">You can modify all the colors,
@@ -29,7 +29,7 @@
       <pre>
         <code class="language-css">
   ${`/* hide page while loading */
-  html:not(.mdw-initiated) {
+  html:not(.wfc-initiated) {
     opacity: 0;
     pointer-events: none;
   }`}
@@ -65,28 +65,28 @@
   }, './colorTokens.css');`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="scheme">
+    <wfc-card id="scheme">
       <div class="card-content">
         <div class="headline">Color schemes (light, dark)</div>
         <div class="subheader">Change between dark and light color schemes</div>
         <div class="supporting-text">There are 5 mechanisms that affect the color scheme</div>
         <ul>
-          <li><b>Local storage:</b> mdw-color-scheme = 'light | dark' (user preference setting)</li>
-          <li><b>CSS class:</b> .mdw-theme-dark</li>
+          <li><b>Local storage:</b> wfc-color-scheme = 'light | dark' (user preference setting)</li>
+          <li><b>CSS class:</b> .wfc-theme-dark</li>
           <li><b>CSS :root</b> { color-scheme: light | dark; } (this is not officially supported ina ll browsers)</li>
           <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
-          <li><b>mdwUtil:</b> mdwUtil.toggleColorScheme('' | 'light | dark')</li>
+          <li><b>wfcUtil:</b> wfcUtil.toggleColorScheme('' | 'light | dark')</li>
         </ul>
 
         <div class="supporting-text">Using theme css color variable will auto adjust with light and dark themes</div>
 
-        <mdw-button class="theme-toggle mdw-icon-toggle-button ${document.documentElement.classList.contains('mdw-theme-dark') ? 'mdw-toggled' : ''}" onClick="window.toggleColorScheme()">
-          <mdw-icon value="on">dark_mode</mdw-icon>
-          <mdw-icon value="off">light_mode</mdw-icon>
-        </mdw-button>
+        <wfc-button class="theme-toggle wfc-icon-toggle-button ${document.documentElement.classList.contains('wfc-theme-dark') ? 'wfc-toggled' : ''}" onClick="window.toggleColorScheme()">
+          <wfc-icon value="on">dark_mode</wfc-icon>
+          <wfc-icon value="off">light_mode</wfc-icon>
+        </wfc-button>
       </div>
 
 
@@ -94,14 +94,14 @@
         <code class="language-javascript">
   ${`// Local storage. User preference storage
     
-  window.localStorage.setItem('mdw-color-scheme', 'light | dark');`}
+  window.localStorage.setItem('wfc-color-scheme', 'light | dark');`}
         </code>
       </pre>
 
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- add class to html tag -->
-    <html class="mdw-theme-dark"></html>`)}
+    <html class="wfc-theme-dark"></html>`)}
         </code>
       </pre>
 
@@ -120,11 +120,11 @@
       <code class="language-javascript">
   ${`// Util method. This will override all the above mechanisms
     
-  import { mdwUtil } from '@webformula/material/services';
-  const scheme = mdwUtil.toggleColorScheme();
+  import { wfcUtil } from '@webformula/material/services';
+  const scheme = wfcUtil.toggleColorScheme();
   console.log(scheme); // light | dark
-  mdwUtil.toggleColorScheme('light');
-  mdwUtil.toggleColorScheme('dark');`}
+  wfcUtil.toggleColorScheme('light');
+  wfcUtil.toggleColorScheme('dark');`}
         </code>
       </pre>
 
@@ -132,17 +132,17 @@
         <code class="language-html">
   ${page.escape(`<!-- Using theme css color variable will auto adjust with light and dark themes -->
 
-  <mdw-icon style="color: var(--mdw-primary)">home</mdw-icon>
+  <wfc-icon style="color: var(--wfc-primary)">home</wfc-icon>
   
   .some-class {
-    color: var(--mdw-primary);
+    color: var(--wfc-primary);
   }`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="font">
+    <wfc-card id="font">
       <div class="card-content">
         <div class="headline">Typography</div>
         <div class="subheader">You can modify the <b>brand</b> and <b>plain</b> font faces</div>
@@ -155,15 +155,15 @@
       <pre>
         <code class="language-css">
   ${`:root {
-    --mdw-font-brand: 'Roboto';
-    --mdw-font-plain: 'Roboto';
+    --wfc-font-brand: 'Roboto';
+    --wfc-font-plain: 'Roboto';
   }`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="using-vars">
+    <wfc-card id="using-vars">
       <div class="card-content">
         <div class="headline">Using theme variables</div>
         <div class="supporting-text">You can use the theme.css variables in your css classes to modify colors</div>
@@ -175,28 +175,28 @@
         <code class="language-css">
   ${`/* use theme color */
   .someclass {
-    color: var(--mdw-primary);
+    color: var(--wfc-primary);
     /* use custom theme color */
-    color: var(--mdw-custom-color);
+    color: var(--wfc-custom-color);
   }
   
   /* use theme color tone */
   .someclass {
-    color: var(--mdw-primary-10);
+    color: var(--wfc-primary-10);
     /* use custom theme color */
-    color: var(--mdw-custom-color-10);
+    color: var(--wfc-custom-color-10);
   }
   
   /* use theme color with alpha */
   .someclass {
-    color: var(--mdw-primary-alpha-76);
+    color: var(--wfc-primary-alpha-76);
   }`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="roles">
+    <wfc-card id="roles">
       <div class="card-content">
         <div class="headline">Color roles</div>
         <div class="subheader">You can change the color roles of components</div>
@@ -204,36 +204,36 @@
       </div>
     
       <div class="card-content">
-        <mdw-button class="filled">Default</mdw-button>
-        <mdw-button class="filled mdw-secondary">Secondary</mdw-button>
+        <wfc-button class="filled">Default</wfc-button>
+        <wfc-button class="filled wfc-secondary">Secondary</wfc-button>
       </div>
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button class="filled">Default</mdw-button>
-  <mdw-button class="filled mdw-secondary">Secondary</mdw-button>`)}
+  ${page.escape(`<wfc-button class="filled">Default</wfc-button>
+  <wfc-button class="filled wfc-secondary">Secondary</wfc-button>`)}
         </code>
       </pre>
       <pre>
         <code class="language-javascript">
   ${`// Roles
-  mdw-primary
-  mdw-on-primary
-  mdw-primary-container
-  mdw-on-primary-container
-  mdw-secondary
-  mdw-on-secondary
-  mdw-secondary-container
-  mdw-on-secondary-container
-  mdw-tertiary
-  mdw-on-tertiary
-  mdw-tertiary-container
-  mdw-on-tertiary-container
-  mdw-error
-  mdw-on-error
-  mdw-error-container
-  mdw-on-error-container`}
+  wfc-primary
+  wfc-on-primary
+  wfc-primary-container
+  wfc-on-primary-container
+  wfc-secondary
+  wfc-on-secondary
+  wfc-secondary-container
+  wfc-on-secondary-container
+  wfc-tertiary
+  wfc-on-tertiary
+  wfc-tertiary-container
+  wfc-on-tertiary-container
+  wfc-error
+  wfc-on-error
+  wfc-error-container
+  wfc-on-error-container`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

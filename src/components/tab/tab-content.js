@@ -2,8 +2,8 @@ import HTMLElementExtended from '../HTMLElementExtended.js';
 import util from '../../core/util.js';
 
 // TODO add proper tab panel transitions
-class MDWTabContentElement extends HTMLElementExtended {
-  static tag = 'mdw-tab-content';
+class WFCTabContentElement extends HTMLElementExtended {
+  static tag = 'wfc-tab-content';
   #bar;
   #tabChange_bound = this.#tabChange.bind(this);
 
@@ -12,17 +12,17 @@ class MDWTabContentElement extends HTMLElementExtended {
     super();
 
     this.#bar = document.querySelector(this.getAttribute('bar'));
-    if (!this.#bar || this.#bar.nodeName !== 'MDW-TAB-BAR') throw Error('mdw-tab-content requires the "bar" attribute, containing a valid css selector to a mdw-tab-bar');
+    if (!this.#bar || this.#bar.nodeName !== 'WFC-TAB-BAR') throw Error('wfc-tab-content requires the "bar" attribute, containing a valid css selector to a wfc-tab-bar');
   }
 
   connectedCallback() {
     this.#bar.addEventListener('change', this.#tabChange_bound);
 
     util.nextAnimationFrameAsync().then(() => {
-      const active = this.querySelector(`mdw-tab-panel[value="${this.#bar.value}"]`);
+      const active = this.querySelector(`wfc-tab-panel[value="${this.#bar.value}"]`);
       if (active) active.active = true;
     });
-    this.classList.add('mdw-animation');
+    this.classList.add('wfc-animation');
   }
 
   disconnectedCallback() {
@@ -30,9 +30,9 @@ class MDWTabContentElement extends HTMLElementExtended {
   }
 
   #tabChange() {
-    const activePanel = this.querySelector('mdw-tab-panel[active]');
-    const nextActive = this.querySelector(`mdw-tab-panel[value="${this.#bar.value}"]`);
-    if (!nextActive) console.warn(`No mdw-tab-panel found for value: "${this.#bar.value}". Current active panel will stay active`);
+    const activePanel = this.querySelector('wfc-tab-panel[active]');
+    const nextActive = this.querySelector(`wfc-tab-panel[value="${this.#bar.value}"]`);
+    if (!nextActive) console.warn(`No wfc-tab-panel found for value: "${this.#bar.value}". Current active panel will stay active`);
     else {
       if (activePanel) activePanel.active = false;
       nextActive.active = true;
@@ -40,4 +40,4 @@ class MDWTabContentElement extends HTMLElementExtended {
   }
 }
 
-customElements.define(MDWTabContentElement.tag, MDWTabContentElement);
+customElements.define(WFCTabContentElement.tag, WFCTabContentElement);

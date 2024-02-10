@@ -1,23 +1,23 @@
 :host {
   border-radius: 0;
-  color: var(--mdw-on-surface);
-  border-left: 1px solid var(--mdw-outline);
-  border-top: 1px solid var(--mdw-outline);
-  border-bottom: 1px solid var(--mdw-outline);
+  color: var(--wfc-on-surface);
+  border-left: 1px solid var(--wfc-outline);
+  border-top: 1px solid var(--wfc-outline);
+  border-bottom: 1px solid var(--wfc-outline);
 }
 
 :host(:last-of-type) {
-  border-right: 1px solid var(--mdw-outline);
-  border-radius: 0 var(--mdw-shape-extra-large) var(--mdw-shape-extra-large) 0;
+  border-right: 1px solid var(--wfc-outline);
+  border-radius: 0 var(--wfc-shape-extra-large) var(--wfc-shape-extra-large) 0;
 }
 
 :host(:first-of-type) {
-  border-radius: var(--mdw-shape-extra-large) 0 0 var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large) 0 0 var(--wfc-shape-extra-large);
 }
 
 :host(.checked) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--wfc-on-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 .check {
@@ -29,21 +29,21 @@
   margin-left: -8px;
   margin-right: -2px;
   animation: uncheck;
-  animation-duration: var(--mdw-motion-duration-medium1);
+  animation-duration: var(--wfc-motion-duration-medium1);
 }
 
 :host(.checked:not(.no-checkmark)) .check {
   opacity: 1;
   width: 18px;
   animation: check;
-  animation-duration: var(--mdw-motion-duration-medium1);
+  animation-duration: var(--wfc-motion-duration-medium1);
 }
 
 .check svg {
   display: block;
   width: 18px;
   height: 18px;
-  stroke: var(--mdw-primary);
+  stroke: var(--wfc-primary);
   stroke-width: 4;
 }
 
@@ -51,7 +51,7 @@
   stroke-dasharray: 40;
   stroke-dashoffset: 40;
   transition: stroke-dashoffset;
-  transition-duration: var(--mdw-motion-duration-medium1);
+  transition-duration: var(--wfc-motion-duration-medium1);
 }
 
 :host(.checked:not(.no-checkmark)) .check svg path {

@@ -16,17 +16,17 @@
   z-index: 9;
   gap: 8px;
 
-  background-color: var(--mdw-surface-container);
-  box-shadow: var(--mdw-elevation-2);
+  background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-2);
 
   margin-bottom: 0;
   transition: margin-bottom;
   transition-duration: 0;
-  transition-timing-function: var(---mdw-motion-easing-standard);
+  transition-timing-function: var(---wfc-motion-easing-standard);
 }
 
-:host-context(body.mdw-animation) {
-  transition-duration: var(--mdw-motion-duration-short3);
+:host-context(body.wfc-animation) {
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 
 :host-context(body.has-navigation-rail.window-medium):host(:not(.always-show)),
@@ -38,6 +38,6 @@
   margin-bottom: -80px;
 }
 
-::slotted(mdw-navigation-button) {
+::slotted(wfc-navigation-button) {
   margin-left: 12px;
 }

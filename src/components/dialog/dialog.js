@@ -5,8 +5,8 @@ import dialogService from './service.js';
 import { close_FILL0_wght400_GRAD0_opsz24 } from '../../core/svgs.js';
 
 
-export default class MDWDialogElement extends HTMLComponentElement {
-  static tag = 'mdw-dialog';
+export default class WFCDialogElement extends HTMLComponentElement {
+  static tag = 'wfc-dialog';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -50,7 +50,7 @@ export default class MDWDialogElement extends HTMLComponentElement {
         <div class="header">
           <slot name="icon"></slot>
           <slot name="headline"></slot>
-          <mdw-icon class="close-fullscreen">${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+          <wfc-icon class="close-fullscreen">${close_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
         </div>
         <slot name="content"></slot>
         <slot name="actions"></slot>
@@ -129,8 +129,8 @@ export default class MDWDialogElement extends HTMLComponentElement {
 
     this.#dialog.showModal();
     this.#dialog.classList.add('open');
-    this.#dialog.style.setProperty('--mdw-dialog-height', `${this.#dialog.offsetHeight}px`);
-    this.#dialog.style.setProperty('--mdw-dialog-height-transition-duration', this.#dialog.offsetHeight < 200 ? '200ms' : '');
+    this.#dialog.style.setProperty('--wfc-dialog-height', `${this.#dialog.offsetHeight}px`);
+    this.#dialog.style.setProperty('--wfc-dialog-height-transition-duration', this.#dialog.offsetHeight < 200 ? '200ms' : '');
     const content = this.#dialog.querySelector('slot[name="content"]');
     const dialogBounds = this.#dialog.getBoundingClientRect();
     const isScroll = (content.offsetHeight + content.scrollHeight + this.#dialog.querySelector('slot[name="actions"]').offsetHeight) > dialogBounds.bottom;
@@ -259,4 +259,4 @@ export default class MDWDialogElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWDialogElement.tag, MDWDialogElement);
+customElements.define(WFCDialogElement.tag, WFCDialogElement);

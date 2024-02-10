@@ -1,11 +1,11 @@
 <h3 class="page-title">Cards</h3>
-<div class="page-subheader mdw-font-title-medium">Cards contain content and actions that relate information about a subject</div>
+<div class="page-subheader wfc-font-title-medium">Cards contain content and actions that relate information about a subject</div>
 <a href="https://m3.material.io/components/cards/overview" target="_new">Material Design Guidelines: Buttons</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic card</a></li>
       <li><a href="#types">Card types</a></li>
@@ -18,52 +18,52 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
         <div class="supporting-text">There are three types of cards: elevated, filled, and outlined</div>
       </div>
     
       <div class="card-content">
-        <mdw-card-group>
-          <mdw-card value="one">
+        <wfc-card-group>
+          <wfc-card value="one">
             <div class="card-content">
               <div class="headline">Regular</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
     
-          <mdw-card class="filled">
+          <wfc-card class="filled">
             <div class="card-content">
               <div class="headline">Filled</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
     
-          <mdw-card class="outlined">
+          <wfc-card class="outlined">
             <div class="card-content">
               <div class="headline">Outlined</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card onclick="console.log('action')">
+          <wfc-card onclick="console.log('action')">
             <div class="card-content">
               <div class="headline">Actionable</div>
               <div class="subhead">ripple</div>
             </div>
             <div class="ripple"></div>
-          </mdw-card>
+          </wfc-card>
         </mgw-card-group>
       </div>
-    </mdw-card>
+    </wfc-card>
     
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic card</div>
         
         <div class="example" style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <mdw-card style="max-width: 320px">
+          <wfc-card style="max-width: 320px">
             <div class="card-image rounded size-medium">
               <img alt="landscape"
                 src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -74,22 +74,22 @@
               <div class="subhead">Subhead</div>
               <div class="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card style="width: 220px; height: 120px;" onclick="console.log('action')">
+          <wfc-card style="width: 220px; height: 120px;" onclick="console.log('action')">
             <div class="card-content">
               <div class="headline">Actionable</div>
               <div class="subhead">Ripple</div>
               <div class="supporting-text">Click to see ripple</div>
             </div>
             <div class="ripple"></div>
-          </mdw-card>
+          </wfc-card>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card>
+  ${page.escape(`<wfc-card>
     <div class="card-image rounded size-medium">
       <img alt="landscape"
         src="..." />
@@ -101,83 +101,83 @@
       <div class="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.
       </div>
     </div>
-  </mdw-card>
+  </wfc-card>
   
-  <mdw-card onclick="console.log('action')">
+  <wfc-card onclick="console.log('action')">
     <div class="card-content">
       <div class="headline">Actionable</div>
       <div class="subhead">Ripple</div>
       <div class="supporting-text">Click to see ripple</div>
     </div>
     <div class="ripple"></div>
-  </mdw-card>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
 
-    <mdw-card id="types">
+    <wfc-card id="types">
       <div class="card-content">
         <div class="headline">Card types</div>
     
         <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-          <mdw-card style="width: 200px">
+          <wfc-card style="width: 200px">
             <div class="card-content">
               <div class="headline">Regular</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card class="filled" style="width: 200px">
+          <wfc-card class="filled" style="width: 200px">
             <div class="card-content">
               <div class="headline">Filled</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card class="outlined" style="width: 200px">
+          <wfc-card class="outlined" style="width: 200px">
             <div class="card-content">
               <div class="headline">Outlined</div>
               <div class="subhead">card</div>
             </div>
-          </mdw-card>
+          </wfc-card>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card>
+  ${page.escape(`<wfc-card>
     <div class="card-content" style="width: 200px">
       <div class="headline">Regular</div>
       <div class="subhead">card</div>
     </div>
-  </mdw-card>
+  </wfc-card>
   
-  <mdw-card class="filled" style="width: 200px">
+  <wfc-card class="filled" style="width: 200px">
     <div class="card-content">
       <div class="headline">Filled</div>
       <div class="subhead">card</div>
     </div>
-  </mdw-card>
+  </wfc-card>
   
-  <mdw-card class="outlined" style="width: 200px">
+  <wfc-card class="outlined" style="width: 200px">
     <div class="card-content">
       <div class="headline">Outlined</div>
       <div class="subhead">card</div>
     </div>
-  </mdw-card>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="expanding">
+    <wfc-card id="expanding">
       <div class="card-content">
         <div class="headline">Expanding card</div>
     
         <div class="example" style="display: flex; flex-wrap: wrap; gap: 20px;">
-          <mdw-card style="max-width: 320px">
+          <wfc-card style="max-width: 320px">
             <div class="card-image rounded size-medium">
               <img alt="landscape"
                 src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -195,9 +195,9 @@
                 </div>
               </div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card style="max-width: 320px">
+          <wfc-card style="max-width: 320px">
             <div class="card-image rounded size-medium">
               <img alt="landscape"
                 src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -233,13 +233,13 @@
                 </div>
               </div>
             </div>
-          </mdw-card>
+          </wfc-card>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card>
+  ${page.escape(`<wfc-card>
     <div class="card-image rounded size-medium">
       <img alt="landscape"
         src="..." />
@@ -251,7 +251,7 @@
           <div class="headline">Headline</div>
           <div class="subhead">Subhead</div>
         </div>
-        <mdw-icon class="mdw-expander-arrow">expand_more</mdw-icon>
+        <wfc-icon class="wfc-expander-arrow">expand_more</wfc-icon>
       </div>
   
       <div class="expanded">
@@ -261,19 +261,19 @@
         </div>
       </div>
     </div>
-  </mdw-card>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="fullscreen">
+    <wfc-card id="fullscreen">
       <div class="card-content">
         <div class="headline">Fullscreen card</div>
         <div class="subhead">Fullscreen card will expand to fullscreen on mobile devices. On desktops the card will open a modal</div>
     
         <div class="example">
-          <mdw-card class="fullscreen" style="max-width: 600px;">
+          <wfc-card class="fullscreen" style="max-width: 600px;">
             <div class="card-image rounded size-medium">
               <img alt="landscape"
                 src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -288,9 +288,9 @@
               <div class="expanded">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <div class="headline">Fullscreen Headline</div>
-                  <mdw-button class="mdw-icon-button filled-tonal">
-                    <mdw-icon>favorite</mdw-icon>
-                  </mdw-button>
+                  <wfc-button class="wfc-icon-button filled-tonal">
+                    <wfc-icon>favorite</wfc-icon>
+                  </wfc-button>
                 </div>
           
                 <div class="supporting-text">
@@ -340,13 +340,13 @@
                 </div>
               </div>
             </div>
-          </mdw-card>
+          </wfc-card>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card class="fullscreen">
+  ${page.escape(`<wfc-card class="fullscreen">
     <div class="card-image rounded size-medium">
       <img alt="landscape"
         src="..." />
@@ -361,9 +361,9 @@
       <div class="expanded">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div class="headline">Fullscreen Headline</div>
-          <mdw-button class="mdw-icon-button filled-tonal">
-            <mdw-icon>favorite</mdw-icon>
-          </mdw-button>
+          <wfc-button class="wfc-icon-button filled-tonal">
+            <wfc-icon>favorite</wfc-icon>
+          </wfc-button>
         </div>
   
         <div class="supporting-text">
@@ -372,21 +372,21 @@
         </div>
       </div>
     </div>
-  </mdw-card>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="layout">
+    <wfc-card id="layout">
       <div class="card-content">
         <div class="headline">Grids and lists</div>
-        <div class="subhead">By default the container will auto swap between grid and list based on screen size. You can for it to always be be one or the other by using classes: 'grid' 'mdw-list'</div>
+        <div class="subhead">By default the container will auto swap between grid and list based on screen size. You can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
     
         <div class="example">
-          <mdw-card-group>
+          <wfc-card-group>
             ${page.cardArray.map(({ height }) => `
-              <mdw-card class="filled">
+              <wfc-card class="filled">
                 <div class="card-image rounded">
                   <img alt="landscape"
                     src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -400,35 +400,35 @@
                     ${height !== '' ? 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature' : ''}
                   </div>
                 </div>
-              </mdw-card>
+              </wfc-card>
             `).join('\n')}
-          </mdw-card-group>
+          </wfc-card-group>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card-group>
+  ${page.escape(`<wfc-card-group>
     ${page.cardArray.map((_, i) => `
-    <mdw-card></mdw-card>
+    <wfc-card></wfc-card>
     `).join('\n')}
-  </mdw-card-group>`)}
+  </wfc-card-group>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="dragreorder">
+    <wfc-card id="dragreorder">
       <div class="card-content">
         <div class="headline">Drag reorder - move item position</div>
         <div class="subhead">Press and hold on card to reorder</div>
         <div class="supporting-text">By default the container will auto swap between grid and list based on screen size. You can
-          for it to always be be one or the other by using classes: 'grid' 'mdw-list'</div>
+          for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
     
         <div class="example">
-          <mdw-card-group class="reorder">
+          <wfc-card-group class="reorder">
             ${page.cardArray.map(({ height }, i) => `
-            <mdw-card class="${i} filled">
+            <wfc-card class="${i} filled">
               <div class="card-image rounded">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -441,17 +441,17 @@
                   one two three four five six.
                 </div>
               </div>
-            </mdw-card>
+            </wfc-card>
             `).join('\n')}
-          </mdw-card-group>
+          </wfc-card-group>
         </div>
 
         <div class="headline" style="margin-top: 42px;">Drag reorder - swap two items</div>
         <div class="subhead">Press and hold on card to reorder</div>
         <div class="example">
-          <mdw-card-group class="reorder-swap">
+          <wfc-card-group class="reorder-swap">
             ${page.cardArray.map(({ height }, i) => `
-            <mdw-card class="${i} filled">
+            <wfc-card class="${i} filled">
               <div class="card-image rounded">
                 <img alt="landscape"
                   src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -464,46 +464,46 @@
                   one two three four five six.
                 </div>
               </div>
-            </mdw-card>
+            </wfc-card>
             `).join('\n')}
-          </mdw-card-group>
+          </wfc-card-group>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
-  <mdw-card-group class="reorder reorder-no-animation">
-    <mdw-card></mdw-card>
-    <mdw-card></mdw-card>
-    <mdw-card></mdw-card>
-  </mdw-card-group>`)}
+  <wfc-card-group class="reorder reorder-no-animation">
+    <wfc-card></wfc-card>
+    <wfc-card></wfc-card>
+    <wfc-card></wfc-card>
+  </wfc-card-group>`)}
         </code>
       </pre>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card-group class="reorder-swap">
-    <mdw-card></mdw-card>
-    <mdw-card></mdw-card>
-    <mdw-card></mdw-card>
-  </mdw-card-group>`)}
+  ${page.escape(`<wfc-card-group class="reorder-swap">
+    <wfc-card></wfc-card>
+    <wfc-card></wfc-card>
+    <wfc-card></wfc-card>
+  </wfc-card-group>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
 
-    <mdw-card id="swipe-action">
+    <wfc-card id="swipe-action">
       <div class="card-content">
         <div class="headline">Swipe actions</div>
         <div class="subhead">Only works on mobile</div>
     
         <div class="example">
-          <mdw-card style="max-width: 320px; margin-bottom: 8px;" value="favorite" onchange="console.log(event.detail)">
-            <mdw-card-swipe-action action="favorite" class="mdw-toggle">
-              <mdw-icon>favorite</mdw-icon>
-            </mdw-card-swipe-action>
+          <wfc-card style="max-width: 320px; margin-bottom: 8px;" value="favorite" onchange="console.log(event.detail)">
+            <wfc-card-swipe-action action="favorite" class="wfc-toggle">
+              <wfc-icon>favorite</wfc-icon>
+            </wfc-card-swipe-action>
             
             <div class="card-content">
               <div class="headline">Favorite toggle</div>
@@ -512,12 +512,12 @@
                 one two three four five six.
               </div>
             </div>
-          </mdw-card>
+          </wfc-card>
 
-          <mdw-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
-            <mdw-card-swipe-action action="remove" action-remove>
-              <mdw-icon>delete</mdw-icon>
-            </mdw-card-swipe-action>
+          <wfc-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
+            <wfc-card-swipe-action action="remove" action-remove>
+              <wfc-icon>delete</wfc-icon>
+            </wfc-card-swipe-action>
           
             <div class="card-content">
               <div class="headline">Remove</div>
@@ -526,16 +526,16 @@
                 one two three four five six.
               </div>
             </div>
-          </mdw-card>
+          </wfc-card>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
-    <mdw-card-swipe-action action="favorite" class="mdw-toggle">
-      <mdw-icon>favorite</mdw-icon>
-    </mdw-card-swipe-action>
+  ${page.escape(`<wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+    <wfc-card-swipe-action action="favorite" class="wfc-toggle">
+      <wfc-icon>favorite</wfc-icon>
+    </wfc-card-swipe-action>
   
     <div class="card-content">
       <div class="headline">Favorite toggle</div>
@@ -544,12 +544,12 @@
         one two three four five six.
       </div>
     </div>
-  </mdw-card>
+  </wfc-card>
   
-  <mdw-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
-    <mdw-card-swipe-action action="remove" action-remove>
-      <mdw-icon>delete</mdw-icon>
-    </mdw-card-swipe-action>
+  <wfc-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
+    <wfc-card-swipe-action action="remove" action-remove>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-card-swipe-action>
   
     <div class="card-content">
       <div class="headline">Remove</div>
@@ -558,9 +558,9 @@
         one two three four five six.
       </div>
     </div>
-  </mdw-card>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

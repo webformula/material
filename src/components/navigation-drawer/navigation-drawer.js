@@ -1,10 +1,10 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
 
-class MDWNavigationDrawerElement extends MDWSurfaceElement {
-  static tag = 'mdw-navigation-drawer';
+class WFCNavigationDrawerElement extends WFCSurfaceElement {
+  static tag = 'wfc-navigation-drawer';
   static styleSheets = styles;
 
   #locationchange_bound = this.#locationchange.bind(this);
@@ -43,13 +43,13 @@ class MDWNavigationDrawerElement extends MDWSurfaceElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('locationchange', this.#locationchange_bound);
-    window.addEventListener('mdwwindowstate', this.#windowStateChange_bound);
+    window.addEventListener('wfcwindowstate', this.#windowStateChange_bound);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     window.removeEventListener('locationchange', this.#locationchange_bound);
-    window.removeEventListener('mdwwindowstate', this.#windowStateChange_bound);
+    window.removeEventListener('wfcwindowstate', this.#windowStateChange_bound);
   }
 
   onShow() {
@@ -68,7 +68,7 @@ class MDWNavigationDrawerElement extends MDWSurfaceElement {
     const current = this.querySelector('.current');
     if (current) {
       current.classList.remove('current');
-      if (current.parentElement.nodeName === 'MDW-ANCHOR-GROUP') {
+      if (current.parentElement.nodeName === 'WFC-ANCHOR-GROUP') {
         current.parentElement.open = false;
         current.parentElement.classList.remove('has-current');
       }
@@ -76,7 +76,7 @@ class MDWNavigationDrawerElement extends MDWSurfaceElement {
     const match = this.querySelector(`[href="${path}"]`);
     if (match) {
       match.classList.add('current');
-      if (match.parentElement.nodeName === 'MDW-ANCHOR-GROUP') {
+      if (match.parentElement.nodeName === 'WFC-ANCHOR-GROUP') {
         match.parentElement.open = true;
         match.parentElement.classList.add('has-current');
       }
@@ -115,4 +115,4 @@ class MDWNavigationDrawerElement extends MDWSurfaceElement {
     }
   }
 }
-customElements.define(MDWNavigationDrawerElement.tag, MDWNavigationDrawerElement);
+customElements.define(WFCNavigationDrawerElement.tag, WFCNavigationDrawerElement);

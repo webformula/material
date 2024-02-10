@@ -38,10 +38,10 @@ export default class Drag {
   #isSnapped = false;
   #stopSnapping = false;
   #listeners = {
-    'mdwdragmove': [],
-    'mdwdragstart': [],
-    'mdwdragend': [],
-    'mdwdragreorder': []
+    'wfcdragmove': [],
+    'wfcdragstart': [],
+    'wfcdragend': [],
+    'wfcdragreorder': []
   };
 
   #drag_bound = this.#drag.bind(this);
@@ -216,12 +216,12 @@ export default class Drag {
   }
 
   on(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend, mdwdragreorder');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, wfcdragreorder');
     this.#listeners[eventType].push(callback);
   }
 
   off(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: mdwdragmove, mdwdragstart, mdwdragend, mdwdragreorder');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, wfcdragreorder');
     if (this.#listeners[eventType].includes(callback)) this.#listeners[eventType].splice(this.#listeners[eventType].indexOf(callback), 1);
   }
 
@@ -280,7 +280,7 @@ export default class Drag {
 
     this.#isDragging = true;
     this.#element.classList.add('drag-active');
-    const dragEvent = this.#track(event, 'mdwdragstart');
+    const dragEvent = this.#track(event, 'wfcdragstart');
     if (this.#lockScrollY) util.lockPageScroll();
     this.#trigger(dragEvent);
   }
@@ -295,7 +295,7 @@ export default class Drag {
     // }
 
     if (this.#lockScrollY || this.#reorder) util.unlockPageScroll();
-    const dragEvent = this.#track(event, 'mdwdragend');
+    const dragEvent = this.#track(event, 'wfcdragend');
     if (this.#overflowDrag) this.#startOverscroll(dragEvent);
     else this.#endFinal(dragEvent);
   }
@@ -309,7 +309,7 @@ export default class Drag {
   }
 
   #drag(event) {
-    // cancel or disable called from mdwdragstart canceling
+    // cancel or disable called from wfcdragstart canceling
     if (this.#isDragging === false) return;
   
     if (this.#resetTrackingDetails) {
@@ -317,7 +317,7 @@ export default class Drag {
       this.#resetTrackingDetails = false;
     }
     if (event.preventDefault && (this.#lockScrollY || this.#reorder)) event.preventDefault();
-    const dragEvent = this.#track(event, 'mdwdragmove');
+    const dragEvent = this.#track(event, 'wfcdragmove');
     
     if (this.#reorder) this.#reorderDrag(dragEvent);
 
@@ -430,7 +430,7 @@ export default class Drag {
   }
 
   #track(event, eventType) {
-    // if (eventType !== 'mdwdragend') {
+    // if (eventType !== 'wfcdragend') {
       const client = this.#getClientPosition(event);
       const clientInitialX = this.#trackingDetails.clientInitialX || client.clientX;
       const clientInitialY = this.#trackingDetails.clientInitialY || client.clientY;
@@ -496,7 +496,7 @@ export default class Drag {
     dragEvent.elapsedTime = this.#trackingDetails.elapsedTime;
     dragEvent.elapsedTimeDelta = this.#trackingDetails.elapsedTimeDelta;
 
-    if (eventType === 'mdwdragend') {
+    if (eventType === 'wfcdragend') {
       const swipes = this.#getSwipe(this.#trackingDetails);
       dragEvent.swipeX = swipes.swipeX;
       dragEvent.swipeY = swipes.swipeY;
@@ -564,7 +564,7 @@ export default class Drag {
       }
     }
 
-    this.#trigger(new Event('mdwdragreorder'));
+    this.#trigger(new Event('wfcdragreorder'));
   }
 
   #cleanupReorder() {
@@ -644,7 +644,7 @@ export default class Drag {
             item.transitionStarted = true;
             requestAnimationFrame(() => {
               item.element.style.transition = `transform ${Math.abs(distance) * 1.5 + 200}ms`;
-              item.element.style.transitionTimingFunction = 'var(--mdw-motion-easing-standard-decelerate)';
+              item.element.style.transitionTimingFunction = 'var(--wfc-motion-easing-standard-decelerate)';
               item.element.style.transform = '';
               util.transitionendAsync(item.element).then(() => {
                 item.inTransition = false;
@@ -726,7 +726,7 @@ export default class Drag {
     const keepScrollingX = deltaX > 1 || deltaX < -1;
     const keepScrollingY = deltaY > 1 || deltaY < -1;
     if ((!keepScrollingX && !keepScrollingY) || (!this.#scrollSnapPositions && this.#scrollSnapPositions.length === 0 && Math.abs(deltaX) < 140)) {
-      this.#endFinal(this.#track(event, 'mdwdragend'));
+      this.#endFinal(this.#track(event, 'wfcdragend'));
       return;
     }
 

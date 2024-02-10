@@ -1,13 +1,13 @@
-import mdwDate from './core/dateUtil.js';
-import mdwDevice from './core/device.js';
-import mdwDialog from './components/dialog/service.js';
-import mdwSnackbar from './components/snackbar/service.js';
-import mdwUtil from './core/util.js';
+import wfcDate from './core/dateUtil.js';
+import wfcDevice from './core/device.js';
+import wfcDialog from './components/dialog/service.js';
+import wfcSnackbar from './components/snackbar/service.js';
+import wfcUtil from './core/util.js';
 
 export {
-  mdwDate,
-  mdwDevice,
-  mdwDialog,
-  mdwUtil,
-  mdwSnackbar
+  wfcDate,
+  wfcDevice,
+  wfcDialog,
+  wfcUtil,
+  wfcSnackbar
 }

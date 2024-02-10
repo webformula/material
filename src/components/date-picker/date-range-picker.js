@@ -1,4 +1,4 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './date-range-picker.css' assert { type: 'css' };
 import dateUtil from '../../core/dateUtil.js';
 import { monthDaysTemplate } from './helper.js';
@@ -11,8 +11,8 @@ import {
 } from '../../core/svgs.js';
 
 
-class MDWDateRangePickerElement extends MDWSurfaceElement {
-  static tag = 'mdw-date-range-picker';
+class WFCDateRangePickerElement extends WFCSurfaceElement {
+  static tag = 'wfc-date-range-picker';
   static styleSheets = styles;
 
 
@@ -72,9 +72,9 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
           <div class="item-padding">
 
             <div class="header">
-              <mdw-icon-button class="close">
-                <mdw-icon>${close_FILL1_wght400_GRAD0_opsz20}</mdw-icon>
-              </mdw-icon-button>
+              <wfc-icon-button class="close">
+                <wfc-icon>${close_FILL1_wght400_GRAD0_opsz20}</wfc-icon>
+              </wfc-icon-button>
 
               <div class="header-center">
                 <div class="select-date">Select dates</div>
@@ -82,12 +82,12 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
               </div>
 
               <div class="header-right">
-                <mdw-button class="save">Save</mdw-button>
+                <wfc-button class="save">Save</wfc-button>
 
-                <mdw-icon-button toggle class="input-view-toggle">
-                  <mdw-icon>${edit_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
-                  <mdw-icon slot="selected">${calendar_today_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-                </mdw-icon-button>
+                <wfc-icon-button toggle class="input-view-toggle">
+                  <wfc-icon>${edit_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
+                  <wfc-icon slot="selected">${calendar_today_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+                </wfc-icon-button>
               </div>
             </div>
 
@@ -98,8 +98,8 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
             <div class="divider"></div>
 
             <div class="inputs">
-              <mdw-textfield label="Start" type="date" class="start outlined hide-date-icon"></mdw-textfield>
-              <mdw-textfield label="End" type="date" class="end outlined hide-date-icon"></mdw-textfield>
+              <wfc-textfield label="Start" type="date" class="start outlined hide-date-icon"></wfc-textfield>
+              <wfc-textfield label="End" type="date" class="end outlined hide-date-icon"></wfc-textfield>
             </div>
             
             <div class="month-days-container">
@@ -111,8 +111,8 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
 
             <div class="divider bottom"></div>
             <div class="actions">
-              <mdw-button class="cancel">Cancel</mdw-button>
-              <mdw-button class="ok">OK</mdw-button>
+              <wfc-button class="cancel">Cancel</wfc-button>
+              <wfc-button class="ok">OK</wfc-button>
             </div>
 
           </div>
@@ -285,8 +285,8 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
     const isInputView = this.classList.contains('input-view');
     this.classList.add('animate-view');
     this.classList.toggle('input-view');
-    const startInput = this.shadowRoot.querySelector('.inputs mdw-textfield.start');
-    const endInput = this.shadowRoot.querySelector('.inputs mdw-textfield.end');
+    const startInput = this.shadowRoot.querySelector('.inputs wfc-textfield.start');
+    const endInput = this.shadowRoot.querySelector('.inputs wfc-textfield.end');
     if (!isInputView) {
       startInput.value = this.#selectedDateStart ? dateUtil.format(this.#selectedDateStart, 'YYYY-MM-dd') : '';
       startInput.focus();
@@ -493,4 +493,4 @@ class MDWDateRangePickerElement extends MDWSurfaceElement {
     }
   }
 }
-customElements.define(MDWDateRangePickerElement.tag, MDWDateRangePickerElement);
+customElements.define(WFCDateRangePickerElement.tag, WFCDateRangePickerElement);

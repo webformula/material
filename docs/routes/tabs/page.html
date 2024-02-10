@@ -1,70 +1,70 @@
 <h3 class="page-title">Tabs</h3>
-<div class="page-subheader mdw-font-title-medium">Tabs organize content across different screens, data sets, and other interactions</div>
+<div class="page-subheader wfc-font-title-medium">Tabs organize content across different screens, data sets, and other interactions</div>
 <a href="https://m3.material.io/components/tabs/overview" target="_new">Material Design Guidelines: Tabs</a>
 
 
 <section class="page-content-section">
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
       </div>
       <div class="card-content">
         <div class="example" title="test">
-          <mdw-tab-bar id="main">
-            <mdw-tab value="1">
+          <wfc-tab-bar id="main">
+            <wfc-tab value="1">
               Label
-            </mdw-tab>
-            <mdw-tab value="2">
-              <mdw-icon>home</mdw-icon>
-            </mdw-tab>
+            </wfc-tab>
+            <wfc-tab value="2">
+              <wfc-icon>home</wfc-icon>
+            </wfc-tab>
     
-            <mdw-tab value="3" active>
-              <!-- <mdw-icon>home</mdw-icon> -->
+            <wfc-tab value="3" active>
+              <!-- <wfc-icon>home</wfc-icon> -->
               label
-            </mdw-tab>
-          </mdw-tab-bar>
+            </wfc-tab>
+          </wfc-tab-bar>
     
-          <mdw-tab-content bar="#main">
-            <mdw-tab-panel value="1">
+          <wfc-tab-content bar="#main">
+            <wfc-tab-panel value="1">
               content 1
-            </mdw-tab-panel>
+            </wfc-tab-panel>
     
-            <mdw-tab-panel value="2">
+            <wfc-tab-panel value="2">
               content 2
-            </mdw-tab-panel>
+            </wfc-tab-panel>
     
-            <mdw-tab-panel value="3">
+            <wfc-tab-panel value="3">
               content 3
-            </mdw-tab-panel>
-          </mdw-tab-content>
+            </wfc-tab-panel>
+          </wfc-tab-content>
         </div>
       </div>
-    </mdw-card>
+    </wfc-card>
     
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content">
         <div class="headline">Basic</div>
         
         <div class="example" style="height: 200px; overflow-y: auto;">
-          <mdw-tabs id="one">
-            <div class="mdw-tab">
-              <div class="mdw-label">One</div>
+          <wfc-tabs id="one">
+            <div class="wfc-tab">
+              <div class="wfc-label">One</div>
               <div class="ripple"></div>
             </div>
-            <div class="mdw-tab">
-              <mdw-icon>inbox</mdw-icon>
+            <div class="wfc-tab">
+              <wfc-icon>inbox</wfc-icon>
               <div class="ripple"></div>
             </div>
-            <div class="mdw-tab">
-              <mdw-icon>inbox</mdw-icon>
+            <div class="wfc-tab">
+              <wfc-icon>inbox</wfc-icon>
               Inbox
               <div class="ripple"></div>
             </div>
-          </mdw-tabs>
+          </wfc-tabs>
 
-          <mdw-tabs-content mdw-tabs="one">
-            <div class="mdw-content">
+          <wfc-tabs-content wfc-tabs="one">
+            <div class="wfc-content">
               One<br />one
               <br />one
               <br />one
@@ -83,38 +83,38 @@
               
             </div>
 
-            <div class="mdw-content">
+            <div class="wfc-content">
               Two
             </div>
 
-            <div class="mdw-content">
+            <div class="wfc-content">
               
               Three
             </div>
-          </mdw-tabs-content>
+          </wfc-tabs-content>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-tabs id="one">
-    <div class="mdw-tab">
-      <div class="mdw-label">One</div>
+  ${page.escape(`<wfc-tabs id="one">
+    <div class="wfc-tab">
+      <div class="wfc-label">One</div>
       <div class="ripple"></div>
     </div>
-    <div class="mdw-tab">
-      <mdw-icon>inbox</mdw-icon>
+    <div class="wfc-tab">
+      <wfc-icon>inbox</wfc-icon>
       <div class="ripple"></div>
     </div>
-    <div class="mdw-tab">
-      <mdw-icon>inbox</mdw-icon>
+    <div class="wfc-tab">
+      <wfc-icon>inbox</wfc-icon>
       Inbox
       <div class="ripple"></div>
     </div>
-  </mdw-tabs>
+  </wfc-tabs>
   
-  <mdw-tabs-content mdw-tabs="one">
-    <div class="mdw-content">
+  <wfc-tabs-content wfc-tabs="one">
+    <div class="wfc-content">
       One<br />one
       <br />one
       <br />one
@@ -133,17 +133,17 @@
   
     </div>
   
-    <div class="mdw-content">
+    <div class="wfc-content">
       Two
     </div>
   
-    <div class="mdw-content">
+    <div class="wfc-content">
   
       Three
     </div>
-  </mdw-tabs-content>`)}
+  </wfc-tabs-content>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

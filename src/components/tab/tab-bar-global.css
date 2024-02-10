@@ -1,38 +1,38 @@
-mdw-tab-bar {
+wfc-tab-bar {
   position: relative;
   display: flex;
   justify-content: space-around;
   height: 48px;
 
-  background-color: var(--mdw-surface);
-  color: var(--mdw-on-surface-variant);
+  background-color: var(--wfc-surface);
+  color: var(--wfc-on-surface-variant);
 
-  font-size: var(--mdw-font-small-title-size);
-  font-weight: var(--mdw-font-small-title-weight);
-  line-height: var(--mdw-font-small-title-line-height);
-  letter-spacing: var(--mdw-font-small-title-tracking);
+  font-size: var(--wfc-font-small-title-size);
+  font-weight: var(--wfc-font-small-title-weight);
+  line-height: var(--wfc-font-small-title-line-height);
+  letter-spacing: var(--wfc-font-small-title-tracking);
 
   pointer-events: none;
 }
 
-mdw-tab-bar.mdw-line-two {
+wfc-tab-bar.wfc-line-two {
   height: 64px;
 }
 
 
-mdw-tab-bar .mdw-tab-underline {
+wfc-tab-bar .wfc-tab-underline {
   position: absolute;
   bottom: 0;
   border-radius: 3px 3px 0 0;
-  border-top: 3px solid var(--mdw-primary);
+  border-top: 3px solid var(--wfc-primary);
   pointer-events: none;
 
   transition: left 0ms, width 0ms;
 }
-mdw-tab-bar.mdw-animation .mdw-tab-underline {
+wfc-tab-bar.wfc-animation .wfc-tab-underline {
   transition-duration: 220ms, 220ms;
 }
 
-mdw-tab-bar.mdw-tab-secondary .mdw-tab-underline {
-  border-top: 2px solid var(--mdw-primary);
+wfc-tab-bar.wfc-tab-secondary .wfc-tab-underline {
+  border-top: 2px solid var(--wfc-primary);
 }

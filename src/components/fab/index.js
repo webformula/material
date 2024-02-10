@@ -3,8 +3,8 @@ import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
-class MDWFabElement extends HTMLComponentElement {
-  static tag = 'mdw-fab';
+class WFCFabElement extends HTMLComponentElement {
+  static tag = 'wfc-fab';
   static useShadowRoot = true;
   static styleSheets = styles;
   static useTemplate = true;
@@ -63,7 +63,7 @@ class MDWFabElement extends HTMLComponentElement {
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this,
-      // ignoreElements: [this.querySelector('mdw-menu')]
+      // ignoreElements: [this.querySelector('wfc-menu')]
     });
   }
 
@@ -112,14 +112,14 @@ class MDWFabElement extends HTMLComponentElement {
 
         if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
         util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
-        setTimeout(() => this.classList.add('mdw-animation'));
+        setTimeout(() => this.classList.add('wfc-animation'));
       });
       observer.observe(this);
     } else {
       if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
       util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
-      setTimeout(() => this.classList.add('mdw-animation'));
+      setTimeout(() => this.classList.add('wfc-animation'));
     }
   }
 }
-customElements.define(MDWFabElement.tag, MDWFabElement);
+customElements.define(WFCFabElement.tag, WFCFabElement);

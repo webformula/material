@@ -1,12 +1,12 @@
 <h3 class="page-title">Buttons</h3>
-<div class="page-subheader mdw-font-title-medium">Buttons help people initiate actions, from sending an email, to sharing a document, to
+<div class="page-subheader wfc-font-title-medium">Buttons help people initiate actions, from sending an email, to sharing a document, to
 liking a post</div>
 <a href="https://m3.material.io/components/buttons/overview" target="_new">Material Design Guidelines: Buttons</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#types">Button types</a></li>
       <li><a href="#icon_button">Button with icon</a></li>
@@ -15,76 +15,76 @@ liking a post</div>
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="types">
+    <wfc-card id="types">
       <div class="card-content">
         <div class="headline">Button types</div>
         <div class="supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined, and text</div>
       </div>
       <div class="card-content">
-        <mdw-button>Text</mdw-button>
-        <mdw-button class="elevated">Elevated</mdw-button>
-        <mdw-button class="filled">Filled</mdw-button>
-        <mdw-button class="filled-tonal">Filled tonal</mdw-button>
-        <mdw-button class="outlined">Outlined</mdw-button>
-        <mdw-button>
-          <mdw-icon slot="leading-icon">home</mdw-icon>
+        <wfc-button>Text</wfc-button>
+        <wfc-button class="elevated">Elevated</wfc-button>
+        <wfc-button class="filled">Filled</wfc-button>
+        <wfc-button class="filled-tonal">Filled tonal</wfc-button>
+        <wfc-button class="outlined">Outlined</wfc-button>
+        <wfc-button>
+          <wfc-icon slot="leading-icon">home</wfc-icon>
           Icon
-        </mdw-button>
+        </wfc-button>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button>Text</mdw-button>
-  <mdw-button class="elevated">Elevated</mdw-button>
-  <mdw-button class="filled">Filled</mdw-button>
-  <mdw-button class="filled-tonal">Filled tonal</mdw-button>
-  <mdw-button class="outlined">Outlined</mdw-button>
-  <mdw-button>
-    <mdw-icon slot="leading-icon">home</mdw-icon>
+  ${page.escape(`<wfc-button>Text</wfc-button>
+  <wfc-button class="elevated">Elevated</wfc-button>
+  <wfc-button class="filled">Filled</wfc-button>
+  <wfc-button class="filled-tonal">Filled tonal</wfc-button>
+  <wfc-button class="outlined">Outlined</wfc-button>
+  <wfc-button>
+    <wfc-icon slot="leading-icon">home</wfc-icon>
     Icon
-  </mdw-button>`)}
+  </wfc-button>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="icon_button">
+    <wfc-card id="icon_button">
       <div class="card-content">
         <div class="headline">Button with icon</div>
         
         <div class="example">
-          <mdw-button>
-            <mdw-icon slot="leading-icon">home</mdw-icon>
+          <wfc-button>
+            <wfc-icon slot="leading-icon">home</wfc-icon>
             Icon
-          </mdw-button>
+          </wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button>
-    <mdw-icon slot="leading-icon">home</mdw-icon>
+  ${page.escape(`<wfc-button>
+    <wfc-icon slot="leading-icon">home</wfc-icon>
     Icon
-  </mdw-button>`)}
+  </wfc-button>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="async_button">
+    <wfc-card id="async_button">
       <div class="card-content">
         <div class="headline">Async button</div>
         
         <div class="example">
-          <mdw-button id="async-button" async class="filled">Example</mdw-button>
-          <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>
+          <wfc-button id="async-button" async class="filled">Example</wfc-button>
+          <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button id="async-button" async class="filled">Example</mdw-button>
-  <mdw-button onclick="document.querySelector('#async-button').resolve()">Resolve</mdw-button>`)}
+  ${page.escape(`<wfc-button id="async-button" async class="filled">Example</wfc-button>
+  <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

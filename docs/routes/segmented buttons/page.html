@@ -1,12 +1,12 @@
 <h3 class="page-title">Segmented buttons</h3>
-<div class="page-subheader mdw-font-title-medium">Segmented buttons help people select options, switch views, or sort elements</div>
+<div class="page-subheader wfc-font-title-medium">Segmented buttons help people select options, switch views, or sort elements</div>
 <a href="https://m3.material.io/components/segmented-buttons/overview" target="_new">Material Design Guidelines:
   Segmented buttons</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Standard</a></li>
       <li><a href="#select-icon">No checkmarks</a></li>
@@ -15,87 +15,87 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content">
         <div class="headline">Standard</div>
         
         <div class="example">
-          <mdw-segmented-button-set>
-            <mdw-segmented-button checked value="1">
-              <mdw-icon slot="leading-icon">format_align_right</mdw-icon>
-            </mdw-segmented-button>
-            <mdw-segmented-button value="2">
-              <mdw-icon slot="leading-icon">format_align_center</mdw-icon>
-            </mdw-segmented-button>
-            <mdw-segmented-button value="3">
-              <mdw-icon slot="leading-icon">format_align_left</mdw-icon>
-            </mdw-segmented-button>
-          </mdw-segmented-button-set>
+          <wfc-segmented-button-set>
+            <wfc-segmented-button checked value="1">
+              <wfc-icon slot="leading-icon">format_align_right</wfc-icon>
+            </wfc-segmented-button>
+            <wfc-segmented-button value="2">
+              <wfc-icon slot="leading-icon">format_align_center</wfc-icon>
+            </wfc-segmented-button>
+            <wfc-segmented-button value="3">
+              <wfc-icon slot="leading-icon">format_align_left</wfc-icon>
+            </wfc-segmented-button>
+          </wfc-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-set>
-    <mdw-segmented-button checked value="1">
-      <mdw-icon>format_align_right</mdw-icon>
-    </mdw-segmented-button>
-    <mdw-segmented-button value="2">
-      <mdw-icon>format_align_center</mdw-icon>
-    </mdw-segmented-button>
-    <mdw-segmented-button value="3">
-      <mdw-icon>format_align_left</mdw-icon>
-    </mdw-segmented-button>
-  </mdw-segmented-button-set>`)}
+  ${page.escape(`<wfc-segmented-button-set>
+    <wfc-segmented-button checked value="1">
+      <wfc-icon>format_align_right</wfc-icon>
+    </wfc-segmented-button>
+    <wfc-segmented-button value="2">
+      <wfc-icon>format_align_center</wfc-icon>
+    </wfc-segmented-button>
+    <wfc-segmented-button value="3">
+      <wfc-icon>format_align_left</wfc-icon>
+    </wfc-segmented-button>
+  </wfc-segmented-button-set>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="select-icons">
+    <wfc-card id="select-icons">
       <div class="card-content">
         <div class="headline">No checkmarks</div>
         
         <div class="example">
-          <mdw-segmented-button-set>
-            <mdw-segmented-button no-checkmark checked value="one">One</mdw-segmented-button>
-            <mdw-segmented-button no-checkmark value="two">Two</mdw-segmented-button>
-            <mdw-segmented-button no-checkmark value="three">Three</mdw-segmented-button>
-          </mdw-segmented-button-set>
+          <wfc-segmented-button-set>
+            <wfc-segmented-button no-checkmark checked value="one">One</wfc-segmented-button>
+            <wfc-segmented-button no-checkmark value="two">Two</wfc-segmented-button>
+            <wfc-segmented-button no-checkmark value="three">Three</wfc-segmented-button>
+          </wfc-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-set>
-    <mdw-segmented-button no-checkmark checked value="one">One</mdw-segmented-button>
-    <mdw-segmented-button no-checkmark value="two">Two</mdw-segmented-button>
-    <mdw-segmented-button no-checkmark value="three">Three</mdw-segmented-button>
-  </mdw-segmented-button-set>`)}
+  ${page.escape(`<wfc-segmented-button-set>
+    <wfc-segmented-button no-checkmark checked value="one">One</wfc-segmented-button>
+    <wfc-segmented-button no-checkmark value="two">Two</wfc-segmented-button>
+    <wfc-segmented-button no-checkmark value="three">Three</wfc-segmented-button>
+  </wfc-segmented-button-set>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="multi-select">
+    <wfc-card id="multi-select">
       <div class="card-content">
         <div class="headline">Multiple select</div>
         
         <div class="example">
-          <mdw-segmented-button-set id="multi-select" multiple>
-            <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-            <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
-            <mdw-segmented-button value="three">Three</mdw-segmented-button>
-          </mdw-segmented-button-set>
+          <wfc-segmented-button-set id="multi-select" multiple>
+            <wfc-segmented-button checked value="one">One</wfc-segmented-button>
+            <wfc-segmented-button checked value="two">Two</wfc-segmented-button>
+            <wfc-segmented-button value="three">Three</wfc-segmented-button>
+          </wfc-segmented-button-set>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-segmented-button-set id="multi-select" multiple>
-    <mdw-segmented-button checked value="one">One</mdw-segmented-button>
-    <mdw-segmented-button checked value="two">Two</mdw-segmented-button>
-    <mdw-segmented-button value="three">Three</mdw-segmented-button>
-  </mdw-segmented-button-set>`)}
+  ${page.escape(`<wfc-segmented-button-set id="multi-select" multiple>
+    <wfc-segmented-button checked value="one">One</wfc-segmented-button>
+    <wfc-segmented-button checked value="two">Two</wfc-segmented-button>
+    <wfc-segmented-button value="three">Three</wfc-segmented-button>
+  </wfc-segmented-button-set>`)}
         </code>
       </pre>
       
@@ -104,6 +104,6 @@
   ${`console.log(document.querySelector('#multi-select').value); // "one,two"`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

@@ -1,12 +1,12 @@
 <h3 class="page-title">Progress indicators</h3>
-<div class="page-subheader mdw-font-title-medium">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form</div>
+<div class="page-subheader wfc-font-title-medium">Progress indicators inform users about the status of ongoing processes, such as loading an app or submitting a form</div>
 <a href="https://m3.material.io/components/progress-indicators/overview" target="_new">Material Design Guidelines:
   Progress indicators</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#linear_determinate">Linear determinate</a></li>
       <li><a href="#linear_indeterminate">Linear indeterminate</a></li>
@@ -16,65 +16,65 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
         <div class="supporting-text">There are two types of progress indicators: Linear and circular</div>
       </div>
       <div class="card-content" style="display: flex; flex-direction: column; gap: 24px">
-        <mdw-progress-linear value="0.4"></mdw-progress-linear>
-        <mdw-progress-circular value="0.4" style="margin: 0 auto;"></mdw-progress-circular>
+        <wfc-progress-linear value="0.4"></wfc-progress-linear>
+        <wfc-progress-circular value="0.4" style="margin: 0 auto;"></wfc-progress-circular>
       </div>
-    </mdw-card>
+    </wfc-card>
 
 
     
-    <mdw-card class="mdw-no-states" id="linear_determinate">
+    <wfc-card class="wfc-no-states" id="linear_determinate">
       <div class="card-content">
         <div class="headline">Linear</div>
         <div class="subhead">'max' attribute default = 1</div>
         
         <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
           <div style="margin-top: 12px;">Determinate</div>
-          <mdw-progress-linear value="0.3"></mdw-progress-linear>
+          <wfc-progress-linear value="0.3"></wfc-progress-linear>
           <div style="margin-top: 12px;">Indeterminate</div>
-          <mdw-progress-linear indeterminate></mdw-progress-linear>
+          <wfc-progress-linear indeterminate></wfc-progress-linear>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- Determinate: 'max' attribute default = 1 -->
-  <mdw-progress-linear value="0.3" max="1"></mdw-progress-linear>
+  <wfc-progress-linear value="0.3" max="1"></wfc-progress-linear>
   
   <!-- Indeterminate -->
-  <mdw-progress-linear indeterminate></mdw-progress-linear>`)}
+  <wfc-progress-linear indeterminate></wfc-progress-linear>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card class="mdw-no-states" id="circular_determinate">  
+    <wfc-card class="wfc-no-states" id="circular_determinate">  
       <div class="card-content">
         <div class="headline">Circular determinate</div>
         <div class="subhead">'max' attribute default = 1</div>
         
         <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
           <div style="margin-top: 12px;">Determinate</div>
-          <mdw-progress-circular value="0.3"></mdw-progress-circular>
+          <wfc-progress-circular value="0.3"></wfc-progress-circular>
           <div style="margin-top: 12px;">Indeterminate</div>
-          <mdw-progress-circular indeterminate></mdw-progress-circular>
+          <wfc-progress-circular indeterminate></wfc-progress-circular>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- Determinate: 'max' attribute default = 1 -->
-  <mdw-progress-circular value="0.3" max="1"></mdw-progress-circular>
+  <wfc-progress-circular value="0.3" max="1"></wfc-progress-circular>
   
   <!-- Indeterminate -->
-  <mdw-progress-circular indeterminate></mdw-progress-circular>`)}
+  <wfc-progress-circular indeterminate></wfc-progress-circular>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

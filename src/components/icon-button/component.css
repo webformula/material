@@ -7,8 +7,8 @@
   height: 40px;
   width: 40px;
   justify-content: center;
-  border-radius: var(--mdw-shape-full);
-  color: var(--mdw-primary);
+  border-radius: var(--wfc-shape-full);
+  color: var(--wfc-primary);
 }
 
 :host([disabled]) {
@@ -35,28 +35,28 @@ button {
 }
 
 :host(.filled) {
-  color: var(--mdw-on-primary);
-  background-color: var(--mdw-primary);
+  color: var(--wfc-on-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host(.filled-tonal) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--wfc-on-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 :host(.elevated) {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-surface-container-low);
-  box-shadow: var(--mdw-elevation-1);
+  color: var(--wfc-primary);
+  background-color: var(--wfc-surface-container-low);
+  box-shadow: var(--wfc-elevation-1);
 }
 
 :host(.outlined) {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-button-outlined-container-color);
-  border: 1px solid var(--mdw-outline);
+  color: var(--wfc-primary);
+  background-color: var(--wfc-button-outlined-container-color);
+  border: 1px solid var(--wfc-outline);
 }
 
-:host(.selected:not(.selected-icon)) ::slotted(mdw-icon) {
+:host(.selected:not(.selected-icon)) ::slotted(wfc-icon) {
   font-variation-settings:
       'FILL' 1,
       'wght' 400,
@@ -64,8 +64,8 @@ button {
       'opsz' 48 !important
 }
 
-:host(.selected.filled:not(.selected-icon)) ::slotted(mdw-icon),
-:host(.selected.filled-tonal:not(.selected-icon)) ::slotted(mdw-icon) {
+:host(.selected.filled:not(.selected-icon)) ::slotted(wfc-icon),
+:host(.selected.filled-tonal:not(.selected-icon)) ::slotted(wfc-icon) {
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
@@ -73,12 +73,12 @@ button {
     'opsz' 48 !important
 }
 
-:host(.selected.selected-icon) slot.default-slot::slotted(mdw-icon),
-:host(.selected-icon) slot[name="selected"]::slotted(mdw-icon) {
+:host(.selected.selected-icon) slot.default-slot::slotted(wfc-icon),
+:host(.selected-icon) slot[name="selected"]::slotted(wfc-icon) {
   display: none;
 }
 
-:host(.selected.selected-icon) slot[name="selected"]::slotted(mdw-icon) {
+:host(.selected.selected-icon) slot[name="selected"]::slotted(wfc-icon) {
   display: block;
 }
 
@@ -95,45 +95,45 @@ button {
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   transition-property: opacity;
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-surface);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-surface);
 }
 
 :host(:focus.filled) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-primary);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-primary);
 }
 
 :host(:focus.filled) {
-  box-shadow: var(--mdw-elevation-1);
+  box-shadow: var(--wfc-elevation-1);
 }
 
 :host(:focus.filled-tonal) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-on-secondary-container);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-on-secondary-container);
 }
 
 :host(:focus.elevated) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-button-elevate-state-layer-color);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-button-elevate-state-layer-color);
 }
 
 :host(:focus.outlined) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
-  background-color: var(--mdw-primary);
+  opacity: var(--wfc-state-layer-opacity-focus);
+  background-color: var(--wfc-primary);
 }
 
 :host(:focus.elevated),
 :host(:focus.filled),
 :host(:focus.filled-tonal) {
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   transition-property: box-shadow;
 }
 
@@ -142,43 +142,43 @@ button {
   :host(:hover.elevated),
   :host(:hover.filled),
   :host(:hover.filled-tonal) {
-    transition-duration: var(--mdw-motion-duration-medium1);
-    transition-timing-function: var(--mdw-motion-easing-standard);
+    transition-duration: var(--wfc-motion-duration-medium1);
+    transition-timing-function: var(--wfc-motion-easing-standard);
     transition-property: box-shadow;
   }
 
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 
   :host(:hover.filled) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-primary);
   }
 
   :host(:hover.filled-tonal) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-secondary-container);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-secondary-container);
   }
 
   :host(:hover.filled),
   :host(:hover.filled-tonal) {
-    box-shadow: var(--mdw-elevation-1);
+    box-shadow: var(--wfc-elevation-1);
   }
 
   :host(:hover.elevated) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 
   :host(:hover.elevated) {
-    box-shadow: var(--mdw-elevation-2);
+    box-shadow: var(--wfc-elevation-2);
   }
 
   :host(:hover.outlined) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-primary);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-primary);
   }
 }
 
@@ -198,19 +198,19 @@ button {
 }
 
 .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
-  opacity: var(--mdw-state-layer-opacity-pressed);
-  border-radius: var(--mdw-shape-full);
+  background-color: var(--wfc-primary);
+  opacity: var(--wfc-state-layer-opacity-pressed);
+  border-radius: var(--wfc-shape-full);
 }
 
 :host(.filled) .ripple > .ripple-element {
-  background-color: var(--mdw-on-primary);
+  background-color: var(--wfc-on-primary);
 }
 
 :host(.elevated) .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host(.filled-tonal) .ripple > .ripple-element {
-  background-color: var(--mdw-on-secondary-container);
+  background-color: var(--wfc-on-secondary-container);
 }

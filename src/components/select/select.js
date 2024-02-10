@@ -1,11 +1,11 @@
-import MDWMenuElement from '../menu/menu.js';
+import WFCMenuElement from '../menu/menu.js';
 import styles from './select.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO bottom sheet
 
-class MDWSelectElement extends MDWMenuElement {
-  static tag = 'mdw-select';
+class WFCSelectElement extends WFCMenuElement {
+  static tag = 'wfc-select';
   static styleSheets = styles;
   static formAssociated = true;
 
@@ -47,7 +47,7 @@ class MDWSelectElement extends MDWMenuElement {
     // TODO rework textfield 
     //  this needs to be added like this because the getters are not available with the nested component till after render
     this.shadowRoot.querySelector('.select').insertAdjacentHTML('afterbegin', `
-      <mdw-textfield
+      <wfc-textfield
         class="${this.classList.contains('outlined') ? 'outlined' : ''}"
         label="${this.label}"
         aria-controls="listbox"
@@ -60,9 +60,9 @@ class MDWSelectElement extends MDWMenuElement {
       >
         <slot slot="leading-icon" name="leading-icon"></slot>
         <slot slot="trailing-icon" name="trailing-icon"></slot>
-      </mdw-textfield>
+      </wfc-textfield>
     `);
-    this.#textfield = this.shadowRoot.querySelector('mdw-textfield');
+    this.#textfield = this.shadowRoot.querySelector('wfc-textfield');
   }
 
   // TODO update
@@ -90,7 +90,7 @@ class MDWSelectElement extends MDWMenuElement {
         <div id="listbox" class="surface" role="listbox">
           <div class="surface-content">
             <div class="item-padding">
-              <mdw-progress-linear indeterminate disabled></mdw-progress-linear>
+              <wfc-progress-linear indeterminate disabled></wfc-progress-linear>
               <div class="no-results">No items</div>
               <slot class="options-container"></slot>
             </div>
@@ -104,7 +104,7 @@ class MDWSelectElement extends MDWMenuElement {
     super.connectedCallback(true);
     
     this.#abort = new AbortController();
-    this.#options = [...this.querySelectorAll('mdw-option')];
+    this.#options = [...this.querySelectorAll('wfc-option')];
     this.anchorElement = this.#textfield;
     this.#textfield.addEventListener('click', this.#onInputFocus_bound, { signal: this.#abort.signal });
     this.addEventListener('mousedown', this.#rightClick_bound, { signal: this.#abort.signal });
@@ -229,7 +229,7 @@ class MDWSelectElement extends MDWMenuElement {
       this.shadowRoot.querySelector('.surface').classList.remove('filter-no-results');
 
       if (this.#isAsync) {
-        [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
+        [...this.querySelectorAll('wfc-option')].forEach(o => this.removeChild(o));
         // TODO should i track lastOptionsOnSelect
         this.insertAdjacentHTML('beforeend', this.#lastOptionsOnSelect || this.#initialOptions);
       } else {
@@ -245,19 +245,19 @@ class MDWSelectElement extends MDWMenuElement {
   setOptions(options = [{ label: 'label_text', value: 'label_value' }]) {
     if (arguments.length === 0 || !Array.isArray(options)) options = [];
 
-    [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
-    this.insertAdjacentHTML('beforeend', options.map(option => `<mdw-option value="${option.value}">${option.label}</mdw-option>`).join(''));
+    [...this.querySelectorAll('wfc-option')].forEach(o => this.removeChild(o));
+    this.insertAdjacentHTML('beforeend', options.map(option => `<wfc-option value="${option.value}">${option.label}</wfc-option>`).join(''));
   }
 
   initialOptions() {
-    [...this.querySelectorAll('mdw-option')].forEach(o => this.removeChild(o));
+    [...this.querySelectorAll('wfc-option')].forEach(o => this.removeChild(o));
     this.insertAdjacentHTML('beforeend', this.#initialOptions);
   }
   
 
 
   #setInitialValue() {
-    // get value from mdw-option[selected] if no mdw-select[value] exists
+    // get value from wfc-option[selected] if no wfc-select[value] exists
     const selected = this.#options.filter(el => el.hasAttribute('selected'));
     if (selected.length !== 0) this.value = selected[0].value;
     else this.value = this.getAttribute('value') ?? '';
@@ -291,15 +291,15 @@ class MDWSelectElement extends MDWMenuElement {
   #slotChange() {
     if (this.#isAsync) {
       this.classList.remove('filter-async-active');
-      this.shadowRoot.querySelector('mdw-progress-linear').setAttribute('disabled', '');
+      this.shadowRoot.querySelector('wfc-progress-linear').setAttribute('disabled', '');
     }
-    this.#options = [...this.querySelectorAll('mdw-option')];
+    this.#options = [...this.querySelectorAll('wfc-option')];
     this.#options.filter(o => o.value === this.value).forEach(o => o.selected = true);
     if (!this.#initialOptions) this.#initialOptions = this.#options.map(o => o.outerHTML).join('');
   }
 
   #optionClick(event) {
-    if (event.target.nodeName === 'MDW-OPTION') {
+    if (event.target.nodeName === 'WFC-OPTION') {
       this.#lastOptionsOnSelect = this.#options.map(o => o.outerHTML).join('');
       this.#dirty = true;
       this.value = event.target.value;
@@ -352,7 +352,7 @@ class MDWSelectElement extends MDWMenuElement {
 
   #filterInputAsync() {
     this.classList.add('filter-async-active');
-    this.shadowRoot.querySelector('mdw-progress-linear').removeAttribute('disabled');
+    this.shadowRoot.querySelector('wfc-progress-linear').removeAttribute('disabled');
   }
 }
-customElements.define(MDWSelectElement.tag, MDWSelectElement);
+customElements.define(WFCSelectElement.tag, WFCSelectElement);

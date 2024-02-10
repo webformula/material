@@ -2,7 +2,7 @@
   color-scheme: only light;
 }
 
-:root.mdw-theme-dark {
+:root.wfc-theme-dark {
   color-scheme: only dark;
 }
 
@@ -11,7 +11,7 @@ html {
   font-family: 'Roboto Flex', Roboto, sans-serif;
   font-size: 16px;
   height: 100%;
-  background-color: var(--mdw-background);
+  background-color: var(--wfc-background);
   overflow-anchor: none;
 }
 
@@ -25,8 +25,8 @@ body {
   width: 100%;
   margin: 0;
 
-  background-color: var(--mdw-background);
-  color: var(--mdw-on-background);
+  background-color: var(--wfc-background);
+  color: var(--wfc-on-background);
 }
 /* prevents bottom bars from flickering on scroll. When location changes the scroll is reset to 0 and the bottom bars flicker */
 body.window-compact {

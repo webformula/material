@@ -65,9 +65,9 @@ if (document.readyState !== 'loading') initialize();
 else document.addEventListener('DOMContentLoaded', initialize);
 function initialize() {
   document.body.insertAdjacentHTML('beforeend', /*html*/`
-    <mdw-tooltip class="global-tooltip"></mdw-tooltip>
+    <wfc-tooltip class="global-tooltip"></wfc-tooltip>
   `);
-  globalTooltipElement = document.querySelector('mdw-tooltip.global-tooltip');
+  globalTooltipElement = document.querySelector('wfc-tooltip.global-tooltip');
   currentTooltipElement = globalTooltipElement;
   window.addEventListener('mouseover', mouseover, false);
 }

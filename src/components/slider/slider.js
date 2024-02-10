@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './slider.css' assert { type: 'css' };
 
 
-class MDWSliderElement extends HTMLComponentElement {
-  static tag = 'mdw-slider';
+class WFCSliderElement extends HTMLComponentElement {
+  static tag = 'wfc-slider';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -127,7 +127,7 @@ class MDWSliderElement extends HTMLComponentElement {
     if (percent <= 0) percent = 0;
     else if (percent >= 100) percent = 100;
     else this.dispatchEvent(new Event('change', { bubbles: true }));
-    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-end', `${percent}%`);
+    this.shadowRoot.querySelector('.container').style.setProperty('--wfc-slider-active-end', `${percent}%`);
   }
 
   get valueStart() { return this.#valueStart; }
@@ -147,7 +147,7 @@ class MDWSliderElement extends HTMLComponentElement {
     if (percent <= 0) percent = 0;
     else if (percent >= 100) percent = 100;
     else this.dispatchEvent(new Event('change', { bubbles: true }));
-    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-start', `${percent}%`);
+    this.shadowRoot.querySelector('.container').style.setProperty('--wfc-slider-active-start', `${percent}%`);
 
     this.#updateDisplay();
   }
@@ -169,7 +169,7 @@ class MDWSliderElement extends HTMLComponentElement {
     if (percent <= 0) percent = 0;
     else if (percent >= 100) percent = 100;
     else this.dispatchEvent(new Event('change', { bubbles: true }));
-    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-active-end', `${percent}%`);
+    this.shadowRoot.querySelector('.container').style.setProperty('--wfc-slider-active-end', `${percent}%`);
 
     this.#updateDisplay(true);
   }
@@ -208,7 +208,7 @@ class MDWSliderElement extends HTMLComponentElement {
     if (this.#range) this.#inputEnd.step = value;
     const stepCount = (this.max - this.min) / value;
     this.shadowRoot.querySelector('.container').classList.toggle('step', !!value);
-    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-tick-mark-count', stepCount);
+    this.shadowRoot.querySelector('.container').style.setProperty('--wfc-slider-tick-mark-count', stepCount);
   }
 
   get name() {
@@ -293,7 +293,7 @@ class MDWSliderElement extends HTMLComponentElement {
 
   #updateDisplay(isEnd = false) {
     const diff = ((this.#valueEnd - this.#valueStart) / (this.max - this.min)) / 2 * 100;
-    this.shadowRoot.querySelector('.container').style.setProperty('--mdw-slider-range-active-diff', `${diff}%`);
+    this.shadowRoot.querySelector('.container').style.setProperty('--wfc-slider-range-active-diff', `${diff}%`);
 
     const handleStart = this.shadowRoot.querySelector('.handle.start');
     const handleEnd = this.shadowRoot.querySelector('.handle.end');
@@ -305,4 +305,4 @@ class MDWSliderElement extends HTMLComponentElement {
     }
   }
 }
-customElements.define(MDWSliderElement.tag, MDWSliderElement);
+customElements.define(WFCSliderElement.tag, WFCSliderElement);

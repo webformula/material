@@ -2,7 +2,7 @@
   display: inline-flex;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  border-radius: var(--mdw-shape-small);
+  border-radius: var(--wfc-shape-small);
   box-sizing: border-box;
   display: flex;
   height: 32px;
@@ -12,7 +12,7 @@
   white-space: nowrap;
   align-items: center;
   padding-inline: 16px;
-  border: 1px solid var(--mdw-outline);
+  border: 1px solid var(--wfc-outline);
 }
 
 :host([disabled]) {
@@ -20,36 +20,36 @@
 }
 
 :host(.elevated) {
-  box-shadow: var(--mdw-elevation-1);
+  box-shadow: var(--wfc-elevation-1);
   border: none;
-  background-color: var(--mdw-surface-container-low);
+  background-color: var(--wfc-surface-container-low);
 }
 
 :host(.checked),
 :host(.elevated.checked) {
-  background-color: var(--mdw-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 .label {
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  line-height: var(--mdw-font-large-label-line-height);
-  color: var(--mdw-on-surface);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
+  line-height: var(--wfc-font-large-label-line-height);
+  color: var(--wfc-on-surface);
   text-overflow: ellipsis;
 }
 
-::slotted(mdw-icon) {
+::slotted(wfc-icon) {
   margin-right: 5px;
   margin-left: -5px;
-  width: var(--mdw-font-small-icon-size);
-  height: var(--mdw-font-small-icon-size);
-  font-size: var(--mdw-font-small-icon-size);
-  line-height: var(--mdw-font-small-icon-size);
+  width: var(--wfc-font-small-icon-size);
+  height: var(--wfc-font-small-icon-size);
+  font-size: var(--wfc-font-small-icon-size);
+  line-height: var(--wfc-font-small-icon-size);
 }
 
-:host([filter].checked) ::slotted(mdw-icon),
-:host([filter-menu].checked) ::slotted(mdw-icon) {
+:host([filter].checked) ::slotted(wfc-icon),
+:host([filter-menu].checked) ::slotted(wfc-icon) {
   display: none;
 }
 
@@ -62,7 +62,7 @@
 :host([input]) .clear,
 :host([filter]) .check {
   position: relative;
-  color: var(--mdw-primary);
+  color: var(--wfc-primary);
   width: 18px;
   height: 18px;
   align-self: center;
@@ -112,12 +112,12 @@
   display: block;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 5px solid var(--mdw-on-surface-alpha-60);
+  border-bottom: 5px solid var(--wfc-on-surface-alpha-60);
   margin-left: 8px;
   margin-right: -4px;
   transform-origin: center;
   transform: rotate(-180deg);
-  transition: transform var(--mdw-motion-duration-short3);
+  transition: transform var(--wfc-motion-duration-short3);
   pointer-events: none;
 }
 
@@ -143,11 +143,11 @@ input {
 
   text-decoration: inherit;
   text-transform: inherit;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  color: var(--mdw-on-surface);
-  caret-color: var(--mdw-primary);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
+  color: var(--wfc-on-surface);
+  caret-color: var(--wfc-primary);
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -184,27 +184,27 @@ input {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: var(--mdw-shape-small);
-  background-color: var(--mdw-on-surface);
+  border-radius: var(--wfc-shape-small);
+  background-color: var(--wfc-on-surface);
   opacity: 0;
   pointer-events: none;
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-hover);
+  opacity: var(--wfc-state-layer-opacity-hover);
 }
 
 @media (hover: hover) {
   :host(:hover.elevated) {
-    box-shadow: var(--mdw-elevation-2);
+    box-shadow: var(--wfc-elevation-2);
   }
 
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
+    opacity: var(--wfc-state-layer-opacity-hover);
   }
 
   :host([input]) .clear:hover::after {
-    background-color: var(--mdw-on-surface-alpha-12);
+    background-color: var(--wfc-on-surface-alpha-12);
   }
 }
 
@@ -225,6 +225,6 @@ input {
 }
 
 .ripple > .ripple-element {
-  background-color: var(--mdw-primary);
-  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--wfc-primary);
+  opacity: var(--wfc-state-layer-opacity-pressed);
 }

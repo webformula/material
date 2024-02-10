@@ -1,10 +1,10 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 
 // TODO rich tooltip
 
-class MDWTooltipElement extends MDWSurfaceElement {
-  static tag = 'mdw-tooltip';
+class WFCTooltipElement extends WFCSurfaceElement {
+  static tag = 'wfc-tooltip';
   static styleSheets = styles;
 
   constructor() {
@@ -21,4 +21,4 @@ class MDWTooltipElement extends MDWSurfaceElement {
     this.positionMouse = true;
   }
 }
-customElements.define(MDWTooltipElement.tag, MDWTooltipElement);
+customElements.define(WFCTooltipElement.tag, WFCTooltipElement);

@@ -3,8 +3,8 @@ import styles from './component.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 
 
-class MDWCheckboxElement extends HTMLComponentElement {
-  static tag = 'mdw-checkbox';
+class WFCCheckboxElement extends HTMLComponentElement {
+  static tag = 'wfc-checkbox';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -234,4 +234,4 @@ class MDWCheckboxElement extends HTMLComponentElement {
     this.shadowRoot.querySelector('.label').classList.toggle('has-label', !!this.#label);
   }
 }
-customElements.define(MDWCheckboxElement.tag, MDWCheckboxElement);
+customElements.define(WFCCheckboxElement.tag, WFCCheckboxElement);

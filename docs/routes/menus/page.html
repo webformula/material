@@ -1,12 +1,12 @@
 <h3 class="page-title">Menus</h3>
-<div class="page-subheader mdw-font-title-medium">Menus display a list of choices on a temporary surface</div>
+<div class="page-subheader wfc-font-title-medium">Menus display a list of choices on a temporary surface</div>
 <a href="https://m3.material.io/components/menus/specs#15cc3423-ab1f-4d1c-8ce4-e5c9ae95f19f" target="_new">Material
   Design Guidelines: Select</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic</a></li>
       <li><a href="#position-overlap">Position overlap</a></li>
@@ -16,63 +16,63 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic menu</div>
         <div class="supporting-text">Menus can be connected top controls by adding a selector or nesting them inside.</div>
         
         <div class="example">
-          <mdw-button id="control">Control</mdw-button>
-          <mdw-menu anchor="#control">
-            <mdw-menu-item>
-              <mdw-icon slot="start">content_copy</mdw-icon>
+          <wfc-button id="control">Control</wfc-button>
+          <wfc-menu anchor="#control">
+            <wfc-menu-item>
+              <wfc-icon slot="start">content_copy</wfc-icon>
               copy
-            </mdw-menu-item>
-            <mdw-menu-item>
-              <mdw-icon slot="start">content_paste</mdw-icon>
+            </wfc-menu-item>
+            <wfc-menu-item>
+              <wfc-icon slot="start">content_paste</wfc-icon>
               paste
-            </mdw-menu-item>
-            <mdw-menu-item>plain</mdw-menu-item>
-          </mdw-menu>
+            </wfc-menu-item>
+            <wfc-menu-item>plain</wfc-menu-item>
+          </wfc-menu>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-button id="control">Control</mdw-button>
-  <mdw-menu anchor="#control">
-    <mdw-menu-item>
-      <mdw-icon slot="start">content_copy</mdw-icon>
+  ${page.escape(`<wfc-button id="control">Control</wfc-button>
+  <wfc-menu anchor="#control">
+    <wfc-menu-item>
+      <wfc-icon slot="start">content_copy</wfc-icon>
       copy
-    </mdw-menu-item>
-    <mdw-menu-item>
-      <mdw-icon slot="start">content_paste</mdw-icon>
+    </wfc-menu-item>
+    <wfc-menu-item>
+      <wfc-icon slot="start">content_paste</wfc-icon>
       paste
-    </mdw-menu-item>
-    <mdw-menu-item>plain</mdw-menu-item>
-  </mdw-menu>`)}
+    </wfc-menu-item>
+    <wfc-menu-item>plain</wfc-menu-item>
+  </wfc-menu>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="context-menu">
+    <wfc-card id="context-menu">
       <div class="card-content">
         <div class="headline">Context menu</div>
     
         <div class="example">
           <div context-menu="cm1">Right click me</div>
-          <mdw-menu context-menu="cm1">
-            <mdw-menu-item onclick="console.log(this.contextTarget)">
-              <mdw-icon slot="start">content_copy</mdw-icon>
+          <wfc-menu context-menu="cm1">
+            <wfc-menu-item onclick="console.log(this.contextTarget)">
+              <wfc-icon slot="start">content_copy</wfc-icon>
               copy
-            </mdw-menu-item>
-            <mdw-menu-item>
-              <mdw-icon slot="start">content_paste</mdw-icon>
+            </wfc-menu-item>
+            <wfc-menu-item>
+              <wfc-icon slot="start">content_paste</wfc-icon>
               paste
-            </mdw-menu-item>
-            <mdw-menu-item>plain</mdw-menu-item>
-            <mdw-menu-item>plain</mdw-menu-item>
-          </mdw-menu>
+            </wfc-menu-item>
+            <wfc-menu-item>plain</wfc-menu-item>
+            <wfc-menu-item>plain</wfc-menu-item>
+          </wfc-menu>
         </div>
       </div>
     
@@ -80,24 +80,24 @@
         <code class="language-html">
   ${page.escape(`<!--
     Assign context menu to specific elements
-    add [context-menu"value of mdw-menu[context-menu]"]
+    add [context-menu"value of wfc-menu[context-menu]"]
   -->
   <div context-menu="cm1">Right click me</div>
   
-  <mdw-menu context-menu="cm1">
+  <wfc-menu context-menu="cm1">
 
     <!-- access click target "this.contextTarget" -->
-    <mdw-menu-item onclick="console.log(this.contextTarget)">
-      <mdw-icon slot="start">content_copy</mdw-icon>
+    <wfc-menu-item onclick="console.log(this.contextTarget)">
+      <wfc-icon slot="start">content_copy</wfc-icon>
       copy
-    </mdw-menu-item>
-    <mdw-menu-item>
-      <mdw-icon slot="start">content_paste</mdw-icon>
+    </wfc-menu-item>
+    <wfc-menu-item>
+      <wfc-icon slot="start">content_paste</wfc-icon>
       paste
-    </mdw-menu-item>
-    <mdw-menu-item>plain</mdw-menu-item>
-    <mdw-menu-item>plain</mdw-menu-item>
-  </mdw-menu>
+    </wfc-menu-item>
+    <wfc-menu-item>plain</wfc-menu-item>
+    <wfc-menu-item>plain</wfc-menu-item>
+  </wfc-menu>
   
   
   <!--
@@ -105,89 +105,89 @@
       Do not give [context-menu] a value
       Now any right click will show the context menu
   -->
-  <mdw-menu context-menu>
-    <mdw-menu-item>
-      <mdw-icon slot="start">content_copy</mdw-icon>
+  <wfc-menu context-menu>
+    <wfc-menu-item>
+      <wfc-icon slot="start">content_copy</wfc-icon>
       copy
-    </mdw-menu-item>
-    <mdw-menu-item>
-      <mdw-icon slot="start">content_paste</mdw-icon>
+    </wfc-menu-item>
+    <wfc-menu-item>
+      <wfc-icon slot="start">content_paste</wfc-icon>
       paste
-    </mdw-menu-item>
-    <mdw-menu-item>plain</mdw-menu-item>
-    <mdw-menu-item>plain</mdw-menu-item>
-  </mdw-menu>`)}
+    </wfc-menu-item>
+    <wfc-menu-item>plain</wfc-menu-item>
+    <wfc-menu-item>plain</wfc-menu-item>
+  </wfc-menu>`)}
       </code>
     </pre>
-  </mdw-card>
+  </wfc-card>
 
-  <mdw-card id="nested">
+  <wfc-card id="nested">
     <div class="card-content">
       <div class="headline">Nested menu</div>
 
       <div class="example">
-        <mdw-button id="c2">Control</mdw-button>
-        <mdw-menu anchor="#c2">
-          <mdw-menu-item>
-            <mdw-icon slot="start">content_copy</mdw-icon>
+        <wfc-button id="c2">Control</wfc-button>
+        <wfc-menu anchor="#c2">
+          <wfc-menu-item>
+            <wfc-icon slot="start">content_copy</wfc-icon>
             copy
-          </mdw-menu-item>
-          <mdw-menu-item>
-            <mdw-icon slot="start">content_paste</mdw-icon>
+          </wfc-menu-item>
+          <wfc-menu-item>
+            <wfc-icon slot="start">content_paste</wfc-icon>
             paste
-          </mdw-menu-item>
-          <mdw-menu-item>
+          </wfc-menu-item>
+          <wfc-menu-item>
             plain
-            <mdw-menu slot="sub-menu">
-              <mdw-menu-item>
-                <mdw-icon slot="start">content_copy</mdw-icon>
+            <wfc-menu slot="sub-menu">
+              <wfc-menu-item>
+                <wfc-icon slot="start">content_copy</wfc-icon>
                 copy
-              </mdw-menu-item>
-              <mdw-menu-item>
-                <mdw-icon slot="start">content_paste</mdw-icon>
+              </wfc-menu-item>
+              <wfc-menu-item>
+                <wfc-icon slot="start">content_paste</wfc-icon>
                 paste
-              </mdw-menu-item>
-              <mdw-menu-item>
+              </wfc-menu-item>
+              <wfc-menu-item>
                 plain
-                <mdw-menu slot="sub-menu">
-                  <mdw-menu-item>
-                    <mdw-icon slot="start">content_copy</mdw-icon>
+                <wfc-menu slot="sub-menu">
+                  <wfc-menu-item>
+                    <wfc-icon slot="start">content_copy</wfc-icon>
                     copy
-                  </mdw-menu-item>
-                  <mdw-menu-item>
-                    <mdw-icon slot="start">content_paste</mdw-icon>
+                  </wfc-menu-item>
+                  <wfc-menu-item>
+                    <wfc-icon slot="start">content_paste</wfc-icon>
                     paste
-                  </mdw-menu-item>
-                  <mdw-menu-item>
+                  </wfc-menu-item>
+                  <wfc-menu-item>
                     plain
-                  </mdw-menu-item>
-                </mdw-menu>
-              </mdw-menu-item>
-            </mdw-menu>
-          </mdw-menu-item>
-        </mdw-menu>
+                  </wfc-menu-item>
+                </wfc-menu>
+              </wfc-menu-item>
+            </wfc-menu>
+          </wfc-menu-item>
+        </wfc-menu>
       </div>
     </div>
 
     <pre>
       <code class="language-html">
-${page.escape(`mdw-button id="c2">Control</mdw-button>
-<mdw-menu anchor="#c2">
-  <mdw-menu-item>...</mdw-menu-item>
-  <mdw-menu-item>
+${page.escape(`wfc-button id="c2">Control</wfc-button>
+<wfc-menu anchor="#c2">
+  <wfc-menu-item>...</wfc-menu-item>
+  <wfc-menu-item>
     ...
-    <mdw-menu slot="sub-menu">
-      <mdw-menu-item>...</mdw-menu-item>
-      <mdw-menu-item>
+    <wfc-menu slot="sub-menu">
+      <wfc-menu-item>...</wfc-menu-item>
+      <wfc-menu-item>
         ...
-        <mdw-menu slot="sub-menu">
-          <mdw-menu-item>...</mdw-menu-item>
-        </mdw-menu>
-      </mdw-menu-item>
-    </mdw-menu>
-  </mdw-menu-item>
-</mdw-menu>`)}
+        <wfc-menu slot="sub-menu">
+          <wfc-menu-item>...</wfc-menu-item>
+        </wfc-menu>
+      </wfc-menu-item>
+    </wfc-menu>
+  </wfc-menu-item>
+</wfc-menu>`)}
       </code>
     </pre>
-  </mdw-card>
+  </wfc-card>
 </section>

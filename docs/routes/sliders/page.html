@@ -1,11 +1,11 @@
 <h3 class="page-title">Sliders</h3>
-<div class="page-subheader mdw-font-title-medium">Sliders let users make selections from a range of values</div>
+<div class="page-subheader wfc-font-title-medium">Sliders let users make selections from a range of values</div>
 <a href="https://m3.material.io/components/sliders/overview" target="_new">Material Design Guidelines: Sliders</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Standard</a></li>
       <li><a href="#discrete">Siscrete</a></li>
@@ -15,110 +15,110 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
         <div class="supporting-text">There are two types of sliders: continuous and discrete</div>
       </div>
       <div class="card-content">
-        <mdw-slider min="0" max="100" value="50" aria-label="slider"></mdw-slider>
-        <mdw-slider range min="0" max="100" value-start="15" value-end="85" aria-label="range"></mdw-slider>
-        <mdw-slider min="0" max="100" step="10" value="50">label</mdw-slider>
-        <mdw-slider min="0" max="100" value="50">
-          <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+        <wfc-slider min="0" max="100" value="50" aria-label="slider"></wfc-slider>
+        <wfc-slider range min="0" max="100" value-start="15" value-end="85" aria-label="range"></wfc-slider>
+        <wfc-slider min="0" max="100" step="10" value="50">label</wfc-slider>
+        <wfc-slider min="0" max="100" value="50">
+          <wfc-icon slot="leading-icon">volume_up</wfc-icon>
           volume
-        </mdw-slider>
+        </wfc-slider>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-slider min="0" max="100" value="50"></mdw-slider>
-  <mdw-slider range min="0" max="100" value-start="25" value-end="75"></mdw-slider>
-  <mdw-slider min="0" max="100" step="10" value="50">label</mdw-slider>
-  <mdw-slider min="0" max="100" value="50">
-    <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+  ${page.escape(`<wfc-slider min="0" max="100" value="50"></wfc-slider>
+  <wfc-slider range min="0" max="100" value-start="25" value-end="75"></wfc-slider>
+  <wfc-slider min="0" max="100" step="10" value="50">label</wfc-slider>
+  <wfc-slider min="0" max="100" value="50">
+    <wfc-icon slot="leading-icon">volume_up</wfc-icon>
     volume
-  </mdw-slider>`)}
+  </wfc-slider>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
     
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content">
         <div class="headline">Slider</div>
         
         <div class="example">
-          <mdw-slider min="0" max="100" value="50" aria-label="slider"></mdw-slider>
-          <mdw-slider min="0" max="100" value="50">
+          <wfc-slider min="0" max="100" value="50" aria-label="slider"></wfc-slider>
+          <wfc-slider min="0" max="100" value="50">
             label
-          </mdw-slider>
-          <mdw-slider min="0" max="100" value="50">
-            <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+          </wfc-slider>
+          <wfc-slider min="0" max="100" value="50">
+            <wfc-icon slot="leading-icon">volume_up</wfc-icon>
             volume
-          </mdw-slider>
+          </wfc-slider>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-slider min="0" max="100" value="50"></mdw-slider>
-  <mdw-slider min="0" max="100" value="50">
+  ${page.escape(`<wfc-slider min="0" max="100" value="50"></wfc-slider>
+  <wfc-slider min="0" max="100" value="50">
     label
-  </mdw-slider>
-  <mdw-slider min="0" max="100" value="50">
-    <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+  </wfc-slider>
+  <wfc-slider min="0" max="100" value="50">
+    <wfc-icon slot="leading-icon">volume_up</wfc-icon>
     volume
-  </mdw-slider>`)}
+  </wfc-slider>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="discrete">
+    <wfc-card id="discrete">
       <div class="card-content">
         <div class="headline">Slider with steps</div>
         
         <div class="example">
-          <mdw-slider min="0" max="100" step="10" value="50" aria-label="slider"></mdw-slider>
-          <mdw-slider range min="0" max="100" step="10" value-start="25" value-end="75" aria-label="range"></mdw-slider>
+          <wfc-slider min="0" max="100" step="10" value="50" aria-label="slider"></wfc-slider>
+          <wfc-slider range min="0" max="100" step="10" value-start="25" value-end="75" aria-label="range"></wfc-slider>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-slider min="0" max="100" step="10" value="50"></mdw-slider>
-  <mdw-slider range min="0" max="100" step="10" value-start="25" value-end="75"></mdw-slider>`)}
+  ${page.escape(`<wfc-slider min="0" max="100" step="10" value="50"></wfc-slider>
+  <wfc-slider range min="0" max="100" step="10" value-start="25" value-end="75"></wfc-slider>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="range">
+    <wfc-card id="range">
       <div class="card-content">
         <div class="headline">Slider range</div>
         
         <div class="example">
-          <mdw-slider range min="0" max="100" value-start="25" value-end="75" aria-label="range"></mdw-slider>
-          <mdw-slider range min="0" max="100" value-start="25" value-end="75">
+          <wfc-slider range min="0" max="100" value-start="25" value-end="75" aria-label="range"></wfc-slider>
+          <wfc-slider range min="0" max="100" value-start="25" value-end="75">
             label
-          </mdw-slider>
-          <mdw-slider range min="0" max="100" value-start="25" value-end="75">
-            <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+          </wfc-slider>
+          <wfc-slider range min="0" max="100" value-start="25" value-end="75">
+            <wfc-icon slot="leading-icon">volume_up</wfc-icon>
             volume
-          </mdw-slider>
+          </wfc-slider>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-slider range min="0" max="100" value-start="25" value-end="75"></mdw-slider>
-  <mdw-slider range min="0" max="100" value-start="25" value-end="75">
+  ${page.escape(`<wfc-slider range min="0" max="100" value-start="25" value-end="75"></wfc-slider>
+  <wfc-slider range min="0" max="100" value-start="25" value-end="75">
     label
-  </mdw-slider>
-  <mdw-slider range min="0" max="100" value-start="25" value-end="75">
-    <mdw-icon slot="leading-icon">volume_up</mdw-icon>
+  </wfc-slider>
+  <wfc-slider range min="0" max="100" value-start="25" value-end="75">
+    <wfc-icon slot="leading-icon">volume_up</wfc-icon>
     volume
-  </mdw-slider>`)}
+  </wfc-slider>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

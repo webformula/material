@@ -1,8 +1,8 @@
-import MDWMenuItemElement from "../menu/menu-item.js";
+import WFCMenuItemElement from "../menu/menu-item.js";
 import util from '../../core/util.js';
 
-class MDWOptionElement extends MDWMenuItemElement {
-  static tag = 'mdw-option';
+class WFCOptionElement extends WFCMenuItemElement {
+  static tag = 'wfc-option';
   #value;
   #displayValue;
   #selected = false;
@@ -46,4 +46,4 @@ class MDWOptionElement extends MDWMenuItemElement {
     this.classList.toggle('selected', this.#selected);
   }
 }
-customElements.define(MDWOptionElement.tag, MDWOptionElement);
+customElements.define(WFCOptionElement.tag, WFCOptionElement);

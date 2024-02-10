@@ -1,10 +1,10 @@
 <h3 class="page-title">Forms</h3>
-<div class="page-subheader mdw-font-title-medium">Forms support simple submit functionality and change detection and reset functionality</div>
+<div class="page-subheader wfc-font-title-medium">Forms support simple submit functionality and change detection and reset functionality</div>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Basic submit</a></li>
       <li><a href="#change">Cancel change detection</a></li>
@@ -12,7 +12,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="standard">
+    <wfc-card id="standard">
       <div class="card-content">
         <div class="headline">Submit with validations</div>
         <div class="supporting-text">
@@ -27,21 +27,21 @@
         <div class="example" style="display: flex; justify-content: center;">
           <!-- method="dialog" Will prevent any page redirects or endpoint calls -->
           <form id="one" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
-            <mdw-textfield name="name" label="Name" supporting-text="Enter name" required></mdw-textfield>
+            <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
 
-            <mdw-textfield name="email" label="Email" supporting-text="Enter email" type="email"></mdw-textfield>
+            <wfc-textfield name="email" label="Email" supporting-text="Enter email" type="email"></wfc-textfield>
 
-            <mdw-select name="favnum" label="Pick a number" required>
-              <mdw-option value="1">one</mdw-option>
-              <mdw-option value="2">two</mdw-option>
-              <mdw-option value="3">three</mdw-option>
-            </mdw-select>
+            <wfc-select name="favnum" label="Pick a number" required>
+              <wfc-option value="1">one</wfc-option>
+              <wfc-option value="2">two</wfc-option>
+              <wfc-option value="3">three</wfc-option>
+            </wfc-select>
             
-            <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+            <wfc-checkbox name="agree" required>Agree</wfc-checkbox>
 
-            <mdw-button type="submit" style="justify-self: end;">Submit</mdw-button>
-            <mdw-button type="reset" style="color: var(--mdw-error); justify-self: end;">reset</mdw-button>
-            <mdw-button type="cancel" style="color: var(--mdw-error); justify-self: end;" onclick="console.log('Called on discard or no change')">Cancel</mdw-button>
+            <wfc-button type="submit" style="justify-self: end;">Submit</wfc-button>
+            <wfc-button type="reset" style="color: var(--wfc-error); justify-self: end;">reset</wfc-button>
+            <wfc-button type="cancel" style="color: var(--wfc-error); justify-self: end;" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
           </form>
         </div>
       </div>
@@ -50,23 +50,23 @@
         <code class="language-html">
   ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="one" method="dialog" style="display: inline-grid;" onsubmit="submit(this)">
-    <mdw-textfield name="name" label="Name" supporting-text="Enter name" required></mdw-textfield>
+    <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
   
-    <mdw-textfield name="email" label="Email" supporting-text="Enter email" type="email"></mdw-textfield>
+    <wfc-textfield name="email" label="Email" supporting-text="Enter email" type="email"></wfc-textfield>
   
-    <mdw-select name="favnum" label="Pick a number" required supporting-text>
-      <mdw-option value="1">one</mdw-option>
-      <mdw-option value="2">two</mdw-option>
-      <mdw-option value="3">three</mdw-option>
-    </mdw-select>
+    <wfc-select name="favnum" label="Pick a number" required supporting-text>
+      <wfc-option value="1">one</wfc-option>
+      <wfc-option value="2">two</wfc-option>
+      <wfc-option value="3">three</wfc-option>
+    </wfc-select>
   
-    <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+    <wfc-checkbox name="agree" required>Agree</wfc-checkbox>
     
     <!-- The buttons do not need to be inside the from element -->
-    <mdw-button type="submit">Submit</mdw-button>
-    <mdw-button type="reset" style="color: var(--mdw-error);">reset</mdw-button>
+    <wfc-button type="submit">Submit</wfc-button>
+    <wfc-button type="reset" style="color: var(--wfc-error);">reset</wfc-button>
     <!-- type="cancel" is not available on native buttons -->
-    <mdw-button type="cancel" style="color: var(--mdw-error);" onclick="console.log('Called on discard or no change')">Cancel</mdw-button>
+    <wfc-button type="cancel" style="color: var(--wfc-error);" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
   </form>`)}
         </code>
       </pre>
@@ -84,10 +84,10 @@
   document.querySelector('#one').addEventListener('submit', submit);`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="change">
+    <wfc-card id="change">
       <div class="card-content">
         <div class="headline">Cancel change detection</div>
         <div class="supporting-text">The cancel button will prompt a dialog when it is clicked and detects any changes in the form data</div>
@@ -95,15 +95,15 @@
         <div class="example" style="display: flex; justify-content: center;">
           <!-- method="dialog" Will prevent any page redirects or endpoint calls -->
           <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
-            <mdw-textfield name="name" label="Name" supporting-text="Enter name" required></mdw-textfield>
+            <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
     
-            <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+            <wfc-checkbox name="agree" required>Agree</wfc-checkbox>
             
             <!-- The buttons do not need to be inside the from element -->
             <div style="display: flex; justify-self: end;">
-              <mdw-button form="two" type="submit">Submit</mdw-button>
+              <wfc-button form="two" type="submit">Submit</wfc-button>
               <!-- type="cancel" is custom and does not natively exist -->
-              <mdw-button form="two" type="cancel" onclick="console.log('Called on discard or no change')">Cancel</mdw-button>
+              <wfc-button form="two" type="cancel" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
             </div>
           </form>
         </div>
@@ -113,15 +113,15 @@
         <code class="language-html">
   ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
-    <mdw-textfield name="name" label="Name" supporting-text="Enter name" required></mdw-textfield>
+    <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
   
-    <mdw-checkbox name="agree" required>Agree</mdw-checkbox>
+    <wfc-checkbox name="agree" required>Agree</wfc-checkbox>
   
     <!-- The buttons do not need to be inside the from element -->
     <div style="display: flex; justify-self: end;">
-      <mdw-button form="two" type="submit">Submit</mdw-button>
+      <wfc-button form="two" type="submit">Submit</wfc-button>
       <!-- type="cancel" is custom and does not natively exist -->
-      <mdw-button form="two" type="cancel" onclick="console.log('Called on discard or no change')">Cancel</mdw-button>
+      <wfc-button form="two" type="cancel" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
     </div>
   </form>`)}
         </code>
@@ -140,6 +140,6 @@
   document.querySelector('#one').addEventListener('submit', submit);`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

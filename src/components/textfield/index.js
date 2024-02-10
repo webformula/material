@@ -14,8 +14,8 @@ textareaElement.classList.add('input');
 
 // TODO pattern regex error when loading built page (refresh on page). The error is not breaking anything. Probably because we rerender
 
-export default class MDWTextfieldElement extends HTMLComponentElement {
-  static tag = 'mdw-textfield';
+export default class WFCTextfieldElement extends HTMLComponentElement {
+  static tag = 'wfc-textfield';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -533,7 +533,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     }
 
     if (event.target.name === 'picker') {
-      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER' || e.nodeName === 'MDW-DATE-PICKER' || e.nodeName === 'MDW-DATE-RANGE-PICKER')) {
+      if ([...event.target.assignedElements()].find(e => e.nodeName === 'WFC-TIME-PICKER' || e.nodeName === 'WFC-DATE-PICKER' || e.nodeName === 'WFC-DATE-RANGE-PICKER')) {
         this.shadowRoot.querySelector('.text-field').classList.add('has-picker')
       }
     }
@@ -564,4 +564,4 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   }
 }
 
-customElements.define(MDWTextfieldElement.tag, MDWTextfieldElement);
+customElements.define(WFCTextfieldElement.tag, WFCTextfieldElement);

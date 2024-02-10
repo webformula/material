@@ -1,7 +1,7 @@
 :host {
   min-width: 20px;
   pointer-events: none;
-  border-radius: var(--mdw-shape-extra-small);
+  border-radius: var(--wfc-shape-extra-small);
 }
 
 .surface {
@@ -11,24 +11,24 @@
 .surface-content {
   height: 24px;
   padding: 0 8px;
-  font-size: var(--mdw-font-small-label-size);
-  font-weight: var(--mdw-font-small-label-weight);
+  font-size: var(--wfc-font-small-label-size);
+  font-weight: var(--wfc-font-small-label-weight);
   line-height: 24px;
-  letter-spacing: var(--mdw-font-small-label-tracking);
+  letter-spacing: var(--wfc-font-small-label-tracking);
 
-  border-radius: var(--mdw-shape-extra-small);
-  background-color: var(--mdw-surface-inverse);
-  color: var(--mdw-on-surface-inverse);
+  border-radius: var(--wfc-shape-extra-small);
+  background-color: var(--wfc-surface-inverse);
+  color: var(--wfc-on-surface-inverse);
 }
 
 
 
-/* mdw-tooltip.rich {
+/* wfc-tooltip.rich {
   height: auto;
   min-height: 24px;
   max-width: 300px;
-  background-color: var(--mdw-surface-container);
-  color: var(--mdw-on-surface-variant);
+  background-color: var(--wfc-surface-container);
+  color: var(--wfc-on-surface-variant);
   font-size: unset;
   font-weight: unset;
   line-height: unset;
@@ -39,27 +39,27 @@
   padding-bottom: 8px;
   pointer-events: all;
   white-space: normal;
-  box-shadow: var(--mdw-elevation-2);
+  box-shadow: var(--wfc-elevation-2);
 }
 
-mdw-tooltip.rich .subheader {
+wfc-tooltip.rich .subheader {
   margin: 0;
-  font-size: var(--mdw-font-small-title-size);
-  font-weight: var(--mdw-font-small-title-weight);
-  line-height: var(--mdw-font-small-title-line-height);
-  letter-spacing: var(--mdw-font-small-title-tracking);
+  font-size: var(--wfc-font-small-title-size);
+  font-weight: var(--wfc-font-small-title-weight);
+  line-height: var(--wfc-font-small-title-line-height);
+  letter-spacing: var(--wfc-font-small-title-tracking);
 }
 
-mdw-tooltip.rich .supporting-text {
+wfc-tooltip.rich .supporting-text {
   margin: 0;
-  font-size: var(--mdw-font-medium-body-size);
-  font-weight: var(--mdw-font-medium-body-weight);
-  line-height: var(--mdw-font-medium-body-line-height);
-  letter-spacing: var(--mdw-font-medium-body-tracking);
+  font-size: var(--wfc-font-medium-body-size);
+  font-weight: var(--wfc-font-medium-body-weight);
+  line-height: var(--wfc-font-medium-body-line-height);
+  letter-spacing: var(--wfc-font-medium-body-tracking);
   padding-top: 4px;
 }
 
-mdw-tooltip.rich .actions {
+wfc-tooltip.rich .actions {
   padding-top: 12px;
   margin-left: -12px;
 } */

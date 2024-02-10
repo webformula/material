@@ -1,23 +1,23 @@
-mdw-anchor-group {
-  --mdw-navigation-drawer-group-height: 56px;
+wfc-anchor-group {
+  --wfc-navigation-drawer-group-height: 56px;
   position: relative;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   overflow: hidden;
-  height: var(--mdw-navigation-drawer-group-height);
+  height: var(--wfc-navigation-drawer-group-height);
   width: 100%;
   margin-left: -16px;
   padding-left: 16px;
   padding-right: 26px;
   transition: height 0ms;
-  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
+  transition-timing-function: var(--wfc-motion-easing-standard-decelerate);
 }
 
-body.mdw-animation mdw-anchor-group {
-  transition-duration: var(--mdw-motion-duration-short4);
+body.wfc-animation wfc-anchor-group {
+  transition-duration: var(--wfc-motion-duration-short4);
 }
 
-mdw-anchor-group mdw-anchor:not([control]) {
+wfc-anchor-group wfc-anchor:not([control]) {
   margin-left: 16px;
 }

@@ -6,7 +6,7 @@
   min-width: 56px;
   max-width: 100%;
   height: 56px;
-  border-radius: var(--mdw-shape-large);
+  border-radius: var(--wfc-shape-large);
 }
 
 :host(.fixed) {
@@ -19,14 +19,14 @@
   height: 96px;
   max-width: 96px;
   justify-content: center;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
 }
 
 :host(.small) {
   min-width: 40px;
   max-width: 40px;
   height: 40px;
-  border-radius: var(--mdw-shape-medium);
+  border-radius: var(--wfc-shape-medium);
 }
 
 :host(.position-bottom-right) {
@@ -71,9 +71,9 @@ button {
   border-radius: inherit;
   cursor: inherit;
 
-  color: var(--mdw-on-primary-container);
-  background-color: var(--mdw-primary-container);
-  box-shadow: var(--mdw-elevation-3);
+  color: var(--wfc-on-primary-container);
+  background-color: var(--wfc-primary-container);
+  box-shadow: var(--wfc-elevation-3);
 }
 
 :host(.small) button {
@@ -81,18 +81,18 @@ button {
 }
 
 :host(.surface) button {
-  color: var(--mdw-primary);
-  background-color: var(--mdw-surface-container);
+  color: var(--wfc-primary);
+  background-color: var(--wfc-surface-container);
 }
 
 :host(.secondary) button {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--wfc-on-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 :host(.tertiary) button {
-  color: var(--mdw-on-tertiary-container);
-  background-color: var(--mdw-tertiary-container);
+  color: var(--wfc-on-tertiary-container);
+  background-color: var(--wfc-tertiary-container);
 }
 
 
@@ -101,9 +101,9 @@ slot[name="label"] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
 }
 
 slot[name="label"]::slotted(*) {
@@ -112,33 +112,33 @@ slot[name="label"]::slotted(*) {
 
 :host {
   transition: max-width;
-  transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium2);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
 :host(.hide-label) {
   max-width: 0px;
-  transition-duration: var(--mdw-motion-duration-medium4);
+  transition-duration: var(--wfc-motion-duration-medium4);
 }
 
-:host(.large) slot.icon::slotted(mdw-icon) {
-  width: var(--mdw-font-large-icon-size);
-  height: var(--mdw-font-large-icon-size);
-  font-size: var(--mdw-font-large-icon-size);
-  line-height: var(--mdw-font-large-icon-size);
+:host(.large) slot.icon::slotted(wfc-icon) {
+  width: var(--wfc-font-large-icon-size);
+  height: var(--wfc-font-large-icon-size);
+  font-size: var(--wfc-font-large-icon-size);
+  line-height: var(--wfc-font-large-icon-size);
 }
 
 :host(.auto-hide) {
   transition: transform;
-  transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium2);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   overflow: hidden;
   transform: scale(1);
   transform-origin: bottom right;
 }
 
 :host(.auto-hide.hide) {
-  transition-duration: var(--mdw-motion-duration-medium2);
+  transition-duration: var(--wfc-motion-duration-medium2);
   transform: scale(0);
 }
 
@@ -154,14 +154,14 @@ slot[name="label"]::slotted(*) {
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-  transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
   transition-property: opacity;
 }
 
 
-:host(:not(.mdw-animation)),
-:host(:not(.mdw-animation)) .state-layer {
+:host(:not(.wfc-animation)),
+:host(:not(.wfc-animation)) .state-layer {
   transition-duration: 0s !important;
 }
 
@@ -169,23 +169,23 @@ slot[name="label"]::slotted(*) {
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right),
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left) {
   transition: bottom;
-  transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide-label),
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left.auto-hide-label) {
   transition: max-width, color, bottom;
   transition-delay: 0ms, 60ms, 0ms;
-  transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide),
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left.auto-hide) {
   transition: transform, bottom;
-  transition-duration: var(--mdw-motion-duration-medium2), var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-medium2), var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
 :host-context(body.has-navigation-bar:not(.navigation-bar-hide)):host(.fixed.position-bottom-right),
@@ -205,30 +205,30 @@ slot[name="label"]::slotted(*) {
 
 @media (hover: hover) {
   button {
-    transition-duration: var(--mdw-motion-duration-medium1);
-    transition-timing-function: var(--mdw-motion-easing-standard);
+    transition-duration: var(--wfc-motion-duration-medium1);
+    transition-timing-function: var(--wfc-motion-easing-standard);
     transition-property: box-shadow;
   }
 
   :host(:hover) button {
-    box-shadow: var(--mdw-elevation-4);
+    box-shadow: var(--wfc-elevation-4);
   }
 
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
-    background-color: var(--mdw-on-primary-container);
+    opacity: var(--wfc-state-layer-opacity-hover);
+    background-color: var(--wfc-on-primary-container);
   }
 
   :host(.surface:hover) .state-layer {
-    background-color: var(--mdw-on-surface);
+    background-color: var(--wfc-on-surface);
   }
 
   :host(.secondary:hover) .state-layer {
-    background-color: var(--mdw-on-secondary-container);
+    background-color: var(--wfc-on-secondary-container);
   }
 
   :host(.tertiary:hover) .state-layer {
-    background-color: var(--mdw-on-tertiary-container);
+    background-color: var(--wfc-on-tertiary-container);
   }
 }
 
@@ -247,5 +247,5 @@ slot[name="label"]::slotted(*) {
 }
 
 .ripple > .ripple-element {
-  background-color: var(--mdw-primary-alpha-16);
+  background-color: var(--wfc-primary-alpha-16);
 }

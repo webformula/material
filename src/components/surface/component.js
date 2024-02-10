@@ -6,8 +6,8 @@ const animations = ['translate-y', 'translate-left', 'transition-right', 'transl
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
 
-export default class MDWSurfaceElement extends HTMLComponentElement {
-  static tag = 'mdw-surface';
+export default class WFCSurfaceElement extends HTMLComponentElement {
+  static tag = 'wfc-surface';
   static useShadowRoot = true;
   static useTemplate = true;
 
@@ -69,7 +69,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     this.#abort = new AbortController();
     const positionClass = [...this.classList].find(v => v.startsWith('position-'));
     if (positionClass) this.position = positionClass;
-    if (this.#closeDelay) this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
+    if (this.#closeDelay) this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
     this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
     this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
   }
@@ -209,7 +209,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   get closeDelay() { return this.#closeDelay }
   set closeDelay(value) {
     this.#closeDelay = parseInt(value || 0);
-    this.#surfaceElement.style.setProperty('--mdw-surface-close-delay', `${this.#closeDelay}ms`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
   }
 
 
@@ -230,8 +230,8 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     else await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
     if (this.animation !== 'height') {
-      this.#surfaceElement.style.removeProperty('--mdw-surface-height');
-      this.#surfaceElement.style.removeProperty('--mdw-surface-width');
+      this.#surfaceElement.style.removeProperty('--wfc-surface-height');
+      this.#surfaceElement.style.removeProperty('--wfc-surface-width');
     }
 
     // TODO if no animation then these can trigger immediately
@@ -404,16 +404,16 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
     }
 
     this.#surfaceElement.classList.toggle('overlap', this.#overlap);
-    this.#surfaceElement.style.setProperty('--mdw-surface-height', `${height}px`);
-    this.#surfaceElement.style.setProperty('--mdw-surface-width', `${width}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-height', `${height}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-width', `${width}px`);
     this.#surfaceElement.style.left = `${left}px`;
     this.#surfaceElement.style.bottom = bottom !== undefined ? `${bottom}px` : '';
     this.#surfaceElement.style.top = top !== undefined ? `${top}px` : '';
   }
 
   #setNonAnchorPosition() {
-    this.#surfaceElement.style.setProperty('--mdw-surface-height', `${this.#surfaceElement.offsetHeight}px`);
-    this.#surfaceElement.style.setProperty('--mdw-surface-width', `${this.#surfaceElement.offsetWidth}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-height', `${this.#surfaceElement.offsetHeight}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-width', `${this.#surfaceElement.offsetWidth}px`);
 
     if (this.animation === 'fullscreen') this.#clearFullScreen();
   }
@@ -423,7 +423,7 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   #preShowFullscreen() {
     if (!this.#fullscreenPlaceholder) {
       this.#fullscreenPlaceholder = document.createElement('div');
-      this.#fullscreenPlaceholder.classList.add('mdw-surface-placeholder');
+      this.#fullscreenPlaceholder.classList.add('wfc-surface-placeholder');
     }
     this.#preFullscreenBounds = this.getBoundingClientRect();
     this.#postHideFullscreen();
@@ -469,4 +469,4 @@ export default class MDWSurfaceElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWSurfaceElement.tag, MDWSurfaceElement);
+customElements.define(WFCSurfaceElement.tag, WFCSurfaceElement);

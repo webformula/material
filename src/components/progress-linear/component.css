@@ -19,7 +19,7 @@
 }
 
 .active-bar {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 .active-bar > .inner-bar {
@@ -30,7 +30,7 @@
 
 .inactive-bar,
 .active-bar > .inner-bar {
-  background: var(--mdw-surface-container-highest);
+  background: var(--wfc-surface-container-highest);
 }
 
 :host([indeterminate]) .active-bar > .inner-bar {
@@ -60,7 +60,7 @@
   width: 4px;
   height: 4px;
   border-radius: 4px;
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
   justify-content: flex-end;
 }
 
@@ -81,7 +81,7 @@
   }
 
   20% {
-    animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+    animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
     transform: translateX(0px);
   }
 
@@ -106,7 +106,7 @@
   }
 
   10% {
-    animation-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
+    animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
     inset-inline-end: 100%;
   }
 

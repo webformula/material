@@ -5,8 +5,8 @@ import dialog from '../dialog/service.js';
 
 const targetValues = ['_blank', '_parent', '_self', '_top'];
 
-export default class MDWButtonElement extends HTMLComponentElement {
-  static tag = 'mdw-button';
+export default class WFCButtonElement extends HTMLComponentElement {
+  static tag = 'wfc-button';
   static useShadowRoot = true;
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
@@ -152,7 +152,7 @@ export default class MDWButtonElement extends HTMLComponentElement {
   pending() {
     this.classList.add('async-pending');
     this.shadowRoot.querySelector('.spinner').innerHTML = `
-      <mdw-progress-circular style="width: 20px; height: 20px;" indeterminate class="${this.classList.contains('filled') ? ' on-filled' : ''}${this.classList.contains('filled-tonal') ? ' on-filled-tonal' : ''}"></mdw-progress-circular>
+      <wfc-progress-circular style="width: 20px; height: 20px;" indeterminate class="${this.classList.contains('filled') ? ' on-filled' : ''}${this.classList.contains('filled-tonal') ? ' on-filled-tonal' : ''}"></wfc-progress-circular>
     `;
   }
 
@@ -279,4 +279,4 @@ export default class MDWButtonElement extends HTMLComponentElement {
   }
 };
 
-customElements.define(MDWButtonElement.tag, MDWButtonElement);
+customElements.define(WFCButtonElement.tag, WFCButtonElement);

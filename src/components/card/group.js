@@ -3,9 +3,9 @@ import device from '../../core/device.js';
 
 // TODO keyboard controls
 
-class MDWCardGroupElement extends HTMLComponentElement {
-  static tag = 'mdw-card-group';
-  #autoSpanRow = this.classList.contains('mdw-auto-span-row');
+class WFCCardGroupElement extends HTMLComponentElement {
+  static tag = 'wfc-card-group';
+  #autoSpanRow = this.classList.contains('wfc-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
   #handleWindowState_bound = this.#handleWindowState.bind(this);
 
@@ -20,11 +20,11 @@ class MDWCardGroupElement extends HTMLComponentElement {
       this.#layout();
       this.#observer.observe(this, { childList: true });
     });
-    window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
+    window.addEventListener('wfcwindowstate', this.#handleWindowState_bound);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('mdwwindowstate', this.#handleWindowState_bound);
+    window.removeEventListener('wfcwindowstate', this.#handleWindowState_bound);
     this.#observer.disconnect();
   }
 
@@ -49,7 +49,7 @@ class MDWCardGroupElement extends HTMLComponentElement {
     this.classList.add('grid');
     this.classList.remove('list');
 
-    const cards = [...this.querySelectorAll('mdw-card')].map((element, i) => {
+    const cards = [...this.querySelectorAll('wfc-card')].map((element, i) => {
       element.style.order = i;
       const innerContentHeight = [...element.children].reduce((a, b) => {
         // prevent ripple element from adjusting height
@@ -66,7 +66,7 @@ class MDWCardGroupElement extends HTMLComponentElement {
     if (cards.length === 0) return;
 
     const baseHeight = cards[0].height;
-    this.style.setProperty('--mdw-card-group-row-height', `${baseHeight}px`);
+    this.style.setProperty('--wfc-card-group-row-height', `${baseHeight}px`);
 
     cards.forEach(({ element, height }) => {
       if (element.classList.contains('show')) return;
@@ -79,10 +79,10 @@ class MDWCardGroupElement extends HTMLComponentElement {
     const overFlow = this.scrollWidth - this.offsetWidth;
     if (overFlow > 0) {
       let cardWidth = 0;
-      [...this.querySelectorAll('mdw-card')].forEach(card => {
+      [...this.querySelectorAll('wfc-card')].forEach(card => {
         if (card.offsetWidth > cardWidth) cardWidth = card.offsetWidth;
       });
-      this.style.setProperty('--mdw-card-group-columns', Math.max(1, Math.floor(this.offsetWidth / cardWidth)));
+      this.style.setProperty('--wfc-card-group-columns', Math.max(1, Math.floor(this.offsetWidth / cardWidth)));
     }
   }
 
@@ -102,4 +102,4 @@ class MDWCardGroupElement extends HTMLComponentElement {
     this.#observer.observe(this, { childList: true });
   }
 }
-customElements.define(MDWCardGroupElement.tag, MDWCardGroupElement);
+customElements.define(WFCCardGroupElement.tag, WFCCardGroupElement);

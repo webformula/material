@@ -1,26 +1,26 @@
 :host {
   min-width: 210px;
   display: inline-flex;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
 }
 
 .surface-content {
-  background-color: var(--mdw-surface-container);
-  box-shadow: var(--mdw-elevation-3);
-  border-radius: var(--mdw-shape-extra-large-bottom);
+  background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-3);
+  border-radius: var(--wfc-shape-extra-large-bottom);
   clip-path: inset(0px -30px -30px -30px);
 }
 
 :host-context(body.window-compact) .surface-content {
   box-shadow: none;
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
   clip-path: none;
 }
 
 :host-context(body.window-compact):host(.open) .surface .surface-content {
   transition: border-radius;
-  transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-emphasized);
+  transition-duration: var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
 :host-context(body.window-compact):host(.open) .surface.animating .surface-content {
@@ -77,17 +77,17 @@ slot[name="suggestions"] {
   padding: 12px 16px;
   height: 48px;
   line-height: 48px;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  color: var(--mdw-on-surface-variant-alpha-76);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
+  color: var(--wfc-on-surface-variant-alpha-76);
 }
 
 .surface-content:not(.has-value) .no-results {
   display: flex;
 }
 
-mdw-progress-linear {
+wfc-progress-linear {
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -95,28 +95,28 @@ mdw-progress-linear {
   right: 0;
   opacity: 0;
   transition: opacity;
-  transition-timing-function: var(--mdw-motion-easing-standard);
-  transition-duration: var(--mdw-motion-duration-short4);
-  transition-delay: var(--mdw-motion-duration-medium2);
+  transition-timing-function: var(--wfc-motion-easing-standard);
+  transition-duration: var(--wfc-motion-duration-short4);
+  transition-delay: var(--wfc-motion-duration-medium2);
 }
 
-mdw-divider {
+wfc-divider {
   display: none;
 }
-:host-context(body.window-compact):host(.open) mdw-divider {
+:host-context(body.window-compact):host(.open) wfc-divider {
   display: flex;
   position: absolute;
   top: 56px;
   left: 0;
 }
 
-:host(.loading) mdw-progress-linear {
+:host(.loading) wfc-progress-linear {
   opacity: 1;
-  transition-duration: var(--mdw-motion-duration-short4);
+  transition-duration: var(--wfc-motion-duration-short4);
   transition-delay: 0s;
 }
 
-:host-context(body.window-compact):host(.open.loading) mdw-progress-linear {
+:host-context(body.window-compact):host(.open.loading) wfc-progress-linear {
   top: 56px;
 }
 
@@ -131,27 +131,27 @@ mdw-divider {
   width: 100%;
   align-items: center;
 
-  background-color: var(--mdw-surface-container);
-  border-radius: var(--mdw-shape-extra-large);
-  box-shadow: var(--mdw-elevation-3);
+  background-color: var(--wfc-surface-container);
+  border-radius: var(--wfc-shape-extra-large);
+  box-shadow: var(--wfc-elevation-3);
 
   transition: border-radius;
-  transition-duration: var(--mdw-motion-duration-short1);
-  transition-timing-function: var(--mdw-motion-easing-emphasized-accelerate);
-  transition-delay: var(--mdw-motion-duration-short2);
+  transition-duration: var(--wfc-motion-duration-short1);
+  transition-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
+  transition-delay: var(--wfc-motion-duration-short2);
 }
 
 :host(.open) .input {
-  border-radius: var(--mdw-shape-extra-large-top);
-  transition-duration: var(--mdw-motion-duration-short1);
-  transition-timing-function: var(--mdw-motion-easing-emphasized);
+  border-radius: var(--wfc-shape-extra-large-top);
+  transition-duration: var(--wfc-motion-duration-short1);
+  transition-timing-function: var(--wfc-motion-easing-emphasized);
   transition-delay: 0s;
 }
 
 :host-context(body.window-compact) .input,
 :host-context(body.window-compact):host(.open) .input,
 :host-context(body.window-compact):host(.closing) .input {
-  border-radius: var(--mdw-shape-extra-large);
+  border-radius: var(--wfc-shape-extra-large);
   transition: none;
 }
 
@@ -174,12 +174,12 @@ input {
 
   text-decoration: inherit;
   text-transform: inherit;
-  font-size: var(--mdw-font-large-body-size);
-  font-weight: var(--mdw-font-large-body-weight);
-  line-height: var(--mdw-font-large-body-line-height);
-  letter-spacing: var(--mdw-font-large-body-tracking);
-  color: var(--mdw-on-surface);
-  caret-color: var(--mdw-primary);
+  font-size: var(--wfc-font-large-body-size);
+  font-weight: var(--wfc-font-large-body-weight);
+  line-height: var(--wfc-font-large-body-line-height);
+  letter-spacing: var(--wfc-font-large-body-tracking);
+  color: var(--wfc-on-surface);
+  caret-color: var(--wfc-primary);
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -187,7 +187,7 @@ input {
 }
 
 input::placeholder {
-  color: var(--mdw-on-surface-variant);
+  color: var(--wfc-on-surface-variant);
 }
 
 input::-webkit-search-decoration,
@@ -203,8 +203,8 @@ input::-webkit-search-cancel-button {
   pointer-events: none;
   opacity: 0;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short2);
-  transition-timing-function: var(--mdw-motion-easing-emphasized);
+  transition-duration: var(--wfc-motion-duration-short2);
+  transition-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
 :host(.open) .input.has-value .clear {
@@ -252,8 +252,8 @@ slot[name="trailing"] {
 slot[name="trailing"]::slotted(*) {
   opacity: 1;
   transition: opacity;
-  transition-duration: var(--mdw-motion-duration-short2);
-  transition-timing-function: var(--mdw-motion-easing-emphasized);
+  transition-duration: var(--wfc-motion-duration-short2);
+  transition-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
 :host(.open) .input.has-value slot[name="trailing"]::slotted(*) {

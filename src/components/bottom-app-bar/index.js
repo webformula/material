@@ -4,8 +4,8 @@ import util from '../../core/util.js';
 // TODO refactor
 // TODO FAB
 
-export default class MDWBottomAppBarElement extends HTMLComponentElement {
-  static tag = 'mdw-bottom-app-bar';
+export default class WFCBottomAppBarElement extends HTMLComponentElement {
+  static tag = 'wfc-bottom-app-bar';
 
   #autoHide;
   #scrollDirectionChange_bound = this.#scrollDirectionChange.bind(this);
@@ -24,8 +24,8 @@ export default class MDWBottomAppBarElement extends HTMLComponentElement {
   connectedCallback() {
     if (this.#autoHide) util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
 
-    if (this.querySelector('mdw-bottom-app-bar-secondary[hash]')) {
-      [...this.querySelectorAll('mdw-bottom-app-bar-secondary')].forEach(element => {
+    if (this.querySelector('wfc-bottom-app-bar-secondary[hash]')) {
+      [...this.querySelectorAll('wfc-bottom-app-bar-secondary')].forEach(element => {
         const id = element.getAttribute('id');
         element.setAttribute('id', id || `bottom-app-bar-secondary-${util.uid()}`);
       })
@@ -40,11 +40,11 @@ export default class MDWBottomAppBarElement extends HTMLComponentElement {
   }
 
   async showPrimary() {
-    const primary = this.querySelector('mdw-bottom-app-bar-primary');
-    if (!primary) throw Error('Must contain primary element "mdw-bottom-app-bar-primary" to use secondary');
+    const primary = this.querySelector('wfc-bottom-app-bar-primary');
+    if (!primary) throw Error('Must contain primary element "wfc-bottom-app-bar-primary" to use secondary');
     if (!primary.classList.contains('hide')) return;
 
-    const currentSecondary = this.querySelector('mdw-bottom-app-bar-secondary.show');
+    const currentSecondary = this.querySelector('wfc-bottom-app-bar-secondary.show');
     if (currentSecondary) currentSecondary.classList.remove('show');
 
     primary.classList.remove('hide');
@@ -53,14 +53,14 @@ export default class MDWBottomAppBarElement extends HTMLComponentElement {
   async showSecondary(id) {
     if (!id) return this.showPrimary();
 
-    const primary = this.querySelector('mdw-bottom-app-bar-primary');
-    if (!primary) throw Error('Must contain primary element "mdw-bottom-app-bar-primary" to use secondary');
+    const primary = this.querySelector('wfc-bottom-app-bar-primary');
+    if (!primary) throw Error('Must contain primary element "wfc-bottom-app-bar-primary" to use secondary');
 
-    const secondary = this.querySelector(`mdw-bottom-app-bar-secondary#${id}`);
-    if (!secondary) throw Error('Could not find secondary: "mdw-bottom-app-bar-secondary#${id}"');
+    const secondary = this.querySelector(`wfc-bottom-app-bar-secondary#${id}`);
+    if (!secondary) throw Error('Could not find secondary: "wfc-bottom-app-bar-secondary#${id}"');
     if (secondary.classList.contains('show')) return;
 
-    const currentSecondary = this.querySelector('mdw-bottom-app-bar-secondary.show');
+    const currentSecondary = this.querySelector('wfc-bottom-app-bar-secondary.show');
     if (currentSecondary) currentSecondary.classList.remove('show');
 
     primary.classList.add('hide')
@@ -73,10 +73,10 @@ export default class MDWBottomAppBarElement extends HTMLComponentElement {
   }
 
   #hashchange() {
-    const secondaryByHash = this.querySelector(`mdw-bottom-app-bar-secondary[hash="${location.hash}"]`);
+    const secondaryByHash = this.querySelector(`wfc-bottom-app-bar-secondary[hash="${location.hash}"]`);
     if (secondaryByHash) this.showSecondary(secondaryByHash.getAttribute('id'));
     else this.showPrimary();
   }
 }
 
-customElements.define(MDWBottomAppBarElement.tag, MDWBottomAppBarElement);
+customElements.define(WFCBottomAppBarElement.tag, WFCBottomAppBarElement);

@@ -54,15 +54,15 @@ pre > code {
   overflow-x: auto;
 }
 
-mdw-card > pre:first-of-type > code {
+wfc-card > pre:first-of-type > code {
   margin-top: 8px;
 }
 
-mdw-card > pre:last-of-type > code {
-  border-radius: 0 0 var(--mdw-shape-medium) var(--mdw-shape-medium);
+wfc-card > pre:last-of-type > code {
+  border-radius: 0 0 var(--wfc-shape-medium) var(--wfc-shape-medium);
 }
 
-mdw-card .example {
+wfc-card .example {
   margin-top: 18px;
 }
 
@@ -72,23 +72,23 @@ mdw-card .example {
   align-items: center;
 }
 
-mdw-card.header-card {
+wfc-card.header-card {
   margin-top: 16px;
   margin-bottom: 48px;
   padding-bottom: 8px;
   box-shadow: none;
 }
 
-mdw-card.header-card > .headline {
+wfc-card.header-card > .headline {
   font-size: 32px;
 }
 
-mdw-card > .card-content > .headline + .subheader {
+wfc-card > .card-content > .headline + .subheader {
   margin-top: 2px;
 }
 
-#page-content > section > mdw-card,
-#page-content > section > .page-content-container > mdw-card {
+#page-content > section > wfc-card,
+#page-content > section > .page-content-container > wfc-card {
   margin-bottom: 36px;
 }
 
@@ -181,6 +181,6 @@ body.window-compact .page-content-section {
   flex: 1;
 }
 
-.page-content-container > mdw-card:first-of-type {
+.page-content-container > wfc-card:first-of-type {
   margin-top: 48px;
 }

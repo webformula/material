@@ -1,12 +1,12 @@
 <h3 class="page-title">Text fields</h3>
-<div class="page-subheader mdw-font-title-medium">Text fields allow users to enter text into a UI. They typically appear in forms and dialogs</div>
+<div class="page-subheader wfc-font-title-medium">Text fields allow users to enter text into a UI. They typically appear in forms and dialogs</div>
 <a href="https://m3.material.io/components/text-fields/overview" target="_new">Material Design Guidelines:
   Text fields</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#types">Types</a></li>
       <li><a href="#icons">Icons (leading, trailing)</a></li>
@@ -19,184 +19,184 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card>
+    <wfc-card>
       <div class="card-content">
         <div class="headline">Example</div>
       </div>
       <div class="card-content" style="display: flex; flex-direction:column; width: 250px; align-self: center;">
-        <mdw-textfield label="Label">
-          <mdw-icon slot="leading-icon">search</mdw-icon>
+        <wfc-textfield label="Label">
+          <wfc-icon slot="leading-icon">search</wfc-icon>
           <!-- TODO change to icon button -->
-          <mdw-icon slot="trailing-icon">cancel</mdw-icon>
-        </mdw-textfield>
+          <wfc-icon slot="trailing-icon">cancel</wfc-icon>
+        </wfc-textfield>
 
-        <mdw-textfield label="Label" prefix-text="$" suffix-text="@gmail.com">
-        </mdw-textfield>
+        <wfc-textfield label="Label" prefix-text="$" suffix-text="@gmail.com">
+        </wfc-textfield>
 
-        <mdw-textfield label="Label" class="outlined" value="My name" disabled>
-          <mdw-icon slot="trailing-icon">person</mdw-icon>
-        </mdw-textfield>
+        <wfc-textfield label="Label" class="outlined" value="My name" disabled>
+          <wfc-icon slot="trailing-icon">person</wfc-icon>
+        </wfc-textfield>
       </div>
-    </mdw-card>
+    </wfc-card>
     
-    <mdw-card id="types">
+    <wfc-card id="types">
       <div class="card-content">
         <div class="headline">Types</div>
         <div class="subheader">There are two types of text fields: Filled and Outlined</div>
         
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <mdw-textfield label="Label"></mdw-textfield>
-          <mdw-textfield label="Label" class="outlined"></mdw-textfield>
+          <wfc-textfield label="Label"></wfc-textfield>
+          <wfc-textfield label="Label" class="outlined"></wfc-textfield>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield
+  ${page.escape(`<wfc-textfield
     label="Label"
-    ></mdw-textfield>
+    ></wfc-textfield>
     
-  <mdw-textfield
+  <wfc-textfield
     label="Label"
     class="outlined"
-    ></mdw-textfield>`)}
+    ></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="icons">
+    <wfc-card id="icons">
       <div class="card-content">
         <div class="headline">Icons (leading, trailing)</div>
         
         <div class="example" style="display: flex; justify-content: center;">
-          <mdw-textfield label="Label">
-            <mdw-icon slot="leading-icon">search</mdw-icon>
-            <mdw-icon slot="trailing-icon">person</mdw-icon>
-          </mdw-textfield>
+          <wfc-textfield label="Label">
+            <wfc-icon slot="leading-icon">search</wfc-icon>
+            <wfc-icon slot="trailing-icon">person</wfc-icon>
+          </wfc-textfield>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="Label">
-    <mdw-icon slot="leading-icon">search</mdw-icon>
-    <mdw-icon slot="trailing-icon">person</mdw-icon>
-  </mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="Label">
+    <wfc-icon slot="leading-icon">search</wfc-icon>
+    <wfc-icon slot="trailing-icon">person</wfc-icon>
+  </wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="supportingerror">
+    <wfc-card id="supportingerror">
       <div class="card-content">
         <div class="headline">Supporting and error text</div>
         
         <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
           <div style="display: flex; width: 250px; flex-direction: column;">
-            <mdw-textfield label="Supporting text" supporting-text="Supporting text"></mdw-textfield>
-            <mdw-textfield label="Required" required></mdw-textfield>
-            <mdw-textfield label="Number min max" type="number" min="1" max="9"></mdw-textfield>
+            <wfc-textfield label="Supporting text" supporting-text="Supporting text"></wfc-textfield>
+            <wfc-textfield label="Required" required></wfc-textfield>
+            <wfc-textfield label="Number min max" type="number" min="1" max="9"></wfc-textfield>
           </div>
           <div style="display: flex; width: 250px; flex-direction: column;">
-            <mdw-textfield label="Error and supporting text" required supporting-text="Supporting text"></mdw-textfield>
-            <mdw-textfield label="Custom error" required error-text="Required* (custom)"></mdw-textfield>
+            <wfc-textfield label="Error and supporting text" required supporting-text="Supporting text"></wfc-textfield>
+            <wfc-textfield label="Custom error" required error-text="Required* (custom)"></wfc-textfield>
           </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield
+  ${page.escape(`<wfc-textfield
     label="Supporting text"
     supporting-text="Supporting text"
-    ></mdw-textfield>
+    ></wfc-textfield>
 
-  <mdw-textfield
+  <wfc-textfield
     label="Required"
     required
-    ></mdw-textfield>
+    ></wfc-textfield>
 
-  <mdw-textfield
+  <wfc-textfield
     label="Number min max"
     type="number"
     min="1"
     max="9"
-    ></mdw-textfield>
+    ></wfc-textfield>
 
-  <mdw-textfield
+  <wfc-textfield
     label="Custom error"
     required
     error-text="Required* (custom)"
-    ></mdw-textfield>
+    ></wfc-textfield>
 
-  <mdw-textfield 
+  <wfc-textfield 
     label="With supporting text"
     required
     supporting-text="Supporting text"
-    ></mdw-textfield>`)}
+    ></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="Suggestions">
+    <wfc-card id="Suggestions">
       <div class="card-content">
         <div class="headline">Suggestion</div>
         
         <div class="example" style="display: flex; justify-content: center;">
-          <mdw-textfield label="Suggestion" placeholder="Type suggestion" suggestion="suggestion"></mdw-textfield>
+          <wfc-textfield label="Suggestion" placeholder="Type suggestion" suggestion="suggestion"></wfc-textfield>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield
+  ${page.escape(`<wfc-textfield
     label="Suggestion"
     placeholder="Type suggestion"
     suggestion="suggestion"
-    ></mdw-textfield>`)}
+    ></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="format">
+    <wfc-card id="format">
       <div class="card-content">
         <div class="headline">Formatting and masking</div>
         <div class="subheader">Use string replacers with pattern regular expressions to format input</div>
-        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">format</b> attribute takes a string replacer. Currently only the number group
-          selector works ($1, $2, ...). The formatter works off the input <b style="font-size: var(--mdw-font-small-title-size);">pattern</b> regex. You can use groups to split
+        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">format</b> attribute takes a string replacer. Currently only the number group
+          selector works ($1, $2, ...). The formatter works off the input <b style="font-size: var(--wfc-font-small-title-size);">pattern</b> regex. You can use groups to split
           value into parts.</div>
-        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">pattern-restrict</b> attribute will prevent incorrect characters or input length</div>
-        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">mask</b> attribute takes a string replacer. Currently only the number group
-          selector works ($1, $2, ...). The mask requires a <b style="font-size: var(--mdw-font-small-title-size);">format</b> to be set</div>
-        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
+        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">pattern-restrict</b> attribute will prevent incorrect characters or input length</div>
+        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">mask</b> attribute takes a string replacer. Currently only the number group
+          selector works ($1, $2, ...). The mask requires a <b style="font-size: var(--wfc-font-small-title-size);">format</b> to be set</div>
+        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
 
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <mdw-textfield
+          <wfc-textfield
             value="123123123"
             id="ssn"
             label="SSN"
             format="$1-$2-$3"
             pattern-restrict
             pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"
-            ></mdw-textfield>
+            ></wfc-textfield>
           
-          <mdw-textfield
+          <wfc-textfield
             id="ssnmask"
             label="SSN masked"
             format="$1-$2-$3"
             mask="xxx-xx-$3"
             pattern-restrict
-            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></mdw-textfield>
+            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></wfc-textfield>
 
-          <mdw-textfield
+          <wfc-textfield
             id="phone"
             label="Phone"
             format="($1) $2 $3"
             pattern-restrict
-            pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$"></mdw-textfield>
+            pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$"></wfc-textfield>
         </div>
       </div>
     
@@ -204,34 +204,34 @@
         <code class="language-html">
   ${page.escape(`<!-- Social Security Number -->
   <!-- converts (123121234, 123-12-1234, 123 12 1234) into 123-12-1234 -->
-  <mdw-textfield
+  <wfc-textfield
     id="ssn"
     label="SSN"
     format="$1-$2-$3"
     pattern-restrict
     \pattern="^([0-9]{3})[\\\\-\\\\s]?([0-9]{2})[\\\\-\\\\s]?([0-9]{4})$"
-    ></mdw-textfield>
+    ></wfc-textfield>
   
   <!-- Social Security Number with mask -->
-  <mdw-textfield
+  <wfc-textfield
     id="ssnmask"
     label="SSN masked"
     format="$1-$2-$3"
     mask="xxx-xx-$3"
     pattern-restrict
     \pattern="^([0-9]{3})[\\\\-\\\\s]?([0-9]{2})[\\\\-\\\\s]?([0-9]{4})$"
-    ></mdw-textfield>
+    ></wfc-textfield>
   
   <!-- US Phone -->
   <!-- converts (1231231234, 123 123 1234, 123-123-1234, (123) 123 1234, 123.123.1234) into (123) 123 1234 -->
   <!-- NOTE if escaping(backslash) in pattern attribute you need to double escape (\s -> \\s) -->
-  <mdw-textfield
+  <wfc-textfield
     id="phone"
     label="Phone"
     format="($1) $2 $3"
     pattern-restrict
     \pattern="^\\\\(?([0-9]{3})(?:[\\\\)\\\\.\\\\-\\\\s]+)?([0-9]{3})[\\\\.\\\\-\\\\s]?([0-9]{4})$"
-    ></mdw-textfield>`)}
+    ></wfc-textfield>`)}
         </code>
       </pre>
       <pre>
@@ -250,48 +250,48 @@
   console.log(inputPhone.formattedValue); // the formatted input (123) 123 1234`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="count">
+    <wfc-card id="count">
       <div class="card-content">
         <div class="headline">Character count</div>
     
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <mdw-textfield label="No max" character-count></mdw-textfield>
-          <mdw-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></mdw-textfield>
+          <wfc-textfield label="No max" character-count></wfc-textfield>
+          <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="No max" character-count></mdw-textfield>
-  <mdw-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="No max" character-count></wfc-textfield>
+  <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="textarea">
+    <wfc-card id="textarea">
       <div class="card-content">
         <div class="headline">Textarea</div>
     
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
-          <mdw-textfield label="Textarea" type="textarea" character-count maxlength="255" style="height: 56px;"></mdw-textfield>
-          <mdw-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></mdw-textfield>
+          <wfc-textfield label="Textarea" type="textarea" character-count maxlength="255" style="height: 56px;"></wfc-textfield>
+          <wfc-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></wfc-textfield>
 
           <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
-            <mdw-textfield label="Rows 3" type="textarea" rows="3"></mdw-textfield>
+            <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>
           </div>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-textfield label="Textarea" type="textarea" character-count maxlength="255"></mdw-textfield>
-  <mdw-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></mdw-textfield>
-  <mdw-textfield label="Rows 3" type="textarea" rows="3"></mdw-textfield>`)}
+  ${page.escape(`<wfc-textfield label="Textarea" type="textarea" character-count maxlength="255"></wfc-textfield>
+  <wfc-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></wfc-textfield>
+  <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

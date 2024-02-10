@@ -60,7 +60,7 @@ input {
   pointer-events: none;
   opacity: 0;
   border-radius: 50%;
-  background-color: var(--mdw-on-surface);
+  background-color: var(--wfc-on-surface);
   width: 40px;
   height: 40px;
   left: -11px;
@@ -70,25 +70,25 @@ input {
 }
 
 :host(.selected) .state-layer {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 :host(.invalid) .state-layer {
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
+  opacity: var(--wfc-state-layer-opacity-focus);
 }
 
 @media (hover: hover) {
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
+    opacity: var(--wfc-state-layer-opacity-hover);
   }
 }
 
 .outline {
-  border-color: var(--mdw-on-surface-variant);
+  border-color: var(--wfc-on-surface-variant);
   border-style: solid;
   border-width: 2px;
   box-sizing: border-box;
@@ -97,46 +97,46 @@ input {
   border-width: 0px;
 }
 :host(.invalid) .outline {
-  border-color: var(--mdw-error);
+  border-color: var(--wfc-error);
 }
 
 :host([disabled]) .outline {
-  border-color: var(--mdw-on-surface);
+  border-color: var(--wfc-on-surface);
   opacity: 0.38;
 }
 
 .background {
-  background-color: var(--mdw-primary);
+  background-color: var(--wfc-primary);
 }
 
 .background,
 .icon {
   opacity: 0;
-  transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-short1);
+  transition-duration: var(--wfc-motion-duration-short3), var(--wfc-motion-duration-short1);
   transition-property: transform, opacity;
-  transition-timing-function: var(--mdw-motion-easing-emphasized-accelerate), linear;
+  transition-timing-function: var(--wfc-motion-easing-emphasized-accelerate), linear;
   transform: scale(0.6);
 }
 
 :host(.selected) :is(.background, .icon) {
   opacity: 1;
-  transition-duration: var(--mdw-motion-duration-medium2), var(--mdw-motion-duration-short1);
-  transition-timing-function: var(--mdw-motion-easing-emphasized-decelerate), linear;
+  transition-duration: var(--wfc-motion-duration-medium2), var(--wfc-motion-duration-short1);
+  transition-timing-function: var(--wfc-motion-easing-emphasized-decelerate), linear;
   transform: scale(1);
 }
 
 :host([disabled].selected) .background {
-  background-color: var(--mdw-on-surface);
+  background-color: var(--wfc-on-surface);
   opacity: 0.38;
 }
 
 .icon {
-  fill: var(--mdw-on-primary);
+  fill: var(--wfc-on-primary);
   height: 18px;
   width: 18px;
 }
 :host([disabled].selected) .icon {
-  fill: var(--mdw-surface);
+  fill: var(--wfc-surface);
   /* opacity: 0.38; */
   opacity: 0.6;
 }
@@ -154,13 +154,13 @@ input {
 }
 
 .mark {
-  transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing-emphasized-accelerate)
+  transition-duration: var(--wfc-motion-duration-short3);
+  transition-timing-function: var(--wfc-motion-easing-emphasized-accelerate)
 }
 
 :host(.selected) .mark {
-  transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-motion-easing-emphasized-decelerate)
+  transition-duration: var(--wfc-motion-duration-medium2);
+  transition-timing-function: var(--wfc-motion-easing-emphasized-decelerate)
 }
 
 :host(.indeterminate) .mark {
@@ -191,10 +191,10 @@ input {
   white-space: nowrap;
   margin-left: 16px;
 
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  line-height: var(--mdw-font-large-label-line-height);
-  letter-spacing: var(--mdw-font-large-label-tracking);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  line-height: var(--wfc-font-large-label-line-height);
+  letter-spacing: var(--wfc-font-large-label-tracking);
 }
 
 :host(.label-left) .label.has-label {
@@ -205,16 +205,16 @@ input {
 }
 
 :host(.invalid) .label.has-label {
-  color: var(--mdw-error);
+  color: var(--wfc-error);
 }
 
 :host([disabled]) .label.has-label {
-  color: var(--mdw-on-surface);
+  color: var(--wfc-on-surface);
   opacity: 0.38;
 }
 
 :host(.invalid) .background {
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
 
@@ -229,8 +229,8 @@ input {
 }
 
 .ripple .ripple-element {
-  background-color: var(--mdw-on-surface);
-  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--wfc-on-surface);
+  opacity: var(--wfc-state-layer-opacity-pressed);
 }
 
 

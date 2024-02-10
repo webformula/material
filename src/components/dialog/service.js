@@ -1,6 +1,6 @@
 import util from '../../core/util.js';
 
-const mdwDialog = new class mdwDialog {
+const wfcDialog = new class wfcDialog {
   #dialogStack = [];
   #idCounter = 0;
 
@@ -18,15 +18,15 @@ const mdwDialog = new class mdwDialog {
   }) {
     const actionConfirm = params.actionConfirm === undefined ? true : params.actionConfirm;
     const actionCancel = params.actionCancel || false;
-    const id = `mdw-dialog-${this.#idCounter++}`;
+    const id = `wfc-dialog-${this.#idCounter++}`;
     document.body.insertAdjacentHTML('beforeend', `
-      <mdw-dialog id="${id}" aria-label="[dialog] ${params.message}">
-        ${!params.icon ? '' : `<mdw-icon slot="icon">${params.icon}</mdw-icon>`}
+      <wfc-dialog id="${id}" aria-label="[dialog] ${params.message}">
+        ${!params.icon ? '' : `<wfc-icon slot="icon">${params.icon}</wfc-icon>`}
         ${!params.headline ? '' : `<div slot="headline">${params.headline}</div>`}
         <div slot="content">${params.message || ''}</div>
-        ${actionConfirm === true ? `<mdw-button slot="actions" onclick="mdwDialog.close('confirm')">${params.actionConfirmLabel || 'OK'}</mdw-button>` : ''}
-        ${actionCancel === true ? `<mdw-button slot="actions" onclick="mdwDialog.close('cancel')">${params.actionCancelLabel || 'Cancel'}</mdw-button>` : ''}
-      </mdw-dialog>
+        ${actionConfirm === true ? `<wfc-button slot="actions" onclick="wfcDialog.close('confirm')">${params.actionConfirmLabel || 'OK'}</wfc-button>` : ''}
+        ${actionCancel === true ? `<wfc-button slot="actions" onclick="wfcDialog.close('cancel')">${params.actionCancelLabel || 'Cancel'}</wfc-button>` : ''}
+      </wfc-dialog>
     `);
     const element = document.body.querySelector(`#${id}`);
     element.removeOnClose = true;
@@ -44,11 +44,11 @@ const mdwDialog = new class mdwDialog {
     allowClose: false,
     preventNavigation: true
   }) {
-    const id = `mdw-dialog-${this.#idCounter++}`;
+    const id = `wfc-dialog-${this.#idCounter++}`;
     document.body.insertAdjacentHTML('beforeend', `
-      <mdw-dialog id="${id}">
+      <wfc-dialog id="${id}">
         ${params.template}
-      </mdw-dialog>
+      </wfc-dialog>
     `);
     const element = document.body.querySelector(`#${id}`);
     element.removeOnClose = true;
@@ -69,7 +69,7 @@ const mdwDialog = new class mdwDialog {
 
 
   track(dialogElement) {
-    if (dialogElement.nodeName !== 'MDW-DIALOG') throw Error('Can only track mdw-dialog elements');
+    if (dialogElement.nodeName !== 'WFC-DIALOG') throw Error('Can only track wfc-dialog elements');
     this.#dialogStack.push(dialogElement);
   }
 
@@ -80,5 +80,5 @@ const mdwDialog = new class mdwDialog {
   }
 };
 
-window.mdwDialog = mdwDialog;
-export default mdwDialog;
+window.wfcDialog = wfcDialog;
+export default wfcDialog;

@@ -1,22 +1,22 @@
-mdw-divider {
+wfc-divider {
   box-sizing: border-box;
-  color: var(--mdw-outline-variant);
+  color: var(--wfc-outline-variant);
   display: flex;
   height: 1px;
   width: 100%;
 }
 
-mdw-divider[inset],
-mdw-divider[inset-start] {
+wfc-divider[inset],
+wfc-divider[inset-start] {
   padding-inline-start: 16px;
 }
 
-mdw-divider[inset],
-mdw-divider[inset-end] {
+wfc-divider[inset],
+wfc-divider[inset-end] {
   padding-inline-end: 16px;
 }
 
-mdw-divider::before {
+wfc-divider::before {
   background: currentColor;
   content: '';
   height: 100%;

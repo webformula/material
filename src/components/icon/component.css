@@ -1,10 +1,10 @@
 :host {
-  width: var(--mdw-font-medium-icon-size);
-  height: var(--mdw-font-medium-icon-size);
+  width: var(--wfc-font-medium-icon-size);
+  height: var(--wfc-font-medium-icon-size);
   font-family: 'Material Symbols Outlined', 'Material Symbols Sharp', 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
-  font-size: var(--mdw-font-medium-icon-size);
+  font-size: var(--wfc-font-medium-icon-size);
   text-transform: none;
   display: inline-flex;
   white-space: nowrap;
@@ -32,29 +32,29 @@
 }
 
 :host(.small) {
-  width: var(--mdw-font-small-icon-size);
-  height: var(--mdw-font-small-icon-size);
-  font-size: var(--mdw-font-small-icon-size);
+  width: var(--wfc-font-small-icon-size);
+  height: var(--wfc-font-small-icon-size);
+  font-size: var(--wfc-font-small-icon-size);
 }
 
 :host(.large) {
-  width: var(--mdw-font-large-icon-size);
-  height: var(--mdw-font-large-icon-size);
-  font-size: var(--mdw-font-large-icon-size);
+  width: var(--wfc-font-large-icon-size);
+  height: var(--wfc-font-large-icon-size);
+  font-size: var(--wfc-font-large-icon-size);
 }
 
 :host(.extra-large) {
-  width: var(--mdw-font-large-icon-size-extra);
-  height: var(--mdw-font-large-icon-size-extra);
-  font-size: var(--mdw-font-large-icon-size-extra);
+  width: var(--wfc-font-large-icon-size-extra);
+  height: var(--wfc-font-large-icon-size-extra);
+  font-size: var(--wfc-font-large-icon-size-extra);
 }
 
 :host(.rounded) {
   font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Symbols Sharp';
 }
 
-:host-context(mdw-icon-button.filled),
-:host-context(mdw-icon-button.filled-tonal),
+:host-context(wfc-icon-button.filled),
+:host-context(wfc-icon-button.filled-tonal),
 :host(.filled),
 :host(.filled-tonal) {
   font-variation-settings:

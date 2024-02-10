@@ -8,7 +8,7 @@
 :host-context(body.window-expanded:not(body.has-navigation-drawer)),
 :host-context(body.navigation-drawer-state-hide:not(.window-compact)),
 :host-context(body.window-medium) {
-  width: var(--mdw-navigation-rail-width);
+  width: var(--wfc-navigation-rail-width);
 }
 
 .placeholder {
@@ -19,12 +19,12 @@
 
 .surface {
   display: block;
-  background-color: var(--mdw-surface);
+  background-color: var(--wfc-surface);
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  width: var(--mdw-navigation-rail-width);
+  width: var(--wfc-navigation-rail-width);
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 18px 0px;

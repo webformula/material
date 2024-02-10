@@ -1,4 +1,4 @@
-import MDWMenuElement from '../menu/menu.js';
+import WFCMenuElement from '../menu/menu.js';
 import styles from './search.css' assert { type: 'css' };
 import dividerStyles from '../divider/global.css' assert { type: 'css' };
 import util from '../../core/util.js';
@@ -17,8 +17,8 @@ const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeec
 // TODO chips
 // TODO fix aria
 
-class MDWSearchElement extends MDWMenuElement {
-  static tag = 'mdw-search';
+class WFCSearchElement extends WFCMenuElement {
+  static tag = 'wfc-search';
   static styleSheets = [dividerStyles, styles];
 
   #abort;
@@ -74,25 +74,25 @@ class MDWSearchElement extends MDWMenuElement {
       <div class="search">
         <div class="input">
           <slot name="leading"></slot>
-          <mdw-icon class="search-icon">${search_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-          <mdw-icon-button class="back" aria-label="back">
-            <mdw-icon>${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</mdw-icon>
-          </mdw-icon-button>
+          <wfc-icon class="search-icon">${search_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+          <wfc-icon-button class="back" aria-label="back">
+            <wfc-icon>${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</wfc-icon>
+          </wfc-icon-button>
           <input type="search" />
-          <mdw-icon-button class="mic" aria-label="speech">
-            <mdw-icon>${mic_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
-          </mdw-icon-button>
-          <mdw-icon-button class="clear" aria-label="clear">
-            <mdw-icon>${close_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-          </mdw-icon-button>
+          <wfc-icon-button class="mic" aria-label="speech">
+            <wfc-icon>${mic_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
+          </wfc-icon-button>
+          <wfc-icon-button class="clear" aria-label="clear">
+            <wfc-icon>${close_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+          </wfc-icon-button>
           <slot name="trailing"></slot>
-          <mdw-divider></mdw-divider>
+          <wfc-divider></wfc-divider>
         </div>
 
         <div class="surface">
           <div class="surface-content">
             <div class="item-padding">
-              <mdw-progress-linear indeterminate disabled></mdw-progress-linear>
+              <wfc-progress-linear indeterminate disabled></wfc-progress-linear>
               <div class="no-results">No items</div>
               <slot name="suggestions"></slot>
               <slot class="options-container"></slot>
@@ -148,7 +148,7 @@ class MDWSearchElement extends MDWMenuElement {
   get history() { return this.#history; }
   set history(value) {
     this.#history = typeof value === 'string' ? (value || this.getAttribute('id') || '_global') : null;
-    if (this.#history) this.#historyItems = JSON.parse(localStorage.getItem(`mdw_search_history_${this.#history}`) || '[]');
+    if (this.#history) this.#historyItems = JSON.parse(localStorage.getItem(`wfc_search_history_${this.#history}`) || '[]');
   }
 
   get historyMax() { return this.#historyMax; }
@@ -212,7 +212,7 @@ class MDWSearchElement extends MDWMenuElement {
 
   pending() {
     this.classList.add('loading');
-    this.shadowRoot.querySelector('mdw-progress-linear').removeAttribute('disabled');
+    this.shadowRoot.querySelector('wfc-progress-linear').removeAttribute('disabled');
     this.#searchTimeout = setTimeout(() => {
       this.resolve();
     }, this.#searchTimeoutSeconds * 1000);
@@ -221,14 +221,14 @@ class MDWSearchElement extends MDWMenuElement {
   async resolve() {
     if (this.#searchTimeout) clearTimeout(this.#searchTimeout);
     this.classList.remove('loading');
-    const progress = this.shadowRoot.querySelector('mdw-progress-linear');
+    const progress = this.shadowRoot.querySelector('wfc-progress-linear');
     await util.transitionendAsync(progress);
     progress.setAttribute('disabled', '');
   }
 
   clearHistory() {
     if (this.#history) {
-      localStorage.removeItem(`mdw_search_history_${this.#history}`);
+      localStorage.removeItem(`wfc_search_history_${this.#history}`);
       this.#historyItems = [];
     }
   }
@@ -274,39 +274,39 @@ class MDWSearchElement extends MDWMenuElement {
   }
 
   #renderResults(clear = false) {
-    const containers = Object.fromEntries([...this.querySelectorAll('mdw-search-container[id]')].map(element => ([element.id, { element, template: '' }])));
+    const containers = Object.fromEntries([...this.querySelectorAll('wfc-search-container[id]')].map(element => ([element.id, { element, template: '' }])));
     containers._default = { default: true, element: this, template: '' };
     this.results.reduce((obj, result) => {
       const container = obj[result.container] ? result.container : '_default';
       if (clear) obj[container].template = '';
-      else obj[container].template += `<mdw-search-item value="${result.value}">
-        ${result.icon ? `<mdw-icon slot="start">${result.icon}</mdw-icon>` : ''}
+      else obj[container].template += `<wfc-search-item value="${result.value}">
+        ${result.icon ? `<wfc-icon slot="start">${result.icon}</wfc-icon>` : ''}
         ${result.display || result.value}
-      </mdw-search-item>`;
+      </wfc-search-item>`;
       return obj;
     }, containers);
     
-    [...this.querySelectorAll('mdw-search-item:not([slot])')].forEach(e => e.remove());
+    [...this.querySelectorAll('wfc-search-item:not([slot])')].forEach(e => e.remove());
     Object.values(containers).forEach(item => {
       if (!item.default) item.element.innerHTML = item.template;
     });
 
     // insert any non containerd items before containerd items
-    const searchContainer = this.querySelector('mdw-search-container');
+    const searchContainer = this.querySelector('wfc-search-container');
     if (searchContainer) searchContainer.insertAdjacentHTML('beforebegin', containers._default.template);
     else this.insertAdjacentHTML('beforeend', containers._default.template)
   }
 
   #renderSuggestions(clear = false) {
-    [...this.querySelectorAll('mdw-search-item[slot="suggestions"]')].forEach(e => e.remove());
+    [...this.querySelectorAll('wfc-search-item[slot="suggestions"]')].forEach(e => e.remove());
     if (clear) return;
 
     const inputValue = this.value;
     this.insertAdjacentHTML('afterbegin', this.suggestions.filter(v => v.value !== inputValue).map(item => `
-      <mdw-search-item slot="suggestions" value="${item.value}">
-        <mdw-icon slot="start">${search_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+      <wfc-search-item slot="suggestions" value="${item.value}">
+        <wfc-icon slot="start">${search_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
         ${item.display || item.value}
-      </mdw-search-item>
+      </wfc-search-item>
     `).join(''));
     
     
@@ -314,10 +314,10 @@ class MDWSearchElement extends MDWMenuElement {
       const historyMinusSuggestions = this.#historyItems.filter(h => !this.#suggestions.find(s => s.value === h.value) && h.value !== inputValue);
       const filtered = util.fuzzySearch(this.value, historyMinusSuggestions);
       this.insertAdjacentHTML('afterbegin', filtered.map(item => `
-        <mdw-search-item slot="suggestions" value="${item.value}">
-          <mdw-icon slot="start">${history_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
+        <wfc-search-item slot="suggestions" value="${item.value}">
+          <wfc-icon slot="start">${history_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
           ${item.display || item.value}
-        </mdw-search-item>
+        </wfc-search-item>
       `).join(''));
     }
   }
@@ -329,7 +329,7 @@ class MDWSearchElement extends MDWMenuElement {
     });
 
     if (this.#historyItems.length > this.#historyMax) this.#historyItems = this.#historyItems.slice(0, this.#historyMax);
-    localStorage.setItem(`mdw_search_history_${this.#history}`, JSON.stringify(this.#historyItems));
+    localStorage.setItem(`wfc_search_history_${this.#history}`, JSON.stringify(this.#historyItems));
   }
 
   #enableSpeechRecognition() {
@@ -382,7 +382,7 @@ class MDWSearchElement extends MDWMenuElement {
   }
 
   #itemClick(event) {
-    if (event.target.nodeName === 'MDW-SEARCH-ITEM') {
+    if (event.target.nodeName === 'WFC-SEARCH-ITEM') {
       if (event.target.getAttribute('slot') === 'suggestions') {
         this.value = event.target.value;
         this.#incrementalPolyfill_debounced();
@@ -400,4 +400,4 @@ class MDWSearchElement extends MDWMenuElement {
     }
   }
 }
-customElements.define(MDWSearchElement.tag, MDWSearchElement);
+customElements.define(WFCSearchElement.tag, WFCSearchElement);

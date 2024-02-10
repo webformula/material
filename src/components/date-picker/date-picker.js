@@ -1,4 +1,4 @@
-import MDWSurfaceElement from '../surface/component.js';
+import WFCSurfaceElement from '../surface/component.js';
 import styles from './date-picker.css' assert { type: 'css' };
 import dateUtil from '../../core/dateUtil.js';
 import { monthDaysTemplate } from './helper.js';
@@ -14,8 +14,8 @@ import {
 } from '../../core/svgs.js';
 
 
-class MDWDatePickerElement extends MDWSurfaceElement {
-  static tag = 'mdw-date-picker';
+class WFCDatePickerElement extends WFCSurfaceElement {
+  static tag = 'wfc-date-picker';
   static styleSheets = styles;
 
   #abort;
@@ -109,15 +109,15 @@ class MDWDatePickerElement extends MDWSurfaceElement {
                 <div class="display-date"></div>
                 <div class="display-date-input">Enter dates</div>
 
-                <mdw-icon-button toggle>
-                  <mdw-icon>${edit_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
-                  <mdw-icon slot="selected">${calendar_today_FILL0_wght400_GRAD0_opsz24}</mdw-icon>
-                </mdw-icon-button>
+                <wfc-icon-button toggle>
+                  <wfc-icon>${edit_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
+                  <wfc-icon slot="selected">${calendar_today_FILL0_wght400_GRAD0_opsz24}</wfc-icon>
+                </wfc-icon-button>
               </div>
 
               <div class="divider"></div>
               
-              <mdw-textfield label="Date" type="date" class="outlined hide-date-icon"></mdw-textfield>
+              <wfc-textfield label="Date" type="date" class="outlined hide-date-icon"></wfc-textfield>
             </div>
 
             <div class="month-days-container-modal">
@@ -157,15 +157,15 @@ class MDWDatePickerElement extends MDWSurfaceElement {
             </div>
 
             <div class="actions">
-              <mdw-button class="clear">Clear</mdw-button>
+              <wfc-button class="clear">Clear</wfc-button>
 
-              <mdw-button class="cancel">Cancel</mdw-button>
-              <mdw-button class="ok">OK</mdw-button>
+              <wfc-button class="cancel">Cancel</wfc-button>
+              <wfc-button class="ok">OK</wfc-button>
             </div>
 
             <div class="month-list">${dateUtil.getMonthNames().map((name, i) => `
               <div class="month-item" month="${i + 1}">
-                <mdw-icon>${check_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
+                <wfc-icon>${check_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
                 ${name}
               </div>
             `).join('')}</div>
@@ -325,9 +325,9 @@ class MDWDatePickerElement extends MDWSurfaceElement {
         ignoreElements: [...this.shadowRoot.querySelectorAll('.days-controls')]
       });
       this.#drag.disableMouseEvents = true;
-      this.#drag.on('mdwdragmove', this.#onDrag_bound);
-      this.#drag.on('mdwdragstart', this.#onDragStart_bound);
-      this.#drag.on('mdwdragend', this.#onDragEnd_bound);
+      this.#drag.on('wfcdragmove', this.#onDrag_bound);
+      this.#drag.on('wfcdragstart', this.#onDragStart_bound);
+      this.#drag.on('wfcdragend', this.#onDragEnd_bound);
     }
 
     requestAnimationFrame(() => {
@@ -400,7 +400,7 @@ class MDWDatePickerElement extends MDWSurfaceElement {
     const isInputView = this.classList.contains('input-view');
     this.classList.add('animate-view');
     this.classList.toggle('input-view');
-    const input = this.shadowRoot.querySelector('.modal-header mdw-textfield');
+    const input = this.shadowRoot.querySelector('.modal-header wfc-textfield');
     if (!isInputView) {
       input.value = this.selectedDate ? dateUtil.format(this.selectedDate, 'YYYY-MM-dd') : '';
       input.focus();
@@ -682,4 +682,4 @@ class MDWDatePickerElement extends MDWSurfaceElement {
     alt.style.left = '';
   }
 }
-customElements.define(MDWDatePickerElement.tag, MDWDatePickerElement);
+customElements.define(WFCDatePickerElement.tag, WFCDatePickerElement);

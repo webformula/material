@@ -10,10 +10,10 @@
 
   height: 48px;
   line-height: 48px;
-  font-size: var(--mdw-font-large-label-size);
-  font-weight: var(--mdw-font-large-label-weight);
-  letter-spacing: var(--mdw-font-large-label-tracking);
-  color: var(--mdw-on-surface);
+  font-size: var(--wfc-font-large-label-size);
+  font-weight: var(--wfc-font-large-label-weight);
+  letter-spacing: var(--wfc-font-large-label-tracking);
+  color: var(--wfc-on-surface);
   
   cursor: pointer;
   white-space: nowrap;
@@ -21,16 +21,16 @@
   -webkit-tap-highlight-color: transparent;
 
 
-  border-radius: var(--mdw-shape-extra-small);
+  border-radius: var(--wfc-shape-extra-small);
 }
 
-:host-context(mdw-chip) {
+:host-context(wfc-chip) {
   height: 28px;
 }
 
 :host(.selected) {
-  color: var(--mdw-on-secondary-container);
-  background-color: var(--mdw-secondary-container);
+  color: var(--wfc-on-secondary-container);
+  background-color: var(--wfc-secondary-container);
 }
 
 :host(.filtered) {
@@ -57,7 +57,7 @@
 
 slot[name="start"],
 slot[name="end"] {
-  color: var(--mdw-on-surface-variant);
+  color: var(--wfc-on-surface-variant);
 }
 
 .default-slot {
@@ -72,7 +72,7 @@ slot[name="end"] {
   pointer-events: none;
   opacity: 0;
   border-radius: inherit;
-  background-color: var(--mdw-on-surface);
+  background-color: var(--wfc-on-surface);
   width: 100%;
   height: 100%;
   transition: opacity;
@@ -80,16 +80,16 @@ slot[name="end"] {
 }
 
 :host(.invalid) .state-layer {
-  background-color: var(--mdw-error);
+  background-color: var(--wfc-error);
 }
 
 :host(:focus) .state-layer {
-  opacity: var(--mdw-state-layer-opacity-focus);
+  opacity: var(--wfc-state-layer-opacity-focus);
 }
 
 @media (hover: hover) {
   :host(:hover) .state-layer {
-    opacity: var(--mdw-state-layer-opacity-hover);
+    opacity: var(--wfc-state-layer-opacity-hover);
   }
 }
 
@@ -109,10 +109,10 @@ slot[name="end"] {
 }
 
 .ripple .ripple-element {
-  background-color: var(--mdw-on-surface);
-  opacity: var(--mdw-state-layer-opacity-pressed);
+  background-color: var(--wfc-on-surface);
+  opacity: var(--wfc-state-layer-opacity-pressed);
 }
 
 :host(.selected) .ripple .ripple-element {
-  background-color: var(--mdw-primary-container);
+  background-color: var(--wfc-primary-container);
 }

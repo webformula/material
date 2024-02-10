@@ -1,34 +1,35 @@
-import MDWIconButtonElement from '../icon-button/component.js';
+import WFCIconButtonElement from '../icon-button/component.js';
 import {
   menu_FILL1_wght400_GRAD0_opsz24,
   menu_open_FILL1_wght400_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-class MDWNavigationButtonElement extends MDWIconButtonElement {
-  static tag = 'mdw-navigation-button';
+class WFCNavigationButtonElement extends WFCIconButtonElement {
+  static tag = 'wfc-navigation-button';
   #onclick_bound = this.#onclick.bind(this);
   #onNavigationState_bound = this.#onNavigationState.bind(this);
 
   constructor() {
     super();
+    this.shadowRoot.querySelector('button').ariaLabel = 'Navigation toggle';
   }
 
   get navigation() {
-    return document.body.querySelector('mdw-navigation-drawer');
+    return document.body.querySelector('wfc-navigation-drawer');
   }
 
   get open() {
-    return document.body.querySelector('mdw-navigation-drawer').open;
+    return document.body.querySelector('wfc-navigation-drawer').open;
   }
   set open(value) {
-    document.body.querySelector('mdw-navigation-drawer').open = !!value;
+    document.body.querySelector('wfc-navigation-drawer').open = !!value;
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.insertAdjacentHTML('afterbegin', `
-      <mdw-icon>${menu_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
-      <mdw-icon slot="selected">${menu_open_FILL1_wght400_GRAD0_opsz24}</mdw-icon>
+      <wfc-icon>${menu_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
+      <wfc-icon slot="selected">${menu_open_FILL1_wght400_GRAD0_opsz24}</wfc-icon>
     `);
     this.addEventListener('click', this.#onclick_bound);
     this.navigation?.addEventListener('change', this.#onNavigationState_bound);
@@ -41,7 +42,7 @@ class MDWNavigationButtonElement extends MDWIconButtonElement {
   }
 
   toggle() {
-    document.body.querySelector('mdw-navigation-drawer').toggle();
+    document.body.querySelector('wfc-navigation-drawer').toggle();
   }
 
   #onclick() {
@@ -52,4 +53,4 @@ class MDWNavigationButtonElement extends MDWIconButtonElement {
     this.checked = !this.navigation?.open;
   }
 }
-customElements.define(MDWNavigationButtonElement.tag, MDWNavigationButtonElement);
+customElements.define(WFCNavigationButtonElement.tag, WFCNavigationButtonElement);

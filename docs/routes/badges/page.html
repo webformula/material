@@ -1,121 +1,121 @@
 <h3 class="page-title">Badges</h3>
-<div class="page-subheader mdw-font-title-medium">Badges convey dynamic information, such as counts or status. A badge can include labels or numbers</div>
+<div class="page-subheader wfc-font-title-medium">Badges convey dynamic information, such as counts or status. A badge can include labels or numbers</div>
 <a href="https://m3.material.io/components/badges/overview" target="_new">Material Design Guidelines: Buttons</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic</a></li>
     </ul>
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic</div>
 
         <div class="example" style="display: flex; flex-direction: column; gap: 18px;">
           <div class="example" style="display: flex; gap: 18px;">
-            <mdw-icon-button>
-              <mdw-badge>0</mdw-badge>
-              <mdw-icon>inbox</mdw-icon>
-            </mdw-icon-button>
+            <wfc-icon-button>
+              <wfc-badge>0</wfc-badge>
+              <wfc-icon>inbox</wfc-icon>
+            </wfc-icon-button>
             
-            <mdw-icon-button>
-              <mdw-badge class="hide-value">1</mdw-badge>
-              <mdw-icon>inbox</mdw-icon>
-            </mdw-icon-button>
+            <wfc-icon-button>
+              <wfc-badge class="hide-value">1</wfc-badge>
+              <wfc-icon>inbox</wfc-icon>
+            </wfc-icon-button>
             
-            <mdw-icon-button>
-              <mdw-badge>99</mdw-badge>
-              <mdw-icon>inbox</mdw-icon>
-            </mdw-icon-button>
+            <wfc-icon-button>
+              <wfc-badge>99</wfc-badge>
+              <wfc-icon>inbox</wfc-icon>
+            </wfc-icon-button>
             
-            <mdw-icon-button>
-              <mdw-badge>1000</mdw-badge>
-              <mdw-icon>inbox</mdw-icon>
-            </mdw-icon-button>
+            <wfc-icon-button>
+              <wfc-badge>1000</wfc-badge>
+              <wfc-icon>inbox</wfc-icon>
+            </wfc-icon-button>
           </div>
 
           <div style="display: flex; gap: 4px;">
-            <mdw-button>
-              <mdw-badge>0</mdw-badge>
+            <wfc-button>
+              <wfc-badge>0</wfc-badge>
               Label
-            </mdw-button>
+            </wfc-button>
           
-            <mdw-button>
-              <mdw-badge class="hide-value">1</mdw-badge>
+            <wfc-button>
+              <wfc-badge class="hide-value">1</wfc-badge>
               Label
-            </mdw-button>
+            </wfc-button>
           
-            <mdw-button>
-              <mdw-badge>99</mdw-badge>
+            <wfc-button>
+              <wfc-badge>99</wfc-badge>
               Label
-            </mdw-button>
+            </wfc-button>
 
-            <mdw-button>
-              <mdw-badge>1000</mdw-badge>
+            <wfc-button>
+              <wfc-badge>1000</wfc-badge>
               Label
-            </mdw-button>
+            </wfc-button>
           </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-icon-button>
-    <mdw-badge>0</mdw-badge>
-    <mdw-icon>inbox</mdw-icon>
-  </mdw-icon-button>
+  ${page.escape(`<wfc-icon-button>
+    <wfc-badge>0</wfc-badge>
+    <wfc-icon>inbox</wfc-icon>
+  </wfc-icon-button>
   
-  <mdw-icon-button>
-    <mdw-badge class="hide-value">1</mdw-badge>
-    <mdw-icon>inbox</mdw-icon>
-  </mdw-icon-button>
+  <wfc-icon-button>
+    <wfc-badge class="hide-value">1</wfc-badge>
+    <wfc-icon>inbox</wfc-icon>
+  </wfc-icon-button>
   
-  <mdw-icon-button>
-    <mdw-badge>99</mdw-badge>
-    <mdw-icon>inbox</mdw-icon>
-  </mdw-icon-button>
+  <wfc-icon-button>
+    <wfc-badge>99</wfc-badge>
+    <wfc-icon>inbox</wfc-icon>
+  </wfc-icon-button>
   
-  <mdw-icon-button>
-    <mdw-badge>1000</mdw-badge>
-    <mdw-icon>inbox</mdw-icon>
-  </mdw-icon-button>
+  <wfc-icon-button>
+    <wfc-badge>1000</wfc-badge>
+    <wfc-icon>inbox</wfc-icon>
+  </wfc-icon-button>
   
-  <mdw-button>
-    <mdw-badge>0</mdw-badge>
+  <wfc-button>
+    <wfc-badge>0</wfc-badge>
     Label
-  </mdw-button>
+  </wfc-button>
   
-  <mdw-button>
-    <mdw-badge class="hide-value">1</mdw-badge>
+  <wfc-button>
+    <wfc-badge class="hide-value">1</wfc-badge>
     Label
-  </mdw-button>
+  </wfc-button>
   
-  <mdw-button>
-    <mdw-badge>99</mdw-badge>
+  <wfc-button>
+    <wfc-badge>99</wfc-badge>
     Label
-  </mdw-button>
+  </wfc-button>
   
-  <mdw-button>
-    <mdw-badge>1000</mdw-badge>
+  <wfc-button>
+    <wfc-badge>1000</wfc-badge>
     Label
-  </mdw-button>`)}
+  </wfc-button>`)}
         </code>
       </pre>
 
       <pre>
         <code class="language-javascript">
   ${`// Update using value
-  document.querySelector('mdw-badge').value = 99;
+  document.querySelector('wfc-badge').value = 99;
 
   // Update using value. 1000 -> 999+
-  document.querySelector('mdw-badge').value = 1000;`}
+  document.querySelector('wfc-badge').value = 1000;`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

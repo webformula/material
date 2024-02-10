@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './chip-set.css' assert { type: 'css' };
 
 
-class MDWChipSetElement extends HTMLComponentElement {
-  static tag = 'mdw-chip-set';
+class WFCChipSetElement extends HTMLComponentElement {
+  static tag = 'wfc-chip-set';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -54,10 +54,10 @@ class MDWChipSetElement extends HTMLComponentElement {
 
 
   get values() {
-    return [...this.querySelectorAll('mdw-chip')].map(chip => chip.valueObject);
+    return [...this.querySelectorAll('wfc-chip')].map(chip => chip.valueObject);
   }
   set values(values) {
-    const chips = [...this.querySelectorAll('mdw-chip')];
+    const chips = [...this.querySelectorAll('wfc-chip')];
     if (!values || !Array.isArray(values)) {
       chips.forEach(c => c.reset());
     }
@@ -72,8 +72,8 @@ class MDWChipSetElement extends HTMLComponentElement {
     } else {
       values.forEach((obj, i) => {
         let chip;
-        if (obj.id) chip = this.querySelector(`mdw-chip[id="${obj.id}"]`);
-        else if (obj.name) chip = this.querySelector(`mdw-chip[name="${obj.name}"]`);
+        if (obj.id) chip = this.querySelector(`wfc-chip[id="${obj.id}"]`);
+        else if (obj.name) chip = this.querySelector(`wfc-chip[name="${obj.name}"]`);
         if (chip) chip.valueObject = obj;
         else this.addChip(obj);
       });
@@ -88,7 +88,7 @@ class MDWChipSetElement extends HTMLComponentElement {
     checked: false,
     name: ''
   }) {
-    this.insertAdjacentHTML('beforeend', `<mdw-chip ${params.type}${params.edit ? ` edit` : ''}${params.checked ? ` checked` : ''}${params.value !== undefined ? ` value="${params.value}"` : ''}${params.label !== undefined ? ` label="${params.label}"` : ''}></mdw-chip>`);
+    this.insertAdjacentHTML('beforeend', `<wfc-chip ${params.type}${params.edit ? ` edit` : ''}${params.checked ? ` checked` : ''}${params.value !== undefined ? ` value="${params.value}"` : ''}${params.label !== undefined ? ` label="${params.label}"` : ''}></wfc-chip>`);
   }
 
   get input() { return this.#input; }
@@ -118,15 +118,15 @@ class MDWChipSetElement extends HTMLComponentElement {
 
   #createChip(event) {
     if (event.key === 'Backspace' && !this.#inputElement.value) {
-      const lastChip = this.querySelector('mdw-chip:last-child');
+      const lastChip = this.querySelector('wfc-chip:last-child');
       if (lastChip) requestAnimationFrame(() => lastChip.focus());
       event.stopPropagation();
       return;
     }
     if (event.key !== 'Enter' || !this.#inputElement.value) return;
-    this.insertAdjacentHTML('beforeend', `<mdw-chip input${this.#edit ? ' edit' : ''} value="${this.#inputElement.value}"></mdw-chip>`);
+    this.insertAdjacentHTML('beforeend', `<wfc-chip input${this.#edit ? ' edit' : ''} value="${this.#inputElement.value}"></wfc-chip>`);
     this.#inputElement.value = '';
     this.dispatchEvent(new Event('change'));
   }
 }
-customElements.define(MDWChipSetElement.tag, MDWChipSetElement);
+customElements.define(WFCChipSetElement.tag, WFCChipSetElement);

@@ -1,11 +1,11 @@
 <h3 class="page-title">Side sheets</h3>
-<div class="page-subheader mdw-font-title-medium">Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow</div>
+<div class="page-subheader wfc-font-title-medium">Side sheets are surfaces containing supplementary content or actions to support tasks as part of a flow</div>
 <a href="https://m3.material.io/components/side-sheets/overview" target="_new">Material Design Guidelines:
   Side sheets</a>
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#local">Local</a></li>
       <li><a href="#global">Global</a></li>
@@ -15,20 +15,20 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="local">
+    <wfc-card id="local">
       <div class="card-content">
         <div class="headline">Local</div>
         <div class="subheader">Contained inside of div</div>
     
         <div class="example">
           <div style="display: flex; flex-direction: column; width: 190px;">
-            <mdw-switch onchange="page.oneOpen = this.checked" checked="${page.oneOpen}">Toggle</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#one').hideClose = this.checked">Close button hide</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#one').back = this.checked">back arrow</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#one').modal = this.checked">Modal</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#one').scrim = this.checked">Scrim (backdrop)</mdw-switch>
+            <wfc-switch onchange="page.oneOpen = this.checked" checked="${page.oneOpen}">Toggle</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#one').hideClose = this.checked">Close button hide</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#one').back = this.checked">back arrow</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#one').modal = this.checked">Modal</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#one').scrim = this.checked">Scrim (backdrop)</wfc-switch>
           </div>
-          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--mdw-outline); border-bottom: 1px solid var(--mdw-outline); margin-top: 16px; padding-top: 0">
+          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
             <div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -43,7 +43,7 @@
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
-            <mdw-side-sheet id="one" open="${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
+            <wfc-side-sheet id="one" open="${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
               <div slot="headline">Headline</div>
 
               <div>
@@ -54,9 +54,9 @@
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </div>
 
-              <mdw-button slot="action" onclick="this.parentElement.close()">cancel</mdw-button>
-              <mdw-button slot="action" onclick="this.parentElement.close()">save</mdw-button>
-            </mdw-side-sheet>
+              <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+              <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+            </wfc-side-sheet>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
     <div>
       content...
     </div>
-    <mdw-side-sheet id="one" open="\${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
+    <wfc-side-sheet id="one" open="\${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
       <div slot="headline">Headline</div>
     
       <div>
@@ -78,9 +78,9 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </div>
     
-      <mdw-button slot="action" onclick="this.parentElement.close()">cancel</mdw-button>
-      <mdw-button slot="action" onclick="this.parentElement.close()">save</mdw-button>
-    </mdw-side-sheet>
+      <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+      <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+    </wfc-side-sheet>
   </div>
   
   
@@ -91,25 +91,25 @@
       scrom - show scrim (backdrop) when open
       onback - event attribute for back button
   -->
-  <mdw-side-sheet open hideClose back modal scrim onback="this.close();"></mdw-side-sheet>`)}
+  <wfc-side-sheet open hideClose back modal scrim onback="this.close();"></wfc-side-sheet>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="global">
+    <wfc-card id="global">
       <div class="card-content">
         <div class="headline">Global</div>
         <div class="subheader">Fill entire page (modal only)</div>
     
         <div class="example">
           <div style="display: flex; flex-direction: column; width: 190px;">
-            <mdw-switch onchange="page.twoOpen = this.checked" checked="${page.twoOpen}">Toggle</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#two').inset = this.checked">Inset</mdw-switch>
-            <mdw-switch onchange="document.querySelector('#two').scrim = this.checked">Scrim (backdrop)</mdw-switch>
+            <wfc-switch onchange="page.twoOpen = this.checked" checked="${page.twoOpen}">Toggle</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#two').inset = this.checked">Inset</wfc-switch>
+            <wfc-switch onchange="document.querySelector('#two').scrim = this.checked">Scrim (backdrop)</wfc-switch>
           </div>
           <div style="display: flex">
-            <mdw-side-sheet id="two" open="${page.twoOpen}" onchange="page.twoOpen = this.open" global modal>
+            <wfc-side-sheet id="two" open="${page.twoOpen}" onchange="page.twoOpen = this.open" global modal>
               <div slot="headline">Headline</div>
               
               <div class="font-size: 20px">One</div>
@@ -146,9 +146,9 @@
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             
-              <mdw-button slot="action" onclick="this.parentElement.close()">cancel</mdw-button>
-              <mdw-button slot="action" onclick="this.parentElement.close()">save</mdw-button>
-            </mdw-side-sheet>
+              <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+              <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+            </wfc-side-sheet>
           </div>
         </div>
       </div>
@@ -159,7 +159,7 @@
     <div>
       content...
     </div>
-    <mdw-side-sheet global modal>
+    <wfc-side-sheet global modal>
       <div slot="headline">Headline</div>
     
       <h5>One</h5>
@@ -167,15 +167,15 @@
         Lorem ipsum ...
       </p>
     
-      <mdw-button slot="action" onclick="this.parentElement.close()">cancel</mdw-button>
-      <mdw-button slot="action" onclick="this.parentElement.close()">save</mdw-button>
-    </mdw-side-sheet>
+      <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+      <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+    </wfc-side-sheet>
   </div>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="top">
+    <wfc-card id="top">
       <div class="card-content">
         <div class="headline">Top level</div>
         <div class="subheader">You can have a side sheet at the top level. This would be usfule as a general secondary content container.</div>
@@ -184,9 +184,9 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<body>
-    <mdw-navigation-drawer></mdw-navigation-drawer>
+    <wfc-navigation-drawer></wfc-navigation-drawer>
     <page-content></page-content>
-    <mdw-side-sheet>
+    <wfc-side-sheet>
       <div slot="headline">Headline</div>
     
       <h5>One</h5>
@@ -194,26 +194,26 @@
         Lorem ipsum ...
       </p>
     
-      <mdw-button slot="action" onclick="this.parentElement.close()">cancel</mdw-button>
-      <mdw-button slot="action" onclick="this.parentElement.close()">save</mdw-button>
-    </mdw-side-sheet>
-    <mdw-bottom-app-bar class="auto-hide"></mdw-bottom-app-bar>
+      <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+      <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+    </wfc-side-sheet>
+    <wfc-bottom-app-bar class="auto-hide"></wfc-bottom-app-bar>
   </body>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
-    <mdw-card id="forms">
+    <wfc-card id="forms">
       <div class="card-content">
         <div class="headline">Form with change detection</div>
         <div class="supporting-text">Invalid forms prevent form submission. Cancel button will prevent click actions and show dialog when form has changes.</div>
     
         <div class="example">
           <div style="display: flex; flex-direction: column; width: 190px;">
-            <mdw-switch onchange="page.threeOpen = this.checked" checked="${page.threeOpen}">Toggle</mdw-switch>
+            <wfc-switch onchange="page.threeOpen = this.checked" checked="${page.threeOpen}">Toggle</wfc-switch>
           </div>
           
-          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--mdw-outline); border-bottom: 1px solid var(--mdw-outline); margin-top: 16px; padding-top: 0">
+          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
             <div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -230,32 +230,32 @@
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
-            <mdw-side-sheet id="three" open="${page.threeOpen}" onchange="page.threeOpen = this.open">
+            <wfc-side-sheet id="three" open="${page.threeOpen}" onchange="page.threeOpen = this.open">
               <div slot="headline">Headline</div>
               <form id="test" method="dialog" onsubmit="this.parentElement.close();">
                 <div style="font-size: 14px; margin-bottom: 8px;">Make change and press "cancel"</div>
                 <div style="font-size: 14px; margin-bottom: 24px;">Remove value and press "save"</div>
-                <mdw-textfield label="Required" supporting-test="Required" required value="one" class="outlined"></mdw-textfield>
+                <wfc-textfield label="Required" supporting-test="Required" required value="one" class="outlined"></wfc-textfield>
               </form>
-              <mdw-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</mdw-button>
-              <mdw-button slot="action" form="test" typ="submit">save</mdw-button>
-            </mdw-side-sheet>
+              <wfc-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</wfc-button>
+              <wfc-button slot="action" form="test" typ="submit">save</wfc-button>
+            </wfc-side-sheet>
           </div>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-side-sheet id="three" onback="this.close();">
+  ${page.escape(`<wfc-side-sheet id="three" onback="this.close();">
     <div slot="headline">Headline</div>
     <form id="test" method="dialog" onsubmit="this.parentElement.close();">
-      <mdw-textfield label="Required" supporting-test="Required" required value="one"></mdw-textfield>
+      <wfc-textfield label="Required" supporting-test="Required" required value="one"></wfc-textfield>
     </form>
-    <mdw-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</mdw-button>
-    <mdw-button slot="action" form="test" typ="submit">save</mdw-button>
-  </mdw-side-sheet>`)}
+    <wfc-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</wfc-button>
+    <wfc-button slot="action" form="test" typ="submit">save</wfc-button>
+  </wfc-side-sheet>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

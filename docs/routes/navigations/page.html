@@ -1,5 +1,5 @@
 <h3 class="page-title">Navigations</h3>
-<div class="page-subheader mdw-font-title-medium">Drawers and Rails</div>
+<div class="page-subheader wfc-font-title-medium">Drawers and Rails</div>
 
 <p>Navigation drawers provide ergonomic access to destinations in an app</p>
 <a href="https://m3.material.io/components/navigation-drawer/overview" target="_new">Material Design Guidelines:
@@ -13,7 +13,7 @@
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Drawer</a></li>
       <li><a href="#groups">Anchor groups</a></li>
@@ -23,7 +23,7 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Drawer</div>
         <div class="supporting-text">Navigation drawer will auto hide based on screen size if there is also navigation rail
@@ -37,30 +37,30 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<body>
-    <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+    <!-- you can change the width by setting this css var on the BODY style="--wfc-navigation-drawer-width: 290px;" default: 360px -->
 
-    <mdw-navigation-drawer>
+    <wfc-navigation-drawer>
       <div class="headline">Headline</div>
       <a href="/">
-        <mdw-icon>home</mdw-icon>
+        <wfc-icon>home</wfc-icon>
         Welcome
       </a>
       <a href="/mail">
-        <mdw-icon>mail</mdw-icon>
+        <wfc-icon>mail</wfc-icon>
         mail
-        <mdw-badge>9999</mdw-badge>
+        <wfc-badge>9999</wfc-badge>
       </a>
       <a href="/one">One</a>
-    </mdw-navigation-drawer>
+    </wfc-navigation-drawer>
   
     <!-- page-content -->
   </body>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="group">
+    <wfc-card id="group">
       <div class="card-content">
         <div class="headline">Anchor groups</div>
         <div class="supporting-text">Group anchors together into an expandable section</div>
@@ -73,38 +73,38 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<body>
-    <!-- you can change the width by setting this css var on the BODY style="--mdw-navigation-drawer-width: 290px;" default: 360px -->
+    <!-- you can change the width by setting this css var on the BODY style="--wfc-navigation-drawer-width: 290px;" default: 360px -->
     
-    <mdw-navigation-drawer>
+    <wfc-navigation-drawer>
       <div class="headline">Headline</div>
     
       <a href="/routes/navigations/examples/group.html">
-        <mdw-icon>home</mdw-icon>
+        <wfc-icon>home</wfc-icon>
         Welcome
       </a>
     
-      <mdw-navigation-drawer-group>
+      <wfc-navigation-drawer-group>
         <a group>Links</a>
     
         <a href="/one">One</a>
         <a href="/two">Two</a>
-      </mdw-navigation-drawer-group>
+      </wfc-navigation-drawer-group>
       <a href="/one">Onerere</a>
-    </mdw-navigation-drawer>
+    </wfc-navigation-drawer>
   
     <!-- page-content -->
   
     <!-- show bottom app bar on mobile with navigation toggle -->
-    <mdw-bottom-app-bar class="auto-hide mdw-mobile-only">
-      <mdw-navigation-button></mdw-navigation-button>
-    </mdw-bottom-app-bar>
+    <wfc-bottom-app-bar class="auto-hide wfc-mobile-only">
+      <wfc-navigation-button></wfc-navigation-button>
+    </wfc-bottom-app-bar>
   </body>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="rail">
+    <wfc-card id="rail">
       <div class="card-content">
         <div class="headline">Navigation rail</div>
         <div class="supporting-text">Navigation rail will auto hide based on screen size if there is also navigation drawer
@@ -118,41 +118,41 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<body>
-    <mdw-navigation-drawer>
+    <wfc-navigation-drawer>
       ...
-    </mdw-navigation-drawer>
+    </wfc-navigation-drawer>
     
-    <mdw-navigation-rail>
-      <mdw-navigation-button></mdw-navigation-button>
+    <wfc-navigation-rail>
+      <wfc-navigation-button></wfc-navigation-button>
     
       <a href="/routes/navigations/examples/draw-rail.html">
-        <mdw-icon>home</mdw-icon>
+        <wfc-icon>home</wfc-icon>
       </a>
     
       <a href="/one">
-        <mdw-icon>apps</mdw-icon>
+        <wfc-icon>apps</wfc-icon>
         One
       </a>
     
       <a href="/two">
-        <mdw-icon>palette</mdw-icon>
+        <wfc-icon>palette</wfc-icon>
         Two
       </a>
-    </mdw-navigation-rail>
+    </wfc-navigation-rail>
     
     <!-- page-content -->
     
     <!--optional  -->
-    <mdw-navigation-bar>
+    <wfc-navigation-bar>
       ...
-    </mdw-navigation-bar>
+    </wfc-navigation-bar>
   </body>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="drawer-rail">
+    <wfc-card id="drawer-rail">
       <div class="card-content">
         <div class="headline">Navigation bar</div>
         <div class="supporting-text">Navigation bars will auto hide based on screen size if there is also navigation drawer / rail</div>
@@ -166,38 +166,38 @@
         <code class="language-html">
   ${page.escape(`<body>    
     <!-- optional -->
-    <mdw-navigation-drawer>
+    <wfc-navigation-drawer>
       ...
-    </mdw-navigation-drawer>
+    </wfc-navigation-drawer>
 
     <!-- optional -->
-    <mdw-navigation-rail>
+    <wfc-navigation-rail>
       ...
-    </mdw-navigation-rail>
+    </wfc-navigation-rail>
   
     <!-- page-content -->
     
     <!-- can add auto-hide class to hide on scroll -->
-    <mdw-navigation-bar class="auto-hide">
-      <mdw-navigation-button></mdw-navigation-button>
+    <wfc-navigation-bar class="auto-hide">
+      <wfc-navigation-button></wfc-navigation-button>
       <a href="/">
-        <mdw-icon>home</mdw-icon>
+        <wfc-icon>home</wfc-icon>
         Home
       </a>
 
       <a href="/one">
-        <mdw-icon>circle</mdw-icon>
+        <wfc-icon>circle</wfc-icon>
         One
       </a>
 
       <a href="/two">
-        <mdw-icon>circle</mdw-icon>
+        <wfc-icon>circle</wfc-icon>
         Two
       </a>
-    </mdw-navigation-bar>
+    </wfc-navigation-bar>
   </body>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
   </div>
 </section>

@@ -20,30 +20,30 @@ svg {
 circle {
   cx: 50%;
   cy: 50%;
-  r: calc(50% * (1 - ((var(--mdw-progress-circular-stroke-width, 4) / var(--mdw-progress-circular-size, 48)) * 100) / 100));
+  r: calc(50% * (1 - ((var(--wfc-progress-circular-stroke-width, 4) / var(--wfc-progress-circular-size, 48)) * 100) / 100));
   fill: transparent;
   stroke-dasharray: 100;
   transform-origin: center;
-  stroke-width: calc(((var(--mdw-progress-circular-stroke-width, 4) / var(--mdw-progress-circular-size, 48)) * 100) * 1%);
+  stroke-width: calc(((var(--wfc-progress-circular-stroke-width, 4) / var(--wfc-progress-circular-size, 48)) * 100) * 1%);
 }
 
 .active-track {
   transition: stroke-dashoffset;
-  transition-duration: var(--mdw-motion-duration-long2);
-  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
-  stroke: var(--mdw-primary);
+  transition-duration: var(--wfc-motion-duration-long2);
+  transition-timing-function: var(--wfc-motion-easing-standard-decelerate);
+  stroke: var(--wfc-primary);
 }
 
 :host(.on-filled) .active-track {
-  stroke: var(--mdw-on-primary);
+  stroke: var(--wfc-on-primary);
 }
 
 :host(.on-filled-tonal) .active-track {
-  stroke: var(--mdw-on-secondary-container);
+  stroke: var(--wfc-on-secondary-container);
 }
 
 .inactive-track {
-  stroke: var(--mdw-surface-container-highest);
+  stroke: var(--wfc-surface-container-highest);
 }
 
 :host([indeterminate]) .active-track {

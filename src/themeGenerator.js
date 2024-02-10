@@ -6,45 +6,45 @@ const tones = [100, 98, 96, 95, 94, 92, 90, 87, 80, 70, 60, 50, 40, 35, 30, 25, 
 // TODO replace alphas with relative color syntax when supported by all browsers https://developer.chrome.com/blog/css-relative-color-syntax/ - https://caniuse.com/css-relative-colors
 // currently on producing required alphas
 const colorsForAlpha = [
-  ['--mdw-primary', 'primary', '40'],
-  // ['--mdw-primary-container', 'primary', '90'],
-  ['--mdw-on-primary', 'primary', '100'],
-  ['--mdw-on-primary-container', 'primary', '10'],
-  // ['--mdw-primary-inverse', 'primary', '80'],
-  // ['--mdw-secondary', 'secondary', '40'],
-  // ['--mdw-secondary-container', 'secondary', '90'],
-  // ['--mdw-on-secondary', 'secondary', '100'],
-  ['--mdw-on-secondary-container', 'secondary', '10'],
-  // ['--mdw-tertiary', 'tertiary', '40'],
-  // ['--mdw-tertiary-container', 'tertiary', '90'],
-  // ['--mdw-on-tertiary', 'tertiary', '100'],
-  // ['--mdw-on-tertiary-container', 'tertiary', '10'],
-  // ['--mdw-error', 'error', '40'],
-  // ['--mdw-error-container', 'error', '90'],
-  // ['--mdw-on-error', 'error', '100'],
-  // ['--mdw-on-error-container', 'error', '10'],
-  // ['--mdw-neutral', 'neutral', '40'],
-  // ['--mdw-neutral-variant', 'neutral-variant', '40'],
-  ['--mdw-surface', 'neutral', '98'],
-  // ['--mdw-surface-dim', 'neutral', '87'],
-  // ['--mdw-surface-bright', 'neutral', '98'],
-  // ['--mdw-surface-container-lowest', 'neutral', '100'],
-  // ['--mdw-surface-container-low', 'neutral', '96'],
-  // ['--mdw-surface-container', 'neutral', '94'],
-  // ['--mdw-surface-container-high', 'neutral', '92'],
-  // ['--mdw-surface-container-highest', 'neutral', '90'],
-  // ['--mdw-surface-variant', 'neutral-variant', '90'],
-  ['--mdw-on-surface', 'neutral', '10'],
-  ['--mdw-on-surface-variant', 'neutral-variant', '30'],
-  // ['--mdw-surface-inverse', 'neutral', '20'],
-  // ['--mdw-on-surface-inverse', 'neutral', '95'],
-  ['--mdw-surface-tint', 'primary', '40'],
-  // ['--mdw-background', 'neutral', '98'],
-  // ['--mdw-on-background', 'neutral', '10'],
-  ['--mdw-outline', 'neutral-variant', '50'],
-  // ['--mdw-outline-variant', 'neutral-variant', '80'],
-  ['--mdw-shadow', 'neutral', '0'],
-  ['--mdw-scrim', 'neutral', '0'],
+  ['--wfc-primary', 'primary', '40'],
+  // ['--wfc-primary-container', 'primary', '90'],
+  ['--wfc-on-primary', 'primary', '100'],
+  ['--wfc-on-primary-container', 'primary', '10'],
+  // ['--wfc-primary-inverse', 'primary', '80'],
+  // ['--wfc-secondary', 'secondary', '40'],
+  // ['--wfc-secondary-container', 'secondary', '90'],
+  // ['--wfc-on-secondary', 'secondary', '100'],
+  ['--wfc-on-secondary-container', 'secondary', '10'],
+  // ['--wfc-tertiary', 'tertiary', '40'],
+  // ['--wfc-tertiary-container', 'tertiary', '90'],
+  // ['--wfc-on-tertiary', 'tertiary', '100'],
+  // ['--wfc-on-tertiary-container', 'tertiary', '10'],
+  // ['--wfc-error', 'error', '40'],
+  // ['--wfc-error-container', 'error', '90'],
+  // ['--wfc-on-error', 'error', '100'],
+  // ['--wfc-on-error-container', 'error', '10'],
+  // ['--wfc-neutral', 'neutral', '40'],
+  // ['--wfc-neutral-variant', 'neutral-variant', '40'],
+  ['--wfc-surface', 'neutral', '98'],
+  // ['--wfc-surface-dim', 'neutral', '87'],
+  // ['--wfc-surface-bright', 'neutral', '98'],
+  // ['--wfc-surface-container-lowest', 'neutral', '100'],
+  // ['--wfc-surface-container-low', 'neutral', '96'],
+  // ['--wfc-surface-container', 'neutral', '94'],
+  // ['--wfc-surface-container-high', 'neutral', '92'],
+  // ['--wfc-surface-container-highest', 'neutral', '90'],
+  // ['--wfc-surface-variant', 'neutral-variant', '90'],
+  ['--wfc-on-surface', 'neutral', '10'],
+  ['--wfc-on-surface-variant', 'neutral-variant', '30'],
+  // ['--wfc-surface-inverse', 'neutral', '20'],
+  // ['--wfc-on-surface-inverse', 'neutral', '95'],
+  ['--wfc-surface-tint', 'primary', '40'],
+  // ['--wfc-background', 'neutral', '98'],
+  // ['--wfc-on-background', 'neutral', '10'],
+  ['--wfc-outline', 'neutral-variant', '50'],
+  // ['--wfc-outline-variant', 'neutral-variant', '80'],
+  ['--wfc-shadow', 'neutral', '0'],
+  ['--wfc-scrim', 'neutral', '0'],
 ];
 
 
@@ -68,7 +68,7 @@ export default async function generate(config = {
   const content = `
     :root {
       ${Object.entries(palette.palettes).flatMap(([name, tones]) => {
-        return Object.entries(tones).map(([tone, color]) => `--mdw-${name}-${tone}: ${color};`);
+        return Object.entries(tones).map(([tone, color]) => `--wfc-${name}-${tone}: ${color};`);
       }).join('\n  ')}
       \n\n
       /* alphas */
@@ -77,8 +77,8 @@ export default async function generate(config = {
       ${palette.customColors.flatMap(item => item.light.map(v => `${v.join(': ')};`).join('\n  '))}
     }
     ${palette.customColors.length === 0 ? '' : `
-    .mdw-theme-dark,
-    :root.mdw-theme-dark {
+    .wfc-theme-dark,
+    :root.wfc-theme-dark {
       /* custom colors */
       ${palette.customColors.flatMap(item => item.dark.map(v => `${v.join(': ')};`).join('\n  '))}
     }`}
@@ -114,16 +114,16 @@ function createTheme({ coreColors, customColors }) {
     name: item.color.name,
     color: item.value,
     light: [
-      [`--mdw-custom-color-${item.color.name}-color`, hexFromArgb(item.light.color)],
-      [`--mdw-custom-color-${item.color.name}-on-color`, hexFromArgb(item.light.onColor)],
-      [`--mdw-custom-color-${item.color.name}-color-container`, hexFromArgb(item.light.colorContainer)],
-      [`--mdw-custom-color-${item.color.name}-on-color-container`, hexFromArgb(item.light.onColorContainer)],
+      [`--wfc-custom-color-${item.color.name}-color`, hexFromArgb(item.light.color)],
+      [`--wfc-custom-color-${item.color.name}-on-color`, hexFromArgb(item.light.onColor)],
+      [`--wfc-custom-color-${item.color.name}-color-container`, hexFromArgb(item.light.colorContainer)],
+      [`--wfc-custom-color-${item.color.name}-on-color-container`, hexFromArgb(item.light.onColorContainer)],
     ],
     dark: [
-      [`--mdw-custom-color-${item.color.name}-color`, hexFromArgb(item.dark.color)],
-      [`--mdw-custom-color-${item.color.name}-on-color`, hexFromArgb(item.dark.onColor)],
-      [`--mdw-custom-color-${item.color.name}-color-container`, hexFromArgb(item.dark.colorContainer)],
-      [`--mdw-custom-color-${item.color.name}-on-color-container`, hexFromArgb(item.dark.onColorContainer)],
+      [`--wfc-custom-color-${item.color.name}-color`, hexFromArgb(item.dark.color)],
+      [`--wfc-custom-color-${item.color.name}-on-color`, hexFromArgb(item.dark.onColor)],
+      [`--wfc-custom-color-${item.color.name}-color-container`, hexFromArgb(item.dark.colorContainer)],
+      [`--wfc-custom-color-${item.color.name}-on-color-container`, hexFromArgb(item.dark.onColorContainer)],
     ]
   }));
 

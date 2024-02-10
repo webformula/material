@@ -35,10 +35,10 @@ import './components/top-app-bar/index.js';
 import './components/tooltip/index.js';
 
 export {
-  mdwDate,
-  mdwDevice,
-  mdwDialog,
-  mdwUtil,
-  mdwSnackbar
+  wfcDate,
+  wfcDevice,
+  wfcDialog,
+  wfcUtil,
+  wfcSnackbar
 } from './services.js';
 

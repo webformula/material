@@ -1,7 +1,7 @@
 import { generateBrowser } from './theme.js';
 
 
-const mdwUtil = new class MDWUtil {
+const wfcUtil = new class WFCUtil {
   #uidCounter = 0;
   #textWidthCanvas;
   #lastScrollTop;
@@ -15,12 +15,12 @@ const mdwUtil = new class MDWUtil {
   #initialWindowState_bound = this.#initialWindowState.bind(this);
 
   constructor() {
-    window.addEventListener('mdwwindowstate', this.#initialWindowState_bound);
+    window.addEventListener('wfcwindowstate', this.#initialWindowState_bound);
   }
 
   #initialWindowState() {
     this.#lastScrollTop = document.documentElement.scrollTop;
-    window.removeEventListener('mdwwindowstate', this.#initialWindowState_bound);
+    window.removeEventListener('wfcwindowstate', this.#initialWindowState_bound);
   }
   
   uid() {
@@ -315,8 +315,8 @@ const mdwUtil = new class MDWUtil {
   }
 
   toggleColorScheme(scheme) {
-    const isDark = ['dark', 'light'].includes(scheme) ? scheme === 'dark' : !document.documentElement.classList.contains('mdw-theme-dark');
-    document.documentElement.classList.toggle('mdw-theme-dark', isDark);
+    const isDark = ['dark', 'light'].includes(scheme) ? scheme === 'dark' : !document.documentElement.classList.contains('wfc-theme-dark');
+    document.documentElement.classList.toggle('wfc-theme-dark', isDark);
     generateBrowser();
     return isDark ? 'dark' : 'light';
   }
@@ -334,7 +334,7 @@ const mdwUtil = new class MDWUtil {
   #isElementFocusable(element) {
     if (!element) return false;
     return !element.hasAttribute('disabled') && (
-      element.nodeName === 'MDW-TEXTFIELD'
+      element.nodeName === 'WFC-TEXTFIELD'
       || element.role === 'menuitem'
       || element.role === 'option'
       || element.tabindex > -1
@@ -393,5 +393,5 @@ const mdwUtil = new class MDWUtil {
   }
 }
 
-window.mdwUtil = mdwUtil;
-export default mdwUtil;
+window.wfcUtil = wfcUtil;
+export default wfcUtil;

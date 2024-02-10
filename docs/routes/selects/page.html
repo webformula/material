@@ -1,12 +1,12 @@
 <h3 class="page-title">Selects</h3>
-<div class="page-subheader mdw-font-title-medium">Selects are menus that are assigned to a text field. you can use the text field to filter</div>
+<div class="page-subheader wfc-font-title-medium">Selects are menus that are assigned to a text field. you can use the text field to filter</div>
 <a href="https://m3.material.io/components/menus/specs#15cc3423-ab1f-4d1c-8ce4-e5c9ae95f19f" target="_new">Material
   Design Guidelines: Select</a>
 
 
 <section class="page-content-section">
   <nav class="links-nav" aria-label="page-content">
-    <div class="mdw-font-headline-small page-secondary-header">Links</div>
+    <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#basic">Basic</a></li>
       <li><a href="#filter">Filter</a></li>
@@ -16,171 +16,171 @@
   </nav>
 
   <div class="page-content-container">
-    <mdw-card id="basic">
+    <wfc-card id="basic">
       <div class="card-content">
         <div class="headline">Basic</div>
         
         <div class="example" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
           <div style="display: flex; flex-direction: column;">
-            <mdw-select label="Label" placeholder="Placeholder...">
-              <mdw-option value="1">one</mdw-option>
-              <mdw-option value="2">two</mdw-option>
-              <mdw-option value="3">three</mdw-option>
-              <mdw-option value="4">four</mdw-option>
-              <mdw-option value="5">five</mdw-option>
-              <mdw-option value="6">six</mdw-option>
-            </mdw-select>
+            <wfc-select label="Label" placeholder="Placeholder...">
+              <wfc-option value="1">one</wfc-option>
+              <wfc-option value="2">two</wfc-option>
+              <wfc-option value="3">three</wfc-option>
+              <wfc-option value="4">four</wfc-option>
+              <wfc-option value="5">five</wfc-option>
+              <wfc-option value="6">six</wfc-option>
+            </wfc-select>
         
-            <mdw-select label="Filter" filter>
-              <mdw-icon slot="leading-icon">search</mdw-icon>
-              <mdw-option value="1">one</mdw-option>
-              <mdw-option value="2">two</mdw-option>
-              <mdw-option value="3">three</mdw-option>
-              <mdw-option value="4">four</mdw-option>
-              <mdw-option value="5">five</mdw-option>
-              <mdw-option value="6">six</mdw-option>
-            </mdw-select>
+            <wfc-select label="Filter" filter>
+              <wfc-icon slot="leading-icon">search</wfc-icon>
+              <wfc-option value="1">one</wfc-option>
+              <wfc-option value="2">two</wfc-option>
+              <wfc-option value="3">three</wfc-option>
+              <wfc-option value="4">four</wfc-option>
+              <wfc-option value="5">five</wfc-option>
+              <wfc-option value="6">six</wfc-option>
+            </wfc-select>
           </div>
         
           <div style="display: flex; flex-direction: column;">
-            <mdw-select label="Value attr" value="1">
-              <mdw-option value="1">one</mdw-option>
-              <mdw-option value="2">two</mdw-option>
-              <mdw-option value="3">three</mdw-option>
-              <mdw-option value="4">four</mdw-option>
-              <mdw-option value="5">five</mdw-option>
-              <mdw-option value="6">six</mdw-option>
-            </mdw-select>
+            <wfc-select label="Value attr" value="1">
+              <wfc-option value="1">one</wfc-option>
+              <wfc-option value="2">two</wfc-option>
+              <wfc-option value="3">three</wfc-option>
+              <wfc-option value="4">four</wfc-option>
+              <wfc-option value="5">five</wfc-option>
+              <wfc-option value="6">six</wfc-option>
+            </wfc-select>
         
-            <mdw-select label="Selected attr (outlined)" class="outlined">
-              <mdw-option value="1" selected>one</mdw-option>
-              <mdw-option value="2">two</mdw-option>
-              <mdw-option value="3">three</mdw-option>
-              <mdw-option value="4">four</mdw-option>
-              <mdw-option value="5">five</mdw-option>
-              <mdw-option value="6">six</mdw-option>
-            </mdw-select>
+            <wfc-select label="Selected attr (outlined)" class="outlined">
+              <wfc-option value="1" selected>one</wfc-option>
+              <wfc-option value="2">two</wfc-option>
+              <wfc-option value="3">three</wfc-option>
+              <wfc-option value="4">four</wfc-option>
+              <wfc-option value="5">five</wfc-option>
+              <wfc-option value="6">six</wfc-option>
+            </wfc-select>
           </div>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select
+  ${page.escape(`<wfc-select
     label="Label"
     placeholder="Placeholder..."
   >
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-  </mdw-select>
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+  </wfc-select>
 
   
-  <mdw-select
+  <wfc-select
     label="Filter"
     filter
   >
-    <mdw-icon slot="leading-icon">search</mdw-icon>
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-  </mdw-select>
+    <wfc-icon slot="leading-icon">search</wfc-icon>
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+  </wfc-select>
 
   
-  <mdw-select
+  <wfc-select
     label="Value attr"
     value="1"
   >
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-  </mdw-select>
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+  </wfc-select>
 
   
-  <mdw-select
+  <wfc-select
     label="Selected attr (outlined)"
     class="outlined"
   >
-    <mdw-option value="1" selected>one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-  </mdw-select>`)}
+    <wfc-option value="1" selected>one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+  </wfc-select>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="filter">
+    <wfc-card id="filter">
       <div class="card-content">
         <div class="headline">Filter</div>
         <div class="supporting-text">Filtering hides items that do not fuzzy match the input. The most likely match will also add a textfield suggestion and hitting the enter key will select it.</div>
     
         <div class="example">
-          <mdw-select label="Label" filter>
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
+          <wfc-select label="Label" filter>
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+            <wfc-option value="7">seven</wfc-option>
+            <wfc-option value="8">eight</wfc-option>
+            <wfc-option value="9">nine</wfc-option>
+            <wfc-option value="10">ten</wfc-option>
+          </wfc-select>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select filter label="Label">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
-  </mdw-select>`)}
+  ${page.escape(`<wfc-select filter label="Label">
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+    <wfc-option value="3">three</wfc-option>
+    <wfc-option value="4">four</wfc-option>
+    <wfc-option value="5">five</wfc-option>
+    <wfc-option value="6">six</wfc-option>
+    <wfc-option value="7">seven</wfc-option>
+    <wfc-option value="8">eight</wfc-option>
+    <wfc-option value="9">nine</wfc-option>
+    <wfc-option value="10">ten</wfc-option>
+  </wfc-select>`)}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <mdw-card id="async-filter">
+    <wfc-card id="async-filter">
       <div class="card-content">
         <div class="headline">Async filter</div>
         <div class="supporting-text">Async filter will trigger a <b>filter</b> event that is debounced. There will be a progress bar shown at the top. You can resolve the select two ways. You can update the options or reset the options (both shown below).</div>
         
         <div class="example">
-          <mdw-select id="async-filter-select" label="Label" filter async>
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
+          <wfc-select id="async-filter-select" label="Label" filter async>
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+            <wfc-option value="7">seven</wfc-option>
+            <wfc-option value="8">eight</wfc-option>
+            <wfc-option value="9">nine</wfc-option>
+            <wfc-option value="10">ten</wfc-option>
+          </wfc-select>
         </div>
       </div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select filter async label="Label" id="async-filter-select">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
-  </mdw-select>`)}
+  ${page.escape(`<wfc-select filter async label="Label" id="async-filter-select">
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+    <wfc-option value="3">three</wfc-option>
+    <wfc-option value="4">four</wfc-option>
+    <wfc-option value="5">five</wfc-option>
+    <wfc-option value="6">six</wfc-option>
+    <wfc-option value="7">seven</wfc-option>
+    <wfc-option value="8">eight</wfc-option>
+    <wfc-option value="9">nine</wfc-option>
+    <wfc-option value="10">ten</wfc-option>
+  </wfc-select>`)}
         </code>
       </pre>
       
@@ -197,7 +197,7 @@
     // You can reset the select to the initial options
     select.initialOptions();
 
-    // You can either append new mdw-option elements to the DOM
+    // You can either append new wfc-option elements to the DOM
     // Or you can use this helper method
     select.setOptions([
       { label: 'One', value: 1 },
@@ -206,46 +206,46 @@
   });`}
         </code>
       </pre>
-    </mdw-card>
+    </wfc-card>
 
 
-    <!-- <mdw-card id="bottomsheet">
+    <!-- <wfc-card id="bottomsheet">
       <div class="card-content">
         <div class="headline">Bottom sheets on window compact</div>
-        <div class="subheader">To enable bottom sheets on compact layout add <b>class="mdw-use-bottom-sheet"</b></div>
+        <div class="subheader">To enable bottom sheets on compact layout add <b>class="wfc-use-bottom-sheet"</b></div>
     
         <div class="example">
-          <mdw-select class="mdw-use-bottom-sheet" label="label">
-            <mdw-option value="1">one</mdw-option>
-            <mdw-option value="2">two</mdw-option>
-            <mdw-option value="3">three</mdw-option>
-            <mdw-option value="4">four</mdw-option>
-            <mdw-option value="5">five</mdw-option>
-            <mdw-option value="6">six</mdw-option>
-            <mdw-option value="7">seven</mdw-option>
-            <mdw-option value="8">eight</mdw-option>
-            <mdw-option value="9">nine</mdw-option>
-            <mdw-option value="10">ten</mdw-option>
-          </mdw-select>
+          <wfc-select class="wfc-use-bottom-sheet" label="label">
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+            <wfc-option value="7">seven</wfc-option>
+            <wfc-option value="8">eight</wfc-option>
+            <wfc-option value="9">nine</wfc-option>
+            <wfc-option value="10">ten</wfc-option>
+          </wfc-select>
         </div>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<mdw-select class="mdw-use-bottom-sheet" label="label">
-    <mdw-option value="1">one</mdw-option>
-    <mdw-option value="2">two</mdw-option>
-    <mdw-option value="3">three</mdw-option>
-    <mdw-option value="4">four</mdw-option>
-    <mdw-option value="5">five</mdw-option>
-    <mdw-option value="6">six</mdw-option>
-    <mdw-option value="7">seven</mdw-option>
-    <mdw-option value="8">eight</mdw-option>
-    <mdw-option value="9">nine</mdw-option>
-    <mdw-option value="10">ten</mdw-option>
-  </mdw-select>`)}
+  ${page.escape(`<wfc-select class="wfc-use-bottom-sheet" label="label">
+    <wfc-option value="1">one</wfc-option>
+    <wfc-option value="2">two</wfc-option>
+    <wfc-option value="3">three</wfc-option>
+    <wfc-option value="4">four</wfc-option>
+    <wfc-option value="5">five</wfc-option>
+    <wfc-option value="6">six</wfc-option>
+    <wfc-option value="7">seven</wfc-option>
+    <wfc-option value="8">eight</wfc-option>
+    <wfc-option value="9">nine</wfc-option>
+    <wfc-option value="10">ten</wfc-option>
+  </wfc-select>`)}
         </code>
       </pre>
-    </mdw-card> -->
+    </wfc-card> -->
   </div>
 </section>

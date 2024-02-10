@@ -2,8 +2,8 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './list.css' assert { type: 'css' };
 
 
-class MDWListElement extends HTMLComponentElement {
-  static tag = 'mdw-list';
+class WFCListElement extends HTMLComponentElement {
+  static tag = 'wfc-list';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -34,25 +34,25 @@ class MDWListElement extends HTMLComponentElement {
 
 
   get value() {
-    return [...this.querySelectorAll('mdw-list-item')]
+    return [...this.querySelectorAll('wfc-list-item')]
       .filter(e => e.selected)
       .map(e => e.value || e.getAttribute('id'))
       .join(',');
   }
   set value(value) {
     const valueArray = value.split(',');
-    [...this.querySelectorAll('mdw-list-item')]
+    [...this.querySelectorAll('wfc-list-item')]
       .forEach(item => item.selected = valueArray.includes(item.value));
   }
 
   get values() {
-    return [...this.querySelectorAll('mdw-list-item')]
+    return [...this.querySelectorAll('wfc-list-item')]
       .filter(e => e.selected)
       .map(e => e.value || e.getAttribute('id'));
   }
   set values(value) {
-    [...this.querySelectorAll('mdw-list-item')]
+    [...this.querySelectorAll('wfc-list-item')]
       .forEach(item => item.selected = value.includes(item.value));
   }
 }
-customElements.define(MDWListElement.tag, MDWListElement);
+customElements.define(WFCListElement.tag, WFCListElement);
