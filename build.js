@@ -59,6 +59,7 @@ if (process.env.NODE_ENV === 'production') generate({
   //   }
   // ]
 }, './docs/colorTokens.css');
+
 build({
   spa: true,
   chunks: false,
@@ -90,7 +91,10 @@ build({
     // build separate file for iframe pages without app code.
     context.rebuild();
   }
-});
+})
+  .then(() => { // TODO not sure what is going on. The process stop existing on npm run build at some point
+    if (process.env.NODE_ENV === 'production') process.exit();
+  });
 
 async function gzipFile(file, rename) {
   const result = await asyncGzip(await readFile(file));
