@@ -5,36 +5,40 @@ import Formatter from './Formatter.js';
 import util from '../../core/util.js';
 
 const isIncrementalSupported = 'incremental' in document.createElement('input');
+const inputElement = document.createElement('input');
+inputElement.setAttribute('placeholder', ' ');
+inputElement.classList.add('input');
+const textareaElement = document.createElement('textarea');
+textareaElement.setAttribute('placeholder', ' ');
+textareaElement.classList.add('input');
 
-// TODO pattern regex error when loading built page (refresh on page)
-// TODO rework so we do not render initial state with template
+// TODO pattern regex error when loading built page (refresh on page). The error is not breaking anything. Probably because we rerender
 
 export default class MDWTextfieldElement extends HTMLComponentElement {
   static tag = 'mdw-textfield';
   static useShadowRoot = true;
-  static useTemplate = false;
+  static useTemplate = true;
   static shadowRootDelegateFocus = true;
   static styleSheets = styles;
   static formAssociated = true;
 
   #internals;
   #input;
-  #type;
-  #focusValue;
-  #dirty = false;
-  #touched = false;
-  #value = '';
-  #label = '';
-  #characterCount;
-  #supportingText = '';
-  #errorText = '';
-  #invalidIcon;
+  #value;
   #abort;
+  #characterCount;
+  #errorText = '';
   #formatter;
+  #incremental = false;
+  #label = '';
+  #rows = 1;
   #suggestion;
   #hasSuggestion;
-  #rows = 1;
-  #incremental = false;
+  #supportingText = '';
+  #type;
+  #invalidIcon;
+  #touched = false;
+  #focusValue;
   #slotChange_bound = this.#slotChange.bind(this);
   #onInput_bound = this.#onInput.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
@@ -50,45 +54,55 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
     this.#internals = this.attachInternals();
     this.render();
+    const type = this.getAttribute('type');
+    const beforeElement = this.shadowRoot.querySelector('.prefix-text');
+    if (type === 'textarea') beforeElement.insertAdjacentElement('afterend', textareaElement.cloneNode());
+    else {
+      const el = inputElement.cloneNode();
+      el.type = this.getAttribute('type');
+      beforeElement.insertAdjacentElement('afterend', el);
+    }
     this.#value = this.getAttribute('value');
     this.#input = this.shadowRoot.querySelector('.input');
   }
 
-  // TODO update. enterKeyHint
+
   static get observedAttributesExtended() {
     return [
       ['aria-label', 'string'],
       ['autocomplete', 'string'],
       ['character-count', 'boolean'],
       ['disabled', 'boolean'],
+      ['error-text', 'string'],
       ['format', 'string'],
+      ['incremental', 'boolean'],
       ['label', 'string'],
       ['mask', 'string'],
       ['max', 'string'],
-      ['min', 'string'],
-      ['step', 'number'],
       ['maxlength', 'number'],
+      ['min', 'string'],
       ['minlength', 'number'],
-      ['pattern', 'string'],
+      ['multiple', 'boolean'],
       ['pattern-restrict', 'boolean'],
+      ['pattern', 'string'],
       ['prefix-text', 'string'],
       ['readonly', 'boolean'],
+      ['required', 'boolean'],
+      ['rows', 'number'],
+      ['step', 'number'],
       ['suffix-text', 'string'],
-      ['supporting-text', 'string'],
       ['suggestion', 'string'],
-      ['error-text', 'string'],
+      ['supporting-text', 'string'],
       ['type', 'string'],
-      ['value', 'string'],
-      ['incremental', 'boolean'],
-      ['multiple', 'boolean'],
-      ['rows', 'number']
+      ['value', 'string']
     ];
   }
 
   attributeChangedCallbackExtended(name, _oldValue, newValue) {
-    if (name === 'value' && this.#dirty) return;
+    // if (name === 'value' && this.#dirty) return;
     this[name] = newValue;
   }
+  
 
   connectedCallback() {
     this.#abort = new AbortController();
@@ -103,75 +117,42 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
     if (this.type === 'search') this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
     this.#updateCharacterCount();
-    setTimeout(() => {
-      this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
-    }, 150);
-
     this.#addFormatter();
+
+    setTimeout(() => {
+      this.shadowRoot.querySelector('label').classList.remove('no-animation');
+    }, 150);
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#formatter) this.#formatter.disable();
+    // if (this.#formatter) this.#formatter.disable();
   }
+
 
   template() {
     return /*html*/`
-      <div class="text-field${!this.label ? '' : ' label'}">
+      <div class="text-field">
         <slot name="leading-icon"></slot>
-        ${this.prefixText ? `<div class="prefix-text">${this.prefixText}</div>` : ''}
-        ${this.type !== 'textarea' ? /*html*/`
-          <input
-            class="input"
-            ${this.type ? `type="${this.type}"` : ''}
-            ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
-            ${this.multiple ? 'multiple' : ''}
-            ${this.disabled ? 'disabled' : ''}
-            ${this.min ? `min="${this.min}"` : ''}
-            ${this.max ? `max="${this.max}"` : ''}
-            ${this.step ? `step="${this.step}"` : ''}
-            ${this.minlength ? `minlength="${this.minlength}"` : ''}
-            ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
-            ${this.pattern ? `pattern=${this.pattern}` : ''}
-            placeholder="${this.placeholder || ' '}"
-            ${this.readonly ? 'readonly' : ''}
-            ${this.required ? 'required' : ''}
-            ${this.incremental ? 'incremental' : ''}
-          />
-        ` : /*html*/`
-          <textarea
-            class="input"
-            rows="1"
-            ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
-            ${this.disabled ? 'disabled' : ''}
-            ${this.minlength ? `minlength="${this.minlength}"` : ''}
-            ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
-            placeholder="${this.placeholder || ' '}"
-            ${this.readonly ? 'readonly' : ''}
-            ${this.required ? 'required' : ''}
-          ></textarea>
-        `}
-        
-        <label class="no-animation">${this.label}</label>
-        ${!this.classList.contains('outlined') ? '' : `
+        <div class="prefix-text"></div>
+
+        <label class="no-animation"></label>
+
         <div class="outlined-border-container">
           <div class="outlined-leading"></div>
           <div class="outlined-notch">${this.label}</div>
           <div class="outlined-trailing"></div>
         </div>
-        `}
+
         <div class="suggestion"></div>
-        ${this.suffixText ? `<span class="suffix-text">${this.suffixText}</span>` : ''}
+        <span class="suffix-text"></span>
         <slot name="trailing-icon"></slot>
-        <div class="supporting-text" title="${this.#supportingText}">${this.#supportingText}</div>
+        <div class="supporting-text"></div>
         <div class="character-count"></div>
         <slot name="picker"></slot>
       </div>
-    `.replace(/^\s*\n/gm, '').replace(/^\s{6}/gm, '');
+    `;
   }
-
-
-
 
   get ariaLabel() { return this.#input.ariaLabel }
   set ariaLabel(value) {
@@ -187,20 +168,23 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   get characterCount() { return this.#characterCount; }
   set characterCount(value) {
     this.#characterCount = !!value;
-  }
-
-  get label() { return this.#label || (this.getAttribute('label') || ''); }
-  set label(value) {
-    this.#label = value;
-    this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
-    if (!this.ariaLabel) this.ariaLabel = this.#label;
-  }
+  }  
 
   get disabled() { return this.hasAttribute('disabled'); }
   set disabled(value) {
     this.toggleAttribute('disabled', value);
     if (value) this.blur();
     this.#input.toggleAttribute('disabled', value);
+  }
+
+  get errorText() { return this.#errorText; }
+  set errorText(value) {
+    this.#errorText = value || '';
+    if (!this.checkValidity()) {
+      const el = this.shadowRoot.querySelector('.text-field .supporting-text');
+      el.innerText = this.#errorText;
+      el.setAttribute('title', this.#errorText)
+    }
   }
 
   get form() { return this.#internals.form; }
@@ -212,6 +196,21 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   }
 
   get formattedValue() { return this.#formatter ? this.#formatter.formattedValue : this.value; }
+
+  get incremental() { return this.#incremental; }
+  set incremental(value) {
+    this.#incremental = value;
+    this.#input.incremental = this.#incremental;
+  }
+
+  get label() { return this.#label || (this.getAttribute('label') || ''); }
+  set label(value) {
+    this.#label = value;
+    this.shadowRoot.querySelector('.text-field').classList.toggle('label', !!this.#label);
+    this.shadowRoot.querySelector('label').innerText = this.#label;
+    if (this.classList.contains('outlined')) this.shadowRoot.querySelector('.outlined-notch').innerText = this.#label;
+    if (!this.ariaLabel) this.ariaLabel = this.#label;
+  }
 
   get mask() { return this.getAttribute('mask'); }
   set mask(value) {
@@ -227,22 +226,16 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.setAttribute('max', value);
   }
 
-  get min() { return this.getAttribute('min'); }
-  set min(value) {
-    this.setAttribute('min', value);
-    this.#input.setAttribute('min', value);
-  }
-
-  get step() { return this.getAttribute('step'); }
-  set step(value) {
-    this.setAttribute('step', value);
-    this.#input.setAttribute('step', value);
-  }
-
   get maxlength() { return this.getAttribute('maxlength'); }
   set maxlength(value) {
     this.setAttribute('maxlength', value);
     this.#input.setAttribute('maxlength', value);
+  }
+
+  get min() { return this.getAttribute('min'); }
+  set min(value) {
+    this.setAttribute('min', value);
+    this.#input.setAttribute('min', value);
   }
 
   get minlength() { return this.getAttribute('minlength'); }
@@ -255,6 +248,12 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   set multiple(value) {
     this.toggleAttribute('multiple', value);
     this.#input.toggleAttribute('multiple', value);
+  }
+
+  get patternRestrict() { return this.getAttribute('pattern-restrict'); }
+  set patternRestrict(value) {
+    if (this.#formatter) this.#formatter.patternRestrict = value;
+    this.toggleAttribute('pattern', value);
   }
 
   get pattern() { return this.getAttribute('pattern'); }
@@ -271,12 +270,6 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.setAttribute('pattern', value);
   }
 
-  get patternRestrict() { return this.getAttribute('pattern-restrict'); }
-  set patternRestrict(value) {
-    if (this.#formatter) this.#formatter.patternRestrict = value;
-    this.toggleAttribute('pattern', value);
-  }
-
   get placeholder() { return this.getAttribute('placeholder'); }
   set placeholder(value) {
     if (value) this.setAttribute('placeholder', value);
@@ -287,12 +280,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   get prefixText() { return this.getAttribute('prefix-text'); }
   set prefixText(value) {
     this.setAttribute('prefix-text', value);
-    this.shadowRoot.querySelector('.text-field .prefix-text').innerText = value || '';
-  }
-  get suffixText() { return this.getAttribute('suffix-text'); }
-  set suffixText(value) {
-    this.setAttribute('suffix-text', value);
-    this.shadowRoot.querySelector('.text-field .suffix-text').innerText = value || '';
+    this.shadowRoot.querySelector('.prefix-text').innerText = value || '';
   }
 
   get readonly() { return this.hasAttribute('readonly'); }
@@ -306,6 +294,12 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   set required(value) {
     this.toggleAttribute('required', value);
     this.#input.toggleAttribute('required', value);
+  }
+
+  get rows() { return this.#rows; }
+  set rows(value) {
+    this.#rows = value;
+    if (this.getAttribute('type') === 'textarea') this.#input.setAttribute('rows', value || 1);
   }
 
   get selectionDirection() { return this.#input?.selectionDirection || 0; }
@@ -323,6 +317,24 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.selectionStart = value;
   }
 
+  get step() { return this.getAttribute('step'); }
+  set step(value) {
+    this.setAttribute('step', value);
+    this.#input.setAttribute('step', value);
+  }
+
+  get suffixText() { return this.getAttribute('suffix-text'); }
+  set suffixText(value) {
+    this.setAttribute('suffix-text', value);
+    this.shadowRoot.querySelector('.suffix-text').innerText = value || '';
+  }
+
+  get suggestion() { return this.#suggestion; }
+  set suggestion(value) {
+    this.#suggestion = value;
+    this.#setSuggestion();
+  }
+
   get supportingText() { return this.#supportingText; }
   set supportingText(value) {
     this.#supportingText = value || '';
@@ -333,32 +345,10 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     }
   }
 
-  get errorText() { return this.#errorText; }
-  set errorText(value) {
-    this.#errorText = value || '';
-    if (!this.checkValidity()) {
-      const el = this.shadowRoot.querySelector('.text-field .supporting-text');
-      el.innerText = this.#errorText;
-      el.setAttribute('title', this.#errorText)
-    }
-  }
-
-  get type() { return this.#type || this.getAttribute('type'); }
+  get type() { return this.getAttribute('type'); }
   set type(value) {
     this.#type = value;
     this.setAttribute('type', value);
-  }
-
-  get rows() { return this.#rows; }
-  set rows(value) {
-    this.#rows = value;
-    if (this.getAttribute('type') === 'textarea') this.#input.setAttribute('rows', value || 1);
-  }
-
-  get incremental() { return this.#incremental; }
-  set incremental(value) {
-    this.#incremental = value;
-    this.#input.incremental = this.#incremental;
   }
 
   get value() {
@@ -379,34 +369,25 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#updateCharacterCount();
   }
 
-  get suggestion() {
-    return this.#suggestion;
-  }
-  set suggestion(value) {
-    this.#suggestion = value;
-    this.#setSuggestion();
-  }
-
   get validationMessage() { return this.#internals.validationMessage; }
   get validity() { return this.#internals.validity; }
   get willValidate() { return this.#internals.willValidate; }
 
 
-
   clear() {
-    this.#dirty = false;
+    // this.#dirty = false;
     this.value = '';
   }
 
   reset() {
-    this.#dirty = false;
+    // this.#dirty = false;
     this.#touched = false;
     this.value = this.getAttribute('value') ?? '';
     this.#updateValidity();
     this.#updateValidityDisplay(true);
   }
   formResetCallback() { this.reset(); }
-  
+
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {
     this.#updateValidityDisplay();
@@ -421,7 +402,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.setCustomValidity(value);
     this.#updateValidityDisplay();
   }
-  
+
   select() { this.#input.select(); }
   setRangeText(replacement, start, end, selectMode) {
     this.#input.setRangeText(replacement, start, end, selectMode);
@@ -430,69 +411,6 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
 
-
-
-  #setSupportingText(valid = this.checkValidity()) {
-    const supportingTextElement = this.shadowRoot.querySelector('.text-field .supporting-text');
-    const value = valid ? this.#supportingText : this.#errorText || this.#input.validationMessage;
-    supportingTextElement.innerText = value;
-    supportingTextElement.setAttribute('title', value)
-  }
-
-  #addFormatter() {
-    if (!this.#formatter && this.pattern) {
-      this.#formatter = new Formatter(this);
-      this.#formatter.pattern = this.pattern;
-      if (this.mask) this.#formatter.mask = this.mask;
-      if (this.format) this.#formatter.format = this.format;
-      this.#formatter.onInput = this.#onFormatterInput.bind(this);
-      this.#formatter.patternRestrict = this.hasAttribute('pattern-restrict');
-      this.#formatter.enable();
-      this.#formatter.value = this.#value;
-    }
-  }
-
-  #slotChange(event) {
-    if (event.target.name === 'leading-icon') {
-      const hasLeadingIcon = event.target.assignedElements({ flatten: true }).length > 0;
-      this.shadowRoot.querySelector('.text-field').classList.toggle('leading-icon', hasLeadingIcon);
-    }
-
-    if (event.target.name === 'trailing-icon') {
-      const hasTrailingIcon = event.target.assignedElements({ flatten: true }).length > 0;
-      this.shadowRoot.querySelector('.text-field').classList.toggle('trailing-icon', hasTrailingIcon);
-    }
-
-    if (event.target.name === 'picker') {
-      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER' || e.nodeName === 'MDW-DATE-PICKER' || e.nodeName === 'MDW-DATE-RANGE-PICKER')) {
-        this.shadowRoot.querySelector('.text-field').classList.add('has-picker')
-      }
-    }
-  }
-
-  #onInput() {
-    this.#value = this.#input.value;
-    this.#dirty = true;
-    this.#setSuggestion();
-    this.#updateValidity();
-    this.#updateCharacterCount();
-    if (this.type === 'textarea') this.#updateTextareaHeight();
-    // only update display if invalid while in focus
-    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
-
-    // polyfill incremental search events
-    if (this.#type === 'search' && this.#incremental && !isIncrementalSupported) this.#incrementalPolyfill_debounced();
-  }
-
-  #onFormatterInput() {
-    const changed = this.#value !== this.#formatter.value;
-    this.#value = this.#formatter.value;
-    this.#dirty = true;
-    this.#updateValidity();
-    // only update display if invalid while in focus
-    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
-    if (changed) this.dispatchEvent(new Event('input', { bubbles: true }));
-  }
 
   #updateValidity() {
     this.#touched = true;
@@ -518,25 +436,24 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#setSupportingText(valid);
   }
 
-  #onFocus() {
-    if (this.readonly) return;
-    this.#focusValue = this.value;
+  #setSupportingText(valid = this.checkValidity()) {
+    const supportingTextElement = this.shadowRoot.querySelector('.text-field .supporting-text');
+    const value = valid ? this.#supportingText : this.#errorText || this.#input.validationMessage;
+    supportingTextElement.innerText = value;
+    supportingTextElement.setAttribute('title', value)
   }
 
-  #onBlur() {
-    if (this.readonly) return;
-    // do not update if no text was changed
-    if (this.#touched) {
-      this.#updateValidity();
-      this.#updateValidityDisplay();
+  #addFormatter() {
+    if (!this.#formatter && this.pattern) {
+      this.#formatter = new Formatter(this);
+      this.#formatter.pattern = this.pattern;
+      if (this.mask) this.#formatter.mask = this.mask;
+      if (this.format) this.#formatter.format = this.format;
+      this.#formatter.onInput = this.#onFormatterInput.bind(this);
+      this.#formatter.patternRestrict = this.hasAttribute('pattern-restrict');
+      this.#formatter.enable();
+      this.#formatter.value = this.#value;
     }
-    this.#dirty = false;
-    if (this.value !== this.#focusValue) this.dispatchEvent(new Event('change', { bubbles: true }));
-    this.classList.toggle('has-value', !!this.value);
-  }
-
-  #onSelect() {
-    this.dispatchEvent(new Event('select', { bubbles: true }));
   }
 
   #setSuggestion() {
@@ -551,13 +468,6 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     suggestionElement.style.left = `${offset + 16}px`;
   }
 
-  #dispatchSearch() {
-    this.dispatchEvent(new Event('search', {
-      bubbles: true,
-      composed: true
-    }));
-  }
-
   #updateCharacterCount() {
     if (!this.#characterCount) return;
 
@@ -570,7 +480,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     const tab = event.code === 'Tab';
     if (this.#hasSuggestion && tab) {
       this.value = this.#suggestion;
-      this.#hasSuggestion = false;
+      this.#setSuggestion();
       event.preventDefault();
     }
   }
@@ -581,6 +491,76 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     if (height <= 40) height -= 28;
     this.#input.style.height = `${height}px`;
     if (this.#input.offsetHeight < this.#input.scrollHeight) this.#input.style.height = `${this.#input.offsetHeight - 16}px`;
+  }
+
+  #onFocus() {
+    if (this.readonly) return;
+    this.#focusValue = this.value;
+  }
+
+  #onBlur() {
+    if (this.readonly) return;
+    // do not update if no text was changed
+    if (this.#touched) {
+      this.#updateValidity();
+      this.#updateValidityDisplay();
+    }
+    // this.#dirty = false;
+    if (this.value !== this.#focusValue) this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.classList.toggle('has-value', !!this.value);
+  }
+
+  #onSelect() {
+    this.dispatchEvent(new Event('select', { bubbles: true }));
+  }
+
+  #dispatchSearch() {
+    this.dispatchEvent(new Event('search', {
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  #slotChange(event) {
+    if (event.target.name === 'leading-icon') {
+      const hasLeadingIcon = event.target.assignedElements({ flatten: true }).length > 0;
+      this.shadowRoot.querySelector('.text-field').classList.toggle('leading-icon', hasLeadingIcon);
+    }
+
+    if (event.target.name === 'trailing-icon') {
+      const hasTrailingIcon = event.target.assignedElements({ flatten: true }).length > 0;
+      this.shadowRoot.querySelector('.text-field').classList.toggle('trailing-icon', hasTrailingIcon);
+    }
+
+    if (event.target.name === 'picker') {
+      if ([...event.target.assignedElements()].find(e => e.nodeName === 'MDW-TIME-PICKER' || e.nodeName === 'MDW-DATE-PICKER' || e.nodeName === 'MDW-DATE-RANGE-PICKER')) {
+        this.shadowRoot.querySelector('.text-field').classList.add('has-picker')
+      }
+    }
+  }
+
+  #onInput() {
+    this.#value = this.#input.value;
+    // this.#dirty = true;
+    this.#setSuggestion();
+    this.#updateValidity();
+    this.#updateCharacterCount();
+    if (this.type === 'textarea') this.#updateTextareaHeight();
+    // only update display if invalid while in focus
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+
+    // polyfill incremental search events
+    if (this.#type === 'search' && this.#incremental && !isIncrementalSupported) this.#incrementalPolyfill_debounced();
+  }
+
+  #onFormatterInput() {
+    const changed = this.#value !== this.#formatter.value;
+    this.#value = this.#formatter.value;
+    // this.#dirty = true;
+    this.#updateValidity();
+    // only update display if invalid while in focus
+    if (this.classList.contains('invalid')) this.#updateValidityDisplay();
+    if (changed) this.dispatchEvent(new Event('input', { bubbles: true }));
   }
 }
 
