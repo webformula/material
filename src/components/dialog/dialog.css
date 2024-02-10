@@ -297,7 +297,6 @@ dialog.open [name="actions"] {
     overflow: hidden;
     height: min(48px, calc(var(--mdw-dialog-height) * 0.35));
     transform: translateY(-50px);
-    /* transform: translateY(calc((var(--mdw-dialog-height) * 0.5 * -1))); */
   }
 
   100% {
@@ -319,7 +318,6 @@ dialog.open [name="actions"] {
     min-height: 48px;
     height: min(48px, calc(var(--mdw-dialog-height) * 0.35));
     transform: translateY(-50px);
-    /* transform: translateY(calc((var(--mdw-dialog-height) * 0.5 * -1))); */
   }
 }
 

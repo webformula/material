@@ -198,8 +198,8 @@ export default class Drag {
 
   cancel() {
     if (this.#abortDrag) this.#abortDrag.abort();
-    this.#element.classList.remove('mdw-drag-active');
-    this.#element.classList.remove('mdw-drag-reorder-active');
+    this.#element.classList.remove('drag-active');
+    this.#element.classList.remove('drag-reorder-active');
     this.#cleanupReorder();
     this.#isDragging = false;
     if (this.#lockScrollY) util.unlockPageScroll();
@@ -279,7 +279,7 @@ export default class Drag {
     }
 
     this.#isDragging = true;
-    this.#element.classList.add('mdw-drag-active');
+    this.#element.classList.add('drag-active');
     const dragEvent = this.#track(event, 'mdwdragstart');
     if (this.#lockScrollY) util.lockPageScroll();
     this.#trigger(dragEvent);
@@ -302,7 +302,7 @@ export default class Drag {
 
   #endFinal(event) {
     if (this.#scrollSnapPositions && this.#scrollSnapPositions.length > 0 && !this.#isSnapped) return this.#snap(event)
-    this.#element.classList.remove('mdw-drag-active');
+    this.#element.classList.remove('drag-active');
     if (this.#reorder) this.#endReorder();
     this.#isDragging = false;
     this.#trigger(event);
@@ -520,7 +520,7 @@ export default class Drag {
   // --- Reorder ----
 
   #setupReorder() {
-    this.#element.classList.add('mdw-drag-reorder-active');
+    this.#element.classList.add('drag-reorder-active');
     util.lockPageScroll();
     // we use transform to move the dragged item so we need to raise it above all items
     this.#element.style.zIndex = 999;
@@ -582,7 +582,7 @@ export default class Drag {
     this.#swapLastClosestIndex = undefined;
     this.#dragOffsetPosition = 0;
     this.#reorderAnimateTimestamp = undefined;
-    this.#element.classList.remove('mdw-drag-reorder-active');
+    this.#element.classList.remove('drag-reorder-active');
   }
 
   #reorderDrag(dragEvent) {

@@ -182,7 +182,7 @@ slot[name='end']::slotted([hover-only]) {
   pointer-events: none;
 }
 
-.state-layer .mdw-ripple-element {
+.state-layer .ripple-element {
   background-color: var(--mdw-on-surface);
   opacity: var(--mdw-state-layer-opacity-pressed);
 }

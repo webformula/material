@@ -246,6 +246,6 @@ slot[name="label"]::slotted(*) {
   pointer-events: none;
 }
 
-.ripple > .mdw-ripple-element {
+.ripple > .ripple-element {
   background-color: var(--mdw-primary-alpha-16);
 }

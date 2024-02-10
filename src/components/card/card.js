@@ -13,8 +13,8 @@ import Ripple from '../../core/Ripple.js';
 
 export default class MDWCardElement extends HTMLComponentElement {
   static tag = 'mdw-card';
-  #isFullscreen = this.classList.contains('mdw-fullscreen');
-  #isExpanding = !!this.querySelector(':Scope > .mdw-card-content > .mdw-expanded');
+  #isFullscreen = this.classList.contains('fullscreen');
+  #isExpanding = !!this.querySelector(':Scope > .card-content > .expanded');
 
   #expandClick_bound = this.#expandClick.bind(this);
   #fullscreenClick_bound = this.#fullscreenClick.bind(this);
@@ -49,24 +49,24 @@ export default class MDWCardElement extends HTMLComponentElement {
 
   connectedCallback() {
     this.#abort = new AbortController();
-    const arrow = this.querySelector('.mdw-expand-arrow');
+    const arrow = this.querySelector('.expand-arrow');
     if (arrow) arrow.innerHTML = expand_more_FILL0_wght400_GRAD0_opsz24;
 
     if (this.#isFullscreen) {
       this.#fullscreenBackButton = document.createElement('div');
-      this.#fullscreenBackButton.classList.add('mdw-card-fullscreen-back');
+      this.#fullscreenBackButton.classList.add('card-fullscreen-back');
       this.#fullscreenBackButton.innerHTML = arrow_back_ios_FILL1_wght300_GRAD0_opsz24;
       // this.#fullscreenBackButton.innerHTML = `${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}<span class="text">Back</span>`;
       this.insertAdjacentElement('afterbegin', this.#fullscreenBackButton);
       this.#fullscreenBackButton.addEventListener('click', this.#fullscreenBackClick_bound, { signal: this.#abort.signal });
       this.addEventListener('click', this.#fullscreenClick_bound, { signal: this.#abort.signal });
     } else if (this.#isExpanding) {
-      this.classList.add('mdw-expanding');
+      this.classList.add('expanding');
       this.addEventListener('click', this.#expandClick_bound, { signal: this.#abort.signal });
       if (device.state === 'compact') {
         this.#expandDrag = new Drag(this, {
           disableMouseEvents: true,
-          ignoreElements: [this.querySelector('.mdw-expanded')]
+          ignoreElements: [this.querySelector('.expanded')]
         });
         this.#expandDrag.on('mdwdragend', this.#expandDragEnd_bound);
         this.#expandDrag.enable();
@@ -79,7 +79,7 @@ export default class MDWCardElement extends HTMLComponentElement {
       this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     }
 
-    this.#hasReorder = this.parentElement.classList.contains('mdw-reorder') || this.parentElement.classList.contains('mdw-reorder-swap');
+    this.#hasReorder = this.parentElement.classList.contains('reorder') || this.parentElement.classList.contains('reorder-swap');
     if (this.#swipeActionElement) {
       this.#dragSwipeAction = new Drag(this, {
         disableMouseEvents: true,
@@ -93,8 +93,8 @@ export default class MDWCardElement extends HTMLComponentElement {
     } else if (this.#hasReorder) {
       this.#drag = new Drag(this, {
         reorder: true,
-        reorderSwap: this.parentElement.classList.contains('mdw-reorder-swap'),
-        reorderAnimation: !this.parentElement.classList.contains('mdw-reorder-no-animation')
+        reorderSwap: this.parentElement.classList.contains('reorder-swap'),
+        reorderAnimation: !this.parentElement.classList.contains('reorder-no-animation')
       });
       this.#drag.enable();
     }
@@ -109,7 +109,7 @@ export default class MDWCardElement extends HTMLComponentElement {
     window.addEventListener('mdwwindowstate', this.#handleWindowState_bound);
     this.#handleWindowState();
 
-    const rippleElement = this.querySelector(':scope > .mdw-ripple');
+    const rippleElement = this.querySelector(':scope > .ripple');
     if (rippleElement) {
       this.#ripple = new Ripple({
         element: rippleElement,
@@ -155,7 +155,7 @@ export default class MDWCardElement extends HTMLComponentElement {
 
   async remove() {
     this.style.setProperty('--mdw-card-margin-top-remove', `-${this.offsetHeight}px`);
-    this.classList.add('mdw-remove');
+    this.classList.add('remove');
     await util.transitionendAsync(this);
     super.remove();
   }
@@ -178,12 +178,12 @@ export default class MDWCardElement extends HTMLComponentElement {
     this.style.setProperty('--mdw-card-fullscreen-width', `${bounds.width}px`);
     this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
     this.style.setProperty('--mdw-card-fullscreen-height', `${bounds.height}px`);
-    if (!initialized) this.classList.add('mdw-fullscreen-initialized');
+    if (!initialized) this.classList.add('fullscreen-initialized');
     this.classList.add('show');
   }
 
   #expandClick(event) {
-    const expanded = this.querySelector('.mdw-card-content > .mdw-expanded');
+    const expanded = this.querySelector('.card-content > .expanded');
     if (event.target === expanded || expanded.contains(event.target)) return;
 
     const isCompact = device.state === 'compact';
@@ -239,7 +239,7 @@ export default class MDWCardElement extends HTMLComponentElement {
 
   // sets height for fullscreen view so image can expand
   #calculateImgMaxHeightForFullscreen() {
-    const img = this.querySelector(':scope > .mdw-card-image img');
+    const img = this.querySelector(':scope > .card-image img');
     if (!img) return;
 
     if (!img.height) img.addEventListener('load', this.#imgOnload_bound, { signal: this.#abort.signal });
@@ -250,12 +250,12 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   #imgOnload() {
-    this.querySelector(':scope > .mdw-card-image img').removeEventListener('load', this.#imgOnload_bound);
+    this.querySelector(':scope > .card-image img').removeEventListener('load', this.#imgOnload_bound);
     this.#calculateImgMaxHeightForFullscreen();
   }
 
   #ondragSwipeActionStart() {
-    this.classList.add('mdw-dragging');
+    this.classList.add('dragging');
     this.#dragSwipeActionStartPosition = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
   }
 
@@ -267,7 +267,7 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   async #ondragSwipeActionEnd({ swipeX, direction }) {
-    this.classList.remove('mdw-dragging');
+    this.classList.remove('dragging');
     const position = parseInt(getComputedStyle(this).getPropertyValue('--mdw-card-swipe-action-position').replace('px', ''));
 
     if (swipeX) {
@@ -327,27 +327,27 @@ export default class MDWCardElement extends HTMLComponentElement {
   }
 
   // #handleAria() {
-  //   const headline = this.querySelector(':scope > .mdw-card-content > .headline') || this.querySelector(':scope > .headline');
+  //   const headline = this.querySelector(':scope > .card-content > .headline') || this.querySelector(':scope > .headline');
   //   if (headline) {
   //     if (!headline.hasAttribute('role')) headline.setAttribute('role', 'heading');
   //     if (!headline.hasAttribute('aria-label')) headline.setAttribute('aria-label', headline.innerText);
   //     if (!headline.hasAttribute('aria-level')) headline.setAttribute('aria-level', '2');
   //   }
 
-  //   const subhead = this.querySelector(':scope > .mdw-card-content > .mdw-subhead') || this.querySelector(':scope > .mdw-subhead');
+  //   const subhead = this.querySelector(':scope > .card-content > .subhead') || this.querySelector(':scope > .subhead');
   //   if (subhead && !subhead.hasAttribute('aria-label')) subhead.setAttribute('aria-label', subhead.innerText);
 
-  //   const supportingText = this.querySelector(':scope > .mdw-card-content > .mdw-supporting-text') || this.querySelector(':scope > .mdw-supporting-text');
+  //   const supportingText = this.querySelector(':scope > .card-content > .supporting-text') || this.querySelector(':scope > .supporting-text');
   //   if (supportingText && !supportingText.hasAttribute('aria-label')) supportingText.setAttribute('aria-label', supportingText.innerText);
 
-  //   const img = this.querySelector(':scope > .mdw-card-image > img') || this.querySelector(':scope > img');
+  //   const img = this.querySelector(':scope > .card-image > img') || this.querySelector(':scope > img');
   //   if (img && !img.hasAttribute('alt')) img.setAttribute('alt', supportingText ? supportingText.innerText : subhead ? subhead.innerText : headline ? headline.innerText : 'image');
   // }
 
   #handleWindowState() {
     const compact = device.state === 'compact';
     if (this.#hasReorder && this.#drag) this.#drag.reorderVerticalOnly = compact;
-    if (this.#hasReorder) this.classList.toggle('mdw-grid-list-item', compact);
+    if (this.#hasReorder) this.classList.toggle('grid-list-item', compact);
   }
 }
 

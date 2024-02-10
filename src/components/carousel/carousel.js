@@ -22,8 +22,8 @@ export default class MDWCarouselElement extends HTMLComponentElement {
   }
 
   connectedCallback() {
-    this.insertAdjacentHTML('afterbegin', '<div class="mdw-carousel-front-padding"></div>');
-    this.insertAdjacentHTML('beforeend', '<div class="mdw-carousel-back-padding"></div>');
+    this.insertAdjacentHTML('afterbegin', '<div class="carousel-front-padding"></div>');
+    this.insertAdjacentHTML('beforeend', '<div class="carousel-back-padding"></div>');
     this.addEventListener('mdw-carousel-item-change', this.#calculateLayout_debounce);
     this.#drag = new Drag(this, {
       disableTouchEvents: true,
@@ -100,7 +100,7 @@ export default class MDWCarouselElement extends HTMLComponentElement {
 
     if (!this.#hasCalculated) {
       this.#hasCalculated = true;
-      this.classList.add('mdw-loaded');
+      this.classList.add('loaded');
     }
   }
 
@@ -176,8 +176,8 @@ export default class MDWCarouselElement extends HTMLComponentElement {
       itemElement.style.setProperty('--mdw-carousel-item-text-opacity', textOpacity);
     }
 
-    this.querySelector('.mdw-carousel-front-padding').style.width = `${scrollLeftPadding}px`;
-    this.querySelector('.mdw-carousel-back-padding').style.width = `${totalWidth - (totalAdjustedWidth + scrollLeftPadding)}px`;
+    this.querySelector('.carousel-front-padding').style.width = `${scrollLeftPadding}px`;
+    this.querySelector('.carousel-back-padding').style.width = `${totalWidth - (totalAdjustedWidth + scrollLeftPadding)}px`;
     this.#drag.scrollSnapPositions = scrollSnapPositions.map(x => ({ x }));
   }
 }

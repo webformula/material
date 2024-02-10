@@ -251,11 +251,11 @@ input {
   left: 24px;
 }
 
-.ripple .mdw-ripple-element {
+.ripple .ripple-element {
   background-color: var(--mdw-on-surface-variant);
   opacity: var(--mdw-state-layer-opacity-pressed);
 }
 
-:host(.checked) .ripple .mdw-ripple-element {
+:host(.checked) .ripple .ripple-element {
   background-color: var(--mdw-primary-container);
 }

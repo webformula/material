@@ -197,20 +197,20 @@ button {
   pointer-events: none;
 }
 
-.ripple > .mdw-ripple-element {
+.ripple > .ripple-element {
   background-color: var(--mdw-primary);
   opacity: var(--mdw-state-layer-opacity-pressed);
   border-radius: var(--mdw-shape-full);
 }
 
-:host(.filled) .ripple > .mdw-ripple-element {
+:host(.filled) .ripple > .ripple-element {
   background-color: var(--mdw-on-primary);
 }
 
-:host(.elevated) .ripple > .mdw-ripple-element {
+:host(.elevated) .ripple > .ripple-element {
   background-color: var(--mdw-primary);
 }
 
-:host(.filled-tonal) .ripple > .mdw-ripple-element {
+:host(.filled-tonal) .ripple > .ripple-element {
   background-color: var(--mdw-on-secondary-container);
 }

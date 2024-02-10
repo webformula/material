@@ -23,7 +23,7 @@
 
 
 
-/* mdw-tooltip.mdw-rich {
+/* mdw-tooltip.rich {
   height: auto;
   min-height: 24px;
   max-width: 300px;
@@ -42,7 +42,7 @@
   box-shadow: var(--mdw-elevation-2);
 }
 
-mdw-tooltip.mdw-rich .mdw-subheader {
+mdw-tooltip.rich .subheader {
   margin: 0;
   font-size: var(--mdw-font-small-title-size);
   font-weight: var(--mdw-font-small-title-weight);
@@ -50,7 +50,7 @@ mdw-tooltip.mdw-rich .mdw-subheader {
   letter-spacing: var(--mdw-font-small-title-tracking);
 }
 
-mdw-tooltip.mdw-rich .mdw-supporting-text {
+mdw-tooltip.rich .supporting-text {
   margin: 0;
   font-size: var(--mdw-font-medium-body-size);
   font-weight: var(--mdw-font-medium-body-weight);
@@ -59,7 +59,7 @@ mdw-tooltip.mdw-rich .mdw-supporting-text {
   padding-top: 4px;
 }
 
-mdw-tooltip.mdw-rich .mdw-actions {
+mdw-tooltip.rich .actions {
   padding-top: 12px;
   margin-left: -12px;
 } */

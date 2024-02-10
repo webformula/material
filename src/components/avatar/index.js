@@ -14,7 +14,7 @@ class MDWAvatarElement extends HTMLComponentElement {
 
     this.render();
     setTimeout(() => {
-      this.classList.add('mdw-animation');
+      this.classList.add('animation');
     }, 50);
   }
 
@@ -23,7 +23,7 @@ class MDWAvatarElement extends HTMLComponentElement {
   }
   set checked(value) {
     this.#checked = !!value;
-    this.classList.toggle('mdw-checked', this.#checked);
+    this.classList.toggle('checked', this.#checked);
     this.setAttribute('aria-checked', this.#checked.toString());
   }
 

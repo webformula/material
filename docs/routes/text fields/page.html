@@ -11,17 +11,17 @@
       <li><a href="#types">Types</a></li>
       <li><a href="#icons">Icons (leading, trailing)</a></li>
       <li><a href="#supportingerror">Supporting and error text</a></li>
-      <li><a href="#autocomplete">Autocomplete</a></li>
+      <li><a href="#Suggestions">Suggestions</a></li>
       <li><a href="#format">Formatting and masking</a></li>
     </ul>
   </nav>
 
   <div class="page-content-container">
     <mdw-card>
-      <div class="mdw-card-content">
+      <div class="card-content">
         <div class="headline">Example</div>
       </div>
-      <div class="mdw-card-content" style="display: flex; flex-direction:column; width: 250px; align-self: center;">
+      <div class="card-content" style="display: flex; flex-direction:column; width: 250px; align-self: center;">
         <mdw-textfield label="Label">
           <mdw-icon slot="leading-icon">search</mdw-icon>
           <!-- TODO change to icon button -->
@@ -38,9 +38,9 @@
     </mdw-card>
     
     <mdw-card id="types">
-      <div class="mdw-card-content">
+      <div class="card-content">
         <div class="headline">Types</div>
-        <div class="mdw-subheader">There are two types of text fields: Filled and Outlined</div>
+        <div class="subheader">There are two types of text fields: Filled and Outlined</div>
         
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
           <mdw-textfield label="Label"></mdw-textfield>
@@ -64,7 +64,7 @@
 
 
     <mdw-card id="icons">
-      <div class="mdw-card-content">
+      <div class="card-content">
         <div class="headline">Icons (leading, trailing)</div>
         
         <div class="example" style="display: flex; justify-content: center;">
@@ -87,7 +87,7 @@
 
 
     <mdw-card id="supportingerror">
-      <div class="mdw-card-content">
+      <div class="card-content">
         <div class="headline">Supporting and error text</div>
         
         <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
@@ -138,8 +138,8 @@
     </mdw-card>
 
 
-    <mdw-card id="autocomplete">
-      <div class="mdw-card-content">
+    <mdw-card id="Suggestions">
+      <div class="card-content">
         <div class="headline">Suggestion</div>
         
         <div class="example" style="display: flex; justify-content: center;">
@@ -160,16 +160,16 @@
 
 
     <mdw-card id="format">
-      <div class="mdw-card-content">
+      <div class="card-content">
         <div class="headline">Formatting and masking</div>
-        <div class="mdw-subheader">Use string replacers with pattern regular expressions to format input</div>
-        <div class="mdw-supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">format</b> attribute takes a string replacer. Currently only the number group
+        <div class="subheader">Use string replacers with pattern regular expressions to format input</div>
+        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">format</b> attribute takes a string replacer. Currently only the number group
           selector works ($1, $2, ...). The formatter works off the input <b style="font-size: var(--mdw-font-small-title-size);">pattern</b> regex. You can use groups to split
           value into parts.</div>
-        <div class="mdw-supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">pattern-restrict</b> attribute will prevent incorrect characters or input length</div>
-        <div class="mdw-supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">mask</b> attribute takes a string replacer. Currently only the number group
+        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">pattern-restrict</b> attribute will prevent incorrect characters or input length</div>
+        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">mask</b> attribute takes a string replacer. Currently only the number group
           selector works ($1, $2, ...). The mask requires a <b style="font-size: var(--mdw-font-small-title-size);">format</b> to be set</div>
-        <div class="mdw-supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
+        <div class="supporting-text"><b style="font-size: var(--mdw-font-small-title-size);">Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
 
         <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
           <mdw-textfield

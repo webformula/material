@@ -19,7 +19,7 @@
   cursor: pointer;
 }
 
-:host(.mdw-tertiary) {
+:host(.tertiary) {
   background-color: var(--mdw-tertiary-container);
   color: var(--mdw-on-tertiary-container);
 }
@@ -36,15 +36,15 @@
   opacity: 0;
   transition: opacity 0ms;
 }
-:host(.mdw-animation)::after {
+:host(.animation)::after {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-:host(.mdw-checkbox)::after {
+:host(.checkbox)::after {
   cursor: pointer;
 }
 
-:host(.mdw-checked)::after {
+:host(.checked)::after {
   opacity: 1;
 }
 
@@ -58,27 +58,27 @@
 :host > svg > path {
   stroke-dashoffset: 22.910259;
   stroke-dasharray: 22.910259;
-  animation: mdw-avatar-uncheck 0ms;
+  animation: avatar-uncheck 0ms;
 }
-:host(.mdw-animation) > svg > path {
+:host(.animation) > svg > path {
   animation-duration: 90ms;
 }
 
-:host(.mdw-checked) > svg {
+:host(.checked) > svg {
   z-index: 1;
   opacity: 1;
 }
 
-:host(.mdw-checked) > svg > path {
+:host(.checked) > svg > path {
   stroke-dashoffset: 0;
-  animation: mdw-avatar-check 0ms;
+  animation: avatar-check 0ms;
 }
-:host(.mdw-animation.mdw-checked) > svg > path {
+:host(.animation.checked) > svg > path {
   animation-duration: 180ms;
 }
 
 
-@keyframes mdw-avatar-check {
+@keyframes avatar-check {
   0%,
   50% {
     stroke-dashoffset: 22.910259;
@@ -93,7 +93,7 @@
   }
 }
 
-@keyframes mdw-avatar-uncheck {
+@keyframes avatar-uncheck {
   from {
     animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
     stroke-dashoffset: 0

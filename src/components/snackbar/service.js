@@ -22,7 +22,7 @@ const mdwSnackbar = new class mdwSnackbar {
       <mdw-snackbar id="${id}" ${params.twoLine ? 'class="two-line"' : ''} aria-label="[alert] ${params.message}">
         <div class="mdw-text">${params.message}</div>
         ${!params.actionLabel ? '' : `<mdw-button onclick="mdwSnackbar.dismiss('action')">${params.actionLabel}</mdw-button>`}
-        ${!params.closeButton ? '' : `<div class="mdw-icon-svg" onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</div>`}
+        ${!params.closeButton ? '' : `<mdw-icon onclick="mdwSnackbar.dismiss('close')">${close_FILL1_wght400_GRAD0_opsz24}</mdw-icon>`}
       </mdw-snackbar>
     `);
 

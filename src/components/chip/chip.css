@@ -224,7 +224,7 @@ input {
   pointer-events: none;
 }
 
-.ripple > .mdw-ripple-element {
+.ripple > .ripple-element {
   background-color: var(--mdw-primary);
   opacity: var(--mdw-state-layer-opacity-pressed);
 }

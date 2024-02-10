@@ -29,7 +29,7 @@ class MDWCardGroupElement extends HTMLComponentElement {
   }
 
   get #isGrid() {
-    return this.classList.contains('mdw-grid') || (!this.classList.contains('mdw-grid') && device.state !== 'compact');
+    return this.classList.contains('grid') || (!this.classList.contains('grid') && device.state !== 'compact');
   }
 
   get autoSpanRow() {
@@ -46,14 +46,14 @@ class MDWCardGroupElement extends HTMLComponentElement {
   }
 
   #layoutGrid() {
-    this.classList.add('mdw-grid');
-    this.classList.remove('mdw-list');
+    this.classList.add('grid');
+    this.classList.remove('list');
 
     const cards = [...this.querySelectorAll('mdw-card')].map((element, i) => {
       element.style.order = i;
       const innerContentHeight = [...element.children].reduce((a, b) => {
         // prevent ripple element from adjusting height
-        if (b.classList.contains('mdw-ripple')) return a;
+        if (b.classList.contains('ripple')) return a;
         return a + b.offsetHeight;
       }, 0);
 
@@ -87,7 +87,7 @@ class MDWCardGroupElement extends HTMLComponentElement {
   }
 
   #layoutList() {
-    this.classList.remove('mdw-grid');
+    this.classList.remove('grid');
   }
 
   #onMutation() {

@@ -60,28 +60,7 @@ body #page-content {
   max-width: 100dvw;
 }
 
-.mdw-text-length {
-  position: fixed;
-  opacity: 0;
-  user-select: none;
-  pointer-events: none;
-}
-
-.mdw-icon-svg {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.mdw-icon-svg > svg {
-  fill: var(--mdw-on-surface);
-}
-
-mdw-snackbar .mdw-icon-svg > svg {
-  fill: var(--mdw-primary-container);
-}
-
-.mdw-drag-active {
+.drag-active {
   user-select: none;
   -webkit-user-select: none;
 }

@@ -7,7 +7,7 @@ mdw-card {
   flex-direction: column;
   border-radius: var(--mdw-shape-medium);
   box-sizing: border-box;
-  background-color: var(--mdw-surface-container-low);
+  background-color: var(--mdw-surface);
   color: var(--mdw-on-surface);
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -17,7 +17,7 @@ mdw-card {
   transition-duration: 0ms;
 }
 
-mdw-card:not(.mdw-filled):not(.mdw-outlined) {
+mdw-card:not(.filled):not(.outlined) {
   box-shadow: var(--mdw-elevation-1);
 }
 
@@ -25,35 +25,35 @@ mdw-card.mdw-animation {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-remove {
+mdw-card.remove {
   margin-top: var(--mdw-card-margin-top-remove);
   opacity: 0;
   transition: margin-top, opacity;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, 40ms;
 }
-mdw-card.mdw-animation.mdw-remove {
+mdw-card.mdw-animation.remove {
   transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-short2);
 }
 
 /* fixes outline overlap */
-mdw-card.mdw-outlined {
+mdw-card.outlined {
   --mdw-card-swipe-action-position: 0;
 }
 
-mdw-card.mdw-dragging {
+mdw-card.dragging {
   transition: none;
 }
 
-mdw-card.mdw-has-swipe-action {
+/* mdw-card.has-swipe-action {
   --mdw-card-swipe-action-position: 0px;
   left: var(--mdw-card-swipe-action-position);
   transition: left;
   transition-duration: var(--mdw-motion-duration-short3);
-}
+} */
 
 
-mdw-card > .mdw-card-image {
+mdw-card > .card-image {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,12 +62,12 @@ mdw-card > .mdw-card-image {
   border-radius: var(--mdw-shape-medium) var(--mdw-shape-medium) 0 0;
 }
 
-mdw-card > .mdw-card-image > img {
+mdw-card > .card-image > img {
   /* Display issue when using 100% */
   width: 101%;
 }
 
-mdw-card > .mdw-card-image.mdw-rounded {
+mdw-card > .card-image.rounded {
   border-radius: var(--mdw-shape-medium);
 }
 
@@ -79,7 +79,7 @@ mdw-card .headline{
   color: var(--mdw-on-surface);
 }
 
-mdw-card .mdw-subhead {
+mdw-card .subhead {
   font-size: var(--mdw-font-small-title-size);
   font-weight: var(--mdw-font-small-title-weight);
   line-height: var(--mdw-font-small-title-line-height);
@@ -87,8 +87,8 @@ mdw-card .mdw-subhead {
   color: var(--mdw-on-surface-variant);
 }
 
-mdw-card > .mdw-supporting-text,
-mdw-card .mdw-card-content > .mdw-supporting-text {
+mdw-card > .supporting-text,
+mdw-card .card-content > .supporting-text {
   margin-top: 12px;
   font-size: var(--mdw-font-medium-body-size);
   font-weight: var(--mdw-font-medium-body-weight);
@@ -97,48 +97,48 @@ mdw-card .mdw-card-content > .mdw-supporting-text {
   color: var(--mdw-on-surface-variant);
 }
 
-mdw-card .mdw-card-actions {
+mdw-card .card-actions {
   display: flex;
   margin-top: 24px;
 }
 
-mdw-card .mdw-card-actions mdw-button + mdw-button {
+mdw-card .card-actions mdw-button + mdw-button {
   margin-left: 6px;
 }
 
-mdw-card > .mdw-card-image.mdw-size-small {
+mdw-card > .card-image.size-small {
   height: 60px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card > .mdw-card-image.mdw-size-medium {
+mdw-card > .card-image.size-medium {
   height: 120px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card > .mdw-card-image.mdw-size-large {
+mdw-card > .card-image.size-large {
   height: 180px;
   transition: height;
   transition-duration: 0s;
 }
 
-mdw-card.mdw-animation > .mdw-card-image.mdw-size-small,
-mdw-card.mdw-animation > .mdw-card-image.mdw-size-medium,
-mdw-card.mdw-animation > .mdw-card-image.mdw-size-large {
+mdw-card.mdw-animation > .card-image.size-small,
+mdw-card.mdw-animation > .card-image.size-medium,
+mdw-card.mdw-animation > .card-image.size-large {
   transition-duration: var(--mdw-motion-duration-medium1);
 }
 
 
 /* --- types --- */
 
-mdw-card.mdw-filled {
+mdw-card.filled {
   color: var(--mdw-on-surface-variant);
   background-color: var(--mdw-surface-container-highest);
 }
 
-mdw-card.mdw-outlined {
+mdw-card.outlined {
   background-color: var(--mdw-surface);
   /* use outline because box-sizing with border-radius does not prevent hight change */
   outline: 1px solid var(--mdw-outline);
@@ -159,63 +159,63 @@ mdw-card::after {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card.mdw-drag-reorder-active {
+mdw-card.drag-reorder-active {
   box-shadow: var(--mdw-elevation-4);
 }
-mdw-card.mdw-drag-reorder-active::after {
+mdw-card.drag-reorder-active::after {
   opacity: var(--mdw-state-layer-opacity-dragged);
   background-color: var(--mdw-on-surface);
 }
 
-mdw-card.mdw-filled.mdw-drag-reorder-active,
-mdw-card.mdw-outlined.mdw-drag-reorder-active {
+mdw-card.filled.drag-reorder-active,
+mdw-card.outlined.drag-reorder-active {
   box-shadow: var(--mdw-elevation-3);
 }
 
-mdw-card.mdw-outlined.mdw-drag-reorder-active::after {
+mdw-card.outlined.drag-reorder-active::after {
   outline: 1px solid var(--mdw-outline-variant);
 }
 
 mdw-card[onclick]:focus::after,
-mdw-card.mdw-fullscreen:not(.show):focus::after,
-mdw-card.mdw-states:focus::after {
+mdw-card.fullscreen:not(.show):focus::after,
+mdw-card.states:focus::after {
   opacity: var(--mdw-state-layer-opacity-focus);
   background-color: var(--mdw-on-surface);
 }
 
-mdw-card.mdw-outlined[onclick]:focus,
-mdw-card.mdw-outlined.mdw-fullscreen:not(.show):focus,
-mdw-card.mdw-outlined.mdw-states:focus {
+mdw-card.outlined[onclick]:focus,
+mdw-card.outlined.fullscreen:not(.show):focus,
+mdw-card.outlined.states:focus {
   outline: 1px solid var(--mdw-on-surface);
 }
 
 /* hover state layers. Media needed to prevent hover on mobile */
 @media (hover: hover) {
   mdw-card[onclick]:hover,
-  mdw-card.mdw-states:hover {
+  mdw-card.states:hover {
     box-shadow: var(--mdw-elevation-2);
   }
 
-  mdw-card.mdw-filled[onclick]:hover,
-  mdw-card.mdw-filled.mdw-states:hover,
-  mdw-card.mdw-outlined[onclick]:hover,
-  mdw-card.mdw-outlined.mdw-states:hover {
+  mdw-card.filled[onclick]:hover,
+  mdw-card.filled.states:hover,
+  mdw-card.outlined[onclick]:hover,
+  mdw-card.outlined.states:hover {
     box-shadow: var(--mdw-elevation-1);
   }
 
   mdw-card[onclick]:hover::after,
-  mdw-card.mdw-states:hover::after {
+  mdw-card.states:hover::after {
     opacity: var(--mdw-state-layer-opacity-hover);
     background-color: var(--mdw-on-surface);
   }
 
-  mdw-card.mdw-outlined:hover {
+  mdw-card.outlined:hover {
     outline: 1px solid var(--mdw-outline-variant);
   }
 }
 
 
-mdw-card > .mdw-card-content {
+mdw-card > .card-content {
   position: relative;
   padding: 16px;
 }
@@ -223,50 +223,50 @@ mdw-card > .mdw-card-content {
 
 /* --- expanding --- */
 
-mdw-card.mdw-expanding {
+mdw-card.expanding {
   transform: translateY(0);
   margin-bottom: 0;
   transition: margin-bottom, box-shadow, transform;
   transition-duration: 0ms;
 }
 
-body:not(.window-compact) mdw-card.mdw-expanding.show {
+body:not(.window-compact) mdw-card.expanding.show {
   transform: translateY(-6px);
 }
 
-mdw-card.mdw-animation.mdw-expanding {
+mdw-card.mdw-animation.expanding {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-expanding.show.mdw-filled {
+mdw-card.expanding.show.filled {
   box-shadow: var(--mdw-elevation-1);
 }
 
-mdw-card.mdw-expanding > .mdw-card-content .mdw-expand-arrow {
+mdw-card.expanding > .card-content .expand-arrow {
   position: absolute;
   right: 16px;
   transition: transform;
   transition-duration: 0ms;
   cursor: pointer;
 }
-mdw-card.mdw-expanding.mdw-animation > .mdw-card-content .mdw-expand-arrow {
+mdw-card.expanding.mdw-animation > .card-content .expand-arrow {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-expanding.show > .mdw-card-content .mdw-expand-arrow {
+mdw-card.expanding.show > .card-content .expand-arrow {
   transform: rotate(180deg);
 }
 
-mdw-card.mdw-expanding > .mdw-card-content > .mdw-contracted {
+mdw-card.expanding > .card-content > .contracted {
   opacity: 1;
   transition: opacity;
   transition-duration: 0ms;
 }
-mdw-card.mdw-expanding.mdw-animation > .mdw-card-content > .mdw-contracted {
+mdw-card.expanding.mdw-animation > .card-content > .contracted {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-expanding > .mdw-card-content > .mdw-expanded {
+mdw-card.expanding > .card-content > .expanded {
   height: 0;
   transform: translateY(0);
   overflow: hidden;
@@ -276,31 +276,31 @@ mdw-card.mdw-expanding > .mdw-card-content > .mdw-expanded {
   transition: height, transform;
   transition-duration: 0ms;
 }
-mdw-card.mdw-expanding.mdw-animation > .mdw-card-content > .mdw-expanded {
+mdw-card.expanding.mdw-animation > .card-content > .expanded {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
 /* add spacing to inner child to pad the bottom */
-mdw-card.mdw-expanding > .mdw-card-content > .mdw-expanded > :nth-child(1) {
+mdw-card.expanding > .card-content > .expanded > :nth-child(1) {
   margin-bottom: 16px;
 }
 
 /* move expanded content down so it lines up with the bottom of the card */
-mdw-card.mdw-expanding.show > .mdw-card-content > .mdw-expanded {
+mdw-card.expanding.show > .card-content > .expanded {
   transform: translateY(16px);
   pointer-events: all;
   overflow: auto;
   overscroll-behavior: contain;
 }
 
-mdw-card.mdw-expanding.show > .mdw-card-content > .mdw-expanded {
+mdw-card.expanding.show > .card-content > .expanded {
   height: auto;
 }
 
 
 /* fullscreen */
 
-mdw-card.mdw-fullscreen {
+mdw-card.fullscreen {
   --mdw-card-fullscreen-expanded-left: 0px;
   --mdw-card-fullscreen-top: 0;
   --mdw-card-fullscreen-left: 0;
@@ -311,16 +311,16 @@ mdw-card.mdw-fullscreen {
   animation-timing-function: var(--mdw-motion-easing-standard-accelerate);
   animation-duration: 0ms;
 }
-mdw-card.mdw-animation.mdw-fullscreen.mdw-fullscreen-initialized {
+mdw-card.mdw-animation.fullscreen.fullscreen-initialized {
   animation-duration: var(--mdw-motion-duration-short3);
 }
 
 mdw-card[onclick],
-mdw-card.mdw-fullscreen:not(.show) {
+mdw-card.fullscreen:not(.show) {
   cursor: pointer;
 }
 
-mdw-card.mdw-fullscreen.show {
+mdw-card.fullscreen.show {
   position: fixed;
   z-index: 11;
   top: 0;
@@ -334,21 +334,21 @@ mdw-card.mdw-fullscreen.show {
   animation-duration: 0ms;
   animation-timing-function: var(--mdw-motion-easing-standard);
 }
-mdw-card.mdw-animation.mdw-fullscreen.show {
+mdw-card.mdw-animation.fullscreen.show {
   animation-duration: var(--mdw-motion-duration-medium1);
 }
 
-mdw-card.mdw-fullscreen > .mdw-card-content > .mdw-expanded {
+mdw-card.fullscreen > .card-content > .expanded {
   height: 0;
   opacity: 0;
   transition: opacity;
   transition-duration: 0ms;
 }
-mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-content > .mdw-expanded {
+mdw-card.mdw-animation.fullscreen > .card-content > .expanded {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-fullscreen.show > .mdw-card-content > .mdw-expanded {
+mdw-card.fullscreen.show > .card-content > .expanded {
   opacity: 1;
   height: auto;
   position: absolute;
@@ -356,32 +356,32 @@ mdw-card.mdw-fullscreen.show > .mdw-card-content > .mdw-expanded {
   background-color: var(--mdw-surface);
 }
 
-mdw-card.mdw-fullscreen > .mdw-card-image {
+mdw-card.fullscreen > .card-image {
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, var(--mdw-motion-duration-short1);
   transition-timing-function: var(--mdw-motion-easing-standard-accelerate);
 }
-mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-image {
+mdw-card.mdw-animation.fullscreen > .card-image {
   transition-duration: var(--mdw-motion-duration-short3), 80ms;
 }
 
-mdw-card.mdw-fullscreen > .mdw-card-image.mdw-rounded {
+mdw-card.fullscreen > .card-image.rounded {
   border-radius: var(--mdw-shape-medium);
 }
 
-mdw-card.mdw-fullscreen.show > .mdw-card-image {
+mdw-card.fullscreen.show > .card-image {
   height: var(--mdw-card-fullscreen-img-height, 300px);
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, var(--mdw-motion-duration-short3);
   transition-timing-function: var(--mdw-motion-easing-standard);
 }
-mdw-card.mdw-animation.mdw-duration.mdw-fullscreen.show > .mdw-card-image {
+mdw-card.mdw-animation.mdw-duration.fullscreen.show > .card-image {
   transition-duration: var(--mdw-motion-duration-medium3), var(--mdw-motion-duration-short3);
 
 }
-mdw-card.mdw-fullscreen.show > .mdw-card-image.mdw-rounded {
+mdw-card.fullscreen.show > .card-image.rounded {
   border-radius: 0 0 var(--mdw-shape-medium) var(--mdw-shape-medium);
 }
 
@@ -440,7 +440,7 @@ mdw-card.mdw-fullscreen.show > .mdw-card-image.mdw-rounded {
 
 
 
-mdw-card > .mdw-card-fullscreen-back {
+mdw-card > .card-fullscreen-back {
   position: absolute;
   display: flex;
   align-items: center;
@@ -458,11 +458,11 @@ mdw-card > .mdw-card-fullscreen-back {
   transition-duration: 0ms;
 }
 
-mdw-card.mdw-animation > .mdw-card-fullscreen-back {
+mdw-card.mdw-animation > .card-fullscreen-back {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card > .mdw-card-fullscreen-back .text {
+mdw-card > .card-fullscreen-back .text {
   font-size: var(--mdw-font-medium-title-size);
   font-weight: var(--mdw-font-medium-title-weight);
   line-height: var(--mdw-font-medium-title-line-height);
@@ -477,7 +477,7 @@ mdw-card > .mdw-card-fullscreen-back .text {
     drop-shadow(-1px 1px 1px rgba(0, 0, 0, .3));
 }
 
-mdw-card > .mdw-card-fullscreen-back > svg {
+mdw-card > .card-fullscreen-back > svg {
   transform: scale(1.1);
   fill: var(--mdw-surface);
   filter:
@@ -487,12 +487,12 @@ mdw-card > .mdw-card-fullscreen-back > svg {
     drop-shadow(-1px 1px 1px rgba(0, 0, 0, .3));
 }
 
-mdw-card > .mdw-card-fullscreen-back > svg path {
+mdw-card > .card-fullscreen-back > svg path {
   stroke-width: 0.5px;
   stroke: var(--mdw-surface);
 }
 
-mdw-card.mdw-fullscreen.show > .mdw-card-fullscreen-back {
+mdw-card.fullscreen.show > .card-fullscreen-back {
   opacity: 1;
   pointer-events: auto;
 }
@@ -501,31 +501,31 @@ mdw-card.mdw-fullscreen.show > .mdw-card-fullscreen-back {
 
 /* --- group ---- */
 
-mdw-card-group:not(.mdw-grid) > mdw-card,
-mdw-card.mdw-grid-list-item {
+mdw-card-group:not(.grid) > mdw-card,
+mdw-card.grid-list-item {
   flex-direction: row;
   height: 80px;
   overflow: hidden;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image,
-mdw-card.mdw-grid-list-item > .mdw-card-image {
+mdw-card-group:not(.grid) > mdw-card > .card-image,
+mdw-card.grid-list-item > .card-image {
   width: 80px;
   height: 80px;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-card-image > img,
-mdw-card.mdw-grid-list-item > .mdw-card-image > img {
+mdw-card-group:not(.grid) > mdw-card > .card-image > img,
+mdw-card.grid-list-item > .card-image > img {
   width: unset;
   height: 100%;
 }
 
-mdw-card-group:not(.mdw-grid) > mdw-card > .mdw-supporting-text,
-mdw-card-group:not(.mdw-grid) > mdw-card .mdw-card-content > .mdw-supporting-text,
-mdw-card-group:not(.mdw-grid) > mdw-card.mdw-card-list-item .mdw-card-actions,
-mdw-card.mdw-grid-list-item > .mdw-supporting-text,
-mdw-card.mdw-grid-list-item .mdw-card-content > .mdw-supporting-text,
-mdw-card.mdw-grid-list-item.mdw-card-list-item .mdw-card-actions {
+mdw-card-group:not(.grid) > mdw-card > .supporting-text,
+mdw-card-group:not(.grid) > mdw-card .card-content > .supporting-text,
+mdw-card-group:not(.grid) > mdw-card.card-list-item .card-actions,
+mdw-card.grid-list-item > .supporting-text,
+mdw-card.grid-list-item .card-content > .supporting-text,
+mdw-card.grid-list-item.card-list-item .card-actions {
   display: none;
 }
 
@@ -556,7 +556,7 @@ mdw-card.mdw-animation > mdw-card-swipe-action {
   transition-duration: var(--mdw-motion-duration-short3), var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-outlined > mdw-card-swipe-action {
+mdw-card.outlined > mdw-card-swipe-action {
   top: -1px;
   bottom: -1px;
   border-left: 1px solid var(--mdw-outline);
@@ -573,7 +573,7 @@ mdw-card > mdw-card-swipe-action mdw-icon {
     'opsz' 48
 }
 
-mdw-card.mdw-dragging > mdw-card-swipe-action {
+mdw-card.dragging > mdw-card-swipe-action {
   transition: none;
 }
 
@@ -598,11 +598,11 @@ mdw-card.mdw-animation > mdw-card-swipe-action::after {
   transition-duration: var(--mdw-motion-duration-short3);
 }
 
-mdw-card.mdw-filled > mdw-card-swipe-action::after {
+mdw-card.filled > mdw-card-swipe-action::after {
   background-color: var(--mdw-surface-variant);
 }
 
-mdw-card.mdw-dragging > mdw-card-swipe-action::after {
+mdw-card.dragging > mdw-card-swipe-action::after {
   transition: none;
 }
 
@@ -621,19 +621,19 @@ mdw-card > mdw-card-swipe-action[checked] mdw-icon {
 
 /* --- Ripple --- */
 
-mdw-card > .mdw-ripple {
+mdw-card > .ripple {
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
 }
 
-mdw-card > .mdw-ripple > .mdw-ripple-element {
+mdw-card > .ripple > .ripple-element {
   background-color: var(--mdw-primary);
   opacity: var(--mdw-state-layer-opacity-pressed);
   border-radius: var(--mdw-shape-full);
 }
 
-mdw-card.mdw-filled > .mdw-ripple > .mdw-ripple-element {
+mdw-card.filled > .ripple > .ripple-element {
   background-color: var(--mdw-on-primary);
 }

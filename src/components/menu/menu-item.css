@@ -108,11 +108,11 @@ slot[name="end"] {
   pointer-events: none;
 }
 
-.ripple .mdw-ripple-element {
+.ripple .ripple-element {
   background-color: var(--mdw-on-surface);
   opacity: var(--mdw-state-layer-opacity-pressed);
 }
 
-:host(.selected) .ripple .mdw-ripple-element {
+:host(.selected) .ripple .ripple-element {
   background-color: var(--mdw-primary-container);
 }

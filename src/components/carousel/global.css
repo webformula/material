@@ -14,13 +14,13 @@ mdw-carousel::-webkit-scrollbar {
   background-color: transparent;
 }
 
-mdw-carousel.mdw-loaded {
+mdw-carousel.loaded {
   opacity: 1;
   transition: opacity 240ms;
 }
 
-mdw-carousel .mdw-carousel-front-padding,
-mdw-carousel .mdw-carousel-back-padding {
+mdw-carousel .carousel-front-padding,
+mdw-carousel .carousel-back-padding {
   flex-shrink: 0;
 }
 
@@ -50,7 +50,7 @@ mdw-carousel-item img {
   height: 100%;
 }
 
-mdw-carousel-item .mdw-text {
+mdw-carousel-item .text {
   position: absolute;
   width: inherit;
   overflow: hidden;

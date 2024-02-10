@@ -171,7 +171,7 @@ export default class Ripple {
 
   #createRippleElement(offsetX, offsetY, radius, duration) {
     const ripple = document.createElement('div');
-    ripple.classList.add('mdw-ripple-element');
+    ripple.classList.add('ripple-element');
     ripple.style.left = `${offsetX - radius}px`;
     ripple.style.top = `${offsetY - radius}px`;
     ripple.style.height = `${radius * 2}px`;

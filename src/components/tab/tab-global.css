@@ -54,7 +54,7 @@ mdw-tabs.mdw-animation .mdw-underline {
 
 /* --- Ripple --- */
 
-.mdw-ripple {
+.ripple {
   overflow: hidden;
   border-radius: inherit;
   transform: translateZ(0);
@@ -67,7 +67,7 @@ mdw-tabs.mdw-animation .mdw-underline {
   pointer-events: none;
 }
 
-.mdw-ripple > .mdw-ripple-element {
+.ripple > .ripple-element {
   background-color: var(--mdw-primary-alpha-16);
   border-radius: var(--mdw-shape-full);
 }

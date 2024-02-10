@@ -83,7 +83,7 @@ mdw-card.header-card > .headline {
   font-size: 32px;
 }
 
-mdw-card > .mdw-card-content > .headline + .mdw-subheader {
+mdw-card > .card-content > .headline + .subheader {
   margin-top: 2px;
 }
 
@@ -136,7 +136,7 @@ mdw-card > .mdw-card-content > .headline + .mdw-subheader {
 }
 
 
-.mdw-supporting-text + .example {
+.supporting-text + .example {
   margin-top: 32px;
 }
 

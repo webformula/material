@@ -3,27 +3,23 @@ mdw-card-group {
 }
 
 mdw-card-group,
-mdw-card-group.mdw-grid {
+mdw-card-group.grid {
   display: grid;
   grid-template-columns: repeat(var(--mdw-card-group-columns), 1fr);
 }
 
-body.window-compact mdw-card-group:not(.mdw-grid),
-mdw-card-group.mdw-list {
+body.window-compact mdw-card-group:not(.grid),
+mdw-card-group.list {
   display: flex;
   flex-direction: column;
 }
 
 
-mdw-card-group > mdw-card.mdw-card-grid-cell {
+mdw-card-group > mdw-card.card-grid-cell {
   height: fit-content;
 }
 
 
-mdw-card-group.mdw-reorder {
+mdw-card-group.reorder {
   cursor: pointer;
 }
-
-/* mdw-card-group.mdw-reorder mdw-card.mdw-dragging-reorder {
-  z-index: 9;
-} */
