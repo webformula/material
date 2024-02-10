@@ -622,10 +622,14 @@ mdw-card > mdw-card-swipe-action[checked] mdw-icon {
 /* --- Ripple --- */
 
 mdw-card > .ripple {
+  position: absolute;
+  overflow: hidden;
+  border-radius: inherit;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  pointer-events: none;
 }
 
 mdw-card > .ripple > .ripple-element {
