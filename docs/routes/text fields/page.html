@@ -13,6 +13,8 @@
       <li><a href="#supportingerror">Supporting and error text</a></li>
       <li><a href="#Suggestions">Suggestions</a></li>
       <li><a href="#format">Formatting and masking</a></li>
+      <li><a href="#count">Character count</a></li>
+      <li><a href="#textarea">Textarea</a></li>
     </ul>
   </nav>
 
@@ -178,7 +180,7 @@
             label="SSN"
             format="$1-$2-$3"
             pattern-restrict
-            pattern="^([0-9]{3})[\\- ]?([0-9]{2})[\\- ]?([0-9]{4})$"
+            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"
             ></mdw-textfield>
           
           <mdw-textfield
@@ -187,7 +189,7 @@
             format="$1-$2-$3"
             mask="xxx-xx-$3"
             pattern-restrict
-            pattern="^([0-9]{3})[\\- ]?([0-9]{2})[\\- ]?([0-9]{4})$"></mdw-textfield>
+            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></mdw-textfield>
 
           <mdw-textfield
             id="phone"
@@ -207,7 +209,7 @@
     label="SSN"
     format="$1-$2-$3"
     pattern-restrict
-    pattern="^([0-9]{3})[\\\\- ]?([0-9]{2})[\\\\- ]?([0-9]{4})$"
+    \pattern="^([0-9]{3})[\\\\-\\\\s]?([0-9]{2})[\\\\-\\\\s]?([0-9]{4})$"
     ></mdw-textfield>
   
   <!-- Social Security Number with mask -->
@@ -217,7 +219,7 @@
     format="$1-$2-$3"
     mask="xxx-xx-$3"
     pattern-restrict
-    pattern="^([0-9]{3})[\\\\- ]?([0-9]{2})[\\\\- ]?([0-9]{4})$"
+    \pattern="^([0-9]{3})[\\\\-\\\\s]?([0-9]{2})[\\\\-\\\\s]?([0-9]{4})$"
     ></mdw-textfield>
   
   <!-- US Phone -->
@@ -228,7 +230,7 @@
     label="Phone"
     format="($1) $2 $3"
     pattern-restrict
-    pattern="^\\\\(?([0-9]{3})(?:[\\\\)\\\\.\\\\-\\\\s]+)?([0-9]{3})[\\\\.\\\\-\\\\s]?([0-9]{4})$"
+    \pattern="^\\\\(?([0-9]{3})(?:[\\\\)\\\\.\\\\-\\\\s]+)?([0-9]{3})[\\\\.\\\\-\\\\s]?([0-9]{4})$"
     ></mdw-textfield>`)}
         </code>
       </pre>
@@ -246,6 +248,48 @@
   const inputPhone = document.querySelector('input#ssn');
   console.log(inputPhone.value); // the typed input 1231231234
   console.log(inputPhone.formattedValue); // the formatted input (123) 123 1234`}
+        </code>
+      </pre>
+    </mdw-card>
+
+
+    <mdw-card id="count">
+      <div class="card-content">
+        <div class="headline">Character count</div>
+    
+        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+          <mdw-textfield label="No max" character-count></mdw-textfield>
+          <mdw-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></mdw-textfield>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-textfield label="No max" character-count></mdw-textfield>
+  <mdw-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></mdw-textfield>`)}
+        </code>
+      </pre>
+    </mdw-card>
+
+    <mdw-card id="textarea">
+      <div class="card-content">
+        <div class="headline">Textarea</div>
+    
+        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+          <mdw-textfield label="Textarea" type="textarea" character-count maxlength="255"></mdw-textfield>
+          <mdw-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></mdw-textfield>
+
+          <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+            <mdw-textfield label="Rows 3" type="textarea" rows="3"></mdw-textfield>
+          </div>
+        </div>
+      </div>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<mdw-textfield label="Textarea" type="textarea" character-count maxlength="255"></mdw-textfield>
+  <mdw-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></mdw-textfield>
+  <mdw-textfield label="Rows 3" type="textarea" rows="3"></mdw-textfield>`)}
         </code>
       </pre>
     </mdw-card>

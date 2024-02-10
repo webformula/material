@@ -6,8 +6,7 @@ import util from '../../core/util.js';
 
 const isIncrementalSupported = 'incremental' in document.createElement('input');
 
-// TODO character count
-// TODO suggestion fill keyboard
+// TODO pattern regex error when loading built page (refresh on page)
 // TODO rework so we do not render initial state with template
 
 export default class MDWTextfieldElement extends HTMLComponentElement {
@@ -26,12 +25,15 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   #touched = false;
   #value = '';
   #label = '';
+  #characterCount;
   #supportingText = '';
   #errorText = '';
   #invalidIcon;
   #abort;
   #formatter;
   #suggestion;
+  #hasSuggestion;
+  #rows = 1;
   #incremental = false;
   #slotChange_bound = this.#slotChange.bind(this);
   #onInput_bound = this.#onInput.bind(this);
@@ -39,6 +41,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   #onFocus_bound = this.#onFocus.bind(this);
   #onSelect_bound = this.#onSelect.bind(this);
   #dispatchSearch_bound = this.#dispatchSearch.bind(this);
+  #onKeydown_bound = this.#onKeydown.bind(this);
   #incrementalPolyfill_debounced = util.debounce(this.#dispatchSearch, 300).bind(this);
 
 
@@ -48,7 +51,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#internals = this.attachInternals();
     this.render();
     this.#value = this.getAttribute('value');
-    this.#input = this.shadowRoot.querySelector('.text-field input');
+    this.#input = this.shadowRoot.querySelector('.input');
   }
 
   // TODO update. enterKeyHint
@@ -56,6 +59,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     return [
       ['aria-label', 'string'],
       ['autocomplete', 'string'],
+      ['character-count', 'boolean'],
       ['disabled', 'boolean'],
       ['format', 'string'],
       ['label', 'string'],
@@ -76,7 +80,8 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
       ['type', 'string'],
       ['value', 'string'],
       ['incremental', 'boolean'],
-      ['multiple', 'boolean']
+      ['multiple', 'boolean'],
+      ['rows', 'number']
     ];
   }
 
@@ -95,11 +100,14 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#input.addEventListener('select', this.#onSelect_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.addEventListener('blur', this.#onBlur_bound, { signal: this.#abort.signal });
+    this.addEventListener('keydown', this.#onKeydown_bound, { signal: this.#abort.signal });
     if (this.type === 'search') this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
-
+    this.#updateCharacterCount();
     setTimeout(() => {
       this.shadowRoot.querySelector('.text-field label').classList.remove('no-animation');
     }, 150);
+
+    this.#addFormatter();
   }
 
   disconnectedCallback() {
@@ -112,22 +120,38 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
       <div class="text-field${!this.label ? '' : ' label'}">
         <slot name="leading-icon"></slot>
         ${this.prefixText ? `<div class="prefix-text">${this.prefixText}</div>` : ''}
-        <input
-          ${this.type ? `type="${this.type}"` : ''}
-          ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
-          ${this.multiple ? 'multiple' : ''}
-          ${this.disabled ? 'disabled' : ''}
-          ${this.min ? `min="${this.min}"` : ''}
-          ${this.max ? `max="${this.max}"` : ''}
-          ${this.step ? `step="${this.step}"` : ''}
-          ${this.minlength ? `minlength="${this.minlength}"` : ''}
-          ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
-          ${this.pattern ? `pattern=${this.pattern}` : ''}
-          placeholder="${this.placeholder || ' '}"
-          ${this.readonly ? 'readonly' : ''}
-          ${this.required ? 'required' : ''}
-          ${this.incremental ? 'incremental' : ''}
-        />
+        ${this.type !== 'textarea' ? /*html*/`
+          <input
+            class="input"
+            ${this.type ? `type="${this.type}"` : ''}
+            ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
+            ${this.multiple ? 'multiple' : ''}
+            ${this.disabled ? 'disabled' : ''}
+            ${this.min ? `min="${this.min}"` : ''}
+            ${this.max ? `max="${this.max}"` : ''}
+            ${this.step ? `step="${this.step}"` : ''}
+            ${this.minlength ? `minlength="${this.minlength}"` : ''}
+            ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
+            ${this.pattern ? `pattern=${this.pattern}` : ''}
+            placeholder="${this.placeholder || ' '}"
+            ${this.readonly ? 'readonly' : ''}
+            ${this.required ? 'required' : ''}
+            ${this.incremental ? 'incremental' : ''}
+          />
+        ` : /*html*/`
+          <textarea
+            class="input"
+            rows="1"
+            ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
+            ${this.disabled ? 'disabled' : ''}
+            ${this.minlength ? `minlength="${this.minlength}"` : ''}
+            ${this.maxlength ? `maxlength="${this.maxlength}"` : ''}
+            placeholder="${this.placeholder || ' '}"
+            ${this.readonly ? 'readonly' : ''}
+            ${this.required ? 'required' : ''}
+          ></textarea>
+        `}
+        
         <label class="no-animation">${this.label}</label>
         ${!this.classList.contains('outlined') ? '' : `
         <div class="outlined-border-container">
@@ -140,6 +164,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
         ${this.suffixText ? `<span class="suffix-text">${this.suffixText}</span>` : ''}
         <slot name="trailing-icon"></slot>
         <div class="supporting-text" title="${this.#supportingText}">${this.#supportingText}</div>
+        <div class="character-count"></div>
         <slot name="picker"></slot>
       </div>
     `.replace(/^\s*\n/gm, '').replace(/^\s{6}/gm, '');
@@ -157,6 +182,11 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   set autocomplete(value) {
     if (value) this.setAttribute('autocomplete', value);
     else this.removeAttribute('autocomplete');
+  }
+
+  get characterCount() { return this.#characterCount; }
+  set characterCount(value) {
+    this.#characterCount = !!value;
   }
 
   get label() { return this.#label || (this.getAttribute('label') || ''); }
@@ -177,9 +207,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   get format() { return this.getAttribute('format'); }
   set format(value) {
-    this.#addFormatter();
-    this.#formatter.format = value;
-    this.#formatter.value = this.#value;
+    if (this.#formatter) this.#formatter.format = value;
     this.setAttribute('format', value);
   }
 
@@ -187,9 +215,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   get mask() { return this.getAttribute('mask'); }
   set mask(value) {
-    this.#addFormatter();
-    this.#formatter.mask = value;
-    this.#formatter.value = this.#value;
+    if (this.#formatter) this.#formatter.mask = value;
     this.setAttribute('mask', value);
   }
 
@@ -233,12 +259,14 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
   get pattern() { return this.getAttribute('pattern'); }
   set pattern(value) {
-    this.#addFormatter();
-    this.#formatter.pattern = value;
-    if (value) {
-      this.#formatter.enable();
-      this.#formatter.value = this.#value;
-    } else this.#formatter.disable();
+    if (this.#formatter) {
+      if (value) {
+        this.#formatter.pattern = value;
+        this.#formatter.enable();
+        this.#formatter.value = this.#value;
+      } else this.#formatter.disable();
+    }
+    if (this.#formatter && !value) this.#formatter.disable();
     this.setAttribute('pattern', value);
     this.#input.setAttribute('pattern', value);
   }
@@ -321,6 +349,12 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.setAttribute('type', value);
   }
 
+  get rows() { return this.#rows; }
+  set rows(value) {
+    this.#rows = value;
+    if (this.getAttribute('type') === 'textarea') this.#input.setAttribute('rows', value || 1);
+  }
+
   get incremental() { return this.#incremental; }
   set incremental(value) {
     this.#incremental = value;
@@ -342,6 +376,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
     this.#internals.setFormValue(this.#value);
     this.classList.toggle('has-value', !!this.#value);
+    this.#updateCharacterCount();
   }
 
   get suggestion() {
@@ -405,10 +440,15 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
   }
 
   #addFormatter() {
-    if (!this.#formatter) {
+    if (!this.#formatter && this.pattern) {
       this.#formatter = new Formatter(this);
+      this.#formatter.pattern = this.pattern;
+      if (this.mask) this.#formatter.mask = this.mask;
+      if (this.format) this.#formatter.format = this.format;
       this.#formatter.onInput = this.#onFormatterInput.bind(this);
       this.#formatter.patternRestrict = this.hasAttribute('pattern-restrict');
+      this.#formatter.enable();
+      this.#formatter.value = this.#value;
     }
   }
 
@@ -435,6 +475,8 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
     this.#dirty = true;
     this.#setSuggestion();
     this.#updateValidity();
+    this.#updateCharacterCount();
+    if (this.type === 'textarea') this.#updateTextareaHeight();
     // only update display if invalid while in focus
     if (this.classList.contains('invalid')) this.#updateValidityDisplay();
 
@@ -503,7 +545,7 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
 
     const match = this.#suggestion.match(new RegExp(`^${this.#input.value}(.*)`, 'i'));
     const value = !match || match[0] === match[1] ? '' : match[1];
-
+    this.#hasSuggestion = !!value;
     suggestionElement.innerText = value;
     const offset = util.getTextWidthFromInput(this.#input);
     suggestionElement.style.left = `${offset + 16}px`;
@@ -514,6 +556,31 @@ export default class MDWTextfieldElement extends HTMLComponentElement {
       bubbles: true,
       composed: true
     }));
+  }
+
+  #updateCharacterCount() {
+    if (!this.#characterCount) return;
+
+    const count = (this.#value || '').length;
+    const display = !!this.maxlength ? `${count}/${this.maxlength}` : `${!count ? '' : count}`;
+    this.shadowRoot.querySelector('.character-count').innerText = display;
+  }
+
+  #onKeydown(event) {
+    const tab = event.code === 'Tab';
+    if (this.#hasSuggestion && tab) {
+      this.value = this.#suggestion;
+      this.#hasSuggestion = false;
+      event.preventDefault();
+    }
+  }
+
+  #updateTextareaHeight() {
+    this.#input.style.height = 'auto';
+    let height = this.#input.scrollHeight;
+    if (height <= 40) height -= 28;
+    this.#input.style.height = `${height}px`;
+    if (this.#input.offsetHeight < this.#input.scrollHeight) this.#input.style.height = `${this.#input.offsetHeight - 16}px`;
   }
 }
 
