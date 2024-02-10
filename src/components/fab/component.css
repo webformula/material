@@ -131,7 +131,7 @@ slot[name="label"]::slotted(*) {
 :host(.auto-hide) {
   transition: transform;
   transition-duration: var(--mdw-motion-duration-medium2);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
   overflow: hidden;
   transform: scale(1);
   transform-origin: bottom right;
@@ -170,7 +170,7 @@ slot[name="label"]::slotted(*) {
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left) {
   transition: bottom;
   transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide-label),
@@ -178,14 +178,14 @@ slot[name="label"]::slotted(*) {
   transition: max-width, color, bottom;
   transition-delay: 0ms, 60ms, 0ms;
   transition-duration: var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide),
 :host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left.auto-hide) {
   transition: transform, bottom;
   transition-duration: var(--mdw-motion-duration-medium2), var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 
 :host-context(body.has-navigation-bar:not(.navigation-bar-hide)):host(.fixed.position-bottom-right),
@@ -206,7 +206,7 @@ slot[name="label"]::slotted(*) {
 @media (hover: hover) {
   button {
     transition-duration: var(--mdw-motion-duration-medium1);
-    transition-timing-function: var(--mdw-motion-easing);
+    transition-timing-function: var(--mdw-motion-easing-standard);
     transition-property: box-shadow;
   }
 

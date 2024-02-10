@@ -30,7 +30,7 @@ mdw-top-app-bar::before {
 
   transition: background-color;
   transition-duration: var(--mdw-motion-duration-medium1);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 
 mdw-top-app-bar.scrolled::before {
@@ -147,14 +147,14 @@ mdw-top-app-bar.large.compress > .headline {
 body.has-navigation mdw-top-app-bar {
   margin-left: var(--mdw-navigation-drawer-width);
   transition: margin-left 0ms;
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
 }
 
 body.has-navigation-rail:not(.has-navigation) mdw-top-app-bar,
 body.has-navigation-rail.navigation-drawer-state-hide mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
   transition: margin-left 0ms;
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
 }
 
 body.navigation-drawer-state-hide:not(.has-navigation-rail) mdw-top-app-bar,
@@ -163,13 +163,13 @@ body.window-medium mdw-top-app-bar,
 body.has-navigation-rail.navigation-drawer-state-hide.window-compact.has-bottom-app-bar mdw-top-app-bar,
 body.has-navigation-rail.navigation-drawer-state-hide.window-compact.has-navigation-bar mdw-top-app-bar {
   margin-left: 0;
-  transition-timing-function: var(--mdw-motion-easing-accelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-accelerate);
   transition: margin-left 0ms;
 }
 
 body.has-navigation-rail.window-medium mdw-top-app-bar {
   margin-left: var(--mdw-navigation-rail-width);
-  transition-timing-function: var(--mdw-motion-easing-decelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-decelerate);
 }
 
 mdw-top-app-bar {

@@ -19,7 +19,7 @@ mdw-bottom-app-bar {
   margin-bottom: 0;
   transition: margin-bottom, left;
   transition-duration: 0;
-  transition-timing-function: var(---mdw-motion-easing);
+  transition-timing-function: var(---mdw-motion-easing-standard);
 }
 
 mdw-bottom-app-bar mdw-fab {
@@ -62,7 +62,7 @@ mdw-bottom-app-bar mdw-bottom-app-bar-primary.hide {
   opacity: 0;
   transition: opacity, bottom;
   transition-duration: var(--mdw-motion-duration-short2);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 
 mdw-bottom-app-bar mdw-bottom-app-bar-secondary {

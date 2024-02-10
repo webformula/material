@@ -644,7 +644,7 @@ export default class Drag {
             item.transitionStarted = true;
             requestAnimationFrame(() => {
               item.element.style.transition = `transform ${Math.abs(distance) * 1.5 + 200}ms`;
-              item.element.style.transitionTimingFunction = 'var(--mdw-motion-easing-decelerate)';
+              item.element.style.transitionTimingFunction = 'var(--mdw-motion-easing-standard-decelerate)';
               item.element.style.transform = '';
               util.transitionendAsync(item.element).then(() => {
                 item.inTransition = false;

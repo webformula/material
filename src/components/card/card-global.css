@@ -308,7 +308,7 @@ mdw-card.mdw-fullscreen {
   --mdw-card-fullscreen-height: 0;
 
   animation: mdw-card-fullscreen-card-hide;
-  animation-timing-function: var(--mdw-motion-easing-accelerate);
+  animation-timing-function: var(--mdw-motion-easing-standard-accelerate);
   animation-duration: 0ms;
 }
 mdw-card.mdw-animation.mdw-fullscreen.mdw-fullscreen-initialized {
@@ -332,7 +332,7 @@ mdw-card.mdw-fullscreen.show {
 
   animation: mdw-card-fullscreen-card-show;
   animation-duration: 0ms;
-  animation-timing-function: var(--mdw-motion-easing);
+  animation-timing-function: var(--mdw-motion-easing-standard);
 }
 mdw-card.mdw-animation.mdw-fullscreen.show {
   animation-duration: var(--mdw-motion-duration-medium1);
@@ -360,7 +360,7 @@ mdw-card.mdw-fullscreen > .mdw-card-image {
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, var(--mdw-motion-duration-short1);
-  transition-timing-function: var(--mdw-motion-easing-accelerate);
+  transition-timing-function: var(--mdw-motion-easing-standard-accelerate);
 }
 mdw-card.mdw-animation.mdw-fullscreen > .mdw-card-image {
   transition-duration: var(--mdw-motion-duration-short3), 80ms;
@@ -375,7 +375,7 @@ mdw-card.mdw-fullscreen.show > .mdw-card-image {
   transition: height, border-radius;
   transition-duration: 0ms, 0ms;
   transition-delay: 0ms, var(--mdw-motion-duration-short3);
-  transition-timing-function: var(--mdw-motion-easing);
+  transition-timing-function: var(--mdw-motion-easing-standard);
 }
 mdw-card.mdw-animation.mdw-duration.mdw-fullscreen.show > .mdw-card-image {
   transition-duration: var(--mdw-motion-duration-medium3), var(--mdw-motion-duration-short3);
