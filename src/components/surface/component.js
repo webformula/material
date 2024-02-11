@@ -217,6 +217,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   async show() {
     if (this.open) return;
     this.#open = true;
+    this.onShowBefore();
     if (this.animation === 'fullscreen') {
       this.#preShowFullscreen();
       util.lockPageScroll();

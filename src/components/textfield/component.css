@@ -373,9 +373,9 @@ textarea[rows="1"] {
   display: none;
 }
 
-:host(.has-date-picker):host-context(body.wfc-mobile) .text-field  .input[type="date"],
-:host(.has-time-picker):host-context(body.wfc-mobile) .text-field  .input[type="time"],
-:host(.has-time-picker):host-context(body.wfc-mobile) .text-field  .input[type="month"] {
+:host(.has-date-picker):host-context(body.window-compact) .text-field  .input[type="date"],
+:host(.has-time-picker):host-context(body.window-compact) .text-field  .input[type="time"],
+:host(.has-time-picker):host-context(body.window-compact) .text-field  .input[type="month"] {
   pointer-events: none;
 } */
 

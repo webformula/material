@@ -1,3 +1,4 @@
+let skipInitialSetWindow = true;
 const wfcDevice = new class WFCDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
@@ -7,19 +8,30 @@ const wfcDevice = new class WFCDevice {
   #animationReady = false;
   #locale = navigator.language;
   #languageChange_bound = this.#languageChange.bind(this);
+  #resizeObserver = new ResizeObserver(() => {
+    if (!skipInitialSetWindow) this.#setWindow();
+    else skipInitialSetWindow = false;
+  });
 
   constructor() {
-    const resizeObserver = new ResizeObserver(() => {
-      this.#setWindow();
-    });
-    resizeObserver.observe(document.documentElement);
     this.#setWindow();
     window.addEventListener('languagechange', this.#languageChange_bound);
     window.addEventListener('wfclanguagechange', this.#languageChange_bound);
+    
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', () => {
+        this.#init();
+      });
+    } else {
+      requestAnimationFrame(() => {
+        this.#init();
+      });
+    }
+  }
 
-    requestAnimationFrame(() => {
-      document.documentElement.classList.add('wfc-initiated');
-    });
+  #init() {
+    document.documentElement.classList.add('wfc-initiated');
+    this.#resizeObserver.observe(document.documentElement);
   }
 
   get orientation() {
@@ -55,13 +67,6 @@ const wfcDevice = new class WFCDevice {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }
 
-  get isMobile() {
-    if (!this.hasTouchScreen) return false;
-
-    if (this.orientation === 'portrait') return this.windowWidth < this.#compactBreakpoint;
-    return this.windowHeight < this.#compactBreakpoint;
-  }
-
   get animationReady() {
     return this.#animationReady;
   }
@@ -71,17 +76,13 @@ const wfcDevice = new class WFCDevice {
   }
 
   async #setWindow() {
-    // if (!document.body) await new Promise(resolve => document.addEventListener('DOMContentLoaded', () => resolve()));
-    // TODO figure this out without style recalculation
     this.#windowWidth = window.visualViewport.width;
     this.#windowHeight = window.visualViewport.height;
-    const isMobile = this.isMobile;
     const state = this.state;
     document.body.classList.remove('window-compact');
     document.body.classList.remove('window-medium');
     document.body.classList.remove('window-expanded');
 
-    document.body.classList.toggle('wfc-mobile', isMobile);
     switch(state) {
       case 'compact':
         document.body.classList.add('window-compact');
@@ -101,17 +102,14 @@ const wfcDevice = new class WFCDevice {
       }, 150);
     }
     
-    if (!this.#lastState || isMobile !== this.#lastState.isMobile || state !== this.#lastState.state) {
+    if (!this.#lastState || state !== this.#lastState.state) {
       window.dispatchEvent(new CustomEvent('wfcwindowstate', { detail: {
-        isMobile,
         state,
-        lastIsMobile: this.#lastState?.isMobile,
         lastState: this.#lastState?.state
       }}));
     }
 
     this.#lastState = {
-      isMobile: this.isMobile,
       state: this.state
     };
   }
