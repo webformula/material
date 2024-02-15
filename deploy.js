@@ -3,6 +3,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import AWS from 'aws-sdk';
 
 const s3 = new AWS.S3();
+const cloudfront = new AWS.CloudFront();
 const files = await getFiles('dist');
 
 const { Contents } = await s3.listObjects({ Bucket: 'material.webformula.io' }).promise();
@@ -15,13 +16,17 @@ if (Contents.length) {
   }).promise();
 }
 
+const invalidations = ['/index.html'];
 
 await Promise.all(files.map(async Key => {
   const Body = await readFile(`dist/${Key}`);
   const ContentEncoding = (!Key.includes('favicon.ico') && !Key.includes('material.js')) ? 'gzip' : undefined;
   const CacheControl = (!Key.includes('favicon.ico') || Key.includes('.html')) ? 'max-age=31536000' : undefined;
   const ContentType = getMimeType(Key);
-  if (Key.includes('.html') && !Key.includes('index.html')) Key = Key.replace('.html', '');
+  if (Key.includes('.html') && !Key.includes('index.html')) {
+    Key = Key.replace('.html', '');
+    invalidations.push(`/${Key}`);
+  }
 
   await s3.upload({
     Bucket: 'material.webformula.io',
@@ -33,6 +38,17 @@ await Promise.all(files.map(async Key => {
     ACL: 'public-read'
   }).promise();
 }));
+
+await cloudfront.createInvalidation({
+  DistributionId: 'E1M83CAHGW3BDF',
+  InvalidationBatch: {
+    CallerReference: Date.now().toString(),
+    Paths: {
+      Quantity: invalidations.length,
+      Items: invalidations
+    }
+  }
+}).promise();
 
 
 function getMimeType(url) {
