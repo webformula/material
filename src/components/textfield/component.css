@@ -356,28 +356,10 @@ textarea[rows="1"] {
   color: var(--wfc-on-surface-variant-alpha-38);
 }
 
-
-/* TODO style number controls */
-.text-field.trailing-icon .input[type="number"]::-webkit-inner-spin-button,
-:host(.invalid) .text-field .input[type="number"]::-webkit-inner-spin-button {
-  margin-right: 32px;
-}
-
-
-/* :host(.has-date-picker) .text-field  .input::-webkit-inner-spin-button,
-:host(.has-date-picker) .text-field  .input::-webkit-calendar-picker-indicator,
-:host(.has-time-picker) .text-field  .input::-webkit-inner-spin-button,
-:host(.has-time-picker) .text-field  .input::-webkit-calendar-picker-indicator,
-:host(.has-month-picker) .text-field  .input::-webkit-inner-spin-button,
-:host(.has-month-picker) .text-field  .input::-webkit-calendar-picker-indicator {
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
-
-:host(.has-date-picker):host-context(body.window-compact) .text-field  .input[type="date"],
-:host(.has-time-picker):host-context(body.window-compact) .text-field  .input[type="time"],
-:host(.has-time-picker):host-context(body.window-compact) .text-field  .input[type="month"] {
-  pointer-events: none;
-} */
 
 
 /* --- outline --- */

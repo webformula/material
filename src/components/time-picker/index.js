@@ -6,8 +6,6 @@ import {
 } from '../../core/svgs.js';
 import device from '../../core/device.js';
 
-// TODO accessability
-// TODO min max
 
 class WFCTimePickerElement extends WFCSurfaceElement {
   static tag = 'wfc-time-picker';

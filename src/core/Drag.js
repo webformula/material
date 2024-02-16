@@ -242,9 +242,10 @@ export default class Drag {
   #start(event) {
     this.#resetTrackingDetails = false;
 
+    // TODO mobile drag from side to close
     // // does this need to be on always
     // if (this.#preventSwipeNavigation) {
-    //   // TODO do i need passive: false?
+    //   // NOTE do i need passive: false?
     //   this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
     // }
 

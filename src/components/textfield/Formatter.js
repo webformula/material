@@ -285,7 +285,6 @@ simplifyGroupRegexString(regexString) {
     return nonGroupMatches === 0;
   }
 
-  // TODO do i limit length? based on regex
   #maskValue(value, parsed = true) {
     if (!this.#mask) return value;
     // if value is not parsable then return the mask with the value length

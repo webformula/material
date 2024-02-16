@@ -59,13 +59,26 @@ class WFCSelectElement extends WFCMenuElement {
         ` : ''}
       >
         <slot slot="leading-icon" name="leading-icon"></slot>
-        <slot slot="trailing-icon" name="trailing-icon"></slot>
+        <slot slot="trailing-icon" name="trailing-icon">
+          <svg height="5" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
+            <polygon
+              class="down"
+              stroke="none"
+              fill-rule="evenodd"
+              points="7 10 12 15 17 10"></polygon>
+            <polygon
+              class="up"
+              stroke="none"
+              fill-rule="evenodd"
+              points="7 15 12 10 17 15"></polygon>
+          </svg>
+        </slot>
       </wfc-textfield>
     `);
     this.#textfield = this.shadowRoot.querySelector('wfc-textfield');
   }
 
-  // TODO update
+
   static get observedAttributesExtended() {
     return [
       ['aria-label', 'string'],
@@ -230,7 +243,6 @@ class WFCSelectElement extends WFCMenuElement {
 
       if (this.#isAsync) {
         [...this.querySelectorAll('wfc-option')].forEach(o => this.removeChild(o));
-        // TODO should i track lastOptionsOnSelect
         this.insertAdjacentHTML('beforeend', this.#lastOptionsOnSelect || this.#initialOptions);
       } else {
         this.#options.reverse().forEach(el => {

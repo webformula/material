@@ -103,7 +103,7 @@ export default class WFCCardElement extends HTMLComponentElement {
       this.classList.add('wfc-animation');
     }, 150);
 
-    // TODO re enable this
+    // TODO re enable this?
     // this.#handleAria();
 
     window.addEventListener('wfcwindowstate', this.#handleWindowState_bound);
@@ -277,7 +277,6 @@ export default class WFCCardElement extends HTMLComponentElement {
     else this.style.setProperty('--wfc-card-swipe-action-position', `60px`);
   }
 
-  // TODO make action its own component so it can have .checked ?
   #swipeActionClick() {
     if (this.#swipeActionElement.classList.contains('wfc-toggle')) {
       if (this.#swipeActionElement.hasAttribute('checked')) this.#swipeActionElement.removeAttribute('checked');

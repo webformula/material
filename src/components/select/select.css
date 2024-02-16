@@ -25,6 +25,24 @@ wfc-textfield,
   max-width: inherit;
 }
 
+.drop-arrow {
+  margin-top: 18px;
+  z-index: 1;
+}
+
+.drop-arrow .up,
+.drop-arrow .down {
+  fill: var(--mdw-outline);
+  opacity: 0;
+  /* 75 ms is half of min(animate open duration, animate closed duration)*/
+  transition: opacity 75ms linear 75ms;
+}
+
+:host(.open) .drop-arrow .up,
+:host(:not(.open)) .drop-arrow .down {
+  opacity: 1;
+}
+
 wfc-textfield,
 .select {
   width: 100%;

@@ -2,7 +2,6 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import util from '../../core/util.js';
 
 // TODO refactor
-// TODO FAB
 
 export default class WFCBottomAppBarElement extends HTMLComponentElement {
   static tag = 'wfc-bottom-app-bar';

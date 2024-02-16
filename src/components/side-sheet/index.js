@@ -6,9 +6,8 @@ import {
   arrow_back_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-// TODO right
-// TODO do i want modal on compact?
-// TODO aria for buttons
+
+// TODO swipe side to close?
 
 class WFCSideSheetElement extends WFCSurfaceElement {
   static tag = 'wfc-side-sheet';

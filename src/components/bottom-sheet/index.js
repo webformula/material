@@ -4,9 +4,6 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
 
-// TODO right
-// TODO do i want modal on compact?
-
 class WFCBottomSheetElement extends WFCSurfaceElement {
   static tag = 'wfc-bottom-sheet';
   static styleSheets = styles;

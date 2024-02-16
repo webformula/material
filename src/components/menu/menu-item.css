@@ -64,6 +64,13 @@ slot[name="end"] {
   flex: 1;
 }
 
+::slotted(.drop-arrow) {
+  position: absolute;
+  transform: rotate(-90deg);
+  right: 16px;
+  top: 50%;
+}
+
 
 .state-layer {
   position: absolute;

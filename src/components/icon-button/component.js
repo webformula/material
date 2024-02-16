@@ -16,6 +16,7 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
   #ripple;
   #target;
   #href;
+  #ariaLabel;
   #toggle = false;
   #checked = false;
   #focus_bound = this.#focus.bind(this);
@@ -36,6 +37,7 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
 
   static get observedAttributesExtended() {
     return [
+      ['aria-label', 'string'],
       ['href', 'string'],
       ['target', 'string'],
       ['toggle', 'boolean'],
@@ -105,6 +107,13 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
   set checked(value) {
     this.#checked = !!value;
     this.classList.toggle('selected', this.#checked);
+  }
+
+  get ariaLabel() { return this.#ariaLabel; }
+  set ariaLabel(value) {
+    this.#ariaLabel = value;
+    if (!value) this.shadowRoot.querySelector('button').removeAttribute('aria-label');
+    else this.shadowRoot.querySelector('button').setAttribute('aria-label', value);
   }
 
 

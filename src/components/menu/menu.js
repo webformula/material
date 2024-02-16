@@ -121,7 +121,6 @@ export default class WFCMenuElement extends WFCSurfaceElement {
       e.preventDefault();
     } else if (e.code === 'Escape' && this.allowClose) {
       this.close();
-      // TODO work out what to do here
       if (this.nodeName !== 'WFC-SELECT' && this.anchorElement) this.anchorElement.focus();
 
     // picks first filtered item based on style.order if focus is on input

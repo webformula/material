@@ -235,7 +235,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       this.#surfaceElement.style.removeProperty('--wfc-surface-width');
     }
 
-    // TODO if no animation then these can trigger immediately
+    // If no animation then these can trigger immediately
     if (this.#allowClose) {
       if (this.#scrim) this.shadowRoot.querySelector('.scrim').addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
       else window.addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
@@ -292,7 +292,6 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   }
 
   #getAnchorPosition() {
-    // TODO more alignments
     const position = this.#position.split(' ');
     const alignTop = position[0] === 'top';
     const alignRight = position[1] === 'right';
@@ -458,8 +457,6 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #onClickOutside(event) {
     if (event.target === this) return;
     if (!event.target.classList.contains('scrim') && this.contains(event.target)) return;
-    // const isIgnoreElement = this.#allowCloseIgnoreElements.find(v => v.contains(event.target));
-    // if (isIgnoreElement) return;
     this.close();
   }
 

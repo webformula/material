@@ -127,14 +127,8 @@
 
 
 
-/* TODO offsets for non anchor */
 :host(:not(.anchor).position-center) .surface,
 :host(:not(.anchor).position-center-center) .surface {
-  /* --wfc-surface-horizontal-position: calc(-50% + var(--wfc-surface-offset-x));
-  --wfc-surface-vertical-position: calc(-50% + var(--wfc-surface-offset-y));
-  top: calc(50% + var(--wfc-surface-offset-y));
-  left: calc(50% + var(--wfc-surface-offset-x)); */
-
   --wfc-surface-horizontal-position: -50%;
   --wfc-surface-vertical-position: -50%;
   top: 50%;
@@ -142,11 +136,6 @@
 }
 
 :host(:not(.anchor).position-center-left) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: calc(-50% + var(--wfc-surface-offset-y));
-  top: calc(50% + var(--wfc-surface-offset-y));
-  left: 0; */
-
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: -50%;
   top: 50%;
@@ -154,11 +143,6 @@
 }
 
 :host(:not(.anchor).position-center-right) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: calc(-50% + var(--wfc-surface-offset-y));
-  top: calc(50% + var(--wfc-surface-offset-y));
-  right: 0; */
-
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: -50%;
   top: 50%;
@@ -166,11 +150,6 @@
 }
 
 :host(:not(.anchor).position-top-center) .surface {
-  /* --wfc-surface-horizontal-position: calc(-50% + var(--wfc-surface-offset-x));
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y);
-  top: 0;
-  left: calc(50% + var(--wfc-surface-offset-x)); */
-
   --wfc-surface-horizontal-position: -50%;
   --wfc-surface-vertical-position: 0px;
   top: 0;
@@ -178,8 +157,6 @@
 }
 
 :host(:not(.anchor).position-top-left) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y); */
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: 0px;
   top: 0;
@@ -187,8 +164,6 @@
 }
 
 :host(:not(.anchor).position-top-right) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y); */
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: 0px;
   top: 0;
@@ -196,11 +171,6 @@
 }
 
 :host(:not(.anchor).position-bottom-center) .surface {
-  /* --wfc-surface-horizontal-position: calc(-50% + var(--wfc-surface-offset-x));
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y);
-  bottom: 0;
-  left: calc(50% + var(--wfc-surface-offset-x)); */
-
   --wfc-surface-horizontal-position: -50%;
   --wfc-surface-vertical-position: 0px;
   bottom: 0;
@@ -208,8 +178,6 @@
 }
 
 :host(:not(.anchor).position-bottom-left) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y); */
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: 0px;
   bottom: 0;
@@ -217,8 +185,6 @@
 }
 
 :host(:not(.anchor).position-bottom-right) .surface {
-  /* --wfc-surface-horizontal-position: var(--wfc-surface-offset-x);
-  --wfc-surface-vertical-position: var(--wfc-surface-offset-y); */
   --wfc-surface-horizontal-position: 0px;
   --wfc-surface-vertical-position: 0px;
   bottom: 0;
@@ -237,10 +203,6 @@ slot {
   height: inherit;
   max-height: inherit;
 }
-
-/* ::slotted(:is(.wfc-divider, [role='separator'])) {
-  margin: 8px 0;
-} */
 
 
 :host(:not(.open):not(.animation-fullscreen)) .surface.animating {

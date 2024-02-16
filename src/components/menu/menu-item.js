@@ -36,6 +36,17 @@ export default class WFCMenuItemElement extends HTMLComponentElement {
   connectedCallback() {
     this.addEventListener('focus', this.#focus_bound);
     this.hasSubMenu = !!this.querySelector('[slot="sub-menu"]');
+    if (this.hasSubMenu) {
+      this.insertAdjacentHTML('beforeend', `
+        <svg height="4" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
+          <polygon
+            class="down"
+            stroke="none"
+            fill-rule="evenodd"
+            points="7 10 12 15 17 10"></polygon>
+        </svg>
+      `);
+    }
     this.#ripple = new Ripple({
       element: this.shadowRoot.querySelector('.ripple'),
       triggerElement: this

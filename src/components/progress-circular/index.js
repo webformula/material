@@ -2,8 +2,6 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
 
-// TODO animate inactive track so we can add spacing
-
 class WFCProgressCircularElement extends HTMLComponentElement {
   static tag = 'wfc-progress-circular';
   static useShadowRoot = true;

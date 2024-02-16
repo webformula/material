@@ -5,9 +5,6 @@ export const arrow_back_FILL1_wght300_GRAD0_opsz24 = '<svg xmlns="http://www.w3.
 export const check_FILL1_wght400_GRAD0_opsz20 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4Z"/></svg>';
 export const close_FILL1_wght400_GRAD0_opsz20 = '<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"><path d="M6.062 15 5 13.938 8.938 10 5 6.062 6.062 5 10 8.938 13.938 5 15 6.062 11.062 10 15 13.938 13.938 15 10 11.062Z"/></svg>';
 export const chevron_left_FILL1_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m14 18-6-6 6-6 1.4 1.4-4.6 4.6 4.6 4.6Z"/></svg>';
-// TODO remove
-export const chevron_right_FILL1_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M9.4 18 8 16.6l4.6-4.6L8 7.4 9.4 6l6 6Z"/></svg>';
-
 export const check_FILL1_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>';
 export const arrow_drop_down_FILL1_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m12 15-5-5h10Z"/></svg>';
 export const close_FILL1_wght400_GRAD0_opsz24 = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6Z"/></svg>';
