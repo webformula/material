@@ -1,0 +1,118 @@
+:host {
+  --wfc-top-app-bar-scroll-position: 0px;
+  --wfc-top-app-bar-height: 64px;
+
+  position: fixed;
+  display: inline-flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background-color: var(--wfc-surface);
+  z-index: 9;
+  align-items: center;
+
+  transition: background-color, box-shadow;
+  transition-duration: var(--wfc-motion-duration-medium1);
+  transition-timing-function: var(--wfc-motion-easing-standard);
+}
+
+:host(.scrolled) {
+  background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-1);
+}
+
+.default-slot {
+  display: block;
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: var(--wfc-font-large-title-size);
+  font-weight: var(--wfc-font-large-title-weight);
+  line-height: var(--wfc-font-large-title-line-height);
+  letter-spacing: var(--wfc-font-large-title-tracking);
+  color: var(--wfc-on-surface);
+}
+
+:host([centered]) .default-slot {
+  text-align: center;
+}
+
+[name="leading-icon"]::slotted(*) {
+  margin-right: 16px;
+}
+
+[name="leading-icon"]::slotted(wfc-navigation-button) {
+  margin-left: -8px;
+}
+
+[name="trailing-icon"]::slotted(*) {
+  margin-left: 24px;
+}
+
+
+:host([medium]) {
+  --wfc-top-app-bar-height: 112px;
+}
+
+:host([large]) {
+  --wfc-top-app-bar-height: 152px;
+}
+
+
+:host([medium]),
+:host([large]) {
+  align-items: start;
+  padding-top: 20px;
+  height: var(--wfc-top-app-bar-height);
+}
+
+:host([medium][compress]),
+:host([large][compress]) {
+  height: calc(var(--wfc-top-app-bar-height) + var(--wfc-top-app-bar-scroll-position));
+}
+
+:host([medium]) .default-slot {
+  font-size: var(--wfc-font-small-headline-size);
+  font-weight: var(--wfc-font-small-headline-weight);
+  line-height: var(--wfc-font-small-headline-line-height);
+  letter-spacing: var(--wfc-font-small-headline-tracking);
+
+  margin-top: 44px;
+  transform: translateX(-36px);
+}
+
+:host([large]) .default-slot {
+  font-size: var(--wfc-font-medium-headline-size);
+  font-weight: var(--wfc-font-medium-headline-weight);
+  line-height: var(--wfc-font-medium-headline-line-height);
+  letter-spacing: var(--wfc-font-medium-headline-tracking);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: unset;
+  align-self: end;
+  margin-bottom: 16px;
+  transform: translateX(-36px);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+}
+
+:host([medium][compress]) .default-slot {
+  margin-top: max(calc(44px + var(--wfc-top-app-bar-scroll-position)), -4px);
+  transform: translateX(min(calc(-36px - var(--wfc-top-app-bar-scroll-position)), 0px));
+}
+
+:host([large][compress]) .default-slot {
+  margin-bottom: max(calc(16px + var(--wfc-top-app-bar-scroll-position)), 14px);
+  transform: translateX(min(calc(-36px - var(--wfc-top-app-bar-scroll-position)), 0px));
+  line-height: 40px;
+}

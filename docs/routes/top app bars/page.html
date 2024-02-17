@@ -10,7 +10,7 @@
     <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Basic</a></li>
-      <li><a href="#sticky">Sticky</a></li>
+      <li><a href="#fixed">Fixed</a></li>
       <li><a href="#compress">Compress</a></li>
       <li><a href="#centered">Centered</a></li>
       <li><a href="#medium">Medium</a></li>
@@ -31,32 +31,33 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<wfc-top-app-bar>
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header</div>
-    <wfc-icon>account_circle</wfc-icon>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">inbox</wfc-icon>
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>`)}
         </code>
       </pre>
     </wfc-card>
 
-    <wfc-card class="wfc-no-states" id="sticky">
+    <wfc-card class="wfc-no-states" id="fixed">
       <div class="card-content">
-        <div class="headline">Sticky</div>
+        <div class="headline">Fixed</div>
   
         <div class="example" style="flex-direction: column; display: flex;">
-          <iframe src="./routes/top app bars/sticky-index.html" title="top-app-bar sticky" style="height: 360px; width: 600px;"></iframe>
+          <iframe src="./routes/top app bars/fixed-index.html" title="top-app-bar fixed" style="height: 360px; width: 600px;"></iframe>
         </div>
       </div>
   
       <pre>
-          <code class="language-html">
-    ${page.escape(`<wfc-top-app-bar class="sticky">
-      <wfc-icon>arrow_back</wfc-icon>
-      <div class="headline">Header</div>
-      <wfc-icon>account_circle</wfc-icon>
-    </wfc-top-app-bar>`)}
-          </code>
-        </pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-top-app-bar fixed>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
+  </wfc-top-app-bar>`)}
+        </code>
+      </pre>
     </wfc-card>
 
     <wfc-card class="wfc-no-states" id="compress">
@@ -71,10 +72,11 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-top-app-bar class="compress medium">
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header</div>
-    <wfc-icon>account_circle</wfc-icon>
+  ${page.escape(`<wfc-top-app-bar medium compress>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">inbox</wfc-icon>
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>`)}
         </code>
       </pre>
@@ -91,10 +93,10 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-top-app-bar class="center-aligned sticky">
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header</div>
-    <wfc-icon>account_circle</wfc-icon>
+  ${page.escape(`<wfc-top-app-bar centered>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>`)}
         </code>
       </pre>
@@ -112,10 +114,11 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-top-app-bar class="medium sticky">
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header</div>
-    <wfc-icon>account_circle</wfc-icon>
+  ${page.escape(`<wfc-top-app-bar medium>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">inbox</wfc-icon>
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>`)}
         </code>
       </pre>
@@ -133,10 +136,10 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-top-app-bar class="large">
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header<br />Fits more text</div>
-    <wfc-icon>account_circle</wfc-icon>
+  ${page.escape(`<wfc-top-app-bar large>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header<br />Fits more text
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>`)}
         </code>
       </pre>

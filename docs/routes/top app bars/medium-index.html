@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-store" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="wfc-theme-color-scheme-preference-disable">
 
   <title></title>
   <link rel="preload"
@@ -43,10 +44,11 @@
 </head>
 
 <body>
-  <wfc-top-app-bar class="medium sticky">
-    <wfc-icon>arrow_back</wfc-icon>
-    <div class="headline">Header</div>
-    <wfc-icon>account_circle</wfc-icon>
+  <wfc-top-app-bar medium>
+    <wfc-icon slot="leading-icon">arrow_back</wfc-icon>
+    Header
+    <wfc-icon slot="trailing-icon">inbox</wfc-icon>
+    <wfc-icon slot="trailing-icon">account_circle</wfc-icon>
   </wfc-top-app-bar>
 
   <page-content style="padding: 32px 32px;">
