@@ -45,22 +45,18 @@
 
 <body style="--wfc-navigation-drawer-width: 290px;">
   <wfc-navigation-drawer>
-    <div class="wfc-header">
-      <div class="headline">Headline</div>
-      <wfc-navigation-button></wfc-navigation-button>
-    </div>
-
-    <a href="/routes/navigations/examples/basic.html">
-      <wfc-icon>home</wfc-icon>
+    <div slot="header" class="headline">Headline</div>
+  
+    <wfc-anchor href="/routes/navigations/examples/basic.html">
+      <wfc-icon slot="leading-icon">home</wfc-icon>
       Welcome
-    </a>
-    <a href="/mail">
-      <wfc-icon>mail</wfc-icon>
+    </wfc-anchor>
+    <wfc-anchor href="/mail" badge="9999">
+      <wfc-icon slot="leading-icon">mail</wfc-icon>
       mail
-      <wfc-badge>9999</wfc-badge>
-    </a>
-    <a href="/one">One</a>
-    <a href="/two">Two</a>
+    </wfc-anchor>
+    <wfc-anchor href="/one">One</wfc-anchor>
+    <wfc-anchor href="/two">Two</wfc-anchor>
   </wfc-navigation-drawer>
 
   <page-content style="padding: 32px 32px;">
