@@ -1,11 +1,9 @@
 <h3 class="page-title">Navigations</h3>
 <div class="page-subheader wfc-font-title-medium">Drawers and Rails</div>
 
-<p>Navigation drawers provide ergonomic access to destinations in an app</p>
+<p>Navigation drawers provide ergonomic access to destinations in an app. Navigation rails provide access to primary destinations in apps when using tablet and desktop screens</p>
 <a href="https://m3.material.io/components/navigation-drawer/overview" target="_new">Material Design Guidelines:
   Navigation drawer</a>
-
-<p>Navigation rails provide access to primary destinations in apps when using tablet and desktop screens</p>
 <a href="https://m3.material.io/components/navigation-rail/overview" target="_new">Material Design Guidelines:
   Navigation rail</a>
 
@@ -29,8 +27,8 @@
         <div class="supporting-text">Navigation drawer will auto hide based on screen size if there is also navigation rail
           / bar</div>
 
-        <div class="example" style="overflow-x: auto; max-width: 600px;">
-          <iframe title="Navigation basic" src="./routes/navigations/examples/basic-index.html" style="height: 360px; width: 850px;"></iframe>
+        <div class="example">
+          <iframe title="Navigation basic" src="./routes/navigations/examples/basic-index.html" style="height: 360px; width: 100%; box-sizing: border-box;"></iframe>
         </div>
       </div>
 
@@ -40,17 +38,18 @@
     <!-- you can change the width by setting this css var on the BODY style="--wfc-navigation-drawer-width: 290px;" default: 360px -->
 
     <wfc-navigation-drawer>
-      <div class="headline">Headline</div>
-      <a href="/">
-        <wfc-icon>home</wfc-icon>
+      <div slot="header" class="headline">Headline</div>
+    
+      <wfc-anchor href="/routes/navigations/examples/basic.html">
+        <wfc-icon slot="leading-icon">home</wfc-icon>
         Welcome
-      </a>
-      <a href="/mail">
-        <wfc-icon>mail</wfc-icon>
+      </wfc-anchor>
+      <wfc-anchor href="/mail" badge="9999">
+        <wfc-icon slot="leading-icon">mail</wfc-icon>
         mail
-        <wfc-badge>9999</wfc-badge>
-      </a>
-      <a href="/one">One</a>
+      </wfc-anchor>
+      <wfc-anchor href="/one">One</wfc-anchor>
+      <wfc-anchor href="/two">Two</wfc-anchor>
     </wfc-navigation-drawer>
   
     <!-- page-content -->
@@ -65,8 +64,8 @@
         <div class="headline">Anchor groups</div>
         <div class="supporting-text">Group anchors together into an expandable section</div>
     
-        <div class="example" style="overflow-x: auto; max-width: 600px;">
-          <iframe title="Navigation anchor groups" src="./routes/navigations/examples/group-index.html" style="height: 360px; width: 850px;"></iframe>
+        <div class="example" style="overflow-x: auto; min-width: 200px; width: 100%;">
+          <iframe title="Navigation anchor groups" src="./routes/navigations/examples/group-index.html" style="height: 360px; width: 100%; box-sizing: border-box;"></iframe>
         </div>
       </div>
     
@@ -75,21 +74,22 @@
   ${page.escape(`<body>
     <!-- you can change the width by setting this css var on the BODY style="--wfc-navigation-drawer-width: 290px;" default: 360px -->
     
-    <wfc-navigation-drawer>
-      <div class="headline">Headline</div>
-    
-      <a href="/routes/navigations/examples/group.html">
-        <wfc-icon>home</wfc-icon>
+    <wfc-navigation-drawer class="wfc-rail">
+      <div slot="header" class="headline">Headline</div>
+
+      <wfc-anchor href="/routes/navigations/examples/group.html">
+        <wfc-icon slot="leading-icon">home</wfc-icon>
         Welcome
-      </a>
-    
-      <wfc-navigation-drawer-group>
-        <a group>Links</a>
-    
-        <a href="/one">One</a>
-        <a href="/two">Two</a>
-      </wfc-navigation-drawer-group>
-      <a href="/one">Onerere</a>
+      </wfc-anchor>
+      
+      <wfc-anchor-group>
+        <wfc-anchor control>Links</wfc-anchor>
+        
+        <wfc-anchor href="/one">One</wfc-anchor>
+        <wfc-anchor href="/two">Two</wfc-anchor>
+      </wfc-anchor-group>
+
+      <wfc-anchor href="/one">Onerere</wfc-anchor>
     </wfc-navigation-drawer>
   
     <!-- page-content -->
@@ -111,7 +111,7 @@
           / bar</div>
     
         <div class="example">
-          <iframe title="Navigation rail" src="./routes/navigations/examples/rail-index.html" style="height: 360px; width: 600px;"></iframe>
+          <iframe title="Navigation rail" src="./routes/navigations/examples/rail-index.html" style="height: 360px; width: 100%; box-sizing: border-box;"></iframe>
         </div>
       </div>
     
@@ -123,21 +123,19 @@
     </wfc-navigation-drawer>
     
     <wfc-navigation-rail>
-      <wfc-navigation-button></wfc-navigation-button>
+      <wfc-anchor href="/routes/navigations/examples/rail.html">
+        <wfc-icon slot="leading-icon">home</wfc-icon>
+      </wfc-anchor>
     
-      <a href="/routes/navigations/examples/draw-rail.html">
-        <wfc-icon>home</wfc-icon>
-      </a>
-    
-      <a href="/one">
-        <wfc-icon>apps</wfc-icon>
+      <wfc-anchor href="/one">
+        <wfc-icon slot="leading-icon">apps</wfc-icon>
         One
-      </a>
+      </wfc-anchor>
     
-      <a href="/two">
-        <wfc-icon>palette</wfc-icon>
+      <wfc-anchor href="/two">
+        <wfc-icon slot="leading-icon">palette</wfc-icon>
         Two
-      </a>
+      </wfc-anchor>
     </wfc-navigation-rail>
     
     <!-- page-content -->
@@ -158,7 +156,7 @@
         <div class="supporting-text">Navigation bars will auto hide based on screen size if there is also navigation drawer / rail</div>
     
         <div class="example">
-          <iframe title="Navigation bar" src="./routes/navigations/examples/navigation-bar-index.html" style="height: 360px; width: 500px;"></iframe>
+          <iframe title="Navigation bar" src="./routes/navigations/examples/navigation-bar-index.html" style="height: 360px; width: 100%; box-sizing: border-box;"></iframe>
         </div>
       </div>
     
@@ -178,22 +176,23 @@
     <!-- page-content -->
     
     <!-- can add auto-hide class to hide on scroll -->
-    <wfc-navigation-bar class="auto-hide">
+    <wfc-navigation-bar auto-hide>
       <wfc-navigation-button></wfc-navigation-button>
-      <a href="/">
-        <wfc-icon>home</wfc-icon>
+    
+      <wfc-anchor href="/routes/navigations/examples/navigation-bar.html">
+        <wfc-icon slot="leading-icon">home</wfc-icon>
         Home
-      </a>
-
-      <a href="/one">
-        <wfc-icon>circle</wfc-icon>
+      </wfc-anchor>
+    
+      <wfc-anchor href="/one">
+        <wfc-icon slot="leading-icon">circle</wfc-icon>
         One
-      </a>
-
-      <a href="/two">
-        <wfc-icon>circle</wfc-icon>
+      </wfc-anchor>
+    
+      <wfc-anchor href="/two">
+        <wfc-icon slot="leading-icon">circle</wfc-icon>
         Two
-      </a>
+      </wfc-anchor>
     </wfc-navigation-bar>
   </body>`)}
         </code>

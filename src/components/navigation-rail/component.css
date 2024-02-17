@@ -7,7 +7,8 @@
 
 :host-context(body.window-expanded:not(body.has-navigation-drawer)),
 :host-context(body.navigation-drawer-state-hide:not(.window-compact)),
-:host-context(body.window-medium) {
+:host-context(body.window-medium),
+:host-context(body:not(.window-compact):not(.has-navigation-drawer)) {
   width: var(--wfc-navigation-rail-width);
 }
 
