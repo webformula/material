@@ -12,7 +12,6 @@ const textareaElement = document.createElement('textarea');
 textareaElement.setAttribute('placeholder', ' ');
 textareaElement.classList.add('input');
 
-// TODO pattern regex error when loading built page (refresh on page). The error is not breaking anything. Probably because we rerender
 
 export default class WFCTextfieldElement extends HTMLComponentElement {
   static tag = 'wfc-textfield';

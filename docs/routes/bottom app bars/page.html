@@ -12,7 +12,6 @@
       <li><a href="#auto-hide">Auto hide</a></li>
       <li><a href="#secondary-bar">Secondary bar by id</a></li>
       <li><a href="#secondary-bar-hash">Secondary bar by URL hash</a></li>
-      <li><a href="#always-show">Always show</a></li>
     </ul>
   </nav>
 
@@ -28,28 +27,19 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-bottom-app-bar>
-    <wfc-menu>
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="wfc-bold">more_vert</wfc-icon>
-      </wfc-button>
-      <ul>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-        <li>Four</li>
-        <li>Five</li>
-      </ul>
-    </wfc-menu>
-    
-    <wfc-button class="wfc-icon-button">
+  ${page.escape(`<wfc-bottom-app-bar class="always-show">
+    <wfc-icon-button>
+      <wfc-icon>more_vert</wfc-icon>
+    </wfc-icon-button>
+  
+    <wfc-icon-button>
       <wfc-icon>search</wfc-icon>
-    </wfc-button>
-    
-    <wfc-button class="wfc-icon-button">
-      <wfc-icon class="outlined">delete</wfc-icon>
-    </wfc-button>
-    
+    </wfc-icon-button>
+  
+    <wfc-icon-button>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-icon-button>
+  
     <wfc-fab>
       <wfc-icon>add</wfc-icon>
     </wfc-fab>
@@ -70,17 +60,17 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-bottom-app-bar class="auto-hide">
+  ${page.escape(`<wfc-bottom-app-bar auto-hide>
     <wfc-navigation-button></wfc-navigation-button>
-    
-    <wfc-button class="wfc-icon-button">
+  
+    <wfc-icon-button>
       <wfc-icon>search</wfc-icon>
-    </wfc-button>
-    
-    <wfc-button class="wfc-icon-button">
-      <wfc-icon class="outlined">delete</wfc-icon>
-    </wfc-button>
-    
+    </wfc-icon-button>
+  
+    <wfc-icon-button>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-icon-button>
+  
     <wfc-fab>
       <wfc-icon>add</wfc-icon>
     </wfc-fab>
@@ -104,35 +94,27 @@
       <pre>
         <code class="language-html">
   ${page.escape(`<wfc-bottom-app-bar>
-    <wfc-bottom-app-bar-primary>
-      <wfc-navigation-button></wfc-navigation-button>
+    <wfc-navigation-button></wfc-navigation-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>search</wfc-icon>
-      </wfc-button>
+    <wfc-icon-button>
+      <wfc-icon>search</wfc-icon>
+    </wfc-icon-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">delete</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-primary>
+    <wfc-icon-button>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-icon-button>
   
-    <wfc-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>add</wfc-icon>
-      </wfc-button>
-  
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>edit</wfc-icon>
-      </wfc-button>
-  
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">delete</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-secondary>
-  
-    <wfc-fab>
+    <wfc-icon-button slot="secondary">
       <wfc-icon>add</wfc-icon>
-    </wfc-fab>
+    </wfc-icon-button>
+  
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>edit</wfc-icon>
+    </wfc-icon-button>
+  
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>favorite</wfc-icon>
+    </wfc-icon-button>
   </wfc-bottom-app-bar>`)}
         </code>
       </pre>
@@ -163,32 +145,28 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-bottom-app-bar>
-    <wfc-bottom-app-bar-primary>
-      <wfc-navigation-button></wfc-navigation-button>
+  ${page.escape(`<wfc-bottom-app-bar secondary-hash="#one">
+    <wfc-navigation-button></wfc-navigation-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>search</wfc-icon>
-      </wfc-button>
+    <wfc-icon-button>
+      <wfc-icon>search</wfc-icon>
+    </wfc-icon-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">delete</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-primary>
+    <wfc-icon-button>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-icon-button>
   
-    <wfc-bottom-app-bar-secondary hash="#one">
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>add</wfc-icon>
-      </wfc-button>
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>add</wfc-icon>
+    </wfc-icon-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>edit</wfc-icon>
-      </wfc-button>
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>edit</wfc-icon>
+    </wfc-icon-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">delete</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-secondary>
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>favorite</wfc-icon>
+    </wfc-icon-button>
   </wfc-bottom-app-bar>`)}
         </code>
       </pre>
@@ -197,35 +175,6 @@
         <code class="language-javascript">
   ${`// Changing the location hash will change bar
   location.hash = '#one';`}
-        </code>
-      </pre>
-    </wfc-card>
-
-
-
-    <wfc-card id="always-show">
-      <div class="card-content">
-        <div class="headline">Always show</div>
-        <div class="supporting-text">By default the bottom app bar will only appear on compact window sizes. Use this class to always show.</div>
-        
-        <div class="example" style="height: 260px">
-          <iframe src="./routes/bottom app bars/always-show-index.html" title="bottom-app-bar always show" style="height: 260px; width: 600px;"></iframe>
-        </div>
-      </div>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<wfc-bottom-app-bar class="always-show">
-    <wfc-navigation-button></wfc-navigation-button>
-    
-    <wfc-button class="wfc-icon-button">
-      <wfc-icon>search</wfc-icon>
-    </wfc-button>
-    
-    <wfc-button class="wfc-icon-button">
-      <wfc-icon class="outlined">delete</wfc-icon>
-    </wfc-button>
-  </wfc-bottom-app-bar>`)}
         </code>
       </pre>
     </wfc-card>

@@ -4,7 +4,7 @@ import Ripple from '../../core/Ripple.js';
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
-// TODO Figure out is we should have more configuration for start and end swipe actions (currently events only)
+// TODO Figure out if we should have more configuration for start and end swipe actions (currently events only)
 class WFCListItemElement extends HTMLComponentElement {
   static tag = 'wfc-list-item';
   static useShadowRoot = true;

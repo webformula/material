@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-store" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="wfc-theme-color-scheme-preference-disable">
 
   <title></title>
   <link rel="preload"
@@ -46,7 +47,7 @@
   <page-content style="padding: 32px 32px;">
     <div style="margin-bottom: 12px;">
       <wfc-button onclick="location.hash = ''; document.querySelector('wfc-bottom-app-bar').showPrimary()">Primary</wfc-button>
-      <wfc-button onclick="location.hash = ''; document.querySelector('wfc-bottom-app-bar').showSecondary('bottom-ap-bar-secondary-one')">Secondary by id</wfc-button>
+      <wfc-button onclick="location.hash = ''; document.querySelector('wfc-bottom-app-bar').showSecondary()">Secondary by id</wfc-button>
     </div>
 
     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
@@ -74,32 +75,28 @@
     accompanied by English versions from the 1914 translation by H. Rackham.
   </page-content>
 
-  <wfc-bottom-app-bar class="always-show">
-    <wfc-bottom-app-bar-primary>
-      <wfc-navigation-button></wfc-navigation-button>
+  <wfc-bottom-app-bar>
+    <wfc-navigation-button></wfc-navigation-button>
+
+    <wfc-icon-button>
+      <wfc-icon>search</wfc-icon>
+    </wfc-icon-button>
+
+    <wfc-icon-button>
+      <wfc-icon>delete</wfc-icon>
+    </wfc-icon-button>
   
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>search</wfc-icon>
-      </wfc-button>
-  
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">delete</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-primary>
-  
-    <wfc-bottom-app-bar-secondary id="bottom-ap-bar-secondary-one">
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>add</wfc-icon>
-      </wfc-button>
-  
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon>edit</wfc-icon>
-      </wfc-button>
-  
-      <wfc-button class="wfc-icon-button">
-        <wfc-icon class="outlined">favorite</wfc-icon>
-      </wfc-button>
-    </wfc-bottom-app-bar-secondary>
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>add</wfc-icon>
+    </wfc-icon-button>
+
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>edit</wfc-icon>
+    </wfc-icon-button>
+
+    <wfc-icon-button slot="secondary">
+      <wfc-icon>favorite</wfc-icon>
+    </wfc-icon-button>
   </wfc-bottom-app-bar>
 </body>
 

@@ -2,7 +2,6 @@ import WFCSurfaceElement from '../surface/component.js';
 import styles from './menu.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-// TODO nested arrow icon
 
 export default class WFCMenuElement extends WFCSurfaceElement {
   static tag = 'wfc-menu';

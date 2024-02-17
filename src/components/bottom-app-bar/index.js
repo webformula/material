@@ -1,70 +1,96 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
+import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-// TODO refactor
 
-export default class WFCBottomAppBarElement extends HTMLComponentElement {
+class WFCBottomAppBarElement extends HTMLComponentElement {
   static tag = 'wfc-bottom-app-bar';
+  static useShadowRoot = true;
+  static useTemplate = true;
+  static styleSheets = styles;
 
-  #autoHide;
+
+  #autoHide = false;
+  #secondaryHash;
   #scrollDirectionChange_bound = this.#scrollDirectionChange.bind(this);
   #hashchange_bound = this.#hashchange.bind(this);
-
+  #slotChange_bound = this.#slotChange.bind(this);
 
   constructor() {
     super();
 
+    this.render();
     document.body.classList.add('has-bottom-app-bar');
-    if (this.classList.contains('always-show')) document.body.classList.add('bottom-app-bar-always-show');
-    this.#autoHide = this.classList.contains('auto-hide');
-    if (this.#autoHide) document.body.classList.add('bottom-app-bar-auto-hide');
+    // if (this.classList.contains('always-show')) document.body.classList.add('bottom-app-bar-always-show');
+  }
+
+  template() {
+    return /*html*/`
+      <slot class="default-slot"></slot>
+      <slot name="secondary"></slot>
+    `;
   }
 
   connectedCallback() {
-    if (this.#autoHide) util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
-
-    if (this.querySelector('wfc-bottom-app-bar-secondary[hash]')) {
-      [...this.querySelectorAll('wfc-bottom-app-bar-secondary')].forEach(element => {
-        const id = element.getAttribute('id');
-        element.setAttribute('id', id || `bottom-app-bar-secondary-${util.uid()}`);
-      })
-      window.addEventListener('hashchange', this.#hashchange_bound);
-      this.#hashchange();
-    }
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound);
+    if (this.#secondaryHash) this.#hashchange();
   }
 
   disconnectedCallback() {
-    if (this.#autoHide) util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+    util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+    this.shadowRoot.removeEventListener('slotchange', this.#slotChange_bound);
     window.removeEventListener('hashchange', this.#hashchange_bound);
   }
+  
+
+  static get observedAttributesExtended() {
+    return [
+      ['auto-hide', 'boolean'],
+      ['secondary-hash', 'string']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    this[name] = newValue;
+  }
+
+  get autoHide() { return this.#autoHide; }
+  set autoHide(value) {
+    this.#autoHide = !!value;
+    this.toggleAttribute('auto-hide', this.#autoHide);
+    document.body.classList.toggle('bottom-app-bar-auto-hide', this.#autoHide);
+    if (this.#autoHide) util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
+    else util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
+  }
+
+  get secondaryHash() { return this.#secondaryHash; }
+  set secondaryHash(value) {
+    this.#secondaryHash = value;
+    if (!!this.#secondaryHash) window.addEventListener('hashchange', this.#hashchange_bound);
+    else window.removeEventListener('hashchange', this.#hashchange_bound);
+  }
+
 
   async showPrimary() {
-    const primary = this.querySelector('wfc-bottom-app-bar-primary');
-    if (!primary) throw Error('Must contain primary element "wfc-bottom-app-bar-primary" to use secondary');
-    if (!primary.classList.contains('hide')) return;
-
-    const currentSecondary = this.querySelector('wfc-bottom-app-bar-secondary.show');
-    if (currentSecondary) currentSecondary.classList.remove('show');
-
+    const primary = this.shadowRoot.querySelector('.default-slot');
     primary.classList.remove('hide');
-  }
 
-  async showSecondary(id) {
-    if (!id) return this.showPrimary();
-
-    const primary = this.querySelector('wfc-bottom-app-bar-primary');
-    if (!primary) throw Error('Must contain primary element "wfc-bottom-app-bar-primary" to use secondary');
-
-    const secondary = this.querySelector(`wfc-bottom-app-bar-secondary#${id}`);
-    if (!secondary) throw Error('Could not find secondary: "wfc-bottom-app-bar-secondary#${id}"');
-    if (secondary.classList.contains('show')) return;
-
-    const currentSecondary = this.querySelector('wfc-bottom-app-bar-secondary.show');
+    const currentSecondary = this.shadowRoot.querySelector('[name="secondary"].show');
     if (currentSecondary) currentSecondary.classList.remove('show');
-
-    primary.classList.add('hide')
-    secondary.classList.add('show');
   }
+
+  async showSecondary() {
+    const secondary = this.shadowRoot.querySelector('[name="secondary"]');
+    if (!secondary) {
+      console.error('Could not find secondary bottom-app-bar content');
+      return;
+    }
+    secondary.classList.add('show');
+
+    const primary = this.shadowRoot.querySelector('.default-slot');
+    primary.classList.add('hide');
+  }
+
 
   #scrollDirectionChange(direction) {
     this.classList.toggle('hide', direction === -1);
@@ -72,9 +98,12 @@ export default class WFCBottomAppBarElement extends HTMLComponentElement {
   }
 
   #hashchange() {
-    const secondaryByHash = this.querySelector(`wfc-bottom-app-bar-secondary[hash="${location.hash}"]`);
-    if (secondaryByHash) this.showSecondary(secondaryByHash.getAttribute('id'));
+    if (location.hash === this.#secondaryHash) this.showSecondary();
     else this.showPrimary();
+  }
+
+  #slotChange(event) {
+    event.target.assignedElements().forEach((el, i) => el.setAttribute('place', i + 1));
   }
 }
 
