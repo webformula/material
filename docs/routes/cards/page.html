@@ -13,554 +13,454 @@
       <li><a href="#fullscreen">Fullscreen card</a></li>
       <li><a href="#layout">Layouts (grid, list)</a></li>
       <li><a href="#dragreorder">Drag reorder</a></li>
+      <li><a href="#dragreorderswap">Drag reorder swap</a></li>
       <li><a href="#swipe-action">Swipe action</a></li>
     </ul>
   </nav>
 
   <div class="page-content-container">
-    <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-        <div class="supporting-text">There are three types of cards: elevated, filled, and outlined</div>
-      </div>
-    
-      <div class="card-content">
-        <wfc-card-group>
-          <wfc-card value="one">
-            <div class="card-content">
-              <div class="headline">Regular</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
-    
-          <wfc-card class="filled">
-            <div class="card-content">
-              <div class="headline">Filled</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
-    
-          <wfc-card class="outlined">
-            <div class="card-content">
-              <div class="headline">Outlined</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
+    <wfc-card2>
+      <div slot="headline">Example</div>
+      <div slot="supporting-text">There are three types of cards: elevated, filled, and outlined</div>
 
-          <wfc-card onclick="console.log('action')">
-            <div class="card-content">
-              <div class="headline">Actionable</div>
-              <div class="subhead">ripple</div>
-            </div>
-            <div class="ripple"></div>
-          </wfc-card>
-        </mgw-card-group>
-      </div>
-    </wfc-card>
-    
-    <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Basic card</div>
+      <wfc-card-group2>
+        <wfc-card2 value="one">
+          <div slot="headline">Regular</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
+      
+        <wfc-card2 filled>
+          <div slot="headline">Filled</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
+      
+        <wfc-card2 outlined>
+          <div slot="headline">Outlined</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
+      
+        <wfc-card2 onclick="console.log('action')">
+          <div slot="headline">Actionable</div>
+          <div slot="subhead">ripple</div>
+        </wfc-card2>
+      </mgw-card-group2>
+    </wfc-card2>
+
+    <wfc-card2 id="basic">
+      <div slot="headline">Basic card</div>
+
+      <div class="example" style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <wfc-card2 style="max-width: 320px">
+          <img slot="image" class="rounded medium" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
         
-        <div class="example" style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <wfc-card style="max-width: 320px">
-            <div class="card-image rounded size-medium">
-              <img alt="landscape"
-                src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-            </div>
-        
-            <div class="card-content">
-              <div class="headline">Headline</div>
-              <div class="subhead">Subhead</div>
-              <div class="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
-            </div>
-          </wfc-card>
+          <div slot="headline">Headline</div>
+          <div slot="subhead">Subhead</div>
+          <div slot="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
+          <div>Some other content. Just add your content without specifying slots</div>
+        </wfc-card2>
 
-          <wfc-card style="width: 220px; height: 120px;" onclick="console.log('action')">
-            <div class="card-content">
-              <div class="headline">Actionable</div>
-              <div class="subhead">Ripple</div>
-              <div class="supporting-text">Click to see ripple</div>
-            </div>
-            <div class="ripple"></div>
-          </wfc-card>
-        </div>
+        <wfc-card2 style="width: 220px; height: 120px;" onclick="console.log('action')">
+          <div slot="headline">Actionable</div>
+          <div slot="subhead">Ripple</div>
+          <div slot="supporting-text">Click to see ripple</div>
+        </wfc-card2>
       </div>
-
+    
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card>
-    <div class="card-image rounded size-medium">
-      <img alt="landscape"
-        src="..." />
-    </div>
+  ${page.escape(`<wfc-card2 style="max-width: 320px">
+    <img slot="image" class="rounded medium" alt="landscape" src="..." />
+    <div slot="headline">Headline</div>
+    <div slot="subhead">Subhead</div>
+    <div slot="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
+    <div>Some other content. Just add your content without specifying slots</div>
+  </wfc-card2>
   
-    <div class="card-content">
-      <div class="headline">Headline</div>
-      <div class="subhead">Subhead</div>
-      <div class="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.
-      </div>
-    </div>
-  </wfc-card>
-  
-  <wfc-card onclick="console.log('action')">
-    <div class="card-content">
-      <div class="headline">Actionable</div>
-      <div class="subhead">Ripple</div>
-      <div class="supporting-text">Click to see ripple</div>
-    </div>
-    <div class="ripple"></div>
-  </wfc-card>`)}
+  <wfc-card2 style="width: 220px; height: 120px;" onclick="console.log('action')">
+    <div slot="headline">Actionable</div>
+    <div slot="subhead">Ripple</div>
+    <div slot="supporting-text">Click to see ripple</div>
+  </wfc-card2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
+    <wfc-card2 id="types">
+      <div slot="headline">Card types</div>
 
-    <wfc-card id="types">
-      <div class="card-content">
-        <div class="headline">Card types</div>
-    
-        <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-          <wfc-card style="width: 200px">
-            <div class="card-content">
-              <div class="headline">Regular</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
-
-          <wfc-card class="filled" style="width: 200px">
-            <div class="card-content">
-              <div class="headline">Filled</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
-
-          <wfc-card class="outlined" style="width: 200px">
-            <div class="card-content">
-              <div class="headline">Outlined</div>
-              <div class="subhead">card</div>
-            </div>
-          </wfc-card>
-        </div>
+      <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+        <wfc-card2 style="width: 200px">
+          <div slot="headline">Regular</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
+      
+        <wfc-card2 filled style="width: 200px">
+          <div slot="headline">Filled</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
+      
+        <wfc-card2 outlined style="width: 200px">
+          <div slot="headline">Outlined</div>
+          <div slot="subhead">card</div>
+        </wfc-card2>
       </div>
-
+    
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card>
-    <div class="card-content" style="width: 200px">
-      <div class="headline">Regular</div>
-      <div class="subhead">card</div>
-    </div>
-  </wfc-card>
+  ${page.escape(`<wfc-card2>
+    <div slot="headline">Regular</div>
+    <div slot="subhead">card</div>
+  </wfc-card2>
   
-  <wfc-card class="filled" style="width: 200px">
-    <div class="card-content">
-      <div class="headline">Filled</div>
-      <div class="subhead">card</div>
-    </div>
-  </wfc-card>
+  <wfc-card2 filled>
+    <div slot="headline">Filled</div>
+    <div slot="subhead">card</div>
+  </wfc-card2>
   
-  <wfc-card class="outlined" style="width: 200px">
-    <div class="card-content">
-      <div class="headline">Outlined</div>
-      <div class="subhead">card</div>
-    </div>
-  </wfc-card>`)}
+  <wfc-card2 outlined>
+    <div slot="headline">Outlined</div>
+    <div slot="subhead">card</div>
+  </wfc-card2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
-    <wfc-card id="expanding">
-      <div class="card-content">
-        <div class="headline">Expanding card</div>
-    
-        <div class="example" style="display: flex; flex-wrap: wrap; gap: 20px;">
-          <wfc-card style="max-width: 320px">
-            <div class="card-image rounded size-medium">
-              <img alt="landscape"
-                src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+    <wfc-card2 id="expanding">
+      <div slot="headline">Expanding card</div>
+  
+      <div class="example" style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <wfc-card2 style="max-width: 320px">
+          <img slot="image" class="medium rounded" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+  
+          <div slot="headline">Headline</div>
+          <div slot="subhead">Subhead</div>
+  
+          <div slot="expanded">
+            <div class="supporting-text">
+              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+              Latin
+              literature
             </div>
+          </div>
+        </wfc-card2>
+  
+        <wfc-card2 style="max-width: 320px">
+          <img slot="image" class="rounded medium" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
           
-            <div class="card-content">
-              <div class="expand-arrow"></div>
-              <div class="headline">Headline</div>
-              <div class="subhead">Subhead</div>
-          
-              <div class="expanded">
-                <div class="supporting-text">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                  literature
-                </div>
-              </div>
-            </div>
-          </wfc-card>
+          <div slot="headline">Expanding with scroll</div>
+          <div slot="subhead">Subhead</div>
 
-          <wfc-card style="max-width: 320px">
-            <div class="card-image rounded size-medium">
-              <img alt="landscape"
-                src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-            </div>
+          <div slot="expanded">
+            <div class="supporting-text">
+              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+              Latin
+              literature
+              from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College
+              in
+              Virginia,
+              looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through
+              the
+              cites of
+              the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections
+              1.10.32 and
+              1.10.33
+              of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book
+              is a
+              treatise
+              on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum
+              dolor
+              sit
+              amet..", comes from a line in section 1.10.32.
           
-            <div class="card-content">
-              <div class="expand-arrow"></div>
-              <div class="headline">Expanding with scroll</div>
-              <div class="subhead">Subhead</div>
-          
-              <div class="expanded">
-                <div class="supporting-text">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                  literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in
-                  Virginia,
-                  looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the
-                  cites of
-                  the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
-                  1.10.33
-                  of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
-                  treatise
-                  on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
-                  sit
-                  amet..", comes from a line in section 1.10.32.
-                  
-                  The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-                  1.10.32 and
-                  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
-                  accompanied
-                  by
-                  English versions from the 1914 translation by H. Rackham.
-                </div>
-              </div>
+              The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
+              1.10.32 and
+              1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
+              accompanied
+              by
+              English versions from the 1914 translation by H. Rackham.
             </div>
-          </wfc-card>
-        </div>
+          </div>
+        </wfc-card2>
       </div>
-
+    
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card>
-    <div class="card-image rounded size-medium">
-      <img alt="landscape"
-        src="..." />
-    </div>
+  ${page.escape(`<wfc-card2>
+    <img slot="image" class="medium rounded" alt="landscape"
+      src="..." />
   
-    <div class="card-content">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <div class="headline">Headline</div>
-          <div class="subhead">Subhead</div>
-        </div>
-        <wfc-icon class="wfc-expander-arrow">expand_more</wfc-icon>
-      </div>
+    <div slot="headline">Headline</div>
+    <div slot="subhead">Subhead</div>
   
-      <div class="expanded">
-        <div class="supporting-text">
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-          literature
-        </div>
+    <div slot="expanded">
+      <div class="supporting-text">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+        Latin literature
       </div>
     </div>
-  </wfc-card>`)}
+  </wfc-card2>
+  
+  <wfc-card2 style="max-width: 320px">
+    <img slot="image" class="rounded medium" alt="landscape"
+      src="..." />
+  
+    <div slot="headline">Expanding with scroll</div>
+    <div slot="subhead">Subhead</div>
+  
+    <div slot="expanded">
+      <div class="supporting-text">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+        Latin
+      </div>
+    </div>
+  </wfc-card2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
-    <wfc-card id="fullscreen">
-      <div class="card-content">
-        <div class="headline">Fullscreen card</div>
-        <div class="subhead">Fullscreen card will expand to fullscreen on mobile devices. On desktops the card will open a modal</div>
-    
-        <div class="example">
-          <wfc-card class="fullscreen" style="max-width: 600px;">
-            <div class="card-image rounded size-medium">
-              <img alt="landscape"
-                src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-            </div>
-          
-            <div class="card-content">
-              <div class="contracted">
-                <div class="headline">Fullscreen</div>
-                <div class="subhead">card</div>
-              </div>
-          
-              <div class="expanded">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <div class="headline">Fullscreen Headline</div>
-                  <wfc-button class="wfc-icon-button filled-tonal">
-                    <wfc-icon>favorite</wfc-icon>
-                  </wfc-button>
-                </div>
-          
-                <div class="supporting-text">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                  literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in
-                  Virginia,
-                  looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the
-                  cites of
-                  the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
-                  1.10.33
-                  of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
-                  treatise
-                  on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
-                  sit
-                  amet..", comes from a line in section 1.10.32.
-          
-                  The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-                  1.10.32 and
-                  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
-                  accompanied
-                  by
-                  English versions from the 1914 translation by H. Rackham.
-                </div>
-          
-                <div class="supporting-text">
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                  literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in
-                  Virginia,
-                  looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the
-                  cites of
-                  the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
-                  1.10.33
-                  of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
-                  treatise
-                  on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
-                  sit
-                  amet..", comes from a line in section 1.10.32.
-          
-                  The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-                  1.10.32 and
-                  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
-                  accompanied
-                  by
-                  English versions from the 1914 translation by H. Rackham.
-                </div>
-              </div>
-            </div>
-          </wfc-card>
+    <wfc-card2 id="fullscreen">
+      <div slot="headline">Fullscreen card</div>
+      <div slot="subhead">Fullscreen card will expand to fullscreen on mobile devices. On desktops the card will open a modal</div>
+
+      <wfc-card2 fullscreen style="max-width: 600px;">
+        <img slot="image" class="rounded medium" alt="landscape"
+          src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+      
+        <div slot="headline">Fullscreen</div>
+        <div slot="subhead">card</div>
+      
+        <div slot="expanded">
+          <div class="supporting-text">
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+            Latin
+            literature
+            from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College
+            in
+            Virginia,
+            looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through
+            the
+            cites of
+            the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32
+            and
+            1.10.33
+            of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is
+            a
+            treatise
+            on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum
+            dolor
+            sit
+            amet..", comes from a line in section 1.10.32.
+      
+            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
+            1.10.32 and
+            1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
+            accompanied
+            by
+            English versions from the 1914 translation by H. Rackham.
+          </div>
+      
+          <div class="supporting-text">
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+            Latin
+            literature
+            from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College
+            in
+            Virginia,
+            looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through
+            the
+            cites of
+            the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32
+            and
+            1.10.33
+            of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is
+            a
+            treatise
+            on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum
+            dolor
+            sit
+            amet..", comes from a line in section 1.10.32.
+      
+            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
+            1.10.32 and
+            1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
+            accompanied
+            by
+            English versions from the 1914 translation by H. Rackham.
+          </div>
         </div>
-      </div>
-
+      </wfc-card2>
+    
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card class="fullscreen">
-    <div class="card-image rounded size-medium">
-      <img alt="landscape"
-        src="..." />
-    </div>
+  ${page.escape(`<wfc-card2 fullscreen>
+    <img slot="image" class="rounded medium" alt="landscape"
+      src="..." />
   
-    <div class="card-content">
-      <div class="contracted">
-        <div class="headline">Fullscreen</div>
-        <div class="subhead">card</div>
+    <div slot="headline">Fullscreen</div>
+    <div slot="subhead">card</div>
+  
+    <div slot="expanded">
+      <div class="supporting-text">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+        Latin
       </div>
   
-      <div class="expanded">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div class="headline">Fullscreen Headline</div>
-          <wfc-button class="wfc-icon-button filled-tonal">
-            <wfc-icon>favorite</wfc-icon>
-          </wfc-button>
-        </div>
-  
-        <div class="supporting-text">
-          ...
-
-        </div>
+      <div class="supporting-text">
+        ...
       </div>
     </div>
-  </wfc-card>`)}
+  </wfc-card2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
-    <wfc-card id="layout">
-      <div class="card-content">
-        <div class="headline">Grids and lists</div>
-        <div class="subhead">By default the container will auto swap between grid and list based on screen size. You can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
+    <wfc-card2 id="layout">
+      <div slot="headline">Grids and lists</div>
+      <div slot="subhead">By default the container will auto swap between grid and list based on screen size. You can for
+        it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
+
+      <wfc-card-group2>
+        ${page.cardArray.map(({ height }) => `
+        <wfc-card2 filled>
+          <img slot="image" class="rounded" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+      
+          <div slot="headline">Headline</div>
+          <div slot="subhead">Subhead</div>
+          <div slot="supporting-text">one two three four five six.</div>
+      
+          ${height !== '' ? `
+          <div slot="supporting-text">
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+            Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+            of classical Latin literature
+          </div>
+          ` : ''}
+        </wfc-card2>
+        `).join('\n')}
+      </wfc-card-group2>
     
-        <div class="example">
-          <wfc-card-group>
-            ${page.cardArray.map(({ height }) => `
-              <wfc-card class="filled">
-                <div class="card-image rounded">
-                  <img alt="landscape"
-                    src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-                </div>
-            
-                <div class="card-content">
-                  <div class="headline">Headline</div>
-                  <div class="subhead">Subhead</div>
-                  <div class="supporting-text">
-                    one two three four five six.
-                    ${height !== '' ? 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature' : ''}
-                  </div>
-                </div>
-              </wfc-card>
-            `).join('\n')}
-          </wfc-card-group>
-        </div>
-      </div>
-
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card-group>
+  ${page.escape(`<wfc-card-group2>
     ${page.cardArray.map((_, i) => `
-    <wfc-card></wfc-card>
+    <wfc-card2></wfc-card2>
     `).join('\n')}
-  </wfc-card-group>`)}
+  </wfc-card-group2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
-    <wfc-card id="dragreorder">
-      <div class="card-content">
-        <div class="headline">Drag reorder - move item position</div>
-        <div class="subhead">Press and hold on card to reorder</div>
-        <div class="supporting-text">By default the container will auto swap between grid and list based on screen size. You can
-          for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
-    
-        <div class="example">
-          <wfc-card-group class="reorder">
-            ${page.cardArray.map(({ height }, i) => `
-            <wfc-card class="${i} filled">
-              <div class="card-image rounded">
-                <img alt="landscape"
-                  src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-              </div>
-    
-              <div class="card-content">
-                <div class="headline">${i}</div>
-                <div class="subhead">Subhead</div>
-                <div class="supporting-text">
-                  one two three four five six.
-                </div>
-              </div>
-            </wfc-card>
-            `).join('\n')}
-          </wfc-card-group>
-        </div>
+    <wfc-card2 id="dragreorder">
+      <div slot="headline">Drag reorder - move item position</div>
+      <div slot="subhead">Press and hold on card to reorder</div>
+      <div slot="supporting-text">By default the container will auto swap between grid and list based on screen size. You
+        can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
 
-        <div class="headline" style="margin-top: 42px;">Drag reorder - swap two items</div>
-        <div class="subhead">Press and hold on card to reorder</div>
-        <div class="example">
-          <wfc-card-group class="reorder-swap">
-            ${page.cardArray.map(({ height }, i) => `
-            <wfc-card class="${i} filled">
-              <div class="card-image rounded">
-                <img alt="landscape"
-                  src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-              </div>
-        
-              <div class="card-content">
-                <div class="headline">${i}</div>
-                <div class="subhead">Subhead</div>
-                <div class="supporting-text">
-                  one two three four five six.
-                </div>
-              </div>
-            </wfc-card>
-            `).join('\n')}
-          </wfc-card-group>
-        </div>
-      </div>
+      <wfc-card-group2>
+        ${page.cardArray.map(({ height }, i) => `
+        <wfc-card2 class="${i}" filled reorder>
+          <img slot="image" class="rounded" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+      
+          <div slot="headline">${i}</div>
+          <div slot="subhead">Subhead</div>
+          <div slot="supporting-text">one two three four five six.</div>
+        </wfc-card2>
+        `).join('\n')}
+      </wfc-card-group2>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
-  <wfc-card-group class="reorder reorder-no-animation">
-    <wfc-card></wfc-card>
-    <wfc-card></wfc-card>
-    <wfc-card></wfc-card>
-  </wfc-card-group>`)}
+  <wfc-card-group2 class="reorder-no-animation">
+    <wfc-card2 reorder></wfc-card2>
+    <wfc-card2 reorder></wfc-card2>
+    <wfc-card2 reorder></wfc-card2>
+  </wfc-card-group2>`)}
         </code>
       </pre>
-
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<wfc-card-group class="reorder-swap">
-    <wfc-card></wfc-card>
-    <wfc-card></wfc-card>
-    <wfc-card></wfc-card>
-  </wfc-card-group>`)}
-        </code>
-      </pre>
-    </wfc-card>
+    </wfc-card2>
 
 
-
-    <wfc-card id="swipe-action">
-      <div class="card-content">
-        <div class="headline">Swipe actions</div>
-        <div class="subhead">Only works on mobile</div>
+    <wfc-card2 id="dragreorderswap">
+      <div slot="headline">Drag reorder - swap two items</div>
+      <div slot="subhead">Press and hold on card to reorder</div>
+      <div slot="supporting-text">By default the container will auto swap between grid and list based on screen size. You
+        can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
     
-        <div class="example">
-          <wfc-card style="max-width: 320px; margin-bottom: 8px;" value="favorite" onchange="console.log(event.detail)">
-            <wfc-card-swipe-action action="favorite" class="wfc-toggle">
-              <wfc-icon>favorite</wfc-icon>
-            </wfc-card-swipe-action>
-            
-            <div class="card-content">
-              <div class="headline">Favorite toggle</div>
-              <div class="subhead">Subhead</div>
-              <div class="supporting-text">
-                one two three four five six.
-              </div>
-            </div>
-          </wfc-card>
-
-          <wfc-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
-            <wfc-card-swipe-action action="remove" action-remove>
-              <wfc-icon>delete</wfc-icon>
-            </wfc-card-swipe-action>
-          
-            <div class="card-content">
-              <div class="headline">Remove</div>
-              <div class="subhead">Subhead</div>
-              <div class="supporting-text">
-                one two three four five six.
-              </div>
-            </div>
-          </wfc-card>
-        </div>
-      </div>
+      <wfc-card-group2>
+        ${page.cardArray.map(({ height }, i) => `
+        <wfc-card2 class="${i}" filled reorder-swap>
+          <img slot="image" class="rounded" alt="landscape"
+            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+    
+          <div slot="headline">${i}</div>
+          <div slot="subhead">Subhead</div>
+          <div slot="supporting-text">one two three four five six.</div>
+        </wfc-card2>
+        `).join('\n')}
+      </wfc-card-group2>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
-    <wfc-card-swipe-action action="favorite" class="wfc-toggle">
-      <wfc-icon>favorite</wfc-icon>
-    </wfc-card-swipe-action>
-  
-    <div class="card-content">
-      <div class="headline">Favorite toggle</div>
-      <div class="subhead">Subhead</div>
-      <div class="supporting-text">
-        one two three four five six.
-      </div>
-    </div>
-  </wfc-card>
-  
-  <wfc-card style="max-width: 320px;" value="delete" onchange="console.log(event.detail)">
-    <wfc-card-swipe-action action="remove" action-remove>
-      <wfc-icon>delete</wfc-icon>
-    </wfc-card-swipe-action>
-  
-    <div class="card-content">
-      <div class="headline">Remove</div>
-      <div class="subhead">Subhead</div>
-      <div class="supporting-text">
-        one two three four five six.
-      </div>
-    </div>
-  </wfc-card>`)}
+  ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
+  <wfc-card-group2 class="reorder-no-animation">
+    <wfc-card2 reorder-swap></wfc-card2>
+    <wfc-card2 reorder-swap></wfc-card2>
+    <wfc-card2 reorder-swap></wfc-card2>
+  </wfc-card-group2>`)}
         </code>
       </pre>
-    </wfc-card>
+    </wfc-card2>
+
+
+
+    <wfc-card2 id="swipe-action">
+      <div slot="headline">Swipe actions</div>
+      <div slot="subhead">Only works on mobile</div>
+
+      <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+        <wfc-icon slot="swipe-action" action="favorite" toggle>favorite</wfc-icon>
+        <div slot="headline">Favorite toggle</div>
+        <div slot="subhead">Subhead</div>
+        <div slot="supporting-text">one two three four five six.</div>
+      </wfc-card2>
+
+      <div style="height: 8px"></div>
+
+      <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+        <wfc-icon slot="swipe-action" action="remove" action-remove>delete</wfc-icon>
+        <div slot="headline">Remove</div>
+        <div slot="subhead">Subhead</div>
+        <div slot="supporting-text">one two three four five six.</div>
+      </wfc-card2>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+    <wfc-icon slot="swipe-action" action="favorite" toggle>favorite</wfc-icon>
+    <div slot="headline">Favorite toggle</div>
+    <div slot="subhead">Subhead</div>
+    <div slot="supporting-text">one two three four five six.</div>
+  </wfc-card2>
+  
+  <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+    <wfc-icon slot="swipe-action" action="remove" action-remove>delete</wfc-icon>
+    <div slot="headline">Remove</div>
+    <div slot="subhead">Subhead</div>
+    <div slot="supporting-text">one two three four five six.</div>
+  </wfc-card2>`)}
+        </code>
+      </pre>
+    </wfc-card2>
   </div>
 </section>

@@ -23,3 +23,25 @@ wfc-card-group > wfc-card.card-grid-cell {
 wfc-card-group.reorder {
   cursor: pointer;
 }
+
+
+wfc-card-group2 {
+  gap: 8px;
+}
+
+wfc-card-group2,
+wfc-card-group2.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--wfc-card-group-columns), 1fr);
+}
+
+body.window-compact wfc-card-group2:not(.grid),
+wfc-card-group2.list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+wfc-card-group2 > wfc-card.card-grid-cell {
+  height: fit-content;
+}
