@@ -3,8 +3,8 @@ import device from '../../core/device.js';
 
 // TODO keyboard controls
 
-class WFCCardGroupElement extends HTMLComponentElement {
-  static tag = 'wfc-card-group';
+class WFCCardGroupElement2 extends HTMLComponentElement {
+  static tag = 'wfc-card-group2';
   #autoSpanRow = this.classList.contains('wfc-auto-span-row');
   #observer = new MutationObserver(this.#onMutation.bind(this));
   #handleWindowState_bound = this.#handleWindowState.bind(this);
@@ -49,7 +49,7 @@ class WFCCardGroupElement extends HTMLComponentElement {
     this.classList.add('grid');
     this.classList.remove('list');
 
-    const cards = [...this.querySelectorAll('wfc-card')].map((element, i) => {
+    const cards = [...this.querySelectorAll('wfc-card2')].map((element, i) => {
       element.style.order = i;
       const innerContentHeight = [...element.children].reduce((a, b) => {
         // prevent ripple element from adjusting height
@@ -79,7 +79,7 @@ class WFCCardGroupElement extends HTMLComponentElement {
     const overFlow = this.scrollWidth - this.offsetWidth;
     if (overFlow > 0) {
       let cardWidth = 0;
-      [...this.querySelectorAll('wfc-card')].forEach(card => {
+      [...this.querySelectorAll('wfc-card2')].forEach(card => {
         if (card.offsetWidth > cardWidth) cardWidth = card.offsetWidth;
       });
       this.style.setProperty('--wfc-card-group-columns', Math.max(1, Math.floor(this.offsetWidth / cardWidth)));
@@ -102,4 +102,4 @@ class WFCCardGroupElement extends HTMLComponentElement {
     this.#observer.observe(this, { childList: true });
   }
 }
-customElements.define(WFCCardGroupElement.tag, WFCCardGroupElement);
+customElements.define(WFCCardGroupElement2.tag, WFCCardGroupElement2);
