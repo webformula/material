@@ -17,50 +17,48 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Basic</div>
-        
-        <div class="example" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-          <div style="display: flex; flex-direction: column;">
-            <wfc-select label="Label" placeholder="Placeholder...">
-              <wfc-option value="1">one</wfc-option>
-              <wfc-option value="2">two</wfc-option>
-              <wfc-option value="3">three</wfc-option>
-              <wfc-option value="4">four</wfc-option>
-              <wfc-option value="5">five</wfc-option>
-              <wfc-option value="6">six</wfc-option>
-            </wfc-select>
-        
-            <wfc-select label="Filter" filter>
-              <wfc-icon slot="leading-icon">search</wfc-icon>
-              <wfc-option value="1">one</wfc-option>
-              <wfc-option value="2">two</wfc-option>
-              <wfc-option value="3">three</wfc-option>
-              <wfc-option value="4">four</wfc-option>
-              <wfc-option value="5">five</wfc-option>
-              <wfc-option value="6">six</wfc-option>
-            </wfc-select>
-          </div>
-        
-          <div style="display: flex; flex-direction: column;">
-            <wfc-select label="Value attr" value="1">
-              <wfc-option value="1">one</wfc-option>
-              <wfc-option value="2">two</wfc-option>
-              <wfc-option value="3">three</wfc-option>
-              <wfc-option value="4">four</wfc-option>
-              <wfc-option value="5">five</wfc-option>
-              <wfc-option value="6">six</wfc-option>
-            </wfc-select>
-        
-            <wfc-select label="Selected attr (outlined)" class="outlined">
-              <wfc-option value="1" selected>one</wfc-option>
-              <wfc-option value="2">two</wfc-option>
-              <wfc-option value="3">three</wfc-option>
-              <wfc-option value="4">four</wfc-option>
-              <wfc-option value="5">five</wfc-option>
-              <wfc-option value="6">six</wfc-option>
-            </wfc-select>
-          </div>
+      <div slot="headline">Basic</div>
+
+      <div class="example" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+        <div style="display: flex; flex-direction: column;">
+          <wfc-select label="Label" placeholder="Placeholder...">
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+          </wfc-select>
+      
+          <wfc-select label="Filter" filter>
+            <wfc-icon slot="leading-icon">search</wfc-icon>
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+          </wfc-select>
+        </div>
+      
+        <div style="display: flex; flex-direction: column;">
+          <wfc-select label="Value attr" value="1">
+            <wfc-option value="1">one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+          </wfc-select>
+      
+          <wfc-select label="Selected attr (outlined)" class="outlined">
+            <wfc-option value="1" selected>one</wfc-option>
+            <wfc-option value="2">two</wfc-option>
+            <wfc-option value="3">three</wfc-option>
+            <wfc-option value="4">four</wfc-option>
+            <wfc-option value="5">five</wfc-option>
+            <wfc-option value="6">six</wfc-option>
+          </wfc-select>
         </div>
       </div>
 
@@ -107,25 +105,22 @@
 
 
     <wfc-card id="filter">
-      <div class="card-content">
-        <div class="headline">Filter</div>
-        <div class="supporting-text">Filtering hides items that do not fuzzy match the input. The most likely match will also add a textfield suggestion and hitting the enter key will select it.</div>
-    
-        <div class="example">
-          <wfc-select label="Label" filter>
-            <wfc-option value="1">one</wfc-option>
-            <wfc-option value="2">two</wfc-option>
-            <wfc-option value="3">three</wfc-option>
-            <wfc-option value="4">four</wfc-option>
-            <wfc-option value="5">five</wfc-option>
-            <wfc-option value="6">six</wfc-option>
-            <wfc-option value="7">seven</wfc-option>
-            <wfc-option value="8">eight</wfc-option>
-            <wfc-option value="9">nine</wfc-option>
-            <wfc-option value="10">ten</wfc-option>
-          </wfc-select>
-        </div>
-      </div>
+      <div slot="headline">Filter</div>
+      <div slot="supporting-text">Filtering hides items that do not fuzzy match the input. The most likely match will also
+        add a textfield suggestion and hitting the enter key will select it.</div>
+
+      <wfc-select label="Label" filter>
+        <wfc-option value="1">one</wfc-option>
+        <wfc-option value="2">two</wfc-option>
+        <wfc-option value="3">three</wfc-option>
+        <wfc-option value="4">four</wfc-option>
+        <wfc-option value="5">five</wfc-option>
+        <wfc-option value="6">six</wfc-option>
+        <wfc-option value="7">seven</wfc-option>
+        <wfc-option value="8">eight</wfc-option>
+        <wfc-option value="9">nine</wfc-option>
+        <wfc-option value="10">ten</wfc-option>
+      </wfc-select>
     
       <pre>
         <code class="language-html">
@@ -147,25 +142,23 @@
 
 
     <wfc-card id="async-filter">
-      <div class="card-content">
-        <div class="headline">Async filter</div>
-        <div class="supporting-text">Async filter will trigger a <b>filter</b> event that is debounced. There will be a progress bar shown at the top. You can resolve the select two ways. You can update the options or reset the options (both shown below).</div>
-        
-        <div class="example">
-          <wfc-select id="async-filter-select" label="Label" filter async>
-            <wfc-option value="1">one</wfc-option>
-            <wfc-option value="2">two</wfc-option>
-            <wfc-option value="3">three</wfc-option>
-            <wfc-option value="4">four</wfc-option>
-            <wfc-option value="5">five</wfc-option>
-            <wfc-option value="6">six</wfc-option>
-            <wfc-option value="7">seven</wfc-option>
-            <wfc-option value="8">eight</wfc-option>
-            <wfc-option value="9">nine</wfc-option>
-            <wfc-option value="10">ten</wfc-option>
-          </wfc-select>
-        </div>
-      </div>
+      <div slot="headline">Async filter</div>
+      <div slot="supporting-text">Async filter will trigger a <b>filter</b> event that is debounced. There will be a progress
+        bar shown at the top. You can resolve the select two ways. You can update the options or reset the options (both shown
+        below).</div>
+
+      <wfc-select id="async-filter-select" label="Label" filter async>
+        <wfc-option value="1">one</wfc-option>
+        <wfc-option value="2">two</wfc-option>
+        <wfc-option value="3">three</wfc-option>
+        <wfc-option value="4">four</wfc-option>
+        <wfc-option value="5">five</wfc-option>
+        <wfc-option value="6">six</wfc-option>
+        <wfc-option value="7">seven</wfc-option>
+        <wfc-option value="8">eight</wfc-option>
+        <wfc-option value="9">nine</wfc-option>
+        <wfc-option value="10">ten</wfc-option>
+      </wfc-select>
 
       <pre>
         <code class="language-html">

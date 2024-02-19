@@ -17,10 +17,9 @@
 
   <div class="page-content-container">
     <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-        <div class="supporting-text">There are two types of progress indicators: Linear and circular</div>
-      </div>
+      <div slot="headline">Example</div>
+      <div slot="supporting-text">There are two types of progress indicators: Linear and circular</div>
+
       <div class="card-content" style="display: flex; flex-direction: column; gap: 24px">
         <wfc-progress-linear value="0.4"></wfc-progress-linear>
         <wfc-progress-circular value="0.4" style="margin: 0 auto;"></wfc-progress-circular>
@@ -30,16 +29,14 @@
 
     
     <wfc-card class="wfc-no-states" id="linear_determinate">
-      <div class="card-content">
-        <div class="headline">Linear</div>
-        <div class="subhead">'max' attribute default = 1</div>
-        
-        <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
-          <div style="margin-top: 12px;">Determinate</div>
-          <wfc-progress-linear value="0.3"></wfc-progress-linear>
-          <div style="margin-top: 12px;">Indeterminate</div>
-          <wfc-progress-linear indeterminate></wfc-progress-linear>
-        </div>
+      <div slot="headline">Linear</div>
+      <div slot="subhead">'max' attribute default = 1</div>
+
+      <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="margin-top: 12px;">Determinate</div>
+        <wfc-progress-linear value="0.3"></wfc-progress-linear>
+        <div style="margin-top: 12px;">Indeterminate</div>
+        <wfc-progress-linear indeterminate></wfc-progress-linear>
       </div>
 
       <pre>
@@ -53,17 +50,15 @@
       </pre>
     </wfc-card>
 
-    <wfc-card class="wfc-no-states" id="circular_determinate">  
-      <div class="card-content">
-        <div class="headline">Circular determinate</div>
-        <div class="subhead">'max' attribute default = 1</div>
-        
-        <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
-          <div style="margin-top: 12px;">Determinate</div>
-          <wfc-progress-circular value="0.3"></wfc-progress-circular>
-          <div style="margin-top: 12px;">Indeterminate</div>
-          <wfc-progress-circular indeterminate></wfc-progress-circular>
-        </div>
+    <wfc-card class="wfc-no-states" id="circular_determinate">
+      <div slot="headline">Circular determinate</div>
+      <div slot="subhead">'max' attribute default = 1</div>
+
+      <div class="example" style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="margin-top: 12px;">Determinate</div>
+        <wfc-progress-circular value="0.3"></wfc-progress-circular>
+        <div style="margin-top: 12px;">Indeterminate</div>
+        <wfc-progress-circular indeterminate></wfc-progress-circular>
       </div>
 
       <pre>

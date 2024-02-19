@@ -19,30 +19,27 @@
 
   <div class="page-content-container">
     <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-        <div class="supporting-text">This section contains component attributes, token mappings, and default values for
-          quick reference or building your own
-          design files and implementations</div>
-      </div>
-      <div class="card-content" style="display: flex; align-items: center; gap: 8px;">
-        <wfc-fab class="large">
-          <wfc-icon>edit</wfc-icon>
-        </wfc-fab>
-    
-        <wfc-fab class="surface">
-          <wfc-icon>edit</wfc-icon>
-        </wfc-fab>
-    
-        <wfc-fab class="small tertiary">
-          <wfc-icon>edit</wfc-icon>
-        </wfc-fab>
-    
-        <wfc-fab>
-          <wfc-icon>edit</wfc-icon>
-          <div slot="label">Edit</div>
-        </wfc-fab>
-      </div>
+      <div slot="headline">Example</div>
+      <div slot="supporting-text">This section contains component attributes, token mappings, and default values for
+        quick reference or building your own
+        design files and implementations</div>
+
+      <wfc-fab class="large">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="surface">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="small tertiary">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab>
+        <wfc-icon>edit</wfc-icon>
+        <div slot="label">Edit</div>
+      </wfc-fab>
 
       <pre>
         <code class="language-html">
@@ -67,26 +64,24 @@
     </wfc-card>
 
     <wfc-card id="positioning">
-      <div class="card-content">
-        <div class="headline">FAB positioning</div>
+      <div slot="headline">FAB positioning</div>
+
+      <div class="example" style="height: 200px; position: relative;">
+        <wfc-fab class="position-bottom-right">
+          <wfc-icon>edit</wfc-icon>
+        </wfc-fab>
         
-        <div class="example" style="height: 200px; position: relative;">
-          <wfc-fab class="position-bottom-right">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
+        <wfc-fab class="position-bottom-left">
+          <wfc-icon>edit</wfc-icon>
+        </wfc-fab>
         
-          <wfc-fab class="position-bottom-left">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
+        <wfc-fab class="position-top-right">
+          <wfc-icon>edit</wfc-icon>
+        </wfc-fab>
         
-          <wfc-fab class="position-top-right">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        
-          <wfc-fab class="position-top-left">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        </div>
+        <wfc-fab class="position-top-left">
+          <wfc-icon>edit</wfc-icon>
+        </wfc-fab>
       </div>
 
       <pre>
@@ -112,27 +107,23 @@
 
 
     <wfc-card id="colors">
-      <div class="card-content">
-        <div class="headline">FAB colors</div>
-        
-        <div class="example" style="display: flex; gap: 8px;">
-          <wfc-fab>
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        
-          <wfc-fab class="surface">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        
-          <wfc-fab class="secondary">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        
-          <wfc-fab class="tertiary">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        </div>
-      </div>
+      <div slot="headline">FAB colors</div>
+
+      <wfc-fab>
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="surface">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="secondary">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="tertiary">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
 
       <pre>
         <code class="language-html">
@@ -157,23 +148,19 @@
 
 
     <wfc-card id="sizes">
-      <div class="card-content">
-        <div class="headline">FAB sizes</div>
-        
-        <div class="example" style="display: flex; gap: 12px;">
-          <wfc-fab class="small">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
+      <div slot="headline">FAB sizes</div>
 
-          <wfc-fab>
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        
-          <wfc-fab class="large">
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        </div>
-      </div>
+      <wfc-fab class="small">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab>
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
+      
+      <wfc-fab class="large">
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
 
       <pre>
         <code class="language-html">
@@ -194,16 +181,12 @@
 
 
     <wfc-card id="label">
-      <div class="card-content">
-        <div class="headline">FAB label</div>
-        
-        <div class="example">
-          <wfc-fab>
-            <span slot="label">Label</span>
-            <wfc-icon>edit</wfc-icon>
-          </wfc-fab>
-        </div>
-      </div>
+      <div slot="headline">FAB label</div>
+
+      <wfc-fab>
+        <span slot="label">Label</span>
+        <wfc-icon>edit</wfc-icon>
+      </wfc-fab>
 
       <pre>
         <code class="language-html">
@@ -216,26 +199,24 @@
     </wfc-card>
 
     <wfc-card id="fixed">
-      <div class="card-content">
-        <div class="headline">Fixed position</div>
-    
-        <div class="example" style="flex-direction: column; display: flex;">
-          The FAB in the bottom right corner of the page. If you do not set it to fixed then it would be bound to the bottom
-          right of this container.
-          <wfc-switch style="width: 200px"
-            onchange="document.querySelector('#fixed-fab').classList.toggle('fixed', !this.checked)">Toggle fixed</wfc-switch>
-          <wfc-switch id="hide-switch" style="width: 200px"
-            onchange="page.toggleHideStates({hide: this.checked})">Toggle auto hide
-          </wfc-switch>
-          <wfc-switch id="hide-label-switch" style="width: 200px" checked
-            onchange="page.toggleHideStates({hideLabel: this.checked})">Toggle
-            auto hide label
-          </wfc-switch>
-          <wfc-fab id="fixed-fab" auto-hide-label class="position-bottom-right fixed">
-            <wfc-icon>edit</wfc-icon>
-            <span slot="label">Example</span>
-          </wfc-fab>
-        </div>
+      <div slot="headline">Fixed position</div>
+
+      <div class="example" style="flex-direction: column; display: flex;">
+        The FAB in the bottom right corner of the page. If you do not set it to fixed then it would be bound to the bottom
+        right of this container.
+        <wfc-switch style="width: 200px"
+          onchange="document.querySelector('#fixed-fab').classList.toggle('fixed', !this.checked)">Toggle fixed</wfc-switch>
+        <wfc-switch id="hide-switch" style="width: 200px"
+          onchange="page.toggleHideStates({hide: this.checked})">Toggle auto hide
+        </wfc-switch>
+        <wfc-switch id="hide-label-switch" style="width: 200px" checked
+          onchange="page.toggleHideStates({hideLabel: this.checked})">Toggle
+          auto hide label
+        </wfc-switch>
+        <wfc-fab id="fixed-fab" auto-hide-label class="position-bottom-right fixed">
+          <wfc-icon>edit</wfc-icon>
+          <span slot="label">Example</span>
+        </wfc-fab>
       </div>
     
       <pre>

@@ -19,16 +19,12 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Date picker</div>
-
-        <div class="example">
-          <wfc-textfield type="date" label="date">
-            <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
-            <wfc-date-picker slot="picker"></wfc-date-picker>
-          </wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Date picker</div>
+      
+      <wfc-textfield type="date" label="date">
+        <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
+        <wfc-date-picker slot="picker"></wfc-date-picker>
+      </wfc-textfield>
 
       <pre>
         <code class="language-html">
@@ -42,40 +38,33 @@
 
 
     <wfc-card id="modal">
-      <div class="card-content">
-        <div class="headline">Modal</div>
-        <div class="supporting-text">Modals can be forced by adding a [modal] attribute. They will automatically be used on compact windows</div>
-    
-        <div class="example">
-          <wfc-textfield type="date" label="date" modal>
-            <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
-            <wfc-date-picker slot="picker"></wfc-date-picker>
-          </wfc-textfield>
-        </div>
-      </div>
-    
-      <pre>
-            <code class="language-html">
-      ${page.escape(`<wfc-textfield type="date" label="date" modal>
+      <div slot="headline">Modal</div>
+      <div slot="supporting-text">Modals can be forced by adding a [modal] attribute. They will automatically be used on
+        compact windows</div>
+
+      <wfc-textfield type="date" label="date" modal>
         <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
         <wfc-date-picker slot="picker"></wfc-date-picker>
-      </wfc-textfield>`)}
-            </code>
-          </pre>
+      </wfc-textfield>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-textfield type="date" label="date" modal>
+    <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
+    <wfc-date-picker slot="picker"></wfc-date-picker>
+  </wfc-textfield>`)}
+        </code>
+      </pre>
     </wfc-card>
 
 
     <wfc-card id="dateminmax">
-      <div class="card-content">
-        <div class="headline">Min max</div>
-    
-        <div class="example">
-          <wfc-textfield type="date" label="date" min="${page.min}" max="${page.max}">
-            <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
-            <wfc-date-picker slot="picker"></wfc-date-picker>
-          </wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Min max</div>
+
+      <wfc-textfield type="date" label="date" min="${page.min}" max="${page.max}">
+        <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
+        <wfc-date-picker slot="picker"></wfc-date-picker>
+      </wfc-textfield>
     
       <pre>
         <code class="language-html">
@@ -88,21 +77,17 @@
     </wfc-card>
 
     <wfc-card id="daterange">
-      <div class="card-content">
-        <div class="headline">Date range</div>
-    
-        <div class="example">
-            <wfc-textfield id="start" class="hide-date-icon" value="2024-01-01" type="date" label="Start">
-              <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
-            </wfc-textfield>
+      <div slot="headline">Date range</div>
 
-            <wfc-textfield id="end" class="hide-date-icon" value="2024-02-01" type="date" label="End">
-              <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
-            </wfc-textfield>
-
-            <wfc-date-range-picker start-textfield="#start" end-textfield="#end"></wfc-date-range-picker>
-        </div>
-      </div>
+      <wfc-textfield id="start" class="hide-date-icon" value="2024-01-01" type="date" label="Start">
+        <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
+      </wfc-textfield>
+      
+      <wfc-textfield id="end" class="hide-date-icon" value="2024-02-01" type="date" label="End">
+        <wfc-icon slot="leading-icon">calendar_today</wfc-icon>
+      </wfc-textfield>
+      
+      <wfc-date-range-picker start-textfield="#start" end-textfield="#end"></wfc-date-range-picker>
     
       <pre>
         <code class="language-html">
@@ -120,13 +105,9 @@
     </wfc-card>
 
     <wfc-card id="native">
-      <div class="card-content">
-        <div class="headline">Date native component</div>
-    
-        <div class="example">
-          <wfc-textfield type="date" label="Modal"></wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Date native component</div>
+
+      <wfc-textfield type="date" label="Modal"></wfc-textfield>
     
       <pre>
         <code class="language-html">
@@ -136,19 +117,15 @@
     </wfc-card>
 
     <wfc-card id="no">
-      <div class="card-content">
-        <div class="headline">Date no component</div>
-    
-        <div class="example">
-          <wfc-textfield class="hide-date-icon" type="date" label="No modal"></wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Date no component</div>
+
+      <wfc-textfield class="hide-date-icon" type="date" label="No modal"></wfc-textfield>
     
       <pre>
-            <code class="language-html">
-      ${page.escape(`<wfc-textfield class="hide-date-icon" type="date" label="date"></wfc-textfield>`)}
-            </code>
-          </pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-textfield class="hide-date-icon" type="date" label="date"></wfc-textfield>`)}
+        </code>
+      </pre>
     </wfc-card>
   </div>
 </section>

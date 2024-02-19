@@ -15,13 +15,9 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Basic</div>
-        
-        <div class="example">
-          <wfc-button onclick="page.basic();">Show</wfc-button>
-        </div>
-      </div>
+      <div slot="headline">Basic</div>
+      
+      <wfc-button onclick="page.basic();">Show</wfc-button>
 
       <pre>
         <code class="language-javascript">
@@ -36,13 +32,9 @@
     </wfc-card>
 
     <wfc-card id="action">
-      <div class="card-content">
-        <div class="headline">With action</div>
-        
-        <div class="example">
-          <wfc-button onclick="page.action();">Show</wfc-button>
-        </div>
-      </div>
+      <div slot="headline">With action</div>
+
+      <wfc-button onclick="page.action();">Show</wfc-button>
 
       <pre>
         <code class="language-javascript">
@@ -61,13 +53,9 @@
     </wfc-card>
 
     <wfc-card id="no-close">
-      <div class="card-content">
-        <div class="headline">No close button and longer time</div>
-    
-        <div class="example">
-          <wfc-button onclick="page.noClose();">Show</wfc-button>
-        </div>
-      </div>
+      <div slot="headline">No close button and longer time</div>
+
+      <wfc-button onclick="page.noClose();">Show</wfc-button>
     
       <pre>
         <code class="language-javascript">

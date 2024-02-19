@@ -18,16 +18,12 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Time</div>
-    
-        <div class="example">
-          <wfc-textfield label="Time" type="time">
-            <wfc-icon slot="leading-icon">schedule</wfc-icon>
-            <wfc-time-picker slot="picker"></wfc-time-picker>
-          </wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Time</div>
+
+      <wfc-textfield label="Time" type="time">
+        <wfc-icon slot="leading-icon">schedule</wfc-icon>
+        <wfc-time-picker slot="picker"></wfc-time-picker>
+      </wfc-textfield>
     
       <pre>
         <code class="language-html">
@@ -40,17 +36,14 @@
     </wfc-card>
 
     <wfc-card id="hour24">
-      <div class="card-content">
-        <div class="headline">Time formatted in 24 hours</div>
-        <div class="supporting-text">The browser controls the input formate based on locale. You can force the time picker to be 24 hour format.</div>
-    
-        <div class="example">
-          <wfc-textfield label="Time" type="time">
-            <wfc-icon slot="leading-icon">schedule</wfc-icon>
-            <wfc-time-picker hour24 slot="picker"></wfc-time-picker>
-          </wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Time formatted in 24 hours</div>
+      <div slot="supporting-text">The browser controls the input formate based on locale. You can force the time picker to be
+        24 hour format.</div>
+
+      <wfc-textfield label="Time" type="time">
+        <wfc-icon slot="leading-icon">schedule</wfc-icon>
+        <wfc-time-picker hour24 slot="picker"></wfc-time-picker>
+      </wfc-textfield>
     
       <pre>
         <code class="language-html">
@@ -63,22 +56,18 @@
     </wfc-card>
 
     <wfc-card id="step">
-      <div class="card-content">
-        <div class="headline">Step</div>
-        <div class="supporting-text">The step attribute is in seconds</div>
-    
-        <div class="example">
-          <wfc-textfield label="10 min step" type="time" step="600">
-            <wfc-icon slot="leading-icon">schedule</wfc-icon>
-            <wfc-time-picker slot="picker"></wfc-time-picker>
-          </wfc-textfield>
+      <div slot="headline">Step</div>
+      <div slot="supporting-text">The step attribute is in seconds</div>
 
-          <wfc-textfield label="2 hour step" type="time" step="7200">
-            <wfc-icon slot="leading-icon">schedule</wfc-icon>
-            <wfc-time-picker slot="picker"></wfc-time-picker>
-          </wfc-textfield>
-        </div>
-      </div>
+      <wfc-textfield label="10 min step" type="time" step="600">
+        <wfc-icon slot="leading-icon">schedule</wfc-icon>
+        <wfc-time-picker slot="picker"></wfc-time-picker>
+      </wfc-textfield>
+      
+      <wfc-textfield label="2 hour step" type="time" step="7200">
+        <wfc-icon slot="leading-icon">schedule</wfc-icon>
+        <wfc-time-picker slot="picker"></wfc-time-picker>
+      </wfc-textfield>
     
       <pre>
         <code class="language-html">
@@ -96,13 +85,9 @@
     </wfc-card>
 
     <wfc-card id="native">
-      <div class="card-content">
-        <div class="headline">Native component</div>
-    
-        <div class="example">
-          <wfc-textfield label="Browser picker" type="time" style="width: 155px"></wfc-textfield>
-        </div>
-      </div>
+      <div slot="headline">Native component</div>
+
+      <wfc-textfield label="Browser picker" type="time" style="width: 155px"></wfc-textfield>
     
       <pre>
         <code class="language-html">

@@ -14,9 +14,7 @@
 
   <div class="page-content-container">
     <wfc-card id="install">
-      <div class="card-content">
-        <div class="headline">Installation</div>
-      </div>
+      <div slot="headline">Installation</div>
       <pre>
         <code class="language-bash">
   ${`npm install @webformula/material`}
@@ -26,9 +24,7 @@
 
 
     <wfc-card id="import">
-      <div class="card-content">
-        <div class="headline">Import components</div>
-      </div>
+      <div slot="headline">Import components</div>
       
       <pre>
         <code class="language-javascript">
@@ -83,26 +79,21 @@
   import util from '@webformula/material/services/util';`}
         </code>
       </pre>
-
-      <div class="card-content" style="margin-top: 12px">
-        <div class="subheader">CDN</div>
-        <div class="supporting-text">not recommended</div>
-      </div>
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- import in index.html - NOT recommended  -->
+  ${page.escape(`
+  
+  <!-- CDN script tag - NOT recommended  -->
   <script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/material.js"></script>`)}
         </code>
       </pre>
     </wfc-card>
 
     <wfc-card id="fonts">
-      <div class="card-content">
-        <div class="headline">Loading fonts and icons</div>
-        <div class="supporting-text">For icons this uses Googles Material icon font. All component required icons are
+      <div slot="headline">Loading fonts and icons</div>
+      <div slot="supporting-text">For icons this uses Googles Material icon font. All component required icons are
         packed in with library. Only needed if using the wfc-icon component</div>
-        <a href="https://fonts.google.com">Google fonts</a>
-      </div>
+      <a slot="supporting-text" href="https://fonts.google.com">Google fonts</a>
 
       <pre>
         <code class="language-css">

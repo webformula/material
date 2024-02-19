@@ -15,10 +15,8 @@
 
   <div class="page-content-container">
     <wfc-card id="util">
-      <div class="card-content">
-        <div class="headline">Util</div>
-        <div class="subheader">Methods for various use cases</div>
-      </div>
+      <div slot="headline">Util</div>
+      <div slot="subhead">Methods for various use cases</div>
 
       <pre>
         <code class="language-javascript">
@@ -43,10 +41,8 @@
 
 
     <wfc-card id="date">
-      <div class="card-content">
-        <div class="headline">Date</div>
-        <div class="subheader">Wrapper class around Date and Intl.DateTimeFormat, used by date pickers</div>
-      </div>
+      <div slot="headline">Date</div>
+      <div slot="subhead">Wrapper class around Date and Intl.DateTimeFormat, used by date pickers</div>
     
       <pre>
         <code class="language-javascript">
@@ -98,19 +94,16 @@
 
 
     <wfc-card id="device">
-      <div class="card-content">
-        <div class="headline">Device</div>
-        <div class="subheader">Used to determine information about current device</div>
-      </div>
+      <div slot="headline">Device</div>
+      <div slot="subhead">Used to determine information about current device</div>
     
       <pre>
         <code class="language-javascript">
   ${`import { wfcDevice } from '@webformula/material/services';
 
-  wfcDevice.isMobile;
-  wfcDevice.isIOS;
-  wfcDevice.isAndroid;
-  wfcDevice.hasTouch;`}
+  wfcDevice.state; // expanded - medium - compact
+  wfcDevice.hourCycle; // h12 - h24
+  wfcDevice.orientation; // landscape - portrait`}
         </code>
       </pre>
     </wfc-card>

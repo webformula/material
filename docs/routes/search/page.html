@@ -18,17 +18,14 @@ navigation</div>
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Standard</div>
-        <div class="supporting-text">By default the search event only triggers on enter key. Look at next example for how to change that.</div>
+      <div slot="headline">Standard</div>
+      <div slot="supporting-text">By default the search event only triggers on enter key. Look at next example for how to
+        change that.</div>
 
-        <div class="example">
-          <wfc-search id="one" placeholder="search" incremental>
-            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-            <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
-          </wfc-search>
-        </div>
-      </div>
+      <wfc-search id="one" placeholder="search" incremental>
+        <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+        <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+      </wfc-search>
 
       <pre>
         <code class="language-html">
@@ -72,16 +69,13 @@ navigation</div>
     </wfc-card>
 
     <wfc-card id="history">
-      <div class="card-content">
-        <div class="headline">History</div>
-        <div class="supporting-text">Sow historical suggestions. History is stored in localstorage to maintains across refreshes</div>
-    
-        <div class="example">
-          <wfc-search id="two" placeholder="search" incremental history>
-            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-          </wfc-search>
-        </div>
+      <div slot="headline">History</div>
+      <div slot="supporting-text">Sow historical suggestions. History is stored in localstorage to maintains across refreshes
       </div>
+
+      <wfc-search id="two" placeholder="search" incremental history>
+        <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+      </wfc-search>
     
       <pre>
         <code class="language-html">
@@ -110,16 +104,12 @@ navigation</div>
     </wfc-card>
 
     <wfc-card id="speech">
-      <div class="card-content">
-        <div class="headline">Speech</div>
-        <div class="subheader">Speech recognition will only show if browser supports it</div>
-    
-        <div class="example">
-          <wfc-search id="three" placeholder="search" incremental speech>
-            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-          </wfc-search>
-        </div>
-      </div>
+      <div slot="headline">Speech</div>
+      <div slot="subhead">Speech recognition will only show if browser supports it</div>
+
+      <wfc-search id="three" placeholder="search" incremental speech>
+        <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+      </wfc-search>
     
       <pre>
         <code class="language-html">
@@ -132,18 +122,14 @@ navigation</div>
 
 
     <wfc-card id="sections">
-      <div class="card-content">
-        <div class="headline">Containers</div>
-        <div class="subheader">You can show results in multiple containers with headers</div>
-    
-        <div class="example">
-          <wfc-search id="four" placeholder="search" incremental>
-            <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-            <wfc-search-container id="primary" label="Primary"></wfc-search-container>
-            <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
-          </wfc-search>
-        </div>
-      </div>
+      <div slot="headline">Containers</div>
+      <div slot="subhead">You can show results in multiple containers with headers</div>
+
+      <wfc-search id="four" placeholder="search" incremental>
+        <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+        <wfc-search-container id="primary" label="Primary"></wfc-search-container>
+        <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+      </wfc-search>
     
       <pre>
         <code class="language-html">

@@ -17,25 +17,22 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Basic menu</div>
-        <div class="supporting-text">Menus can be connected top controls by adding a selector or nesting them inside.</div>
-        
-        <div class="example">
-          <wfc-button id="control">Control</wfc-button>
-          <wfc-menu anchor="#control">
-            <wfc-menu-item>
-              <wfc-icon slot="start">content_copy</wfc-icon>
-              copy
-            </wfc-menu-item>
-            <wfc-menu-item>
-              <wfc-icon slot="start">content_paste</wfc-icon>
-              paste
-            </wfc-menu-item>
-            <wfc-menu-item>plain</wfc-menu-item>
-          </wfc-menu>
-        </div>
-      </div>
+      <div slot="headline">Basic menu</div>
+      <div slot="supporting-text">Menus can be connected top controls by adding a selector or nesting them inside.</div>
+
+      <wfc-button id="control" class="filled">Control</wfc-button>
+      <wfc-menu anchor="#control">
+        <wfc-menu-item>
+          <wfc-icon slot="start">content_copy</wfc-icon>
+          copy
+        </wfc-menu-item>
+        <wfc-menu-item>
+          <wfc-icon slot="start">content_paste</wfc-icon>
+          paste
+        </wfc-menu-item>
+        <wfc-menu-item>plain</wfc-menu-item>
+        <wfc-menu-item>plain</wfc-menu-item>
+      </wfc-menu>
 
       <pre>
         <code class="language-html">
@@ -56,25 +53,21 @@
     </wfc-card>
 
     <wfc-card id="context-menu">
-      <div class="card-content">
-        <div class="headline">Context menu</div>
-    
-        <div class="example">
-          <div context-menu="cm1">Right click me</div>
-          <wfc-menu context-menu="cm1">
-            <wfc-menu-item onclick="console.log(this.contextTarget)">
-              <wfc-icon slot="start">content_copy</wfc-icon>
-              copy
-            </wfc-menu-item>
-            <wfc-menu-item>
-              <wfc-icon slot="start">content_paste</wfc-icon>
-              paste
-            </wfc-menu-item>
-            <wfc-menu-item>plain</wfc-menu-item>
-            <wfc-menu-item>plain</wfc-menu-item>
-          </wfc-menu>
-        </div>
-      </div>
+      <div slot="headline">Context menu</div>
+
+      <div context-menu="cm1">Right click me</div>
+      <wfc-menu context-menu="cm1">
+        <wfc-menu-item onclick="console.log(this.contextTarget)">
+          <wfc-icon slot="start">content_copy</wfc-icon>
+          copy
+        </wfc-menu-item>
+        <wfc-menu-item>
+          <wfc-icon slot="start">content_paste</wfc-icon>
+          paste
+        </wfc-menu-item>
+        <wfc-menu-item>plain</wfc-menu-item>
+        <wfc-menu-item>plain</wfc-menu-item>
+      </wfc-menu>
     
       <pre>
         <code class="language-html">
@@ -122,12 +115,21 @@
   </wfc-card>
 
   <wfc-card id="nested">
-    <div class="card-content">
-      <div class="headline">Nested menu</div>
+    <div slot="headline">Nested menu</div>
 
-      <div class="example">
-        <wfc-button id="c2">Control</wfc-button>
-        <wfc-menu anchor="#c2">
+    <wfc-button id="c2">Control</wfc-button>
+    <wfc-menu anchor="#c2">
+      <wfc-menu-item>
+        <wfc-icon slot="start">content_copy</wfc-icon>
+        copy
+      </wfc-menu-item>
+      <wfc-menu-item>
+        <wfc-icon slot="start">content_paste</wfc-icon>
+        paste
+      </wfc-menu-item>
+      <wfc-menu-item>
+        plain
+        <wfc-menu slot="sub-menu">
           <wfc-menu-item>
             <wfc-icon slot="start">content_copy</wfc-icon>
             copy
@@ -149,25 +151,12 @@
               </wfc-menu-item>
               <wfc-menu-item>
                 plain
-                <wfc-menu slot="sub-menu">
-                  <wfc-menu-item>
-                    <wfc-icon slot="start">content_copy</wfc-icon>
-                    copy
-                  </wfc-menu-item>
-                  <wfc-menu-item>
-                    <wfc-icon slot="start">content_paste</wfc-icon>
-                    paste
-                  </wfc-menu-item>
-                  <wfc-menu-item>
-                    plain
-                  </wfc-menu-item>
-                </wfc-menu>
               </wfc-menu-item>
             </wfc-menu>
           </wfc-menu-item>
         </wfc-menu>
-      </div>
-    </div>
+      </wfc-menu-item>
+    </wfc-menu>
 
     <pre>
       <code class="language-html">

@@ -16,48 +16,53 @@
 
   <div class="page-content-container">
     <wfc-card id="local">
-      <div class="card-content">
-        <div class="headline">Local</div>
-        <div class="subheader">Contained inside of div</div>
-    
-        <div class="example">
-          <div style="display: flex; flex-direction: column; width: 190px;">
-            <wfc-switch onchange="page.oneOpen = this.checked" checked="${page.oneOpen}">Toggle</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#one').hideClose = this.checked">Close button hide</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#one').back = this.checked">back arrow</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#one').modal = this.checked">Modal</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#one').scrim = this.checked">Scrim (backdrop)</wfc-switch>
+      <div slot="headline">Local</div>
+      <div slot="subhead">Contained inside of div</div>
+
+      <div class="example">
+        <div style="display: flex; flex-direction: column; width: 190px;">
+          <wfc-switch onchange="page.oneOpen = this.checked" checked="${page.oneOpen}">Toggle</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#one').hideClose = this.checked">Close button hide</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#one').back = this.checked">back arrow</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#one').modal = this.checked">Modal</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#one').scrim = this.checked">Scrim (backdrop)</wfc-switch>
+        </div>
+        <div id="local-container"
+          style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
-          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
+          <wfc-side-sheet id="one" open="${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
+            <div slot="headline">Headline</div>
+      
             <div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
-            <wfc-side-sheet id="one" open="${page.oneOpen}" onchange="page.oneOpen = this.open" onback="this.close();">
-              <div slot="headline">Headline</div>
-
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-
-              <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
-              <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
-            </wfc-side-sheet>
-          </div>
+      
+            <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+            <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+          </wfc-side-sheet>
         </div>
       </div>
     
@@ -98,58 +103,64 @@
 
 
     <wfc-card id="global">
-      <div class="card-content">
-        <div class="headline">Global</div>
-        <div class="subheader">Fill entire page (modal only)</div>
-    
-        <div class="example">
-          <div style="display: flex; flex-direction: column; width: 190px;">
-            <wfc-switch onchange="page.twoOpen = this.checked" checked="${page.twoOpen}">Toggle</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#two').inset = this.checked">Inset</wfc-switch>
-            <wfc-switch onchange="document.querySelector('#two').scrim = this.checked">Scrim (backdrop)</wfc-switch>
-          </div>
-          <div style="display: flex">
-            <wfc-side-sheet id="two" open="${page.twoOpen}" onchange="page.twoOpen = this.open" global modal>
-              <div slot="headline">Headline</div>
-              
-              <div class="font-size: 20px">One</div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+      <div slot="headline">Global</div>
+      <div slot="subhead">Fill entire page (modal only)</div>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-
-              <div class="font-size: 20px">Two</div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            
-              <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
-              <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
-            </wfc-side-sheet>
-          </div>
+      <div class="example">
+        <div style="display: flex; flex-direction: column; width: 190px;">
+          <wfc-switch onchange="page.twoOpen = this.checked" checked="${page.twoOpen}">Toggle</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#two').inset = this.checked">Inset</wfc-switch>
+          <wfc-switch onchange="document.querySelector('#two').scrim = this.checked">Scrim (backdrop)</wfc-switch>
+        </div>
+        <div style="display: flex">
+          <wfc-side-sheet id="two" open="${page.twoOpen}" onchange="page.twoOpen = this.open" global modal>
+            <div slot="headline">Headline</div>
+      
+            <div class="font-size: 20px">One</div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+      
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+      
+            <div class="font-size: 20px">Two</div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+      
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+      
+            <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
+            <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
+          </wfc-side-sheet>
         </div>
       </div>
     
@@ -176,10 +187,9 @@
     </wfc-card>
 
     <wfc-card id="top">
-      <div class="card-content">
-        <div class="headline">Top level</div>
-        <div class="subheader">You can have a side sheet at the top level. This would be usfule as a general secondary content container.</div>
-      </div>
+      <div slot="headline">Top level</div>
+      <div slot="subhead">You can have a side sheet at the top level. This would be usfule as a general secondary content
+        container.</div>
     
       <pre>
         <code class="language-html">
@@ -204,43 +214,48 @@
     </wfc-card>
 
     <wfc-card id="forms">
-      <div class="card-content">
-        <div class="headline">Form with change detection</div>
-        <div class="supporting-text">Invalid forms prevent form submission. Cancel button will prevent click actions and show dialog when form has changes.</div>
-    
-        <div class="example">
-          <div style="display: flex; flex-direction: column; width: 190px;">
-            <wfc-switch onchange="page.threeOpen = this.checked" checked="${page.threeOpen}">Toggle</wfc-switch>
+      <div slot="headline">Form with change detection</div>
+      <div slot="supporting-text">Invalid forms prevent form submission. Cancel button will prevent click actions and show
+        dialog when form has changes.</div>
+
+      <div class="example">
+        <div style="display: flex; flex-direction: column; width: 190px;">
+          <wfc-switch onchange="page.threeOpen = this.checked" checked="${page.threeOpen}">Toggle</wfc-switch>
+        </div>
+      
+        <div id="local-container"
+          style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+              Duis
+              aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
-          
-          <div id="local-container" style="display: flex; position: relative; height: 380px; overflow: hidden; margin: -16px; padding: 16px; border-top: 1px solid var(--wfc-outline); border-bottom: 1px solid var(--wfc-outline); margin-top: 16px; padding-top: 0">
-            <div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </div>
-            <wfc-side-sheet id="three" open="${page.threeOpen}" onchange="page.threeOpen = this.open">
-              <div slot="headline">Headline</div>
-              <form id="test" method="dialog" onsubmit="this.parentElement.close();">
-                <div style="font-size: 14px; margin-bottom: 8px;">Make change and press "cancel"</div>
-                <div style="font-size: 14px; margin-bottom: 24px;">Remove value and press "save"</div>
-                <wfc-textfield label="Required" supporting-test="Required" required value="one" class="outlined"></wfc-textfield>
-              </form>
-              <wfc-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</wfc-button>
-              <wfc-button slot="action" form="test" typ="submit">save</wfc-button>
-            </wfc-side-sheet>
-          </div>
+          <wfc-side-sheet id="three" open="${page.threeOpen}" onchange="page.threeOpen = this.open">
+            <div slot="headline">Headline</div>
+            <form id="test" method="dialog" onsubmit="this.parentElement.close();">
+              <div style="font-size: 14px; margin-bottom: 8px;">Make change and press "cancel"</div>
+              <div style="font-size: 14px; margin-bottom: 24px;">Remove value and press "save"</div>
+              <wfc-textfield label="Required" supporting-test="Required" required value="one"
+                class="outlined"></wfc-textfield>
+            </form>
+            <wfc-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</wfc-button>
+            <wfc-button slot="action" form="test" typ="submit">save</wfc-button>
+          </wfc-side-sheet>
         </div>
       </div>
     

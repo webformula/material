@@ -17,13 +17,9 @@
 
   <div class="page-content-container">
     <wfc-card id="basic">
-      <div class="card-content">
-        <div class="headline">Basic</div>
-        
-        <div class="example">
-          <iframe src="./routes/bottom app bars/basic-index.html" title="bottom-app-bar Basic" style="height: 360px; width: 600px;"></iframe>
-        </div>
-      </div>
+      <div slot="headline">Basic</div>
+      
+      <iframe src="./routes/bottom app bars/basic-index.html" title="bottom-app-bar Basic" style="height: 360px; width: 600px;"></iframe>
 
       <pre>
         <code class="language-html">
@@ -50,13 +46,10 @@
 
 
     <wfc-card id="auto-hide">
-      <div class="card-content">
-        <div class="headline">Auto hide</div>
-        
-        <div class="example">
-          <iframe src="./routes/bottom app bars/auto-hide-index.html" title="bottom-app-bar auto hide" style="height: 360px; width: 600px;"></iframe>
-        </div>
-      </div>
+      <div slot="headline">Auto hide</div>
+
+      <iframe src="./routes/bottom app bars/auto-hide-index.html" title="bottom-app-bar auto hide"
+        style="height: 360px; width: 600px;"></iframe>
 
       <pre>
         <code class="language-html">
@@ -82,14 +75,10 @@
 
 
     <wfc-card id="secondary-bar">
-      <div class="card-content">
-        <div class="headline">Secondary bar using id (multiple bars)</div>
-        
-        <div class="example">
-          <iframe src="./routes/bottom app bars/secondary-bar-index.html" title="bottom-app-bar secondary bar"
-            style="height: 360px; width: 600px;"></iframe>
-        </div>
-      </div>
+      <div slot="headline">Secondary bar using id (multiple bars)</div>
+
+      <iframe src="./routes/bottom app bars/secondary-bar-index.html" title="bottom-app-bar secondary bar"
+        style="height: 360px; width: 600px;"></iframe>
 
       <pre>
         <code class="language-html">
@@ -132,16 +121,12 @@
 
 
     <wfc-card id="secondary-bar-hash">
-      <div class="card-content">
-        <div class="headline">Secondary bar using URL hashes</div>
-        <div class="wfc-body-small" style="margin-left: 16px;">Changing the hash to any non matching secondary hash will revert
-          back to primary</div>
-        
-        <div class="example">
-          <iframe src="./routes/bottom app bars/secondary-bar-hash-index.html" title="bottom-app-bar secondary bar hash"
-            style="height: 360px; width: 600px;"></iframe>
-        </div>
-      </div>
+      <div slot="headline">Secondary bar using URL hashes</div>
+      <div slot="supporting-text">Changing the hash to any non matching secondary hash will revert
+        back to primary</div>
+      
+      <iframe src="./routes/bottom app bars/secondary-bar-hash-index.html" title="bottom-app-bar secondary bar hash"
+        style="height: 360px; width: 600px;"></iframe>
 
       <pre>
         <code class="language-html">

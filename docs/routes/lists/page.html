@@ -18,60 +18,57 @@
 
   <div class="page-content-container">
     <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-      </div>
-      <div class="card-content">
-        <wfc-list>
-          <wfc-list-item>
-            <wfc-avatar slot="start">
-              <img alt="avatar" src="./woman.jpg">
-            </wfc-avatar>
+      <div slot="headline">Example</div>
 
-            <div slot="headline">Headline</div>
-            <div slot="supporting-text">Supporting text</div>
-
-            <div slot="trailing-supporting-text">trailing</div>
-          </wfc-list-item>
-
-          <wfc-list-item>
-            <wfc-avatar slot="start">
-              <img alt="avatar" src="./woman.jpg">
-            </wfc-avatar>
-            
-            <div slot="overline">overline</div>
-            <div slot="headline">Headline</div>
-            <div slot="supporting-text">Supporting text</div>
-          
-            <wfc-icon slot="end">edit</wfc-icon>
-            <wfc-icon slot="end">delete</wfc-icon>
-          </wfc-list-item>
-
-          <wfc-list-item multiline>
-            <div slot="headline">Multiline</div>
-            <div slot="supporting-text">
-              <div>Line one</div>
-              <div>Line two</div>
-            </div>
-          
-            <wfc-checkbox slot="end"></wfc-checkbox>
-          </wfc-list-item>
-
-          <wfc-list-item states>
-            <div slot="headline">States</div>
-            <wfc-checkbox slot="end"></wfc-checkbox>
-          </wfc-list-item>
-
-          <wfc-divider></wfc-divider>
-
-          <wfc-list-item>
-            <wfc-icon slot="start">home</wfc-icon>
-            <div slot="headline">Headline</div>
-            <div slot="trailing-supporting-text">trailing</div>
-            <wfc-icon slot="end">settings</wfc-icon>
-          </wfc-list-item>
-        </wfc-list>
-      </div>
+      <wfc-list>
+        <wfc-list-item>
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+      
+          <div slot="headline">Headline</div>
+          <div slot="supporting-text">Supporting text</div>
+      
+          <div slot="trailing-supporting-text">trailing</div>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+      
+          <div slot="overline">overline</div>
+          <div slot="headline">Headline</div>
+          <div slot="supporting-text">Supporting text</div>
+      
+          <wfc-icon slot="end">edit</wfc-icon>
+          <wfc-icon slot="end">delete</wfc-icon>
+        </wfc-list-item>
+      
+        <wfc-list-item multiline>
+          <div slot="headline">Multiline</div>
+          <div slot="supporting-text">
+            <div>Line one</div>
+            <div>Line two</div>
+          </div>
+      
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-list-item states>
+          <div slot="headline">States</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-divider></wfc-divider>
+      
+        <wfc-list-item>
+          <wfc-icon slot="start">home</wfc-icon>
+          <div slot="headline">Headline</div>
+          <div slot="trailing-supporting-text">trailing</div>
+          <wfc-icon slot="end">settings</wfc-icon>
+        </wfc-list-item>
+      </wfc-list>
 
       <pre>
         <code class="language-html">
@@ -129,33 +126,29 @@
     </wfc-card>
     
     <wfc-card class="" id="standard">
-      <div class="card-content">
-        <div class="headline">Multiline</div>
-        
-        <div class="example">
-          <wfc-list>
-            <wfc-list-item>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="headline">Single line</div>
-            </wfc-list-item>
+      <div slot="headline">Multiline</div>
 
-            <wfc-list-item multiline>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="headline">Line one</div>
-              <div slot="supporting-text">Line two</div>
-            </wfc-list-item>
-          
-            <wfc-list-item multiline>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="headline">Line one</div>
-              <div slot="supporting-text">
-                <div>Line two</div>
-                <div>Line three</div>
-              </div>
-            </wfc-list-item>
-          </wfc-list>
-        </div>
-      </div>
+      <wfc-list>
+        <wfc-list-item>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="headline">Single line</div>
+        </wfc-list-item>
+      
+        <wfc-list-item multiline>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="headline">Line one</div>
+          <div slot="supporting-text">Line two</div>
+        </wfc-list-item>
+      
+        <wfc-list-item multiline>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="headline">Line one</div>
+          <div slot="supporting-text">
+            <div>Line two</div>
+            <div>Line three</div>
+          </div>
+        </wfc-list-item>
+      </wfc-list>
 
       <pre>
         <code class="language-html">
@@ -186,45 +179,41 @@
 
 
     <wfc-card class="" id="icons-avatars">
-      <div class="card-content">
-        <div class="headline">Start, end, trailing, overline</div>
-        
-        <div class="example">
-          <wfc-list>
-            <wfc-list-item>
-              <wfc-avatar slot="start">
-                <img alt="avatar" src="./woman.jpg">
-              </wfc-avatar>
-              <div slot="headline">Avatar</div>
-            </wfc-list-item>
-          
-            <wfc-list-item>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="headline">Icons</div>
-              <wfc-icon slot="end">edit</wfc-icon>
-            </wfc-list-item>
+      <div slot="headline">Start, end, trailing, overline</div>
 
-            <wfc-list-item>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="headline">Icon buttons</div>
-              <div slot="supporting-text">Hover to show more buttons</div>
-              <wfc-icon-button slot="end" hover-only>
-                <wfc-icon>delete</wfc-icon>
-              </wfc-icon-button>
-              <wfc-icon-button slot="end">
-                <wfc-icon>edit</wfc-icon>
-              </wfc-icon-button>
-            </wfc-list-item>
-
-            <wfc-list-item>
-              <wfc-icon slot="start">inbox</wfc-icon>
-              <div slot="overline">Overline</div>
-              <div slot="headline">Headline</div>
-              <div slot="trailing-supporting-text">trailing</div>
-            </wfc-list-item>
-          </wfc-list>
-        </div>
-      </div>
+      <wfc-list>
+        <wfc-list-item>
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Avatar</div>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="headline">Icons</div>
+          <wfc-icon slot="end">edit</wfc-icon>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="headline">Icon buttons</div>
+          <div slot="supporting-text">Hover to show more buttons</div>
+          <wfc-icon-button slot="end" hover-only>
+            <wfc-icon>delete</wfc-icon>
+          </wfc-icon-button>
+          <wfc-icon-button slot="end">
+            <wfc-icon>edit</wfc-icon>
+          </wfc-icon-button>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-icon slot="start">inbox</wfc-icon>
+          <div slot="overline">Overline</div>
+          <div slot="headline">Headline</div>
+          <div slot="trailing-supporting-text">trailing</div>
+        </wfc-list-item>
+      </wfc-list>
 
       <pre>
         <code class="language-html">
@@ -267,45 +256,41 @@
 
     <!-- TODO first item seems broken -->
     <wfc-card class="" id="selection">
-      <div class="card-content">
-        <div class="headline">Selection</div>
-        
-        <div class="example">
-          <wfc-list onchange="console.log(this.value)">
-            <wfc-list-item selected value="1">
-              <wfc-avatar slot="start">
-                <img alt="avatar" src="./woman.jpg">
-              </wfc-avatar>
-              <div slot="headline">Headline</div>
-              <wfc-checkbox slot="end"></wfc-checkbox>
-            </wfc-list-item>
-          
-            <wfc-list-item value="2">
-              <wfc-avatar slot="start">
-                <img alt="avatar" src="./woman.jpg">
-              </wfc-avatar>
-              <div slot="headline">Headline</div>
-              <wfc-checkbox slot="end"></wfc-checkbox>
-            </wfc-list-item>
+      <div slot="headline">Selection</div>
 
-            <wfc-list-item value="3">
-              <wfc-avatar slot="start">
-                <img alt="avatar" src="./woman.jpg">
-              </wfc-avatar>
-              <div slot="headline">Headline</div>
-              <wfc-switch slot="end"></wfc-switch>
-            </wfc-list-item>
-            
-            <wfc-list-item value="4">
-              <wfc-avatar slot="start">
-                <img alt="avatar" src="./woman.jpg">
-              </wfc-avatar>
-              <div slot="headline">Headline</div>
-              <wfc-switch slot="end"></wfc-switch>
-            </wfc-list-item>
-          </wfc-list>
-        </div>
-      </div>
+      <wfc-list onchange="console.log(this.value)">
+        <wfc-list-item selected value="1">
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Headline</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-list-item value="2">
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Headline</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-list-item value="3">
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Headline</div>
+          <wfc-switch slot="end"></wfc-switch>
+        </wfc-list-item>
+      
+        <wfc-list-item value="4">
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Headline</div>
+          <wfc-switch slot="end"></wfc-switch>
+        </wfc-list-item>
+      </wfc-list>
       
       <pre>
         <code class="language-html">
@@ -357,97 +342,95 @@
 
 
     <wfc-card class="" id="header">
-      <div class="card-content">
-        <div class="headline">Header</div>
+      <div slot="headline">Header</div>
+
+      <div class="example">
+        <wfc-list style="overflow: scroll; height: 260px;">
+          <section>
+            <wfc-list-subheader>Section one</wfc-list-subheader>
         
-        <div class="example">
-          <wfc-list style="overflow: scroll; height: 260px;">
-            <section>
-              <wfc-list-subheader>Section one</wfc-list-subheader>
-
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            </section>
-
-
-            <section>
-              <wfc-list-subheader>Section two</wfc-list-subheader>
-
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-              
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-              
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            </section>
-
-            <section>
-              <wfc-list-subheader>Section three</wfc-list-subheader>
-            
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            
-              <wfc-list-item multiline>
-                <wfc-icon slot="start">person</wfc-icon>
-                <div slot="headline">Headline</div>
-                <div slot="supporting-text">Supporting text</div>
-              </wfc-list-item>
-            </section>
-          </wfc-list>
-        </div>
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+          </section>
+        
+        
+          <section>
+            <wfc-list-subheader>Section two</wfc-list-subheader>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+          </section>
+        
+          <section>
+            <wfc-list-subheader>Section three</wfc-list-subheader>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+        
+            <wfc-list-item multiline>
+              <wfc-icon slot="start">person</wfc-icon>
+              <div slot="headline">Headline</div>
+              <div slot="supporting-text">Supporting text</div>
+            </wfc-list-item>
+          </section>
+        </wfc-list>
       </div>
 
       <pre>
@@ -545,31 +528,27 @@
 
 
     <wfc-card class="" id="states">
-      <div class="card-content">
-        <div class="headline">States</div>
-        
-        <div class="example">
-          <wfc-list>
-            <wfc-list-item states>
-              <wfc-icon slot="start">person</wfc-icon>
-              <div slot="headline">States</div>
-              <wfc-checkbox slot="end"></wfc-checkbox>
-            </wfc-list-item>
-
-            <wfc-list-item ripple>
-              <wfc-icon slot="start">person</wfc-icon>
-              <div slot="headline">Ripple</div>
-              <wfc-checkbox slot="end"></wfc-checkbox>
-            </wfc-list-item>
-
-            <wfc-list-item states ripple>
-              <wfc-icon slot="start">person</wfc-icon>
-              <div slot="headline">States and ripple</div>
-              <wfc-checkbox slot="end"></wfc-checkbox>
-            </wfc-list-item>
-          </wfc-list>
-        </div>
-      </div>
+      <div slot="headline">States</div>
+      
+      <wfc-list>
+        <wfc-list-item states>
+          <wfc-icon slot="start">person</wfc-icon>
+          <div slot="headline">States</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-list-item ripple>
+          <wfc-icon slot="start">person</wfc-icon>
+          <div slot="headline">Ripple</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      
+        <wfc-list-item states ripple>
+          <wfc-icon slot="start">person</wfc-icon>
+          <div slot="headline">States and ripple</div>
+          <wfc-checkbox slot="end"></wfc-checkbox>
+        </wfc-list-item>
+      </wfc-list>
 
       <pre>
         <code class="language-html">
@@ -599,34 +578,30 @@
 
 
     <wfc-card class="" id="swipe-actions">
-      <div class="card-content">
-        <div class="headline">Swipe actions (mobile only)</div>
-        
-        <div class="example">
-          <wfc-list id="swipe-list">
-            <wfc-list-item>
-              <wfc-icon slot="swipe-start">delete</wfc-icon>
-              <div slot="headline">Headline</div>
-              <div slot="supporting-text">Supporting text</div>
-              <wfc-icon slot="swipe-end">delete</wfc-icon>
-            </wfc-list-item>
+      <div slot="headline">Swipe actions (mobile only)</div>
 
-            <wfc-list-item>
-              <wfc-icon slot="swipe-start">delete</wfc-icon>
-              <div slot="headline">Headline</div>
-              <div slot="supporting-text">Supporting text</div>
-              <wfc-icon slot="swipe-end">delete</wfc-icon>
-            </wfc-list-item>
-
-            <wfc-list-item>
-              <wfc-icon slot="swipe-start">delete</wfc-icon>
-              <div slot="headline">Headline</div>
-              <div slot="supporting-text">Supporting text</div>
-              <wfc-icon slot="swipe-end">delete</wfc-icon>
-            </wfc-list-item>
-          </wfc-list>
-        </div>
-      </div>
+      <wfc-list id="swipe-list">
+        <wfc-list-item>
+          <wfc-icon slot="swipe-start">delete</wfc-icon>
+          <div slot="headline">Headline</div>
+          <div slot="supporting-text">Supporting text</div>
+          <wfc-icon slot="swipe-end">delete</wfc-icon>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-icon slot="swipe-start">delete</wfc-icon>
+          <div slot="headline">Headline</div>
+          <div slot="supporting-text">Supporting text</div>
+          <wfc-icon slot="swipe-end">delete</wfc-icon>
+        </wfc-list-item>
+      
+        <wfc-list-item>
+          <wfc-icon slot="swipe-start">delete</wfc-icon>
+          <div slot="headline">Headline</div>
+          <div slot="supporting-text">Supporting text</div>
+          <wfc-icon slot="swipe-end">delete</wfc-icon>
+        </wfc-list-item>
+      </wfc-list>
 
       <pre>
         <code class="language-html">

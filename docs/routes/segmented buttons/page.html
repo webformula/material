@@ -16,23 +16,19 @@
 
   <div class="page-content-container">
     <wfc-card id="standard">
-      <div class="card-content">
-        <div class="headline">Standard</div>
-        
-        <div class="example">
-          <wfc-segmented-button-set>
-            <wfc-segmented-button checked value="1">
-              <wfc-icon slot="leading-icon">format_align_right</wfc-icon>
-            </wfc-segmented-button>
-            <wfc-segmented-button value="2">
-              <wfc-icon slot="leading-icon">format_align_center</wfc-icon>
-            </wfc-segmented-button>
-            <wfc-segmented-button value="3">
-              <wfc-icon slot="leading-icon">format_align_left</wfc-icon>
-            </wfc-segmented-button>
-          </wfc-segmented-button-set>
-        </div>
-      </div>
+      <div slot="headline">Standard</div>
+      
+      <wfc-segmented-button-set>
+        <wfc-segmented-button checked value="1">
+          <wfc-icon slot="leading-icon">format_align_right</wfc-icon>
+        </wfc-segmented-button>
+        <wfc-segmented-button value="2">
+          <wfc-icon slot="leading-icon">format_align_center</wfc-icon>
+        </wfc-segmented-button>
+        <wfc-segmented-button value="3">
+          <wfc-icon slot="leading-icon">format_align_left</wfc-icon>
+        </wfc-segmented-button>
+      </wfc-segmented-button-set>
 
       <pre>
         <code class="language-html">
@@ -52,17 +48,13 @@
     </wfc-card>
 
     <wfc-card id="select-icons">
-      <div class="card-content">
-        <div class="headline">No checkmarks</div>
-        
-        <div class="example">
-          <wfc-segmented-button-set>
-            <wfc-segmented-button no-checkmark checked value="one">One</wfc-segmented-button>
-            <wfc-segmented-button no-checkmark value="two">Two</wfc-segmented-button>
-            <wfc-segmented-button no-checkmark value="three">Three</wfc-segmented-button>
-          </wfc-segmented-button-set>
-        </div>
-      </div>
+      <div slot="headline">No checkmarks</div>
+
+      <wfc-segmented-button-set>
+        <wfc-segmented-button no-checkmark checked value="one">One</wfc-segmented-button>
+        <wfc-segmented-button no-checkmark value="two">Two</wfc-segmented-button>
+        <wfc-segmented-button no-checkmark value="three">Three</wfc-segmented-button>
+      </wfc-segmented-button-set>
 
       <pre>
         <code class="language-html">
@@ -77,17 +69,13 @@
 
 
     <wfc-card id="multi-select">
-      <div class="card-content">
-        <div class="headline">Multiple select</div>
-        
-        <div class="example">
-          <wfc-segmented-button-set id="multi-select" multiple>
-            <wfc-segmented-button checked value="one">One</wfc-segmented-button>
-            <wfc-segmented-button checked value="two">Two</wfc-segmented-button>
-            <wfc-segmented-button value="three">Three</wfc-segmented-button>
-          </wfc-segmented-button-set>
-        </div>
-      </div>
+      <div slot="headline">Multiple select</div>
+
+      <wfc-segmented-button-set id="multi-select" multiple>
+        <wfc-segmented-button checked value="one">One</wfc-segmented-button>
+        <wfc-segmented-button checked value="two">Two</wfc-segmented-button>
+        <wfc-segmented-button value="three">Three</wfc-segmented-button>
+      </wfc-segmented-button-set>
 
       <pre>
         <code class="language-html">

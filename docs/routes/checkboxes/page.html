@@ -17,16 +17,14 @@
 
   <div class="page-content-container">
     <wfc-card id="standard">
-      <div class="card-content">
-        <div class="headline">Checkboxes</div>
-        
-        <div class="example" style="flex-direction: column; display: flex;">
-          <wfc-checkbox aria-label="checkbox"></wfc-checkbox>
-          <wfc-checkbox checked>Checked</wfc-checkbox>
-          <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
-          <wfc-checkbox disabled>Disabled</wfc-checkbox>
-          <wfc-checkbox checked disabled>Checked disabled</wfc-checkbox>
-        </div>
+      <div slot="headline">Checkboxes</div>
+      
+      <div class="example" style="flex-direction: column; display: flex;">
+        <wfc-checkbox aria-label="checkbox"></wfc-checkbox>
+        <wfc-checkbox checked>Checked</wfc-checkbox>
+        <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
+        <wfc-checkbox disabled>Disabled</wfc-checkbox>
+        <wfc-checkbox checked disabled>Checked disabled</wfc-checkbox>
       </div>
 
       <pre>
@@ -40,17 +38,15 @@
       </pre>
     </wfc-card>
 
-    <wfc-card id="left_label">    
-      <div class="card-content">
-        <div class="headline">Label right</div>
-        
-        <div class="example" style="flex-direction: column; display: flex; max-width: 250px;">
-          <wfc-checkbox>label</wfc-checkbox>
-          <wfc-checkbox class="label-left">Left label</wfc-checkbox>
-          <wfc-divider style="margin: 24px 0;"></wfc-divider>
-          <wfc-checkbox class="full-width">label full width</wfc-checkbox>
-          <wfc-checkbox class="label-left full-width">Left label full width</wfc-checkbox>
-        </div>
+    <wfc-card id="left_label">
+      <div slot="headline">Label right</div>
+
+      <div class="example" style="flex-direction: column; display: flex; max-width: 250px;">
+        <wfc-checkbox>label</wfc-checkbox>
+        <wfc-checkbox class="label-left">Left label</wfc-checkbox>
+        <wfc-divider style="margin: 24px 0;"></wfc-divider>
+        <wfc-checkbox class="full-width">label full width</wfc-checkbox>
+        <wfc-checkbox class="label-left full-width">Left label full width</wfc-checkbox>
       </div>
 
       <pre>
@@ -65,13 +61,9 @@
     </wfc-card>
 
     <wfc-card id="error">
-      <div class="card-content">
-        <div class="headline">Checkboxes error style</div>
-    
-        <div class="example" style="flex-direction: column; display: flex;">
-          <wfc-checkbox required class="invalid" onchange="this.reportValidity()">Required</wfc-checkbox>
-        </div>
-      </div>
+      <div slot="headline">Checkboxes error style</div>
+
+      <wfc-checkbox required class="invalid" onchange="this.reportValidity()">Required</wfc-checkbox>
     
       <pre>
         <code class="language-html">
@@ -81,15 +73,13 @@
     </wfc-card>
 
     <wfc-card id="indeterminate">
-      <div class="card-content">
-        <div class="headline">Indeterminate</div>
-        <div class="supporting-text">There is no input attribute for Indeterminate, only a property. An attribute has been added to wfc-checkbox for convenience</div>
-        <div class="supporting-text">Indeterminate overrides checked and unchecked states. If checked is changed then indeterminate will be set false.</div>
-    
-        <div class="example" style="flex-direction: column; display: flex;">
-          <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
-        </div>
-      </div>
+      <div slot="headline">Indeterminate</div>
+      <div slot="supporting-text">There is no input attribute for Indeterminate, only a property. An attribute has been added
+        to wfc-checkbox for convenience</div>
+      <div slot="supporting-text">Indeterminate overrides checked and unchecked states. If checked is changed then
+        indeterminate will be set false.</div>
+
+      <wfc-checkbox indeterminate>Indeterminate</wfc-checkbox>
     
       <pre>
         <code class="language-html">

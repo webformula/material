@@ -32,7 +32,7 @@ wfc-textfield,
 
 .drop-arrow .up,
 .drop-arrow .down {
-  fill: var(--mdw-outline);
+  fill: var(--wfc-outline);
   opacity: 0;
   /* 75 ms is half of min(animate open duration, animate closed duration)*/
   transition: opacity 75ms linear 75ms;

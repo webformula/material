@@ -20,10 +20,9 @@
 
   <div class="page-content-container">
     <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-      </div>
-      <div class="card-content" style="display: flex; flex-direction:column; width: 250px; align-self: center;">
+      <div slot="headline">Example</div>
+
+      <div class="card-content" style="display: flex; flex-direction:column; width: 250px; margin: 0 auto;">
         <wfc-textfield label="Label">
           <wfc-icon slot="leading-icon">search</wfc-icon>
           <!-- TODO change to icon button -->
@@ -39,14 +38,12 @@
     </wfc-card>
     
     <wfc-card id="types">
-      <div class="card-content">
-        <div class="headline">Types</div>
-        <div class="subheader">There are two types of text fields: Filled and Outlined</div>
-        
-        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <wfc-textfield label="Label"></wfc-textfield>
-          <wfc-textfield label="Label" class="outlined"></wfc-textfield>
-        </div>
+      <div slot="headline">Types</div>
+      <div slot="subhead">There are two types of text fields: Filled and Outlined</div>
+
+      <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+        <wfc-textfield label="Label"></wfc-textfield>
+        <wfc-textfield label="Label" class="outlined"></wfc-textfield>
       </div>
 
       <pre>
@@ -65,15 +62,13 @@
 
 
     <wfc-card id="icons">
-      <div class="card-content">
-        <div class="headline">Icons (leading, trailing)</div>
-        
-        <div class="example" style="display: flex; justify-content: center;">
-          <wfc-textfield label="Label">
-            <wfc-icon slot="leading-icon">search</wfc-icon>
-            <wfc-icon slot="trailing-icon">person</wfc-icon>
-          </wfc-textfield>
-        </div>
+      <div slot="headline">Icons (leading, trailing)</div>
+
+      <div class="example" style="display: flex; justify-content: center;">
+        <wfc-textfield label="Label">
+          <wfc-icon slot="leading-icon">search</wfc-icon>
+          <wfc-icon slot="trailing-icon">person</wfc-icon>
+        </wfc-textfield>
       </div>
 
       <pre>
@@ -88,19 +83,17 @@
 
 
     <wfc-card id="supportingerror">
-      <div class="card-content">
-        <div class="headline">Supporting and error text</div>
-        
-        <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-          <div style="display: flex; width: 250px; flex-direction: column;">
-            <wfc-textfield label="Supporting text" supporting-text="Supporting text"></wfc-textfield>
-            <wfc-textfield label="Required" required></wfc-textfield>
-            <wfc-textfield label="Number min max" type="number" min="1" max="9"></wfc-textfield>
-          </div>
-          <div style="display: flex; width: 250px; flex-direction: column;">
-            <wfc-textfield label="Error and supporting text" required supporting-text="Supporting text"></wfc-textfield>
-            <wfc-textfield label="Custom error" required error-text="Required* (custom)"></wfc-textfield>
-          </div>
+      <div slot="headline">Supporting and error text</div>
+
+      <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div style="display: flex; width: 250px; flex-direction: column;">
+          <wfc-textfield label="Supporting text" supporting-text="Supporting text"></wfc-textfield>
+          <wfc-textfield label="Required" required></wfc-textfield>
+          <wfc-textfield label="Number min max" type="number" min="1" max="9"></wfc-textfield>
+        </div>
+        <div style="display: flex; width: 250px; flex-direction: column;">
+          <wfc-textfield label="Error and supporting text" required supporting-text="Supporting text"></wfc-textfield>
+          <wfc-textfield label="Custom error" required error-text="Required* (custom)"></wfc-textfield>
         </div>
       </div>
 
@@ -140,12 +133,10 @@
 
 
     <wfc-card id="Suggestions">
-      <div class="card-content">
-        <div class="headline">Suggestion</div>
-        
-        <div class="example" style="display: flex; justify-content: center;">
-          <wfc-textfield label="Suggestion" placeholder="Type suggestion" suggestion="suggestion"></wfc-textfield>
-        </div>
+      <div slot="headline">Suggestion</div>
+
+      <div class="example" style="display: flex; justify-content: center;">
+        <wfc-textfield label="Suggestion" placeholder="Type suggestion" suggestion="suggestion"></wfc-textfield>
       </div>
 
       <pre>
@@ -161,42 +152,45 @@
 
 
     <wfc-card id="format">
-      <div class="card-content">
-        <div class="headline">Formatting and masking</div>
-        <div class="subheader">Use string replacers with pattern regular expressions to format input</div>
-        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">format</b> attribute takes a string replacer. Currently only the number group
-          selector works ($1, $2, ...). The formatter works off the input <b style="font-size: var(--wfc-font-small-title-size);">pattern</b> regex. You can use groups to split
-          value into parts.</div>
-        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">pattern-restrict</b> attribute will prevent incorrect characters or input length</div>
-        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">mask</b> attribute takes a string replacer. Currently only the number group
-          selector works ($1, $2, ...). The mask requires a <b style="font-size: var(--wfc-font-small-title-size);">format</b> to be set</div>
-        <div class="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">Note</b> if escaping(backslash) in pattern attribute you need to double escape (\\s -> \\\\s)</div>
+      <div slot="headline">Formatting and masking</div>
+      <div slot="subhead">Use string replacers with pattern regular expressions to format input</div>
+      <div slot="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">format</b> attribute takes a string
+        replacer. Currently only the number group
+        selector works ($1, $2, ...). The formatter works off the input <b
+          style="font-size: var(--wfc-font-small-title-size);">pattern</b> regex. You can use groups to split
+        value into parts.</div>
+      <div slot="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">pattern-restrict</b> attribute will
+        prevent incorrect characters or input length</div>
+      <div slot="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">mask</b> attribute takes a string
+        replacer. Currently only the number group
+        selector works ($1, $2, ...). The mask requires a <b style="font-size: var(--wfc-font-small-title-size);">format</b>
+        to be set</div>
+      <div slot="supporting-text"><b style="font-size: var(--wfc-font-small-title-size);">Note</b> if escaping(backslash) in
+        pattern attribute you need to double escape (\\s -> \\\\s)</div>
 
-        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <wfc-textfield
-            value="123123123"
-            id="ssn"
-            label="SSN"
-            format="$1-$2-$3"
-            pattern-restrict
-            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"
-            ></wfc-textfield>
-          
-          <wfc-textfield
-            id="ssnmask"
-            label="SSN masked"
-            format="$1-$2-$3"
-            mask="xxx-xx-$3"
-            pattern-restrict
-            pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></wfc-textfield>
-
-          <wfc-textfield
-            id="phone"
-            label="Phone"
-            format="($1) $2 $3"
-            pattern-restrict
-            pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$"></wfc-textfield>
-        </div>
+      <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+        <wfc-textfield
+          value="123123123"
+          id="ssn"
+          label="SSN"
+          format="$1-$2-$3"
+          pattern-restrict
+          pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></wfc-textfield>
+      
+        <wfc-textfield
+          id="ssnmask"
+          label="SSN masked"
+          format="$1-$2-$3"
+          mask="xxx-xx-$3"
+          pattern-restrict
+          pattern="^([0-9]{3})[\\-\\s]?([0-9]{2})[\\-\\s]?([0-9]{4})$"></wfc-textfield>
+      
+        <wfc-textfield
+          id="phone"
+          label="Phone"
+          format="($1) $2 $3"
+          pattern-restrict
+          pattern="^\\(?([0-9]{3})(?:[\\)\\.\\-\\s]+)?([0-9]{3})[\\.\\-\\s]?([0-9]{4})$"></wfc-textfield>
       </div>
     
       <pre>
@@ -253,13 +247,11 @@
 
 
     <wfc-card id="count">
-      <div class="card-content">
-        <div class="headline">Character count</div>
-    
-        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
-          <wfc-textfield label="No max" character-count></wfc-textfield>
-          <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>
-        </div>
+      <div slot="headline">Character count</div>
+
+      <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+        <wfc-textfield label="No max" character-count></wfc-textfield>
+        <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>
       </div>
     
       <pre>
@@ -271,16 +263,15 @@
     </wfc-card>
 
     <wfc-card id="textarea">
-      <div class="card-content">
-        <div class="headline">Textarea</div>
-    
-        <div class="example" style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
-          <wfc-textfield label="Textarea" type="textarea" character-count maxlength="255" style="height: 56px;"></wfc-textfield>
-          <wfc-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></wfc-textfield>
+      <div slot="headline">Textarea</div>
 
-          <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
-            <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>
-          </div>
+      <div class="example"
+        style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+        <wfc-textfield label="Textarea" type="textarea" character-count maxlength="255" style="height: 56px;"></wfc-textfield>
+        <wfc-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></wfc-textfield>
+      
+        <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+          <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>
         </div>
       </div>
     

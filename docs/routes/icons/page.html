@@ -23,30 +23,23 @@
 
   <div class="page-content-container">
     <wfc-card>
-      <div class="card-content">
-        <div class="headline">Example</div>
-      </div>
-      <div class="card-content">
-        <wfc-icon class="small filled">favorite</wfc-icon>
-        <wfc-icon style="color: var(--wfc-neutral);" class="filled">favorite</wfc-icon>
-        <wfc-icon class="large filled" style="color: var(--wfc-tertiary-variant);">favorite</wfc-icon>
-        <wfc-icon class="extra-large filled" style="color: var(--wfc-primary);">favorite</wfc-icon>
-        <wfc-icon style="color: var(--wfc-neutral-variant);">favorite</wfc-icon>
-        <wfc-icon class="bold" style="color: var(--wfc-error);">favorite</wfc-icon>
-      </div>
+      <div slot="headline">Example</div>
+
+      <wfc-icon class="small filled">favorite</wfc-icon>
+      <wfc-icon style="color: var(--wfc-neutral);" class="filled">favorite</wfc-icon>
+      <wfc-icon class="large filled" style="color: var(--wfc-tertiary-variant);">favorite</wfc-icon>
+      <wfc-icon class="extra-large filled" style="color: var(--wfc-primary);">favorite</wfc-icon>
+      <wfc-icon style="color: var(--wfc-neutral-variant);">favorite</wfc-icon>
+      <wfc-icon class="bold" style="color: var(--wfc-error);">favorite</wfc-icon>
     </wfc-card>
 
     <wfc-card id="sizes">  
-      <div class="card-content">
-        <div class="headline">Sizes</div>
-        
-        <div class="example">
-          <wfc-icon class="small">mail</wfc-icon>
-          <wfc-icon>mail</wfc-icon>
-          <wfc-icon class="large">mail</wfc-icon>
-          <wfc-icon class="extra-large">mail</wfc-icon>
-        </div>
-      </div>
+      <div slot="headline">Sizes</div>
+
+      <wfc-icon class="small">mail</wfc-icon>
+      <wfc-icon>mail</wfc-icon>
+      <wfc-icon class="large">mail</wfc-icon>
+      <wfc-icon class="extra-large">mail</wfc-icon>
 
       <pre>
         <code class="language-html">
@@ -59,17 +52,13 @@
     </wfc-card>
 
     <wfc-card id="variations">
-      <div class="card-content">
-        <div class="headline">Variations</div>
-        
-        <div class="example">
-          <wfc-icon class="extra-large">home</wfc-icon>
-          <wfc-icon class="extra-large rounded">home</wfc-icon>
-          <wfc-icon class="extra-large rounded bold">home</wfc-icon>
-          <wfc-icon class="extra-large filled">home</wfc-icon>
-          <wfc-icon class="extra-large rounded filled">home</wfc-icon>
-        </div>
-      </div>
+      <div slot="headline">Variations</div>
+
+      <wfc-icon class="extra-large">home</wfc-icon>
+      <wfc-icon class="extra-large rounded">home</wfc-icon>
+      <wfc-icon class="extra-large rounded bold">home</wfc-icon>
+      <wfc-icon class="extra-large filled">home</wfc-icon>
+      <wfc-icon class="extra-large rounded filled">home</wfc-icon>
 
       <pre>
         <code class="language-html">
@@ -83,14 +72,10 @@
     </wfc-card>
 
     <wfc-card id="color">
-      <div class="card-content">
-        <div class="headline">Color</div>
-        <div class="subheader">Theme color variables automatically adjust for light and dark modes</div>
-    
-        <div class="example">
-          <wfc-icon class="large filled" style="color: var(--wfc-primary)">favorite</wfc-icon>
-        </div>
-      </div>
+      <div slot="headline">Color</div>
+      <div slot="subhead">Theme color variables automatically adjust for light and dark modes</div>
+
+      <wfc-icon class="large filled" style="color: var(--wfc-primary)">favorite</wfc-icon>
     
       <pre>
         <code class="language-html">
@@ -100,11 +85,9 @@
     </wfc-card>
 
     <wfc-card id="loading">
-      <div class="card-content">
-        <div class="headline">Loading</div>
-        <div class="subheader">You can use google icons or other font icon libraries for icons</div>
-        <div class="supporting-text">If you are not using a variable font then <strong>wfc-fill</strong> will not work</div>
-      </div>
+      <div slot="headline">Loading</div>
+      <div slot="subhead">You can use google icons or other font icon libraries for icons</div>
+      <div slot="supporting-text">If you are not using a variable font then <strong>wfc-fill</strong> will not work</div>
     
       <pre>
         <code class="language-html">

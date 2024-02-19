@@ -19,38 +19,38 @@
   </nav>
 
   <div class="page-content-container">
-    <wfc-card2>
+    <wfc-card>
       <div slot="headline">Example</div>
       <div slot="supporting-text">There are three types of cards: elevated, filled, and outlined</div>
 
-      <wfc-card-group2>
-        <wfc-card2 value="one">
+      <wfc-card-group>
+        <wfc-card value="one">
           <div slot="headline">Regular</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       
-        <wfc-card2 filled>
+        <wfc-card filled>
           <div slot="headline">Filled</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       
-        <wfc-card2 outlined>
+        <wfc-card outlined>
           <div slot="headline">Outlined</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       
-        <wfc-card2 onclick="console.log('action')">
+        <wfc-card onclick="console.log('action')">
           <div slot="headline">Actionable</div>
           <div slot="subhead">ripple</div>
-        </wfc-card2>
-      </mgw-card-group2>
-    </wfc-card2>
+        </wfc-card>
+      </mgw-card-group>
+    </wfc-card>
 
-    <wfc-card2 id="basic">
+    <wfc-card id="basic">
       <div slot="headline">Basic card</div>
 
       <div class="example" style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <wfc-card2 style="max-width: 320px">
+        <wfc-card style="max-width: 320px">
           <img slot="image" class="rounded medium" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
         
@@ -58,81 +58,81 @@
           <div slot="subhead">Subhead</div>
           <div slot="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
           <div>Some other content. Just add your content without specifying slots</div>
-        </wfc-card2>
+        </wfc-card>
 
-        <wfc-card2 style="width: 220px; height: 120px;" onclick="console.log('action')">
+        <wfc-card style="width: 220px; height: 120px;" onclick="console.log('action')">
           <div slot="headline">Actionable</div>
           <div slot="subhead">Ripple</div>
           <div slot="supporting-text">Click to see ripple</div>
-        </wfc-card2>
+        </wfc-card>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card2 style="max-width: 320px">
+  ${page.escape(`<wfc-card style="max-width: 320px">
     <img slot="image" class="rounded medium" alt="landscape" src="..." />
     <div slot="headline">Headline</div>
     <div slot="subhead">Subhead</div>
     <div slot="supporting-text">Supporting text. Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
     <div>Some other content. Just add your content without specifying slots</div>
-  </wfc-card2>
+  </wfc-card>
   
-  <wfc-card2 style="width: 220px; height: 120px;" onclick="console.log('action')">
+  <wfc-card style="width: 220px; height: 120px;" onclick="console.log('action')">
     <div slot="headline">Actionable</div>
     <div slot="subhead">Ripple</div>
     <div slot="supporting-text">Click to see ripple</div>
-  </wfc-card2>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="types">
+    <wfc-card id="types">
       <div slot="headline">Card types</div>
 
       <div class="example" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-        <wfc-card2 style="width: 200px">
+        <wfc-card style="width: 200px">
           <div slot="headline">Regular</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       
-        <wfc-card2 filled style="width: 200px">
+        <wfc-card filled style="width: 200px">
           <div slot="headline">Filled</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       
-        <wfc-card2 outlined style="width: 200px">
+        <wfc-card outlined style="width: 200px">
           <div slot="headline">Outlined</div>
           <div slot="subhead">card</div>
-        </wfc-card2>
+        </wfc-card>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card2>
+  ${page.escape(`<wfc-card>
     <div slot="headline">Regular</div>
     <div slot="subhead">card</div>
-  </wfc-card2>
+  </wfc-card>
   
-  <wfc-card2 filled>
+  <wfc-card filled>
     <div slot="headline">Filled</div>
     <div slot="subhead">card</div>
-  </wfc-card2>
+  </wfc-card>
   
-  <wfc-card2 outlined>
+  <wfc-card outlined>
     <div slot="headline">Outlined</div>
     <div slot="subhead">card</div>
-  </wfc-card2>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="expanding">
+    <wfc-card id="expanding">
       <div slot="headline">Expanding card</div>
   
       <div class="example" style="display: flex; flex-wrap: wrap; gap: 20px;">
-        <wfc-card2 style="max-width: 320px">
+        <wfc-card style="max-width: 320px">
           <img slot="image" class="medium rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
   
@@ -146,9 +146,9 @@
               literature
             </div>
           </div>
-        </wfc-card2>
+        </wfc-card>
   
-        <wfc-card2 style="max-width: 320px">
+        <wfc-card style="max-width: 320px">
           <img slot="image" class="rounded medium" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
           
@@ -185,12 +185,12 @@
               English versions from the 1914 translation by H. Rackham.
             </div>
           </div>
-        </wfc-card2>
+        </wfc-card>
       </div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card2>
+  ${page.escape(`<wfc-card>
     <img slot="image" class="medium rounded" alt="landscape"
       src="..." />
   
@@ -203,9 +203,9 @@
         Latin literature
       </div>
     </div>
-  </wfc-card2>
+  </wfc-card>
   
-  <wfc-card2 style="max-width: 320px">
+  <wfc-card style="max-width: 320px">
     <img slot="image" class="rounded medium" alt="landscape"
       src="..." />
   
@@ -218,17 +218,17 @@
         Latin
       </div>
     </div>
-  </wfc-card2>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="fullscreen">
+    <wfc-card id="fullscreen">
       <div slot="headline">Fullscreen card</div>
       <div slot="subhead">Fullscreen card will expand to fullscreen on mobile devices. On desktops the card will open a modal</div>
 
-      <wfc-card2 fullscreen style="max-width: 600px;">
+      <wfc-card fullscreen style="max-width: 600px;">
         <img slot="image" class="rounded medium" alt="landscape"
           src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
       
@@ -294,11 +294,11 @@
             English versions from the 1914 translation by H. Rackham.
           </div>
         </div>
-      </wfc-card2>
+      </wfc-card>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card2 fullscreen>
+  ${page.escape(`<wfc-card fullscreen>
     <img slot="image" class="rounded medium" alt="landscape"
       src="..." />
   
@@ -315,20 +315,20 @@
         ...
       </div>
     </div>
-  </wfc-card2>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="layout">
+    <wfc-card id="layout">
       <div slot="headline">Grids and lists</div>
       <div slot="subhead">By default the container will auto swap between grid and list based on screen size. You can for
         it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
 
-      <wfc-card-group2>
+      <wfc-card-group>
         ${page.cardArray.map(({ height }) => `
-        <wfc-card2 filled>
+        <wfc-card filled>
           <img slot="image" class="rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
       
@@ -343,124 +343,124 @@
             of classical Latin literature
           </div>
           ` : ''}
-        </wfc-card2>
+        </wfc-card>
         `).join('\n')}
-      </wfc-card-group2>
+      </wfc-card-group>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card-group2>
+  ${page.escape(`<wfc-card-group>
     ${page.cardArray.map((_, i) => `
-    <wfc-card2></wfc-card2>
+    <wfc-card></wfc-card>
     `).join('\n')}
-  </wfc-card-group2>`)}
+  </wfc-card-group>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="dragreorder">
+    <wfc-card id="dragreorder">
       <div slot="headline">Drag reorder - move item position</div>
       <div slot="subhead">Press and hold on card to reorder</div>
       <div slot="supporting-text">By default the container will auto swap between grid and list based on screen size. You
         can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
 
-      <wfc-card-group2>
+      <wfc-card-group>
         ${page.cardArray.map(({ height }, i) => `
-        <wfc-card2 class="${i}" filled reorder>
+        <wfc-card class="${i}" filled reorder>
           <img slot="image" class="rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
       
           <div slot="headline">${i}</div>
           <div slot="subhead">Subhead</div>
           <div slot="supporting-text">one two three four five six.</div>
-        </wfc-card2>
+        </wfc-card>
         `).join('\n')}
-      </wfc-card-group2>
+      </wfc-card-group>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
-  <wfc-card-group2 class="reorder-no-animation">
-    <wfc-card2 reorder></wfc-card2>
-    <wfc-card2 reorder></wfc-card2>
-    <wfc-card2 reorder></wfc-card2>
-  </wfc-card-group2>`)}
+  <wfc-card-group class="reorder-no-animation">
+    <wfc-card reorder></wfc-card>
+    <wfc-card reorder></wfc-card>
+    <wfc-card reorder></wfc-card>
+  </wfc-card-group>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
-    <wfc-card2 id="dragreorderswap">
+    <wfc-card id="dragreorderswap">
       <div slot="headline">Drag reorder - swap two items</div>
       <div slot="subhead">Press and hold on card to reorder</div>
       <div slot="supporting-text">By default the container will auto swap between grid and list based on screen size. You
         can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
     
-      <wfc-card-group2>
+      <wfc-card-group>
         ${page.cardArray.map(({ height }, i) => `
-        <wfc-card2 class="${i}" filled reorder-swap>
+        <wfc-card class="${i}" filled reorder-swap>
           <img slot="image" class="rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
     
           <div slot="headline">${i}</div>
           <div slot="subhead">Subhead</div>
           <div slot="supporting-text">one two three four five six.</div>
-        </wfc-card2>
+        </wfc-card>
         `).join('\n')}
-      </wfc-card-group2>
+      </wfc-card-group>
     
       <pre>
         <code class="language-html">
   ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
-  <wfc-card-group2 class="reorder-no-animation">
-    <wfc-card2 reorder-swap></wfc-card2>
-    <wfc-card2 reorder-swap></wfc-card2>
-    <wfc-card2 reorder-swap></wfc-card2>
-  </wfc-card-group2>`)}
+  <wfc-card-group class="reorder-no-animation">
+    <wfc-card reorder-swap></wfc-card>
+    <wfc-card reorder-swap></wfc-card>
+    <wfc-card reorder-swap></wfc-card>
+  </wfc-card-group>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
 
 
 
-    <wfc-card2 id="swipe-action">
+    <wfc-card id="swipe-action">
       <div slot="headline">Swipe actions</div>
       <div slot="subhead">Only works on mobile</div>
 
-      <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+      <wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
         <wfc-icon slot="swipe-action" action="favorite" toggle>favorite</wfc-icon>
         <div slot="headline">Favorite toggle</div>
         <div slot="subhead">Subhead</div>
         <div slot="supporting-text">one two three four five six.</div>
-      </wfc-card2>
+      </wfc-card>
 
       <div style="height: 8px"></div>
 
-      <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+      <wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
         <wfc-icon slot="swipe-action" action="remove" action-remove>delete</wfc-icon>
         <div slot="headline">Remove</div>
         <div slot="subhead">Subhead</div>
         <div slot="supporting-text">one two three four five six.</div>
-      </wfc-card2>
+      </wfc-card>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+  ${page.escape(`<wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
     <wfc-icon slot="swipe-action" action="favorite" toggle>favorite</wfc-icon>
     <div slot="headline">Favorite toggle</div>
     <div slot="subhead">Subhead</div>
     <div slot="supporting-text">one two three four five six.</div>
-  </wfc-card2>
+  </wfc-card>
   
-  <wfc-card2 style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+  <wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
     <wfc-icon slot="swipe-action" action="remove" action-remove>delete</wfc-icon>
     <div slot="headline">Remove</div>
     <div slot="subhead">Subhead</div>
     <div slot="supporting-text">one two three four five six.</div>
-  </wfc-card2>`)}
+  </wfc-card>`)}
         </code>
       </pre>
-    </wfc-card2>
+    </wfc-card>
   </div>
 </section>

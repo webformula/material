@@ -18,13 +18,11 @@
 
   <div class="page-content-container">
     <wfc-card id="build">
-      <div class="card-content">
-        <div class="headline">Build theme</div>
-        <div class="supporting-text">You can modify all the colors,
-          shapes, an other variables for both light and dark themes</div>
-        <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
-          Guidelines: Styles</a>
-      </div>
+      <div slot="headline">Build theme</div>
+      <div slot="supporting-text">You can modify all the colors,
+        shapes, an other variables for both light and dark themes</div>
+      <a slot="supporting-text" href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
+        Guidelines: Styles</a>
       
       <pre>
         <code class="language-css">
@@ -69,26 +67,24 @@
 
 
     <wfc-card id="scheme">
-      <div class="card-content">
-        <div class="headline">Color schemes (light, dark)</div>
-        <div class="subheader">Change between dark and light color schemes</div>
-        <div class="supporting-text">There are 5 mechanisms that affect the color scheme</div>
-        <ul>
-          <li><b>Local storage:</b> wfc-color-scheme = 'light | dark' (user preference setting)</li>
-          <li><b>CSS class:</b> .wfc-theme-dark</li>
-          <li><b>CSS :root</b> { color-scheme: light | dark; } (this is not officially supported ina ll browsers)</li>
-          <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
-          <li><b>wfcUtil:</b> wfcUtil.toggleColorScheme('' | 'light | dark')</li>
-        </ul>
+      <div slot="headline">Color schemes (light, dark)</div>
+      <div slot="subhead">Change between dark and light color schemes</div>
+      <div slot="supporting-text">There are 5 mechanisms that affect the color scheme</div>
 
-        <div class="supporting-text">Using theme css color variable will auto adjust with light and dark themes</div>
+      <ul>
+        <li><b>Local storage:</b> wfc-color-scheme = 'light | dark' (user preference setting)</li>
+        <li><b>CSS class:</b> .wfc-theme-dark</li>
+        <li><b>CSS :root</b> { color-scheme: light | dark; } (this is not officially supported ina ll browsers)</li>
+        <li><b>CSS media:</b> prefers-color-scheme (browser / system setting)</li>
+        <li><b>wfcUtil:</b> wfcUtil.toggleColorScheme('' | 'light | dark')</li>
+      </ul>
 
-        <wfc-button class="theme-toggle wfc-icon-toggle-button ${document.documentElement.classList.contains('wfc-theme-dark') ? 'wfc-toggled' : ''}" onClick="window.toggleColorScheme()">
-          <wfc-icon value="on">dark_mode</wfc-icon>
-          <wfc-icon value="off">light_mode</wfc-icon>
-        </wfc-button>
-      </div>
+      <div class="supporting-text">Using theme css color variable will auto adjust with light and dark themes</div>
 
+      <wfc-icon-button toggle onClick="window.toggleColorScheme()">
+        <wfc-icon>dark_mode</wfc-icon>
+        <wfc-icon slot="selected">light_mode</wfc-icon>
+      </wfc-icon-button>
 
       <pre>
         <code class="language-javascript">
@@ -143,14 +139,12 @@
 
 
     <wfc-card id="font">
-      <div class="card-content">
-        <div class="headline">Typography</div>
-        <div class="subheader">You can modify the <b>brand</b> and <b>plain</b> font faces</div>
-        <div class="supporting-text">The theme.css file should be loaded before scripts. You can modify all the colors,
-          shapes, an other variables for both light and dark themes</div>
-        <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
-          Guidelines: Styles</a>
-      </div>
+      <div slot="headline">Typography</div>
+      <div slot="subhead">You can modify the <b>brand</b> and <b>plain</b> font faces</div>
+      <div slot="supporting-text">The theme.css file should be loaded before scripts. You can modify all the colors,
+        shapes, an other variables for both light and dark themes</div>
+      <a slot="supporting-text" href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_new">Material Design
+        Guidelines: Styles</a>
     
       <pre>
         <code class="language-css">
@@ -164,12 +158,11 @@
 
 
     <wfc-card id="using-vars">
-      <div class="card-content">
-        <div class="headline">Using theme variables</div>
-        <div class="supporting-text">You can use the theme.css variables in your css classes to modify colors</div>
-        <div class="supporting-text"><strong>Tones</strong> 0 4 6 10 12 17 20 22 24 30 40 50 60 70 80 87 90 92 94 95 96 98 100</div>
-        <div class="supporting-text"><strong>Alphas</strong> 0 4 5 6 8 10 11 12 16 20 26 38 60 76</div>
+      <div slot="headline">Using theme variables</div>
+      <div slot="supporting-text">You can use the theme.css variables in your css classes to modify colors</div>
+      <div slot="supporting-text"><strong>Tones</strong> 0 4 6 10 12 17 20 22 24 30 40 50 60 70 80 87 90 92 94 95 96 98 100
       </div>
+      <div slot="supporting-text"><strong>Alphas</strong> 0 4 5 6 8 10 11 12 16 20 26 38 60 76</div>
     
       <pre>
         <code class="language-css">
@@ -197,16 +190,12 @@
 
 
     <wfc-card id="roles">
-      <div class="card-content">
-        <div class="headline">Color roles</div>
-        <div class="subheader">You can change the color roles of components</div>
-        <a href="https://m3.material.io/styles/color/roles">material.io color roles</a>
-      </div>
+      <div slot="headline">Color roles</div>
+      <div slot="subhead">You can change the color roles of components</div>
+      <a slot="supporting-text" href="https://m3.material.io/styles/color/roles">material.io color roles</a>
     
-      <div class="card-content">
-        <wfc-button class="filled">Default</wfc-button>
-        <wfc-button class="filled wfc-secondary">Secondary</wfc-button>
-      </div>
+      <wfc-button class="filled">Default</wfc-button>
+      <wfc-button class="filled wfc-secondary">Secondary</wfc-button>
       <pre>
         <code class="language-html">
   ${page.escape(`<wfc-button class="filled">Default</wfc-button>

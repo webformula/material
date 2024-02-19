@@ -16,21 +16,19 @@ liking a post</div>
 
   <div class="page-content-container">
     <wfc-card id="types">
-      <div class="card-content">
-        <div class="headline">Button types</div>
-        <div class="supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined, and text</div>
+      <div slot="headline">Button types</div>
+      <div slot="supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined, and text
       </div>
-      <div class="card-content">
-        <wfc-button>Text</wfc-button>
-        <wfc-button class="elevated">Elevated</wfc-button>
-        <wfc-button class="filled">Filled</wfc-button>
-        <wfc-button class="filled-tonal">Filled tonal</wfc-button>
-        <wfc-button class="outlined">Outlined</wfc-button>
-        <wfc-button>
-          <wfc-icon slot="leading-icon">home</wfc-icon>
-          Icon
-        </wfc-button>
-      </div>
+      
+      <wfc-button>Text</wfc-button>
+      <wfc-button class="elevated">Elevated</wfc-button>
+      <wfc-button class="filled">Filled</wfc-button>
+      <wfc-button class="filled-tonal">Filled tonal</wfc-button>
+      <wfc-button class="outlined">Outlined</wfc-button>
+      <wfc-button>
+        <wfc-icon slot="leading-icon">home</wfc-icon>
+        Icon
+      </wfc-button>
 
       <pre>
         <code class="language-html">
@@ -48,16 +46,12 @@ liking a post</div>
     </wfc-card>
 
     <wfc-card id="icon_button">
-      <div class="card-content">
-        <div class="headline">Button with icon</div>
-        
-        <div class="example">
-          <wfc-button>
-            <wfc-icon slot="leading-icon">home</wfc-icon>
-            Icon
-          </wfc-button>
-        </div>
-      </div>
+      <div slot="headline">Button with icon</div>
+
+      <wfc-button>
+        <wfc-icon slot="leading-icon">home</wfc-icon>
+        Icon
+      </wfc-button>
 
       <pre>
         <code class="language-html">
@@ -70,14 +64,10 @@ liking a post</div>
     </wfc-card>
 
     <wfc-card id="async_button">
-      <div class="card-content">
-        <div class="headline">Async button</div>
-        
-        <div class="example">
-          <wfc-button id="async-button" async class="filled">Example</wfc-button>
-          <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>
-        </div>
-      </div>
+      <div slot="headline">Async button</div>
+
+      <wfc-button id="async-button" async class="filled">Example</wfc-button>
+      <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>
 
       <pre>
         <code class="language-html">
