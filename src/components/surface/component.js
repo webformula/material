@@ -2,7 +2,7 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
-const animations = ['translate-y', 'translate-left', 'transition-right', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen'];
+const animations = ['translate-y', 'translate-left', 'transition-right', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen', 'opacity'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
 
 
@@ -17,7 +17,9 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #surfaceElement;
   #position = 'center center';
   #positionMouse;
+  #positionMouseOnly;
   #mouseX;
+  #mouseY;
   #shrink = true;
   #fixed = false;
   #overlap = true;
@@ -119,6 +121,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.classList.toggle('animation-translate-right', value === 'translate-right');
     this.classList.toggle('animation-height-center-to-opacity', value === 'height-center-to-opacity');
     this.classList.toggle('animation-fullscreen', value === 'fullscreen');
+    this.classList.toggle('animation-opacity', value === 'opacity');
   }
 
   get viewportBound() { return this.#viewportBound; }
@@ -195,8 +198,18 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     else window.removeEventListener('mousedown', this.#setMousePosition_bound);
   }
 
+  get positionMouseOnly() { return this.#positionMouseOnly; }
+  set positionMouseOnly(value) {
+    this.#positionMouseOnly = !!value;
+    if (this.#positionMouseOnly) window.addEventListener('mousedown', this.#setMousePosition_bound, { signal: this.#abort.signal });
+    else window.removeEventListener('mousedown', this.#setMousePosition_bound);
+  }
+
   set mouseX(value) {
     this.#mouseX = value;
+  }
+  set mouseY(value) {
+    this.#mouseY = value;
   }
 
   get overlap() { return this.#overlap; }
@@ -226,10 +239,8 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.animation === 'fullscreen') await util.transitionendAsync(this);
     else await util.animationendAsync(this.#surfaceElement);
     this.#surfaceElement.classList.remove('animating');
-    if (this.animation !== 'height') {
-      this.#surfaceElement.style.removeProperty('--wfc-surface-height');
-      this.#surfaceElement.style.removeProperty('--wfc-surface-width');
-    }
+    this.#surfaceElement.style.removeProperty('--wfc-surface-height');
+    this.#surfaceElement.style.removeProperty('--wfc-surface-width');
 
     // If no animation then these can trigger immediately
     if (this.#allowClose) {
@@ -250,6 +261,12 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       else window.removeEventListener('click', this.#onClickOutside_bound);
       window.removeEventListener('keydown', this.#onEsc_bound);
     }
+
+    if (this.animation === 'height') {
+      this.#surfaceElement.style.setProperty('--wfc-surface-height', `${this.#surfaceElement.offsetHeight}px`);
+      this.#surfaceElement.style.setProperty('--wfc-surface-width', `${this.#surfaceElement.offsetWidth}px`);
+    }
+
     this.#surfaceElement.classList.add('animating');
     this.classList.add('closing');
     this.classList.remove('open');
@@ -283,7 +300,8 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
 
 
   #setPosition() {
-    if (this.#anchorElement || this.#positionMouse) this.#setAnchorPosition();
+    if (this.#positionMouseOnly) this.#setMousePositionOnly();
+    else if (this.#anchorElement || this.#positionMouse) this.#setAnchorPosition();
     else this.#setNonAnchorPosition();
   }
   
@@ -350,6 +368,10 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.style.transform = `translate(${translateX}px, ${translateY}px)`;
   }
 
+  #setMousePositionOnly() {
+    this.#surfaceElement.style.left = `${this.#mouseX}px`;
+    this.#surfaceElement.style.top = `${this.#mouseY}px`;
+  }
 
   #setNonAnchorPosition() {
     this.#surfaceElement.style.setProperty('--wfc-surface-height', `${this.#surfaceElement.offsetHeight}px`);

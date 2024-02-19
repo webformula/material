@@ -283,6 +283,20 @@ slot {
 }
 
 
+:host(:not(.open).animation-opacity) .surface.animating {
+  animation: hide-opacity;
+  animation-duration: var(--wfc-motion-duration-short3);
+  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
+  animation-delay: var(--wfc-surface-close-delay, 0ms);
+}
+
+:host(.open.animation-opacity) .surface.animating {
+  animation: show-opacity;
+  animation-duration: var(--wfc-motion-duration-medium1);
+  animation-timing-function: var(--wfc-motion-easing-emphasized);
+}
+
+
 :host-context(body:not(.wfc-animation)) .surface {
   animation-duration: 0ms !important;
 }
@@ -454,6 +468,31 @@ slot {
 
   50% {
     opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: block;
+    visibility: visible;
+  }
+}
+
+
+@keyframes show-opacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-opacity {
+  0% {
+    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 
   100% {

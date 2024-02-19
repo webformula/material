@@ -35,7 +35,6 @@
 
 .content {
   position: relative;
-  z-index: 1;
 }
 
 .default-slot {
@@ -329,14 +328,14 @@
 
 /* --- group ---- */
 
-:host-context(wfc-card-group2:not(.grid)),
+:host-context(wfc-card-group:not(.grid)),
 :host(.grid-list-item) {
   flex-direction: row;
   height: 80px;
   overflow: hidden;
 }
 
-:host-context(wfc-card-group2:not(.grid)) .container,
+:host-context(wfc-card-group:not(.grid)) .container,
 :host(.grid-list-item) .container {
   flex-direction: row;
   height: 80px;
@@ -344,32 +343,32 @@
   overflow: hidden;
 }
 
-:host-context(wfc-card-group2:not(.grid)) .content,
+:host-context(wfc-card-group:not(.grid)) .content,
 :host(.grid-list-item) .content {
   align-self: flex-end;
   margin-left: 32px;
 }
 
-:host-context(wfc-card-group2:not(.grid)) [name="image"],
+:host-context(wfc-card-group:not(.grid)) [name="image"],
 :host(.grid-list-item) [name="image"] {
   z-index: 1;
   width: 80px;
   height: 80px;
 }
 
-:host-context(wfc-card-group2:not(.grid)):host(:not(.has-image)) [name="image"],
+:host-context(wfc-card-group:not(.grid)):host(:not(.has-image)) [name="image"],
 :host(.grid-list-item:host(.has-image)) [name="image"] {
   width: 0;
 }
 
-:host-context(wfc-card-group2:not(.grid)) [name="image"]::slotted(img),
+:host-context(wfc-card-group:not(.grid)) [name="image"]::slotted(img),
 :host(.grid-list-item) [name="image"]::slotted(img) {
   width: unset;
   height: 100%;
 }
 
-:host-context(wfc-card-group2:not(.grid)) [name="supporting-text"],
-:host-context(wfc-card-group2:not(.grid)):host(.card-list-item) [name="actions"],
+:host-context(wfc-card-group:not(.grid)) [name="supporting-text"],
+:host-context(wfc-card-group:not(.grid)):host(.card-list-item) [name="actions"],
 :host(.grid-list-item) [name="supporting-text"],
 :host(.grid-list-item.card-list-item) [name="actions"] {
   display: none;

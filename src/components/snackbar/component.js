@@ -1,6 +1,7 @@
 import WFCSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 
+// TODO animation reverse
 
 class wfcSnackbarElement extends WFCSurfaceElement {
   static tag = 'wfc-snackbar';

@@ -53,7 +53,7 @@ pre > code {
   flex-grow: 1;
 }
 
-wfc-card2 pre,
+wfc-card pre,
 wfc-card pre {
   margin: 0 -16px;
   margin-bottom: -16px;
@@ -66,12 +66,12 @@ pre > code {
 
 
 
-wfc-card2 > pre:first-of-type > code,
+wfc-card > pre:first-of-type > code,
 wfc-card > pre:first-of-type > code {
   margin-top: 24px;
 }
 
-wfc-card2 > pre:last-of-type > code,
+wfc-card > pre:last-of-type > code,
 wfc-card > pre:last-of-type > code {
   border-radius: 0 0 var(--wfc-shape-medium) var(--wfc-shape-medium);
 }
@@ -101,8 +101,8 @@ wfc-card > .card-content > .headline + .subheader {
   margin-top: 2px;
 }
 
-#page-content > section > wfc-card2,
-#page-content > section > .page-content-container > wfc-card2,
+#page-content > section > wfc-card,
+#page-content > section > .page-content-container > wfc-card,
 #page-content > section > wfc-card,
 #page-content > section > .page-content-container > wfc-card {
   margin-bottom: 36px;
@@ -197,7 +197,7 @@ body.window-compact .page-content-section {
   flex: 1;
 }
 
-.page-content-container > wfc-card2:first-of-type,
+.page-content-container > wfc-card:first-of-type,
 .page-content-container > wfc-card:first-of-type {
   margin-top: 48px;
 }

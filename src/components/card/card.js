@@ -9,8 +9,8 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 
-export default class WFCCardElement2 extends HTMLComponentElement {
-  static tag = 'wfc-card2';
+export default class WFCCardElement extends HTMLComponentElement {
+  static tag = 'wfc-card';
   static useShadowRoot = true;
   static useTemplate = true;
   static styleSheets = styles;
@@ -347,4 +347,4 @@ export default class WFCCardElement2 extends HTMLComponentElement {
   }
 }
 
-customElements.define(WFCCardElement2.tag, WFCCardElement2);
+customElements.define(WFCCardElement.tag, WFCCardElement);

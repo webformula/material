@@ -14,11 +14,12 @@ class WFCTooltipElement extends WFCSurfaceElement {
     this.allowClose = true;
     this.fixed = true;
     this.ariaLabel = 'none';
+    this.animation = 'opacity';
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.positionMouse = true;
+    this.positionMouseOnly = true;
   }
 }
 customElements.define(WFCTooltipElement.tag, WFCTooltipElement);
