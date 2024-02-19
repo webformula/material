@@ -37,6 +37,7 @@ class WFCSelectElement extends WFCMenuElement {
     this.#isAsync = this.hasAttribute('async');
     this.allowClose = true;
     this.ariaExpanded = false;
+    this.offsetBottom = -36;
 
     if (this.#isFilter) {
       // Prevent surface from covering the textfield for typing

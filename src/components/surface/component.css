@@ -36,7 +36,11 @@
   opacity: 1;
 }
 
-.surface.animating {
+/* .surface.animating {
+  max-height: var(--wfc-surface-height, inherit);
+} */
+
+.surface {
   max-height: var(--wfc-surface-height, inherit);
 }
 

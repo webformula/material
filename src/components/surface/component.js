@@ -18,7 +18,6 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #position = 'center center';
   #positionMouse;
   #mouseX;
-  #mouseY;
   #shrink = true;
   #fixed = false;
   #overlap = true;
@@ -199,9 +198,6 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   set mouseX(value) {
     this.#mouseX = value;
   }
-  set mouseY(value) {
-    this.#mouseY = value;
-  }
 
   get overlap() { return this.#overlap; }
   set overlap(value) { this.#overlap = !!value; }
@@ -290,77 +286,24 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.#anchorElement || this.#positionMouse) this.#setAnchorPosition();
     else this.#setNonAnchorPosition();
   }
-
-  #getAnchorPosition() {
+  
+  #setAnchorPosition() {
+    const overlapPadding = 16;
     const position = this.#position.split(' ');
     const alignTop = position[0] === 'top';
     const alignRight = position[1] === 'right';
-
     const { clientWidth, clientHeight } = document.documentElement;
-    const anchorBounds = this.#anchorElement.getBoundingClientRect();
-    const offsetParent = this.#surfaceElement.offsetParent;
-    const offsetParentBounds = offsetParent?.getBoundingClientRect();
-    const verticalStart = !alignTop && !this.#overlap ? anchorBounds.top : anchorBounds.bottom + this.#offsetBottom;
-    const verticalEnd = alignTop || this.#overlap ? anchorBounds.top : anchorBounds.bottom + this.#offsetBottom;
-    const horizontalStart = alignRight ? anchorBounds.right : anchorBounds.left;
-    const horizontalEnd = !alignRight ? anchorBounds.right : anchorBounds.left;
-
-    return {
-      clientHeight,
-      clientWidth,
-      verticalStart,
-      verticalEnd,
-      horizontalStart,
-      horizontalEnd,
-      offsetTop: offsetParentBounds?.top || 0,
-      offsetBottom: offsetParentBounds?.bottom || clientHeight,
-      offsetLeft: offsetParentBounds?.left || 0
-    };
-  }
-
-  #getMousePosition() {
-    const { clientWidth, clientHeight } = document.documentElement;
-    const offsetParent = this.#surfaceElement.offsetParent;
-    const offsetParentBounds = (offsetParent || document.body).getBoundingClientRect();
-
-    return {
-      clientHeight,
-      clientWidth,
-      verticalStart: this.#mouseY,
-      verticalEnd: this.#mouseY,
-      horizontalStart: this.#mouseX,
-      horizontalEnd: this.#mouseX,
-      offsetTop: offsetParentBounds?.top || 0,
-      offsetBottom: offsetParentBounds?.bottom || clientHeight,
-      offsetLeft: offsetParentBounds?.left || 0
-    };
-  }
-
-  #setAnchorPosition() {
-    const {
-      clientHeight,
-      clientWidth,
-      verticalStart,
-      verticalEnd,
-      horizontalStart,
-      horizontalEnd,
-      offsetTop,
-      offsetBottom,
-      offsetLeft
-    } = this.#positionMouse ? this.#getMousePosition() : this.#getAnchorPosition();
-
     const width = this.#surfaceElement.offsetWidth;
-    let height = this.#surfaceElement.offsetHeight;
-    let left = (horizontalStart - offsetLeft);
-    let top = (verticalEnd - offsetTop);
-    let bottom;
+    const anchorBounds = this.#anchorElement.getBoundingClientRect();
+    let height = this.#surfaceElement.querySelector('.surface-content').scrollHeight;
+    let translateY = !alignTop ? 0 + this.#offsetBottom : anchorBounds.height;
+    let translateX = this.#positionMouse ? this.#mouseX - anchorBounds.left : (alignRight ? (anchorBounds.width - overlapPadding) : 0);
+    this.#surfaceElement.classList.remove('above');
 
     if (this.#viewportBound) {
-      const overlapPadding = 24;
-      const overlapBottom = clientHeight - (verticalEnd + height + overlapPadding);
-      const overlapRight = Math.min(0, clientWidth - (horizontalEnd + width + 12));
-
-      this.#surfaceElement.classList.remove('above');
+      const verticalStart = anchorBounds.bottom + this.#offsetBottom;
+      const overlapBottom = clientHeight - (verticalStart + height + overlapPadding);
+      const overlapRight = Math.min(0, clientWidth - (anchorBounds.left + width + translateX + overlapPadding));
 
       if (overlapBottom < 0) {
         const overlapTop = verticalStart - (height + overlapPadding);
@@ -368,48 +311,45 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
         const enoughRoomToShiftUp = overlapTop + height >= Math.abs(overlapBottom);
         const canShiftUp = this.#overlap === true && overLapBottomLessThanHalfHeight && enoughRoomToShiftUp;
 
-
         // shift up
         if (canShiftUp) {
-          top += overlapBottom
+          translateY += overlapBottom;
 
-          // position above anchor
+        // position above anchor
         } else if (overlapTop >= 0) {
-          bottom = (offsetBottom - verticalStart) + this.#offsetTop;
-          top = undefined;
-
+          translateY -= height;
+          if (!this.#overlap) translateY -= anchorBounds.height;
           this.#surfaceElement.classList.add('above');
 
-          // shrink with overlap
+        // shrink with overlap
         } else if (this.#overlap && this.#shrink) {
           const newHeight = Math.min(height, clientHeight - (overlapPadding * 2));
-          top += overlapBottom + (height - newHeight);
+          translateY += overlapBottom + (height - newHeight);
           height = newHeight;
 
-          // shrink
+        // shrink
         } else {
           // choose above or below based on how much room there is
           if (overlapBottom > overlapTop) {
-            if (this.#shrink) height += overlapBottom;
+            if (this.#shrink) height += overlapBottom - anchorBounds.height;
+            translateY -= anchorBounds.height - anchorBounds.height;
           } else {
-            if (this.#shrink) height += overlapTop;
-            bottom = (offsetBottom - verticalStart) + this.#offsetTop;
-            top = undefined;
+            if (this.#shrink) height += overlapTop - anchorBounds.height;
+            translateY -= height + anchorBounds.height;
           }
         }
       }
 
       // basic translation for horizontal for now
-      if (overlapRight) left -= overlapRight;
+      if (overlapRight) translateX += overlapRight;
     }
 
     this.#surfaceElement.classList.toggle('overlap', this.#overlap);
     this.#surfaceElement.style.setProperty('--wfc-surface-height', `${height}px`);
     this.#surfaceElement.style.setProperty('--wfc-surface-width', `${width}px`);
-    this.#surfaceElement.style.left = `${left}px`;
-    this.#surfaceElement.style.bottom = bottom !== undefined ? `${bottom}px` : '';
-    this.#surfaceElement.style.top = top !== undefined ? `${top}px` : '';
+    this.#surfaceElement.style.transform = `translate(${translateX}px, ${translateY}px)`;
   }
+
 
   #setNonAnchorPosition() {
     this.#surfaceElement.style.setProperty('--wfc-surface-height', `${this.#surfaceElement.offsetHeight}px`);
@@ -451,7 +391,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
 
   #setMousePosition(event) {
     this.#mouseX = event.clientX;
-    this.#mouseY = event.clientY;
+    this.#anchorElement = event.target;
   }
 
   #onClickOutside(event) {

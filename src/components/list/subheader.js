@@ -28,24 +28,31 @@ class WFCListSubheaderElement extends HTMLComponentElement {
 
   connectedCallback() {
     this.#setupObserver();
-    this.#observer.observe(this); 
   }
 
   disconnectedCallback() {
-    this.#observer.unobserve(this);
+    if (this.#observer) this.#observer.unobserve(this);
   }
 
 
   #setupObserver() {
     if (!observers.get(this.parentElement)) {
       const scrollParent = this.#getScrollParent();
-      observers.set(this.parentElement, new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          entry.target.classList.toggle('stuck', entry.isIntersecting);
-        });
-      }, { root: scrollParent, rootMargin: `0px 0px -${scrollParent.offsetHeight - 56}px 0px` }))
+
+      setTimeout(() => {
+        const newObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            entry.target.classList.toggle('stuck', entry.isIntersecting);
+          });
+        }, { root: scrollParent, rootMargin: `0px 0px -${Math.max(scrollParent.offsetHeight - 56, 0)}px 0px` });
+        observers.set(this.parentElement, newObserver);
+      }, 100);
     }
-    this.#observer = observers.get(this.parentElement);
+
+    setTimeout(() => {
+      this.#observer = observers.get(this.parentElement);
+      this.#observer.observe(this);
+    }, 101);
   }
 
 
