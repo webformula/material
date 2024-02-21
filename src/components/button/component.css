@@ -23,7 +23,6 @@
 }
 
 :host([disabled]) {
-  /* pointer-events: none; */
   cursor: default;
   color: var(--wfc-on-surface);
   opacity: 0.38;
@@ -240,22 +239,22 @@ slot[name="leading-icon"]::slotted(wfc-icon) {
   bottom: 0;
   right: 0;
   pointer-events: none;
+
+  .ripple-element {
+    background-color: var(--wfc-primary);
+    opacity: var(--wfc-state-layer-opacity-pressed);
+    border-radius: var(--wfc-shape-full);
+  }
 }
 
-.ripple > .ripple-element {
-  background-color: var(--wfc-primary);
-  opacity: var(--wfc-state-layer-opacity-pressed);
-  border-radius: var(--wfc-shape-full);
-}
-
-:host(.filled) .ripple > .ripple-element {
+:host(.filled) .ripple-element {
   background-color: var(--wfc-on-primary);
 }
 
-:host(.elevated) .ripple > .ripple-element {
+:host(.elevated) .ripple-element {
   background-color: var(--wfc-primary);
 }
 
-:host(.filled-tonal) .ripple > .ripple-element {
+:host(.filled-tonal) .ripple-element {
   background-color: var(--wfc-on-secondary-container);
 }

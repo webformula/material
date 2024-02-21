@@ -177,17 +177,17 @@
 .expand-arrow {
   display: none;
   cursor: pointer;
-}
 
-.expand-arrow.show {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translateY(20px);
-  transition: transform;
-  transition-duration: 0ms;
-  transition-duration: var(--wfc-motion-duration-short3);
+  &.show {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(20px);
+    transition: transform;
+    transition-duration: 0ms;
+    transition-duration: var(--wfc-motion-duration-short3);
+  }
 }
 
 :host([open]) .expand-arrow.show {
@@ -477,12 +477,12 @@
   bottom: 0;
   right: 0;
   pointer-events: none;
-}
 
-.ripple .ripple-element {
-  background-color: var(--wfc-primary);
-  opacity: var(--wfc-state-layer-opacity-pressed);
-  border-radius: var(--wfc-shape-full);
+  .ripple-element {
+    background-color: var(--wfc-primary);
+    opacity: var(--wfc-state-layer-opacity-pressed);
+    border-radius: var(--wfc-shape-full);
+  }
 }
 
 :host([filled]) .ripple .ripple-element {

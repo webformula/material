@@ -226,11 +226,11 @@ input {
   width: 24px;
   height: 24px;
   pointer-events: none;
-}
 
-.ripple .ripple-element {
-  background-color: var(--wfc-on-surface);
-  opacity: var(--wfc-state-layer-opacity-pressed);
+  .ripple-element {
+    background-color: var(--wfc-on-surface);
+    opacity: var(--wfc-state-layer-opacity-pressed);
+  }
 }
 
 
