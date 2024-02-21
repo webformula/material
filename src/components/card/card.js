@@ -279,7 +279,7 @@ export default class WFCCardElement extends HTMLComponentElement {
   }
 
   #imgOnload() {
-    this.querySelector(':scope > .card-image img').removeEventListener('load', this.#imgOnload_bound);
+    [...this.querySelectorAll(':scope img')].forEach(el => el.removeEventListener('load', this.#imgOnload_bound));
     this.#calculateImgMaxHeightForFullscreen();
   }
 

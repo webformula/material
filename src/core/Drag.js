@@ -718,7 +718,7 @@ export default class Drag {
   }
 
   #overscroll(event) {
-    if (this.#stopOverscroll) return;
+    if (this.#stopOverscroll || !this.#element) return;
 
     const elapsed = Date.now() - this.#overscrollTrackingDetails.overscrollTimeStamp;
     const deltaX = -this.#overscrollTrackingDetails.amplitudeX * Math.exp(-elapsed / this.#overflowTimeConstant);
@@ -775,7 +775,7 @@ export default class Drag {
 
 
   #snapMove(target, lastEvent, previousDirectionX, previousDirectionY) {
-    if (this.#stopSnapping) return;
+    if (this.#stopSnapping || !this.#element) return;
 
     const diffX = target.x - this.#element.scrollLeft;
     const diffY = target.y - this.#element.scrollTop;
