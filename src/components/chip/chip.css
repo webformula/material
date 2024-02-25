@@ -9,6 +9,7 @@
   position: relative;
   outline: none;
   user-select: none;
+  -webkit-user-select: none;
   white-space: nowrap;
   align-items: center;
   padding-inline: 16px;

@@ -24,10 +24,6 @@
   border-radius: var(--wfc-shape-extra-small);
 }
 
-:host-context(wfc-chip) {
-  height: 28px;
-}
-
 :host(.selected) {
   color: var(--wfc-on-secondary-container);
   background-color: var(--wfc-secondary-container);

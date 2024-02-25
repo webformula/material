@@ -12,19 +12,6 @@
   background-color: var(--wfc-error);
 }
 
-:host-context(wfc-button) {
-  position: relative;
-  order: 100;
-  margin-inline-start: 0px;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
-  inset-inline-start: 0;
-}
-
-:host-context(wfc-button):host(.has-value:not(.hide-value)) {
-  margin-block-end: 3px;
-}
-
 :host(.has-value) {
   display: flex;
 }

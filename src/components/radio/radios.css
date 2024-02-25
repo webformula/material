@@ -73,6 +73,7 @@ input {
   flex-grow: inherit;
   justify-content: flex-end;
   user-select: none;
+  -webkit-user-select: none;
   cursor: inherit;
   white-space: nowrap;
   margin-left: 16px;

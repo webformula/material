@@ -4,9 +4,21 @@
 @import url('./styles/anchor.css');
 
 @import url('./components/anchor/anchor-group-global.css');
+@import url('./components/anchor/anchor-host-context.css');
+@import url('./components/badge/host-context.css');
+@import url('./components/bottom-app-bar/host-context.css');
+@import url('./components/bottom-sheet/host-context.css');
+@import url('./components/card/card-host-context.css');
 @import url('./components/card/group-global.css');
 @import url('./components/carousel/global.css');
 @import url('./components/divider/global.css');
+@import url('./components/fab/host-context.css');
+@import url('./components/icon/host-context.css');
+@import url('./components/menu/menu-item-host-context.css');
+@import url('./components/navigation-bar/host-context.css');
+@import url('./components/navigation-rail/host-context.css');
+
+
 /* @import url('./components/tab/tab-bar-global.css'); */
 /* @import url('./components/tab/tab-content-global.css'); */
 /* @import url('./components/tab/tab-global.css'); */

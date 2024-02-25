@@ -20,15 +20,18 @@ liking a post</div>
       <div slot="supporting-text">There are five types of common buttons: elevated, filled, filled tonal, outlined, and text
       </div>
       
-      <wfc-button>Text</wfc-button>
-      <wfc-button class="elevated">Elevated</wfc-button>
-      <wfc-button class="filled">Filled</wfc-button>
-      <wfc-button class="filled-tonal">Filled tonal</wfc-button>
-      <wfc-button class="outlined">Outlined</wfc-button>
-      <wfc-button>
-        <wfc-icon slot="leading-icon">home</wfc-icon>
-        Icon
-      </wfc-button>
+      <div style="gap: 8px; display: flex; flex-wrap: wrap;">
+        <wfc-button>Text</wfc-button>
+        <wfc-button class="elevated">Elevated</wfc-button>
+        <wfc-button class="filled">Filled</wfc-button>
+        <wfc-button class="filled-tonal">Filled tonal</wfc-button>
+        <wfc-button class="outlined">Outlined</wfc-button>
+        <wfc-button>
+          <wfc-icon slot="leading-icon">home</wfc-icon>
+          Icon
+        </wfc-button>
+        <wfc-button disabled class="outlined">Disabled</wfc-button>
+      </div>
 
       <pre>
         <code class="language-html">
@@ -66,8 +69,11 @@ liking a post</div>
     <wfc-card id="async_button">
       <div slot="headline">Async button</div>
 
-      <wfc-button id="async-button" async class="filled">Example</wfc-button>
-      <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>
+
+      <div style="gap: 8px; display: flex;">
+        <wfc-button id="async-button" async class="filled">Example</wfc-button>
+        <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>
+      </div>
 
       <pre>
         <code class="language-html">

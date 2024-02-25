@@ -46,7 +46,7 @@ class WFCAnchorElement extends HTMLComponentElement {
 
   template() {
     return /*html*/`
-      <a>
+      <a part="a">
         <slot name="leading-icon"></slot>
         <slot class="default-slot"></slot>
         <span class="badge-display"></span>

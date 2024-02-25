@@ -21,17 +21,8 @@
 
   margin-bottom: 0;
   transition: margin-bottom;
-  transition-duration: 0;
-  transition-timing-function: var(---wfc-motion-easing-standard);
-}
-
-:host-context(body.wfc-animation) {
   transition-duration: var(--wfc-motion-duration-short3);
-}
-
-:host-context(body.has-navigation-rail.window-medium):host(:not(.always-show)),
-:host-context(body.window-expanded):host(:not(.always-show)) {
-  display: none;
+  transition-timing-function: var(---wfc-motion-easing-standard);
 }
 
 :host(.hide) {

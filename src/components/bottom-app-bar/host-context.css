@@ -1,0 +1,3 @@
+body.window-expanded.navigation-drawer-state-show wfc-bottom-app-bar {
+  left: var(--wfc-navigation-drawer-width);
+}

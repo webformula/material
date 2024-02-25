@@ -134,6 +134,7 @@ input {
   display: inline-flex;
   flex-grow: inherit;
   user-select: none;
+  -webkit-user-select: none;
   cursor: inherit;
   white-space: nowrap;
   height: 32px;

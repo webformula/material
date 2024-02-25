@@ -1,0 +1,4 @@
+body.has-navigation-rail.window-medium wfc-navigation-bar:not(.always-show),
+body.window-expanded wfc-navigation-bar:not(.always-show) {
+  display: none;
+}

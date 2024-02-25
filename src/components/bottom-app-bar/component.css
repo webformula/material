@@ -13,25 +13,29 @@
   align-items: center;
 
   transition: left;
-  transition-duration: 0;
+  transition-duration: var(--wfc-motion-duration-short3);
   transition-timing-function: var(---wfc-motion-easing-standard);
 }
 
 :host([auto-hide]) {
   margin-bottom: 0;
   transition: margin-bottom, left;
-}
-
-:host-context(body.wfc-animation) {
   transition-duration: var(--wfc-motion-duration-short3);
-}
-
-:host-context(body.window-expanded.navigation-drawer-state-show) {
-  left: var(--wfc-navigation-drawer-width);
+  transition-timing-function: var(---wfc-motion-easing-standard);
 }
 
 :host(.hide) {
   margin-bottom: -80px;
+}
+:host([auto-hide]) ::slotted(wfc-fab) {
+  transform: translateY(0);
+  transition: transform;
+  transition-duration: var(--wfc-motion-duration-short3);
+  transition-timing-function: var(---wfc-motion-easing-standard);
+}
+
+:host([auto-hide].hide) ::slotted(wfc-fab) {
+  transform: translateY(-74px);
 }
 
 ::slotted(wfc-icon-button),

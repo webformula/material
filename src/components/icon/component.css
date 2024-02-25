@@ -11,6 +11,7 @@
   word-wrap: normal;
   color: inherit;
   user-select: none;
+  -webkit-user-select: none;
   line-height: 1;
   /* overflow: hidden; */
   outline: none;
@@ -53,8 +54,6 @@
   font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Symbols Sharp';
 }
 
-:host-context(wfc-icon-button.filled),
-:host-context(wfc-icon-button.filled-tonal),
 :host(.filled),
 :host(.filled-tonal) {
   font-variation-settings:

@@ -40,8 +40,8 @@
   --wfc-scrim: var(--wfc-neutral-0);
 
   --wfc-state-layer-opacity-hover: 0.08;
-  --wfc-state-layer-opacity-focus: 0.12;
-  --wfc-state-layer-opacity-pressed: 0.12;
+  --wfc-state-layer-opacity-focus: 0.1;
+  --wfc-state-layer-opacity-pressed: 0.1;
   --wfc-state-layer-opacity-dragged: 0.16;
   
   --wfc-shape-extra-small: 4px;
@@ -192,29 +192,29 @@
 
 
   --wfc-elevation-1:
-    0px 1px 2px 0px var(--wfc-shadow-alpha-26),
-    0px 1px 3px 1px var(--wfc-shadow-alpha-16);
+    0px 1px 2px 0px var(--wfc-shadow-alpha-30),
+    0px 1px 3px 1px var(--wfc-shadow-alpha-15);
 
   --wfc-elevation-2:
-    0px 1px 2px 0px var(--wfc-shadow-alpha-26),
-    0px 2px 6px 2px var(--wfc-shadow-alpha-12);
+    0px 1px 2px 0px var(--wfc-shadow-alpha-30),
+    0px 2px 6px 2px var(--wfc-shadow-alpha-15);
 
   /* shift shadow vertically. Used for filter selects when surface is above textfield to reduce shadow covering */
   --wfc-elevation-2-reverse:
-      0px -1px 2px 0px var(--wfc-shadow-alpha-26),
-      0px -2px 6px 2px var(--wfc-shadow-alpha-12);
+      0px -1px 2px 0px var(--wfc-shadow-alpha-30),
+      0px -2px 6px 2px var(--wfc-shadow-alpha-15);
 
   --wfc-elevation-3:
-    0px 1px 3px 0px var(--wfc-shadow-alpha-26),
-    0px 4px 8px 3px var(--wfc-shadow-alpha-12);
+    0px 1px 3px 0px var(--wfc-shadow-alpha-30),
+    0px 4px 8px 3px var(--wfc-shadow-alpha-15);
 
   --wfc-elevation-4:
-    0px 2px 3px 0px var(--wfc-shadow-alpha-26),
-    0px 6px 10px 4px var(--wfc-shadow-alpha-12);
+    0px 2px 3px 0px var(--wfc-shadow-alpha-30),
+    0px 6px 10px 4px var(--wfc-shadow-alpha-15);
 
   --wfc-elevation-5:
-    0px 4px 4px 0px var(--wfc-shadow-alpha-26),
-    0px 8px 12px 6px var(--wfc-shadow-alpha-12);
+    0px 4px 4px 0px var(--wfc-shadow-alpha-30),
+    0px 8px 12px 6px var(--wfc-shadow-alpha-15);
 }
 
 .wfc-theme-dark,

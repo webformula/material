@@ -15,10 +15,6 @@
   transition-timing-function: var(--wfc-motion-easing-standard-decelerate);
 }
 
-:host-context(body:not(.wfc-animation)) {
-  transition-duration: 0ms !important;
-}
-
 .placeholder {
   display: flex;
   flex-shrink: 0;

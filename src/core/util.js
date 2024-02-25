@@ -247,7 +247,7 @@ const wfcUtil = new class WFCUtil {
 
   #longPressListeners = [];
   addLongPressListener(element, listener, config = {
-    ms: 1500,
+    ms: 400,
     disableMouseEvents: false,
     disableTouchEvents: false
   }) {
@@ -260,6 +260,8 @@ const wfcUtil = new class WFCUtil {
     function remove() {
       if (timeout) clearTimeout(timeout);
       lastEvent = undefined;
+      element.removeEventListener('mousedown', start);
+      element.removeEventListener('touchstart', start);
       element.removeEventListener('mouseup', remove);
       element.removeEventListener('mousemove', move);
       element.removeEventListener('touchend', remove);
@@ -271,7 +273,7 @@ const wfcUtil = new class WFCUtil {
       timeout = setTimeout(() => {
         listener(lastEvent);
         remove();
-      }, config.ms || 500);
+      }, config.ms || 400);
       lastEvent = event;
       startX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
       startY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
@@ -283,6 +285,8 @@ const wfcUtil = new class WFCUtil {
         element.addEventListener('touchend', remove);
         element.addEventListener('touchmove', move);
       }
+
+      event.preventDefault();
     }
 
     function move(event) {

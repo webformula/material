@@ -112,9 +112,11 @@ function createTheme({ coreColors, customColors }) {
         [`${name}-alpha-10`, `${palettes[core][tone]}1a`],
         [`${name}-alpha-11`, `${palettes[core][tone]}1c`],
         [`${name}-alpha-12`, `${palettes[core][tone]}1f`],
+        [`${name}-alpha-15`, `${palettes[core][tone]}26`],
         [`${name}-alpha-16`, `${palettes[core][tone]}29`],
         [`${name}-alpha-20`, `${palettes[core][tone]}33`],
         [`${name}-alpha-26`, `${palettes[core][tone]}42`],
+        [`${name}-alpha-30`, `${palettes[core][tone]}4D`],
         [`${name}-alpha-38`, `${palettes[core][tone]}61`],
         [`${name}-alpha-60`, `${palettes[core][tone]}99`],
         [`${name}-alpha-76`, `${palettes[core][tone]}c2`]

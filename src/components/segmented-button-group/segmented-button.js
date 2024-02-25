@@ -33,9 +33,7 @@ class WFCSegmentedButtonElement extends WFCButtonElement {
         <slot name="leading-icon"></slot>
         <slot class="default-slot"></slot>
       </button>
-      <div class="state-layer"></div>
       <div class="spinner"></div>
-      <div class="ripple"></div>
     `;
   }
 

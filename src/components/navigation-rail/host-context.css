@@ -1,0 +1,11 @@
+body.window-compact.has-bottom-app-bar wfc-navigation-rail,
+body.window-compact.has-navigation-bar wfc-navigation-rail {
+  display: none;
+}
+
+body.window-expanded:not(body.has-navigation-drawer) wfc-navigation-rail,
+body.navigation-drawer-state-hide:not(.window-compact) wfc-navigation-rail,
+body.window-medium wfc-navigation-rail,
+body:not(.window-compact):not(.has-navigation-drawer) wfc-navigation-rail {
+  width: var(--wfc-navigation-rail-width);
+}

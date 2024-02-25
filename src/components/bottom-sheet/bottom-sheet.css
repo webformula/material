@@ -10,11 +10,6 @@
   border-radius: 0;
 }
 
-:host-context(body:not(.window-compact)) {
-  display: none;
-  pointer-events: none;
-}
-
 .handle {
   flex-shrink: 0;
   align-self: center;
@@ -54,6 +49,7 @@
   padding-top: 12px;
 }
 
+/* TODO remove host context */
 :host-context(body.has-bottom-app-bar) .item-padding,
 :host-context(body.has-navigation-bar.window-compact) .item-padding {
   margin-bottom: 80px;

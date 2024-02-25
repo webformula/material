@@ -22,6 +22,7 @@
   opacity: 0;
   z-index: 20;
   user-select: none;
+  -webkit-user-select: none;
   max-height: inherit;
   height: inherit;
   width: inherit;
@@ -295,12 +296,6 @@ slot {
   animation-duration: var(--wfc-motion-duration-medium1);
   animation-timing-function: var(--wfc-motion-easing-emphasized);
 }
-
-
-:host-context(body:not(.wfc-animation)) .surface {
-  animation-duration: 0ms !important;
-}
-
 
 @keyframes show-max-height {
   0% {

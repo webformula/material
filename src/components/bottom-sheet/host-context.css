@@ -1,0 +1,4 @@
+body:not(.window-compact) wfc-bottom-sheet {
+  display: none;
+  pointer-events: none;
+}

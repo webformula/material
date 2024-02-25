@@ -46,15 +46,15 @@ export default class Ripple {
     this.#speedFactor = params.speedFactor !== undefined ? params.speedFactor : this.#speedFactor;
 
     this.#triggerElement.forEach(element => {
-      element.addEventListener('mousedown', this.#mouseDown_bound);
+      element.addEventListener('pointerdown', this.#mouseDown_bound);
     });
   }
 
 
   destroy() {
     this.#triggerElement.forEach(element => {
-      element.removeEventListener('mousedown', this.#mouseDown_bound);
-      element.removeEventListener('mouseup', this.#fadeOutAllRipples_bound);
+      element.removeEventListener('pointerdown', this.#mouseDown_bound);
+      element.removeEventListener('pointerup', this.#fadeOutAllRipples_bound);
       element.removeEventListener('mouseleave', this.#mouseLeave_bound);
     });
   }
@@ -74,7 +74,7 @@ export default class Ripple {
     if (this.#ignoreElements.find(v => v.contains(event.target))) return;
     this.#isMousedown = true;
     this.#triggerElement.forEach(element => {
-      element.addEventListener('mouseup', this.#fadeOutAllRipples_bound);
+      element.addEventListener('pointerup', this.#fadeOutAllRipples_bound);
       element.addEventListener('mouseleave', this.#mouseLeave_bound);
     });
     this.#fadeInRipple(event.pageX, event.pageY);
@@ -91,7 +91,7 @@ export default class Ripple {
       if (!ripple.persistent && ripple.state === this.#states.VISIBLE) ripple.fadeOut();
     });
     this.#triggerElement.forEach(element => {
-      element.removeEventListener('mouseup', this.#fadeOutAllRipples_bound);
+      element.removeEventListener('pointerup', this.#fadeOutAllRipples_bound);
       element.removeEventListener('mouseleave', this.#mouseLeave_bound);
     });
   }
@@ -124,14 +124,14 @@ export default class Ripple {
       fadeOut: () => this.#fadeOutRipple(reference)
     };
     this.#activeRipples.add(reference);
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       ripple.style.transform = 'scale(1)';
 
       setTimeout(() => {
         reference.state = this.#states.VISIBLE;
         if (!this.#persistent && !this.#isMousedown) reference.fadeOut();
       }, duration);
-    });
+    }, 1);
   }
 
   #fadeOutRipple(reference) {
@@ -172,6 +172,7 @@ export default class Ripple {
   #createRippleElement(offsetX, offsetY, radius, duration) {
     const ripple = document.createElement('div');
     ripple.classList.add('ripple-element');
+    ripple.style.opacity = '0.16';
     ripple.style.left = `${offsetX - radius}px`;
     ripple.style.top = `${offsetY - radius}px`;
     ripple.style.height = `${radius * 2}px`;

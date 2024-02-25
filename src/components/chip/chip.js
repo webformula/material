@@ -8,6 +8,7 @@ import {
 
 const inputValueRegex = /^(.+)<(.+)>$/;
 
+// TODO menu position
 // TODO figure out aria label for chip with check mark
 
 class WFCchipElement extends HTMLComponentElement {

@@ -40,6 +40,7 @@ wfc-carousel-item {
   margin-right: 8px;
   pointer-events: none;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 wfc-carousel-item:last-of-type {

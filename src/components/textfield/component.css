@@ -107,6 +107,7 @@ textarea[rows="1"] {
   padding-inline-end: 2px;
   align-self: flex-end;
   user-select: none;
+  -webkit-user-select: none;
   opacity: 0;
   text-wrap: nowrap;
   z-index: 1;
@@ -436,6 +437,7 @@ textarea[rows="1"] {
   text-decoration: inherit;
   text-transform: inherit;
   user-select: none;
+  -webkit-user-select: none;
   color: transparent;
 }
 
@@ -488,6 +490,7 @@ textarea[rows="1"] {
   z-index: 1;
   pointer-events: none;
   user-select: none;
+  -webkit-user-select: none;
 
   text-decoration: inherit;
   text-transform: inherit;

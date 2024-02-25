@@ -1,0 +1,12 @@
+wfc-button wfc-badge {
+  position: relative;
+  order: 100;
+  margin-inline-start: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  inset-inline-start: 0;
+}
+
+wfc-button wfc-badge.has-value:not(.hide-value) {
+  margin-block-end: 3px;
+}
