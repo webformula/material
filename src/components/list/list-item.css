@@ -160,44 +160,13 @@ slot[name='end']::slotted([hover-only]) {
 
 /* --- State layer / Ripple --- */
 
-.state-layer {
-  overflow: hidden;
-  border-radius: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.state-layer.enabled::after {
-  content: '';
-  border-radius: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.state-layer .ripple-element {
-  background-color: var(--wfc-on-surface);
-  opacity: var(--wfc-state-layer-opacity-pressed);
-}
-
-:host(:focus) .state-layer.enabled::after {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-on-surface);
+wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface);
 }
 
 @media (hover: hover) {
-  :host(:hover) .state-layer.enabled::after {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-on-surface);
-  }
-
   :host(:hover) slot[name='end']::slotted([hover-only]) {
     opacity: 1;
     transition-duration: var(--wfc-motion-duration-short3);

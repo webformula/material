@@ -1,6 +1,5 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 
 
 class WFCCheckboxElement extends HTMLComponentElement {
@@ -14,7 +13,6 @@ class WFCCheckboxElement extends HTMLComponentElement {
   #internals;
   #input;
   #abort;
-  #ripple;
   #label;
   #value = 'on';
   #checked = false;
@@ -25,7 +23,6 @@ class WFCCheckboxElement extends HTMLComponentElement {
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
 
 
@@ -60,12 +57,11 @@ class WFCCheckboxElement extends HTMLComponentElement {
         <input type="checkbox">
         <div class="outline"></div>
         <div class="background"></div>
-        <div class="state-layer"></div>
+        <wfc-state-layer ripple ripple-centered outer-circle></wfc-state-layer>
         <svg class="icon" viewBox="0 0 18 18" aria-hidden="true">
           <rect class="mark short" />
           <rect class="mark long" />
         </svg>
-        <div class="ripple"></div>
       </div>
       <slot class="label"></slot>
     `; 
@@ -82,19 +78,12 @@ class WFCCheckboxElement extends HTMLComponentElement {
     this.#abort = new AbortController();
     this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#updateValidity();
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      centered: true
-    });
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
   }
 
 
@@ -204,11 +193,6 @@ class WFCCheckboxElement extends HTMLComponentElement {
     this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
   }
 
-  // prevent focus on click
-  #focusMousedown(event) {
-    event.preventDefault();
-  }
-
   #blur() {
     if (this.#touched) {
       this.#updateValidity();
@@ -223,7 +207,7 @@ class WFCCheckboxElement extends HTMLComponentElement {
       this.checked = !this.checked;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this.#ripple.trigger();
+      this.shadowRoot.querySelector('wfc-state-layer').triggerRipple();
       e.preventDefault();
     }
   }

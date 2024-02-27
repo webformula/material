@@ -9,6 +9,7 @@
   left: var(--wfc-card-swipe-action-position);
   transition: left;
   transition-duration: var(--wfc-motion-duration-short3);
+  outline: none;
 }
 
 :host(.dragging) {
@@ -18,6 +19,7 @@
 :host([onclick]) {
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .container {
@@ -28,7 +30,6 @@
   color: var(--wfc-on-surface);
   box-sizing: border-box;
   border-radius: inherit;
-  box-shadow: var(--wfc-elevation-1);
   padding: 16px;
   width: inherit;
 }
@@ -61,14 +62,12 @@
 }
 
 :host([outlined]) .container {
-  box-shadow: none;
   background-color: var(--wfc-surface);
   /* use outline because box-sizing with border-radius does not prevent hight change */
   outline: 1px solid var(--wfc-outline);
 }
 
 :host([filled]) .container {
-  box-shadow: none;
   color: var(--wfc-on-surface-variant);
   background-color: var(--wfc-surface-container-highest);
 }
@@ -157,21 +156,13 @@
 :host(.expanding) {
   transform: translateY(0);
   margin-bottom: 0;
-  transition: margin-bottom, box-shadow, transform;
+  transition: margin-bottom, transform;
   transition-duration: 0ms;
   transition-duration: var(--wfc-motion-duration-short3);
 }
 
 :host(.expanding[open]) {
   z-index: 11;
-}
-
-:host-context(body:not(.window-compact)):host(.expanding[open]) {
-  transform: translateY(-6px);
-}
-
-:host(.expanding[open][filled]) {
-  box-shadow: var(--wfc-elevation-1);
 }
 
 .expand-arrow {
@@ -306,36 +297,16 @@
 }
 
 
-
-:host(.drag-reorder-active) {
-  box-shadow: var(--wfc-elevation-4);
-}
-
-:host(.drag-reorder-active::after) {
-  opacity: var(--wfc-state-layer-opacity-dragged);
-  background-color: var(--wfc-on-surface);
-}
-
-:host([filled].drag-reorder-active),
-:host([outlined].drag-reorder-active) {
-  box-shadow: var(--wfc-elevation-3);
-}
-
-:host([outlined].drag-reorder-active::after) {
-  outline: 1px solid var(--wfc-outline-variant);
-}
-
-
 /* --- group ---- */
 
-:host-context(wfc-card-group:not(.grid)),
+:host(.compact.grouped:not(.grid)),
 :host(.grid-list-item) {
   flex-direction: row;
   height: 80px;
   overflow: hidden;
 }
 
-:host-context(wfc-card-group:not(.grid)) .container,
+:host(.compact.grouped:not(.grid)) .container,
 :host(.grid-list-item) .container {
   flex-direction: row;
   height: 80px;
@@ -343,32 +314,32 @@
   overflow: hidden;
 }
 
-:host-context(wfc-card-group:not(.grid)) .content,
+:host(.compact.grouped:not(.grid)) .content,
 :host(.grid-list-item) .content {
   align-self: flex-end;
   margin-left: 32px;
 }
 
-:host-context(wfc-card-group:not(.grid)) [name="image"],
+:host(.compact.grouped:not(.grid)) [name="image"],
 :host(.grid-list-item) [name="image"] {
   z-index: 1;
   width: 80px;
   height: 80px;
 }
 
-:host-context(wfc-card-group:not(.grid)):host(:not(.has-image)) [name="image"],
-:host(.grid-list-item:host(.has-image)) [name="image"] {
+:host(.compact.grouped:not(.grid):not(.has-image)) [name="image"],
+:host(.grid-list-item.has-image) [name="image"] {
   width: 0;
 }
 
-:host-context(wfc-card-group:not(.grid)) [name="image"]::slotted(img),
+:host(.compact.grouped:not(.grid)) [name="image"]::slotted(img),
 :host(.grid-list-item) [name="image"]::slotted(img) {
   width: unset;
   height: 100%;
 }
 
-:host-context(wfc-card-group:not(.grid)) [name="supporting-text"],
-:host-context(wfc-card-group:not(.grid)):host(.card-list-item) [name="actions"],
+:host(.compact.grouped:not(.grid)) [name="supporting-text"],
+:host(.compact.grouped:not(.grid).card-list-item) [name="actions"],
 :host(.grid-list-item) [name="supporting-text"],
 :host(.grid-list-item.card-list-item) [name="actions"] {
   display: none;
@@ -467,24 +438,45 @@
 
 
 
-/* --- Ripple --- */
-.ripple {
-  position: absolute;
-  overflow: hidden;
-  border-radius: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
+/* --- state layer --- */
 
-  .ripple-element {
-    background-color: var(--wfc-primary);
-    opacity: var(--wfc-state-layer-opacity-pressed);
-    border-radius: var(--wfc-shape-full);
-  }
+wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-:host([filled]) .ripple .ripple-element {
-  background-color: var(--wfc-on-primary);
+:host([filled]) wfc-state-layer {
+  --wfc-state-layer-box-shadow: none;
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
+}
+
+:host(.expanding[open][filled]) wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-1);
+}
+
+:host([outlined]) wfc-state-layer {
+  --wfc-state-layer-box-shadow: none;
+}
+
+:host(.actionable) wfc-state-layer {
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-2);
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-2);
+}
+
+:host(.drag-active) wfc-state-layer {
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-4);
+}
+
+:host([filled].actionable) wfc-state-layer,
+:host([outlined].actionable) wfc-state-layer {
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-focus-box-shadow: none;
+}
+
+:host([filled].drag-active) wfc-state-layer,
+:host([outlined].drag-active) wfc-state-layer {
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-3);
+  --wfc-state-layer-focus-box-shadow: none;
 }

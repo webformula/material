@@ -1,8 +1,8 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
-import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
+// TODO class vs attribute
 class WFCFabElement extends HTMLComponentElement {
   static tag = 'wfc-fab';
   static useShadowRoot = true;
@@ -10,7 +10,6 @@ class WFCFabElement extends HTMLComponentElement {
   static useTemplate = true;
   static shadowRootDelegateFocus = true;
 
-  #ripple;
   #autoHide;
   #autoHideLabel;
   #maxWidth;
@@ -22,6 +21,9 @@ class WFCFabElement extends HTMLComponentElement {
 
     this.role = 'button';
     this.render();
+    if (this.parentElement.nodeName === 'WFC-BOTTOM-APP-BAR') {
+      this.classList.add('wfc-animation');
+    }
   }
 
   static get observedAttributesExtended() {
@@ -59,17 +61,8 @@ class WFCFabElement extends HTMLComponentElement {
     this[name] = newValue;
   }
 
-  connectedCallback() {
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      // ignoreElements: [this.querySelector('wfc-menu')]
-    });
-  }
-
   disconnectedCallback() {
     if (this.#autoHideLabel || this.#autoHide) util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
-    this.#ripple.destroy();
   }
 
   template() {
@@ -78,8 +71,7 @@ class WFCFabElement extends HTMLComponentElement {
         <slot class="icon"></slot>
         <slot name="label"></slot>
       </button>
-      <div class="state-layer"></div>
-      <div class="ripple"></div>
+      <wfc-state-layer ripple></wfc-state-layer>
     `;
   }
 

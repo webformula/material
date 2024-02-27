@@ -1,5 +1,4 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
-import Ripple from '../../core/Ripple.js';
 import styles from './component.css' assert { type: 'css' };
 import dialog from '../dialog/service.js';
 
@@ -13,7 +12,6 @@ export default class WFCButtonElement extends HTMLComponentElement {
   static styleSheets = styles;
 
   #abort;
-  #ripple;
   #target;
   #href;
   #type;
@@ -25,7 +23,6 @@ export default class WFCButtonElement extends HTMLComponentElement {
   #async = false;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #asyncMouseup_bound = this.pending.bind(this);
   #formClick_bound = this.#formClick.bind(this);
   #formFocusIn_bound = this.#formFocusIn.bind(this);
@@ -51,7 +48,8 @@ export default class WFCButtonElement extends HTMLComponentElement {
       ['type', 'string'],
       ['value', 'string'],
       ['form', 'string'],
-      ['async', 'boolean']
+      ['async', 'boolean'],
+      ['disabled', 'boolean']
     ];
   }
 
@@ -65,22 +63,16 @@ export default class WFCButtonElement extends HTMLComponentElement {
         <slot name="leading-icon"></slot>
         <slot class="default-slot"></slot>
       </button>
-      <div class="state-layer"></div>
       <div class="spinner"></div>
-      <div class="ripple"></div>
+      <wfc-state-layer ripple></wfc-state-layer>
     `;
   }
 
   connectedCallback() {
     this.#abort = new AbortController();
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this
-    });
 
     if (this.#async) this.addEventListener('mouseup', this.#asyncMouseup_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     if (this.#form) {
       this.addEventListener('click', this.#formClick_bound, { signal: this.#abort.signal });
       this.addEventListener('mousedown', this.#formMouseDown_bound, { signal: this.#abort.signal });
@@ -91,13 +83,15 @@ export default class WFCButtonElement extends HTMLComponentElement {
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
     this.#onclickValue = undefined;
     this.removeEventListener('click', this.#hrefClick_bound);
   }
 
   get disabled() { return this.hasAttribute('disabled'); }
-  set disabled(value) { this.toggleAttribute('disabled', !!value); }
+  set disabled(value) {
+    this.toggleAttribute('disabled', !!value);
+    this.#button.toggleAttribute('disabled', !!value);
+  }
 
   get href() { return this.#href; }
   set href(value) {
@@ -162,11 +156,6 @@ export default class WFCButtonElement extends HTMLComponentElement {
   }
 
 
-  // prevent focus on click
-  #focusMousedown(event) {
-    event.preventDefault();
-  }
-
   #focus() {
     this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
     this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
@@ -178,7 +167,7 @@ export default class WFCButtonElement extends HTMLComponentElement {
   }
 
   #focusKeydown(e) {
-    if (e.key === 'Enter') this.#ripple.trigger();
+    if (e.key === 'Enter') this.shadowRoot.querySelector('wfc-state-layer').triggerRipple();
   }
 
   // prevent onclick attribute from firing when form invalid

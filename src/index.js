@@ -33,6 +33,7 @@ import './components/time-picker/index.js';
 import './components/textfield/index.js';
 import './components/top-app-bar/index.js';
 import './components/tooltip/index.js';
+import './components/state-layer/index.js';
 
 export {
   wfcDate,

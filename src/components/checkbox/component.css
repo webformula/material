@@ -55,38 +55,6 @@ input {
   border-radius: inherit;
 }
 
-
-.state-layer {
-  pointer-events: none;
-  opacity: 0;
-  border-radius: 50%;
-  background-color: var(--wfc-on-surface);
-  width: 40px;
-  height: 40px;
-  left: -11px;
-  top: -11px;
-  transition: opacity;
-  transition-duration: 150ms;
-}
-
-:host(.selected) .state-layer {
-  background-color: var(--wfc-primary);
-}
-
-:host(.invalid) .state-layer {
-  background-color: var(--wfc-error);
-}
-
-:host(:focus) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-}
-
-@media (hover: hover) {
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-  }
-}
-
 .outline {
   border-color: var(--wfc-on-surface-variant);
   border-style: solid;
@@ -187,6 +155,7 @@ input {
   flex-grow: inherit;
   justify-content: flex-end;
   user-select: none;
+  -webkit-user-select: none;
   cursor: inherit;
   white-space: nowrap;
   margin-left: 16px;
@@ -218,19 +187,24 @@ input {
 }
 
 
-/* --- Ripple --- */
+/* state layer */
 
-.ripple {
-  border-radius: inherit;
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
+wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
+}
 
-  .ripple-element {
-    background-color: var(--wfc-on-surface);
-    opacity: var(--wfc-state-layer-opacity-pressed);
-  }
+:host(.selected) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-focus-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface);
+}
+
+:host(.invalid) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-error);
+  --wfc-state-layer-focus-color: var(--wfc-error);
+  --wfc-state-layer-ripple-color: var(--wfc-error);
 }
 
 

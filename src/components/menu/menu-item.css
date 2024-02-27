@@ -68,54 +68,8 @@ slot[name="end"] {
 }
 
 
-.state-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  opacity: 0;
-  border-radius: inherit;
-  background-color: var(--wfc-on-surface);
-  width: 100%;
-  height: 100%;
-  transition: opacity;
-  transition-duration: 150ms;
-}
-
-:host(.invalid) .state-layer {
-  background-color: var(--wfc-error);
-}
-
-:host(:focus) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-}
-
-@media (hover: hover) {
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-  }
-}
-
-
-
-/* --- Ripple --- */
-
-.ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.ripple .ripple-element {
-  background-color: var(--wfc-on-surface);
-  opacity: var(--wfc-state-layer-opacity-pressed);
-}
-
-:host(.selected) .ripple .ripple-element {
-  background-color: var(--wfc-primary-container);
+wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface);
 }

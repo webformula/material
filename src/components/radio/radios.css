@@ -96,49 +96,20 @@ input {
   opacity: 0.38;
 }
 
-.state-layer {
-  inset: 0;
-  position: absolute;
-  pointer-events: none;
-  opacity: 0;
-  border-radius: 50%;
-  background-color: var(--wfc-on-surface);
-  width: 40px;
-  height: 40px;
-  left: -10px;
-  top: -10px;
-  transition: opacity;
-  transition-duration: 150ms;
+wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-
-
-:host(.checked) .state-layer {
-  background-color: var(--wfc-primary);
+:host(.checked) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-focus-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface);
 }
 
-:host(:focus) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-}
-
-@media (hover: hover) {
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-  }
-}
-
-
-/* --- Ripple --- */
-
-.ripple {
-  border-radius: inherit;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-}
-
-.ripple .ripple-element {
-  background-color: var(--wfc-on-surface);
-  opacity: var(--wfc-state-layer-opacity-pressed);
+:host(.invalid) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-error);
+  --wfc-state-layer-focus-color: var(--wfc-error);
+  --wfc-state-layer-ripple-color: var(--wfc-error);
 }

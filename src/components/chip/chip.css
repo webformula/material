@@ -21,7 +21,6 @@
 }
 
 :host(.elevated) {
-  box-shadow: var(--wfc-elevation-1);
   border: none;
   background-color: var(--wfc-surface-container-low);
 }
@@ -122,7 +121,7 @@
   pointer-events: none;
 }
 
-:host(.menu:focus) .menu-arrow {
+:host(.menu:focus-visible) .menu-arrow {
   transform: rotate(0);
 }
 
@@ -178,54 +177,37 @@ input {
   border: none;
 }
 
-
-.state-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: var(--wfc-shape-small);
-  background-color: var(--wfc-on-surface);
-  opacity: 0;
-  pointer-events: none;
-}
-
-:host(:focus) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-hover);
-}
-
 @media (hover: hover) {
-  :host(:hover.elevated) {
-    box-shadow: var(--wfc-elevation-2);
-  }
-
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-  }
-
   :host([input]) .clear:hover::after {
     background-color: var(--wfc-on-surface-alpha-12);
   }
 }
 
-
-/* --- Ripple --- */
-
-.ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  transform: translateZ(0);
-  /* fixes bug on ios safari */
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
+wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-hover-color: var(--wfc-on-surface);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface);
 }
 
-.ripple > .ripple-element {
-  background-color: var(--wfc-primary);
-  opacity: var(--wfc-state-layer-opacity-pressed);
+:host([filter]) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-surface-variant);
+  --wfc-state-layer-hover-color: var(--wfc-on-surface-variant);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface-variant);
+}
+:host([filter].checked) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
+}
+
+:host([input]) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-surface-variant);
+  --wfc-state-layer-hover-color: var(--wfc-on-surface-variant);
+  --wfc-state-layer-ripple-color: var(--wfc-on-surface-variant);
+}
+
+:host(.elevated) wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-2);
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-2);
 }

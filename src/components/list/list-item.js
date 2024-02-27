@@ -1,6 +1,5 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './list-item.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
@@ -13,7 +12,6 @@ class WFCListItemElement extends HTMLComponentElement {
 
   #drag;
   #value;
-  #ripple;
   #states;
   #selected;
   #selectionControl;
@@ -47,7 +45,7 @@ class WFCListItemElement extends HTMLComponentElement {
         </div>
         <slot name="trailing-supporting-text"></slot>
         <slot name="end"></slot>
-        <div class="state-layer"></div>
+        <wfc-state-layer ripple="false" enabled="false"></wfc-state-layer>
       </div>
       <slot name="swipe-end"></slot>
     `;
@@ -81,7 +79,6 @@ class WFCListItemElement extends HTMLComponentElement {
   }
 
   disconnectedCallback() {
-    if (this.#ripple) this.#ripple.destroy();
     if (this.#drag) this.#drag.destroy();
     this.removeEventListener('change', this.#onChange_bound);
   }
@@ -101,8 +98,7 @@ class WFCListItemElement extends HTMLComponentElement {
   get states() { return this.#states; }
   set states(value) {
     this.#states = !!value;
-    const stateLayer = this.shadowRoot.querySelector('.state-layer');
-    stateLayer.classList.toggle('enabled', this.#states);
+    this.shadowRoot.querySelector('wfc-state-layer').enabled = !!value;
     if (this.#states) {
       if (this.querySelector('wfc-checkbox')) this.addEventListener('change', this.#onChange_bound);
     } else if (!this.#states) {
@@ -110,18 +106,9 @@ class WFCListItemElement extends HTMLComponentElement {
     }
   }
 
-  get ripple() { return this.#ripple; }
+  get ripple() { return this.shadowRoot.querySelector('wfc-state-layer').ripple; }
   set ripple(value) {
-    const stateLayer = this.shadowRoot.querySelector('.state-layer');
-    if (value && !this.#ripple) {
-      this.#ripple = new Ripple({
-        element: stateLayer,
-        triggerElement: this
-      });
-    } else if (!value && this.#ripple) {
-      this.#ripple.destroy();
-      this.#ripple = undefined;
-    }
+    this.shadowRoot.querySelector('wfc-state-layer').ripple = !!value;
   }
 
 

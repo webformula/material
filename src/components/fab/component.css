@@ -73,7 +73,6 @@ button {
 
   color: var(--wfc-on-primary-container);
   background-color: var(--wfc-primary-container);
-  box-shadow: var(--wfc-elevation-3);
 }
 
 :host(.small) button {
@@ -82,7 +81,12 @@ button {
 
 :host(.surface) button {
   color: var(--wfc-primary);
-  background-color: var(--wfc-surface-container);
+  background-color: var(--wfc-surface-container-hight);
+}
+
+:host(.surface[lowered]) button {
+  color: var(--wfc-primary);
+  background-color: var(--wfc-surface-container-low);
 }
 
 :host(.secondary) button {
@@ -145,107 +149,38 @@ slot[name="label"]::slotted(*) {
 
 /* --- states --- */
 
-.state-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  transition-duration: var(--wfc-motion-duration-medium1);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-  transition-property: opacity;
+wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-3);
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-4);
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-3);
+  --wfc-state-layer-hover-color: var(--wfc-on-primary-container);
+  --wfc-state-layer-focus-color: var(--wfc-on-primary-container);
+  --wfc-state-layer-ripple-color: var(--wfc-on-primary-container);
+}
+:host([lowered]) wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-2);
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-1);
 }
 
+:host(.secondary) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
+}
 
-:host(:not(.wfc-animation)),
-:host(:not(.wfc-animation)) .state-layer {
+:host(.surface) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-focus-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
+}
+
+:host(.tertiary) wfc-state-layer {
+  --wfc-state-layer-hover-color: var(--wfc-on-tertiary-container);
+  --wfc-state-layer-focus-color: var(--wfc-on-tertiary-container);
+  --wfc-state-layer-ripple-color: var(--wfc-on-tertiary-container);
+}
+
+:host(:not(.wfc-animation)) {
   transition-duration: 0s !important;
-}
-
-
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right),
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left) {
-  transition: bottom;
-  transition-duration: var(--wfc-motion-duration-short3);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-}
-
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide-label),
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left.auto-hide-label) {
-  transition: max-width, color, bottom;
-  transition-delay: 0ms, 60ms, 0ms;
-  transition-duration: var(--wfc-motion-duration-short3);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-}
-
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-right.auto-hide),
-:host-context(body.navigation-bar-auto-hide):host(.fixed.position-bottom-left.auto-hide) {
-  transition: transform, bottom;
-  transition-duration: var(--wfc-motion-duration-medium2), var(--wfc-motion-duration-short3);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-}
-
-:host-context(body.has-navigation-bar:not(.navigation-bar-hide)):host(.fixed.position-bottom-right),
-:host-context(body.has-navigation-bar:not(.navigation-bar-hide)):host(.fixed.position-bottom-left) {
-  bottom: 96px;
-}
-
-:host-context(body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-right),
-:host-context(body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-left),
-:host-context(body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-right),
-:host-context(body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-left),
-:host-context(body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-right),
-:host-context(body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show)):host(.fixed.position-bottom-left) {
-  bottom: 16px;
-}
-
-
-@media (hover: hover) {
-  button {
-    transition-duration: var(--wfc-motion-duration-medium1);
-    transition-timing-function: var(--wfc-motion-easing-standard);
-    transition-property: box-shadow;
-  }
-
-  :host(:hover) button {
-    box-shadow: var(--wfc-elevation-4);
-  }
-
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-on-primary-container);
-  }
-
-  :host(.surface:hover) .state-layer {
-    background-color: var(--wfc-on-surface);
-  }
-
-  :host(.secondary:hover) .state-layer {
-    background-color: var(--wfc-on-secondary-container);
-  }
-
-  :host(.tertiary:hover) .state-layer {
-    background-color: var(--wfc-on-tertiary-container);
-  }
-}
-
-
-/* --- ripple --- */
-
-.ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.ripple > .ripple-element {
-  background-color: var(--wfc-primary-alpha-16);
 }

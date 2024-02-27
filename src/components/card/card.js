@@ -1,6 +1,5 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './card.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 import util from '../../core/util.js';
 import Drag from '../../core/Drag.js';
 import device from '../../core/device.js';
@@ -9,6 +8,7 @@ import {
   arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 
+
 export default class WFCCardElement extends HTMLComponentElement {
   static tag = 'wfc-card';
   static useShadowRoot = true;
@@ -16,7 +16,6 @@ export default class WFCCardElement extends HTMLComponentElement {
   static styleSheets = styles;
 
   #abort;
-  #ripple;
   #drag;
   #dragSwipeAction;
   #reorder;
@@ -43,6 +42,18 @@ export default class WFCCardElement extends HTMLComponentElement {
 
     this.render();
     this.#swipeActionElement = this.shadowRoot.querySelector('[name="swipe-action"]');
+    if (this.hasAttribute('onclick') || this.hasAttribute('reorder') || this.hasAttribute('reorder-swap')) {
+      this.tabIndex = 0;
+      this.classList.add('actionable');
+    }
+    if (this.parentElement.nodeName === 'WFC-CARD-GROUP') {
+      this.classList.add('grouped');
+      if (this.parentElement.classList.contains('grid')) this.classList.add('grid');
+    }
+
+    if (device.state === 'compact') {
+      this.classList.add('compact');
+    }
   }
 
   template() {
@@ -63,7 +74,7 @@ export default class WFCCardElement extends HTMLComponentElement {
           <slot class="default-slot"></slot>
           <slot name="action"></slot>
         </div>
-        <div class="ripple"></div>
+        <wfc-state-layer ripple="false" enabled="false" class="temp"></wfc-state-layer>
       </div>
     `;
   }
@@ -72,11 +83,10 @@ export default class WFCCardElement extends HTMLComponentElement {
     this.#abort = new AbortController();
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
 
-    if (this.hasAttribute('onclick')) {
-      this.#ripple = new Ripple({
-        element: this.shadowRoot.querySelector('.ripple'),
-        triggerElement: this
-      });
+    if (this.classList.contains('actionable')) {
+      const stateLayer = this.shadowRoot.querySelector('wfc-state-layer');
+      stateLayer.enabled = true;
+      if (this.hasAttribute('onclick')) stateLayer.ripple = true;
     }
 
     // prevent style calculation during script evaluation
@@ -96,8 +106,10 @@ export default class WFCCardElement extends HTMLComponentElement {
 
   disconnectedCallback() {
     this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
-    if (this.#drag) this.#drag.destroy();
+    if (this.#drag) {
+      this.#drag.destroy();
+      this.#drag = undefined;
+    }
     if (this.#dragSwipeAction) this.#dragSwipeAction.destroy();
     this.removeEventListener('click', this.#fullscreenClick_bound);
   }
@@ -130,13 +142,6 @@ export default class WFCCardElement extends HTMLComponentElement {
   set reorderSwap(value) {
     this.#reorderSwap = !!value;
   }
-
-  // get action() {
-  //   return this.#value;
-  // }
-  // set value(value) {
-  //   this.#value = value;
-  // }
 
   #slotChange(event) {
     const name = event.target.getAttribute('name');

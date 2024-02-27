@@ -19,6 +19,11 @@ class WFCCardGroupElement extends HTMLComponentElement {
     requestAnimationFrame(() => {
       this.#layout();
       this.#observer.observe(this, { childList: true });
+
+      // TODO figure why this is needed if page containing is initial load vs spa navigated to
+      requestAnimationFrame(() => {
+        this.#layout();
+      });
     });
     window.addEventListener('wfcwindowstate', this.#handleWindowState_bound);
   }

@@ -11,6 +11,8 @@
   clip-path: inset(0px -30px -30px -30px);
 }
 
+/* TODO host-context remove */
+
 :host-context(body.window-compact) .surface-content {
   box-shadow: none;
   border-radius: var(--wfc-shape-extra-large);

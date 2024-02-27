@@ -1,5 +1,4 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
-import Ripple from '../../core/Ripple.js';
 import styles from './radios.css' assert { type: 'css' };
 
 
@@ -13,7 +12,6 @@ export default class WFCRadioElement extends HTMLComponentElement {
 
   #abort;
   #internals;
-  #ripple;
   #input;
   #value = 'on';
   #name;
@@ -22,7 +20,6 @@ export default class WFCRadioElement extends HTMLComponentElement {
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
 
 
@@ -58,8 +55,7 @@ export default class WFCRadioElement extends HTMLComponentElement {
       <div class="container">
         <div class="background"></div>
         <input type="radio" />
-        <div class="state-layer"></div>
-        <div class="ripple"></div>
+        <wfc-state-layer ripple ripple-centered outer-circle style="border-radius: 50%"></wfc-state-layer>
       </div>
       <slot class="label"></slot>
     `;
@@ -73,20 +69,12 @@ export default class WFCRadioElement extends HTMLComponentElement {
     this.#abort = new AbortController();
     this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#updateValidity();
-
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      centered: true
-    });
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
   }
 
 
@@ -158,11 +146,6 @@ export default class WFCRadioElement extends HTMLComponentElement {
     this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
   }
 
-  // prevent focus on click
-  #focusMousedown(event) {
-    event.preventDefault();
-  }
-
   #blur() {
     // if (this.#touched) {
       this.#updateValidity();
@@ -179,7 +162,7 @@ export default class WFCRadioElement extends HTMLComponentElement {
       this.checked = true;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this.#ripple.trigger();
+      this.shadowRoot.querySelector('wfc-state-layer').triggerRipple();
       e.preventDefault();
     }
 

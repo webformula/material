@@ -1,5 +1,4 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
-import Ripple from '../../core/Ripple.js';
 import styles from './component.css' assert { type: 'css' };
 
 const targetValues = ['_blank', '_parent', '_self', '_top'];
@@ -13,16 +12,11 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
   static styleSheets = styles;
 
   #abort;
-  #ripple;
   #target;
   #href;
   #ariaLabel;
   #toggle = false;
   #checked = false;
-  #focus_bound = this.#focus.bind(this);
-  #blur_bound = this.#blur.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
-  #focusKeydown_bound = this.#focusKeydown.bind(this);
   #onClick_bound = this.#onClick.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
 
@@ -55,28 +49,19 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
         <slot class="default-slot"></slot>
         <slot name="selected"></slot>
       </button>
-      <div class="state-layer"></div>
       <div class="spinner"></div>
-      <div class="ripple"></div>
+      <wfc-state-layer ripple></wfc-state-layer>
     `;
   }
 
   connectedCallback() {
     this.#abort = new AbortController();
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this
-    });
-
-    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     if (this.toggle) this.addEventListener('click', this.#onClick_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
   }
 
   get disabled() { return this.hasAttribute('disabled'); }
@@ -114,26 +99,6 @@ export default class WFCIconButtonElement extends HTMLComponentElement {
     this.#ariaLabel = value;
     if (!value) this.shadowRoot.querySelector('button').removeAttribute('aria-label');
     else this.shadowRoot.querySelector('button').setAttribute('aria-label', value);
-  }
-
-
-  // prevent focus on click
-  #focusMousedown(event) {
-    event.preventDefault();
-  }
-
-  #focus() {
-    this.addEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
-    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
-  }
-
-  #blur() {
-    this.removeEventListener('blur', this.#blur_bound, { signal: this.#abort.signal });
-    this.removeEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
-  }
-
-  #focusKeydown(e) {
-    if (e.key === 'Enter') this.#ripple.trigger();
   }
 
   #onClick() {

@@ -1,6 +1,5 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './chip.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 import {
   check_FILL1_wght400_GRAD0_opsz20,
   close_FILL1_wght400_GRAD0_opsz20
@@ -25,12 +24,10 @@ class WFCchipElement extends HTMLComponentElement {
   #input;
   #edit;
   #inputElement;
-  #ripple;
   #menu;
   #filterClick_bound = this.#filterClick.bind(this);
   #onFocus_bound = this.#onFocus.bind(this);
   #onBlur_bound = this.#onBlur.bind(this);
-  #clearMouseDown_bound = this.#clearMouseDown.bind(this);
   #clearClick_bound = this.#clearClick.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
@@ -69,8 +66,7 @@ class WFCchipElement extends HTMLComponentElement {
       <div class="menu-arrow"></div>
       <div class="clear">${close_FILL1_wght400_GRAD0_opsz20}</div>
       <input tabIndex="-1" />
-      <div class="state-layer"></div>
-      <div class="ripple"></div>
+      <wfc-state-layer ripple></wfc-state-layer>
       <slot name="menu"></slot>
     `;
   }
@@ -79,21 +75,14 @@ class WFCchipElement extends HTMLComponentElement {
     this.#abort = new AbortController();
     if (this.#filter) this.addEventListener('click', this.#filterClick_bound, { signal: this.#abort.signal });
     if (this.#input && this.#edit) {
-      this.shadowRoot.querySelector('.clear').addEventListener('mousedown', this.#clearMouseDown_bound, { signal: this.#abort.signal });
       this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clearClick_bound, { signal: this.#abort.signal });
     }
     this.addEventListener('focus', this.#onFocus_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
-    
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this
-    });
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
   }
 
   get label() { return this.#label; }
@@ -219,11 +208,6 @@ class WFCchipElement extends HTMLComponentElement {
     window.removeEventListener('keydown', this.#focusKeydown_bound);
   }
 
-  // prevent input focus
-  #clearMouseDown(event) {
-    event.preventDefault();
-  }
-
   #clearClick() {
     this.dispatchEvent(new Event('change', { bubbles: true }));
     this.remove();
@@ -247,7 +231,7 @@ class WFCchipElement extends HTMLComponentElement {
 
     if (enter || space) {
       this.click();
-      this.#ripple.trigger();
+      this.shadowRoot.querySelector('wfc-state-layer').triggerRipple();
     } else if (backspace) {
       if (this.#input) {
         event.preventDefault();

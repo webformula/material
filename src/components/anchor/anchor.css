@@ -3,6 +3,7 @@
   display: inline-flex;
   align-items: center;
   user-select: none;
+  -webkit-user-select: none;
   border: none;
   cursor: pointer;
   white-space: nowrap;
@@ -35,10 +36,6 @@
 :host(.current)::before {
   pointer-events: none;
   background-color: var(--wfc-secondary-container);
-}
-
-:host-context(wfc-navigation-drawer) {
-  width: 100%;
 }
 
 a {
@@ -86,11 +83,6 @@ a {
   border-radius: var(--wfc-shape-extra-large);
 }
 
-:host-context(wfc-anchor-group):host(:not([control]))::before,
-:host-context(wfc-anchor-group):host(:not([control]))::after {
-  right: 0px;
-}
-
 :host(.animate)::after,
 :host(.animate)::before {
   left: 40%;
@@ -103,11 +95,6 @@ a {
   transition: left, right;
   transition-duration: var(--wfc-motion-duration-medium1);
   transition-timing-function: var(--wfc-motion-easing-standard);
-}
-
-:host-context(body:not(.wfc-animation))::after,
-:host-context(body:not(.wfc-animation))::before {
-  transition-duration: 0s;
 }
 
 :host(:focus)::after {
@@ -169,122 +156,12 @@ slot[name="leading-icon"]::slotted(wfc-icon) {
   bottom: 0;
   right: 16px;
   transition: transform 0ms;
+  transition-duration: var(--wfc-motion-duration-short3);
 }
 :host([control]) .arrow {
   display: flex;
 }
 
-:host-context(body.wfc-animation) .arrow {
-  transition-duration: var(--wfc-motion-duration-short3);
-}
-
 :host(.open) .arrow {
   transform: rotate(180deg);
-}
-
-
-:host-context(.has-current):host([control])::after {
-  opacity: var(--wfc-state-layer-opacity-hover);
-  background-color: var(--wfc-on-surface);
-}
-
-
-:host-context(wfc-navigation-bar),
-:host-context(wfc-navigation-rail) {
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
-  width: 100%;
-  height: 56px;
-  margin-bottom: 2px;
-
-  font-size: var(--wfc-font-medium-label-size);
-  font-weight: var(--wfc-font-medium-label-weight);
-  letter-spacing: var(--wfc-font-medium-label-tracking);
-  border-radius: var(--wfc-shape-extra-medium);
-}
-
-:host-context(wfc-navigation-bar) .default-slot,
-:host-context(wfc-navigation-rail) .default-slot {
-  line-height: 20px;
-  height: 20px;
-}
-
-:host-context(wfc-navigation-bar) a,
-:host-context(wfc-navigation-rail) a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-:host-context(wfc-navigation-bar)::before,
-:host-context(wfc-navigation-rail)::before {
-  left: unset;
-  right: unset;
-  top: 3px;
-  width: 64px;
-  height: 32px;
-  border-radius: var(--wfc-shape-extra-large);
-}
-
-:host-context(wfc-navigation-bar)::after,
-:host-context(wfc-navigation-rail)::after {
-  left: unset;
-  right: unset;
-  top: 3px;
-  width: 64px;
-  height: 32px;
-  border-radius: var(--wfc-shape-extra-large);
-}
-
-:host-context(wfc-navigation-bar):host(.current.animate)::after,
-:host-context(wfc-navigation-bar):host(.current.animate)::before,
-:host-context(wfc-navigation-rail):host(.current.animate)::after,
-:host-context(wfc-navigation-rail):host(.current.animate)::before {
-  transform: scale(0);
-  transition-duration: 0s;
-}
-
-:host-context(wfc-navigation-bar):host::after,
-:host-context(wfc-navigation-bar):host::before,
-:host-context(wfc-navigation-rail):host::after,
-:host-context(wfc-navigation-rail):host::before {
-  transition: transform;
-  transition-duration: var(--wfc-motion-duration-medium1);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-}
-
-:host-context(wfc-navigation-bar):host(.current)::before,
-:host-context(wfc-navigation-rail):host(.current)::before {
-  transform: scale(1);
-}
-
-:host-context(wfc-navigation-bar) slot[name="leading-icon"]::slotted(wfc-icon),
-:host-context(wfc-navigation-rail) slot[name="leading-icon"]::slotted(wfc-icon) {
-  margin-right: 0px;
-  margin-top: 3px;
-  height: 32px;
-  line-height: 32px;
-  /* margin-bottom: -2px; */
-}
-
-:host-context(wfc-navigation-bar):host(.no-text) slot[name="leading-icon"]::slotted(wfc-icon),
-:host-context(wfc-navigation-rail):host(.no-text) slot[name="leading-icon"]::slotted(wfc-icon) {
-  margin-top: 12px;
-}
-
-:host-context(wfc-navigation-bar):host(.no-text)::before,
-:host-context(wfc-navigation-rail):host(.no-text)::before {
-  top: 0px;
-  height: 56px;
-  width: 56px;
-  border-radius: var(--wfc-shape-full);
-}
-
-:host-context(wfc-navigation-bar):host(.no-text)::after,
-:host-context(wfc-navigation-rail):host(.no-text)::after {
-  top: 0px;
-  height: 56px;
-  width: 56px;
-  border-radius: var(--wfc-shape-full);
 }

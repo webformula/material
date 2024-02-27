@@ -6,6 +6,7 @@
   max-height: 538px;
 }
 
+/* TODO host-context remove */
 :host-context(body.window-compact):host(.input-view) {
   max-height: 248px;
 }
@@ -210,6 +211,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--wfc-on-surface);
   z-index: 1;
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
 }
 

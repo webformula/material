@@ -1,6 +1,5 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 
 class WFCSwitchElement extends HTMLComponentElement {
   static tag = 'wfc-switch';
@@ -14,14 +13,12 @@ class WFCSwitchElement extends HTMLComponentElement {
   #internals;
   #input;
   #abort;
-  #ripple;
   #value = 'on';
   #checked = false;
   #touched = false;
   #click_bound = this.#click.bind(this);
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
-  #focusMousedown_bound = this.#focusMousedown.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
 
@@ -66,10 +63,10 @@ class WFCSwitchElement extends HTMLComponentElement {
                   <path d="M6.4 19.2 4.8 17.6 10.4 12 4.8 6.4 6.4 4.8 12 10.4 17.6 4.8 19.2 6.4 13.6 12 19.2 17.6 17.6 19.2 12 13.6Z" />
                 </svg>
               </div>
+
+            <wfc-state-layer></wfc-state-layer>
             </div>
           </div>
-          <div class="ripple"></div>
-          <div class="state-layer"></div>
         </div>
       </div>
     `;
@@ -85,20 +82,13 @@ class WFCSwitchElement extends HTMLComponentElement {
     this.setAttribute('aria-checked', this.#checked.toString());
 
     this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
-    this.addEventListener('mousedown', this.#focusMousedown_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#updateValidity();
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this,
-      centered: true
-    });
   }
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
-    if (this.#ripple) this.#ripple.destroy();
   }
 
 
@@ -193,14 +183,9 @@ class WFCSwitchElement extends HTMLComponentElement {
       this.checked = !this.checked;
       if (this.classList.contains('invalid')) this.#updateValidityDisplay();
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this.#ripple.trigger();
+      this.shadowRoot.querySelector('wfc-state-layer').triggerRipple();
       e.preventDefault();
     }
-  }
-
-  // prevent focus on click
-  #focusMousedown(event) {
-    event.preventDefault();
   }
 
   #slotChange() {

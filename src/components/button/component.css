@@ -6,8 +6,10 @@
   cursor: pointer;
   outline: none;
   user-select: none;
+  -webkit-user-select: none;
   text-overflow: ellipsis;
   text-wrap: nowrap;
+  white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   place-content: center;
   place-items: center;
@@ -19,13 +21,13 @@
   letter-spacing: var(--wfc-font-large-label-tracking);
   color: var(--wfc-primary);
   vertical-align: top;
-  pointer-events: none;
 }
 
 :host([disabled]) {
   cursor: default;
   color: var(--wfc-on-surface);
   opacity: 0.38;
+  pointer-events: none;
 }
 
 button {
@@ -47,7 +49,6 @@ button {
   padding: 0;
   gap: inherit;
   padding: 0 16px;
-  pointer-events: all;
 }
 
 :host([disabled]) button{
@@ -63,19 +64,16 @@ button {
 :host([disabled].filled) {
   background-color: var(--wfc-on-surface-alpha-12);
   color: var(--wfc-on-surface-alpha-38);
-  box-shadow: none;
 }
 
 :host(.elevated) {
   color: var(--wfc-primary);
   background-color: var(--wfc-surface-container-low);
-  box-shadow: var(--wfc-elevation-1);
 }
 
 :host([disabled].elevated) {
   background-color: var(--wfc-on-surface-alpha-12);
   color: var(--wfc-on-surface-alpha-38);
-  box-shadow: none;
 }
 
 :host(.filled-tonal) {
@@ -86,7 +84,6 @@ button {
 :host([disabled].filled-tonal) {
   background-color: var(--wfc-on-surface-alpha-12);
   color: var(--wfc-on-surface-alpha-38);
-  box-shadow: none;
 }
 
 :host(.outlined) {
@@ -114,102 +111,51 @@ slot[name="leading-icon"]::slotted(wfc-icon) {
 
 
 
-
 /* --- states --- */
 
-.state-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  transition-duration: var(--wfc-motion-duration-medium1);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-  transition-property: opacity;
+wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-:host(:focus) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-on-surface);
+:host(.filled) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-primary);
+  --wfc-state-layer-hover-color: var(--wfc-on-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-on-primary);
 }
 
-:host(:focus.filled) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-on-primary);
+:host(.filled-tonal) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
+  --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
 }
 
-:host(:focus.filled) {
-  box-shadow: var(--wfc-elevation-1);
+:host(.elevated) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-button-elevate-state-layer-color);
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-:host(:focus.filled-tonal) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-on-secondary-container);
+:host(.outlined) wfc-state-layer {
+  --wfc-state-layer-focus-color: var(--wfc-primary);
+  --wfc-state-layer-hover-color: var(--wfc-primary);
 }
 
-:host(:focus.elevated) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-button-elevate-state-layer-color);
+:host(.filled) wfc-state-layer,
+:host(.filled-tonal) wfc-state-layer {
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-1);
 }
 
-:host(:focus.outlined) .state-layer {
-  opacity: var(--wfc-state-layer-opacity-focus);
-  background-color: var(--wfc-primary);
+:host(.elevated) wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-1);
+  --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-2);
+  --wfc-state-layer-hover-box-shadow: var(--wfc-elevation-2);
 }
 
-:host(:focus.elevated),
-:host(:focus.filled),
-:host(:focus.filled-tonal) {
-  transition-duration: var(--wfc-motion-duration-medium1);
-  transition-timing-function: var(--wfc-motion-easing-standard);
-  transition-property: box-shadow;
-}
-
-@media (hover: hover) {
-  :host(:hover.elevated),
-  :host(:hover.filled),
-  :host(:hover.filled-tonal) {
-    transition-duration: var(--wfc-motion-duration-medium1);
-    transition-timing-function: var(--wfc-motion-easing-standard);
-    transition-property: box-shadow;
-  }
-
-  :host(:hover) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-primary);
-  }
-
-  :host(:hover.filled) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-on-primary);
-  }
-
-  :host(:hover.filled-tonal) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-on-secondary-container);
-  }
-
-  :host(:hover.filled),
-  :host(:hover.filled-tonal) {
-    box-shadow: var(--wfc-elevation-1);
-  }
-
-  :host(:hover.elevated) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-primary);
-  }
-
-  :host(:hover.elevated) {
-    box-shadow: var(--wfc-elevation-2);
-  }
-
-  :host(:hover.outlined) .state-layer {
-    opacity: var(--wfc-state-layer-opacity-hover);
-    background-color: var(--wfc-primary);
-  }
+:host([disabled]) wfc-state-layer {
+  --wfc-state-layer-box-shadow: none;
 }
 
 .spinner {
@@ -224,37 +170,4 @@ slot[name="leading-icon"]::slotted(wfc-icon) {
 
 :host(.async-pending) button .default-slot {
   color: transparent;
-}
-
-
-
-/* --- Ripple --- */
-
-.ripple {
-  overflow: hidden;
-  border-radius: inherit;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-
-  .ripple-element {
-    background-color: var(--wfc-primary);
-    opacity: var(--wfc-state-layer-opacity-pressed);
-    border-radius: var(--wfc-shape-full);
-  }
-}
-
-:host(.filled) .ripple-element {
-  background-color: var(--wfc-on-primary);
-}
-
-:host(.elevated) .ripple-element {
-  background-color: var(--wfc-primary);
-}
-
-:host(.filled-tonal) .ripple-element {
-  background-color: var(--wfc-on-secondary-container);
 }

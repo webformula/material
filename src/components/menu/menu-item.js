@@ -1,6 +1,5 @@
 import HTMLComponentElement from "../HTMLComponentElement.js";
 import styles from './menu-item.css' assert { type: 'css' };
-import Ripple from '../../core/Ripple.js';
 
 export default class WFCMenuItemElement extends HTMLComponentElement {
   static tag = 'wfc-menu-item';
@@ -8,7 +7,6 @@ export default class WFCMenuItemElement extends HTMLComponentElement {
   static useTemplate = true;
   static styleSheets = styles;
 
-  #ripple;
   #focus_bound = this.#focus.bind(this);
   #blur_bound = this.#blur.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
@@ -27,8 +25,7 @@ export default class WFCMenuItemElement extends HTMLComponentElement {
       <slot name="start"></slot>
       <slot class="default-slot"></slot>
       <slot name="end"></slot>
-      <div class="state-layer"></div>
-      <div class="ripple"></div>
+      <wfc-state-layer ripple></wfc-state-layer>
       <slot name="sub-menu"></slot>
     `;
   }
@@ -47,14 +44,9 @@ export default class WFCMenuItemElement extends HTMLComponentElement {
         </svg>
       `);
     }
-    this.#ripple = new Ripple({
-      element: this.shadowRoot.querySelector('.ripple'),
-      triggerElement: this
-    });
   }
 
   disconnectedCallback() {
-    if (this.#ripple) this.#ripple.destroy();
     this.removeEventListener('focus', this.#focus_bound);
     this.removeEventListener('blur', this.#blur_bound);
     this.removeEventListener('keydown', this.#focusKeydown_bound);
