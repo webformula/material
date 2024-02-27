@@ -7,6 +7,7 @@ import {
 } from '../../core/svgs.js';
 
 
+// TODO initial animation
 // TODO swipe side to close?
 
 class WFCSideSheetElement extends WFCSurfaceElement {

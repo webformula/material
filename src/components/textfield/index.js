@@ -12,7 +12,7 @@ const textareaElement = document.createElement('textarea');
 textareaElement.setAttribute('placeholder', ' ');
 textareaElement.classList.add('input');
 
-
+// TODO initial animation
 export default class WFCTextfieldElement extends HTMLComponentElement {
   static tag = 'wfc-textfield';
   static useShadowRoot = true;

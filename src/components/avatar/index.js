@@ -1,6 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
+// TODO initial animation
 class WFCAvatarElement extends HTMLComponentElement {
   static tag = 'wfc-avatar';
   static useShadowRoot = true;

@@ -2,7 +2,7 @@ import WFCSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
-
+// TODO initial animation compact
 class WFCNavigationDrawerElement extends WFCSurfaceElement {
   static tag = 'wfc-navigation-drawer';
   static styleSheets = styles;
@@ -99,20 +99,22 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
     this.scrim = !isExpanded;
     this.allowClose = !isExpanded;
     this.alwaysVisible = isExpanded;
-
     if (!detail.lastState) this.#initialScrollTo();
   }
 
   #initialScrollTo() {
-    const current = this.querySelector('.current');
-    if (!current) return;
+    setTimeout(() => {
+      const current = this.querySelector('.current');
+      if (!current) return;
 
-    const surface = this.shadowRoot.querySelector('.surface');
-    const height = device.windowHeight;
-    const top = current.offsetTop + 56;
-    if (top > height) {
-      surface.querySelector('.surface-content').scrollTop = (height / 2) + (top - height);
-    }
+      const surface = this.shadowRoot.querySelector('.surface');
+      const height = device.windowHeight;
+      let top = current.offsetTop + 56;
+      if (current.parentElement.nodeName === 'WFC-ANCHOR-GROUP') top += current.parentElement.offsetTop;
+      if (top > height) {
+        surface.querySelector('.surface-content').scrollTop = (height / 2) + (top - height);
+      }
+    }, 1);
   }
 }
 customElements.define(WFCNavigationDrawerElement.tag, WFCNavigationDrawerElement);
