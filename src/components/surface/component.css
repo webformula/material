@@ -297,6 +297,14 @@ slot {
   animation-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
+
+:host(:not(.animation)),
+:host(:not(.animation)) .surface,
+:host(:not(.animation)) .surface-content {
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
+}
+
 @keyframes show-max-height {
   0% {
     opacity: 0;

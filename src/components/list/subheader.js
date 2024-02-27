@@ -28,6 +28,7 @@ class WFCListSubheaderElement extends HTMLComponentElement {
 
   connectedCallback() {
     this.#setupObserver();
+    setTimeout(() => this.classList.add('animation'), 150);
   }
 
   disconnectedCallback() {

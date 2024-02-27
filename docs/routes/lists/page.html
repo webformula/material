@@ -259,15 +259,14 @@
       <div slot="headline">Selection</div>
 
       <wfc-list onchange="console.log(this.value)">
-        <wfc-list-item selected value="1">
-          <wfc-avatar slot="start">
+        <wfc-list-item value="1">
+          <wfc-avatar slot="start" checkbox>
             <img alt="avatar" src="./woman.jpg">
           </wfc-avatar>
-          <div slot="headline">Headline</div>
-          <wfc-checkbox slot="end"></wfc-checkbox>
+          <div slot="headline">Avatar select</div>
         </wfc-list-item>
-      
-        <wfc-list-item value="2">
+
+        <wfc-list-item selected value="2">
           <wfc-avatar slot="start">
             <img alt="avatar" src="./woman.jpg">
           </wfc-avatar>
@@ -280,10 +279,18 @@
             <img alt="avatar" src="./woman.jpg">
           </wfc-avatar>
           <div slot="headline">Headline</div>
-          <wfc-switch slot="end"></wfc-switch>
+          <wfc-checkbox slot="end"></wfc-checkbox>
         </wfc-list-item>
       
         <wfc-list-item value="4">
+          <wfc-avatar slot="start">
+            <img alt="avatar" src="./woman.jpg">
+          </wfc-avatar>
+          <div slot="headline">Headline</div>
+          <wfc-switch slot="end"></wfc-switch>
+        </wfc-list-item>
+      
+        <wfc-list-item value="5">
           <wfc-avatar slot="start">
             <img alt="avatar" src="./woman.jpg">
           </wfc-avatar>

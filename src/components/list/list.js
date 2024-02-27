@@ -1,7 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './list.css' assert { type: 'css' };
 
-// TODO initial animation
 class WFCListElement extends HTMLComponentElement {
   static tag = 'wfc-list';
   static useShadowRoot = true;

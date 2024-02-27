@@ -73,6 +73,10 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.#closeDelay) this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
     this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
     this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
+
+    setTimeout(() => {
+      this.classList.add('animation');
+    }, 150);
   }
 
   disconnectedCallback() {

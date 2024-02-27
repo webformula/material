@@ -2,7 +2,7 @@ import WFCSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
 
-// TODO initial animation compact
+
 class WFCNavigationDrawerElement extends WFCSurfaceElement {
   static tag = 'wfc-navigation-drawer';
   static styleSheets = styles;

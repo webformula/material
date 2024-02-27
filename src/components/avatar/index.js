@@ -1,7 +1,7 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 
-// TODO initial animation
+
 class WFCAvatarElement extends HTMLComponentElement {
   static tag = 'wfc-avatar';
   static useShadowRoot = true;
@@ -9,14 +9,23 @@ class WFCAvatarElement extends HTMLComponentElement {
   static styleSheets = styles;
 
   #checked = false;
+  #onClick_bound = this.#onClick.bind(this);
 
   constructor() {
     super();
 
     this.render();
-    setTimeout(() => {
-      this.classList.add('animation');
-    }, 50);
+  }
+
+  static get observedAttributesExtended() {
+    return [
+      ['checked', 'boolean']
+    ];
+  }
+
+  attributeChangedCallbackExtended(name, _oldValue, newValue) {
+    console.log(name, newValue)
+    this[name] = newValue;
   }
 
   get checked() {
@@ -35,6 +44,19 @@ class WFCAvatarElement extends HTMLComponentElement {
         <path fill="none" stroke="white" stroke-width="2" d="M4.1,12.7 9,17.6 20.3,6.3" ></path>
       </svg>
     `;
+  }
+
+  connectedCallback() {
+    if (this.hasAttribute('checkbox')) this.addEventListener('click', this.#onClick_bound);
+  }
+  
+  disconnectedCallback() {
+    this.removeEventListener('click', this.#onClick_bound);
+  }
+
+  #onClick() {
+    this.checked = !this.#checked;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 };
 

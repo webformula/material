@@ -28,7 +28,7 @@ class WFCListItemElement extends HTMLComponentElement {
 
     this.role = 'listitem';
     this.render();
-    this.#selectionControl = this.querySelector('wfc-checkbox') || this.querySelector('wfc-switch');
+    this.#selectionControl = this.querySelector('wfc-checkbox') || this.querySelector('wfc-switch') || this.querySelector('wfc-avatar[checkbox]');
     if (this.#selectionControl && !this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
   }
 
@@ -83,7 +83,6 @@ class WFCListItemElement extends HTMLComponentElement {
     this.removeEventListener('change', this.#onChange_bound);
   }
 
-
   get value() { return this.#value; }
   set value(value) {
     this.#value = value;
@@ -92,7 +91,7 @@ class WFCListItemElement extends HTMLComponentElement {
   get selected() { return !this.#selectionControl ? false : this.#selectionControl.checked; }
   set selected(value) {
     this.#selected = !this.#selectionControl ? false : !!value;
-    if (this.#selectionControl) this.#selectionControl.checked = this.#selected;
+    if (this.#selectionControl) this.#selectionControl.toggleAttribute('checked', this.#selected);
   }
 
   get states() { return this.#states; }
@@ -100,9 +99,9 @@ class WFCListItemElement extends HTMLComponentElement {
     this.#states = !!value;
     this.shadowRoot.querySelector('wfc-state-layer').enabled = !!value;
     if (this.#states) {
-      if (this.querySelector('wfc-checkbox')) this.addEventListener('change', this.#onChange_bound);
+      if (this.#selectionControl) this.addEventListener('change', this.#onChange_bound);
     } else if (!this.#states) {
-      if (this.querySelector('wfc-checkbox')) this.removeEventListener('change', this.#onChange_bound);
+      if (this.#selectionControl) this.removeEventListener('change', this.#onChange_bound);
     }
   }
 

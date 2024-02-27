@@ -12,8 +12,11 @@
   color: var(--wfc-on-surface-variant-alpha-76);
 
   background-color: var(--wfc-surface);
-  transition: background-color 0ms linear;
-  
+  transition: background-color;
+  transition-duration: 0ms;
+}
+
+:host(.animation) {
   transition-duration: var(--wfc-motion-duration-short1);
 }
 
