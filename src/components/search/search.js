@@ -46,6 +46,7 @@ class WFCSearchElement extends WFCMenuElement {
   #micClick_bound = this.#micClick.bind(this);
   #close_bound = this.#close.bind(this);
   #itemClick_bound = this.#itemClick.bind(this);
+  #inputFocus_bound = this.#inputFocus.bind(this);
 
 
   constructor() {
@@ -62,6 +63,7 @@ class WFCSearchElement extends WFCMenuElement {
       this.fixed = true;
       this.allowClose = false;
       this.animation = 'fullscreen';
+      this.classList.add('window-compact');
     }
 
     this.#input = this.shadowRoot.querySelector('input');
@@ -191,6 +193,7 @@ class WFCSearchElement extends WFCMenuElement {
     super.connectedCallback();
 
     this.#abort = new AbortController();
+    this.#input.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
@@ -231,6 +234,10 @@ class WFCSearchElement extends WFCMenuElement {
       localStorage.removeItem(`wfc_search_history_${this.#history}`);
       this.#historyItems = [];
     }
+  }
+
+  #inputFocus() {
+    this.show();
   }
 
   #clear() {

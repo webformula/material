@@ -66,7 +66,7 @@ export default class WFCMenuElement extends WFCSurfaceElement {
       document.addEventListener('contextmenu', this.#rightClick_bound, { signal: this.#abort.signal });
     } else if (this.anchorElement) {
       this.anchorElement.addEventListener('click', this.#anchorClick_bound, { signal: this.#abort.signal });
-    } else {
+    } else if (this.nodeName !== 'WFC-SEARCH') {
       this.parentElement.addEventListener('click', this.#anchorClick_bound, { signal: this.#abort.signal });
     }
   }

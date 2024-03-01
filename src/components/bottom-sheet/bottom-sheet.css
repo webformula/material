@@ -49,9 +49,8 @@
   padding-top: 12px;
 }
 
-/* TODO remove host context */
-:host-context(body.has-bottom-app-bar) .item-padding,
-:host-context(body.has-navigation-bar.window-compact) .item-padding {
+:host(.has-bottom-app-bar) .item-padding,
+:host(.has-navigation-bar.window-compact) .item-padding {
   margin-bottom: 80px;
 }
 

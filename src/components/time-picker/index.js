@@ -245,6 +245,7 @@ class WFCTimePickerElement extends WFCSurfaceElement {
       pm.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
     }
 
+    this.classList.toggle('window-compact', device.state === 'compact');
     if (device.state !== 'compact') timeHour.focus();
   }
 

@@ -6,8 +6,7 @@
   max-height: 538px;
 }
 
-/* TODO host-context remove */
-:host-context(body.window-compact):host(.input-view) {
+:host(.input-view.window-compact) {
   max-height: 248px;
 }
 
@@ -168,7 +167,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 
-:host-context(body.window-compact):host(.input-view) .dial-container {
+:host(.input-view.window-compact) .dial-container {
   display: none;
 }
 
@@ -286,7 +285,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 0;
 }
 
-:host-context(body:not(.window-compact)) .keyboard {
+:host(:not(.window-compact)) .keyboard {
   display: none;
 }
 

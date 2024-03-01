@@ -2,6 +2,7 @@ import WFCSurfaceElement from '../surface/component.js';
 import styles from './bottom-sheet.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
+import device from '../../core/device.js';
 
 
 class WFCBottomSheetElement extends WFCSurfaceElement {
@@ -70,6 +71,11 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    if (document.body.classList.contains('has-bottom-app-bar')) this.classList.add('has-bottom-app-bar');
+    if (document.body.classList.contains('has-navigation-bar')) this.classList.add('has-navigation-bar');
+    // TODO window state change
+    if (device.state === 'compact') this.classList.add('window-compact');
 
     if (!this.#fixedHeight) {
       if (!this.#drag) {
