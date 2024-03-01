@@ -3,7 +3,6 @@ import styles from './component.css' assert { type: 'css' };
 import Ripple from '../../core/Ripple.js';
 import device from '../../core/device.js';
 
-
 export default class WFCStateLayer extends HTMLComponentElement {
   static tag = 'wfc-state-layer';
   static useShadowRoot = true;
@@ -103,6 +102,11 @@ export default class WFCStateLayer extends HTMLComponentElement {
         centered: this.hasAttribute('ripple-centered')
       });
       this.#forElement.addEventListener('keydown', this.#rippleEnterKey_bound);
+    }
+
+    this.#forElement.hideFocus = () => {
+      this.#forElement.removeEventListener('focusout', this.#onBlur_bound);
+      this.classList.remove('focus');
     }
   }
 

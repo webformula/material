@@ -17,7 +17,6 @@ export default class WFCDialogElement extends HTMLComponentElement {
   #allowClose = false;
   #focusableElements = [];
   #focusableIndex = -1;
-  #lastFocused;
   #returnValue;
   #scrim = true;
   #scrimElement;
@@ -126,8 +125,9 @@ export default class WFCDialogElement extends HTMLComponentElement {
 
   async show() {
     if (this.#open) return;
-
     this.#dialog.showModal();
+    // hide indicator focus from HTMLDialogElement auto focus
+    document.activeElement.hideFocus();
     this.#dialog.classList.add('open');
     this.#dialog.style.setProperty('--wfc-dialog-height', `${this.#dialog.offsetHeight}px`);
     this.#dialog.style.setProperty('--wfc-dialog-height-transition-duration', this.#dialog.offsetHeight < 200 ? '200ms' : '');
@@ -151,11 +151,8 @@ export default class WFCDialogElement extends HTMLComponentElement {
     if (this.#preventNavigation) window.addEventListener('beforeunload', this.#beforeUnload_bound, { signal: this.#abort.signal });
 
     this.#focusableIndex = -1;
-    this.#focusableElements = util.getFocusableElements(this);
-    if (this.#focusableElements.length > 0) {
-      this.#lastFocused = document.activeElement;
-      this.#focusableElements[0].focus();
-    }
+    this.#focusableElements = [...this.querySelectorAll('wfc-button:not(disabled)'), ...this.querySelectorAll('button:not(disabled)')];
+    if (document.activeElement) this.#focusableIndex = this.#focusableElements.indexOf[document.activeElement];
     dialogService.track(this);
     util.lockPageScroll();
     this.#closePromise = new Promise(resolve => this.#closePromiseResolve = resolve);
@@ -192,10 +189,9 @@ export default class WFCDialogElement extends HTMLComponentElement {
       this.#closePromise = undefined;
       this.#closePromiseResolve = undefined;
     }
-    requestAnimationFrame(() => {
-      if (this.#lastFocused) this.#lastFocused.focus();
-    });
     if (this.removeOnClose) this.parentElement.removeChild(this);
+    // hide indicator focus from HTMLDialogElement auto focus
+    document.activeElement.hideFocus();
   }
 
 
@@ -222,11 +218,16 @@ export default class WFCDialogElement extends HTMLComponentElement {
         this.dispatchEvent(new Event('cancel', { cancelable: true }));
         this.close();
       }
+    } else if (event.shiftKey && event.code === 'Tab') {
+      this.#focusableIndex -= 1;
+      if (!this.#focusableElements[this.#focusableIndex]) this.#focusableIndex = this.#focusableElements.length - 1;
+      if (this.#focusableElements[this.#focusableIndex]) this.#focusableElements[this.#focusableIndex].focus();
+      event.preventDefault();
     } else if (event.code === 'Tab') {
       this.#focusableIndex += 1;
       if (!this.#focusableElements[this.#focusableIndex]) this.#focusableIndex = 0;
-      this.#focusableElements[this.#focusableIndex].focus();
-      e.preventDefault();
+      if (this.#focusableElements[this.#focusableIndex]) this.#focusableElements[this.#focusableIndex].focus();
+      event.preventDefault();
     }
   }
 
@@ -247,7 +248,6 @@ export default class WFCDialogElement extends HTMLComponentElement {
   }
 
   #closeClick(event) {
-    console.log(event.target)
     if (event.target !== this.#dialog && !event.target.classList.contains('close-fullscreen')) return;
     this.close();
   }
