@@ -57,7 +57,7 @@ class WFCBadgeElement extends HTMLComponentElement {
 
     if (!value || value === '0') this.parentElement.ariaLabel = this.#ariaLabelOriginal;
     else {
-      if (this.classList.contains('hide-value')) {
+      if (this.hasAttribute('hide-value')) {
         this.parentElement.ariaLabel = `[${this.#ariaLabelOriginal}] New notification`;
       } else this.parentElement.ariaLabel = `[${this.#ariaLabelOriginal}] ${this.#displayValue} New ${parseInt(value) === 1 ? 'notification' : 'notifications'}`;
     }

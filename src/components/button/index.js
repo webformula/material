@@ -146,7 +146,7 @@ export default class WFCButtonElement extends HTMLComponentElement {
   pending() {
     this.classList.add('async-pending');
     this.shadowRoot.querySelector('.spinner').innerHTML = `
-      <wfc-progress-circular style="width: 20px; height: 20px;" indeterminate class="${this.classList.contains('filled') ? ' on-filled' : ''}${this.classList.contains('filled-tonal') ? ' on-filled-tonal' : ''}"></wfc-progress-circular>
+      <wfc-progress-circular style="width: 20px; height: 20px;" indeterminate class="${this.hasAttribute('filled') ? ' on-filled' : ''}${this.hasAttribute('filled-tonal') ? ' on-filled-tonal' : ''}"></wfc-progress-circular>
     `;
   }
 

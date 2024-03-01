@@ -9,12 +9,12 @@
   border-radius: var(--wfc-shape-large);
 }
 
-:host(.fixed) {
+:host([fixed]) {
   position: fixed !important;
   z-index: 11;
 }
 
-:host(.large) {
+:host([large]) {
   min-width: 96px;
   height: 96px;
   max-width: 96px;
@@ -22,32 +22,32 @@
   border-radius: var(--wfc-shape-extra-large);
 }
 
-:host(.small) {
+:host([small]) {
   min-width: 40px;
   max-width: 40px;
   height: 40px;
   border-radius: var(--wfc-shape-medium);
 }
 
-:host(.position-bottom-right) {
+:host([position-bottom-right]) {
   position: absolute;
   bottom: 16px;
   right: 16px;
 }
 
-:host(.position-bottom-left){
+:host([position-bottom-left]) {
   position: absolute;
   bottom: 16px;
   left: 16px;
 }
 
-:host(.position-top-right) {
+:host([position-top-right]) {
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
-:host(.position-top-left) {
+:host([position-top-left]) {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -75,26 +75,26 @@ button {
   background-color: var(--wfc-primary-container);
 }
 
-:host(.small) button {
+:host([small]) button {
   padding: 8px;
 }
 
-:host(.surface) button {
+:host([surface]) button {
   color: var(--wfc-primary);
   background-color: var(--wfc-surface-container-hight);
 }
 
-:host(.surface[lowered]) button {
+:host([surface][lowered]) button {
   color: var(--wfc-primary);
   background-color: var(--wfc-surface-container-low);
 }
 
-:host(.secondary) button {
+:host([secondary]) button {
   color: var(--wfc-on-secondary-container);
   background-color: var(--wfc-secondary-container);
 }
 
-:host(.tertiary) button {
+:host([tertiary]) button {
   color: var(--wfc-on-tertiary-container);
   background-color: var(--wfc-tertiary-container);
 }
@@ -125,14 +125,14 @@ slot[name="label"]::slotted(*) {
   transition-duration: var(--wfc-motion-duration-medium4);
 }
 
-:host(.large) slot.icon::slotted(wfc-icon) {
+:host([large]) slot.icon::slotted(wfc-icon) {
   width: var(--wfc-font-large-icon-size);
   height: var(--wfc-font-large-icon-size);
   font-size: var(--wfc-font-large-icon-size);
   line-height: var(--wfc-font-large-icon-size);
 }
 
-:host(.auto-hide) {
+:host([auto-hide]) {
   transition: transform;
   transition-duration: var(--wfc-motion-duration-medium2);
   transition-timing-function: var(--wfc-motion-easing-standard);
@@ -141,7 +141,7 @@ slot[name="label"]::slotted(*) {
   transform-origin: bottom right;
 }
 
-:host(.auto-hide.hide) {
+:host([auto-hide].hide) {
   transition-duration: var(--wfc-motion-duration-medium2);
   transform: scale(0);
 }
@@ -163,19 +163,19 @@ wfc-state-layer {
   --wfc-state-layer-focus-box-shadow: var(--wfc-elevation-1);
 }
 
-:host(.secondary) wfc-state-layer {
+:host([secondary]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
 }
 
-:host(.surface) wfc-state-layer {
+:host([surface]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-primary);
   --wfc-state-layer-focus-color: var(--wfc-primary);
   --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-:host(.tertiary) wfc-state-layer {
+:host([tertiary]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-tertiary-container);
   --wfc-state-layer-focus-color: var(--wfc-on-tertiary-container);
   --wfc-state-layer-ripple-color: var(--wfc-on-tertiary-container);

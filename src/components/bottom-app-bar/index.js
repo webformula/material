@@ -21,7 +21,6 @@ class WFCBottomAppBarElement extends HTMLComponentElement {
 
     this.render();
     document.body.classList.add('has-bottom-app-bar');
-    // if (this.classList.contains('always-show')) document.body.classList.add('bottom-app-bar-always-show');
   }
 
   template() {

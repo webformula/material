@@ -32,30 +32,30 @@
   fill: currentColor;
 }
 
-:host(.small) {
+:host([small]) {
   width: var(--wfc-font-small-icon-size);
   height: var(--wfc-font-small-icon-size);
   font-size: var(--wfc-font-small-icon-size);
 }
 
-:host(.large) {
+:host([large]) {
   width: var(--wfc-font-large-icon-size);
   height: var(--wfc-font-large-icon-size);
   font-size: var(--wfc-font-large-icon-size);
 }
 
-:host(.extra-large) {
+:host([extra-large]) {
   width: var(--wfc-font-large-icon-size-extra);
   height: var(--wfc-font-large-icon-size-extra);
   font-size: var(--wfc-font-large-icon-size-extra);
 }
 
-:host(.rounded) {
+:host([rounded]) {
   font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Symbols Sharp';
 }
 
-:host(.filled),
-:host(.filled-tonal) {
+:host([filled]),
+:host([filled-tonal]) {
   font-variation-settings:
     'FILL' 1,
     'wght' 400,
@@ -63,7 +63,7 @@
     'opsz' 48;
 }
 
-:host(.light) {
+:host([light]) {
   font-variation-settings:
     'FILL' 0,
     'wght' 100,
@@ -71,8 +71,8 @@
     'opsz' 48;
 }
 
-:host(.light.filled),
-:host(.light.filled-tonal) {
+:host([light][filled]),
+:host([light][filled-tonal]) {
   font-variation-settings:
     'FILL' 1,
     'wght' 100,
@@ -80,7 +80,7 @@
     'opsz' 48;
 }
 
-:host(.bold) {
+:host([bold]) {
   font-variation-settings:
     'FILL' 0,
     'wght' 700,
@@ -88,8 +88,8 @@
     'opsz' 48;
 }
 
-:host(.bold.filled),
-:host(.bold.filled-tonal) {
+:host([bold][filled]),
+:host([bold][filled-tonal]) {
   font-variation-settings:
     'FILL' 1,
     'wght' 700,

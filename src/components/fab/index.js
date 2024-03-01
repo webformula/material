@@ -36,7 +36,7 @@ class WFCFabElement extends HTMLComponentElement {
   get autoHide() { return this.#autoHide; }
   set autoHide(value) {
     this.#autoHide = !!value;
-    this.classList.toggle('auto-hide', this.#autoHide);
+    this.toggleAttribute('auto-hide', this.#autoHide);
 
     this.style.maxWidth = '';
     this.classList.remove('hide-label');
@@ -47,7 +47,7 @@ class WFCFabElement extends HTMLComponentElement {
   get autoHideLabel() { return this.#autoHideLabel; }
   set autoHideLabel(value) {
     this.#autoHideLabel = !!value;
-    this.classList.toggle('auto-hide-label', this.#autoHideLabel);
+    this.toggleAttribute('auto-hide-label', this.#autoHideLabel);
 
     if (!this.#autoHideLabel) {
       util.untrackScrollDirectionChange(this.#scrollDirectionChange_bound);
@@ -97,16 +97,16 @@ class WFCFabElement extends HTMLComponentElement {
   #enableAutoHide() {
     if (this.#autoHideLabel && !this.#initialAutoHideLabel) {
       this.#initialAutoHideLabel = true;
-      const observer = new IntersectionObserver(entries => {
-        this.#maxWidth = entries[0].boundingClientRect.width;
-        this.style.maxWidth = `${this.#maxWidth}px`;
-        observer.disconnect();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.#maxWidth = this.offsetWidth;
+          this.style.maxWidth = `${this.#maxWidth}px`;
 
-        if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
-        util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
-        setTimeout(() => this.classList.add('wfc-animation'));
+          if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
+          util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);
+          requestAnimationFrame(() => this.classList.add('wfc-animation'));
+        });
       });
-      observer.observe(this);
     } else {
       if (document.documentElement.scrollTop !== 0) this.#scrollDirectionChange(-1);
       util.trackScrollDirectionChange(this.#scrollDirectionChange_bound);

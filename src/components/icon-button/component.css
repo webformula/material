@@ -39,33 +39,33 @@ button {
   color: inherit;
 }
 
-:host(.filled) {
+:host([filled]) {
   color: var(--wfc-on-primary);
   background-color: var(--wfc-primary);
 }
-:host(.filled[toggle]) {
+:host([filled][toggle]) {
   color: var(--wfc-primary);
   background-color: var(--wfc-surface-container-highest);
 }
-:host(.filled[toggle].selected) {
+:host([filled][toggle].selected) {
   color: var(--wfc-on-primary);
   background-color: var(--wfc-primary);
 }
 
-:host(.filled-tonal) {
+:host([filled-tonal]) {
   color: var(--wfc-on-secondary-container);
   background-color: var(--wfc-secondary-container);
 }
-:host(.filled-tonal[toggle]) {
+:host([filled-tonal][toggle]) {
   color: var(--wfc-on-surface-variant);
   background-color: var(--wfc-surface-container-highest);
 }
-:host(.filled-tonal[toggle].selected) {
+:host([filled-tonal][toggle].selected) {
   color: var(--wfc-on-secondary-container);
   background-color: var(--wfc-secondary-container);
 }
 
-:host(.outlined) {
+:host([outlined]) {
   border: 1px solid var(--wfc-outline);
 }
 
@@ -77,8 +77,8 @@ button {
       'opsz' 48 !important
 }
 
-:host(.selected.filled:not(.selected-icon)) ::slotted(wfc-icon),
-:host(.selected.filled-tonal:not(.selected-icon)) ::slotted(wfc-icon) {
+:host(.selected[filled]:not(.selected-icon)) ::slotted(wfc-icon),
+:host(.selected[filled-tonal]:not(.selected-icon)) ::slotted(wfc-icon) {
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
@@ -110,49 +110,49 @@ wfc-state-layer {
   --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
 
-:host(.filled) wfc-state-layer {
+:host([filled]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-primary);
   --wfc-state-layer-focus-color: var(--wfc-on-primary);
   --wfc-state-layer-ripple-color: var(--wfc-on-primary);
 }
-:host(.filled[toggle]) wfc-state-layer {
+:host([filled][toggle]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-primary);
   --wfc-state-layer-focus-color: var(--wfc-primary);
   --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
-:host(.filled[toggle].selected) wfc-state-layer {
+:host([filled][toggle].selected) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-primary);
   --wfc-state-layer-focus-color: var(--wfc-on-primary);
   --wfc-state-layer-ripple-color: var(--wfc-on-primary);
 }
 
-:host(.filled-tonal) wfc-state-layer {
+:host([filled-tonal]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
 }
-:host(.filled-tonal[toggle]) wfc-state-layer {
+:host([filled-tonal][toggle]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-surface-variant);
   --wfc-state-layer-focus-color: var(--wfc-on-surface-variant);
   --wfc-state-layer-ripple-color: var(--wfc-on-surface-variant);
 }
-:host(.filled-tonal[toggle].selected) wfc-state-layer {
+:host([filled-tonal][toggle].selected) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-focus-color: var(--wfc-on-secondary-container);
   --wfc-state-layer-ripple-color: var(--wfc-on-secondary-container);
 }
 
-:host(.filled) wfc-state-layer {
+:host([filled]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-primary);
   --wfc-state-layer-focus-color: var(--wfc-on-primary);
   --wfc-state-layer-ripple-color: var(--wfc-on-primary);
 }
-:host(.filled[toggle]) wfc-state-layer {
+:host([filled][toggle]) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-primary);
   --wfc-state-layer-focus-color: var(--wfc-primary);
   --wfc-state-layer-ripple-color: var(--wfc-primary);
 }
-:host(.filled[toggle].selected) wfc-state-layer {
+:host([filled][toggle].selected) wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-primary);
   --wfc-state-layer-focus-color: var(--wfc-on-primary);
   --wfc-state-layer-ripple-color: var(--wfc-on-primary);

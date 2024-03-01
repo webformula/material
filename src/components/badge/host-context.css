@@ -7,6 +7,6 @@ wfc-button wfc-badge {
   inset-inline-start: 0;
 }
 
-wfc-button wfc-badge.has-value:not(.hide-value) {
+wfc-button wfc-badge.has-value:not([hide-value]) {
   margin-block-end: 3px;
 }

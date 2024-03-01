@@ -1,35 +1,35 @@
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-right,
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-left {
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-right],
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-left] {
   transition: bottom;
   transition-duration: var(--wfc-motion-duration-short3);
   transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-right.auto-hide-label,
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-left.auto-hide-label {
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-right][auto-hide-label],
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-left][auto-hide-label] {
   transition: max-width, color, bottom;
   transition-delay: 0ms, 60ms, 0ms;
   transition-duration: var(--wfc-motion-duration-short3);
   transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-right.auto-hide,
-body.navigation-bar-auto-hide wfc-fab.fixed.position-bottom-left.auto-hide {
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-right][auto-hide],
+body.navigation-bar-auto-hide wfc-fab[fixed][position-bottom-left][auto-hide] {
   transition: transform, bottom;
   transition-duration: var(--wfc-motion-duration-medium2), var(--wfc-motion-duration-short3);
   transition-timing-function: var(--wfc-motion-easing-standard);
 }
 
-body.has-navigation-bar:not(.navigation-bar-hide) wfc-fab.fixed.position-bottom-right,
-body.has-navigation-bar:not(.navigation-bar-hide) wfc-fab.fixed.position-bottom-left {
+body.has-navigation-bar:not(.navigation-bar-hide) wfc-fab[fixed][position-bottom-right],
+body.has-navigation-bar:not(.navigation-bar-hide) wfc-fab[fixed][position-bottom-left] {
   bottom: 96px;
 }
 
-body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-right,
-body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-left,
-body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-right,
-body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-left,
-body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-right,
-body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show) wfc-fab.fixed.position-bottom-left {
+body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-right],
+body.navigation-bar-auto-hide.navigation-bar-hide:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-left],
+body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-right],
+body.navigation-bar-auto-hide.has-navigation-rail.window-medium:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-left],
+body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-right],
+body.navigation-bar-auto-hide.window-expanded:not(.bottom-app-bar-always-show) wfc-fab[fixed][position-bottom-left] {
   bottom: 16px;
 }

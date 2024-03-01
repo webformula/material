@@ -1,5 +1,5 @@
-wfc-icon-button.filled wfc-icon,
-wfc-icon-button.filled-tonal wfc-icon {
+wfc-icon-button[filled] wfc-icon,
+wfc-icon-button[filled-tonal] wfc-icon {
   font-variation-settings:
     'FILL' 1,
     'wght' 400,
