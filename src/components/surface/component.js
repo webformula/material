@@ -314,13 +314,18 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     const position = this.#position.split(' ');
     const alignTop = position[0] === 'top';
     const alignRight = position[1] === 'right';
-    const { clientWidth, clientHeight } = document.documentElement;
+    const { clientWidth, clientHeight, scrollTop } = document.documentElement;
     const width = this.#surfaceElement.offsetWidth;
     const anchorBounds = this.#anchorElement.getBoundingClientRect();
     let height = this.#surfaceElement.querySelector('.surface-content').scrollHeight;
     let translateY = !alignTop ? 0 + this.#offsetBottom : anchorBounds.height;
     let translateX = this.#positionMouse ? this.#mouseX - anchorBounds.left : (alignRight ? (anchorBounds.width - overlapPadding) : 0);
     this.#surfaceElement.classList.remove('above');
+
+    if (this.fixed) {
+      translateY -= scrollTop;
+      translateY += (height / 2) + (anchorBounds.height / 2);
+    }
 
     if (this.#viewportBound) {
       const verticalStart = anchorBounds.bottom + this.#offsetBottom;
