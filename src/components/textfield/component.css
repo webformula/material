@@ -441,6 +441,10 @@ textarea[rows="1"] {
   color: transparent;
 }
 
+.text-field .outlined-border-container .outlined-notch.no-animation {
+  transition-duration: 0ms !important;
+}
+
 :host(.outlined.raise-label) .outlined-border-container .outlined-notch,
 :host(.outlined:focus) .outlined-border-container .outlined-notch,
 :host(.outlined) .text-field .input:not([placeholder=" "]) ~ .outlined-border-container .outlined-notch,

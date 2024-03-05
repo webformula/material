@@ -3,8 +3,8 @@ import path from 'node:path';
 import { argbFromHex, hexFromArgb, themeFromSourceColor, TonalPalette } from "@material/material-color-utilities";
 
 const tones = [100, 98, 96, 95, 94, 92, 90, 87, 80, 70, 60, 50, 40, 35, 30, 25, 24, 22, 20, 17, 12, 10, 6, 4, 0];
+
 // TODO replace alphas with relative color syntax when supported by all browsers https://developer.chrome.com/blog/css-relative-color-syntax/ - https://caniuse.com/css-relative-colors
-// currently on producing required alphas
 const colorsForAlpha = [
   ['--wfc-primary', 'primary', '40'],
   ['--wfc-on-primary', 'primary', '100'],

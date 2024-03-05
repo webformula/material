@@ -3,6 +3,7 @@ import styles from './select.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO bottom sheet
+// TODO surface above alignment on filter
 
 class WFCSelectElement extends WFCMenuElement {
   static tag = 'wfc-select';
@@ -45,38 +46,44 @@ class WFCSelectElement extends WFCMenuElement {
       this.disableLetterFocus = true;
     }
 
-    // TODO rework textfield 
-    //  this needs to be added like this because the getters are not available with the nested component till after render
-    this.shadowRoot.querySelector('.select').insertAdjacentHTML('afterbegin', `
-      <wfc-textfield
-        class="${this.classList.contains('outlined') ? 'outlined' : ''}"
-        label="${this.label}"
-        aria-controls="listbox"
-        ${this.hasAttribute('placeholder') ? ` placeholder="${this.getAttribute('placeholder')}"` : ''}
-        ${this.hasAttribute('required') ? 'required' : ''}
-        ${this.#isFilter ? `
-          incremental
-          type="search"
-        ` : ''}
-      >
-        <slot slot="leading-icon" name="leading-icon"></slot>
-        <slot slot="trailing-icon" name="trailing-icon">
-          <svg height="5" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
-            <polygon
-              class="down"
-              stroke="none"
-              fill-rule="evenodd"
-              points="7 10 12 15 17 10"></polygon>
-            <polygon
-              class="up"
-              stroke="none"
-              fill-rule="evenodd"
-              points="7 15 12 10 17 15"></polygon>
-          </svg>
-        </slot>
-      </wfc-textfield>
-    `);
+    // this.shadowRoot.querySelector('.select').insertAdjacentHTML('afterbegin', `
+    //   <wfc-textfield
+    //     class="${this.classList.contains('outlined') ? 'outlined' : ''}"
+    //     label="${this.label}"
+    //     aria-controls="listbox"
+    //     ${this.hasAttribute('placeholder') ? ` placeholder="${this.getAttribute('placeholder')}"` : ''}
+    //     ${this.hasAttribute('required') ? 'required' : ''}
+    //     ${this.#isFilter ? `
+    //       incremental
+    //       type="search"
+    //     ` : ''}
+    //   >
+    //     <slot slot="leading-icon" name="leading-icon"></slot>
+    //     <slot slot="trailing-icon" name="trailing-icon">
+    //       <svg height="5" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
+    //         <polygon
+    //           class="down"
+    //           stroke="none"
+    //           fill-rule="evenodd"
+    //           points="7 10 12 15 17 10"></polygon>
+    //         <polygon
+    //           class="up"
+    //           stroke="none"
+    //           fill-rule="evenodd"
+    //           points="7 15 12 10 17 15"></polygon>
+    //       </svg>
+    //     </slot>
+    //   </wfc-textfield>
+    // `);
     this.#textfield = this.shadowRoot.querySelector('wfc-textfield');
+    if (this.classList.contains('outlined')) this.#textfield.classList.add('outlined');
+    this.#textfield.label = this.label;
+    if (this.hasAttribute('placeholder')) this.#textfield.setAttribute('placeholder', this.getAttribute('placeholder'));
+    if (this.hasAttribute('required')) this.#textfield.setAttribute('required', '');
+    if (this.#isFilter) {
+      this.#textfield.setAttribute('incremental', '');
+      this.#textfield.setAttribute('type', 'search');
+    }
   }
 
 
@@ -100,6 +107,24 @@ class WFCSelectElement extends WFCMenuElement {
   template() {
     return /*html*/`
       <div class="select">
+        <wfc-textfield aria-controls="listbox">
+          <slot slot="leading-icon" name="leading-icon"></slot>
+          <slot slot="trailing-icon" name="trailing-icon">
+            <svg height="5" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
+              <polygon
+                class="down"
+                stroke="none"
+                fill-rule="evenodd"
+                points="7 10 12 15 17 10"></polygon>
+              <polygon
+                class="up"
+                stroke="none"
+                fill-rule="evenodd"
+                points="7 15 12 10 17 15"></polygon>
+            </svg>
+          </slot>
+        </wfc-textfield>
+
         <span class="focus-holder" tabIndex="0"></span>
         <div id="listbox" class="surface" role="listbox">
           <div class="surface-content">

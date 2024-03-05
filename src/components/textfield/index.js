@@ -120,6 +120,7 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
 
     setTimeout(() => {
       this.shadowRoot.querySelector('label').classList.remove('no-animation');
+      this.shadowRoot.querySelector('.outlined-notch').classList.remove('no-animation');
     }, 150);
   }
 
@@ -139,7 +140,7 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
 
         <div class="outlined-border-container">
           <div class="outlined-leading"></div>
-          <div class="outlined-notch">${this.label}</div>
+          <div class="outlined-notch no-animation">${this.label}</div>
           <div class="outlined-trailing"></div>
         </div>
 
@@ -348,6 +349,8 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
   set type(value) {
     this.#type = value;
     this.setAttribute('type', value);
+    this.#input.type = 'search';
+    if (this.type === 'search' && this.#abort) this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
   }
 
   get value() {
