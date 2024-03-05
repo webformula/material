@@ -2,7 +2,6 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import util from '../../core/util.js';
 import styles from './component.css' assert { type: 'css' };
 
-// TODO class vs attribute
 class WFCFabElement extends HTMLComponentElement {
   static tag = 'wfc-fab';
   static useShadowRoot = true;

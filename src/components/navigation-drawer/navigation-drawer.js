@@ -103,7 +103,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
   }
 
   #initialScrollTo() {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       const current = this.querySelector('.current');
       if (!current) return;
 
@@ -114,7 +114,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
       if (top > height) {
         surface.querySelector('.surface-content').scrollTop = (height / 2) + (top - height);
       }
-    }, 1);
+    });
   }
 }
 customElements.define(WFCNavigationDrawerElement.tag, WFCNavigationDrawerElement);

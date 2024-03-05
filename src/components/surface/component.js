@@ -74,9 +74,9 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
     this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.classList.add('animation');
-    }, 150);
+    });
   }
 
   disconnectedCallback() {

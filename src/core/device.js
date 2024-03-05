@@ -1,4 +1,5 @@
 let skipInitialSetWindow = true;
+
 const wfcDevice = new class WFCDevice {
   #compactBreakpoint = 600;
   #mediumBreakpoint = 840;
@@ -96,10 +97,10 @@ const wfcDevice = new class WFCDevice {
     }
 
     if (!this.#lastState) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         document.querySelector('body').classList.add('wfc-animation');
         this.#animationReady = true;
-      }, 150);
+      });
     }
     
     if (!this.#lastState || state !== this.#lastState.state) {
