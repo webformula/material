@@ -39,6 +39,7 @@ class WFCSelectElement extends WFCMenuElement {
     this.allowClose = true;
     this.ariaExpanded = false;
     this.offsetBottom = -36;
+    this.resizable = true;
 
     if (this.#isFilter) {
       // Prevent surface from covering the textfield for typing
@@ -46,35 +47,6 @@ class WFCSelectElement extends WFCMenuElement {
       this.disableLetterFocus = true;
     }
 
-    // this.shadowRoot.querySelector('.select').insertAdjacentHTML('afterbegin', `
-    //   <wfc-textfield
-    //     class="${this.classList.contains('outlined') ? 'outlined' : ''}"
-    //     label="${this.label}"
-    //     aria-controls="listbox"
-    //     ${this.hasAttribute('placeholder') ? ` placeholder="${this.getAttribute('placeholder')}"` : ''}
-    //     ${this.hasAttribute('required') ? 'required' : ''}
-    //     ${this.#isFilter ? `
-    //       incremental
-    //       type="search"
-    //     ` : ''}
-    //   >
-    //     <slot slot="leading-icon" name="leading-icon"></slot>
-    //     <slot slot="trailing-icon" name="trailing-icon">
-    //       <svg height="5" viewBox="7 10 10 5" focusable="false" class="drop-arrow">
-    //         <polygon
-    //           class="down"
-    //           stroke="none"
-    //           fill-rule="evenodd"
-    //           points="7 10 12 15 17 10"></polygon>
-    //         <polygon
-    //           class="up"
-    //           stroke="none"
-    //           fill-rule="evenodd"
-    //           points="7 15 12 10 17 15"></polygon>
-    //       </svg>
-    //     </slot>
-    //   </wfc-textfield>
-    // `);
     this.#textfield = this.shadowRoot.querySelector('wfc-textfield');
     if (this.classList.contains('outlined')) this.#textfield.classList.add('outlined');
     this.#textfield.label = this.label;
@@ -362,7 +334,7 @@ class WFCSelectElement extends WFCMenuElement {
       });
       return;
     }
-    
+
     const filtered = util.fuzzySearch(terms, this.#options.map(element => ({ element, label: element.displayValue.toLowerCase() })));
     this.#options.forEach(el => {
       el.classList.add('filtered');

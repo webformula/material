@@ -9,6 +9,7 @@
   --wfc-surface-vertical-position: 0px;
   --wfc-surface-close-delay: 0ms;
   --wfc-surface-translate-x: calc(var(--wfc-surface-width, inherit) * 0.35 * -1);
+  --wfc-surface-offset-bottom: 0;
   
   position: absolute;
   border-radius: inherit;
@@ -235,6 +236,19 @@ slot {
   animation-timing-function: var(--wfc-motion-easing-emphasized);
 }
 
+:host(:not(.open).animation-height) .surface.above.animating {
+  animation: hide-max-height-above;
+  animation-duration: var(--wfc-motion-duration-short3);
+  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
+  animation-delay: var(--wfc-surface-close-delay, 0ms);
+}
+
+:host(.open.animation-height) .surface.above.animating {
+  animation: show-max-height-above;
+  animation-duration: var(--wfc-motion-duration-medium3);
+  animation-timing-function: var(--wfc-motion-easing-emphasized);
+}
+
 
 :host(:not(.open).animation-translate-left) .surface {
   transform: translate(calc(var(--wfc-surface-horizontal-position) + (var(--wfc-surface-translate-x) * -1)), var(--wfc-surface-vertical-position));
@@ -337,6 +351,51 @@ slot {
     display: block;
     visibility: visible;
     max-height: calc(var(--wfc-surface-height) * 0.35);
+  }
+}
+
+@keyframes show-max-height-above {
+  0% {
+    opacity: 0;
+    max-height: 54px;
+    transform: translate(var(--wfc-surface-translate-x), calc(-106px + var(--wfc-surface-offset-bottom)));
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    max-height: var(--wfc-surface-height);
+    transform: translate(
+      var(--wfc-surface-translate-x),
+      var(--wfc-surface-translate-y)
+    );
+  }
+}
+
+@keyframes hide-max-height-above {
+  0% {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    max-height: var(--wfc-surface-height);
+    transform: translate(
+      var(--wfc-surface-translate-x),
+      var(--wfc-surface-translate-y)
+    );
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: block;
+    visibility: visible;
+    max-height: calc(var(--wfc-surface-height) * 0.35);
+    transform: translate(var(--wfc-surface-translate-x), calc((var(--wfc-surface-translate-y) * 0.35) + (-24px + var(--wfc-surface-offset-bottom))));
   }
 }
 

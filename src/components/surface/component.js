@@ -33,6 +33,9 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #open = false;
   #initialOpen = false;
   #allowClose = false;
+  #resizable = false;
+  #mutationObserver;
+  #onChildrenChange_bound = this.#onChildrenChange.bind(this);
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #onEsc_bound = this.#onEsc.bind(this);
   #setMousePosition_bound = this.#setMousePosition.bind(this);
@@ -81,6 +84,10 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
 
   disconnectedCallback() {
     if (this.#abort) this.#abort.abort();
+    if (this.#mutationObserver) {
+      this.#mutationObserver.disconnect();
+      this.#mutationObserver = undefined;
+    }
   }
 
   static get observedAttributesExtended() {
@@ -225,6 +232,16 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
   }
 
+  get resizable() { return this.#resizable }
+  set resizable(value) {
+    this.#resizable = !!value;
+    if (this.#resizable === true) {
+      this.#mutationObserver = new MutationObserver(this.#onChildrenChange_bound);
+    } else if (this.#mutationObserver) {
+      this.#mutationObserver.disconnect();
+      this.#mutationObserver = undefined;
+    }
+  }
 
 
   async show() {
@@ -252,12 +269,18 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       else window.addEventListener('click', this.#onClickOutside_bound, { signal: this.#abort.signal });
       window.addEventListener('keydown', this.#onEsc_bound, { signal: this.#abort.signal });
     }
+
+    // handle changes in items. Example: options list filter
+    if (this.#resizable && this.#surfaceElement.classList.contains('above')) this.#mutationObserver.observe(this, { attributes: true, subtree: true });
+
     this.onShowEnd();
   }
 
   async close() {
     if (!this.open) return;
     this.#open = false;
+
+    if (this.#resizable && this.#mutationObserver) this.#mutationObserver.disconnect();
 
     this.onHide();
     if (this.#allowClose) {
@@ -277,6 +300,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.animation === 'fullscreen') this.#postHideFullscreen();
     if (this.animation === 'fullscreen') await util.transitionendAsync(this);
     else await util.animationendAsync(this.#surfaceElement);
+    this.#surfaceElement.classList.remove('above');
     this.#surfaceElement.classList.remove('animating');
     this.#surfaceElement.style.left = '';
     this.#surfaceElement.style.bottom = '';
@@ -302,14 +326,13 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   onHide() {}
   onHideEnd() {}
 
-
-  #setPosition() {
+  #setPosition(maintainAbove = false) {
     if (this.#positionMouseOnly) this.#setMousePositionOnly();
-    else if (this.#anchorElement || this.#positionMouse) this.#setAnchorPosition();
+    else if (this.#anchorElement || this.#positionMouse) this.#setAnchorPosition(maintainAbove);
     else this.#setNonAnchorPosition();
   }
   
-  #setAnchorPosition() {
+  #setAnchorPosition(maintainAbove = false) {
     const overlapPadding = 16;
     const position = this.#position.split(' ');
     const alignTop = position[0] === 'top';
@@ -320,7 +343,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     let height = this.#surfaceElement.querySelector('.surface-content').scrollHeight;
     let translateY = !alignTop ? 0 + this.#offsetBottom : anchorBounds.height;
     let translateX = this.#positionMouse ? this.#mouseX - anchorBounds.left : (alignRight ? (anchorBounds.width - overlapPadding) : 0);
-    this.#surfaceElement.classList.remove('above');
+    if (maintainAbove && !this.#surfaceElement.classList.contains('above')) maintainAbove = false;
 
     if (this.fixed) {
       translateY -= scrollTop;
@@ -332,18 +355,18 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       const overlapBottom = clientHeight - (verticalStart + height + overlapPadding);
       const overlapRight = Math.min(0, clientWidth - (anchorBounds.left + width + translateX + overlapPadding));
 
-      if (overlapBottom < 0) {
+      if (overlapBottom < 0 || maintainAbove) {
         const overlapTop = verticalStart - (height + overlapPadding);
         const overLapBottomLessThanHalfHeight = Math.abs(overlapBottom) <= height / 2;
         const enoughRoomToShiftUp = overlapTop + height >= Math.abs(overlapBottom);
         const canShiftUp = this.#overlap === true && overLapBottomLessThanHalfHeight && enoughRoomToShiftUp;
 
         // shift up
-        if (canShiftUp) {
+        if (canShiftUp && !maintainAbove) {
           translateY += overlapBottom;
 
         // position above anchor
-        } else if (overlapTop >= 0) {
+        } else if (overlapTop >= 0 || maintainAbove) {
           translateY -= height;
           if (!this.#overlap) translateY -= anchorBounds.height;
           this.#surfaceElement.classList.add('above');
@@ -374,7 +397,10 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.classList.toggle('overlap', this.#overlap);
     this.#surfaceElement.style.setProperty('--wfc-surface-height', `${height}px`);
     this.#surfaceElement.style.setProperty('--wfc-surface-width', `${width}px`);
-    this.#surfaceElement.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    this.#surfaceElement.style.setProperty('--wfc-surface-translate-x', `${translateX}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-translate-y', `${translateY}px`);
+    this.#surfaceElement.style.setProperty('--wfc-surface-offset-bottom', `${this.#offsetBottom}px`);
+    this.#surfaceElement.style.transform = 'translate(var(--wfc-surface-translate-x), var(--wfc-surface-translate-y))';
   }
 
   #setMousePositionOnly() {
@@ -435,6 +461,10 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (e.code !== 'Escape') return;
     this.close();
     e.preventDefault();
+  }
+
+  #onChildrenChange() {
+    this.#setPosition(true);
   }
 };
 
