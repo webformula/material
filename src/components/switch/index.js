@@ -1,5 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
+import util from '../../core/util.js';
 
 class WFCSwitchElement extends HTMLComponentElement {
   static tag = 'wfc-switch';
@@ -47,7 +48,7 @@ class WFCSwitchElement extends HTMLComponentElement {
 
   template() {
     return /*html*/`
-      <slot class="label"></slot>
+      <slot class="label hide"></slot>
       <div class="container">
         <input type="checkbox" role="switch">
         <div class="track">
@@ -81,7 +82,7 @@ class WFCSwitchElement extends HTMLComponentElement {
     this.#input.required = this.required;
     this.setAttribute('aria-checked', this.#checked.toString());
 
-    this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
+    util.addClickTimeoutEvent(this, this.#click_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#updateValidity();
@@ -188,7 +189,8 @@ class WFCSwitchElement extends HTMLComponentElement {
     }
   }
 
-  #slotChange() {
+  #slotChange(event) {
+    event.target.classList.remove('hide');
     if (!this.ariaLabel) this.ariaLabel = this.innerText;
   }
 }

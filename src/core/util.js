@@ -245,23 +245,73 @@ const wfcUtil = new class WFCUtil {
     htmlElement.scrollTop = this.#pageScrollLockHTMLScrollTop;
   }
 
+  #clickTimeoutListeners = [];
+  addClickTimeoutEvent(element, listener, options) {
+    let timer;
+
+    function mousedown() {
+      timer = setTimeout(end, 320);
+      element.addEventListener('mouseup', mouseup);
+    }
+
+    function mouseup(event) {
+      end();
+      listener(event);
+    }
+
+    function end() {
+      element.removeEventListener('mouseup', mouseup);
+      clearTimeout(timer);
+    }
+
+    function remove() {
+      clearTimeout(timer);
+      element.removeEventListener('mousedown', mousedown);
+      element.removeEventListener('mouseup', mouseup);
+    }
+
+    element.addEventListener('mousedown', mousedown);
+
+    if (options?.signal) options.signal.addEventListener('abort', remove);
+
+    this.#clickTimeoutListeners.push({
+      element,
+      listener,
+      remove
+    });
+  }
+
+  removeClickTimeoutEvent(element, listener) {
+    this.#clickTimeoutListeners = this.#clickTimeoutListeners.filter(v => {
+      if (v.element === element && v.listener === listener) {
+        v.remove();
+        return false;
+      }
+      return true;
+    });
+  }
+
   #longPressListeners = [];
   addLongPressListener(element, listener, config = {
     ms: 400,
     disableMouseEvents: false,
-    disableTouchEvents: false
+    disableTouchEvents: false,
+    once: true
   }) {
     let timeout;
     let target;
     let startX;
     let startY;
     let lastEvent;
+    let once = config.once === undefined ? true : config.once;
 
     function remove() {
       if (timeout) clearTimeout(timeout);
       lastEvent = undefined;
-      element.removeEventListener('mousedown', start);
-      element.removeEventListener('touchstart', start);
+      if (once) {
+        element.removeEventListener('mousedown', start);
+        element.removeEventListener('touchstart', start);
+      }
       element.removeEventListener('mouseup', remove);
       element.removeEventListener('mousemove', move);
       element.removeEventListener('touchend', remove);

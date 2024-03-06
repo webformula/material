@@ -1,6 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
-
+import util from '../../core/util.js';
 
 class WFCAvatarElement extends HTMLComponentElement {
   static tag = 'wfc-avatar';
@@ -24,7 +24,6 @@ class WFCAvatarElement extends HTMLComponentElement {
   }
 
   attributeChangedCallbackExtended(name, _oldValue, newValue) {
-    console.log(name, newValue)
     this[name] = newValue;
   }
 
@@ -47,11 +46,11 @@ class WFCAvatarElement extends HTMLComponentElement {
   }
 
   connectedCallback() {
-    if (this.hasAttribute('checkbox')) this.addEventListener('click', this.#onClick_bound);
+    if (this.hasAttribute('checkbox')) util.addClickTimeoutEvent(this, this.#onClick_bound);
   }
   
   disconnectedCallback() {
-    this.removeEventListener('click', this.#onClick_bound);
+    util.removeClickTimeoutEvent(this, this.#onClick_bound);
   }
 
   #onClick() {

@@ -1,8 +1,6 @@
 import WFCSurfaceElement from '../surface/component.js';
 import styles from './component.css' assert { type: 'css' };
 
-// TODO animation reverse
-
 class wfcSnackbarElement extends WFCSurfaceElement {
   static tag = 'wfc-snackbar';
   static styleSheets = styles;
@@ -12,7 +10,7 @@ class wfcSnackbarElement extends WFCSurfaceElement {
 
     this.role = 'alertdialog';
     this.allowClose = false;
-    this.animation = 'translate-y';
+    this.animation = 'opacity';
     this.position = 'bottom left';
     this.fixed = true;
   }

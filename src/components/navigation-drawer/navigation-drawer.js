@@ -73,7 +73,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
         current.parentElement.classList.remove('has-current');
       }
     }
-    const match = this.querySelector(`[href="${path}"]`);
+    const match = this.querySelector(`[href="${path}"]`) || this.querySelector(`[href="${path.split('#')[0]}"]`);
     if (match) {
       match.classList.add('current');
       if (match.parentElement.nodeName === 'WFC-ANCHOR-GROUP') {
@@ -103,7 +103,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
   }
 
   #initialScrollTo() {
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       const current = this.querySelector('.current');
       if (!current) return;
 
@@ -114,7 +114,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
       if (top > height) {
         surface.querySelector('.surface-content').scrollTop = (height / 2) + (top - height);
       }
-    });
+    }, 1);
   }
 }
 customElements.define(WFCNavigationDrawerElement.tag, WFCNavigationDrawerElement);

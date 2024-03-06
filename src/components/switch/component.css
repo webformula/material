@@ -146,6 +146,10 @@ input {
   letter-spacing: var(--wfc-font-large-label-tracking);
 }
 
+.label.hide {
+  display: none;
+}
+
 :host(.label-right) .label {
   justify-content: flex-end;
   order: 1;

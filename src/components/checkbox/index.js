@@ -1,5 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
+import util from '../../core/util.js';
 
 
 class WFCCheckboxElement extends HTMLComponentElement {
@@ -76,7 +77,7 @@ class WFCCheckboxElement extends HTMLComponentElement {
     this.setAttribute('aria-checked', this.#checked.toString());
 
     this.#abort = new AbortController();
-    this.addEventListener('click', this.#click_bound, { signal: this.#abort.signal });
+    util.addClickTimeoutEvent(this, this.#click_bound, { signal: this.#abort.signal });
     this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     this.#updateValidity();

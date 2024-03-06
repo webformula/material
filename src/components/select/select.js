@@ -3,7 +3,6 @@ import styles from './select.css' assert { type: 'css' };
 import util from '../../core/util.js';
 
 // TODO bottom sheet
-// TODO surface above alignment on filter
 
 class WFCSelectElement extends WFCMenuElement {
   static tag = 'wfc-select';

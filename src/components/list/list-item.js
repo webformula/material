@@ -3,7 +3,6 @@ import styles from './list-item.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
-// TODO long press select
 // TODO drag reorder
 // TODO Figure out if we should have more configuration for start and end swipe actions (currently events only)
 class WFCListItemElement extends HTMLComponentElement {
@@ -24,6 +23,7 @@ class WFCListItemElement extends HTMLComponentElement {
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
+  #longPress_bound = this.#longPress.bind(this);
 
   constructor() {
     super();
@@ -78,11 +78,17 @@ class WFCListItemElement extends HTMLComponentElement {
       this.#drag.on('wfcdragend', this.#onDragEnd_bound);
       this.#drag.enable();
     }
+
+    if (this.#selectionControl) {
+      util.addLongPressListener(this, this.#longPress_bound, { once: false });
+      if (this.#states === undefined) this.states = true;
+    }
   }
 
   disconnectedCallback() {
     if (this.#drag) this.#drag.destroy();
     this.removeEventListener('change', this.#onChange_bound);
+    util.removeLongPressListener(this, this.#longPress_bound);
   }
 
   get value() { return this.#value; }
@@ -93,7 +99,8 @@ class WFCListItemElement extends HTMLComponentElement {
   get selected() { return !this.#selectionControl ? false : this.#selectionControl.checked; }
   set selected(value) {
     this.#selected = !this.#selectionControl ? false : !!value;
-    if (this.#selectionControl) this.#selectionControl.toggleAttribute('checked', this.#selected);
+    this.classList.toggle('selected', this.#selected);
+    if (this.#selectionControl) requestAnimationFrame(() => this.#selectionControl.checked = this.#selected);
   }
 
   get states() { return this.#states; }
@@ -122,8 +129,9 @@ class WFCListItemElement extends HTMLComponentElement {
     super.remove();
   }
 
-  #onChange(event) {
-    this.classList.toggle('selected', event.target.checked);
+  #onChange() {
+    this.#selected = this.#selectionControl.checked;
+    this.classList.toggle('selected', this.#selectionControl.checked);
   }
 
 
@@ -156,6 +164,11 @@ class WFCListItemElement extends HTMLComponentElement {
         this.dispatchEvent(new Event('swipeactionend', { bubbles: true }));
       }
     }
+  }
+
+  #longPress() {
+    this.#selectionControl.checked = !this.#selectionControl.checked;
+    this.#onChange()
   }
 }
 customElements.define(WFCListItemElement.tag, WFCListItemElement);

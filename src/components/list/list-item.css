@@ -112,6 +112,10 @@
   color: var(--wfc-on-surface-variant);
 }
 
+::slotted(wfc-switch) {
+  flex-grow: 0;
+}
+
 slot[name='end']::slotted([hover-only]) {
   opacity: 0;
   transition: opacity;
