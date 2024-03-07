@@ -249,28 +249,28 @@ const wfcUtil = new class WFCUtil {
   addClickTimeoutEvent(element, listener, options) {
     let timer;
 
-    function mousedown() {
+    function pointerdown() {
       timer = setTimeout(end, 320);
-      element.addEventListener('mouseup', mouseup);
+      element.addEventListener('pointerup', pointerup);
     }
 
-    function mouseup(event) {
+    function pointerup(event) {
       end();
       listener(event);
     }
 
     function end() {
-      element.removeEventListener('mouseup', mouseup);
+      element.removeEventListener('pointerup', pointerup);
       clearTimeout(timer);
     }
 
     function remove() {
       clearTimeout(timer);
-      element.removeEventListener('mousedown', mousedown);
-      element.removeEventListener('mouseup', mouseup);
+      element.removeEventListener('pointerdown', pointerdown);
+      element.removeEventListener('pointerup', pointerup);
     }
 
-    element.addEventListener('mousedown', mousedown);
+    element.addEventListener('pointerdown', pointerdown);
 
     if (options?.signal) options.signal.addEventListener('abort', remove);
 
@@ -299,23 +299,28 @@ const wfcUtil = new class WFCUtil {
     once: true
   }) {
     let timeout;
+    let textSelectionTimeout;
     let target;
     let startX;
     let startY;
     let lastEvent;
     let once = config.once === undefined ? true : config.once;
 
-    function remove() {
+    function remove(destroy = false) {
       if (timeout) clearTimeout(timeout);
+      if (textSelectionTimeout) clearTimeout(textSelectionTimeout);
       lastEvent = undefined;
-      if (once) {
+      if (once || destroy) {
         element.removeEventListener('mousedown', start);
         element.removeEventListener('touchstart', start);
+        element.removeEventListener('contextmenu', preventContextMenu);
       }
       element.removeEventListener('mouseup', remove);
       element.removeEventListener('mousemove', move);
       element.removeEventListener('touchend', remove);
       element.removeEventListener('touchmove', move);
+      window.removeEventListener('contextmenu', preventContextMenu);
+      element.classList.remove('prevent-user-selection');
     }
 
     function start(event) {
@@ -334,9 +339,14 @@ const wfcUtil = new class WFCUtil {
       if (!config.disableTouchEvents) {
         element.addEventListener('touchend', remove);
         element.addEventListener('touchmove', move);
+        window.addEventListener('contextmenu', preventContextMenu);
       }
 
-      event.preventDefault();
+      // prevent text selection on mobile
+      // adding a timeout seems to allow desktop text selection
+      textSelectionTimeout = setTimeout(() => {
+        element.classList.add('prevent-user-selection');
+      }, 0);
     }
 
     function move(event) {
@@ -347,6 +357,11 @@ const wfcUtil = new class WFCUtil {
       const distanceY = y - startY;
       const distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
       if (distance > 3) remove();
+    }
+
+    function preventContextMenu(event) {
+      event.preventDefault();
+      return false;
     }
 
     if (!config.disableMouseEvents) element.addEventListener('mousedown', start);
@@ -361,7 +376,7 @@ const wfcUtil = new class WFCUtil {
   removeLongPressListener(element) {
     this.#longPressListeners = this.#longPressListeners.filter(v => {
       if (v.element === element) {
-        v.remove();
+        v.remove(true);
         return false;
       }
       return true;

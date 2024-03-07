@@ -97,10 +97,10 @@ const wfcDevice = new class WFCDevice {
     }
 
     if (!this.#lastState) {
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         document.querySelector('body').classList.add('wfc-animation');
         this.#animationReady = true;
-      });
+      }, 150);
     }
     
     if (!this.#lastState || state !== this.#lastState.state) {

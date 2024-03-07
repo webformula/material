@@ -256,9 +256,13 @@
 
     <!-- TODO first item seems broken -->
     <wfc-card class="" id="selection">
-      <div slot="headline">Selection</div>
+      <div slot="headline">
+        <span style="flex: 1;">Selection</span>
+        <wfc-button id="selection-mode-exit" style="opacity: 0; pointer-events: none; margin-top: -2px; margin-left: 24px;"
+          onclick="page.exitSelectionMode();">Exit selection mode</wfc-button>
+      </div>
 
-      <wfc-list onchange="console.log(this.value)">
+      <wfc-list onchange="console.log(this.value)" selection-mode>
         <wfc-list-item value="1">
           <wfc-avatar slot="start" checkbox>
             <img alt="avatar" src="./woman.jpg">
@@ -301,7 +305,9 @@
       
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-list id="selection-list">
+  ${page.escape(`<!-- wfc-list[selection-mode] allows all list items to become selectable upon a long press select on any item -->
+
+  <wfc-list id="selection-list" selection-mode>
     <wfc-list-item selected value="1">
       <wfc-avatar slot="start">
         <img alt="avatar" src="./woman.jpg">
@@ -342,7 +348,15 @@
   ${`document.querySelector('#selection-list').addEventListener('change', event => {
     console.log(event.target.value); // "1,2"
     console.log(event.target.values); // ['1', '2']
-  });`}
+  });
+  
+  // Exit selection mode manually.
+  //   If all items are deselected then selection mode is exited automatically
+  document.querySelector('#selection-list').exitSelectionMode();
+  
+  // Selection mode events
+  document.querySelector('#selection-list').addEventListener('enter-selection-mode', () => {});
+  document.querySelector('#selection-list').addEventListener('exit-selection-mode', () => {});`}
         </code>
       </pre>
     </wfc-card>

@@ -64,3 +64,8 @@ body #page-content {
   user-select: none;
   -webkit-user-select: none;
 }
+
+.prevent-user-selection {
+  -webkit-user-select: none;
+  user-select: none;
+}

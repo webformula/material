@@ -4,6 +4,7 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
 // TODO drag reorder
+// TODO expanding
 // TODO Figure out if we should have more configuration for start and end swipe actions (currently events only)
 class WFCListItemElement extends HTMLComponentElement {
   static tag = 'wfc-list-item';
@@ -19,11 +20,13 @@ class WFCListItemElement extends HTMLComponentElement {
   #container;
   #lastDirection;
   #actionActiveThreshold = 64;
+  #selectionMode = false;
   #onChange_bound = this.#onChange.bind(this);
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
   #onDragEnd_bound = this.#onDragEnd.bind(this);
   #longPress_bound = this.#longPress.bind(this);
+  #selectionModeClick_bound = this.#selectionModeClick.bind(this);
 
   constructor() {
     super();
@@ -31,7 +34,10 @@ class WFCListItemElement extends HTMLComponentElement {
     this.role = 'listitem';
     this.render();
     this.#selectionControl = this.querySelector('wfc-checkbox') || this.querySelector('wfc-switch') || this.querySelector('wfc-avatar[checkbox]');
-    if (this.#selectionControl && !this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
+    if (this.#selectionControl) {
+      this.classList.add('selectable');
+      if (!this.#selectionControl.ariaLabel) this.#selectionControl.ariaLabel = 'select';
+    }
   }
 
   template() {
@@ -89,6 +95,7 @@ class WFCListItemElement extends HTMLComponentElement {
     if (this.#drag) this.#drag.destroy();
     this.removeEventListener('change', this.#onChange_bound);
     util.removeLongPressListener(this, this.#longPress_bound);
+    util.removeClickTimeoutEvent(this, this.#selectionModeClick_bound);
   }
 
   get value() { return this.#value; }
@@ -117,6 +124,18 @@ class WFCListItemElement extends HTMLComponentElement {
   get ripple() { return this.shadowRoot.querySelector('wfc-state-layer').ripple; }
   set ripple(value) {
     this.shadowRoot.querySelector('wfc-state-layer').ripple = !!value;
+  }
+
+  get selectionMode() { return this.#selectionMode; }
+  set selectionMode(value) {
+    this.#selectionMode = !!value;
+    if (this.#selectionMode) {
+      util.removeLongPressListener(this, this.#longPress_bound);
+      util.addClickTimeoutEvent(this, this.#selectionModeClick_bound);
+    } else {
+      util.removeClickTimeoutEvent(this, this.#selectionModeClick_bound);
+      util.addLongPressListener(this, this.#longPress_bound, { once: false });
+    }
   }
 
 
@@ -168,7 +187,18 @@ class WFCListItemElement extends HTMLComponentElement {
 
   #longPress() {
     this.#selectionControl.checked = !this.#selectionControl.checked;
-    this.#onChange()
+    this.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: 'longpress' }));
+  }
+
+  #selectionModeClick(event) {
+    const element = event?.target;
+    if (
+      element.nodeName === 'WFC-CHECKBOX'
+      || element.nodeName === 'WFC-SWITCH'
+      || (element.nodeName === 'WFC-AVATAR' && element.hasAttribute('checkbox'))
+    ) return;
+    this.#selectionControl.checked = !this.#selectionControl.checked;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 }
 customElements.define(WFCListItemElement.tag, WFCListItemElement);
