@@ -26,6 +26,21 @@
   width: var(--wfc-navigation-drawer-width);
 }
 
+:host(.modal) .surface-content {
+  border-radius: var(--wfc-shape-large-end);
+}
+
+:host(.modal) .surface::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: -40px;
+  /* -1px prevent box-shadow from bleeding through */
+  right: calc(100% - 1px);
+  bottom: 0;
+  background-color: var(--wfc-surface);
+}
+
 .surface-content {
   background-color: var(--wfc-surface);
 }

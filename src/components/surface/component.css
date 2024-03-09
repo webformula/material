@@ -82,6 +82,52 @@
 }
 
 
+.predictive-back-icon {
+  --wfc-predictive-back-stretch: 0px;
+
+  position: absolute;
+  left: 12px;
+  top: calc(50% - 18px);
+  width: calc(28px + var(--wfc-predictive-back-stretch));
+  height: 32px;
+  border-radius: 18px;
+  background-color: var(--wfc-scrim-alpha-76);
+  transition: left, opacity;
+  transition-duration: var(--wfc-motion-duration-medium1);
+  opacity: 1;
+  pointer-events: none;
+  color: var(--wfc-on-primary);
+  align-items: center;
+  justify-content: center;
+}
+
+.predictive-back-icon svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
+}
+
+.predictive-back-icon.right {
+  right: 12px;
+  left: unset;
+  transition: right, opacity;
+}
+
+.predictive-back-icon.right svg {
+  rotate: 180deg;
+  margin-left: -8px;
+}
+
+.predictive-back-icon.hide {
+  left: -100%;
+  opacity: 0;
+}
+
+.predictive-back-icon.right.hide {
+  right: -100%;
+}
+
+
 :host(.open.animation-fullscreen),
 :host(.closing.animation-fullscreen) {
   position: fixed;

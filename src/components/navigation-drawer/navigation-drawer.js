@@ -1,6 +1,9 @@
 import WFCSurfaceElement from '../surface/component.js';
 import styles from './navigation-drawer.css' assert { type: 'css' };
 import device from '../../core/device.js';
+import {
+  arrow_back_ios_FILL1_wght300_GRAD0_opsz24
+} from '../../core/svgs.js';
 
 
 class WFCNavigationDrawerElement extends WFCSurfaceElement {
@@ -19,6 +22,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
     this.viewportBound = false;
     this.animation = 'translate-left';
     this.initialOpen = true;
+    this.swipeClose = true;
     document.body.classList.add('has-navigation-drawer');
     document.body.classList.add('navigation-drawer-state-show');
     this.#locationchange();
@@ -36,6 +40,7 @@ class WFCNavigationDrawerElement extends WFCSurfaceElement {
             <slot class="default-slot"></slot>
           </div>
         </div>
+        <wfc-icon class="predictive-back-icon hide">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</wfc-icon>
       </div>
     `;
   }

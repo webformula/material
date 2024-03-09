@@ -49,6 +49,7 @@
   --wfc-shape-small: 8px;
   --wfc-shape-medium: 12px;
   --wfc-shape-large: 16px;
+  --wfc-shape-large-start: 16px 0 0 16px;
   --wfc-shape-large-end: 0 16px 16px 0;
   --wfc-shape-large-top: 16px 16px 0 0;
   --wfc-shape-extra-large: 28px;

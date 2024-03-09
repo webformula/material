@@ -43,6 +43,30 @@
   right: 0;
 }
 
+:host([modal]) .surface::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  /* -1px prevent box-shadow from bleeding through */
+  left: calc(100% - 1px);
+  right: -40px;
+  bottom: 0;
+  background-color: var(--wfc-surface);
+  box-shadow: var(--wfc-elevation-2);
+  clip-path: inset(-30px 0 -30px 0);;
+}
+
+:host([modal][left]) .surface::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: -40px;
+  /* -1px prevent box-shadow from bleeding through */
+  right: calc(100% - 1px);
+  bottom: 0;
+  background-color: var(--wfc-surface);
+}
+
 :host([inset]) .surface{
   right: 16px;
   top: 16px;
@@ -164,6 +188,16 @@ wfc-divider {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+}
+
+:host([modal]) wfc-divider{
+  right: unset;
+  width: 150%;
+}
+
+:host([modal][left]) wfc-divider {
+  left: unset;
   right: 0;
 }
 

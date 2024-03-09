@@ -64,7 +64,8 @@ export default class Drag {
   #reorderScrollDelayMS = 250;
   #overflowDrag = false;
   #scrollSnapPositions = [];
-  // #preventSwipeNavigation = false;
+  #preventSwipeNavigation = false;
+
 
 
   constructor(element, config = defaultConfig) {
@@ -89,6 +90,7 @@ export default class Drag {
     this.#reorderScrollDelayMS = config.reorderScrollDelayMS;
     this.#overflowDrag = config.overflowDrag;
     this.#scrollSnapPositions = config.scrollSnapPositions;
+    this.#preventSwipeNavigation = config.preventSwipeNavigation;
   }
 
   get disableMouseEvents() {
@@ -178,6 +180,13 @@ export default class Drag {
     else this.#scrollSnapPositions = [];
   }
 
+  get preventSwipeNavigation() {
+    return this.#preventSwipeNavigation;
+  }
+  set preventSwipeNavigation(value) {
+    this.#preventSwipeNavigation = !!value;
+  }
+
 
   enable() {
     if (this.#enabled) return;
@@ -193,7 +202,6 @@ export default class Drag {
       if (!this.#disableMouseEvents) this.#element.addEventListener('mousedown', this.#start_bound, { signal: this.#abortMain.signal });
       if (!this.#disableTouchEvents) {
         this.#element.addEventListener('touchstart', this.#start_bound, { signal: this.#abortMain.signal });
-        // this.#pageContent = document.querySelector('#page-content') || document.querySelector('page-content');
       }
     }
   }
@@ -252,13 +260,6 @@ export default class Drag {
   #start(event) {
     this.#resetTrackingDetails = false;
 
-    // TODO mobile drag from side to close
-    // // does this need to be on always
-    // if (this.#preventSwipeNavigation) {
-    //   // NOTE do i need passive: false?
-    //   this.#pageContent.addEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
-    // }
-
     // right click
     if (event.which === 3) {
       if (this.#isDragging) this.#end(event);
@@ -293,17 +294,17 @@ export default class Drag {
     this.#element.classList.add('drag-active');
     const dragEvent = this.#track(event, 'wfcdragstart');
     if (this.#lockScrollY && !this.horizontalOnly) util.lockPageScroll();
+
+    if (this.preventSwipeNavigation && (event.pageX < 20 || event.pageX > window.innerWidth - 20)) {
+      event.preventDefault();
+    }
+
     this.#trigger(dragEvent);
   }
 
   #end(event) {
     if (this.#abortDrag) this.#abortDrag.abort();
     if (!this.#isDragging) return;
-
-    // // does this need to be on always
-    // if (this.#preventSwipeNavigation) {
-    //   this.#pageContent.removeEventListener('touchstart', this.#preventSwipeNavigationHandler_bound, { signal: this.#abortMain.signal });
-    // }
 
     if (this.#lockScrollY || this.#reorder) util.unlockPageScroll();
     const dragEvent = this.#track(event, 'wfcdragend');

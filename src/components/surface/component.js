@@ -1,6 +1,8 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
+import device from '../../core/device.js';
+import Drag from '../../core/drag.js';
 
 const animations = ['translate-y', 'translate-left', 'transition-right', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen', 'opacity'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
@@ -12,6 +14,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   static useTemplate = true;
 
   #abort;
+  #drag;
   #anchor;
   #anchorElement;
   #surfaceElement;
@@ -34,11 +37,16 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #initialOpen = false;
   #allowClose = false;
   #resizable = false;
+  #swipeClose;
   #mutationObserver;
+  #predictiveBackIcon;
   #onChildrenChange_bound = this.#onChildrenChange.bind(this);
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #onEsc_bound = this.#onEsc.bind(this);
   #setMousePosition_bound = this.#setMousePosition.bind(this);
+  #swipeCloseStart_bound = this.#swipeCloseStart.bind(this);
+  #swipeCloseMove_bound = this.#swipeCloseMove.bind(this);
+  #swipeCloseEnd_bound = this.#swipeCloseEnd.bind(this);
 
 
   constructor(callRender = true) {
@@ -76,10 +84,61 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.#closeDelay) this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
     this.#surfaceElement.classList.toggle('viewport-bound', this.#viewportBound);
     this.#surfaceElement.classList.toggle('always-visible', this.#alwaysVisible);
+    if (device.hasTouchScreen && this.#swipeClose) {
+      this.#drag = new Drag(this.#surfaceElement);
+      this.#drag.horizontalOnly = true;
+      this.#drag.preventSwipeNavigation = true;
+      this.#drag.on('wfcdragstart', this.#swipeCloseStart_bound);
+      this.#drag.on('wfcdragmove', this.#swipeCloseMove_bound);
+      this.#drag.on('wfcdragend', this.#swipeCloseEnd_bound);
+      this.#drag.enable();
+
+      this.#predictiveBackIcon = this.shadowRoot.querySelector('.predictive-back-icon');
+    }
 
     setTimeout(() => {
       this.classList.add('animation');
     }, 150);
+  }
+
+  #swipeCloseStart({ clientX }) {
+    if (
+      ((clientX < (device.windowWidth / 2)  && clientX > 30)
+      || (clientX > (device.windowWidth / 2) && (device.windowWidth - clientX) > 50))
+    ) {
+      this.#drag.cancel();
+    }
+  }
+
+  #swipeCloseMove({ distanceX, directionX }) {
+    distanceX = Math.abs(distanceX);
+    const scalePercent = Math.max(0, this.#easeInQuint(1 - (distanceX / device.windowWidth)));
+    const scaleOffset = 0.02;
+    const scale = (1 - scaleOffset) + (scalePercent * scaleOffset);
+    const translatePercent = Math.min(1, this.#easeInQuart(distanceX / device.windowWidth));
+    const translate = translatePercent * 3;
+    this.#surfaceElement.style.transform = `translateX(${translate * directionX}px) scale(${scale})`;
+
+    if (this.#predictiveBackIcon && distanceX > 50) {
+      this.#predictiveBackIcon.classList.remove('hide');
+      const stretch = Math.min(1, ((distanceX - 45) / (device.windowWidth / 2)));
+      this.#predictiveBackIcon.style.setProperty('--wfc-predictive-back-stretch', `${stretch * 16}px`);
+    } else {
+      this.#predictiveBackIcon.classList.add('hide');
+    }
+  }
+  #swipeCloseEnd({ distanceX }) {
+    this.#surfaceElement.style.transform = '';
+    this.#predictiveBackIcon.classList.add('hide');
+    if (Math.abs(distanceX) > device.windowWidth / 4) this.close();
+  }
+
+  #easeInQuart(x) {
+    return x * x * x * x;
+  }
+
+  #easeInQuint(x) {
+    return x * x * x * x * x;
   }
 
   disconnectedCallback() {
@@ -232,7 +291,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.style.setProperty('--wfc-surface-close-delay', `${this.#closeDelay}ms`);
   }
 
-  get resizable() { return this.#resizable }
+  get resizable() { return this.#resizable; }
   set resizable(value) {
     this.#resizable = !!value;
     if (this.#resizable === true) {
@@ -241,6 +300,11 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       this.#mutationObserver.disconnect();
       this.#mutationObserver = undefined;
     }
+  }
+
+  get swipeClose() { return this.#swipeClose; }
+  set swipeClose(value) {
+    this.#swipeClose = !!value;
   }
 
 

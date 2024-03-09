@@ -3,7 +3,8 @@ import styles from './side-sheet.css' assert { type: 'css' };
 import dividerStyles from '../divider/global.css' assert { type: 'css' };
 import {
   close_FILL0_wght400_GRAD0_opsz24,
-  arrow_back_FILL1_wght300_GRAD0_opsz24
+  arrow_back_FILL1_wght300_GRAD0_opsz24,
+  arrow_back_ios_FILL1_wght300_GRAD0_opsz24
 } from '../../core/svgs.js';
 
 
@@ -22,6 +23,7 @@ class WFCSideSheetElement extends WFCSurfaceElement {
   #hideClose = false;
   #slotChange_bound = this.#slotChange.bind(this);
   #close_bound = this.#close.bind(this);
+  #redispatchBack_bound = this.#redispatchBack.bind(this);
 
   constructor() {
     super();
@@ -30,6 +32,7 @@ class WFCSideSheetElement extends WFCSurfaceElement {
     this.allowClose = false;
     this.viewportBound = false;
     this.animation = 'translate-right';
+    this.swipeClose = true;
   }
 
   template() {
@@ -54,6 +57,7 @@ class WFCSideSheetElement extends WFCSurfaceElement {
               <slot name="action"></div>
             </div>
           </div>
+          <wfc-icon class="predictive-back-icon right hide">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</wfc-icon>
         </div>
       </div>
     `;
@@ -84,9 +88,7 @@ class WFCSideSheetElement extends WFCSurfaceElement {
     this.#abort = new AbortController();
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
     if (!this.#hideClose) this.shadowRoot.querySelector('.close').addEventListener('click', this.#close_bound, { signal: this.#abort.signal });
-    this.shadowRoot.querySelector('.back').addEventListener('click', () => {
-      this.dispatchEvent(new CustomEvent('back'));
-    }, { signal: this.#abort.signal });
+    this.shadowRoot.querySelector('.back').addEventListener('click', this.#redispatchBack_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
@@ -98,6 +100,12 @@ class WFCSideSheetElement extends WFCSurfaceElement {
   set left(value) {
     this.#left = !!value;
     this.animation = this.#left ? 'translate-left' : 'translate-right';
+    const predictiveBackIcon = this.shadowRoot.querySelector('.predictive-back-icon');
+    if (predictiveBackIcon && this.#left) {
+      predictiveBackIcon.classList.remove('right');
+    } else if (predictiveBackIcon) {
+      predictiveBackIcon.classList.add('right');
+    }
   }
 
   get modal() { return this.#modal; }
@@ -151,6 +159,10 @@ class WFCSideSheetElement extends WFCSurfaceElement {
 
   #close() {
     this.open = false;
+  }
+
+  #redispatchBack() {
+    this.dispatchEvent(new CustomEvent('back'));
   }
 }
 customElements.define(WFCSideSheetElement.tag, WFCSideSheetElement);
