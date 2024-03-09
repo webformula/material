@@ -2,7 +2,7 @@ import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './component.css' assert { type: 'css' };
 import util from '../../core/util.js';
 import device from '../../core/device.js';
-import Drag from '../../core/drag.js';
+import Drag from '../../core/Drag.js';
 
 const animations = ['translate-y', 'translate-left', 'transition-right', 'translate-right', 'height', 'height-center-to-opacity', 'fullscreen', 'opacity'];
 const validPositionRegex = /^(?:position-)?(center|top|bottom)(?:[\s|-](center|left|right))?$/;
