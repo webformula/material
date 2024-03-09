@@ -13,6 +13,7 @@
       <li><a href="#header">Header</a></li>
       <li><a href="#states">States and ripple</a></li>
       <li><a href="#swipe-actions">Swipe actions</a></li>
+      <li><a href="#reorder">Drag reorder</a></li>
     </ul>
   </nav>
 
@@ -659,6 +660,71 @@
   
   document.querySelector('#swipe-actions').addEventListener('swipeactionend', event => {
     console.log('end', event.target);
+  });`}
+        </code>
+      </pre>
+    </wfc-card>
+
+
+
+    <wfc-card id="reorder">
+      <div slot="headline">Swipe actions (mobile only)</div>
+    
+      <wfc-list reorder id="list-reorder">
+        <wfc-list-item>
+          <div slot="headline">One</div>
+          <div slot="supporting-text">Click and hold to drag</div>
+        </wfc-list-item>
+    
+        <wfc-list-item>
+          <div slot="headline">Two</div>
+          <div slot="supporting-text">Click and hold to drag</div>
+        </wfc-list-item>
+
+        <wfc-list-item>
+          <div slot="headline">Three</div>
+          <div slot="supporting-text">Click and hold to drag</div>
+        </wfc-list-item>
+
+        <wfc-list-item>
+          <div slot="headline">Four</div>
+          <div slot="supporting-text">Click and hold to drag</div>
+        </wfc-list-item>
+      </wfc-list>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-list reorder id="list-reorder">
+    <wfc-list-item>
+      <div slot="headline">One</div>
+      <div slot="supporting-text">Click and hold to drag</div>
+    </wfc-list-item>
+  
+    <wfc-list-item>
+      <div slot="headline">Two</div>
+      <div slot="supporting-text">Click and hold to drag</div>
+    </wfc-list-item>
+  
+    <wfc-list-item>
+      <div slot="headline">Three</div>
+      <div slot="supporting-text">Click and hold to drag</div>
+    </wfc-list-item>
+  
+    <wfc-list-item>
+      <div slot="headline">Four</div>
+      <div slot="supporting-text">Click and hold to drag</div>
+    </wfc-list-item>
+  </wfc-list>`)}
+        </code>
+      </pre>
+    
+      <pre>
+        <code class="language-javascript">
+  ${`// Listen for reorder event
+  const list = document.querySelector('#list-reorder');
+  list.addEventListener('drag-reordered', () => {
+    // list elements are in new order
+    console.log(list.children);
   });`}
         </code>
       </pre>

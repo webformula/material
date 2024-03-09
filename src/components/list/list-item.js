@@ -3,7 +3,6 @@ import styles from './list-item.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
-// TODO drag reorder
 // TODO expanding
 // TODO Figure out if we should have more configuration for start and end swipe actions (currently events only)
 class WFCListItemElement extends HTMLComponentElement {
@@ -13,6 +12,7 @@ class WFCListItemElement extends HTMLComponentElement {
   static styleSheets = styles;
 
   #drag;
+  #dragReorder;
   #value;
   #states;
   #selected;
@@ -85,8 +85,19 @@ class WFCListItemElement extends HTMLComponentElement {
       this.#drag.enable();
     }
 
+    const list = this.parentElement.nodeName === 'SECTION' ? this.parentElement.parentElement : this.parentElement;
+    if (list.reorder) {
+      this.#dragReorder = new Drag(this, {
+        reorder: true,
+        reorderAnimation: !this.parentElement.classList.contains('reorder-no-animation'),
+        reorderVerticalOnly: true
+      });
+      this.#dragReorder.enable();
+    }
+
     if (this.#selectionControl) {
-      util.addLongPressListener(this, this.#longPress_bound, { once: false });
+      if (!list.reorder) util.addLongPressListener(this, this.#longPress_bound);
+      this.addEventListener('change', this.#onChange_bound)
       if (this.#states === undefined) this.states = true;
     }
   }
@@ -134,7 +145,7 @@ class WFCListItemElement extends HTMLComponentElement {
       util.addClickTimeoutEvent(this, this.#selectionModeClick_bound);
     } else {
       util.removeClickTimeoutEvent(this, this.#selectionModeClick_bound);
-      util.addLongPressListener(this, this.#longPress_bound, { once: false });
+      util.addLongPressListener(this, this.#longPress_bound, { once: true });
     }
   }
 

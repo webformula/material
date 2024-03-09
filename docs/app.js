@@ -1,7 +1,11 @@
 import '@webformula/material';
 
-if (typeof hljs !== 'undefined') hljs.highlightAll();
+if (typeof hljs !== 'undefined') {
+  hljs.configure({ ignoreUnescapedHTML: true });
+  hljs.highlightAll();
+}
 window.addEventListener('load', () => {
+  hljs.configure({ ignoreUnescapedHTML: true });
   hljs.highlightAll();
   if (location.hash) handleHashAnchor(location.hash, false);
 });

@@ -296,7 +296,7 @@ const wfcUtil = new class WFCUtil {
     ms: 400,
     disableMouseEvents: false,
     disableTouchEvents: false,
-    once: true
+    once: false
   }) {
     let timeout;
     let textSelectionTimeout;
@@ -304,9 +304,9 @@ const wfcUtil = new class WFCUtil {
     let startX;
     let startY;
     let lastEvent;
-    let once = config.once === undefined ? true : config.once;
+    let once = config.once === undefined ? false : config.once;
 
-    function remove(destroy = false) {
+    function remove(_event, destroy = false) {
       if (timeout) clearTimeout(timeout);
       if (textSelectionTimeout) clearTimeout(textSelectionTimeout);
       lastEvent = undefined;
@@ -376,7 +376,7 @@ const wfcUtil = new class WFCUtil {
   removeLongPressListener(element) {
     this.#longPressListeners = this.#longPressListeners.filter(v => {
       if (v.element === element) {
-        v.remove(true);
+        v.remove(null, true);
         return false;
       }
       return true;

@@ -18,6 +18,7 @@
   border-radius: inherit;
   pointer-events: none;
   box-sizing: border-box;
+  outline: none;
   box-shadow: var(--wfc-state-layer-box-shadow);
   transition: box-shadow;
   transition-duration: var(--wfc-motion-duration-short2);

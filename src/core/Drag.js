@@ -41,7 +41,7 @@ export default class Drag {
     'wfcdragmove': [],
     'wfcdragstart': [],
     'wfcdragend': [],
-    'wfcdragreorder': []
+    'drag-reordered': []
   };
 
   #drag_bound = this.#drag.bind(this);
@@ -216,12 +216,12 @@ export default class Drag {
   }
 
   on(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, wfcdragreorder');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, drag-reordered');
     this.#listeners[eventType].push(callback);
   }
 
   off(eventType, callback) {
-    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, wfcdragreorder');
+    if (!this.#listeners[eventType]) throw Error('Invalid eventType. Valid events: wfcdragmove, wfcdragstart, wfcdragend, drag-reordered');
     if (this.#listeners[eventType].includes(callback)) this.#listeners[eventType].splice(this.#listeners[eventType].indexOf(callback), 1);
   }
 
@@ -565,7 +565,7 @@ export default class Drag {
       }
     }
 
-    this.#trigger(new Event('wfcdragreorder'));
+    this.#trigger(new Event('drag-reordered', { bubbles: true }));
   }
 
   #cleanupReorder() {

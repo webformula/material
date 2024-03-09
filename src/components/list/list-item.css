@@ -16,6 +16,11 @@
 
   color: var(--wfc-on-surface);
   background-color: var(--wfc-surface);
+  outline: none;
+}
+
+:host(.drag-reorder-active) {
+  overflow: visible;
 }
 
 :host([multiline]) {
@@ -54,7 +59,7 @@
   transition-timing-function: var(--wfc-motion-easing-standard-accelerate);
 }
 
-:host(.dragging) .container {
+:host(.drag-active) .container {
   transition: none;
 }
 
@@ -168,6 +173,10 @@ wfc-state-layer {
   --wfc-state-layer-hover-color: var(--wfc-on-surface);
   --wfc-state-layer-focus-color: var(--wfc-on-surface);
   --wfc-state-layer-ripple-color: var(--wfc-on-surface);
+}
+
+:host(.drag-reorder-active) wfc-state-layer {
+  --wfc-state-layer-box-shadow: var(--wfc-elevation-4);
 }
 
 @media (hover: hover) {

@@ -7,6 +7,7 @@ class WFCListElement extends HTMLComponentElement {
   static useTemplate = true;
   static styleSheets = styles;
 
+  #reorder;
   #selectionMode = false
   #isSelectionMode = false;
   #onChange_bound = this.#onChange.bind(this);
@@ -32,7 +33,8 @@ class WFCListElement extends HTMLComponentElement {
   static get observedAttributesExtended() {
     return [
       ['value', 'string'],
-      ['selection-mode', 'boolean']
+      ['selection-mode', 'boolean'],
+      ['reorder', 'boolean']
     ];
   }
 
@@ -75,8 +77,12 @@ class WFCListElement extends HTMLComponentElement {
     }
   }
 
+  get reorder() { return this.#reorder; }
+  set reorder(value) {
+    this.#reorder = !!value;
+  }
 
-  
+
   exitSelectionMode() {
     this.#isSelectionMode = false;
     [...this.querySelectorAll('wfc-list-item')].forEach(e => {

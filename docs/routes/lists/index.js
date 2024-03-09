@@ -7,6 +7,7 @@ export default class extends Component {
 
   #onSelectionMode_bound = this.#onSelectionMode.bind(this);
   #exitSelectionMode_bound = this.#exitSelectionMode.bind(this);
+  #listReorder_bound = this.#listReorder.bind(this);
 
   constructor() {
     super();
@@ -16,6 +17,7 @@ export default class extends Component {
     document.querySelector('#swipe-actions').addEventListener('swipeactionstart', event => {
       event.target.remove();
     });
+    document.querySelector('#list-reorder').addEventListener('drag-reordered', this.#listReorder_bound);
 
     const button = document.querySelector('wfc-list[selection-mode]');
     button.addEventListener('enter-selection-mode', this.#onSelectionMode_bound);
@@ -23,6 +25,8 @@ export default class extends Component {
   }
 
   disconnectedCallback() {
+    document.querySelector('#list-reorder').removeEventListener('drag-reordered', this.#listReorder_bound);
+
     const button = document.querySelector('wfc-list[selection-mode]');
     button.removeEventListener('enter-selection-mode', this.#onSelectionMode_bound);
     button.removeEventListener('exit-selection-mode', this.#exitSelectionMode_bound);
@@ -43,5 +47,9 @@ export default class extends Component {
     const button = document.querySelector('#selection-mode-exit');
     button.style.opacity = '0';
     button.style.pointerEvents = 'none';
+  }
+
+  #listReorder(events) {
+    console.log('list items have been reorder. listElement.children will be the new order');
   }
 }
