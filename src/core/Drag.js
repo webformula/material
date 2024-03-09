@@ -8,6 +8,7 @@ const defaultConfig = {
   ignoreElements: [],
   swipeVelocityThreshold: 0.3,
   swipeDistanceThreshold: 10,
+  horizontalOnly: false,
   reorder: false,
   reorderSwap: false,
   reorderHorizontalOnly: false,
@@ -54,6 +55,7 @@ export default class Drag {
   #ignoreElements = [];
   #swipeVelocityThreshold = 0.3;
   #swipeDistanceThreshold = 10;
+  #horizontalOnly = false;
   #reorderSwap = false;
   #reorder = false;
   #reorderHorizontalOnly = false;
@@ -78,6 +80,7 @@ export default class Drag {
     this.#ignoreElements = config.ignoreElements;
     this.#swipeVelocityThreshold = config.swipeVelocityThreshold;
     this.#swipeDistanceThreshold = config.swipeDistanceThreshold;
+    this.#horizontalOnly = config.horizontalOnly;
     this.#reorder = config.reorder;
     this.#reorderSwap = config.reorderSwap;
     this.reorderHorizontalOnly = config.reorderHorizontalOnly;
@@ -107,6 +110,13 @@ export default class Drag {
   }
   set lockScrollY(value) {
     this.#lockScrollY = !!value;
+  }
+
+  get horizontalOnly() {
+    return this.#horizontalOnly;
+  }
+  set horizontalOnly(value) {
+    this.#horizontalOnly = !!value;
   }
 
   get reorder() {
@@ -282,7 +292,7 @@ export default class Drag {
     this.#isDragging = true;
     this.#element.classList.add('drag-active');
     const dragEvent = this.#track(event, 'wfcdragstart');
-    if (this.#lockScrollY) util.lockPageScroll();
+    if (this.#lockScrollY && !this.horizontalOnly) util.lockPageScroll();
     this.#trigger(dragEvent);
   }
 
@@ -319,6 +329,16 @@ export default class Drag {
     }
     if (event.preventDefault && (this.#lockScrollY || this.#reorder)) event.preventDefault();
     const dragEvent = this.#track(event, 'wfcdragmove');
+
+    // Do not lock page scroll till after drag is confirmed as horizontal
+    // If drag y goes past a certain amount before horizontal distance then cancel drag
+    if (this.horizontalOnly && this.#lockScrollY) {
+      if (Math.abs(dragEvent.distanceX) < 4) {
+        if (Math.abs(dragEvent.distanceY) > 4) this.#end(event);
+        return;
+      }
+      util.lockPageScroll();
+    }
     
     if (this.#reorder) this.#reorderDrag(dragEvent);
 

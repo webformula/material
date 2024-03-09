@@ -21,6 +21,8 @@ class WFCListItemElement extends HTMLComponentElement {
   #lastDirection;
   #actionActiveThreshold = 64;
   #selectionMode = false;
+  #hasDragStart;
+  #hasDragEnd;
   #onChange_bound = this.#onChange.bind(this);
   #onDrag_bound = this.#onDrag.bind(this);
   #onDragStart_bound = this.#onDragStart.bind(this);
@@ -74,10 +76,13 @@ class WFCListItemElement extends HTMLComponentElement {
   }
 
   connectedCallback() {
-    if (this.querySelector('[slot="swipe-start"]') || this.querySelector('[slot="swipe-start"]')) {
+    this.#hasDragStart = this.querySelector('[slot="swipe-start"]') !== null;
+    this.#hasDragEnd = this.querySelector('[slot="swipe-end"]') !== null;
+    if (this.#hasDragStart || this.#hasDragEnd) {
       this.#container = this.shadowRoot.querySelector('.container');
       this.#drag = new Drag(this);
       this.#drag.lockScrollY = true;
+      this.#drag.horizontalOnly = true;
       this.#drag.disableMouseEvents = true;
       this.#drag.on('wfcdragmove', this.#onDrag_bound);
       this.#drag.on('wfcdragstart', this.#onDragStart_bound);
@@ -170,6 +175,9 @@ class WFCListItemElement extends HTMLComponentElement {
   }
 
   #onDrag({ distanceX, directionX }) {
+    if (!this.#hasDragStart && distanceX > 0) distanceX = 0;
+    if (!this.#hasDragEnd && distanceX < 0) distanceX = 0;
+
     this.#container.style.transform = `translateX(${distanceX}px)`;
     if (this.#lastDirection !== directionX) {
       this.#lastDirection = directionX;
