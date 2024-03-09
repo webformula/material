@@ -8,8 +8,6 @@ import {
 } from '../../core/svgs.js';
 
 
-// TODO swipe side to close?
-
 class WFCSideSheetElement extends WFCSurfaceElement {
   static tag = 'wfc-side-sheet';
   static styleSheets = [dividerStyles, styles];

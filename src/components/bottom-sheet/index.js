@@ -4,6 +4,7 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
 
+// TODO predictive back. Look at side sheet
 
 class WFCBottomSheetElement extends WFCSurfaceElement {
   static tag = 'wfc-bottom-sheet';
