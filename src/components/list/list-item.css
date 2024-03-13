@@ -63,7 +63,6 @@
   transition: none;
 }
 
-
 [name='overline'] {
   color: var(--wfc-on-surface-variant);
   font-size: var(--wfc-font-small-label-size);
@@ -97,6 +96,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.default-slot::slotted(wfc-divider) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 
 .text {
   display: flex;
