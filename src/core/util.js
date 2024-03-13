@@ -324,6 +324,9 @@ const wfcUtil = new class WFCUtil {
     }
 
     function start(event) {
+      // right click
+      if (event.ctrlKey || event.which === 3) return;
+
       target = event.target;
       timeout = setTimeout(() => {
         listener(lastEvent);

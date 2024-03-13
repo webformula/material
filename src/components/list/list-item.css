@@ -104,6 +104,10 @@
   bottom: 0;
 }
 
+:host(:last-child) .default-slot::slotted(wfc-divider) {
+  display: none !important;
+}
+
 
 .text {
   display: flex;
