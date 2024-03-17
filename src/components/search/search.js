@@ -14,7 +14,7 @@ import {
 const isIncrementalSupported = 'incremental' in document.createElement('input');
 const speechRecognitionSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
-// TODO chips
+
 // TODO fix aria
 
 class WFCSearchElement extends WFCMenuElement {
