@@ -7,7 +7,6 @@ import {
 
 const inputValueRegex = /^(.+)<(.+)>$/;
 
-// TODO menu animation
 // TODO figure out aria label for chip with check mark
 
 class WFCchipElement extends HTMLComponentElement {
@@ -254,8 +253,8 @@ class WFCchipElement extends HTMLComponentElement {
       this.#menu = [...event.target.assignedElements()][0];
       if (this.#menu) {
         this.#menu.anchorElement = this;
-        this.#menu.fixed = true;
         this.#menu.overlap = false;
+        this.#menu.position = 'top left';
         this.classList.add('menu');
         this.#updateMenuSelection();
       }
