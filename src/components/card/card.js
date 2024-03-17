@@ -36,6 +36,10 @@ export default class WFCCardElement extends HTMLComponentElement {
   #swipeActionClick_bound = this.#swipeActionClick.bind(this);
   #keydown_bound = this.#keydown.bind(this);
   #clickOutside_bound = this.#clickOutside.bind(this);
+  #focus_bound = this.#focus.bind(this);
+  #blur_bound = this.#blur.bind(this);
+  #focusKeydown_bound = this.#focusKeydown.bind(this);
+
 
   constructor() {
     super();
@@ -82,6 +86,7 @@ export default class WFCCardElement extends HTMLComponentElement {
   connectedCallback() {
     this.#abort = new AbortController();
     this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
+    this.addEventListener('focus', this.#focus_bound, { signal: this.#abort.signal });
 
     if (this.classList.contains('actionable')) {
       const stateLayer = this.shadowRoot.querySelector('wfc-state-layer');
@@ -348,6 +353,36 @@ export default class WFCCardElement extends HTMLComponentElement {
   #clickOutside(event) {
     if (!this.contains(event.target)) {
       if (this.#hasExpanded) this.#expandedClick();
+    }
+  }
+
+  #focus() {
+    this.addEventListener('blur', this.#blur_bound);
+    this.addEventListener('keydown', this.#focusKeydown_bound, { signal: this.#abort.signal });
+  }
+
+  #blur() {
+    this.removeEventListener('blur', this.#blur_bound);
+    this.removeEventListener('keydown', this.#focusKeydown_bound);
+  }
+
+  #focusKeydown(event) {
+    let next;
+
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        next = this.previousElementSibling;
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        next = this.nextElementSibling;
+        break;
+    }
+
+    if (next) {
+      event.preventDefault();
+      next.focus();
     }
   }
 }

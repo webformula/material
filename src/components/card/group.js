@@ -1,7 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import device from '../../core/device.js';
 
-// TODO keyboard controls
 
 class WFCCardGroupElement extends HTMLComponentElement {
   static tag = 'wfc-card-group';
@@ -18,11 +17,11 @@ class WFCCardGroupElement extends HTMLComponentElement {
     // prevent style calculation during script evaluation
     requestAnimationFrame(() => {
       this.#layout();
-      this.#observer.observe(this, { childList: true });
 
       // TODO figure why this is needed if page containing is initial load vs spa navigated to
       requestAnimationFrame(() => {
         this.#layout();
+        this.#observer.observe(this, { childList: true });
       });
     });
     window.addEventListener('wfcwindowstate', this.#handleWindowState_bound);
