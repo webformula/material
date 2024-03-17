@@ -15,6 +15,7 @@ export default class extends Component {
     this.two();
     this.three();
     this.four();
+    this.five();
   }
 
   one() {
@@ -326,6 +327,142 @@ export default class extends Component {
           value: 'five'
         }
       ].filter(v => v.value.toLocaleLowerCase().includes(searchFour.value));
+    });
+  }
+
+  five() {
+    const searchFive = document.querySelector('#five');
+    searchFive.addEventListener('change', () => console.log({
+      selected: searchFive.selected,
+      filters: searchFive.filters
+    }));
+    searchFive.addEventListener('search', () => {
+      if (!searchFive.value) {
+        searchFive.results = [];
+        searchFive.suggestions = [];
+        return;
+      }
+      if (searchFive.filters.includes('Event numbers')) {
+        searchFive.results = [
+          {
+            value: 'two',
+            display: 'Two',
+            container: 'secondary'
+          },
+          {
+            value: 'four',
+            display: 'Four',
+            container: 'secondary'
+          },
+          {
+            value: 'six',
+            display: 'Six',
+            icon: 'inbox',
+            container: 'primary'
+          },
+          {
+            value: 'eight',
+            display: 'Eight',
+            icon: 'inbox',
+            container: 'primary'
+          },
+          {
+            value: 'ten',
+            display: 'Ten',
+            icon: 'inbox',
+            container: 'primary'
+          }
+        ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value));
+
+        searchFive.suggestions = [
+          {
+            value: 'two'
+          },
+          {
+            value: 'four'
+          }
+        ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value));
+
+        return;
+      }
+
+      searchFive.results = [
+        {
+          value: 'one',
+          display: 'One',
+          icon: 'inbox',
+          container: 'primary'
+        },
+        {
+          value: 'two',
+          display: 'Two',
+          container: 'secondary'
+        },
+        {
+          value: 'three',
+          display: 'Three',
+          icon: 'inbox',
+          container: 'primary'
+        },
+        {
+          value: 'four',
+          display: 'Four',
+          container: 'secondary'
+        },
+        {
+          value: 'five',
+          display: 'Five',
+          icon: 'inbox',
+          container: 'primary'
+        },
+        {
+          value: 'six',
+          display: 'Six',
+          icon: 'inbox',
+          container: 'primary'
+        },
+        {
+          value: 'seven',
+          display: 'Seven',
+          container: 'secondary'
+        },
+        {
+          value: 'eight',
+          display: 'Eight',
+          icon: 'inbox',
+          container: 'primary'
+        },
+        {
+          value: 'nine',
+          display: 'Nine',
+          container: 'secondary'
+        },
+        {
+          value: 'ten',
+          display: 'Ten',
+          icon: 'inbox',
+          container: 'primary'
+        }
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value));
+
+
+      searchFive.suggestions = [
+        {
+          value: 'one'
+        },
+        {
+          value: 'two'
+        },
+        {
+          value: 'three'
+        },
+        {
+          value: 'four'
+        },
+        {
+          value: 'five'
+        }
+      ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value));
     });
   }
 

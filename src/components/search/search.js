@@ -47,6 +47,7 @@ class WFCSearchElement extends WFCMenuElement {
   #close_bound = this.#close.bind(this);
   #itemClick_bound = this.#itemClick.bind(this);
   #inputFocus_bound = this.#inputFocus.bind(this);
+  #slotChange_bound = this.#slotChange.bind(this);
 
 
   constructor() {
@@ -95,6 +96,7 @@ class WFCSearchElement extends WFCMenuElement {
           <div class="surface-content">
             <div class="item-padding">
               <wfc-progress-linear indeterminate disabled></wfc-progress-linear>
+              <slot name="chips" class="hide"></slot>
               <div class="no-results">No items</div>
               <slot name="suggestions"></slot>
               <slot class="options-container"></slot>
@@ -188,12 +190,17 @@ class WFCSearchElement extends WFCMenuElement {
     this.#renderSuggestions();
   }
 
+  get filters() {
+    return [...this.querySelectorAll('wfc-chip')].filter(c => c.checked).map(c => c.value);
+  }
+
 
   connectedCallback() {
     super.connectedCallback();
 
     this.#abort = new AbortController();
     this.#input.addEventListener('focus', this.#inputFocus_bound, { signal: this.#abort.signal });
+    this.shadowRoot.addEventListener('slotchange', this.#slotChange_bound, { signal: this.#abort.signal });
   }
 
   disconnectedCallback() {
@@ -358,7 +365,7 @@ class WFCSearchElement extends WFCMenuElement {
       }
     };
 
-    this.#speechRecognition.onspeechend = (event) => {
+    this.#speechRecognition.onspeechend = () => {
       this.#speechListening = false;
       this.#speechRecognition.stop();
     };
@@ -404,6 +411,13 @@ class WFCSearchElement extends WFCMenuElement {
           this.close();
         });
       }
+    }
+  }
+
+  #slotChange(event) {
+    if (event.target.getAttribute('name') === 'chips') {
+      event.target.classList.remove('hide');
+      event.target.addEventListener('change', this.#onSearch_bound, {signal: this.#abort.signal });
     }
   }
 }

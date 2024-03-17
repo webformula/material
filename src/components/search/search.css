@@ -277,3 +277,15 @@ slot[name="trailing"]::slotted(*) {
 .input.has-leading .search-icon {
   display: none;
 }
+
+
+slot[name="chips"] {
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 8px;
+  min-height: 32px;
+  overflow-x: auto;
+}
+slot[name="chips"].hide {
+  display: none;
+}

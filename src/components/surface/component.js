@@ -25,6 +25,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #mouseY;
   #shrink = true;
   #fixed = false;
+  #fixedAfter = false;
   #overlap = true;
   #animation = 'height';
   #viewportBound = true;
@@ -248,6 +249,11 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.classList.toggle('fixed', this.#fixed);
   }
 
+  get fixedAfter() { return this.#fixedAfter }
+  set fixedAfter(value) {
+    this.#fixedAfter = !!value;
+  }
+
   get position() { return this.#position; }
   set position(value) {
     if (!value) return;
@@ -317,6 +323,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       util.lockPageScroll();
     }
     this.classList.add('open');
+    if (this.#fixedAfter) this.classList.add('fixed');
     
     this.#setPosition();
     this.onShow();
@@ -375,6 +382,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       this.#fullscreenPlaceholder.remove();
       util.unlockPageScroll();
     }
+    if (this.#fixedAfter) this.classList.remove('fixed');
     this.dispatchEvent(new Event('close'));
 
     this.onHideEnd();

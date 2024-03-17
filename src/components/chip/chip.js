@@ -29,6 +29,7 @@ class WFCchipElement extends HTMLComponentElement {
   #onBlur_bound = this.#onBlur.bind(this);
   #clearClick_bound = this.#clearClick.bind(this);
   #focusKeydown_bound = this.#focusKeydown.bind(this);
+  #menuSelected_bound = this.#menuSelected.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
 
   constructor() {
@@ -177,6 +178,12 @@ class WFCchipElement extends HTMLComponentElement {
     this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
+  #menuSelected(event) {
+    this.label = event.target.label;
+    this.value = event.target.value;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
   #onFocus() {
     if (this.#input && this.#edit) {
       this.#inputElement.value = this.value;
@@ -254,8 +261,14 @@ class WFCchipElement extends HTMLComponentElement {
       if (this.#menu) {
         this.#menu.anchorElement = this;
         this.#menu.overlap = false;
-        this.#menu.position = 'top left';
+        if (this.parentElement.nodeName === 'WFC-SEARCH') {
+          this.#menu.fixedAfter = true;
+          this.#menu.position = 'top center';
+        } else {
+          this.#menu.position = 'top left';
+        }
         this.classList.add('menu');
+        this.#menu.addEventListener('selected', this.#menuSelected_bound, { signal: this.#abort.signal });
         this.#updateMenuSelection();
       }
     }

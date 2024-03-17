@@ -13,6 +13,7 @@ navigation</div>
       <li><a href="#history">History</a></li>
       <li><a href="#speech">Speech</a></li>
       <li><a href="#sections">Containers</a></li>
+      <li><a href="#filter">Filter chips</a></li>
     </ul>
   </nav>
 
@@ -127,6 +128,29 @@ navigation</div>
 
       <wfc-search id="four" placeholder="search" incremental>
         <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+        <wfc-search-container id="primary" label="Primary"></wfc-search-container>
+        <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+      </wfc-search>
+    
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-search id="four" placeholder="search" incremental>
+    <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+    <wfc-search-container id="primary" label="Primary"></wfc-search-container>
+    <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
+  </wfc-search>`)}
+        </code>
+      </pre>
+    </wfc-card>
+
+
+    <wfc-card id="filter">
+      <div slot="headline">Filter chips</div>
+      <div slot="subhead">You can show results in multiple containers with headers</div>
+    
+      <wfc-search id="five" placeholder="search" incremental>
+        <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+        <wfc-chip filter label="Event numbers" slot="chips"></wfc-chip>
         <wfc-search-container id="primary" label="Primary"></wfc-search-container>
         <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
       </wfc-search>

@@ -106,6 +106,9 @@ export default class WFCMenuElement extends WFCSurfaceElement {
     if (event.target.hasSubMenu) return;
     event.target.dispatchEvent(new CustomEvent('selected', { bubbles: true }));
 
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    
     setTimeout(() => {
       this.close();
     }, 40);
