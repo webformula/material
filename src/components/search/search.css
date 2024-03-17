@@ -278,14 +278,10 @@ slot[name="trailing"]::slotted(*) {
   display: none;
 }
 
-
 slot[name="chips"] {
-  display: inline-flex;
-  gap: 8px;
-  padding: 8px 8px;
-  min-height: 32px;
-  overflow-x: auto;
+  display: contents;
 }
-slot[name="chips"].hide {
+
+wfc-chip-set.hide {
   display: none;
 }

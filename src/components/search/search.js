@@ -96,7 +96,9 @@ class WFCSearchElement extends WFCMenuElement {
           <div class="surface-content">
             <div class="item-padding">
               <wfc-progress-linear indeterminate disabled></wfc-progress-linear>
-              <slot name="chips" class="hide"></slot>
+              <wfc-chip-set scroll class="hide">
+                <slot name="chips"></slot>
+              </wfc-chip-set>
               <div class="no-results">No items</div>
               <slot name="suggestions"></slot>
               <slot class="options-container"></slot>
@@ -416,7 +418,7 @@ class WFCSearchElement extends WFCMenuElement {
 
   #slotChange(event) {
     if (event.target.getAttribute('name') === 'chips') {
-      event.target.classList.remove('hide');
+      event.target.parentElement.classList.remove('hide');
       event.target.addEventListener('change', this.#onSearch_bound, {signal: this.#abort.signal });
     }
   }

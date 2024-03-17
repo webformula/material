@@ -6,7 +6,10 @@
   min-height: 32px;
 }
 
-:host([input]) {
+:host([scroll]) {
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
   overflow-x: auto;
 }
 

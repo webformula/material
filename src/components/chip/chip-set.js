@@ -1,5 +1,6 @@
 import HTMLComponentElement from '../HTMLComponentElement.js';
 import styles from './chip-set.css' assert { type: 'css' };
+import Drag from '../../core/Drag.js';
 
 
 class WFCChipSetElement extends HTMLComponentElement {
@@ -12,9 +13,11 @@ class WFCChipSetElement extends HTMLComponentElement {
   #input;
   #inputElement;
   #edit;
+  #drag;
   #inputFocus_bound = this.#inputFocus.bind(this);
   #inputBlur_bound = this.#inputBlur.bind(this);
   #createChip_bound = this.#createChip.bind(this);
+  #scrollDrag_bound = this.#scrollDrag.bind(this);
 
   constructor() {
     super();
@@ -46,6 +49,21 @@ class WFCChipSetElement extends HTMLComponentElement {
 
   connectedCallback() {
     if (this.#input) this.#inputElement.addEventListener('focus', this.#inputFocus_bound);
+    // checking the slot covers chip sets in search
+    const slot = this.querySelector('[name="chips"]');
+    const chipLength = slot ? slot.assignedElements().length : this.querySelectorAll('wfc-chip').length;
+    if (chipLength > 0) {
+      this.#drag = new Drag(this);
+      this.#drag.disableTouchEvents = true;
+      this.#drag.horizontalOnly = true;
+      this.#drag.lockScrollY = true;
+      this.#drag.on('wfcdragmove', this.#scrollDrag_bound);
+      this.#drag.enable();
+    }
+  }
+
+  #scrollDrag({ distanceDeltaX }) {
+    this.scrollLeft -= distanceDeltaX;
   }
 
   disconnectedCallback() {

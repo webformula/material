@@ -4,6 +4,7 @@ import {
   check_FILL1_wght400_GRAD0_opsz20,
   close_FILL1_wght400_GRAD0_opsz20
 } from '../../core/svgs.js';
+import util from '../../core/util.js';
 
 const inputValueRegex = /^(.+)<(.+)>$/;
 
@@ -73,7 +74,7 @@ class WFCchipElement extends HTMLComponentElement {
 
   connectedCallback() {
     this.#abort = new AbortController();
-    if (this.#filter) this.addEventListener('click', this.#filterClick_bound, { signal: this.#abort.signal });
+    if (this.#filter) util.addClickTimeoutEvent(this, this.#filterClick_bound, { signal: this.#abort.signal });
     if (this.#input && this.#edit) {
       this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clearClick_bound, { signal: this.#abort.signal });
     }
