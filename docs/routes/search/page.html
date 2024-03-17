@@ -146,7 +146,7 @@ navigation</div>
 
     <wfc-card id="filter">
       <div slot="headline">Filter chips</div>
-      <div slot="subhead">You can show results in multiple containers with headers</div>
+      <div slot="subhead">Add chip filters to search component</div>
     
       <wfc-search id="five" placeholder="search" incremental>
         <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
@@ -157,8 +157,9 @@ navigation</div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-search id="four" placeholder="search" incremental>
+  ${page.escape(`<wfc-search id="five" placeholder="search" incremental>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
+    <wfc-chip filter label="Event numbers" slot="chips"></wfc-chip>
     <wfc-search-container id="primary" label="Primary"></wfc-search-container>
     <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
   </wfc-search>`)}
