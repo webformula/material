@@ -56,7 +56,6 @@ import '@webformula/material/components/icon';
 import '@webformula/material/components/list';
 import '@webformula/material/components/menu';
 import '@webformula/material/components/navigation';
-import '@webformula/material/components/panel';
 import '@webformula/material/components/progress-circular';
 import '@webformula/material/components/progress-linear';
 import '@webformula/material/components/radio';
@@ -79,7 +78,6 @@ import {
   wfcDate,
   wfcDevice,
   wfcDialog,
-  WFCPanel,
   wfcUtil,
   wfcSnackbar
 } from '@webformula/material/services';
