@@ -3,7 +3,7 @@ Material design v3 web components. Performant, light-weight, full features, opti
 [Webformula material docs](http://material.webformula.io/)
 
 ### Highlights
-- ⚡ Lightweight - 74KB compressed
+- ⚡ Lightweight - 79KB compressed
 - ⚡ Performant - Uses native web components
 - ⚡ 0 dependencies
 - ⚡ Optimized for all screens and devices
