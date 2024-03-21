@@ -22,11 +22,11 @@ Material design V3 web components that are full featured, performant and simple 
 
 
 # Getting started
-<a name="gettingstarted"/>
+<a name="gettingstarted"></a>
 
 
 ## **Installation**
-<a name="installation"/>
+<a name="installation"></a>
 
 ```bash
 npm install @webformula/material
@@ -34,7 +34,7 @@ npm install @webformula/material
 
 
 ## **Importing components**
-<a name="importing"/>
+<a name="importing"></a>
 
 ```javascript
 // import everything
@@ -94,7 +94,7 @@ import util from  '@webformula/material/services/util';
 
 
 ## **Importing Styles**
-<a name="importingstyles"/>
+<a name="importingstyles"></a>
 You may want to copy and serve `theme.css` in your app. This is where you configure you custom theme. If you want to use the default dark and light theme, then you can use the one in the repo.
 
 ```css
@@ -133,7 +133,7 @@ For icons this uses Googles Material icon font. All component required icons are
 
 
 ## **Building theme**
-<a name="buildingTheme"/>
+<a name="buildingTheme"></a>
 Theme css can be generated at build time or at runtime. It is suggested to generate at build time (helps with loading performance and times).
 
 If you do not generate at build time, then the theme css will be generated from the theme.css file at runtime.
