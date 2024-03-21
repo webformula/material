@@ -132,14 +132,33 @@ For icons this uses Googles Material icon font. All component required icons are
 
 ## **Building theme**
 <a name="buildingTheme"></a>
-Theme css can be generated at build time or at runtime. It is suggested to generate at build time (helps with loading performance and times).
-
-If you do not generate at build time, then the theme css will be generated from the theme.css file at runtime.
+Theme css can be generated at build time.
 
 `build.js` build script
 ```javascript
 import generate from '@webformula/material/themeGenerator';
 
 // generate(input path, output path)
-generate('./src/theme.css', './docs/theme.css');
+generate({
+  coreColors: {
+    // primary is the only required color
+    primary: '#6750A4',
+
+    // By default these generate from the primary
+    // You can override them here
+    secondary: '#625B71',
+    tertiary: '#7D5260',
+    neutral: '#67616f',
+    neutralVariant: '#605666',
+    error: '#B3261E'
+  },
+
+  // Specify custom colors to use in app
+  customColors: [
+    {
+      name: 'customColor',
+      color: '#5b7166'
+    }
+  ]
+}, './colorTokens.css');
 ```
