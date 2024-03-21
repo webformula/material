@@ -49,6 +49,10 @@ pre {
   white-space: pre-wrap;
 }
 
+body.window-compact pre {
+  font-size: 12px;
+}
+
 pre > code {
   flex-grow: 1;
 }
@@ -177,6 +181,8 @@ body.window-compact .page-content-section {
   padding-top: 16px;
   position: sticky;
   top: 0;
+  background-color: var(--wfc-background);
+  z-index: 1;
 }
 
 .links-nav .links {

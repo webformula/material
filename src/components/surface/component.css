@@ -81,7 +81,6 @@
   overflow: hidden;
 }
 
-
 .predictive-back-icon {
   --wfc-predictive-back-stretch: 0px;
 
@@ -155,10 +154,17 @@
   height: 100%;
 }
 
+/* force inside to be taller than container to always have scroll. This will force overscroll-behavior to be active */
+:host(.open.animation-fullscreen) .item-padding {
+  /* padding is 76 + 8. 82 = 100% + 2 */
+  min-height: calc(100% - 82px);
+}
+
 :host(:not(.open).animation-fullscreen) {
   transition: top, left, width, height, border-radius;
   transition-duration: var(--wfc-motion-duration-short3);
   transition-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
+  transition-delay: 50ms;
 }
 
 :host(.open.animation-fullscreen) {
@@ -272,15 +278,17 @@ slot {
 
 
 :host(:not(.open):not(.animation-fullscreen)) .surface.animating {
-  animation: hide-translate-y;
+  /* animation: hide-translate-y;
   animation-duration: var(--wfc-motion-duration-short3);
-  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate);
+  animation-timing-function: var(--wfc-motion-easing-emphasized-accelerate); */
+  animation: none;
 }
 
 :host(.open:not(.animation-fullscreen)) .surface.animating {
-  animation: show-translate-y;
+  /* animation: show-translate-y;
   animation-duration: var(--wfc-motion-duration-medium2);
-  animation-timing-function: var(--wfc-motion-easing-emphasized);
+  animation-timing-function: var(--wfc-motion-easing-emphasized); */
+  animation: none;
 }
 
 :host(:not(.open).animation-height) .surface.animating {
@@ -376,7 +384,9 @@ slot {
 :host(:not(.animation)) .surface,
 :host(:not(.animation)) .surface-content {
   transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
   animation-duration: 0ms !important;
+  animation-delay: 0ms !important;
 }
 
 @keyframes show-max-height {

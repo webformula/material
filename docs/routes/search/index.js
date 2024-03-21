@@ -80,7 +80,7 @@ export default class extends Component {
           display: 'Ten',
           icon: 'inbox'
         }
-      ].filter(v => v.display.toLocaleLowerCase().includes(searchOne.value));
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchOne.value.toLowerCase()));
 
 
       searchOne.suggestions = [
@@ -99,7 +99,7 @@ export default class extends Component {
         {
           value: 'five'
         }
-      ].filter(v => v.value.toLocaleLowerCase().includes(searchOne.value));
+      ].filter(v => v.value.toLocaleLowerCase().includes(searchOne.value.toLowerCase()));
     });
   }
 
@@ -122,7 +122,7 @@ export default class extends Component {
       {
         value: 'five'
       }
-    ].filter(v => v.value.toLocaleLowerCase().includes(searchTwo.value));
+    ].filter(v => v.value.toLocaleLowerCase().includes(searchTwo.value.toLowerCase()));
     searchTwo.suggestions = [];
     searchTwo.addEventListener('search', () => {
       if (!searchTwo.value) return searchTwo.results = [];
@@ -177,7 +177,7 @@ export default class extends Component {
           display: 'Ten',
           icon: 'inbox'
         }
-      ].filter(v => v.display.toLocaleLowerCase().includes(searchTwo.value));
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchTwo.value.toLowerCase()));
     });
   }
 
@@ -236,7 +236,7 @@ export default class extends Component {
           display: 'Ten',
           icon: 'inbox'
         }
-      ].filter(v => v.display.toLocaleLowerCase().includes(searchThree.value));
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchThree.value.toLowerCase()));
     });
   }
 
@@ -307,7 +307,7 @@ export default class extends Component {
           icon: 'inbox',
           container: 'primary'
         }
-      ].filter(v => v.display.toLocaleLowerCase().includes(searchFour.value));
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchFour.value.toLowerCase()));
 
 
       searchFour.suggestions = [
@@ -326,7 +326,7 @@ export default class extends Component {
         {
           value: 'five'
         }
-      ].filter(v => v.value.toLocaleLowerCase().includes(searchFour.value));
+      ].filter(v => v.value.toLocaleLowerCase().includes(searchFour.value.toLowerCase()));
     });
   }
 
@@ -372,7 +372,7 @@ export default class extends Component {
             icon: 'inbox',
             container: 'primary'
           }
-        ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value));
+        ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value.toLowerCase()));
 
         searchFive.suggestions = [
           {
@@ -381,7 +381,7 @@ export default class extends Component {
           {
             value: 'four'
           }
-        ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value));
+        ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value.toLowerCase()));
 
         return;
       }
@@ -443,7 +443,7 @@ export default class extends Component {
           icon: 'inbox',
           container: 'primary'
         }
-      ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value));
+      ].filter(v => v.display.toLocaleLowerCase().includes(searchFive.value.toLowerCase()));
 
 
       searchFive.suggestions = [
@@ -462,7 +462,7 @@ export default class extends Component {
         {
           value: 'five'
         }
-      ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value));
+      ].filter(v => v.value.toLocaleLowerCase().includes(searchFive.value.toLowerCase()));
     });
   }
 

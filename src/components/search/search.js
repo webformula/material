@@ -44,7 +44,7 @@ class WFCSearchElement extends WFCMenuElement {
   #incrementalPolyfill_debounced = util.debounce(this.#onSearch, 300).bind(this);
   #clear_bound = this.#clear.bind(this);
   #micClick_bound = this.#micClick.bind(this);
-  #close_bound = this.#close.bind(this);
+  #back_bound = this.#back.bind(this);
   #itemClick_bound = this.#itemClick.bind(this);
   #inputFocus_bound = this.#inputFocus.bind(this);
   #slotChange_bound = this.#slotChange.bind(this);
@@ -219,7 +219,7 @@ class WFCSearchElement extends WFCMenuElement {
     this.#input.addEventListener('search', this.#onSearch_bound, { signal: this.#abort.signal });
     this.shadowRoot.querySelector('.clear').addEventListener('click', this.#clear_bound, { signal: this.#abort.signal });
     this.shadowRoot.querySelector('.surface').addEventListener('click', this.#itemClick_bound, { signal: this.#abort.signal });
-    if (device.state === 'compact') this.shadowRoot.querySelector('.back').addEventListener('click', this.#close_bound, { capture: true, signal: this.#abort.signal });
+    if (device.state === 'compact') this.shadowRoot.querySelector('.back').addEventListener('click', this.#back_bound, { capture: true, signal: this.#abort.signal });
   }
 
   pending() {
@@ -389,10 +389,10 @@ class WFCSearchElement extends WFCMenuElement {
     }
   }
 
-  #close(event) {
+  #back(event) {
     const target = event.composedPath()[0];
     if (target.classList.contains('back')) {
-      event.stopPropagation()
+      event.stopPropagation();
       this.close();
     }
   }

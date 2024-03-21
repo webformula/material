@@ -41,6 +41,9 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #swipeClose;
   #mutationObserver;
   #predictiveBackIcon;
+  #fullscreenScrollTop;
+  #preFullscreenBounds;
+  #fullscreenPlaceholder;
   #onChildrenChange_bound = this.#onChildrenChange.bind(this);
   #onClickOutside_bound = this.#onClickOutside.bind(this);
   #onEsc_bound = this.#onEsc.bind(this);
@@ -48,6 +51,8 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #swipeCloseStart_bound = this.#swipeCloseStart.bind(this);
   #swipeCloseMove_bound = this.#swipeCloseMove.bind(this);
   #swipeCloseEnd_bound = this.#swipeCloseEnd.bind(this);
+  #handleVirtualKeyboardHeight_bound = this.#handleVirtualKeyboardHeight.bind(this);
+  #handleVirtualKeyboardScroll_bound = this.#handleVirtualKeyboardScroll.bind(this);
 
 
   constructor(callRender = true) {
@@ -318,10 +323,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.open) return;
     this.#open = true;
     this.onShowBefore();
-    if (this.animation === 'fullscreen') {
-      this.#preShowFullscreen();
-      util.lockPageScroll();
-    }
+    if (this.animation === 'fullscreen') this.#preShowFullscreen();
     this.classList.add('open');
     if (this.#fixedAfter) this.classList.add('fixed');
     
@@ -365,6 +367,8 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
       this.#surfaceElement.style.setProperty('--wfc-surface-width', `${this.#surfaceElement.offsetWidth}px`);
     }
 
+     if (this.animation === 'fullscreen') this.#preClearFullScreen();
+
     this.#surfaceElement.classList.add('animating');
     this.classList.add('closing');
     this.classList.remove('open');
@@ -380,7 +384,6 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     if (this.animation === 'fullscreen') {
       this.#clearFullScreen();
       this.#fullscreenPlaceholder.remove();
-      util.unlockPageScroll();
     }
     if (this.#fixedAfter) this.classList.remove('fixed');
     this.dispatchEvent(new Event('close'));
@@ -484,11 +487,9 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.style.setProperty('--wfc-surface-height', `${this.#surfaceElement.offsetHeight}px`);
     this.#surfaceElement.style.setProperty('--wfc-surface-width', `${this.#surfaceElement.offsetWidth}px`);
 
-    if (this.animation === 'fullscreen') this.#clearFullScreen();
+    if (this.animation === 'fullscreen') this.#postShowFullscreen();
   }
 
-  #preFullscreenBounds;
-  #fullscreenPlaceholder;
   #preShowFullscreen() {
     if (!this.#fullscreenPlaceholder) {
       this.#fullscreenPlaceholder = document.createElement('div');
@@ -504,6 +505,17 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.insertAdjacentElement('afterend', this.#fullscreenPlaceholder);
   }
 
+  #postShowFullscreen() {
+    this.#fullscreenScrollTop = document.documentElement.scrollTop;
+    this.style.top = '';
+    this.style.left = '';
+    this.style.width = '';
+    this.style.height = '';
+    this.style.height = `${visualViewport.height}px`;
+    visualViewport.addEventListener('resize', this.#handleVirtualKeyboardHeight_bound, { signal: this.#abort.signal });
+    visualViewport.addEventListener('scroll', this.#handleVirtualKeyboardScroll_bound, { signal: this.#abort.signal });
+  }
+
   #postHideFullscreen() {
     this.style.top = `${this.#preFullscreenBounds.top}px`;
     this.style.left = `${this.#preFullscreenBounds.left}px`;
@@ -511,11 +523,27 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.style.height = `${this.#preFullscreenBounds.height}px`;
   }
 
+  #preClearFullScreen() {
+    visualViewport.removeEventListener('resize', this.#handleVirtualKeyboardHeight_bound);
+    visualViewport.removeEventListener('scroll', this.#handleVirtualKeyboardScroll_bound);
+    document.documentElement.scrollTop = this.#fullscreenScrollTop;
+  }
+
   #clearFullScreen() {
     this.style.top = '';
     this.style.left = '';
     this.style.width = '';
     this.style.height = '';
+  }
+
+  // deal with virtual keyboard because css dvh does not!
+  #handleVirtualKeyboardHeight() {
+    this.style.height = `${visualViewport.height}px`;
+  }
+
+  // undo auto scroll from input being below virtual keyboard. This fixes fullscreen position
+  #handleVirtualKeyboardScroll() {
+    document.documentElement.scrollTop = 0;
   }
 
   #setMousePosition(event) {

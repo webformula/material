@@ -28,10 +28,6 @@ body {
   background-color: var(--wfc-background);
   color: var(--wfc-on-background);
 }
-/* prevents bottom bars from flickering on scroll. When location changes the scroll is reset to 0 and the bottom bars flicker */
-body.window-compact {
-  overflow-y: auto;
-}
 
 body.has-navigation-bar:not(.navigation-bar-auto-hide),
 body.has-bottom-app-bar:not(.bottom-app-bar-auto-hide) {

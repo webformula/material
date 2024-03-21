@@ -13,7 +13,7 @@
 
 :host(.window-compact) .surface-content {
   box-shadow: none;
-  border-radius: var(--wfc-shape-extra-large);
+  border-radius: 0;
   clip-path: none;
 }
 
