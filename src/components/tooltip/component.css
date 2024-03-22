@@ -33,12 +33,14 @@
   padding: 12px 16px;
   padding-bottom: 8px;
   max-width: 320px;
+  border-radius: var(--wfc-shape-small);
   font-size: var(--wfc-font-medium-body-size);
   font-weight: var(--wfc-font-medium-body-weight);
   line-height: var(--wfc-font-medium-body-line-height);
   letter-spacing: var(--wfc-font-medium-body-tracking);
   color: var(--wfc-on-surface-variant);
   background-color: var(--wfc-surface-container);
+  box-shadow: var(--wfc-elevation-2);
 }
 
 [name="subhead"] {
