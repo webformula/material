@@ -11,37 +11,62 @@ function mouseover(event) {
   if (event.target.hasAttribute('tooltip')) {
     lastMouseX = event.clientX;
     currentElement = event.target;
-    currentElement.addEventListener('mouseout', mouseout);
-    currentElement.addEventListener('mousemove', mousemoveThrottled);
-    document.body.removeEventListener('click', onClickOutside);
+    window.addEventListener('mouseover', globalMouseOver);
+    window.addEventListener('mousemove', mousemoveThrottled);
     window.removeEventListener('keydown', onEsc);
     startTooltipTimer();
   }
+
+  if (event.target.hasAttribute('tooltip-selector')) {
+    const tooltip = document.querySelector(event.target.getAttribute('tooltip-selector'));
+    if (!tooltip) return;
+
+    lastMouseX = event.clientX;
+    currentElement = event.target;
+    window.addEventListener('mouseover', globalMouseOver);
+    window.addEventListener('mousemove', mousemoveThrottled);
+    window.addEventListener('mousemove', mousemoveThrottled);
+    window.removeEventListener('keydown', onEsc);
+    startTooltipTimer(tooltip);
+  }
+}
+
+function globalMouseOver(event) {
+  if (currentTooltipElement.contains(event.target)) return;
+  if (currentElement.contains(event.target)) return;
+  removeTooltip();
 }
 
 function mousemove(event) {
   lastMouseX = event.clientX;
 }
 
-function mouseout() {
-  removeTooltip();
-}
-
-function onClickOutside() {
-  removeTooltip();
+function actionClick(event) {
+  console.log(event.target);
+  if (['WFC-BUTTON', 'BUTTON', 'A'].includes(event.target.nodeName)) {
+    setTimeout(() => {
+      removeTooltip();
+    }, 150)
+  }
 }
 
 function onEsc(event) {
   if (event.code === 'Escape') removeTooltip();
 }
 
-function startTooltipTimer() {
+function startTooltipTimer(customTooltipElement) {
   if (tooltipTimer) return;
   tooltipTimer = setTimeout(() => {
-    const text = currentElement.getAttribute('tooltip');
-    currentTooltipElement = globalTooltipElement;
-    currentTooltipElement.innerHTML = text;
-    currentTooltipElement.ariaLabel = text;
+    if (customTooltipElement) {
+      currentTooltipElement = customTooltipElement;
+    } else {
+      const text = currentElement.getAttribute('tooltip');
+      currentTooltipElement = globalTooltipElement;
+      currentTooltipElement.innerHTML = text;
+      currentTooltipElement.ariaLabel = text;
+    }
+    
+    currentTooltipElement.addEventListener('click', actionClick);
     currentTooltipElement.mouseX = lastMouseX;
     currentTooltipElement.mouseY = currentElement.getBoundingClientRect().bottom - document.documentElement.scrollTop;
     currentTooltipElement.show();
@@ -54,10 +79,10 @@ function removeTooltip() {
   clearTimeout(tooltipTimer);
   tooltipTimer = undefined;
   currentTooltipElement.ariaLabel = '';
-  currentElement.removeEventListener('mouseout', mouseout);
-  currentElement.removeEventListener('mousemove', mousemoveThrottled);
-  document.body.removeEventListener('click', onClickOutside);
+  window.removeEventListener('mouseover', globalMouseOver);
+  window.removeEventListener('mousemove', mousemoveThrottled);
   window.removeEventListener('keydown', onEsc);
+  currentTooltipElement.removeEventListener('click', actionClick);
   currentElement = undefined;
 }
 

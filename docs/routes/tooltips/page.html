@@ -7,7 +7,7 @@
     <div class="wfc-font-headline-small page-secondary-header">Links</div>
     <ul class="links">
       <li><a href="#standard">Standard</a></li>
-      <!-- <li><a href="#rich">Rich</a></li> -->
+      <li><a href="#rich">Rich</a></li>
     </ul>
   </nav>
 
@@ -26,39 +26,26 @@
       </pre>
     </wfc-card>
 
-    <!-- <wfc-card id="standard">
-      <div class="card-content">
-        <div class="headline">Rich tooltip</div>
-    
-        <div class="example">
-          <wfc-button>
-            Hover me
-            <wfc-tooltip class="wfc-rich">
-              <div class="subheader">Rich tooltip</div>
-              <div class="supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the user's focus.</div>
-              <div class="wfc-actions">
-                <wfc-button>Action</wfc-button>
-              </div>
-            </wfc-tooltip>
-          </wfc-button>
-        </div>
-      </div>
-    
+    <wfc-card id="rich">
+      <div slot="headline">Rich tooltip</div>
+      
+      <wfc-button tooltip-selector="#one">Hover me</wfc-button>
+      <wfc-tooltip id="one" rich>
+        <div slot="subhead">Subhead</div>
+        Use rich tooltips to provide more details, like describing the value of a feature
+        <wfc-button slot="actions">action</wfc-button>
+      </wfc-tooltip>
+
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button>
-    Hover me
-    <wfc-tooltip class="wfc-rich">
-      <div class="subheader">Rich tooltip</div>
-      <div class="supporting-text">Rich tooltips bring attention to a particular element of feature that warrants the
-        user's focus.</div>
-      <div class="wfc-actions">
-        <wfc-button>Action</wfc-button>
-      </div>
-    </wfc-tooltip>
-  </wfc-button>`)}
+  ${page.escape(`<wfc-button tooltip-selector="#one">Hover me</wfc-button>
+  <wfc-tooltip id="one" rich>
+    <div slot="subhead">Subhead</div>
+    Use rich tooltips to provide more details, like describing the value of a feature
+    <wfc-button slot="actions">action</wfc-button>
+  </wfc-tooltip>`)}
         </code>
       </pre>
-    </wfc-card> -->
+    </wfc-card>
   </div>
 </section>
