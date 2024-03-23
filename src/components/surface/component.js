@@ -291,6 +291,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   }
   set mouseY(value) {
     this.#mouseY = value;
+    if (this.open) this.#setMousePositionOnly()
   }
 
   get overlap() { return this.#overlap; }

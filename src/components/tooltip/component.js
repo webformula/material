@@ -33,5 +33,9 @@ class WFCTooltipElement extends WFCSurfaceElement {
       </div>
     `;
   }
+
+  get height() {
+    return this.shadowRoot.querySelector('.surface-content').offsetHeight;
+  }
 }
 customElements.define(WFCTooltipElement.tag, WFCTooltipElement);

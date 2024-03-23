@@ -67,9 +67,15 @@ function startTooltipTimer(customTooltipElement) {
     }
     
     currentTooltipElement.addEventListener('click', actionClick);
-    currentTooltipElement.mouseX = lastMouseX;
-    currentTooltipElement.mouseY = currentElement.getBoundingClientRect().bottom - document.documentElement.scrollTop;
+    currentTooltipElement.mouseX = lastMouseX + 6;
+    let y = currentElement.getBoundingClientRect().bottom;
+    currentTooltipElement.mouseY = y;
     currentTooltipElement.show();
+
+    // make sure tooltip is not below bottom
+    const bottomDiff = (y + currentTooltipElement.height) - (window.innerHeight - 12);
+    if (bottomDiff > 0) y -= bottomDiff;
+    currentTooltipElement.mouseY = y;
   }, 1000);
 }
 
