@@ -1,4 +1,4 @@
-import './tab-bar.js';
+import './tabs.js';
 import './tab.js';
-import './tab-content.js';
-import './tab-panel.js';
+import './panels.js';
+import './panel.js';

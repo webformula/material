@@ -28,7 +28,7 @@ import './components/side-sheet/index.js';
 import './components/slider/index.js';
 import './components/snackbar/index.js';
 import './components/switch/index.js';
-// import './components/tab/index.js';
+import './components/tab/index.js';
 import './components/time-picker/index.js';
 import './components/textfield/index.js';
 import './components/top-app-bar/index.js';

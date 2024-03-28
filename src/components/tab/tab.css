@@ -1,0 +1,46 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  padding: 0 16px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
+  user-select: none;
+  font-size: var(--wfc-font-small-title-size);
+  font-weight: var(--wfc-font-small-title-weight);
+  letter-spacing: var(--wfc-font-small-title-tracking);
+  line-height: var(--wfc-font-small-title-line-height);
+  color: var(--wfc-on-surface-variant);
+  background-color: var(--wfc-surface);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+.container.has-icon {
+  height: 64px
+}
+
+::slotted([slot='icon']) {
+  display: inline-flex;
+  position: relative;
+  writing-mode: horizontal-tb;
+  fill: currentColor;
+  color: var(--wfc-on-surface-variant);
+}
+
+wfc-state-layer {
+  border-radius: 24px;
+  margin: 8px;
+  box-sizing: border-box;
+  --wfc-state-layer-focus-color: var(--wfc-on-surface);
+  --wfc-state-layer-hover-color: var(--wfc-primary);
+  --wfc-state-layer-ripple-color: var(--wfc-primary);
+}

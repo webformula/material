@@ -9,136 +9,88 @@
       <div slot="headline">Example</div>
 
       <div class="example" title="test">
-        <wfc-tab-bar id="main">
-          <wfc-tab value="1">
-            Label
-          </wfc-tab>
-          <wfc-tab value="2">
-            <wfc-icon>home</wfc-icon>
-          </wfc-tab>
-      
-          <wfc-tab value="3" active>
-            <!-- <wfc-icon>home</wfc-icon> -->
-            label
-          </wfc-tab>
-        </wfc-tab-bar>
-      
-        <wfc-tab-content bar="#main">
-          <wfc-tab-panel value="1">
-            content 1
-          </wfc-tab-panel>
-      
-          <wfc-tab-panel value="2">
-            content 2
-          </wfc-tab-panel>
-      
-          <wfc-tab-panel value="3">
-            content 3
-          </wfc-tab-panel>
-        </wfc-tab-content>
-      </div>
-    </wfc-card>
-    
-    <wfc-card id="standard">
-      <div slot="headline">Basic</div>
-
-      <div class="example" style="height: 200px; overflow-y: auto;">
-        <wfc-tabs id="one">
-          <div class="wfc-tab">
-            <div class="wfc-label">One</div>
-            <div class="ripple"></div>
-          </div>
-          <div class="wfc-tab">
-            <wfc-icon>inbox</wfc-icon>
-            <div class="ripple"></div>
-          </div>
-          <div class="wfc-tab">
-            <wfc-icon>inbox</wfc-icon>
-            Inbox
-            <div class="ripple"></div>
-          </div>
+        <wfc-tabs panels="one">
+          <wfc-tab panel="one">One</wfc-tab>
+          <wfc-tab panel="two">Two</wfc-tab>
+          <wfc-tab panel="three">Three</wfc-tab>
         </wfc-tabs>
-      
-        <wfc-tabs-content wfc-tabs="one">
-          <div class="wfc-content">
-            One<br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-            <br />one
-      
-          </div>
-      
-          <div class="wfc-content">
-            Two
-          </div>
-      
-          <div class="wfc-content">
-      
-            Three
-          </div>
-        </wfc-tabs-content>
-      </div>
 
-      <pre>
-        <code class="language-html">
-  ${page.escape(`<wfc-tabs id="one">
-    <div class="wfc-tab">
-      <div class="wfc-label">One</div>
-      <div class="ripple"></div>
-    </div>
-    <div class="wfc-tab">
-      <wfc-icon>inbox</wfc-icon>
-      <div class="ripple"></div>
-    </div>
-    <div class="wfc-tab">
-      <wfc-icon>inbox</wfc-icon>
-      Inbox
-      <div class="ripple"></div>
-    </div>
-  </wfc-tabs>
-  
-  <wfc-tabs-content wfc-tabs="one">
-    <div class="wfc-content">
-      One<br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-      <br />one
-  
-    </div>
-  
-    <div class="wfc-content">
-      Two
-    </div>
-  
-    <div class="wfc-content">
-  
-      Three
-    </div>
-  </wfc-tabs-content>`)}
-        </code>
-      </pre>
+        <wfc-tab-panels id="one">
+          <wfc-tab-panel panel="one">
+            One content
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+            <br />
+            one
+          </wfc-tab-panel>
+          <wfc-tab-panel panel="two">
+            Two content
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+            <br />
+            two
+          </wfc-tab-panel>
+          <wfc-tab-panel panel="three">Three content</wfc-tab-panel>
+        </wfc-tab-panels>
+      </div>
     </wfc-card>
   </div>
 </section>
