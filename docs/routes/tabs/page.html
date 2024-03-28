@@ -91,6 +91,26 @@
           <wfc-tab-panel panel="three">Three content</wfc-tab-panel>
         </wfc-tab-panels>
       </div>
+
+      <pre>
+        <code class="language-html">
+  ${page.escape(`<wfc-tabs panels="one">
+    <wfc-tab panel="one">One</wfc-tab>
+    <wfc-tab panel="two">Two</wfc-tab>
+    <wfc-tab panel="three">Three</wfc-tab>
+  </wfc-tabs>
+  
+  <wfc-tab-panels id="one">
+    <wfc-tab-panel panel="one">
+      One content
+    </wfc-tab-panel>
+    <wfc-tab-panel panel="two">
+      Two content
+    </wfc-tab-panel>
+    <wfc-tab-panel panel="three">Three content</wfc-tab-panel>
+  </wfc-tab-panels>`)}
+        </code>
+      </pre>
     </wfc-card>
   </div>
 </section>
