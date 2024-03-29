@@ -39,6 +39,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   #allowClose = false;
   #resizable = false;
   #swipeClose;
+  #swipeCloseIconAuto;
   #mutationObserver;
   #predictiveBackIcon;
   #fullscreenScrollTop;
@@ -124,7 +125,14 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     const translatePercent = Math.min(1, this.#easeInQuart(distanceX / device.windowWidth));
     const translate = translatePercent * 3;
     this.#surfaceElement.style.transform = `translateX(${translate * directionX}px) scale(${scale})`;
-
+    
+    if (this.#swipeCloseIconAuto && directionX === 1) {
+      this.#predictiveBackIcon.classList.remove('right');
+      this.#predictiveBackIcon.classList.add('left');
+    } else if (this.#swipeCloseIconAuto) {
+      this.#predictiveBackIcon.classList.remove('left');
+      this.#predictiveBackIcon.classList.add('right');
+    }
     if (this.#predictiveBackIcon && distanceX > 50) {
       this.#predictiveBackIcon.classList.remove('hide');
       const stretch = Math.min(1, ((distanceX - 45) / (device.windowWidth / 2)));
@@ -137,6 +145,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
     this.#surfaceElement.style.transform = '';
     this.#predictiveBackIcon.classList.add('hide');
     if (Math.abs(distanceX) > device.windowWidth / 4) this.close();
+    this.dispatchEvent(new Event('predictive-back'));
   }
 
   #easeInQuart(x) {
@@ -317,6 +326,11 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
   get swipeClose() { return this.#swipeClose; }
   set swipeClose(value) {
     this.#swipeClose = !!value;
+  }
+
+  get swipeCloseIconAuto() { return this.#swipeCloseIconAuto; }
+  set swipeCloseIconAuto(value) {
+    this.#swipeCloseIconAuto = !!value;
   }
 
 

@@ -3,8 +3,10 @@ import styles from './bottom-sheet.css' assert { type: 'css' };
 import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 import device from '../../core/device.js';
+import {
+  arrow_back_ios_FILL1_wght300_GRAD0_opsz24
+} from '../../core/svgs.js';
 
-// TODO predictive back. Look at side sheet
 
 class WFCBottomSheetElement extends WFCSurfaceElement {
   static tag = 'wfc-bottom-sheet';
@@ -24,6 +26,7 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
   #onDrag_bound = this.#onDrag.bind(this);
   #onScroll_bound = util.rafThrottle(this.#onScroll.bind(this));
   #onPageScroll_bound = util.rafThrottle(this.#onPageScroll.bind(this));
+  #onPredictiveBack_bound = this.#onPredictiveBack.bind(this);
 
   constructor() {
     super();
@@ -35,6 +38,8 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
     this.#surface = this.shadowRoot.querySelector('.surface');
     this.#surfaceContent = this.shadowRoot.querySelector('.surface-content');
     this.#position = this.#initialPosition;
+    this.swipeClose = true;
+    this.swipeCloseIconAuto = true;
     this.#surfaceContent.style.overflowY = 'visible';
   }
 
@@ -46,6 +51,7 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
             <div class="handle"></div>
             <slot class="default-slot"></slot>
           </div>
+          <wfc-icon class="predictive-back-icon right hide">${arrow_back_ios_FILL1_wght300_GRAD0_opsz24}</wfc-icon>
         </div>
       </div>
     `;
@@ -89,11 +95,19 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
     }
 
     util.trackPageScroll(this.#onPageScroll_bound);
+    
+    // TODO figure why this is needed if page containing is initial load vs spa navigated to
+    setTimeout(() => {
+      this.#position = this.#initialPosition;
+    }, 10);
+
+    this.addEventListener('predictive-back', this.#onPredictiveBack_bound);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
 
+    this.removeEventListener('predictive-back', this.#onPredictiveBack_bound);
     if (this.#drag) this.#drag.destroy();
     util.untrackPageScroll(this.#onPageScroll_bound);
   }
@@ -124,6 +138,19 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
     this.#surface.style.setProperty('--wfc-bottom-sheet-bottom', `${value}px`);
   }
 
+  onShow() {
+    this.#position = this.#initialPosition;
+  }
+
+  onHide() {
+    this.#position = -window.innerHeight;
+  }
+
+  #onPredictiveBack() {
+    setTimeout(() => {
+      this.onHide();
+    }, 0);
+  }
 
   #toTopPosition() {
     this.#position = this.#topPosition;

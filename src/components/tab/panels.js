@@ -51,8 +51,6 @@ class WFCTabPanelsElement extends HTMLComponentElement {
         current.style.left = isLeft ? '100%' : '-100%';
       });
     }
-
-    // TODO animate
   }
 }
 customElements.define(WFCTabPanelsElement.tag, WFCTabPanelsElement);
