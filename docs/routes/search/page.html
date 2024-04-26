@@ -30,12 +30,12 @@ navigation</div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- incremental debounces the input and fires the search
+  ${`<!-- incremental debounces the input and fires the search
     If not present then the enter key will fire the search -->
   <wfc-search id="one" placeholder="search" incremental>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
     <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
-  </wfc-search>`)}
+  </wfc-search>`}
         </code>
       </pre>
 
@@ -80,7 +80,7 @@ navigation</div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-search placeholder="search" incremental history>
+  ${`<wfc-search placeholder="search" incremental history>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
   </wfc-search>
   
@@ -92,14 +92,14 @@ navigation</div>
   <!-- set history max. Default: 100 -->
   <wfc-search placeholder="search" incremental history history-max="100">
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-  </wfc-search>`)}
+  </wfc-search>`}
         </code>
       </pre>
 
       <pre>
         <code class="javascript">
-  ${page.escape(`// clear search history
-  document.querySelector('wfc-search').clearHistory();`)}
+  ${`// clear search history
+  document.querySelector('wfc-search').clearHistory();`}
         </code>
       </pre>
     </wfc-card>
@@ -114,9 +114,9 @@ navigation</div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-search placeholder="search" incremental speech>
+  ${`<wfc-search placeholder="search" incremental speech>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
-  </wfc-search>`)}
+  </wfc-search>`}
         </code>
       </pre>
     </wfc-card>
@@ -134,11 +134,11 @@ navigation</div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-search id="four" placeholder="search" incremental>
+  ${`<wfc-search id="four" placeholder="search" incremental>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
     <wfc-search-container id="primary" label="Primary"></wfc-search-container>
     <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
-  </wfc-search>`)}
+  </wfc-search>`}
         </code>
       </pre>
     </wfc-card>
@@ -157,12 +157,12 @@ navigation</div>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-search id="five" placeholder="search" incremental>
+  ${`<wfc-search id="five" placeholder="search" incremental>
     <wfc-avatar slot="trailing"><img alt="photo" src="../../woman.jpg"></img></wfc-avatar>
     <wfc-chip filter label="Event numbers" slot="chips"></wfc-chip>
     <wfc-search-container id="primary" label="Primary"></wfc-search-container>
     <wfc-search-container id="secondary" label="Secondary"></wfc-search-container>
-  </wfc-search>`)}
+  </wfc-search>`}
         </code>
       </pre>
     </wfc-card>

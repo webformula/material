@@ -43,10 +43,10 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-icon small>mail</wfc-icon>
+  ${`<wfc-icon small>mail</wfc-icon>
   <wfc-icon>mail</wfc-icon>
   <wfc-icon large>mail</wfc-icon>
-  <wfc-icon extra-large>mail</wfc-icon>`)}
+  <wfc-icon extra-large>mail</wfc-icon>`}
         </code>
       </pre>
     </wfc-card>
@@ -62,11 +62,11 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-icon extra-large>home</wfc-icon>
+  ${`<wfc-icon extra-large>home</wfc-icon>
   <wfc-icon extra-large rounded>home</wfc-icon>
   <wfc-icon extra-large rounded bold>home</wfc-icon>
   <wfc-icon extra-large filled>home</wfc-icon>
-  <wfc-icon extra-large rounded filled>home</wfc-icon>`)}
+  <wfc-icon extra-large rounded filled>home</wfc-icon>`}
         </code>
       </pre>
     </wfc-card>
@@ -79,7 +79,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-icon large filled style="color: var(--wfc-primary)">favorite</wfc-icon>`)}
+  ${`<wfc-icon large filled style="color: var(--wfc-primary)">favorite</wfc-icon>`}
         </code>
       </pre>
     </wfc-card>
@@ -91,7 +91,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!--
+  ${`<!--
       Loading from google fonts
 
       you can add \`&text=favorite,home,mail\`
@@ -101,13 +101,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />`)}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />`}
         </code>
       </pre>
 
       <pre>
         <code class="language-css">
-  ${page.escape(`/* load font file directly */
+  ${`/* load font file directly */
   @font-face {
     font-family: 'Material Symbols Outlined';
     font-style: normal;
@@ -122,7 +122,7 @@
     font-weight: 100 700;
     font-display: block;
     src: url(./rounded-icons.woff2) format('woff2');
-  }`)}
+  }`}
         </code>
       </pre>
     </wfc-card>

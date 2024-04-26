@@ -96,8 +96,8 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- add class to html tag -->
-    <html class="wfc-theme-dark"></html>`)}
+  ${`<!-- add class to html tag -->
+    <html class="wfc-theme-dark"></html>`}
         </code>
       </pre>
 
@@ -126,13 +126,13 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Using theme css color variable will auto adjust with light and dark themes -->
+  ${`<!-- Using theme css color variable will auto adjust with light and dark themes -->
 
   <wfc-icon style="color: var(--wfc-primary)">home</wfc-icon>
   
   .some-class {
     color: var(--wfc-primary);
-  }`)}
+  }`}
         </code>
       </pre>
     </wfc-card>
@@ -198,8 +198,8 @@
       <wfc-button class="filled wfc-secondary">Secondary</wfc-button>
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button class="filled">Default</wfc-button>
-  <wfc-button class="filled wfc-secondary">Secondary</wfc-button>`)}
+  ${`<wfc-button class="filled">Default</wfc-button>
+  <wfc-button class="filled wfc-secondary">Secondary</wfc-button>`}
         </code>
       </pre>
       <pre>

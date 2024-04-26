@@ -69,7 +69,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card style="max-width: 320px">
+  ${`<wfc-card style="max-width: 320px">
     <img slot="image" class="rounded medium" alt="landscape" src="..." />
     <div slot="headline">Headline</div>
     <div slot="subhead">Subhead</div>
@@ -81,7 +81,7 @@
     <div slot="headline">Actionable</div>
     <div slot="subhead">Ripple</div>
     <div slot="supporting-text">Click to see ripple</div>
-  </wfc-card>`)}
+  </wfc-card>`}
         </code>
       </pre>
     </wfc-card>
@@ -109,7 +109,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card>
+  ${`<wfc-card>
     <div slot="headline">Regular</div>
     <div slot="subhead">card</div>
   </wfc-card>
@@ -122,7 +122,7 @@
   <wfc-card outlined>
     <div slot="headline">Outlined</div>
     <div slot="subhead">card</div>
-  </wfc-card>`)}
+  </wfc-card>`}
         </code>
       </pre>
     </wfc-card>
@@ -190,7 +190,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card>
+  ${`<wfc-card>
     <img slot="image" class="medium rounded" alt="landscape"
       src="..." />
   
@@ -218,7 +218,7 @@
         Latin
       </div>
     </div>
-  </wfc-card>`)}
+  </wfc-card>`}
         </code>
       </pre>
     </wfc-card>
@@ -298,7 +298,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card fullscreen>
+  ${`<wfc-card fullscreen>
     <img slot="image" class="rounded medium" alt="landscape"
       src="..." />
   
@@ -315,7 +315,7 @@
         ...
       </div>
     </div>
-  </wfc-card>`)}
+  </wfc-card>`}
         </code>
       </pre>
     </wfc-card>
@@ -327,33 +327,33 @@
         it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
 
       <wfc-card-group>
-        ${page.cardArray.map(({ height }) => `
-        <wfc-card filled>
-          <img slot="image" class="rounded" alt="landscape"
-            src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
-      
-          <div slot="headline">Headline</div>
-          <div slot="subhead">Subhead</div>
-          <div slot="supporting-text">one two three four five six.</div>
-      
-          ${height !== '' ? `
-          <div slot="supporting-text">
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
-            of classical Latin literature
-          </div>
-          ` : ''}
-        </wfc-card>
-        `).join('\n')}
+        ${page.cardArray.map(({ height }) => html`
+          <wfc-card filled>
+            <img slot="image" class="rounded" alt="landscape"
+              src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
+        
+            <div slot="headline">Headline</div>
+            <div slot="subhead">Subhead</div>
+            <div slot="supporting-text">one two three four five six.</div>
+        
+            ${height !== '' ? `
+            <div slot="supporting-text">
+              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+              Latin literature. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+              of classical Latin literature
+            </div>
+            ` : ''}
+          </wfc-card>
+        `)}
       </wfc-card-group>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card-group>
+  ${`<wfc-card-group>
     ${page.cardArray.map((_, i) => `
-    <wfc-card></wfc-card>
+      <wfc-card></wfc-card>
     `).join('\n')}
-  </wfc-card-group>`)}
+  </wfc-card-group>`}
         </code>
       </pre>
     </wfc-card>
@@ -366,7 +366,7 @@
         can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
 
       <wfc-card-group>
-        ${page.cardArray.map(({ height }, i) => `
+        ${page.cardArray.map(({ height }, i) => html`
         <wfc-card class="${i}" filled reorder>
           <img slot="image" class="rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -375,17 +375,17 @@
           <div slot="subhead">Subhead</div>
           <div slot="supporting-text">one two three four five six.</div>
         </wfc-card>
-        `).join('\n')}
+        `)}
       </wfc-card-group>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
+  ${`<!-- 'reorder-no-animation' class will remove the reorder animation -->
   <wfc-card-group class="reorder-no-animation">
     <wfc-card reorder></wfc-card>
     <wfc-card reorder></wfc-card>
     <wfc-card reorder></wfc-card>
-  </wfc-card-group>`)}
+  </wfc-card-group>`}
         </code>
       </pre>
     </wfc-card>
@@ -398,7 +398,7 @@
         can for it to always be be one or the other by using classes: 'grid' 'wfc-list'</div>
     
       <wfc-card-group>
-        ${page.cardArray.map(({ height }, i) => `
+        ${page.cardArray.map(({ height }, i) => html`
         <wfc-card class="${i}" filled reorder-swap>
           <img slot="image" class="rounded" alt="landscape"
             src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg" />
@@ -407,17 +407,17 @@
           <div slot="subhead">Subhead</div>
           <div slot="supporting-text">one two three four five six.</div>
         </wfc-card>
-        `).join('\n')}
+        `)}
       </wfc-card-group>
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- 'reorder-no-animation' class will remove the reorder animation -->
+  ${`<!-- 'reorder-no-animation' class will remove the reorder animation -->
   <wfc-card-group class="reorder-no-animation">
     <wfc-card reorder-swap></wfc-card>
     <wfc-card reorder-swap></wfc-card>
     <wfc-card reorder-swap></wfc-card>
-  </wfc-card-group>`)}
+  </wfc-card-group>`}
         </code>
       </pre>
     </wfc-card>
@@ -446,7 +446,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
+  ${`<wfc-card style="max-width: 320px;" value="favorite" onchange="console.log(event.detail)">
     <wfc-icon slot="swipe-action" action="favorite" toggle>favorite</wfc-icon>
     <div slot="headline">Favorite toggle</div>
     <div slot="subhead">Subhead</div>
@@ -458,7 +458,7 @@
     <div slot="headline">Remove</div>
     <div slot="subhead">Subhead</div>
     <div slot="supporting-text">one two three four five six.</div>
-  </wfc-card>`)}
+  </wfc-card>`}
         </code>
       </pre>
     </wfc-card>

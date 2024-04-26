@@ -61,7 +61,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Assist -->
+  ${`<!-- Assist -->
   <wfc-chip-set onchange="console.log(this.values)">
     <wfc-chip label="One"></wfc-chip>
     <wfc-chip label="Two">
@@ -95,7 +95,7 @@
   <!-- Input -->
   <wfc-chip-set label="Label" input edit onchange="console.log(this.values)">
     <wfc-chip input edit value="My Name <myname@gmail.com>" label="My Name"></wfc-chip>
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
     </wfc-card>
@@ -113,13 +113,13 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-chip-set>
+  ${`<wfc-chip-set>
     <wfc-chip label="One" onclick="console.log('do something')"></wfc-chip>
     <wfc-chip label="Two" onclick="console.log('do something')">
       <wfc-icon slot="leading-icon">inbox</wfc-icon>
     </wfc-chip>
     <wfc-chip label="Three" onclick="console.log('do something')"></wfc-chip>
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
     </wfc-card>
@@ -153,7 +153,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-chip-set>
+  ${`<wfc-chip-set>
     <wfc-chip filter label="one"></wfc-chip>
     <wfc-chip filter label="two" checked></wfc-chip>
     <wfc-chip filter label="three">
@@ -175,7 +175,7 @@
         <wfc-menu-item>Off</wfc-menu-item>
       </wfc-menu>
     </wfc-chip>
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
 
@@ -204,7 +204,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Input -->
+  ${`<!-- Input -->
   <wfc-chip-set input label="Label">
     <wfc-chip input value="Ben Rubin <ben@email.com>"></wfc-chip>
     <wfc-chip input value="Other Guy <guy@email.com>"></wfc-chip>
@@ -214,7 +214,7 @@
   <wfc-chip-set input edit label="With edit">
     <wfc-chip input edit value="Ben Rubin <ben@email.com>"></wfc-chip>
     <wfc-chip input edit value="Other Guy <guy@email.com>"></wfc-chip>
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
     </wfc-card>
@@ -239,10 +239,10 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-chip-set>
+  ${`<wfc-chip-set>
     <wfc-chip label="One"></wfc-chip>
     ...
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
     </wfc-card>
@@ -259,15 +259,15 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-chip-set id="update1">
+  ${`<wfc-chip-set id="update1">
     <wfc-chip name="one" filter value="0ne" label="one" checked></wfc-chip>
-  </wfc-chip-set>`)}
+  </wfc-chip-set>`}
         </code>
       </pre>
 
       <pre>
         <code>
-  ${page.escape(`function updateValues() {
+  ${`function updateValues() {
     // get current set values
     console.log(document.querySelector('#update1').values);
 
@@ -292,7 +292,7 @@
         checked: true
       }
     ];
-  }`)}
+  }`}
         </code>
       </pre>
     </wfc-card>

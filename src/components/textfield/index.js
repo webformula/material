@@ -84,6 +84,7 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
       ['multiple', 'boolean'],
       ['pattern-restrict', 'boolean'],
       ['pattern', 'string'],
+      ['placeholder', 'string'],
       ['prefix-text', 'string'],
       ['readonly', 'boolean'],
       ['required', 'boolean'],
@@ -121,7 +122,7 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
     setTimeout(() => {
       this.shadowRoot.querySelector('label').classList.remove('no-animation');
       this.shadowRoot.querySelector('.outlined-notch').classList.remove('no-animation');
-    }, 150);
+    }, 100);
   }
 
   disconnectedCallback() {
@@ -349,7 +350,6 @@ export default class WFCTextfieldElement extends HTMLComponentElement {
   set type(value) {
     this.#type = value;
     this.setAttribute('type', value);
-    this.#input.type = 'search';
     if (this.type === 'search' && this.#abort) this.#input.addEventListener('search', this.#dispatchSearch_bound, { signal: this.#abort.signal });
   }
 

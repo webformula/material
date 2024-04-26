@@ -68,7 +68,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<div style="display: flex">
+  ${`<div style="display: flex">
     <div>
       content...
     </div>
@@ -96,7 +96,7 @@
       scrom - show scrim (backdrop) when open
       onback - event attribute for back button
   -->
-  <wfc-side-sheet open hideClose back modal scrim onback="this.close();"></wfc-side-sheet>`)}
+  <wfc-side-sheet open hideClose back modal scrim onback="this.close();"></wfc-side-sheet>`}
         </code>
       </pre>
     </wfc-card>
@@ -166,7 +166,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<div style="display: flex">
+  ${`<div style="display: flex">
     <div>
       content...
     </div>
@@ -181,7 +181,7 @@
       <wfc-button slot="action" onclick="this.parentElement.close()">cancel</wfc-button>
       <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
     </wfc-side-sheet>
-  </div>`)}
+  </div>`}
         </code>
       </pre>
     </wfc-card>
@@ -193,7 +193,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<body>
+  ${`<body>
     <wfc-navigation-drawer></wfc-navigation-drawer>
     <page-content></page-content>
     <wfc-side-sheet>
@@ -208,7 +208,7 @@
       <wfc-button slot="action" onclick="this.parentElement.close()">save</wfc-button>
     </wfc-side-sheet>
     <wfc-bottom-app-bar class="auto-hide"></wfc-bottom-app-bar>
-  </body>`)}
+  </body>`}
         </code>
       </pre>
     </wfc-card>
@@ -261,14 +261,14 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-side-sheet id="three" onback="this.close();">
+  ${`<wfc-side-sheet id="three" onback="this.close();">
     <div slot="headline">Headline</div>
     <form id="test" method="dialog" onsubmit="this.parentElement.close();">
       <wfc-textfield label="Required" supporting-test="Required" required value="one"></wfc-textfield>
     </form>
     <wfc-button slot="action" form="test" type="cancel" onclick="this.parentElement.close()">cancel</wfc-button>
     <wfc-button slot="action" form="test" typ="submit">save</wfc-button>
-  </wfc-side-sheet>`)}
+  </wfc-side-sheet>`}
         </code>
       </pre>
     </wfc-card>

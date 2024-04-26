@@ -48,14 +48,14 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield
+  ${`<wfc-textfield
     label="Label"
     ></wfc-textfield>
     
   <wfc-textfield
     label="Label"
     class="outlined"
-    ></wfc-textfield>`)}
+    ></wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>
@@ -73,10 +73,10 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield label="Label">
+  ${`<wfc-textfield label="Label">
     <wfc-icon slot="leading-icon">search</wfc-icon>
     <wfc-icon slot="trailing-icon">person</wfc-icon>
-  </wfc-textfield>`)}
+  </wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>
@@ -99,7 +99,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield
+  ${`<wfc-textfield
     label="Supporting text"
     supporting-text="Supporting text"
     ></wfc-textfield>
@@ -126,7 +126,7 @@
     label="With supporting text"
     required
     supporting-text="Supporting text"
-    ></wfc-textfield>`)}
+    ></wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>
@@ -141,11 +141,11 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield
+  ${`<wfc-textfield
     label="Suggestion"
     placeholder="Type suggestion"
     suggestion="suggestion"
-    ></wfc-textfield>`)}
+    ></wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>
@@ -195,7 +195,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Social Security Number -->
+  ${`<!-- Social Security Number -->
   <!-- converts (123121234, 123-12-1234, 123 12 1234) into 123-12-1234 -->
   <wfc-textfield
     id="ssn"
@@ -224,7 +224,7 @@
     format="($1) $2 $3"
     pattern-restrict
     \pattern="^\\\\(?([0-9]{3})(?:[\\\\)\\\\.\\\\-\\\\s]+)?([0-9]{3})[\\\\.\\\\-\\\\s]?([0-9]{4})$"
-    ></wfc-textfield>`)}
+    ></wfc-textfield>`}
         </code>
       </pre>
       <pre>
@@ -256,8 +256,8 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield label="No max" character-count></wfc-textfield>
-  <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>`)}
+  ${`<wfc-textfield label="No max" character-count></wfc-textfield>
+  <wfc-textfield label="With max" character-count maxlength="10" supporting-text="supporting test"></wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>
@@ -277,9 +277,9 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-textfield label="Textarea" type="textarea" character-count maxlength="255"></wfc-textfield>
+  ${`<wfc-textfield label="Textarea" type="textarea" character-count maxlength="255"></wfc-textfield>
   <wfc-textfield label="Min / max height" type="textarea" style="min-height: 80px; max-height: 120px;"></wfc-textfield>
-  <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>`)}
+  <wfc-textfield label="Rows 3" type="textarea" rows="3"></wfc-textfield>`}
         </code>
       </pre>
     </wfc-card>

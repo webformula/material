@@ -36,7 +36,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button id="control">Control</wfc-button>
+  ${`<wfc-button id="control">Control</wfc-button>
   <wfc-menu anchor="#control">
     <wfc-menu-item>
       <wfc-icon slot="start">content_copy</wfc-icon>
@@ -47,7 +47,7 @@
       paste
     </wfc-menu-item>
     <wfc-menu-item>plain</wfc-menu-item>
-  </wfc-menu>`)}
+  </wfc-menu>`}
         </code>
       </pre>
     </wfc-card>
@@ -71,7 +71,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!--
+  ${`<!--
     Assign context menu to specific elements
     add [context-menu"value of wfc-menu[context-menu]"]
   -->
@@ -109,7 +109,7 @@
     </wfc-menu-item>
     <wfc-menu-item>plain</wfc-menu-item>
     <wfc-menu-item>plain</wfc-menu-item>
-  </wfc-menu>`)}
+  </wfc-menu>`}
       </code>
     </pre>
   </wfc-card>
@@ -160,7 +160,7 @@
 
     <pre>
       <code class="language-html">
-${page.escape(`wfc-button id="c2">Control</wfc-button>
+${`wfc-button id="c2">Control</wfc-button>
 <wfc-menu anchor="#c2">
   <wfc-menu-item>...</wfc-menu-item>
   <wfc-menu-item>
@@ -175,7 +175,7 @@ ${page.escape(`wfc-button id="c2">Control</wfc-button>
       </wfc-menu-item>
     </wfc-menu>
   </wfc-menu-item>
-</wfc-menu>`)}
+</wfc-menu>`}
       </code>
     </pre>
   </wfc-card>

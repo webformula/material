@@ -1,4 +1,6 @@
 import '@webformula/material';
+import { setSecurityLevel } from '@webformula/core';
+setSecurityLevel(0);
 
 if (typeof hljs === 'undefined') {
   const hljsTag = document.querySelector('#hljsscript');

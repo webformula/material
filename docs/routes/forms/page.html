@@ -47,7 +47,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  ${`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="one" method="dialog" style="display: inline-grid;" onsubmit="submit(this)">
     <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
   
@@ -66,7 +66,7 @@
     <wfc-button type="reset" style="color: var(--wfc-error);">reset</wfc-button>
     <!-- type="cancel" is not available on native buttons -->
     <wfc-button type="cancel" style="color: var(--wfc-error);" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
-  </form>`)}
+  </form>`}
         </code>
       </pre>
 
@@ -109,7 +109,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
+  ${`<!-- method="dialog" Will prevent any page redirects or endpoint calls -->
   <form id="two" method="dialog" style="display: inline-grid;" onsubmit="page.submit(this)">
     <wfc-textfield name="name" label="Name" supporting-text="Enter name" required></wfc-textfield>
   
@@ -121,7 +121,7 @@
       <!-- type="cancel" is custom and does not natively exist -->
       <wfc-button form="two" type="cancel" onclick="console.log('Called on discard or no change')">Cancel</wfc-button>
     </div>
-  </form>`)}
+  </form>`}
         </code>
       </pre>
 

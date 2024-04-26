@@ -52,7 +52,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-icon-button>
+  ${`<wfc-icon-button>
     <wfc-icon>favorite</wfc-icon>
   </wfc-icon-button>
   
@@ -74,7 +74,7 @@
   
   <wfc-icon-button outlined>
     <wfc-icon filled>favorite</wfc-icon>
-  </wfc-icon-button>`)}
+  </wfc-icon-button>`}
         </code>
       </pre>
     </wfc-card>
@@ -101,7 +101,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Toggle with single icon will change the fill state -->
+  ${`<!-- Toggle with single icon will change the fill state -->
   <wfc-icon-button toggle>
     <wfc-icon style="font-family: Material Symbols Outlined alt">favorite</wfc-icon>
   </wfc-icon-button>
@@ -116,7 +116,7 @@
   <wfc-icon-button toggle outlined checked onchange="console.log(this.checked)">
     <wfc-icon style="font-family: Material Symbols Outlined alt">favorite</wfc-icon>
     <wfc-icon slot="selected">settings</wfc-icon>
-  </wfc-icon-button>`)}
+  </wfc-icon-button>`}
         </code>
       </pre>
     </wfc-card>

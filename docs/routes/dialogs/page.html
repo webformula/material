@@ -63,10 +63,10 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`// templateString
+  ${`// templateString
   <div slot="headline">Headline</div>
   <div slot="content">Here is some content for the dialog.</div>
-  <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>`)}
+  <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>`}
       </code>
     </pre>
     <pre>
@@ -87,12 +87,12 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`// templateString
+  ${`// templateString
   <wfc-dialog>
     <div slot="headline">Headline</div>
     <div slot="content">Here is some content for the dialog.</div>
     <wfc-button slot="actions" onclick="wfcDialog.close('response value')">Close</wfc-button>
-  </wfc-dialog>`)}
+  </wfc-dialog>`}
         </code>
       </pre>
       <pre>
@@ -132,7 +132,7 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<!-- Added directly to document
+  ${`<!-- Added directly to document
   Adding the 'open' attribute will automatically show the dialog -->
   <wfc-dialog id="html-only-dialog">
     <div slot="headline">Headline</div>
@@ -148,7 +148,7 @@
   
 
   <!-- attributes to control allowClose and noScrim -->
-  <wfc-dialog allow-close no-scrim></wfc-dialog>`)}
+  <wfc-dialog allow-close no-scrim></wfc-dialog>`}
         </code>
       </pre>
       <pre>
@@ -275,13 +275,13 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-dialog id="scrollable-dialog">
+  ${`<wfc-dialog id="scrollable-dialog">
     <div slot="headline">Headline</div>
     <div slot="content">
       ...large content
     </div>
     <wfc-button slot="actions" onclick="wfcDialog.close()">Close</wfc-button>
-  </wfc-dialog>`)}
+  </wfc-dialog>`}
         </code>
       </pre>
     </wfc-card>
@@ -355,12 +355,12 @@
     
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-dialog id="fullscreen-dialog" fullscreen>
+  ${`<wfc-dialog id="fullscreen-dialog" fullscreen>
     <div slot="headline">Headline</div>
     <div slot="content">
       ...content
     </div>
-  </wfc-dialog>`)}
+  </wfc-dialog>`}
         </code>
       </pre>
     </wfc-card>

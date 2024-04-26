@@ -4,6 +4,7 @@ import Drag from '../../core/Drag.js';
 import util from '../../core/util.js';
 
 // TODO expanding
+// TODO linking to content (item panel?)
 // TODO Figure out if we should have more configuration for start and end swipe actions (currently events only)
 class WFCListItemElement extends HTMLComponentElement {
   static tag = 'wfc-list-item';

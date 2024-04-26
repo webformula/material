@@ -21,7 +21,7 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button tooltip="tooltip text">Hover me</wfc-button>`)}
+  ${`<wfc-button tooltip="tooltip text">Hover me</wfc-button>`}
         </code>
       </pre>
     </wfc-card>
@@ -38,12 +38,12 @@
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button tooltip-selector="#one">Hover me</wfc-button>
+  ${`<wfc-button tooltip-selector="#one">Hover me</wfc-button>
   <wfc-tooltip id="one" rich>
     <div slot="subhead">Subhead</div>
     Use rich tooltips to provide more details, like describing the value of a feature
     <wfc-button slot="actions">action</wfc-button>
-  </wfc-tooltip>`)}
+  </wfc-tooltip>`}
         </code>
       </pre>
     </wfc-card>

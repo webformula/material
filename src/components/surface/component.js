@@ -105,7 +105,7 @@ export default class WFCSurfaceElement extends HTMLComponentElement {
 
     setTimeout(() => {
       this.classList.add('animation');
-    }, 150);
+    }, 40);
   }
 
   #swipeCloseStart({ clientX }) {

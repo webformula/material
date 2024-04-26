@@ -35,7 +35,7 @@ liking a post</div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button>Text</wfc-button>
+  ${`<wfc-button>Text</wfc-button>
   <wfc-button elevated>Elevated</wfc-button>
   <wfc-button filled>Filled</wfc-button>
   <wfc-button filled-tonal>Filled tonal</wfc-button>
@@ -43,7 +43,7 @@ liking a post</div>
   <wfc-button>
     <wfc-icon slot="leading-icon">home</wfc-icon>
     Icon
-  </wfc-button>`)}
+  </wfc-button>`}
         </code>
       </pre>
     </wfc-card>
@@ -58,10 +58,10 @@ liking a post</div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button>
+  ${`<wfc-button>
     <wfc-icon slot="leading-icon">home</wfc-icon>
     Icon
-  </wfc-button>`)}
+  </wfc-button>`}
         </code>
       </pre>
     </wfc-card>
@@ -77,8 +77,8 @@ liking a post</div>
 
       <pre>
         <code class="language-html">
-  ${page.escape(`<wfc-button id="async-button" async filled>Example</wfc-button>
-  <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>`)}
+  ${`<wfc-button id="async-button" async filled>Example</wfc-button>
+  <wfc-button onclick="document.querySelector('#async-button').resolve()">Resolve</wfc-button>`}
         </code>
       </pre>
     </wfc-card>

@@ -28,6 +28,11 @@ export default class HTMLComponentElement extends HTMLElement {
   constructor() {
     super();
     this.#attributesLookup = Object.fromEntries(this.constructor.observedAttributesExtended);
+
+    if (this.constructor.useShadowRoot) {
+      this.attachShadow({ mode: 'open', delegatesFocus: this.constructor.shadowRootDelegateFocus });
+      this.#root = this.shadowRoot;
+    }
   }
 
   // Return an HTML template string
@@ -83,11 +88,8 @@ export default class HTMLComponentElement extends HTMLElement {
     }
 
     if (this.constructor.useShadowRoot) {
-      this.attachShadow({ mode: 'open', delegatesFocus: this.constructor.shadowRootDelegateFocus });
-      this.#root = this.shadowRoot;
-
-      if ((Array.isArray(this.constructor.styleSheets) && this.constructor.styleSheets.length > 0) || this.constructor.styleSheets instanceof CSSStyleSheet) {
-        this.#root.adoptedStyleSheets = [].concat(this.constructor.styleSheets);
+      if (this.constructor.styleSheets instanceof CSSStyleSheet || this.constructor.styleSheets[0] instanceof CSSStyleSheet) {
+        this.shadowRoot.adoptedStyleSheets.push(...[].concat(this.constructor.styleSheets));
       }
     }
   }
