@@ -1,10 +1,10 @@
 import { Component } from '@webformula/core';
-import html from './page.html';
+import htmlTemplate from './page.html';
 import { wfcDate } from '@webformula/material/services';
 
 export default class extends Component {
   static pageTitle = 'Time pickers';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   constructor() {
     super();

@@ -1,9 +1,9 @@
 import { Component } from '@webformula/core';
-import html from './page.html';
+import htmlTemplate from './page.html';
 
 export default class extends Component {
   static pageTitle = 'Side sheets';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   oneOpen = true;
   twoOpen = false;

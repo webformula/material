@@ -1,10 +1,10 @@
 import { Component } from '@webformula/core';
 import { wfcDialog } from '@webformula/material/services';
-import html from './page.html';
+import htmlTemplate from './page.html';
 
 export default class extends Component {
   static pageTitle = 'Dialogs';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   allowClose = false;
   preventNavigation = true;

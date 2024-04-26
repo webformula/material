@@ -1,9 +1,9 @@
 import { Component } from '@webformula/core';
-import html from './page.html';
+import htmlTemplate from './page.html';
 
 export default class extends Component {
   static pageTitle = 'Lists';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   #onSelectionMode_bound = this.#onSelectionMode.bind(this);
   #exitSelectionMode_bound = this.#exitSelectionMode.bind(this);

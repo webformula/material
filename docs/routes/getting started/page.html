@@ -65,7 +65,7 @@
   import '@webformula/material/components/tooltip';
   import '@webformula/material/components/top-app-bar';
   
-  // importing services.These are also available on 'window'
+  // importing services. These are also available on 'window'
   import {
     wfcDate,
     wfcDevice,
@@ -79,28 +79,19 @@
   import util from '@webformula/material/services/util';`}
         </code>
       </pre>
-      <pre>
-        <code class="language-html">
-  ${page.escape(`
-  
-  <!-- CDN script tag - NOT recommended  -->
-  <script src="https://cdn.jsdelivr.net/gh/webformula/material@latest/dist/material.js"></script>`)}
-        </code>
-      </pre>
     </wfc-card>
 
     <wfc-card id="fonts">
       <div slot="headline">Loading fonts and icons</div>
       <div slot="supporting-text">For icons this uses Googles Material icon font. All component required icons are
-        packed in with library. Only needed if using the wfc-icon component</div>
+        packaged in with library. Only needed for additional icons using the wfc-icon component</div>
       <a slot="supporting-text" href="https://fonts.google.com">Google fonts</a>
 
       <pre>
         <code class="language-css">
   ${`/* hide page while loading */
   html:not(.wfc-initiated) {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
   }`}
         </code>
       </pre>

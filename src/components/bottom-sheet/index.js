@@ -81,7 +81,6 @@ class WFCBottomSheetElement extends WFCSurfaceElement {
 
     if (document.body.classList.contains('has-bottom-app-bar')) this.classList.add('has-bottom-app-bar');
     if (document.body.classList.contains('has-navigation-bar')) this.classList.add('has-navigation-bar');
-    // TODO window state change
     if (device.state === 'compact') this.classList.add('window-compact');
 
     if (!this.#fixedHeight) {

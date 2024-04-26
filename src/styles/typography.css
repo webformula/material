@@ -34,6 +34,11 @@ h3,
   letter-spacing: var(--wfc-font-small-display-tracking);
 }
 
+h4 {
+  margin: 0;
+}
+
+h4,
 .wfc-font-headline-large {
   font-family: var(--wfc-font-large-headline-font);
   font-size: var(--wfc-font-large-headline-size);
@@ -42,6 +47,11 @@ h3,
   letter-spacing: var(--wfc-font-large-headline-tracking);
 }
 
+h5 {
+  margin: 0;
+}
+
+h5,
 .wfc-font-headline-medium {
   font-family: var(--wfc-font-medium-headline-font);
   font-size: var(--wfc-font-medium-headline-size);
@@ -50,6 +60,11 @@ h3,
   letter-spacing: var(--wfc-font-medium-headline-tracking);
 }
 
+h6 {
+  margin: 0;
+}
+
+h6,
 .wfc-font-headline-small {
   font-family: var(--wfc-font-small-headline-font);
   font-size: var(--wfc-font-small-headline-size);

@@ -1,10 +1,10 @@
 import { Component } from '@webformula/core';
 import { wfcSnackbar } from '@webformula/material/services';
-import html from './page.html';
+import htmlTemplate from './page.html';
 
 export default class extends Component {
   static pageTitle = 'Snackbars';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   constructor() {
     super();

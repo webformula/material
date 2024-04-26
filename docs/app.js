@@ -1,30 +1,35 @@
 import '@webformula/material';
 
-if (typeof hljs !== 'undefined') {
+if (typeof hljs === 'undefined') {
+  const hljsTag = document.querySelector('#hljsscript');
+  hljsTag.onload = () => {
+    initHLJS();
+  };
+} else {
+  window.addEventListener('DOMContentLoaded', () => {
+    initHLJS();
+  });
+}
+
+function initHLJS() {
   hljs.configure({ ignoreUnescapedHTML: true });
   hljs.highlightAll();
 }
+
 window.addEventListener('load', () => {
-  hljs.configure({ ignoreUnescapedHTML: true });
-  hljs.highlightAll();
   if (location.hash) handleHashAnchor(location.hash, false);
 });
 
 window.addEventListener('locationchange', () => {
-  setTimeout(() => {
-    hljs.highlightAll();
-    if (!location.hash) return;
-    handleHashAnchor(location.hash, false);
-  });
+  hljs.highlightAll();
+  if (!location.hash) return;
+  handleHashAnchor(location.hash, false);
 });
 
 
 window.addEventListener('hashchange', () => {
   if (!location.hash) return;
   handleHashAnchor(location.hash);
-  setTimeout(() => {
-    hljs.highlightAll();
-  });
 });
 
 

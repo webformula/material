@@ -1,9 +1,9 @@
 import { Component } from '@webformula/core';
-import html from './page.html';
+import htmlTemplate from './page.html';
 
 export default class extends Component {
   static pageTitle = 'Icons';
-  static html = html;
+  static htmlTemplate = htmlTemplate;
 
   constructor() {
     super();
